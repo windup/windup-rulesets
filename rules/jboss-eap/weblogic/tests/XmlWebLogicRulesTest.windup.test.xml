@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/v1/xml">
+    <testDataPath>data</testDataPath>
+    <rulePath>../XmlWebLogicRules.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule>
+                <when>
+                    <not>
+                        <classification-assertion classification="Weblogic Entity EJB Configuration" />
+                    </not>
+                </when>
+                <perform>
+                    <assertion message="Weblogic entity ejb configuration  not found!"/>
+                </perform>
+            </rule>
+            <rule>
+                <when>
+                    <not>
+                        <hint-assertion message="In EAP6 replace with: &amp;lt;sync-on-commit-only&amp;gt; in jbosscmp-jdbc.xml"/>
+                    </not>
+                </when>
+                <perform>
+                    <assertion message="EAP6 Replacement hint not found!"/>
+                </perform>
+            </rule>
+            <rule>
+                <when>
+                    <classification-assertion classification="JOnAS Web Descriptor"/>
+                </when>
+                <perform>
+                    <assertion message="JOnAS Web Descriptor should not be annotated by this test"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

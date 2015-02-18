@@ -3,31 +3,29 @@
     <rules>
         <rule>
             <when>
-                <xmlfile as="1" matches="/*[local-name()='weblogic-rdbms-jar']">
-                    <namespace prefix="wle" uri="http://xmlns.oracle.com/weblogic/weblogic-ejb-jar"/>
-                </xmlfile>
-                <xmlfile as="2" matches="//*[@value='delay-updates-until-end-of-tx']/text()" from="1">
-                </xmlfile>
-                <xmlfile as="3" public-id="delay-updates-until-end-of-tx$" from="2">
-                </xmlfile>
+                <xmlfile matches="/*[local-name()='weblogic-rdbms-jar']" />
             </when>
             <perform>
-                <iteration over="1">
+                <iteration>
                     <classification classification="Weblogic Entity EJB Configuration" effort="3"/>
-                </iteration>
-                <iteration over="2">
-                    <hint message="Weblogic Specific Transaction Property Delay Updates" effort="0">
-                    </hint>
-                </iteration>
-                <iteration over="3">
-                    <hint message="In EAP6 replace with: &amp;lt;sync-on-commit-only&amp;gt; in jbosscmp-jdbc.xml" effort="0">
-                    </hint>
-                </iteration>
-                <iteration over="1">
                     <xslt description="JBoss EJB CMP Descriptor (Windup-Generated)" template="transformations/xslt/weblogic-entity2-to-jboss.xsl" extension="-jbosscmp-jdbc.xml"/>
                 </iteration>
             </perform>
         </rule>
+        <rule>
+            <when>
+                <xmlfile matches="//*[local-name()='delay-updates-until-end-of-tx']/text()"/>
+            </when>
+            <perform>
+                <iteration>
+                    <hint message="Weblogic Specific Transaction Property Delay Updates" effort="0">
+                    </hint>
+                    <hint message="In EAP6 replace with: &amp;lt;sync-on-commit-only&amp;gt; in jbosscmp-jdbc.xml" effort="1">
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+
         <rule>
             <when>
                 <xmlfile as="default" matches="/weblogic-ejb-jar">
