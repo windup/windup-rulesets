@@ -11,13 +11,13 @@ import org.jboss.windup.util.exception.WindupException;
 import org.w3c.dom.Element;
 
 /**
- * Creates a {@link ClassificationAssertion} that searches for the given classification text. Example usage:
+ * Creates a {@link ClassificationExists} that searches for the given classification text. Example usage:
  *
  * <pre>
  *     &lt;rule&gt;
  *         &lt;when&gt;
  *             &lt;not&gt;
- *                 &lt;classification-assertion classification="JOnAS Web Descriptor" in="filename"/&gt;
+ *                 &lt;classification-exists classification="JOnAS Web Descriptor" in="filename"/&gt;
  *             &lt;/not&gt;
  *         &lt;/when&gt;
  *         &lt;perform&gt;
@@ -29,14 +29,14 @@ import org.w3c.dom.Element;
  * @author jsightler
  *
  */
-@NamespaceElementHandler(elementName = ClassificationAssertionHandler.ELEMENT_NAME, namespace = "http://windup.jboss.org/v1/xml")
-public class ClassificationAssertionHandler implements ElementHandler<ClassificationAssertion>
+@NamespaceElementHandler(elementName = ClassificationExistsHandler.ELEMENT_NAME, namespace = "http://windup.jboss.org/v1/xml")
+public class ClassificationExistsHandler implements ElementHandler<ClassificationExists>
 {
-    static final String ELEMENT_NAME = "classification-assertion";
+    static final String ELEMENT_NAME = "classification-exists";
     private static final String CLASSIFICATION = "classification";
 
     @Override
-    public ClassificationAssertion processElement(ParserContext handlerManager, Element element) throws ConfigurationException
+    public ClassificationExists processElement(ParserContext handlerManager, Element element) throws ConfigurationException
     {
         String classificationPattern = $(element).attr(CLASSIFICATION);
         String in = $(element).attr("in");
@@ -46,7 +46,7 @@ public class ClassificationAssertionHandler implements ElementHandler<Classifica
             throw new WindupException("Error, '" + ELEMENT_NAME + "' element must have a non-empty '" + CLASSIFICATION + "' attribute");
         }
 
-        ClassificationAssertion classificationAssertion = ClassificationAssertion.withClassification(classificationPattern);
-        return classificationAssertion.in(in);
+        ClassificationExists classificationExists = ClassificationExists.withClassification(classificationPattern);
+        return classificationExists.in(in);
     }
 }

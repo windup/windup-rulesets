@@ -17,12 +17,12 @@ import com.tinkerpop.gremlin.java.GremlinPipeline;
 /**
  * Returns true if there are {@link ClassificationModel} entries that match the given classification text.
  */
-public class ClassificationAssertion extends GraphCondition
+public class ClassificationExists extends GraphCondition
 {
     private String filename;
     private String classificationPattern;
 
-    private ClassificationAssertion(String classificationPattern)
+    private ClassificationExists(String classificationPattern)
     {
         this.classificationPattern = classificationPattern;
     }
@@ -30,15 +30,15 @@ public class ClassificationAssertion extends GraphCondition
     /**
      * Specifies the regular expression to use when searching {@link ClassificationModel} entries.
      */
-    public static ClassificationAssertion withClassification(String classificationPattern)
+    public static ClassificationExists withClassification(String classificationPattern)
     {
-        return new ClassificationAssertion(classificationPattern);
+        return new ClassificationExists(classificationPattern);
     }
 
     /**
      * Only consider entries that reference a file with the given filename.
      */
-    public ClassificationAssertion in(String filename)
+    public ClassificationExists in(String filename)
     {
         this.filename = filename;
         return this;

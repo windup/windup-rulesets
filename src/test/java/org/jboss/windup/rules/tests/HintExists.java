@@ -17,12 +17,12 @@ import com.tinkerpop.gremlin.java.GremlinPipeline;
 /**
  * Returns true if there are {@link InlineHintModel} entries that match the given message text.
  */
-public class HintAssertion extends GraphCondition
+public class HintExists extends GraphCondition
 {
     private String filename;
     private String messagePattern;
 
-    private HintAssertion(String messagePattern)
+    private HintExists(String messagePattern)
     {
         this.messagePattern = messagePattern;
     }
@@ -30,15 +30,15 @@ public class HintAssertion extends GraphCondition
     /**
      * Use the given message regular expression to match against {@link InlineHintModel#getHint()} property.
      */
-    public static HintAssertion withMessage(String messagePattern)
+    public static HintExists withMessage(String messagePattern)
     {
-        return new HintAssertion(messagePattern);
+        return new HintExists(messagePattern);
     }
 
     /**
      * Only match {@link InlineHintModel}s that reference the given filename.
      */
-    public HintAssertion in(String filename)
+    public HintExists in(String filename)
     {
         this.filename = filename;
         return this;

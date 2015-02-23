@@ -11,11 +11,11 @@ import org.jboss.windup.config.parser.ParserContext;
 import org.w3c.dom.Element;
 
 /**
- * 
+ *
  * This describes all of the metadata needed to run a test on a particular set of rules. Example usage:
- * 
+ *
  * The rulePath element is optional. If it is not specified, the default will be "../", which will run all rules in the parent directory of this test.
- * 
+ *
  * <pre>
  * &lt;ruletest xmlns=&quot;http://windup.jboss.org/v1/xml&quot;&gt;
  *  &lt;testDataPath&gt;data&lt;/testDataPath&gt;
@@ -25,18 +25,18 @@ import org.w3c.dom.Element;
  *          &lt;rule&gt;
  *              &lt;when&gt;
  *                  &lt;not&gt;
- *                      &lt;classification-assertion classification=&quot;JOnAS Web Descriptor&quot;/&gt;
+ *                      &lt;classification-exists classification=&quot;JOnAS Web Descriptor&quot;/&gt;
  *                  &lt;/not&gt;
  *              &lt;/when&gt;
  *              &lt;perform&gt;
- *                  &lt;assertion message=&quot;JOnAS Web Descriptor is missing&quot;/&gt;
+ *                  &lt;fail message=&quot;JOnAS Web Descriptor is missing&quot;/&gt;
  *              &lt;/perform&gt;
  *          &lt;/rule&gt;
  *      &lt;/rules&gt;
  *   &lt;/ruleset&gt;
  * &lt;/ruletest&gt;
  * </pre>
- * 
+ *
  * @author jsightler
  *
  */

@@ -9,7 +9,7 @@ import org.jboss.windup.config.parser.ParserContext;
 import org.w3c.dom.Element;
 
 /**
- * Creates a {@link Assertion} object with the given message. Example usage:
+ * Creates a {@link Fail} object with the given message. Example usage:
  *
  * <pre>
  *     &lt;rule&gt;
@@ -17,7 +17,7 @@ import org.w3c.dom.Element;
  *             [...]
  *         &lt;/when&gt;
  *         &lt;perform&gt;
- *             &lt;assertion message="JOnAS Web Descriptor is missing"/&gt;
+ *             &lt;fail message="JOnAS Web Descriptor is missing"/&gt;
  *         &lt;/perform&gt;
  *     &lt;/rule&gt;
  * </pre>
@@ -25,16 +25,16 @@ import org.w3c.dom.Element;
  * @author jsightler
  *
  */
-@NamespaceElementHandler(elementName = AssertionHandler.ELEMENT_NAME, namespace = "http://windup.jboss.org/v1/xml")
-public class AssertionHandler implements ElementHandler<Assertion>
+@NamespaceElementHandler(elementName = FailHandler.ELEMENT_NAME, namespace = "http://windup.jboss.org/v1/xml")
+public class FailHandler implements ElementHandler<Fail>
 {
-    static final String ELEMENT_NAME = "assertion";
+    static final String ELEMENT_NAME = "fail";
     private static final String MESSAGE = "message";
 
     @Override
-    public Assertion processElement(ParserContext handlerManager, Element element) throws ConfigurationException
+    public Fail processElement(ParserContext handlerManager, Element element) throws ConfigurationException
     {
         String message = $(element).attr(MESSAGE);
-        return Assertion.fail(message);
+        return Fail.fail(message);
     }
 }

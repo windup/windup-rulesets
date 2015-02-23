@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <ruleset xmlns="http://windup.jboss.org/v1/xml" id="WebLogicRules">
     <rules>
-        <rule>
+        <rule id="WebLogicRules_2fmb">
             <when>
                 <javaclass references="javax.xml.rpc.handler.GenericHandler" as="default">
                     <location>INHERITANCE</location>
@@ -13,7 +13,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="WebLogicRules_4mthy">
             <when>
                 <javaclass references="weblogic.security.Security" as="default">
                     <location>TYPE</location>
@@ -27,7 +27,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="WebLogicRules_6bcvk">
             <when>
                 <javaclass references="weblogic.security.Security" as="default">
                     <location>TYPE</location>
@@ -41,7 +41,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="WebLogicRules_8jyqn">
             <when>
                 <javaclass references="weblogic.security.Security.getCurrentSubject" as="default">
                     <location>METHOD</location>
@@ -55,7 +55,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="WebLogicRules_Altni">
             <when>
                 <javaclass references="weblogic.security.Security.getCurrentSubject" as="default">
                     <location>METHOD</location>
@@ -69,7 +69,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="WebLogicRules_Cbxnb">
             <when>
                 <javaclass references="weblogic.application.ApplicationLifecycleListener" as="default">
                     <location>INHERITANCE</location>
@@ -86,7 +86,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="WebLogicRules_Epnmk">
             <when>
                 <javaclass references="weblogic.application.ApplicationLifecycleListener" as="default">
                     <location>IMPORT</location>
@@ -99,7 +99,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="WebLogicRules_10vvyf">
             <when>
                 <javaclass references="weblogic.application.ApplicationLifecycleListener" as="default">
                     <location>INHERITANCE</location>
@@ -113,7 +113,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="WebLogicRules_12idl">
             <when>
                 <javaclass references="weblogic.application.ApplicationLifecycleEvent" as="default">
                     <location>IMPORT</location>
@@ -126,7 +126,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="WebLogicRules_14wscy">
             <when>
                 <javaclass references="weblogic.application.ApplicationLifecycleEvent" as="default">
                     <location>TYPE</location>
@@ -139,7 +139,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="WebLogicRules_16aynk">
             <when>
                 <javaclass references="weblogic.i18n.logging.NonCatalogLogger({*})" as="default">
                     <location>CONSTRUCTOR_CALL</location>
@@ -148,20 +148,20 @@
             <perform>
                 <iteration>
                     <hint effort="1">
-                        <message>
-                            <![CDATA[
+                        <message><![CDATA[
+                            
                                 Migrate the NonCatalogLogger to Apache Log4j.
 
                                 ```java
                                 Logger LOG = Logger.getLog("Example");
                                 ```
-                        ]]>
-                        </message>
+                        
+                        ]]></message>
                     </hint>
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="WebLogicRules_18bicn">
             <when>
                 <javaclass references="oracle.jms.AQjmsConnectionFactory" as="default"/>
             </when>
@@ -172,7 +172,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="WebLogicRules_1Agqai">
             <when>
                 <javaclass references="oracle.jms.AQjmsQueueConnectionFactory" as="default"/>
             </when>
@@ -183,7 +183,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="WebLogicRules_1Csnki">
             <when>
                 <javaclass references="oracle.jms.AQjmsTopicConnectionFactory" as="default"/>
             </when>
@@ -194,7 +194,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="WebLogicRules_1Efbtf">
             <when>
                 <javaclass references="oracle.jms.AQjmsDestination" as="default"/>
             </when>
@@ -205,7 +205,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="WebLogicRules_20xslg">
             <when>
                 <javaclass references="oracle.jms.AQjmsMessage" as="default"/>
             </when>
@@ -216,7 +216,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="WebLogicRules_22ablx">
             <when>
                 <javaclass references="oracle.jms.AQjmsBytesMessage" as="default"/>
             </when>
@@ -227,7 +227,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="WebLogicRules_24yoad">
             <when>
                 <javaclass references="oracle.jms.AQjmsMapMessage" as="default"/>
             </when>
@@ -238,7 +238,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="WebLogicRules_26root">
             <when>
                 <javaclass references="oracle.jms.AQjmsObjectMessage" as="default"/>
             </when>
@@ -249,7 +249,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="WebLogicRules_28bvli">
             <when>
                 <javaclass references="oracle.jms.AQjmsStreamMessage" as="default"/>
             </when>
@@ -260,7 +260,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="WebLogicRules_2Aqqrj">
             <when>
                 <javaclass references="oracle.jms.AQjmsTextMessage" as="default"/>
             </when>
@@ -271,7 +271,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="WebLogicRules_2Cegwk">
             <when>
                 <javaclass references="oracle.jms.AQjmsConnection" as="default"/>
             </when>
@@ -282,7 +282,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="WebLogicRules_2Eiqrg">
             <when>
                 <javaclass references="oracle.jms.AQjmsConsumer" as="default"/>
             </when>
@@ -293,7 +293,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="WebLogicRules_30nhrn">
             <when>
                 <javaclass references="oracle.jms.AQjmsProducer" as="default"/>
             </when>
@@ -304,7 +304,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="WebLogicRules_32ncpm">
             <when>
                 <javaclass references="oracle.jms.AQjmsQueueBrowser" as="default"/>
             </when>
@@ -315,7 +315,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="WebLogicRules_34vvqn">
             <when>
                 <javaclass references="oracle.jms.AQjmsSession" as="default"/>
             </when>

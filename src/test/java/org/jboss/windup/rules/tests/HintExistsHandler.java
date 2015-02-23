@@ -11,13 +11,13 @@ import org.jboss.windup.util.exception.WindupException;
 import org.w3c.dom.Element;
 
 /**
- * Creates a {@link HintAssertion} that searches for the given hint message. Example usage:
+ * Creates a {@link HintExists} that searches for the given hint message. Example usage:
  *
  * <pre>
  *     &lt;rule&gt;
  *         &lt;when&gt;
  *             &lt;not&gt;
- *                 &lt;hint-assertion message="JOnAS Web Descriptor" in="filename"/&gt;
+ *                 &lt;hint-exists message="JOnAS Web Descriptor" in="filename"/&gt;
  *             &lt;/not&gt;
  *         &lt;/when&gt;
  *         &lt;perform&gt;
@@ -29,14 +29,14 @@ import org.w3c.dom.Element;
  * @author jsightler
  *
  */
-@NamespaceElementHandler(elementName = HintAssertionHandler.ELEMENT_NAME, namespace = "http://windup.jboss.org/v1/xml")
-public class HintAssertionHandler implements ElementHandler<HintAssertion>
+@NamespaceElementHandler(elementName = HintExistsHandler.ELEMENT_NAME, namespace = "http://windup.jboss.org/v1/xml")
+public class HintExistsHandler implements ElementHandler<HintExists>
 {
-    static final String ELEMENT_NAME = "hint-assertion";
+    static final String ELEMENT_NAME = "hint-exists";
     private static final String MESSAGE = "message";
 
     @Override
-    public HintAssertion processElement(ParserContext handlerManager, Element element) throws ConfigurationException
+    public HintExists processElement(ParserContext handlerManager, Element element) throws ConfigurationException
     {
         String messagePattern = $(element).attr(MESSAGE);
         String in = $(element).attr("in");
@@ -46,7 +46,7 @@ public class HintAssertionHandler implements ElementHandler<HintAssertion>
             throw new WindupException("Error, '" + ELEMENT_NAME + "' element must have a non-empty '" + MESSAGE + "' attribute");
         }
 
-        HintAssertion hintAssertion = HintAssertion.withMessage(messagePattern);
-        return hintAssertion.in(in);
+        HintExists hintExists = HintExists.withMessage(messagePattern);
+        return hintExists.in(in);
     }
 }

@@ -7,29 +7,29 @@
             <rule>
                 <when>
                     <not>
-                        <classification-assertion classification="Weblogic Entity EJB Configuration" />
+                        <classification-exists classification="Weblogic Entity EJB Configuration" />
                     </not>
                 </when>
                 <perform>
-                    <assertion message="Weblogic entity ejb configuration  not found!"/>
+                    <fail message="Weblogic entity ejb configuration  not found!"/>
                 </perform>
             </rule>
             <rule>
                 <when>
                     <not>
-                        <hint-assertion message="In EAP6 replace with: &amp;lt;sync-on-commit-only&amp;gt; in jbosscmp-jdbc.xml"/>
+                        <hint-exists message="In EAP6 replace with: &amp;lt;sync-on-commit-only&amp;gt; in jbosscmp-jdbc.xml"/>
                     </not>
                 </when>
                 <perform>
-                    <assertion message="EAP6 Replacement hint not found!"/>
+                    <fail message="EAP6 Replacement hint not found!"/>
                 </perform>
             </rule>
             <rule>
                 <when>
-                    <classification-assertion classification="JOnAS Web Descriptor"/>
+                    <classification-exists classification="JOnAS Web Descriptor"/>
                 </when>
                 <perform>
-                    <assertion message="JOnAS Web Descriptor should not be annotated by this test"/>
+                    <fail message="JOnAS Web Descriptor should not be annotated by this test"/>
                 </perform>
             </rule>
         </rules>

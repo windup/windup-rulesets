@@ -55,8 +55,8 @@ import org.ocpsoft.rewrite.param.ParameterValueStore;
  * The execution of tests can be affected by System properties. Available properties include:
  * 
  * <ul>
- * <li><b>ruleTest:</b> A regular expression specifying which tests to run. Eg, Foo.windup.test.xml will insure that only "Foo.windup.test.xml" is
- * executed by the test runner.</li>
+ * <li><b>runTestsMatching:</b> A regular expression specifying which tests to run. Eg, Foo.windup.test.xml will insure that only
+ * "Foo.windup.test.xml" is executed by the test runner.</li>
  * </ul>
  * 
  * @author jsightler
@@ -67,7 +67,7 @@ public class WindupRulesTest
 {
     private static Logger LOG = Logger.getLogger(WindupRulesTest.class);
 
-    private static final String RULE_TEST = "ruleTest";
+    private static final String RUN_TEST_MATCHING = "runTestsMatching";
 
     @Deployment
     @Dependencies({
@@ -195,7 +195,7 @@ public class WindupRulesTest
 
     private boolean shouldExecuteTest(File testFile)
     {
-        String testToExecute = System.getProperty(RULE_TEST);
+        String testToExecute = System.getProperty(RUN_TEST_MATCHING);
         if (StringUtils.isBlank(testToExecute))
             return true;
 

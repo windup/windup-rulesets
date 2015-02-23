@@ -8,11 +8,11 @@ import org.ocpsoft.rewrite.context.EvaluationContext;
  * Throws a {@link WindupAssertionException} indicating that execution should stop.
  *
  */
-public class Assertion extends GraphOperation
+public class Fail extends GraphOperation
 {
     private String message;
 
-    private Assertion(String message)
+    private Fail(String message)
     {
         this.message = message;
     }
@@ -20,9 +20,9 @@ public class Assertion extends GraphOperation
     /**
      * Indicates that message that should be thrown with the {@link WindupAssertionException}.
      */
-    public static Assertion fail(String message)
+    public static Fail fail(String message)
     {
-        return new Assertion(message);
+        return new Fail(message);
     }
 
     @Override
