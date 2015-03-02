@@ -1,34 +1,32 @@
 <?xml version="1.0"?>
 <ruleset xmlns="http://windup.jboss.org/v1/xml" id="XmlWebLogicRules">
     <rules>
-        <rule>
+        <rule id="XmlWebLogicRules_2fmb">
             <when>
-                <xmlfile as="1" matches="/*[local-name()='weblogic-rdbms-jar']">
-                    <namespace prefix="wle" uri="http://xmlns.oracle.com/weblogic/weblogic-ejb-jar"/>
-                </xmlfile>
-                <xmlfile as="2" matches="//*[@value='delay-updates-until-end-of-tx']/text()" from="1">
-                </xmlfile>
-                <xmlfile as="3" public-id="delay-updates-until-end-of-tx$" from="2">
-                </xmlfile>
+                <xmlfile matches="/*[local-name()='weblogic-rdbms-jar']"/>
             </when>
             <perform>
-                <iteration over="1">
+                <iteration>
                     <classification classification="Weblogic Entity EJB Configuration" effort="3"/>
-                </iteration>
-                <iteration over="2">
-                    <hint message="Weblogic Specific Transaction Property Delay Updates" effort="0">
-                    </hint>
-                </iteration>
-                <iteration over="3">
-                    <hint message="In EAP6 replace with: &amp;lt;sync-on-commit-only&amp;gt; in jbosscmp-jdbc.xml" effort="0">
-                    </hint>
-                </iteration>
-                <iteration over="1">
                     <xslt description="JBoss EJB CMP Descriptor (Windup-Generated)" template="transformations/xslt/weblogic-entity2-to-jboss.xsl" extension="-jbosscmp-jdbc.xml"/>
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="XmlWebLogicRules_4mthy">
+            <when>
+                <xmlfile matches="//*[local-name()='delay-updates-until-end-of-tx']/text()"/>
+            </when>
+            <perform>
+                <iteration>
+                    <hint message="Weblogic Specific Transaction Property Delay Updates" effort="0">
+                    </hint>
+                    <hint message="In EAP6 replace with: &amp;lt;sync-on-commit-only&amp;gt; in jbosscmp-jdbc.xml" effort="1">
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+
+        <rule id="XmlWebLogicRules_6bcvk">
             <when>
                 <xmlfile as="default" matches="/weblogic-ejb-jar">
                 </xmlfile>
@@ -40,7 +38,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="XmlWebLogicRules_8jyqn">
             <when>
                 <xmlfile as="default" matches="/wl9:weblogic-ejb-jar">
                     <namespace prefix="wl9" uri="http://www.bea.com/ns/weblogic/90"/>
@@ -53,7 +51,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="XmlWebLogicRules_Altni">
             <when>
                 <xmlfile as="default" matches="/wl10:weblogic-ejb-jar">
                     <namespace prefix="wl10" uri="http://www.bea.com/ns/weblogic/10.0"/>
@@ -66,7 +64,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="XmlWebLogicRules_Cbxnb">
             <when>
                 <xmlfile as="default" matches="/wl10:weblogic-wsee-standaloneclient">
                     <namespace prefix="wl10" uri="http://www.bea.com/ns/weblogic/weblogic-wsee-standaloneclient"/>
@@ -78,7 +76,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="XmlWebLogicRules_Epnmk">
             <when>
                 <xmlfile as="default" matches="/jee:java-wsdl-mapping">
                     <namespace prefix="jee" uri="http://java.sun.com/xml/ns/j2ee"/>
@@ -90,7 +88,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="XmlWebLogicRules_10vvyf">
             <when>
                 <xmlfile as="default" matches="/*[local-name()='weblogic-application']">
                 </xmlfile>
@@ -101,7 +99,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="XmlWebLogicRules_12idl">
             <when>
                 <xmlfile as="default" matches="/wl:webservice-policy-ref | /wl9:webservice-policy-ref">
                     <namespace prefix="wl9" uri="http://www.bea.com/ns/weblogic/90"/>
@@ -114,7 +112,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="XmlWebLogicRules_14wscy">
             <when>
                 <xmlfile as="1" matches="/wl:weblogic-webservices | /wl9:weblogic-webservices">
                     <namespace prefix="wl9" uri="http://www.bea.com/ns/weblogic/90"/>
@@ -135,7 +133,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="XmlWebLogicRules_16aynk">
             <when>
                 <xmlfile as="default" matches="/*[local-name()='weblogic-jms']">
                 </xmlfile>
@@ -147,7 +145,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="XmlWebLogicRules_18bicn">
             <when>
                 <xmlfile as="default" matches="/bea:weblogic-web-app | /wlso:weblogic-web-app | /wls:weblogic-web-app | /weblogic-web-app">
                     <namespace prefix="wlso" uri="http://xmlns.oracle.com/weblogic/weblogic-web-app"/>
@@ -162,7 +160,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="XmlWebLogicRules_1Agqai">
             <when>
                 <xmlfile as="default" public-id="BEA.+RMI Runtime DTD 1..">
                 </xmlfile>
@@ -173,7 +171,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="XmlWebLogicRules_1Csnki">
             <when>
                 <xmlfile as="default" matches="/wsdd:type-mapping">
                     <namespace prefix="wsdd" uri="http://www.bea.com/servers/wls70"/>
@@ -185,7 +183,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="XmlWebLogicRules_1Efbtf">
             <when>
                 <xmlfile as="default" matches="/wlw:wlw-config">
                     <namespace prefix="wlw" uri="http://www.bea.com/2003/03/wlw/config/"/>
@@ -197,7 +195,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="XmlWebLogicRules_20xslg">
             <when>
                 <xmlfile as="default" matches="/project/taskdef[@classname='weblogic.ant.taskdefs.webservices.servicegen.ServiceGenTask'] | /project/taskdef[@classname='weblogic.ant.taskdefs.webservices.javaschema.JavaSchema'] | /project/taskdef[@classname='weblogic.ant.taskdefs.webservices.autotype.JavaSource2DD'] | /project/taskdef[@classname='weblogic.ant.taskdefs.webservices.clientgen.ClientGenTask']">
                 </xmlfile>
@@ -208,7 +206,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule>
+        <rule id="XmlWebLogicRules_22ablx">
             <when>
                 <xmlfile as="default" matches="/wl:annotation-manifest | /annotation-manifest">
                     <namespace prefix="wl" uri="http://www.bea.com/2004/03/wlw/external-config/"/>

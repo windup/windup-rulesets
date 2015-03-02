@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/v1/xml">
+    <testDataPath>data</testDataPath>
+    <ruleset>
+        <rules>
+            <rule>
+                <when>
+                    <not>
+                        <classification-exists classification="JOnAS Web Descriptor" in="jonasConfigExample.xml"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="JOnAS Web Descriptor is missing"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
