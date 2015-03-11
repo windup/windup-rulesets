@@ -30,7 +30,7 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.windup.config.DefaultEvaluationContext;
 import org.jboss.windup.config.GraphRewrite;
 import org.jboss.windup.config.RuleSubset;
-import org.jboss.windup.config.WindupRuleProvider;
+import org.jboss.windup.config.RuleProvider;
 import org.jboss.windup.config.parser.ParserContext;
 import org.jboss.windup.exec.WindupProcessor;
 import org.jboss.windup.exec.configuration.WindupConfiguration;
@@ -51,14 +51,14 @@ import org.ocpsoft.rewrite.param.ParameterValueStore;
 
 /**
  * This test finds all *.windup.test.xml files in the current project and executes them.
- * 
+ *
  * The execution of tests can be affected by System properties. Available properties include:
- * 
+ *
  * <ul>
  * <li><b>runTestsMatching:</b> A regular expression specifying which tests to run. Eg, Foo.windup.test.xml will insure that only
  * "Foo.windup.test.xml" is executed by the test runner.</li>
  * </ul>
- * 
+ *
  * @author jsightler
  *
  */
@@ -71,27 +71,27 @@ public class WindupRulesTest
 
     @Deployment
     @Dependencies({
-                @AddonDependency(name = "org.jboss.windup.exec:windup-exec"),
-                @AddonDependency(name = "org.jboss.windup.rules.apps:windup-rules-java"),
-                @AddonDependency(name = "org.jboss.windup.rules.apps:windup-rules-java-ee"),
-                @AddonDependency(name = "org.jboss.windup.rules.apps:windup-rules-xml"),
-                @AddonDependency(name = "org.jboss.windup.reporting:windup-reporting"),
-                @AddonDependency(name = "org.jboss.forge.furnace.container:cdi")
+        @AddonDependency(name = "org.jboss.windup.exec:windup-exec"),
+        @AddonDependency(name = "org.jboss.windup.rules.apps:windup-rules-java"),
+        @AddonDependency(name = "org.jboss.windup.rules.apps:windup-rules-java-ee"),
+        @AddonDependency(name = "org.jboss.windup.rules.apps:windup-rules-xml"),
+        @AddonDependency(name = "org.jboss.windup.reporting:windup-reporting"),
+        @AddonDependency(name = "org.jboss.forge.furnace.container:cdi")
     })
     public static ForgeArchive getDeployment()
     {
         final ForgeArchive archive = ShrinkWrap.create(ForgeArchive.class)
-                    .addBeansXML()
-                    .addPackage(WindupRulesTest.class.getPackage())
-                    .addAsAddonDependencies(
-                                AddonDependencyEntry.create("org.jboss.windup.config:windup-config"),
-                                AddonDependencyEntry.create("org.jboss.windup.config:windup-config-xml"),
-                                AddonDependencyEntry.create("org.jboss.windup.graph:windup-graph"),
-                                AddonDependencyEntry.create("org.jboss.windup.exec:windup-exec"),
-                                AddonDependencyEntry.create("org.jboss.windup.reporting:windup-reporting"),
-                                AddonDependencyEntry.create("org.jboss.windup.utils:utils"),
-                                AddonDependencyEntry.create("org.jboss.forge.furnace.container:cdi")
-                    );
+            .addBeansXML()
+            .addPackage(WindupRulesTest.class.getPackage())
+            .addAsAddonDependencies(
+                AddonDependencyEntry.create("org.jboss.windup.config:windup-config"),
+                AddonDependencyEntry.create("org.jboss.windup.config:windup-config-xml"),
+                AddonDependencyEntry.create("org.jboss.windup.graph:windup-graph"),
+                AddonDependencyEntry.create("org.jboss.windup.exec:windup-exec"),
+                AddonDependencyEntry.create("org.jboss.windup.reporting:windup-reporting"),
+                AddonDependencyEntry.create("org.jboss.windup.utils:utils"),
+                AddonDependencyEntry.create("org.jboss.forge.furnace.container:cdi")
+            );
 
         return archive;
     }
@@ -269,20 +269,20 @@ public class WindupRulesTest
         windupConfiguration.addDefaultUserRulesDirectory(baseRuleDirectory.toPath());
 
         final String baseRulesPathNormalized = baseRuleDirectory.toPath().normalize().toAbsolutePath().toString();
-        windupConfiguration.setRuleProviderFilter(new Predicate<WindupRuleProvider>()
+        windupConfiguration.setRuleProviderFilter(new Predicate<RuleProvider>()
         {
             @Override
-            public boolean accept(WindupRuleProvider type)
+            public boolean accept(RuleProvider type)
             {
-                if (type.getOrigin() == null)
+                if (type.getMetadata().getOrigin() == null)
                     return true;
 
-                if (!type.getOrigin().contains(baseRulesPathNormalized))
+                if (!type.getMetadata().getOrigin().contains(baseRulesPathNormalized))
                     return true;
 
                 for (Path acceptedRulePath : rulePaths)
                 {
-                    if (type.getOrigin().contains(acceptedRulePath.toString()))
+                    if (type.getMetadata().getOrigin().contains(acceptedRulePath.toString()))
                         return true;
                 }
                 return false;
