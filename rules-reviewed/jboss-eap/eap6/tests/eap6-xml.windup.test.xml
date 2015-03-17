@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+    <testDataPath>data</testDataPath>
+    <ruleset>
+        <rules>
+            <rule id="eap6-xml-01000-test">
+                <when>
+                    <not>
+                        <hint-exists message="CMP entity beans are no longer supported in JBoss EAP 7. User is requested to use JPA"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="CMP Entity EJB hint not found!"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
