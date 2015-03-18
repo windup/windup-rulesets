@@ -89,7 +89,7 @@ public class WindupRulesTest
                 AddonDependencyEntry.create("org.jboss.windup.graph:windup-graph"),
                 AddonDependencyEntry.create("org.jboss.windup.exec:windup-exec"),
                 AddonDependencyEntry.create("org.jboss.windup.reporting:windup-reporting"),
-                AddonDependencyEntry.create("org.jboss.windup.utils:utils"),
+                AddonDependencyEntry.create("org.jboss.windup.utils:windup-utils"),
                 AddonDependencyEntry.create("org.jboss.forge.furnace.container:cdi")
             );
 
