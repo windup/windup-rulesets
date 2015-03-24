@@ -13,7 +13,7 @@
         </jboss>
     </xsl:template>
 
-    <!-- Template for Weblogic Stateless Session Beans -->
+    <!-- Template for WebLogic Stateless Session Beans -->
     <xsl:template match="wl:weblogic-enterprise-bean[.//wl:stateless-session-descriptor]">
         <session>
             <ejb-name>
@@ -42,7 +42,7 @@
 
     </xsl:template>
 
-    <!-- Template for Weblogic Entity Beans -->
+    <!-- Template for WebLogic Entity Beans -->
     <xsl:template match="wl:weblogic-enterprise-bean[.//wl:entity-descriptor]">
         <entity>
             <ejb-name>
@@ -71,7 +71,7 @@
         </entity>
     </xsl:template>
 
-    <!-- Template for Weblogic Message Driven Beans -->
+    <!-- Template for WebLogic Message Driven Beans -->
     <xsl:template match="wl:weblogic-enterprise-bean[.//wl:message-driven-descriptor]">
         <message-driven>
             <ejb-name>
