@@ -61,28 +61,28 @@
         </rule>
         <rule id="XmlWebserviceRules_Cbxnb">
             <when>
-                <xmlfile as="1" matches="/jee:webservices | /j2e:webservices">
+                <xmlfile as="webservices" matches="/jee:webservices | /j2e:webservices">
                     <namespace prefix="j2e" uri="http://java.sun.com/xml/ns/j2ee"/>
                     <namespace prefix="jee" uri="http://java.sun.com/xml/ns/javaee"/>
                 </xmlfile>
-                <xmlfile as="2" matches="//jee:handler-class | //j2e:handler-class" from="1">
+                <xmlfile as="handler-classes" matches="//jee:handler-class | //j2e:handler-class" from="webservices">
                     <namespace prefix="j2e" uri="http://java.sun.com/xml/ns/j2ee"/>
                     <namespace prefix="jee" uri="http://java.sun.com/xml/ns/javaee"/>
                 </xmlfile>
-                <xmlfile as="3" matches="//jee:service-endpoint-interface | //j2e:service-endpoint-interface" from="1">
+                <xmlfile as="service-interfaces" matches="//jee:service-endpoint-interface | //j2e:service-endpoint-interface" from="webservices">
                     <namespace prefix="j2e" uri="http://java.sun.com/xml/ns/j2ee"/>
                     <namespace prefix="jee" uri="http://java.sun.com/xml/ns/javaee"/>
                 </xmlfile>
             </when>
             <perform>
-                <iteration over="1">
+                <iteration over="webservices">
                     <classification classification="Java Webservice Configuration" effort="0"/>
                 </iteration>
-                <iteration over="2">
+                <iteration over="handler-classes">
                     <hint message="Handler Class" effort="0">
                     </hint>
                 </iteration>
-                <iteration over="3">
+                <iteration over="service-interfaces">
                     <hint message="Service Interface" effort="0">
                     </hint>
                 </iteration>

@@ -114,20 +114,20 @@
         </rule>
         <rule id="XmlWebLogicRules_14wscy">
             <when>
-                <xmlfile as="1" matches="/wl:weblogic-webservices | /wl9:weblogic-webservices">
+                <xmlfile as="webservices" matches="/wl:weblogic-webservices | /wl9:weblogic-webservices">
                     <namespace prefix="wl9" uri="http://www.bea.com/ns/weblogic/90"/>
                     <namespace prefix="wl" uri="http://www.bea.com/ns/weblogic/weblogic-webservices"/>
                 </xmlfile>
-                <xmlfile as="2" matches="//wl:webservice-type | //wl9:webservice-type" from="1">
+                <xmlfile as="webservices-types" matches="//wl:webservice-type | //wl9:webservice-type" from="webservices">
                     <namespace prefix="wl9" uri="http://www.bea.com/ns/weblogic/90"/>
                     <namespace prefix="wl" uri="http://www.bea.com/ns/weblogic/weblogic-webservices"/>
                 </xmlfile>
             </when>
             <perform>
-                <iteration over="1">
+                <iteration over="webservices">
                     <classification classification="WebLogic Webservice Descriptor" effort="0"/>
                 </iteration>
-                <iteration over="2">
+                <iteration over="webservices-types">
                     <hint message="Webservice Type" effort="0">
                     </hint>
                 </iteration>
