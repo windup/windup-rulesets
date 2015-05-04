@@ -4,10 +4,12 @@ import static org.joox.JOOX.$;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jboss.windup.config.exception.ConfigurationException;
 import org.jboss.windup.config.parser.ElementHandler;
 import org.jboss.windup.config.parser.NamespaceElementHandler;
 import org.jboss.windup.config.parser.ParserContext;
+import org.jboss.windup.util.exception.WindupException;
 import org.w3c.dom.Element;
 
 /**
@@ -40,9 +42,13 @@ import org.w3c.dom.Element;
  * @author jsightler
  *
  */
-@NamespaceElementHandler(elementName = "ruletest", namespace = "http://windup.jboss.org/v1/xml")
+@NamespaceElementHandler(elementName = RuleTestHandler.RULETEST, namespace = "http://windup.jboss.org/v1/xml")
 public class RuleTestHandler implements ElementHandler<RuleTest>
 {
+    public static final String RULETEST = "ruletest";
+    public static final String TEST_DATA_PATH = "testDataPath";
+    public static final String RULE_PATH = "rulePath";
+
     @Override
     public RuleTest processElement(ParserContext context, Element element) throws ConfigurationException
     {
@@ -51,11 +57,11 @@ public class RuleTestHandler implements ElementHandler<RuleTest>
         List<Element> children = $(element).children().get();
         for (Element child : children)
         {
-            if (child.getNodeName().equals("testDataPath"))
+            if (child.getNodeName().equals(TEST_DATA_PATH))
             {
                 ruleTest.setTestDataPath(child.getTextContent().trim());
             }
-            else if (child.getNodeName().equals("rulePath"))
+            else if (child.getNodeName().equals(RULE_PATH))
             {
                 ruleTest.addRulePath(child.getTextContent().trim());
             }
@@ -63,6 +69,11 @@ public class RuleTestHandler implements ElementHandler<RuleTest>
             {
                 context.processElement(child);
             }
+        }
+
+        if (StringUtils.isEmpty(ruleTest.getTestDataPath()))
+        {
+            throw new WindupException("Failed to parse, as the '" + TEST_DATA_PATH + "' element is required, and cannot be empty!");
         }
 
         return ruleTest;
