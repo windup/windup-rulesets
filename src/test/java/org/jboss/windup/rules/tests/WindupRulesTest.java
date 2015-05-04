@@ -19,18 +19,17 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.forge.arquillian.AddonDependencies;
 import org.jboss.forge.arquillian.AddonDependency;
-import org.jboss.forge.arquillian.Dependencies;
-import org.jboss.forge.arquillian.archive.ForgeArchive;
+import org.jboss.forge.arquillian.archive.AddonArchive;
 import org.jboss.forge.furnace.Furnace;
-import org.jboss.forge.furnace.repositories.AddonDependencyEntry;
 import org.jboss.forge.furnace.util.Predicate;
 import org.jboss.forge.furnace.util.Visitor;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.windup.config.DefaultEvaluationContext;
 import org.jboss.windup.config.GraphRewrite;
-import org.jboss.windup.config.RuleSubset;
 import org.jboss.windup.config.RuleProvider;
+import org.jboss.windup.config.RuleSubset;
 import org.jboss.windup.config.parser.ParserContext;
 import org.jboss.windup.exec.WindupProcessor;
 import org.jboss.windup.exec.configuration.WindupConfiguration;
@@ -70,30 +69,22 @@ public class WindupRulesTest
     private static final String RUN_TEST_MATCHING = "runTestsMatching";
 
     @Deployment
-    @Dependencies({
-        @AddonDependency(name = "org.jboss.windup.exec:windup-exec"),
-        @AddonDependency(name = "org.jboss.windup.rules.apps:windup-rules-java"),
-        @AddonDependency(name = "org.jboss.windup.rules.apps:windup-rules-java-ee"),
-        @AddonDependency(name = "org.jboss.windup.rules.apps:windup-rules-xml"),
-        @AddonDependency(name = "org.jboss.windup.reporting:windup-reporting"),
-        @AddonDependency(name = "org.jboss.forge.furnace.container:cdi")
+    @AddonDependencies({
+                @AddonDependency(name = "org.jboss.windup.exec:windup-exec"),
+                @AddonDependency(name = "org.jboss.windup.config:windup-config-xml"),
+                @AddonDependency(name = "org.jboss.windup.rules.apps:windup-rules-java"),
+                @AddonDependency(name = "org.jboss.windup.rules.apps:windup-rules-java-ee"),
+                @AddonDependency(name = "org.jboss.windup.rules.apps:windup-rules-java-project"),
+                @AddonDependency(name = "org.jboss.windup.rules.apps:windup-rules-xml"),
+                @AddonDependency(name = "org.jboss.windup.reporting:windup-reporting"),
+                @AddonDependency(name = "org.jboss.windup.utils:windup-utils"),
+                @AddonDependency(name = "org.jboss.forge.furnace.container:cdi")
     })
-    public static ForgeArchive getDeployment()
+    public static AddonArchive getDeployment()
     {
-        final ForgeArchive archive = ShrinkWrap.create(ForgeArchive.class)
-            .addBeansXML()
-            .addPackage(WindupRulesTest.class.getPackage())
-            .addAsAddonDependencies(
-                AddonDependencyEntry.create("org.jboss.windup.config:windup-config"),
-                AddonDependencyEntry.create("org.jboss.windup.config:windup-config-xml"),
-                AddonDependencyEntry.create("org.jboss.windup.graph:windup-graph"),
-                AddonDependencyEntry.create("org.jboss.windup.exec:windup-exec"),
-                AddonDependencyEntry.create("org.jboss.windup.reporting:windup-reporting"),
-                AddonDependencyEntry.create("org.jboss.windup.utils:windup-utils"),
-                AddonDependencyEntry.create("org.jboss.forge.furnace.container:cdi")
-            );
-
-        return archive;
+        return ShrinkWrap.create(AddonArchive.class)
+                    .addBeansXML()
+                    .addPackage(WindupRulesTest.class.getPackage());
     }
 
     @Inject
