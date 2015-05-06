@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/v1/xml">
+	<testDataPath>data</testDataPath>
+	<rulePath>../Log4jRules.windup.xml</rulePath>
+	<ruleset>
+		<rules>
+			<rule>
+				<when>
+					<not>
+						<lineitem-exists message="Use log4j module via jboss-deployment-structure.xml"/>
+					</not>
+				</when>
+				<perform>
+					<fail message="Log4j artifact not found!" />					
+				</perform>
+			</rule>
+		</rules>
+	</ruleset>
+</ruletest>
