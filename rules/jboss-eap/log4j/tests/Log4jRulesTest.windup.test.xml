@@ -14,6 +14,26 @@
 					<fail message="Log4j artifact not found!" />					
 				</perform>
 			</rule>
+			<rule>
+                <when>
+                    <not>
+                        <classification-exists classification="Log4j specific configuration in log4j.properties"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="log4j.properties file not found!" />                    
+                </perform>
+            </rule>
+            <rule>
+                <when>
+                    <not>
+                        <classification-exists classification="Log4j specific configuration in log4j.xml"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="log4j.xml file config not found!" />                    
+                </perform>
+            </rule>
 		</rules>
 	</ruleset>
 </ruletest>
