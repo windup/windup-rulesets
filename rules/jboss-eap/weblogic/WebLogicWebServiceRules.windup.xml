@@ -44,7 +44,7 @@
         <rule id="WebLogicWebServiceRules_8jyqn">
             <when>
                 <javaclass references="weblogic.wsee.connection.transport.http.HttpTransportInfo.setUsername({*})" as="default">
-                    <location>METHOD</location>
+                    <location>METHOD_CALL</location>
                 </javaclass>
             </when>
             <perform>
@@ -190,8 +190,8 @@
         </rule>
         <rule id="WebLogicWebServiceRules_20xslg">
             <when>
-                <javaclass references="weblogic.transaction.TransactionManager.resume" as="default">
-                    <location>METHOD</location>
+                <javaclass references="weblogic.transaction.TransactionManager.resume{*}" as="default">
+                    <location>METHOD_CALL</location>
                 </javaclass>
             </when>
             <perform>
@@ -204,7 +204,7 @@
         <rule id="WebLogicWebServiceRules_22ablx">
             <when>
                 <javaclass references="weblogic.transaction.TransactionManager.suspend()" as="default">
-                    <location>METHOD</location>
+                    <location>METHOD_CALL</location>
                 </javaclass>
             </when>
             <perform>
@@ -230,7 +230,7 @@
         <rule id="WebLogicWebServiceRules_26root">
             <when>
                 <javaclass references="weblogic.transaction.ClientTxHelper.getTransactionManager()" as="default">
-                    <location>METHOD</location>
+                    <location>METHOD_CALL</location>
                 </javaclass>
             </when>
             <perform>
@@ -243,7 +243,7 @@
         <rule id="WebLogicWebServiceRules_28bvli">
             <when>
                 <javaclass references="weblogic.transaction.TxHelper.getTransactionManager()" as="default">
-                    <location>METHOD</location>
+                    <location>METHOD_CALL</location>
                 </javaclass>
             </when>
             <perform>
