@@ -29,7 +29,7 @@ import org.w3c.dom.Element;
  * @author mnovotny
  *
  */
-@NamespaceElementHandler(elementName = LineitemExistsHandler.ELEMENT_NAME, namespace = "http://windup.jboss.org/v1/xml")
+@NamespaceElementHandler(elementName = LineitemExistsHandler.ELEMENT_NAME, namespace = "http://windup.jboss.org/schema/jboss-ruleset")
 public class LineitemExistsHandler implements ElementHandler<LineitemExists>
 {
     static final String ELEMENT_NAME = "lineitem-exists";

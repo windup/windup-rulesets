@@ -19,7 +19,7 @@ import org.w3c.dom.Element;
  * The rulePath element is optional. If it is not specified, the default will be "../", which will run all rules in the parent directory of this test.
  *
  * <pre>
- * &lt;ruletest xmlns=&quot;http://windup.jboss.org/v1/xml&quot;&gt;
+ * &lt;ruletest xmlns=&quot;http://windup.jboss.org/schema/jboss-ruleset&quot;&gt;
  *  &lt;testDataPath&gt;data&lt;/testDataPath&gt;
  *  &lt;rulePath&gt;directory&lt;/rulePath&gt;
  *  &lt;ruleset&gt;
@@ -42,7 +42,7 @@ import org.w3c.dom.Element;
  * @author jsightler
  *
  */
-@NamespaceElementHandler(elementName = RuleTestHandler.RULETEST, namespace = "http://windup.jboss.org/v1/xml")
+@NamespaceElementHandler(elementName = RuleTestHandler.RULETEST, namespace = "http://windup.jboss.org/schema/jboss-ruleset")
 public class RuleTestHandler implements ElementHandler<RuleTest>
 {
     public static final String RULETEST = "ruletest";

@@ -29,7 +29,7 @@ import org.w3c.dom.Element;
  * @author jsightler
  *
  */
-@NamespaceElementHandler(elementName = ClassificationExistsHandler.ELEMENT_NAME, namespace = "http://windup.jboss.org/v1/xml")
+@NamespaceElementHandler(elementName = ClassificationExistsHandler.ELEMENT_NAME, namespace = "http://windup.jboss.org/schema/jboss-ruleset")
 public class ClassificationExistsHandler implements ElementHandler<ClassificationExists>
 {
     static final String ELEMENT_NAME = "classification-exists";

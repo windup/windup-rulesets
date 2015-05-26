@@ -25,7 +25,7 @@ import org.w3c.dom.Element;
  * @author jsightler
  *
  */
-@NamespaceElementHandler(elementName = FailHandler.ELEMENT_NAME, namespace = "http://windup.jboss.org/v1/xml")
+@NamespaceElementHandler(elementName = FailHandler.ELEMENT_NAME, namespace = "http://windup.jboss.org/schema/jboss-ruleset")
 public class FailHandler implements ElementHandler<Fail>
 {
     static final String ELEMENT_NAME = "fail";

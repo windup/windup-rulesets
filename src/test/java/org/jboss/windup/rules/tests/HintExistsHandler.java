@@ -29,7 +29,7 @@ import org.w3c.dom.Element;
  * @author jsightler
  *
  */
-@NamespaceElementHandler(elementName = HintExistsHandler.ELEMENT_NAME, namespace = "http://windup.jboss.org/v1/xml")
+@NamespaceElementHandler(elementName = HintExistsHandler.ELEMENT_NAME, namespace = "http://windup.jboss.org/schema/jboss-ruleset")
 public class HintExistsHandler implements ElementHandler<HintExists>
 {
     static final String ELEMENT_NAME = "hint-exists";
