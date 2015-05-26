@@ -167,5 +167,50 @@
                 <directory>rules</directory>
             </resource>
         </resources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>Copy current ruleset schema from Windup core.</id>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.jboss.windup.config</groupId>
+                                    <artifactId>windup-config-xml</artifactId>
+                                    <version>${project.version}</version>
+                                    <type>jar</type>
+                                    <classifier>forge-addon</classifier>
+                                    <includes>**/*.xsd</includes>
+                                    <outputDirectory>${project.build.directory}/xsd</outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>xml-maven-plugin</artifactId>
+                <version>1.0</version>
+                <executions> <execution> <goals> <goal>validate</goal> </goals> </execution> </executions>
+                <configuration>
+                    <validationSets>
+                        <validationSet>
+                            <includes>
+                                <include>**/*.windup.xml</include>
+                            </includes>
+                            <dir>rules</dir>
+                            <systemId>${project.build.directory}/xsd/windup-ruleset-2.3.0.Final.xsd</systemId>
+                        </validationSet>
+                    </validationSets>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 </project>
