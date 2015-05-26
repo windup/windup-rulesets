@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruletest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:wu="http://windup.jboss.org/schema/jboss-ruleset" xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="websphere-mq-test-r1" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>samples/WebSphereMQ</testDataPath>
+    <rulePath>../websphere-mq.windup.xml</rulePath>
+    <ruleset id="websphere-mq" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+        <metadata>
+            <description>
+                Provides analysis of WebSphere JMS proprietary classes and constructs that may require individual attention when migrating to JBoss EAP 6+.
+            </description>
+            <dependencies>
+                <addon id="org.jboss.windup.rules,windup-rules-javaee,2.2.0.Final"/>
+                <addon id="org.jboss.windup.rules,windup-rules-java,2.2.0.Final"/>
+            </dependencies>
+            <sourceTechnology id="websphere"/>
+            <sourceTechnology id="websphere-mq"/>
+            <targetTechnology id="eap" versionRange="[6,)"/>
+            <targetTechnology id="jms" versionRange="[6,)"/>
+            <tag>reviewed-2015-06-05</tag>
+            <tag>messaging</tag>
+            <tag>mq</tag>
+            <tag>mqe</tag>
+            <tag>ibm</tag>
+            <tag>jms</tag>
+        </metadata>
+
+        <rules>
+
+            <rule id="websphere-mq-20000-test-c1">
+                <when>
+                    <not>
+                        <classification-exists classification="WebSphere MQ API"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Classification not found: WebSphere MQ API"/>
+                </perform>
+            </rule>
+
+            <rule id="websphere-mq-20000-test-c1">
+                <when>
+                    <not>
+                        <classification-exists classification="WebSphere MQ JMS InitialContextFactory"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Classification not found: WebSphere MQ JMS InitialContextFactory"/>
+                </perform>
+            </rule>
+            <rule id="websphere-mq-20000-test-h1">
+                <when>
+                    <not>
+                        <hint-exists message="The equivalent functionality needs to be configured on JBoss EAP 6 using HornetQ."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found: The equivalent functionality needs to be configured on JBoss EAP 6 using HornetQ."/>
+                </perform>
+            </rule>
+
+            <rule id="websphere-mq-20000-test-c1">
+                <when>
+                    <not>
+                        <classification-exists classification="WebSphere MQ JMS configuration file"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Classification not found: WebSphere MQ JMS configuration file"/>
+                </perform>
+            </rule>
+            <rule id="websphere-mq-20000-test-h1">
+                <when>
+                    <not>
+                        <hint-exists message="To configure messaging in JBoss EAP 6, use either the Management Console or Management CLI"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found: To configure messaging in JBoss EAP 6, use either the Management Console or Management CLI"/>
+                </perform>
+            </rule>
+
+
+
+            <rule id="websphere-mq-20000-test-c1">
+                <when>
+                    <not>
+                        <classification-exists classification="WebSphere MQ Everyplace JMS constants"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Classification not found: WebSphere MQ Everyplace JMS constants"/>
+                </perform>
+            </rule>
+            <rule id="websphere-mq-20000-test-h1">
+                <when>
+                    <not>
+                        <hint-exists message="Replace with Java EE 6 JMS."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found: Replace with Java EE 6 JMS."/>
+                </perform>
+            </rule>
+
+            <rule id="websphere-mq-20000-test-c1">
+                <when>
+                    <not>
+                        <classification-exists classification="Proprietary WebSphere MQ JMS API"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Classification not found: Proprietary WebSphere MQ JMS API"/>
+                </perform>
+            </rule>
+            <rule id="websphere-mq-20000-test-h1">
+                <when>
+                    <not>
+                        <hint-exists message="replace with Java EE 6 JAAS for JMS authentication."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found: replace with Java EE 6 JAAS for JMS authentication."/>
+                </perform>
+            </rule>
+
+
+            <rule id="websphere-mq-20000-test-h1-01">
+                <when>
+                    <not>
+                        <hint-exists message="To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found: To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms."/>
+                </perform>
+            </rule>
+
+            <rule id="websphere-mq-20000-test-h1-02">
+                <when>
+                    <not>
+                        <hint-exists message="To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.QueueConnectionFactory`."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found: To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.QueueConnectionFactory`."/>
+                </perform>
+            </rule>
+            <rule id="websphere-mq-20000-test-h1-03">
+                <when>
+                    <not>
+                        <hint-exists message="To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.XAQueueConnectionFactory`."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found: To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.XAQueueConnectionFactory`."/>
+                </perform>
+            </rule>
+            <rule id="websphere-mq-20000-test-h1-04">
+                <when>
+                    <not>
+                        <hint-exists message="To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.TopicConnectionFactory`."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found: To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.TopicConnectionFactory`."/>
+                </perform>
+            </rule>
+            <rule id="websphere-mq-20000-test-h1-05">
+                <when>
+                    <not>
+                        <hint-exists message="To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.XATopicConnectionFactory`."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found: To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.XATopicConnectionFactory`."/>
+                </perform>
+            </rule>
+            <!--
+            -->
+            <rule id="websphere-mq-20000-test-h1-06">
+                <when>
+                    <not>
+                        <hint-exists message="To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.XAConnectionFactory`."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found: To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.XAConnectionFactory`."/>
+                </perform>
+            </rule>
+            <rule id="websphere-mq-20000-test-h1-07">
+                <when>
+                    <not>
+                        <hint-exists message="To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.Destination`."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found: To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.Destination`."/>
+                </perform>
+            </rule>
+            <rule id="websphere-mq-20000-test-h1-08">
+                <when>
+                    <not>
+                        <hint-exists message="To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.Queue`."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found: To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.Queue`."/>
+                </perform>
+            </rule>
+            <rule id="websphere-mq-20000-test-h1-09">
+                <when>
+                    <not>
+                        <hint-exists message="To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.TemporaryQueue`."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found: To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.TemporaryQueue`."/>
+                </perform>
+            </rule>
+            <rule id="websphere-mq-20000-test-h1-10">
+                <when>
+                    <not>
+                        <hint-exists message="To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.Topic`."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found: To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.Topic`."/>
+                </perform>
+            </rule>
+            <rule id="websphere-mq-20000-test-h1-11">
+                <when>
+                    <not>
+                        <hint-exists message="To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.TemporaryTopic`."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found: To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.TemporaryTopic`."/>
+                </perform>
+            </rule>
+            <rule id="websphere-mq-20000-test-h1-12">
+                <when>
+                    <not>
+                        <hint-exists message="To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.Connection`."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found: To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.Connection`."/>
+                </perform>
+            </rule>
+            <rule id="websphere-mq-20000-test-h1-13">
+                <when>
+                    <not>
+                        <hint-exists message="To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.QueueConnection`."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found: To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.QueueConnection`."/>
+                </perform>
+            </rule>
+            <rule id="websphere-mq-20000-test-h1-14">
+                <when>
+                    <not>
+                        <hint-exists message="To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.XAQueueConnection`."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found: To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.XAQueueConnection`."/>
+                </perform>
+            </rule>
+            <rule id="websphere-mq-20000-test-h1-15">
+                <when>
+                    <not>
+                        <hint-exists message="To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.TopicConnection`."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found: To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.TopicConnection`."/>
+                </perform>
+            </rule>
+            <rule id="websphere-mq-20000-test-h1-16">
+                <when>
+                    <not>
+                        <hint-exists message="To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.XATopicConnection`."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found: To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.XATopicConnection`."/>
+                </perform>
+            </rule>
+            <rule id="websphere-mq-20000-test-h1-17">
+                <when>
+                    <not>
+                        <hint-exists message="To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.XAConnection`."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found: To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.XAConnection`."/>
+                </perform>
+            </rule>
+            <rule id="websphere-mq-20000-test-h1-18">
+                <when>
+                    <not>
+                        <hint-exists message="To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.ConnectionMetaData`."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found: To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.ConnectionMetaData`."/>
+                </perform>
+            </rule>
+            <rule id="websphere-mq-20000-test-h1-19">
+                <when>
+                    <not>
+                        <hint-exists message="To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.MessageConsumer`."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found: To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.MessageConsumer`."/>
+                </perform>
+            </rule>
+            <rule id="websphere-mq-20000-test-h1-20">
+                <when>
+                    <not>
+                        <hint-exists message="To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.QueueReceiver`."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found: To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.QueueReceiver`."/>
+                </perform>
+            </rule>
+            <rule id="websphere-mq-20000-test-h1-21">
+                <when>
+                    <not>
+                        <hint-exists message="To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.TopicSubscriber`."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found: To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.TopicSubscriber`."/>
+                </perform>
+            </rule>
+            <rule id="websphere-mq-20000-test-h1-22">
+                <when>
+                    <not>
+                        <hint-exists message="To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.MessageProducer`."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found: To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.MessageProducer`."/>
+                </perform>
+            </rule>
+            <rule id="websphere-mq-20000-test-h1-23">
+                <when>
+                    <not>
+                        <hint-exists message="To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.QueueSender`."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found: To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.QueueSender`."/>
+                </perform>
+            </rule>
+            <rule id="websphere-mq-20000-test-h1-24">
+                <when>
+                    <not>
+                        <hint-exists message="To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.TopicPublisher`."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found: To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.TopicPublisher`."/>
+                </perform>
+            </rule>
+            <rule id="websphere-mq-20000-test-h1-25">
+                <when>
+                    <not>
+                        <hint-exists message="To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.QueueBrowser`."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found: To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.QueueBrowser`."/>
+                </perform>
+            </rule>
+            <rule id="websphere-mq-20000-test-h1-26">
+                <when>
+                    <not>
+                        <hint-exists message="To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.Session`."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found: To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.Session`."/>
+                </perform>
+            </rule>
+            <rule id="websphere-mq-20000-test-h1-27">
+                <when>
+                    <not>
+                        <hint-exists message="To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.QueueSession`."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found: To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.QueueSession`."/>
+                </perform>
+            </rule>
+            <rule id="websphere-mq-20000-test-h1-28">
+                <when>
+                    <not>
+                        <hint-exists message="To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.TopicSession`."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found: To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.TopicSession`."/>
+                </perform>
+            </rule>
+            <rule id="websphere-mq-20000-test-h1-29">
+                <when>
+                    <not>
+                        <hint-exists message="To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.XASession`."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found: To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.XASession`."/>
+                </perform>
+            </rule>
+            <rule id="websphere-mq-20000-test-h1-30">
+                <when>
+                    <not>
+                        <hint-exists message="To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.XAQueueSession`."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found: To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.XAQueueSession`."/>
+                </perform>
+            </rule>
+            <rule id="websphere-mq-20000-test-h1-31">
+                <when>
+                    <not>
+                        <hint-exists message="To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.XATopicSession`."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found: To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.XATopicSession`."/>
+                </perform>
+            </rule>
+
+
+            <rule id="websphere-mq-20000-test-h1-32">
+                <when>
+                    <not>
+                        <hint-exists message="To migrate to JBoss EAP 6, use the Java EE 6 JMS interface"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found: To migrate to JBoss EAP 6, use the Java EE 6 JMS interface"/>
+                </perform>
+            </rule>
+
+        </rules>
+    </ruleset>
+</ruletest>

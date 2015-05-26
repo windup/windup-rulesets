@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+    <testDataPath>samples/other</testDataPath>
+    <rulePath>../websphere-other.windup.xml</rulePath>
+    <ruleset id="websphere-other">
+        <metadata/>
+        <rules>
+
+            <rule id="websphere-other-01000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="WebSphere Startup Service"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Classification not found: WebSphere Startup Service"/>
+                </perform>
+            </rule>
+
+            <rule id="websphere-other-02000-test">
+                <when>
+                    <not>
+                        <hint-exists message="@Startup"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found: @Startup"/>
+                </perform>
+            </rule>
+
+            <rule id="websphere-other-03000-test">
+                <when>
+                    <not>
+                        <hint-exists message="WebSphere Asynchronous Work is a Work Manager"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found: WebSphere Asynchronous Work is a Work Manager"/>
+                </perform>
+            </rule>
+
+        </rules>
+    </ruleset>
+</ruletest>

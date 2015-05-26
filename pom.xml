@@ -163,8 +163,15 @@
     <build>
         <resources>
             <resource>
+                <directory>rules-reviewed/</directory>
                 <filtering>false</filtering>
-                <directory>rules-reviewed</directory>
+            </resource>
+            <resource>
+                <directory>rules/</directory>
+                <excludes>
+                    <exclude>**/*</exclude>
+                </excludes>
+                <filtering>false</filtering>
             </resource>
         </resources>
 
@@ -222,7 +229,10 @@
                 <groupId>org.apache.maven.plugins</groupId>
                	<artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <argLine>-Xms512m -Xmx2048m -XX:MaxPermSize=768m -XX:ReservedCodeCacheSize=128m</argLine>
+                    <systemPropertyVariables>
+                        <org.jboss.logging.provider>jdk</org.jboss.logging.provider>
+                    </systemPropertyVariables>
+                    <argLine>-Dorg.jboss.logging.provider=jdk -Xms512m -Xmx2048m -XX:MaxPermSize=768m -XX:ReservedCodeCacheSize=128m</argLine>
                	</configuration>
             </plugin>
         </plugins>
