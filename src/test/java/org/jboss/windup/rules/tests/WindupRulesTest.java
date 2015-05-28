@@ -101,66 +101,17 @@ public class WindupRulesTest
     @Test
     public void testWindupRules()
     {
-        final ParserContext parser = new ParserContext(furnace);
         final List<String> successes = new ArrayList<>();
         final Map<String, Exception> errors = new LinkedHashMap<>();
 
         FileSuffixPredicate predicate = new FileSuffixPredicate("\\.windup\\.test\\.xml");
         final File directory = new File("rules");
-        Visitor<File> visitor = new Visitor<File>()
-        {
-            @Override
-            public void visit(File ruleTestFile)
-            {
-                if (!shouldExecuteTest(ruleTestFile))
-                {
-                    return;
-                }
-                try
-                {
-                    Path outputPath = getDefaultPath();
-                    try (GraphContext context = factory.create(outputPath))
-                    {
-                        // load the ruletest file
-                        RuleTest ruleTest = parser.processDocument(ruleTestFile.toURI());
-                        List<Path> rulePaths = new ArrayList<>();
-                        if (ruleTest.getRulePaths().isEmpty())
-                        {
-                            // The default path is ../, so this is two directories up from the test file iteself.
-                            rulePaths.add(ruleTestFile.getParentFile().getParentFile().toPath().normalize().toAbsolutePath());
-                        }
-                        else
-                        {
-                            for (String rulePath : ruleTest.getRulePaths())
-                            {
-                                Path ruleTestDirectory = ruleTestFile.toPath().getParent().normalize();
-                                Path path = ruleTestDirectory.resolve(rulePath).normalize().toAbsolutePath();
-                                rulePaths.add(path.toAbsolutePath());
-                            }
-                        }
+        final File rulesReviewed = new File("rules-reviewed");
+        Visitor<File> mainVisitor = new RuleTestVisitor(successes, errors, directory);
+        Visitor<File> rulesReviewedVisitor = new RuleTestVisitor(successes, errors, rulesReviewed);
 
-                        Configuration ruleTestConfiguration = parser.getBuilder().getConfiguration(context);
-
-                        // run windup
-                        File testDataPath = new File(ruleTestFile.getParentFile(), ruleTest.getTestDataPath());
-                        Path reportPath = outputPath.resolve("reports");
-                        runWindup(context, directory, rulePaths, testDataPath, reportPath.toFile());
-
-                        // run the assertions from the ruletest file
-                        GraphRewrite event = new GraphRewrite(context);
-                        RuleSubset.create(ruleTestConfiguration).perform(event, createEvalContext(event));
-                    }
-                    successes.add(ruleTestFile.toString());
-                }
-                catch (Exception e)
-                {
-                    e.printStackTrace();
-                    errors.put(ruleTestFile.toString(), e);
-                }
-            }
-        };
-
-        FileVisit.visit(directory, predicate, visitor);
+        FileVisit.visit(directory, predicate, mainVisitor);
+        FileVisit.visit(rulesReviewed, predicate, rulesReviewedVisitor);
 
         System.out.println("Successful tests:\n");
         for (String successfulTest : successes)
@@ -181,6 +132,71 @@ public class WindupRulesTest
             System.out.println("Failed tests:\n");
             System.out.println(result.toString());
             Assert.fail(result.toString());
+        }
+    }
+
+    private class RuleTestVisitor implements Visitor<File>
+    {
+        final List<String> successes;
+        final Map<String, Exception> errors;
+        final File directory;
+
+        public RuleTestVisitor(List<String> successes, Map<String, Exception> errors, File directory)
+        {
+            this.successes = successes;
+            this.errors = errors;
+            this.directory = directory;
+        }
+
+        @Override
+        public void visit(File ruleTestFile)
+        {
+            final ParserContext parser = new ParserContext(furnace);
+            if (!shouldExecuteTest(ruleTestFile))
+            {
+                return;
+            }
+            try
+            {
+                Path outputPath = getDefaultPath();
+                try (GraphContext context = factory.create(outputPath))
+                {
+                    // load the ruletest file
+                    RuleTest ruleTest = parser.processDocument(ruleTestFile.toURI());
+                    List<Path> rulePaths = new ArrayList<>();
+                    if (ruleTest.getRulePaths().isEmpty())
+                    {
+                        // The default path is ../, so this is two directories up from the test file iteself.
+                        rulePaths.add(ruleTestFile.getParentFile().getParentFile().toPath().normalize().toAbsolutePath());
+                    }
+                    else
+                    {
+                        for (String rulePath : ruleTest.getRulePaths())
+                        {
+                            Path ruleTestDirectory = ruleTestFile.toPath().getParent().normalize();
+                            Path path = ruleTestDirectory.resolve(rulePath).normalize().toAbsolutePath();
+                            rulePaths.add(path.toAbsolutePath());
+                        }
+                    }
+
+                    Configuration ruleTestConfiguration = parser.getBuilder().getConfiguration(context);
+
+                    // run windup
+                    File testDataPath = new File(ruleTestFile.getParentFile(), ruleTest.getTestDataPath());
+                    Path reportPath = outputPath.resolve("reports");
+                    runWindup(context, directory, rulePaths, testDataPath, reportPath.toFile());
+
+                    // run the assertions from the ruletest file
+                    GraphRewrite event = new GraphRewrite(context);
+                    RuleSubset.create(ruleTestConfiguration).perform(event, createEvalContext(event));
+                }
+                successes.add(ruleTestFile.toString());
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+                errors.put(ruleTestFile.toString(), e);
+            }
         }
     }
 
