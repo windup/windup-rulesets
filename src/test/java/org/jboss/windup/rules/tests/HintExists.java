@@ -24,7 +24,7 @@ public class HintExists extends GraphCondition
 
     private HintExists(String messagePattern)
     {
-        this.messagePattern = messagePattern;
+        this.messagePattern = "[\\s\\S]*" + messagePattern + "[\\s\\S]*";
     }
 
     /**
@@ -65,6 +65,7 @@ public class HintExists extends GraphCondition
             });
         }
         q.withProperty(InlineHintModel.HINT, QueryPropertyComparisonType.REGEX, messagePattern);
+
         return q.evaluate(event, context);
     }
 

@@ -24,7 +24,7 @@ public class ClassificationExists extends GraphCondition
 
     private ClassificationExists(String classificationPattern)
     {
-        this.classificationPattern = classificationPattern;
+        this.classificationPattern = "[\\s\\S]*" + classificationPattern + "[\\s\\S]*";
     }
 
     /**
