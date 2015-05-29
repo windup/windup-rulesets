@@ -30,6 +30,7 @@ import org.jboss.windup.config.DefaultEvaluationContext;
 import org.jboss.windup.config.GraphRewrite;
 import org.jboss.windup.config.RuleProvider;
 import org.jboss.windup.config.RuleSubset;
+import org.jboss.windup.config.metadata.RuleMetadataType;
 import org.jboss.windup.config.parser.ParserContext;
 import org.jboss.windup.exec.WindupProcessor;
 import org.jboss.windup.exec.configuration.WindupConfiguration;
@@ -45,6 +46,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ocpsoft.logging.Logger;
 import org.ocpsoft.rewrite.config.Configuration;
+import org.ocpsoft.rewrite.config.Rule;
+import org.ocpsoft.rewrite.context.Context;
 import org.ocpsoft.rewrite.param.DefaultParameterValueStore;
 import org.ocpsoft.rewrite.param.ParameterValueStore;
 
@@ -180,6 +183,15 @@ public class WindupRulesTest
                     }
 
                     Configuration ruleTestConfiguration = parser.getBuilder().getConfiguration(context);
+
+                    for (Rule rule : ruleTestConfiguration.getRules())
+                    {
+                        parser.getBuilder().enhanceRuleMetadata(parser.getBuilder(), rule);
+                        if (rule instanceof Context)
+                        {
+                            ((Context) rule).put(RuleMetadataType.HALT_ON_EXCEPTION, true);
+                        }
+                    }
 
                     // run windup
                     File testDataPath = new File(ruleTestFile.getParentFile(), ruleTest.getTestDataPath());
