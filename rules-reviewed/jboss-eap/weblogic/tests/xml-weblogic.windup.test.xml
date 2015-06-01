@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/v1/xml">
+    <testDataPath>data</testDataPath>
+    <rulePath>../xml-weblogic.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+	    <rule>
+                <when>
+                    <not>
+                        <hint-exists message="Virtual directories supported in WebLogic are not supported in JBoss EAP." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Virtual directories migration hint not found!"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

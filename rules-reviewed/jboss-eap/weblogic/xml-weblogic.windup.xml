@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/v1/xml" id="weblogic_rules_xml">
+   <metadata>
+      <description>
+         This ruleset provides analysis of WebLogic proprietary xmls and constructs that may require individual attention when migrating to JBoss EAP 6+.
+      </description>
+      <dependencies>
+         <addon id="org.jboss.windup.rules,windup-rules-javaee,2.0.1.Final"/>			
+         <addon id="org.jboss.windup.rules,windup-rules-java,2.0.0.Final"/>
+	 <addon id="org.jboss.windup.rules,windup-rules-xml,2.0.0.Final"/>
+      </dependencies>
+      <sourceTechnology id="weblogic" versionRange="(10,12]"/>
+      <targetTechnology id="eap" versionRange="[6,)"/>
+   </metadata>
+   <rules>
+	<rule id="weblogic_rules_xml-01000">
+            <when>
+                <xmlfile in="weblogic.xml" matches="//wl:virtual-directory-mapping">
+			<namespace prefix="wl" uri="http://xmlns.oracle.com/weblogic/weblogic-web-app"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <iteration>
+                    <hint message="Virtual directories supported in WebLogic are not supported in JBoss EAP." effort="1" severity="Mandatory">
+		    	<link href="https://access.redhat.com/articles/1332613" description="Detailed description of how to migrate virtual directories."/>
+			<tag>file-system</tag>
+	            </hint>
+                </iteration>
+            </perform>
+        </rule>
+   </rules>
+</ruleset>
