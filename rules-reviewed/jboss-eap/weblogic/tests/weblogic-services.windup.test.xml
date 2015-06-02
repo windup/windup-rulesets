@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="weblogic-services-tests">
+    <testDataPath>data-servicetests</testDataPath>
+    <rulePath>../</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="weblogic-services-01000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace this class with a class using the EJB 3.1 @Singleton and @Startup annotations." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Class that implements T3StartupDef not found!"/>
+                </perform>
+            </rule>
+            <rule id="weblogic-services-02000-test">
+                <when>
+                    <not>
+                        <hint-exists message=".*T3ServicesDef provides access to core services of the container.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="T3ServicesDef hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="weblogic-services-02000-test">
+                <when>
+                    <not>
+                        <hint-exists message="NonCatalogLogger is a logger for logging messages to the WebLogic log.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="NonCatalogLogger hint not found!"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

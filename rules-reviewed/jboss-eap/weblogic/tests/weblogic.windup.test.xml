@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="weblogic-tests">
+    <testDataPath>data</testDataPath>
+    <rulePath>../</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="weblogic-01000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="WebLogic Scheduled Job" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Triggerable not found"/>
+                </perform>
+            </rule>
+            <rule id="weblogic-02000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace with the StringUtils class from Apache Commons." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Commons StringUtils hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="weblogic-03000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Code using this package should be replaced with code using the org.apache.xml package from.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Code using weblogic specific Apache XML Packages not found!"/>
+                </perform>
+            </rule>
+            <rule id="weblogic-04000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace with the Java EE standard .*javax.transaction.TransactionManager.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Code using weblogic specific TransactionManager not found!"/>
+                </perform>
+            </rule>
+            <rule id="weblogic-05000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace with the Java EE standard method 'javax\.transaction\.TransactionManager\.resume\(Transaction tx\)'." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Note to replace with standard TransactionManager.resume is missing!"/>
+                </perform>
+            </rule>
+            <rule id="weblogic-06000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace with the Java EE standard javax.transaction.TransactionManager.suspend" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Note to replace with standard TransactionManager.suspend is missing!"/>
+                </perform>
+            </rule>
+            <rule id="weblogic-07000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Remove the 'weblogic.transaction.TxHelper' import statement." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Note to remove weblogic.transaction.TxHelper import is missing!"/>
+                </perform>
+            </rule>
+            <rule id="weblogic-08000-test">
+                <when>
+                    <not>
+                        <hint-exists message=".*Look up the Java Enterprise Edition javax.transaction.TransactionManager in JBoss EAP using the following code.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Note describing how to lookup a transaction manager is missing!"/>
+                </perform>
+            </rule>
+
+            <rule id="weblogic-09000-test">
+                <when>
+                    <not>
+                        <hint-exists message=".*This Oracle and WebLogic specific code \(OracleThinClob\) should be replaced with the use.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Note about proprietary OracleThinClob is missing!"/>
+                </perform>
+            </rule>
+            <rule id="weblogic-10000-test">
+                <when>
+                    <not>
+                        <hint-exists message=".*This code is specific to WebLogic and should be replaced with java.sql.Clob.setCharacterStream\(1\).*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Note about proprietary OracleThinClob.getCharacterOutputStream()!"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
