@@ -1,0 +1,714 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="websphere"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">>
+    <metadata>
+      <description>
+         This ruleset provides analysis of WebSphere proprietary classes and constructs that may require individual attention when migrating to JBoss EAP 6+.
+      </description>
+      <dependencies>
+         <addon id="org.jboss.windup.rules,windup-rules-javaee,2.2.0.Final"/>			
+         <addon id="org.jboss.windup.rules,windup-rules-java,2.2.0.Final"/>
+      </dependencies>
+      <sourceTechnology id="websphere" versionRange="(7,)"/>
+      <targetTechnology id="eap" versionRange="[6,)"/>
+   </metadata>
+    <rules>
+        <rule id="websphere-7Apvvd">
+            <when>
+                <javaclass references="com.ibm.websphere.sib.api.jms.JmsTopicConnectionFactory" />
+            </when>
+            <perform>
+                    <hint effort="1" severity="mandatory">
+			            <message>
+				            This is a websphere specific interface and needs to be migrated to standardized javax.jms.TopicConnectionFactory.
+			            </message>
+			            <link href="TODO" description="JMS migration"/>
+			            <tag>JMS</tag>
+                    </hint>
+            </perform>
+        </rule>
+        <rule id="websphere-7Csrjd">
+            <when>
+                <javaclass references="com.ibm.websphere.sib.api.jms.JmsTopic" />
+            </when>
+            <perform>
+		    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific interface and needs to be migrated to standardized javax.jms.Topic.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+            </perform>
+        </rule>
+        <rule id="websphere-7Eorol">
+            <when>
+                <javaclass references="com.ibm.websphere.sib.api.jms.JmsQueueConnectionFactory" />
+            </when>
+            <perform>
+		<hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific interface and needs to be migrated to standardized javax.jms.QueueConnectionFactory.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="websphere-80irik">
+            <when>
+                <javaclass references="com.ibm.websphere.sib.api.jms.JmsQueue" />
+            </when>
+            <perform>
+                <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific interface and needs to be migrated to standardized javax.jms.Queue.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="websphere-82ugvt">
+            <when>
+                <javaclass references="com.ibm.websphere.sib.api.jms.JmsMsgProducer" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific interface and needs to be migrated to standardized javax.jms.MessageProducer.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="websphere-84npm">
+            <when>
+                <javaclass references="com.ibm.websphere.sib.api.jms.JmsMsgConsumer" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific interface and needs to be migrated to standardized javax.jms.MessageConsumer.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="websphere-86aij">
+            <when>
+                <javaclass references="com.ibm.websphere.sib.api.jms.JmsDestination" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific interface and needs to be migrated to standardized javax.jms.Destination.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="websphere-88qikj">
+            <when>
+                <javaclass references="com.ibm.websphere.sib.api.jms.JmsConnectionFactory" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific interface and needs to be migrated to standardized javax.jms.ConnectionFactory.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="websphere-8Afgoc">
+            <when>
+                <javaclass references="com.ibm.msg.client.jms.JmsConnection" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific interface and needs to be migrated to standardized javax.jms.Connection.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="websphere-8Ccgs">
+            <when>
+                <javaclass references="com.ibm.msg.client.jms.JmsConnectionMetaData" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific interface and needs to be migrated to standardized javax.jms.ConnectionMetaData.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="websphere-8Eteg">
+            <when>
+                <javaclass references="com.ibm.msg.client.jms.JmsDestination" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific interface and needs to be migrated to standardized javax.jms.Destination.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="websphere-90srrn">
+            <when>
+                <javaclass references="com.ibm.msg.client.jms.JmsMessageConsumer" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific interface and needs to be migrated to standardized javax.jms.MessageConsumer.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="websphere-92xrlq">
+            <when>
+                <javaclass references="com.ibm.msg.client.jms.JmsMessageProducer" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific interface and needs to be migrated to standardized javax.jms.MessageProducer.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="websphere-94lypn">
+            <when>
+                <javaclass references="com.ibm.msg.client.jms.JmsQueue" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific interface and needs to be migrated to standardized javax.jms.Queue.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="websphere-96htac">
+            <when>
+                <javaclass references="com.ibm.msg.client.jms.JmsQueueBrowser" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific interface and needs to be migrated to standardized javax.jms.QueueBrowser.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="websphere-98dlmi">
+            <when>
+                <javaclass references="com.ibm.msg.client.jms.JmsQueueConnection" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific interface and needs to be migrated to standardized javax.jms.QueueConnection.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="websphere-9Axfpa">
+            <when>
+                <javaclass references="com.ibm.msg.client.jms.JmsQueueConnectionFactory" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific interface and needs to be migrated to standardized javax.jms.QueueConnectionFactory.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="websphere-9Chwtg">
+            <when>
+                <javaclass references="com.ibm.msg.client.jms.JmsQueueReceiver" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific interface and needs to be migrated to standardized javax.jms.QueueReceiver.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="websphere-9Excrp">
+            <when>
+                <javaclass references="com.ibm.msg.client.jms.JmsQueueSender" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific interface and needs to be migrated to standardized javax.jms.QueueSender.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="websphere-A0unhw">
+            <when>
+                <javaclass references="com.ibm.msg.client.jms.JmsQueueSession" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific interface and needs to be migrated to standardized javax.jms.QueueSession.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="websphere-A2ftrv">
+            <when>
+                <javaclass references="com.ibm.msg.client.jms.JmsSession" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific interface and needs to be migrated to standardized javax.jms.Session.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="websphere-A4xlnj">
+            <when>
+                <javaclass references="com.ibm.msg.client.jms.JmsTemporaryQueue" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific interface and needs to be migrated to standardized javax.jms.TemporaryQueue.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="websphere-A6fomj">
+            <when>
+                <javaclass references="com.ibm.msg.client.jms.JmsTemporaryTopic" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific interface and needs to be migrated to standardized javax.jms.TemporaryTopic.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="websphere-A8fdxg">
+            <when>
+                <javaclass references="com.ibm.msg.client.jms.JmsTopic" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific interface and needs to be migrated to standardized javax.jms.Topic.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="websphere-AAmni">
+            <when>
+                <javaclass references="com.ibm.msg.client.jms.JmsTopicConnection" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific interface and needs to be migrated to standardized javax.jms.TopicConnection.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="websphere-ACogkm">
+            <when>
+                <javaclass references="com.ibm.msg.client.jms.JmsTopicConnectionFactory" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific interface and needs to be migrated to standardized javax.jms.TopicConnectionFactory.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="websphere-AEjcgi">
+            <when>
+                <javaclass references="com.ibm.msg.client.jms.JmsTopicPublisher" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific interface and needs to be migrated to standardized javax.jms.TopicPublisher.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="websphere-B0qofa">
+            <when>
+                <javaclass references="com.ibm.msg.client.jms.JmsTopicSession" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific interface and needs to be migrated to standardized javax.jms.TopicSession.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="websphere-B2nxwp">
+            <when>
+                <javaclass references="com.ibm.msg.client.jms.JmsTopicSubscriber" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific interface and needs to be migrated to standardized javax.jms.TopicSubscriber.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="websphere-B4jku">
+            <when>
+                <javaclass references="com.ibm.msg.client.jms.JmsXAConnection" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific interface and needs to be migrated to standardized javax.jms.XAConnection.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="websphere-B6dqem">
+            <when>
+                <javaclass references="com.ibm.msg.client.jms.JmsXAConnectionFactory" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific interface and needs to be migrated to standardized javax.jms.XAConnectionFactory.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="websphere-B8xgul">
+            <when>
+                <javaclass references="com.ibm.msg.client.jms.JmsXAQueueConnection" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific interface and needs to be migrated to standardized javax.jms.XAQueueConnection.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="websphere-BAthln">
+            <when>
+                <javaclass references="com.ibm.msg.client.jms.JmsXAQueueConnectionFactory" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific interface and needs to be migrated to standardized javax.jms.XAQueueConnectionFactory.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="websphere-BCoay">
+            <when>
+                <javaclass references="com.ibm.msg.client.jms.JmsXAQueueSession" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific interface and needs to be migrated to standardized javax.jms.XAQueueSession.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="websphere-BEckit">
+            <when>
+                <javaclass references="com.ibm.msg.client.jms.JmsXASession" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific interface and needs to be migrated to standardized javax.jms.XASession.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="websphere-C0esus">
+            <when>
+                <javaclass references="com.ibm.msg.client.jms.JmsXATopicConnection" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific interface and needs to be migrated to standardized javax.jms.XATopicConnection.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="websphere-C2uuii">
+            <when>
+                <javaclass references="com.ibm.msg.client.jms.JmsXATopicConnectionFactory" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific interface and needs to be migrated to standardized javax.jms.XATopicConnectionFactory.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="websphere-C4jldn">
+            <when>
+                <javaclass references="com.ibm.msg.client.jms.JmsXATopicSession" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific interface and needs to be migrated to standardized javax.jms.XATopicSession.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="websphere-C6cmee">
+            <when>
+                <javaclass references="com.ibm.jms.JMSBytesMessage" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific class and needs to be migrated to standardized javax.jms.ByteMessage.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="websphere-C8tqr">
+            <when>
+                <javaclass references="com.ibm.jms.JMSMapMessage" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific class and needs to be migrated to standardized javax.jms.MapMessage.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="websphere-CAlgfa">
+            <when>
+                <javaclass references="com.ibm.jms.JMSMessage" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific class and needs to be migrated to standardized javax.jms.Message.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="websphere-CChjdk">
+            <when>
+                <javaclass references="com.ibm.jms.JMSObjectMessage" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific class and needs to be migrated to standardized javax.jms.TopicPublisher.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="websphere-CEvqia">
+            <when>
+                <javaclass references="com.ibm.jms.JMSStreamMessage" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific class and needs to be migrated to standardized javax.jms.StreamMessage.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="websphere-D0jhwe">
+            <when>
+                <javaclass references="com.ibm.jms.JMSTextMessage" />
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="1" severity="mandatory">
+			<message>
+				This is a websphere specific class and needs to be migrated to standardized javax.jms.TextMessage.
+			</message>
+			<link href="TODO" description="JMS migration"/>
+			<tag>JMS</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
