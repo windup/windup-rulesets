@@ -1,15 +1,17 @@
 <?xml version="1.0"?>
-<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="Log4jRules">
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="Log4jRules"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
 	<rules>
 		<rule id="Log4jRules_2fmb">
 			<when>
 				<project>
-					<artifact groupId="log4j" artifactId="log4j" />
+					<artifact groupId="log4j" artifactId="log4j"/>
 				</project>
 			</when>
 			<perform>
 			    <iteration>
-	                <lineitem message="Use log4j module via jboss-deployment-structure.xml" />	                	       
+	                <lineitem message="Use log4j module via jboss-deployment-structure.xml"/>	                	       
 			    </iteration>
 			</perform>
 		</rule>
@@ -25,7 +27,7 @@
 	                    <link href="https://access.redhat.com/discussions/478983" description="Use my own 'log4j.xml' with EAP 6.1"/>
 	                    <link href="https://access.redhat.com/solutions/375273" description="EAP 6 deadlocks on a ConsoleHandler and java.io.PrintStream"/>
                     </classification>
-                    <hint message="Log4J specific log4j.xml and usage of ConsoleAppender can cause a deadlock" effort="1">
+                    <hint effort="1"><message>Log4J specific log4j.xml and usage of ConsoleAppender can cause a deadlock</message>
                         <link href="https://access.redhat.com/solutions/375273" description="EAP 6 deadlocks on a ConsoleHandler and java.io.PrintStream"/>
                     </hint>
                 </iteration>
@@ -43,7 +45,7 @@
                         <link href="https://access.redhat.com/discussions/478983" description="Use my own log4j.xml with EAP 6.1"/>
                         <link href="https://access.redhat.com/solutions/375273" description="EAP 6 deadlocks on a ConsoleHandler and java.io.PrintStream"/>
                     </classification>
-                    <hint message="Log4J specific log4j.properties can cause a deadlock" effort="1">
+                    <hint effort="1"><message>Log4J specific log4j.properties can cause a deadlock</message>
                         <link href="https://access.redhat.com/solutions/375273" description="EAP 6 deadlocks on a ConsoleHandler and java.io.PrintStream"/>
                     </hint>
                 </iteration>
