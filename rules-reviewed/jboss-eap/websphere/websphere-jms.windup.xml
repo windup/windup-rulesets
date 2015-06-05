@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
-<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="websphere"
+<ruleset id="websphere" xmlns="http://windup.jboss.org/schema/jboss-ruleset" 
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">>
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <metadata>
       <description>
          This ruleset provides analysis of WebSphere proprietary classes and constructs that may require individual attention when migrating to JBoss EAP 6+.
       </description>
       <dependencies>
-         <addon id="org.jboss.windup.rules,windup-rules-javaee,2.2.0.Final"/>			
-         <addon id="org.jboss.windup.rules,windup-rules-java,2.2.0.Final"/>
+         <addon id="org.jboss.windup.rules,windup-rules-javaee,2.3.0.Final"/>			
+         <addon id="org.jboss.windup.rules,windup-rules-java,2.3.0.Final"/>
       </dependencies>
-      <sourceTechnology id="websphere" versionRange="(7,)"/>
-      <targetTechnology id="eap" versionRange="[6,)"/>
+      <sourceTechnology id="websphere" />
+      <targetTechnology id="eap" versionRange="[6,)" />
    </metadata>
     <rules>
-        <rule id="websphere-7Apvvd">
+        <rule id="websphere-01000">
             <when>
                 <javaclass references="com.ibm.websphere.sib.api.jms.JmsTopicConnectionFactory" />
             </when>
@@ -28,7 +28,7 @@
                     </hint>
             </perform>
         </rule>
-        <rule id="websphere-7Csrjd">
+        <rule id="websphere-02000">
             <when>
                 <javaclass references="com.ibm.websphere.sib.api.jms.JmsTopic" />
             </when>
@@ -42,7 +42,7 @@
                     </hint>
             </perform>
         </rule>
-        <rule id="websphere-7Eorol">
+        <rule id="websphere-03000">
             <when>
                 <javaclass references="com.ibm.websphere.sib.api.jms.JmsQueueConnectionFactory" />
             </when>
@@ -56,7 +56,7 @@
                 </hint>
             </perform>
         </rule>
-        <rule id="websphere-80irik">
+        <rule id="websphere-04000">
             <when>
                 <javaclass references="com.ibm.websphere.sib.api.jms.JmsQueue" />
             </when>
@@ -70,7 +70,7 @@
                 </hint>
             </perform>
         </rule>
-        <rule id="websphere-82ugvt">
+        <rule id="websphere-05000">
             <when>
                 <javaclass references="com.ibm.websphere.sib.api.jms.JmsMsgProducer" />
             </when>
@@ -86,7 +86,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="websphere-84npm">
+        <rule id="websphere-06000">
             <when>
                 <javaclass references="com.ibm.websphere.sib.api.jms.JmsMsgConsumer" />
             </when>
@@ -102,7 +102,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="websphere-86aij">
+        <rule id="websphere-07000">
             <when>
                 <javaclass references="com.ibm.websphere.sib.api.jms.JmsDestination" />
             </when>
@@ -118,7 +118,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="websphere-88qikj">
+        <rule id="websphere-08000">
             <when>
                 <javaclass references="com.ibm.websphere.sib.api.jms.JmsConnectionFactory" />
             </when>
@@ -134,7 +134,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="websphere-8Afgoc">
+        <rule id="websphere-09000">
             <when>
                 <javaclass references="com.ibm.msg.client.jms.JmsConnection" />
             </when>
@@ -150,7 +150,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="websphere-8Ccgs">
+        <rule id="websphere-10000">
             <when>
                 <javaclass references="com.ibm.msg.client.jms.JmsConnectionMetaData" />
             </when>
@@ -166,7 +166,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="websphere-8Eteg">
+        <rule id="websphere-11000">
             <when>
                 <javaclass references="com.ibm.msg.client.jms.JmsDestination" />
             </when>
@@ -182,7 +182,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="websphere-90srrn">
+        <rule id="websphere-12000">
             <when>
                 <javaclass references="com.ibm.msg.client.jms.JmsMessageConsumer" />
             </when>
@@ -198,7 +198,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="websphere-92xrlq">
+        <rule id="websphere-13000">
             <when>
                 <javaclass references="com.ibm.msg.client.jms.JmsMessageProducer" />
             </when>
@@ -214,7 +214,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="websphere-94lypn">
+        <rule id="websphere-14000">
             <when>
                 <javaclass references="com.ibm.msg.client.jms.JmsQueue" />
             </when>
@@ -230,7 +230,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="websphere-96htac">
+        <rule id="websphere-15000">
             <when>
                 <javaclass references="com.ibm.msg.client.jms.JmsQueueBrowser" />
             </when>
@@ -246,7 +246,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="websphere-98dlmi">
+        <rule id="websphere-16000">
             <when>
                 <javaclass references="com.ibm.msg.client.jms.JmsQueueConnection" />
             </when>
@@ -262,7 +262,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="websphere-9Axfpa">
+        <rule id="websphere-17000">
             <when>
                 <javaclass references="com.ibm.msg.client.jms.JmsQueueConnectionFactory" />
             </when>
@@ -278,7 +278,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="websphere-9Chwtg">
+        <rule id="websphere-18000">
             <when>
                 <javaclass references="com.ibm.msg.client.jms.JmsQueueReceiver" />
             </when>
@@ -294,7 +294,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="websphere-9Excrp">
+        <rule id="websphere-19000">
             <when>
                 <javaclass references="com.ibm.msg.client.jms.JmsQueueSender" />
             </when>
@@ -310,7 +310,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="websphere-A0unhw">
+        <rule id="websphere-20000">
             <when>
                 <javaclass references="com.ibm.msg.client.jms.JmsQueueSession" />
             </when>
@@ -326,7 +326,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="websphere-A2ftrv">
+        <rule id="websphere-21000">
             <when>
                 <javaclass references="com.ibm.msg.client.jms.JmsSession" />
             </when>
@@ -342,7 +342,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="websphere-A4xlnj">
+        <rule id="websphere-22000">
             <when>
                 <javaclass references="com.ibm.msg.client.jms.JmsTemporaryQueue" />
             </when>
@@ -358,7 +358,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="websphere-A6fomj">
+        <rule id="websphere-23000">
             <when>
                 <javaclass references="com.ibm.msg.client.jms.JmsTemporaryTopic" />
             </when>
@@ -374,7 +374,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="websphere-A8fdxg">
+        <rule id="websphere-24000">
             <when>
                 <javaclass references="com.ibm.msg.client.jms.JmsTopic" />
             </when>
@@ -390,7 +390,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="websphere-AAmni">
+        <rule id="websphere-25000">
             <when>
                 <javaclass references="com.ibm.msg.client.jms.JmsTopicConnection" />
             </when>
@@ -406,7 +406,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="websphere-ACogkm">
+        <rule id="websphere-26000">
             <when>
                 <javaclass references="com.ibm.msg.client.jms.JmsTopicConnectionFactory" />
             </when>
@@ -422,7 +422,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="websphere-AEjcgi">
+        <rule id="websphere-27000">
             <when>
                 <javaclass references="com.ibm.msg.client.jms.JmsTopicPublisher" />
             </when>
@@ -438,7 +438,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="websphere-B0qofa">
+        <rule id="websphere-28000">
             <when>
                 <javaclass references="com.ibm.msg.client.jms.JmsTopicSession" />
             </when>
@@ -454,7 +454,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="websphere-B2nxwp">
+        <rule id="websphere-29000">
             <when>
                 <javaclass references="com.ibm.msg.client.jms.JmsTopicSubscriber" />
             </when>
@@ -470,7 +470,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="websphere-B4jku">
+        <rule id="websphere-30000">
             <when>
                 <javaclass references="com.ibm.msg.client.jms.JmsXAConnection" />
             </when>
@@ -486,7 +486,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="websphere-B6dqem">
+        <rule id="websphere-31000">
             <when>
                 <javaclass references="com.ibm.msg.client.jms.JmsXAConnectionFactory" />
             </when>
@@ -502,7 +502,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="websphere-B8xgul">
+        <rule id="websphere-32000">
             <when>
                 <javaclass references="com.ibm.msg.client.jms.JmsXAQueueConnection" />
             </when>
@@ -518,7 +518,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="websphere-BAthln">
+        <rule id="websphere-33000">
             <when>
                 <javaclass references="com.ibm.msg.client.jms.JmsXAQueueConnectionFactory" />
             </when>
@@ -534,7 +534,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="websphere-BCoay">
+        <rule id="websphere-34000">
             <when>
                 <javaclass references="com.ibm.msg.client.jms.JmsXAQueueSession" />
             </when>
@@ -550,7 +550,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="websphere-BEckit">
+        <rule id="websphere-35000">
             <when>
                 <javaclass references="com.ibm.msg.client.jms.JmsXASession" />
             </when>
@@ -566,7 +566,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="websphere-C0esus">
+        <rule id="websphere-36000">
             <when>
                 <javaclass references="com.ibm.msg.client.jms.JmsXATopicConnection" />
             </when>
@@ -582,7 +582,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="websphere-C2uuii">
+        <rule id="websphere-37000">
             <when>
                 <javaclass references="com.ibm.msg.client.jms.JmsXATopicConnectionFactory" />
             </when>
@@ -598,7 +598,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="websphere-C4jldn">
+        <rule id="websphere-38000">
             <when>
                 <javaclass references="com.ibm.msg.client.jms.JmsXATopicSession" />
             </when>
@@ -614,7 +614,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="websphere-C6cmee">
+        <rule id="websphere-39000">
             <when>
                 <javaclass references="com.ibm.jms.JMSBytesMessage" />
             </when>
@@ -630,7 +630,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="websphere-C8tqr">
+        <rule id="websphere-40000">
             <when>
                 <javaclass references="com.ibm.jms.JMSMapMessage" />
             </when>
@@ -646,7 +646,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="websphere-CAlgfa">
+        <rule id="websphere-41000">
             <when>
                 <javaclass references="com.ibm.jms.JMSMessage" />
             </when>
@@ -662,7 +662,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="websphere-CChjdk">
+        <rule id="websphere-42000">
             <when>
                 <javaclass references="com.ibm.jms.JMSObjectMessage" />
             </when>
@@ -678,7 +678,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="websphere-CEvqia">
+        <rule id="websphere-43000">
             <when>
                 <javaclass references="com.ibm.jms.JMSStreamMessage" />
             </when>
@@ -694,7 +694,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="websphere-D0jhwe">
+        <rule id="websphere-44000">
             <when>
                 <javaclass references="com.ibm.jms.JMSTextMessage" />
             </when>
