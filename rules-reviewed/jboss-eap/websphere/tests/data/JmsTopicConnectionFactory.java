@@ -46,24 +46,20 @@ import com.ibm.jms.JMSStreamMessage;
 import com.ibm.jms.JMSTextMessage;
 
 /**
-Testing detection of com.ibm.websphere.sib.api.jms.JmsConnectionFactory
-**/
+ * Testing detection of com.ibm.websphere.sib.api.jms.JmsConnectionFactory
+ */
+public class JmsTopicConnectionFactory
+{
+    public static void main(String[] args) throws IOException, JMSException
+    {
+        JmsFactoryFactory fact = JmsFactoryFactory.getInstance();
+        JmsConnectionFactory connectionFact = fact.createConnectionFactory();
 
-public class ExampleClass {
-  
-  public static void main(String[] args) throws IOException, JMSException {
-    
-    JmsFactoryFactory fact = JmsFactoryFactory.getInstance();
-    JmsConnectionFactory connectionFact = fact.createConnectionFactory();
-    
-    connFact.setBusName("busName");
-    connFact.setProviderEndpoints("providerEndpoints");
-    connFact.setTargetTransportChain("transporationChain");
-    
-    Connection connection = connectionFact.createConnection();
-    
-  }
+        connFact.setBusName("busName");
+        connFact.setProviderEndpoints("providerEndpoints");
+        connFact.setTargetTransportChain("transporationChain");
+
+        Connection connection = connectionFact.createConnection();
+    }
 
 }
-
-

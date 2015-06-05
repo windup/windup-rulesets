@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 <ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset">
     <testDataPath>data</testDataPath>
-    <rulePath>../WebSphere.windup.xml</rulePath>
+    <rulePath>../</rulePath>
     <ruleset>
         <rules>
             <rule id="websphere-01000">
                 <when>
                     <not>
-                        <hint-exists message="This is a websphere specific interface and needs to be migrated to standardized javax.jms.TopicConnectionFactory"/>
+                        <hint-exists message="This is a websphere specific interface and needs to be migrated to javax.jms.TopicConnectionFactory"/>
                     </not>
                 </when>
                 <perform>
-                    <fail message="JmsTopicConnectionFactory was not detected"/>
+                    <fail message="com.ibm.websphere.sib.api.jms.JmsTopicConnectionFactory was not detected"/>
                 </perform>
             </rule>
 	         <rule id="websphere-02000">
@@ -257,16 +257,6 @@
             <rule id="websphere-26000">
                 <when>
                     <not>
-                        <hint-exists message="This is a websphere specific interface and needs to be migrated to standardized javax.jms.TopicConnectionFactory."/>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="JmsTopicConnectionFactory was not detected"/>
-                </perform>
-            </rule>
-            <rule id="websphere-27000">
-                <when>
-                    <not>
                         <hint-exists message="This is a websphere specific interface and needs to be migrated to standardized javax.jms.TopicPublisher."/>
                     </not>
                 </when>
@@ -274,7 +264,7 @@
                     <fail message="JmsTopicPublisher was not detected"/>
                 </perform>
             </rule>
-            <rule id="websphere-28000">
+            <rule id="websphere-27000">
                 <when>
                     <not>
                         <hint-exists message="This is a websphere specific interface and needs to be migrated to standardized javax.jms.TopicSession."/>
@@ -284,7 +274,7 @@
                     <fail message="JmsTopicSession was not detected"/>
                 </perform>
             </rule>
-            <rule id="websphere-29000">
+            <rule id="websphere-28000">
                 <when>
                     <not>
                         <hint-exists message="This is a websphere specific interface and needs to be migrated to standardized javax.jms.TopicSubscriber."/>
@@ -294,7 +284,7 @@
                     <fail message="JmsTopicSubscriber was not detected"/>
                 </perform>
             </rule>
-            <rule id="websphere-30000">
+            <rule id="websphere-29000">
                 <when>
                     <not>
                         <hint-exists message="This is a websphere specific interface and needs to be migrated to standardized javax.jms.XAConnection."/>
@@ -304,7 +294,7 @@
                     <fail message="JmsXAConnection was not detected"/>
                 </perform>
             </rule>
-            <rule id="websphere-31000">
+            <rule id="websphere-30000">
                 <when>
                     <not>
                         <hint-exists message="This is a websphere specific interface and needs to be migrated to standardized javax.jms.XAConnectionFactory."/>
@@ -314,7 +304,7 @@
                     <fail message="JmsXAConnectionFactory was not detected"/>
                 </perform>
             </rule>
-            <rule id="websphere-32000">
+            <rule id="websphere-31000">
                 <when>
                     <not>
                         <hint-exists message="This is a websphere specific interface and needs to be migrated to standardized javax.jms.XAQueueConnection."/>
@@ -324,7 +314,7 @@
                     <fail message="JmsXAQueueConnection was not detected"/>
                 </perform>
             </rule>
-            <rule id="websphere-33000">
+            <rule id="websphere-32000">
                 <when>
                     <not>
                         <hint-exists message="This is a websphere specific interface and needs to be migrated to standardized javax.jms.XAQueueConnectionFactory."/>
@@ -334,7 +324,7 @@
                     <fail message="JmsXAQueueConnectionFactory was not detected"/>
                 </perform>
             </rule>
-            <rule id="websphere-34000">
+            <rule id="websphere-33000">
                 <when>
                     <not>
                         <hint-exists message="This is a websphere specific interface and needs to be migrated to standardized javax.jms.XAQueueSession."/>
@@ -344,7 +334,7 @@
                     <fail message="JmsXAQueueSession was not detected"/>
                 </perform>
             </rule>
-            <rule id="websphere-35000">
+            <rule id="websphere-34000">
                 <when>
                     <not>
                         <hint-exists message="This is a websphere specific interface and needs to be migrated to standardized javax.jms.XASession."/>
@@ -354,7 +344,7 @@
                     <fail message="JmsXASession was not detected"/>
                 </perform>
             </rule>
-            <rule id="websphere-36000">
+            <rule id="websphere-35000">
                 <when>
                     <not>
                         <hint-exists message="This is a websphere specific interface and needs to be migrated to standardized javax.jms.XATopicConnection."/>
@@ -364,7 +354,7 @@
                     <fail message="JmsXATopicConnection was not detected"/>
                 </perform>
             </rule>
-            <rule id="websphere-37000">
+            <rule id="websphere-36000">
                 <when>
                     <not>
                         <hint-exists message="This is a websphere specific interface and needs to be migrated to standardized javax.jms.XATopicConnectionFactory."/>
@@ -374,7 +364,7 @@
                     <fail message="JmsXATopicConnectionFactory was not detected"/>
                 </perform>
             </rule>
-            <rule id="websphere-38000">
+            <rule id="websphere-37000">
                 <when>
                     <not>
                         <hint-exists message="This is a websphere specific interface and needs to be migrated to standardized javax.jms.XATopicSession."/>
@@ -384,7 +374,7 @@
                     <fail message="JmsXATopicSession was not detected"/>
                 </perform>
             </rule>
-            <rule id="websphere-39000">
+            <rule id="websphere-38000">
                 <when>
                     <not>
                         <hint-exists message="This is a websphere specific class and needs to be migrated to standardized javax.jms.ByteMessage."/>
@@ -393,8 +383,8 @@
                 <perform>
                     <fail message="JMSBytesMessage was not detected"/>
                 </perform>
-            </rule>            
-            <rule id="websphere-40000">
+            </rule>
+            <rule id="websphere-39000">
                 <when>
                     <not>
                         <hint-exists message="This is a websphere specific class and needs to be migrated to standardized javax.jms.MapMessage."/>
@@ -404,7 +394,7 @@
                     <fail message="JMSMapMessage was not detected"/>
                 </perform>
             </rule>
-            <rule id="websphere-41000">
+            <rule id="websphere-40000">
                 <when>
                     <not>
                         <hint-exists message="This is a websphere specific class and needs to be migrated to standardized javax.jms.Message."/>
@@ -414,7 +404,7 @@
                     <fail message="JMSMessage was not detected"/>
                 </perform>
             </rule>
-            <rule id="websphere-42000">
+            <rule id="websphere-41000">
                 <when>
                     <not>
                         <hint-exists message="This is a websphere specific class and needs to be migrated to standardized javax.jms.TopicPublisher."/>
@@ -424,7 +414,7 @@
                     <fail message="JMSObjectMessage was not detected"/>
                 </perform>
             </rule>
-            <rule id="websphere-43000">
+            <rule id="websphere-42000">
                 <when>
                     <not>
                         <hint-exists message="This is a websphere specific class and needs to be migrated to standardized javax.jms.StreamMessage."/>
@@ -434,7 +424,7 @@
                     <fail message="JMSStreamMessage was not detected"/>
                 </perform>
             </rule>
-            <rule id="websphere-44000">
+            <rule id="websphere-43000">
                 <when>
                     <not>
                         <hint-exists message="This is a websphere specific class and needs to be migrated to standardized javax.jms.TextMessage."/>
