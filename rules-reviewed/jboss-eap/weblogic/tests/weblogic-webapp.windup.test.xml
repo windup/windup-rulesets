@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+   <testDataPath>data-webapp</testDataPath>
+   <rulePath>../weblogic-webapp.windup.xml</rulePath>
+   <ruleset>
+       <rules>
+           <rule id="weblogic-webapp-01000-test">
+               <when>
+                  <not>
+                     <hint-exists message="Virtual directories supported in WebLogic are not supported in JBoss EAP." />
+                  </not>
+               </when>
+               <perform>
+                  <fail message="Virtual directories migration hint not found!"/>
+               </perform>
+           </rule>
+           <rule id="weblogic-webapp-02000-test">
+               <when>
+                  <not>
+                     <hint-exists message="Replace the proprietary WebLogic @WLServlet annotation with the Java EE 6 standard @WebServlet annotation.*" />
+                  </not>
+               </when>
+               <perform>
+                  <fail message="@WLServlet Annotation Hint not found!"/>
+               </perform>
+           </rule>
+           <rule id="weblogic-webapp-03000-test">
+               <when>
+                  <not>
+                     <hint-exists message="Replace the proprietary WebLogic @WLInitParam annotation with the Java EE 6 standard @WebInitParam annotation.*" />
+                  </not>
+               </when>
+               <perform>
+                   <fail message="@WLInitParam Annotation Hint not found!"/>
+               </perform>
+           </rule>
+           <rule id="weblogic-webapp-04000-test">
+               <when>
+                  <not>
+                     <hint-exists message="Replace the proprietary WebLogic @WLFilter annotation with the Java EE 6 standard @WebFilter annotation.*" />
+                  </not>
+               </when>
+               <perform>
+                   <fail message="@WLFilter Annotation Hint not found!"/>
+               </perform>
+           </rule>
+       </rules>
+   </ruleset>
+</ruletest>

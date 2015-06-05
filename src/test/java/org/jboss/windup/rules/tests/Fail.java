@@ -2,6 +2,7 @@ package org.jboss.windup.rules.tests;
 
 import org.jboss.windup.config.GraphRewrite;
 import org.jboss.windup.config.operation.GraphOperation;
+import org.ocpsoft.rewrite.config.Rule;
 import org.ocpsoft.rewrite.context.EvaluationContext;
 
 /**
@@ -28,7 +29,10 @@ public class Fail extends GraphOperation
     @Override
     public void perform(GraphRewrite event, EvaluationContext context)
     {
-        String message = this.message == null ? "Assertion failed!" : "Assertion failed: " + this.message;
+        Rule rule = (Rule) context.get(Rule.class);
+        String prefix = "(Rule: " + rule.getId() + ") Assertion failed";
+
+        String message = this.message == null ? prefix + "!" : prefix + ": " + this.message;
         throw new WindupAssertionException(message);
     }
 }
