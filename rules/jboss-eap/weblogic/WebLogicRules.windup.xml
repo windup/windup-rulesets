@@ -151,13 +151,13 @@
                 <iteration>
                     <hint effort="1">
                         <message><![CDATA[
-                            
+
                                 Migrate the NonCatalogLogger to Apache Log4j.
 
                                 ```java
                                 Logger LOG = Logger.getLog("Example");
                                 ```
-                        
+
                         ]]></message>
                     </hint>
                 </iteration>
@@ -326,57 +326,6 @@
                     <hint effort="1"><message>Migrate to: javax.jms.Session</message>
                     </hint>
                 </iteration>
-            </perform>
-        </rule>
-        <rule id="WebLogicRules-35000">
-            <when>
-                <javaclass references="weblogic.servlet.annotation.WLServlet" as="default">
-                    <location>ANNOTATION</location>
-                </javaclass>
-            </when>
-            <perform>  
-                <hint
-                    message="Replace the proprietary WebLogic @WLServlet annotation with the Java EE 6 standard @WebServlet annotation."
-                    effort="1">
-                    <link href="https://access.redhat.com/articles/1249423" description="Migrate WebLogic Proprietary Servlet Annotations" />
-                </hint>
-                <hint message="See the javax.servlet.annotation JavaDoc for more information." effort="0">
-                    <link href="http://docs.oracle.com/javaee/6/api/javax/servlet/annotation/package-summary.html"
-                        description="Java EE 6 Servlet annotation package summary" />
-                </hint>
-            </perform>
-        </rule>
-        <rule id="WebLogicRules-36000">
-            <when>
-                <javaclass references="weblogic.servlet.annotation.WLInitParam"  as="default">
-                    <location>ANNOTATION</location>
-                </javaclass>
-            </when>
-            <perform>
-                <hint message="Replace the proprietary WebLogic @WLInitParam annotation with the Java EE 6 standard @WebInitParam annotation."
-                    effort="2">
-                    <link href="https://access.redhat.com/articles/1249423" description="Migrate WebLogic Proprietary Servlet Annotations" />
-                </hint>
-                <hint message="See the javax.servlet.annotation JavaDoc for more information." effort="0">
-                    <link href="http://docs.oracle.com/javaee/6/api/javax/servlet/annotation/package-summary.html"
-                        description="Java EE 6 Servlet annotation package summary" />
-                </hint>
-            </perform>
-        </rule>
-        <rule id="WebLogicRules-37000">
-            <when>
-                <javaclass references="weblogic.servlet.annotation.WLFilter" as="default">
-                    <location>ANNOTATION</location>
-                </javaclass>
-            </when>
-            <perform>
-                <hint message="Replace the proprietary WebLogic @WLFilter annotation with the Java EE 6 standard @WebFilter annotation." effort="3">
-                        <link href="https://access.redhat.com/articles/1249423" description="Migrate WebLogic Proprietary Servlet Annotations" />
-                </hint>
-                <hint message="See the javax.servlet.annotation JavaDoc for more information." effort="0">
-                    <link href="http://docs.oracle.com/javaee/6/api/javax/servlet/annotation/package-summary.html"
-                        description="Java EE 6 Servlet annotation package summary" />
-                </hint>
             </perform>
         </rule>
     </rules>
