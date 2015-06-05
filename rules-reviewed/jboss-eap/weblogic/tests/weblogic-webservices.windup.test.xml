@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="weblogic-webservices-tests">
+    <testDataPath>data-webservicetests</testDataPath>
+    <rulePath>../</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="weblogic-webservices-01000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="WebLogic Web Service Implementation" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebLogic Web Service Implementation Not Found!"/>
+                </perform>
+            </rule>
+            <rule id="weblogic-webservices-02000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="Asynchronous Web Service Client" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Asynchronous Web Service Client not detected!"/>
+                </perform>
+            </rule>
+            <rule id="weblogic-webservices-03000-test">
+                <when>
+                    <not>
+                        <hint-exists message=".*Replace proprietary web-service authentication with JAX-WS standard calls. To attach authentication with JBoss EAP,*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="HttpTransportInfo.setUsername hint not detected!"/>
+                </perform>
+            </rule>
+            <rule id="weblogic-webservices-04000-test">
+                <when>
+                    <not>
+                        <hint-exists message='.*This code uses the WebLogic specific class "weblogic.wsee.context.WebServiceContext". This usage will need.*' />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebServiceContext hint not detected!"/>
+                </perform>
+            </rule>
+            <rule id="weblogic-webservices-05000-test">
+                <when>
+                    <not>
+                        <hint-exists message=".*This exception \(weblogic.wsee.context.ContextNotFoundException\) is WebLogic specific and can be removed.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="weblogic.wsee.context.ContextNotFoundException hint not detected!"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

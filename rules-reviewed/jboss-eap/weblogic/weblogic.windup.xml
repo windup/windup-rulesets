@@ -1,20 +1,187 @@
 <?xml version="1.0"?>
-<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="weblogic_rules_general"
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="weblogic"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <metadata>
         <description>
-            EXAMPLE RULESET STRUCTURE.
-            This ruleset provides analysis of WebLogic proprietary classes and constructs that may require individual attention when migrating to JBoss EAP 6+.
+            This ruleset provides analysis of WebLogic proprietary classes and constructs that may require
+            individual attention when migrating to JBoss EAP 6+.
         </description>
         <dependencies>
-            <addon id="org.jboss.windup.rules,windup-rules-javaee,2.2.0.Final"/>
-            <addon id="org.jboss.windup.rules,windup-rules-java,2.2.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,2.0.1.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-java,2.0.0.Final"/>
         </dependencies>
-        <sourceTechnology id="weblogic" versionRange="(10,12]"/>
+        <sourceTechnology id="weblogic"/>
         <targetTechnology id="eap" versionRange="[6,)"/>
-            <tag>reviewed-2015-05-21</tag>
+        <tag>reviewed-2015-06-02</tag>
     </metadata>
     <rules>
+        <rule id="weblogic-01000">
+            <when>
+                <javaclass references="weblogic.time.common.Triggerable">
+                    <location>IMPLEMENTS_TYPE</location>
+                </javaclass>
+            </when>
+            <perform>
+                <classification title="WebLogic Scheduled Job" effort="3" severity="mandatory">
+                    <link href="https://docs.oracle.com/javaee/6/tutorial/doc/bnboy.html" description="EJB Timer Service"/>
+                </classification>
+                <hint title="WebLogic Scheduled Job" effort="0" severity="mandatory">
+                    <message>
+                        WebLogic scheduled jobs should be migrated to use the EJB Timer Service.
+
+                        More information is available within the [Java EE 6 Tutorial](https://docs.oracle.com/javaee/6/tutorial/doc/bnboy.html).
+                    </message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="weblogic-02000">
+            <when>
+                <javaclass references="weblogic.utils.StringUtils.{*}"/>
+            </when>
+            <perform>
+                <hint title="WebLogic StringUtils Usage" effort="1" severity="mandatory">
+                    <message>Replace with the StringUtils class from Apache Commons.</message>
+                    <link href="https://commons.apache.org/proper/commons-lang/" description="Apache Commons Lang"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="weblogic-03000">
+            <when>
+                <javaclass references="weblogic.apache.xml.{*}"/>
+            </when>
+            <perform>
+                <hint title="WebLogic Specific Apache XML Package" effort="1" severity="mandatory">
+                    <message>
+                        Code using this package should be replaced with code using the org.apache.xml package from [Apache Xerces](http://xerces.apache.org/).
+                    </message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="weblogic-04000">
+            <when>
+                <javaclass references="weblogic.transaction.{classname}"/>
+            </when>
+            <perform>
+                <hint title="WebLogic TransactionManager Usage" effort="1" severity="mandatory">
+                    <message>Replace with the Java EE standard [javax.transaction.TransactionManager](http://docs.oracle.com/javaee/7/api/javax/transaction/TransactionManager.html)</message>
+                    <link href="http://docs.oracle.com/javaee/7/api/javax/transaction/TransactionManager.html" description="Java Enterprise Edition TransactionManager"/>
+                </hint>
+            </perform>
+            <where param="classname">
+                <matches pattern="(Client)*TransactionManager"/>
+            </where>
+        </rule>
+        <rule id="weblogic-05000">
+            <when>
+                <or>
+                    <javaclass references="weblogic.transaction.TransactionManager.resume{*}">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                    <javaclass references="weblogic.transaction.TransactionManager.forceResume{*}">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                    <javaclass references="weblogic.transaction.ClientTransactionManager.resume{*}">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                    <javaclass references="weblogic.transaction.ClientTransactionManager.forceResume{*}">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="WebLogic TransactionManager Usage" effort="1" severity="mandatory">
+                    <message>Replace with the Java EE standard method 'javax.transaction.TransactionManager.resume(Transaction tx)'.</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="weblogic-06000">
+            <when>
+                <or>
+                    <javaclass references="weblogic.transaction.TransactionManager.suspend{*}">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                    <javaclass references="weblogic.transaction.TransactionManager.forceSuspend{*}">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                    <javaclass references="weblogic.transaction.ClientTransactionManager.suspend{*}">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                    <javaclass references="weblogic.transaction.ClientTransactionManager.forceSuspend{*}">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="WebLogic TransactionManager Usage" effort="1" severity="mandatory">
+                    <message>Replace with the Java EE standard javax.transaction.TransactionManager.suspend()</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="weblogic-07000">
+            <when>
+                <javaclass references="weblogic.transaction.TxHelper">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="WebLogic TxHelper Usage" effort="1" severity="mandatory">
+                    <message>Remove the 'weblogic.transaction.TxHelper' import statement.</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="weblogic-08000">
+            <when>
+                <javaclass references="weblogic.transaction.{classname}.getTransactionManager()">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <iteration>
+                    <hint title="WebLogic ClientTxHelper" effort="1">
+                        <message>
+                            Look up the Java Enterprise Edition javax.transaction.TransactionManager in JBoss EAP using the following code:
+
+                            ```java
+                                InitialContext context = new InitialContext();
+                                TransactionManager transactionManager = (TransactionManager)context.lookup("java:jboss/TransactionManager");
+                            ```
+                        </message>
+                    </hint>
+                </iteration>
+            </perform>
+            <where param="classname">
+                <matches pattern="(Client)*TxHelper"/>
+            </where>
+        </rule>
+        <rule id="weblogic-09000">
+            <when>
+                <javaclass references="weblogic.jdbc.vendor.oracle.OracleThinClob"/>
+            </when>
+            <perform>
+                <hint title="WebLogic JDBC Code" effort="1" severity="mandatory">
+                    <message>
+                        This Oracle and WebLogic specific code (OracleThinClob) should be replaced with the use
+                        of the java.sql.Clob interface.
+                    </message>
+                    <link href="https://docs.oracle.com/database/121/JAJDB/oracle/jdbc/class-use/OracleClob.html" description="Oracle JDBC Documentation"/>
+                    <link href="http://docs.oracle.com/javase/7/docs/api/java/sql/Clob.html" description="java.sql.Clob interface"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="weblogic-10000">
+            <when>
+                <javaclass references="weblogic.jdbc.vendor.oracle.OracleThinClob.getCharacterOutputStream()"/>
+            </when>
+            <perform>
+                <hint title="WebLogic JDBC Code" effort="1" severity="mandatory">
+                    <message>
+                        This code is specific to WebLogic and should be replaced with java.sql.Clob.setCharacterStream(1)
+                    </message>
+                    <link href="https://docs.oracle.com/database/121/JAJDB/oracle/jdbc/class-use/OracleClob.html" description="Oracle JDBC Documentation"/>
+                    <link href="http://docs.oracle.com/javase/7/docs/api/java/sql/Clob.html" description="java.sql.Clob interface"/>
+                </hint>
+            </perform>
+        </rule>
     </rules>
 </ruleset>

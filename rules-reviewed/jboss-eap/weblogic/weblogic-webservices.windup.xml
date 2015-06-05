@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="weblogic-webservices">
+    <metadata>
+        <description>
+            This ruleset contains rules to detect WebLogic specific web services code, and to assist in the conversion of this code
+            to code that is compatible with JBoss EAP.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,2.3.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-java,2.3.0.Final"/>
+        </dependencies>
+        <sourceTechnology id="weblogic"/>
+        <targetTechnology id="eap" versionRange="[6,)"/>
+        <tag>reviewed-2015-06-02</tag>
+        <tag>webservices</tag>
+    </metadata>
+    <rules>
+        <rule id="weblogic-webservices-01000">
+            <when>
+                <javaclass references="weblogic.wsee.jaxrpc.ServiceImpl">
+                    <location>INHERITANCE</location>
+                </javaclass>
+            </when>
+            <perform>
+                <classification title="WebLogic Web Service Implementation" effort="1" severity="mandatory"/>
+                <hint title="WebLogic Service Implementation Class" severity="mandatory">
+                    <message>
+                        This web service stub was generated with a WebLogic tool. This will need to be regenerated using the web services
+                        tools within JBoss.
+
+                        See the [JAX-WS Web Service](https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Development_Guide/sect-JAX-WS_Web_service_Clients.html)
+                        guide for more information.
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Development_Guide/sect-JAX-WS_Web_service_Clients.html" description="JAX-WS Web Service Clients"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="weblogic-webservices-02000">
+            <when>
+                <javaclass references="weblogic.wsee.async.AsyncPreCallContext"/>
+            </when>
+            <perform>
+                <classification title="Asynchronous Web Service Client" effort="8" severity="mandatory">
+                    <link href="http://docs.oracle.com/cd/E15051_01/wls/docs103/webserv_adv_rpc/asynch.html" description="WebLogic Asynchronous Execution Documentation"/>
+                    <link href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Development_Guide/Develop_a_JAX-WS_Client_Application.html" description="Develop a JAX-WS Client Application"/>
+                </classification>
+                <hint title="WebLogic Asynchronous Call" effort="0" severity="mandatory">
+                    <message>
+                        The WebLogic specific Asynchronous Web Service Client API will need to be replaced with calls to the JAX-WS asynchronous API.
+
+                        More information is available in the [JBoss EAP documentation](https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Development_Guide/Develop_a_JAX-WS_Client_Application.html).
+                    </message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="weblogic-webservices-03000">
+            <when>
+                <javaclass references="weblogic.wsee.connection.transport.http.HttpTransportInfo.setUsername({*})">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint effort="3" severity="mandatory">
+                    <message><![CDATA[
+                        Replace proprietary web-service authentication with JAX-WS standard calls. To attach authentication with JBoss EAP,
+                        simply use the following code:
+
+                        ```java
+                        URL wsdlURL = new File("resources/jaxws/samples/context/WEB-INF/wsdl/TestEndpoint.wsdl").toURL();
+                        QName qname = new QName("http://org.jboss.ws/jaxws/context", "TestEndpointService");
+                        Service service = Service.create(wsdlURL, qname);
+                        port = (TestEndpoint)service.getPort(TestEndpoint.class);
+
+                        BindingProvider bp = (BindingProvider)port;
+                        bp.getRequestContext().put(BindingProvider.USERNAME_PROPERTY, "jsmith");
+                        bp.getRequestContext().put(BindingProvider.PASSWORD_PROPERTY, "PaSSw0rd");
+                        ```
+                    ]]></message>
+                    <link href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/5/html/Web_Services_CXF_User_Guide/sect-Authentication.html" description="JBoss EAP CXF User Guide"/>
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="weblogic-webservices-04000">
+            <when>
+                <javaclass references="weblogic.wsee.context.WebServiceContext"/>
+            </when>
+            <perform>
+                <hint title="WebLogic Specific Web Services API Usage" effort="1" severity="mandatory">
+                    <message>
+                        This code uses the WebLogic specific class "weblogic.wsee.context.WebServiceContext". This usage will need
+                        to be replaced with the Java Enterprise Edition standard "javax.xml.WebServiceContext" interface.
+
+                        Example code:
+
+                        ```java
+                            @Resource
+                            private WebServiceContext webServiceContext;
+                        ```
+                    </message>
+                    <link href="http://docs.oracle.com/javaee/6/api/javax/xml/ws/WebServiceContext.html" description="javax.xml.WebServiceContext Documentation"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="weblogic-webservices-05000">
+            <when>
+                <javaclass references="weblogic.wsee.context.ContextNotFoundException"/>
+            </when>
+            <perform>
+                <hint title="WebLogic Specific Web Services API Usage" effort="1" severity="mandatory">
+                    <message>
+                        This exception (weblogic.wsee.context.ContextNotFoundException) is WebLogic specific and can be removed.
+                    </message>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
