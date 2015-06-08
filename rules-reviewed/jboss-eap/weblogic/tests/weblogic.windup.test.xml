@@ -105,6 +105,16 @@
                     <fail message="Note about proprietary OracleThinClob.getCharacterOutputStream()!"/>
                 </perform>
             </rule>
+            <rule id="weblogic-11000-test">
+                <when>
+                    <not>
+                        <hint-exists message="The WebLogic NonCatalogLogger is not supported.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint for WebLogic NonCatalogLogger not found"/>
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>

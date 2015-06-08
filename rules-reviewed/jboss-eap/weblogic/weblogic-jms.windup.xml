@@ -1,0 +1,176 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="weblogic-jms" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <metadata>
+        <description>
+            This ruleset provides analysis of WebLogic proprietary classes and constructs for the Java Message Service that may require
+            individual attention when migrating to JBoss EAP 6+.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,2.3.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,2.3.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,2.30.Final" />
+        </dependencies>
+        <sourceTechnology id="weblogic" />
+        <targetTechnology id="eap" versionRange="[6,)" />
+        <tag>reviewed-2015-06-08</tag>
+    </metadata>
+    <rules>
+        <rule id="weblogic-jms-00000">
+            <when>
+                <javaclass references="oracle.jms.{*}" />
+            </when>
+            <perform>
+                <classification title="Oracle JMS" effort="1" severity="mandatory">
+                    <link href="http://docs.oracle.com/cd/B10501_01/appdev.920/a96609/toc.htm" description="Oracle 9i JMS Documentation" />
+                    <link href="https://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html" description="Java EE JMS Documentation" />
+                    <tag>JMS</tag>
+                </classification>
+            </perform>
+        </rule>
+
+        <rule id="weblogic-jms-01000">
+            <when>
+                <javaclass references="oracle.jms.AQjmsSession" />
+            </when>
+            <perform>
+                <hint title="Oracle JMS Session" effort="1" severity="mandatory">
+                    <message>
+                        Oracle JMS sessions are used for producing and consuming messaging API objects such as message producers, message
+                        consumers, messages, queue browsers, and temporary queues and topics.
+
+                        This reference should be replaced with the Java EE
+                        standard API: `javax.jms.Session`.
+                    </message>
+                    <link href="https://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html#bncen" description="Java EE JMS Session" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="weblogic-jms-02000">
+            <when>
+                <javaclass references="oracle.jms.AQjmsQueueBrowser" />
+            </when>
+            <perform>
+                <hint title="Oracle JMS Queue Browser" effort="1" severity="mandatory">
+                    <message>
+                        Oracle JMS queue browsers are used for browsing messages in a JMS queue.
+
+                        This reference should be replaced with the Java
+                        EE standard API: `javax.jms.QueueBrowser`.
+                    </message>
+                    <link href="https://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html#bncey" description="Java EE JMS Queue Browser" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="weblogic-jms-03000">
+            <when>
+                <javaclass references="oracle.jms.AQjmsProducer" />
+            </when>
+            <perform>
+                <hint title="Oracle JMS Producer" effort="1" severity="mandatory">
+                    <message>
+                        Oracle JMS producers are used for sending messages to a destination.
+
+                        This reference should be replaced with the Java
+                        EE
+                        standard API: `javax.jms.MessageProducer`.
+                    </message>
+                    <link href="https://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html#bnceo" description="Java EE JMS Message Producer" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="weblogic-jms-04000">
+            <when>
+                <javaclass references="oracle.jms.AQjmsConsumer" />
+            </when>
+            <perform>
+                <hint title="Oracle JMS Consumer" effort="1" severity="mandatory">
+                    <message>
+                        Oracle JMS consumers are used for receiving messages sent to a destination.
+
+                        This reference should be replaced with the
+                        Java EE standard API: `javax.jms.MessageConsumer`.
+                    </message>
+                    <link href="https://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html#bnceo" description="Java EE JMS Message Consumer" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="weblogic-jms-05000">
+            <when>
+                <javaclass references="oracle.jms.AQjmsConnection" />
+            </when>
+            <perform>
+                <hint title="Oracle JMS Consumer" effort="1" severity="mandatory">
+                    <message>
+                        Oracle JMS connections represent virtual connections with a JMS provider.
+
+                        This reference should be replaced with the
+                        Java
+                        EE standard API: `javax.jms.Connection`.
+                    </message>
+                    <link href="https://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html#bncem" description="Java EE JMS Connections" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="weblogic-jms-06000">
+            <when>
+                <javaclass references="oracle.jms.AQjms{type}Message" />
+            </when>
+            <perform>
+                <hint title="Oracle JMS {type}Message" effort="1" severity="mandatory">
+                    <message>
+                        Oracle JMS {type} messages represent the actual data passed through JMS destinations.
+
+                        This reference should be replaced
+                        with the
+                        Java
+                        EE standard API: `javax.jms.{type}Message`.
+                    </message>
+                    <link href="https://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html#bnces" description="Java EE JMS Message API" />
+                </hint>
+            </perform>
+            <where param="type">
+                <matches pattern="(Text|Stream|Object|Map|Bytes)?" />
+            </where>
+        </rule>
+        <rule id="weblogic-jms-07000">
+            <when>
+                <javaclass references="oracle.jms.AQjmsDestination" />
+            </when>
+            <perform>
+                <hint title="Oracle JMS Destination" effort="1" severity="mandatory">
+                    <message>
+                        Oracle JMS destinations are the objects a client uses to specify the target of messages it produces and the source of
+                        messages it consumes.
+
+                        This reference should be replaced with the
+                        Java
+                        EE standard API: `javax.jms.Destination`.
+                    </message>
+                    <link href="https://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html#bncel" description="Java EE JMS Destinations" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="weblogic-jms-08000">
+            <when>
+                <javaclass references="oracle.jms.AQjms{type}ConnectionFactory" />
+            </when>
+            <perform>
+                <hint title="Oracle JMS {type} Connection Factory" effort="1" severity="mandatory">
+                    <message>
+                        Oracle {type}ConnectionFactory is an encapsulation of JMS servers to which Connections can be created for message distribution.
+
+                        This reference should be replaced with the
+                        Java
+                        EE standard API: `javax.jms.{type}ConnectionFactory`.
+                    </message>
+                    <link href="https://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html#bncek" description="Java EE JMS Connection factories" />
+                </hint>
+            </perform>
+            <where param="type">
+                <matches pattern="(Topic|Queue)?" />
+            </where>
+        </rule>
+    </rules>
+</ruleset>
