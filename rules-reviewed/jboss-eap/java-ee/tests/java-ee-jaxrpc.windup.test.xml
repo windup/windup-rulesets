@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ruletest id="java-ee-jaxrpc-tests" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <testDataPath>data</testDataPath>
+    <rulePath>../</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="java-ee-jaxrpc-00000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="JAX-RPC Generic Handler" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="JAX-RPC Generic Handler classification not found." />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

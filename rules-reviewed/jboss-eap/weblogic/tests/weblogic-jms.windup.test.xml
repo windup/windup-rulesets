@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+<ruletest id="weblogic-jms-tests" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <testDataPath>data-jms</testDataPath>
+    <rulePath>../</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="weblogic-jms-00000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="Oracle JMS" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Oracle JMS classification not found." />
+                </perform>
+            </rule>
+            <rule id="weblogic-jms-01000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Oracle JMS sessions are used for producing.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Oracle JMS Session hint not found" />
+                </perform>
+            </rule>
+            <rule id="weblogic-jms-02000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Oracle JMS queue browsers are used for browsing messages in a JMS queue.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Oracle JMS queue browser hint not found" />
+                </perform>
+            </rule>
+            <rule id="weblogic-jms-03000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Oracle JMS producers are used for sending messages to a destination.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Oracle JMS producer hint not found" />
+                </perform>
+            </rule>
+            <rule id="weblogic-jms-04000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Oracle JMS consumers are used for receiving messages sent to a destination.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Oracle JMS consumer hint not found" />
+                </perform>
+            </rule>
+            <rule id="weblogic-jms-05000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Oracle JMS connections represent virtual connections with a JMS provider.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Oracle JMS connection hint not found" />
+                </perform>
+            </rule>
+            <rule id="weblogic-jms-06000-test-1">
+                <when>
+                    <not>
+                        <hint-exists message="Oracle JMS Text messages represent.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Oracle JMS Text message hint not found" />
+                </perform>
+            </rule>
+            <rule id="weblogic-jms-06000-test-2">
+                <when>
+                    <not>
+                        <hint-exists message="Oracle JMS Stream messages represent.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Oracle JMS Stream message hint not found" />
+                </perform>
+            </rule>
+            <rule id="weblogic-jms-06000-test-3">
+                <when>
+                    <not>
+                        <hint-exists message="Oracle JMS Object messages represent.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Oracle JMS Object message hint not found" />
+                </perform>
+            </rule>
+            <rule id="weblogic-jms-06000-test-4">
+                <when>
+                    <not>
+                        <hint-exists message="Oracle JMS Map messages represent.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Oracle JMS Map message hint not found" />
+                </perform>
+            </rule>
+            <rule id="weblogic-jms-06000-test-5">
+                <when>
+                    <not>
+                        <hint-exists message="Oracle JMS Bytes messages represent.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Oracle JMS Bytes message hint not found" />
+                </perform>
+            </rule>
+            <rule id="weblogic-jms-06000-test-6">
+                <when>
+                    <not>
+                        <hint-exists message="Oracle JMS  messages represent.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Oracle JMS Message hint not found" />
+                </perform>
+            </rule>
+            <rule id="weblogic-jms-07000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Oracle JMS destinations are the objects.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Oracle JMS Destination hint not found" />
+                </perform>
+            </rule>
+            <rule id="weblogic-jms-08000-test-1">
+                <when>
+                    <not>
+                        <hint-exists message="Oracle ConnectionFactory is an encapsulation.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Oracle ConnectionFactory hint not found" />
+                </perform>
+            </rule>
+            <rule id="weblogic-jms-08000-test-2">
+                <when>
+                    <not>
+                        <hint-exists message="Oracle QueueConnectionFactory is an encapsulation.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Oracle QueueConnectionFactory hint not found" />
+                </perform>
+            </rule>
+            <rule id="weblogic-jms-08000-test-3">
+                <when>
+                    <not>
+                        <hint-exists message="Oracle TopicConnectionFactory is an encapsulation.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Oracle TopicConnectionFactory hint not found" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
