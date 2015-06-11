@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<weblogic-webservices
+   xmlns:wl="http://www.bea.com/ns/weblogic/weblogic-webservices">
+  <webservice-description>
+   <webservice-description-name>MyService</webservice-description-name>
+    <port-component>
+      <port-component-name>MyServiceServicePort</port-component-name>
+      <service-endpoint-address>
+        <webservice-contextpath>/MyService</webservice-contextpath>
+        <webservice-serviceuri>/MyService</webservice-serviceuri>
+      </service-endpoint-address>
+      <wsat-config>
+        <version>WSAT10</version>
+        <flowType>SUPPORTS</flowType>
+      </wsat-config>
+      <reliability-config>
+        <inactivity-timeout>P0DT600S</inactivity-timeout>
+        <base-retransmission-interval>P0DT3S</base-retransmission-interval>
+        <retransmission-exponential-backoff>true
+        </retransmission-exponential-backoff>
+        <acknowledgement-interval>P0DT3S</acknowledgement-interval>
+        <sequence-expiration>P1D</sequence-expiration>
+        <buffer-retry-count>3</buffer-retry-count>
+        <buffer-retry-delay>P0DT5S</buffer-retry-delay>
+      </reliability-config>
+    </port-component>
+  </webservice-description>
+</weblogic-webservices>
