@@ -52,9 +52,6 @@
             </when>
             <perform>
                 <iteration>
-                    <hint title="WebLogic EJB specific configuration" severity="optional" effort="0">
-                        <message>WebLogic Specific Transaction Property Delay Updates</message>
-                    </hint>
                     <hint title="Mapping of delay-updates-until-end-of-tx to JBoss EAP 6 configuration element" severity="optional" effort="1">
                         <message>
                             This element in the weblogic-ejb-jar.xml file, which defaults to True, 
@@ -95,12 +92,9 @@
                 </xmlfile>
             </when>
             <perform>
-                <iteration>
-                    <classification title="WebLogic EJB XML" severity="mandatory" effort="3">
-                        <link href="https://access.redhat.com/articles/1326823" description="Map weblogic-ejb-jar.xml Elements to the jboss-ejb3.xml Descriptor" />
-                    </classification>                        
-                    <!-- xslt description="JBoss EJB Descriptor (Windup-Generated)" template="transformations/xslt/weblogic9-ejb-to-jboss.xsl" extension="-jboss.xml"/-->
-                </iteration>
+                <classification title="WebLogic EJB XML" severity="mandatory" effort="3">
+                    <link href="https://access.redhat.com/articles/1326823" description="Map weblogic-ejb-jar.xml Elements to the jboss-ejb3.xml Descriptor" />
+                </classification>                        
             </perform>
         </rule>
         <rule id="weblogic-xml-descriptor-06000">
@@ -110,12 +104,9 @@
                 </xmlfile>
             </when>
             <perform>
-                <iteration>
-                    <classification title="WebLogic EJB XML" severity="mandatory" effort="3">
-                        <link href="https://access.redhat.com/articles/1326823" description="Map weblogic-ejb-jar.xml Elements to the jboss-ejb3.xml Descriptor" />
-                    </classification>                        
-                    <!-- xslt description="JBoss EJB Descriptor (Windup-Generated)" template="transformations/xslt/weblogic10-ejb-to-jboss.xsl" extension="-jboss.xml"/-->
-                </iteration>
+                <classification title="WebLogic EJB XML" severity="mandatory" effort="3">
+                    <link href="https://access.redhat.com/articles/1326823" description="Map weblogic-ejb-jar.xml Elements to the jboss-ejb3.xml Descriptor" />
+                </classification>                        
             </perform>
         </rule>
         <!-- TODO WINDUP-641 -->
@@ -126,10 +117,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <iteration>
-                    <classification title="WebLogic SOAP Client Mapping" severity="mandatory" effort="5">
-                    </classification>
-                </iteration>
+                <classification title="WebLogic SOAP Client Mapping" severity="mandatory" effort="5"/>
             </perform>
         </rule>
         <!-- TODO NOT FINISHED do we need this? java to WSDL is generated or not?
@@ -173,7 +161,6 @@
             <perform>
                 <iteration over="webservices">
                     <classification title="WebLogic Webservice Descriptor" effort="3" severity="mandatory" description="weblogic-webservices can be migrated to jboss-webservices.xml descriptor or to Annotation based configuration">
-                        <!-- link href="" description="" /-->
                     </classification>
                 </iteration>
                 <!-- no KB article WINDUP-639 -->
@@ -196,8 +183,6 @@
                     <classification title="WebLogic JMS Descriptor" severity="mandatory" effort="2">
                         <link href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#sect-Configuration" description="EAP 6 JMS Server configuration" />
                     </classification>
-                    <!-- xslt file is to the old messaging server configuration -->
-                    <!-- xslt description="JBoss Messaging Queue/Topic Configuration (Windup-Generated)" template="transformations/xslt/weblogic-jms-to-jboss-messaging.xsl" extension="-jms-queuetopic-service.xml"/-->
                 </iteration>
             </perform>
         </rule>
@@ -210,13 +195,10 @@
                 </xmlfile>
             </when>
             <perform>
-                <iteration>
-                    <classification title="WebLogic Web Application Descriptor" severity="mandatory" effort="3">
-                        <link href="https://access.redhat.com/articles/1326803" description="Migrate Oracle WebLogic Server Configuration Files and Descriptors to the JBoss EAP 6 Equivalent"/>
-                        <link href="https://access.redhat.com/articles/1327803" description="Map weblogic.xml Configurations to JBoss"/>
-                    </classification>
-                    <!-- xslt description="JBoss Web EAP5 (Windup-Generated)" template="transformations/xslt/weblogic-jboss5-web-xml.xsl" extension="-jboss-web.xml"/-->
-                </iteration>
+                <classification title="WebLogic Web Application Descriptor" severity="mandatory" effort="3">
+                    <link href="https://access.redhat.com/articles/1326803" description="Migrate Oracle WebLogic Server Configuration Files and Descriptors to the JBoss EAP 6 Equivalent"/>
+                    <link href="https://access.redhat.com/articles/1327803" description="Map weblogic.xml Configurations to JBoss"/>
+                </classification>
             </perform>
         </rule>
         <!-- TODO this rule is unclear -->
@@ -226,9 +208,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <iteration>
-                    <classification title="WebLogic RMI XML Version 1.x" severity="mandatory" effort="0"/>
-                </iteration>
+                <classification title="WebLogic RMI XML Version 1.x" severity="mandatory" effort="0"/>
             </perform>
         </rule>
         <rule id="weblogic-xml-descriptor-14000">
@@ -238,9 +218,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <iteration>
-                    <classification title="WebLogic Webservice Type Mapping" severity="mandatory" effort="0"/>
-                </iteration>
+	            <classification title="WebLogic Webservice Type Mapping" severity="mandatory" effort="0"/>
             </perform>
         </rule>
         <rule id="weblogic-xml-descriptor-15000">
@@ -250,9 +228,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <iteration>
-                    <classification title="WebLogic Services Configuration" description="WebLogic specific configuration of web services runtime parameters" severity="mandatory" effort="0"/>
-                </iteration>
+                <classification title="WebLogic Services Configuration" description="WebLogic specific configuration of web services runtime parameters" severity="mandatory" effort="0"/>
             </perform>
         </rule>
         <rule id="weblogic-xml-descriptor-16000">
@@ -261,9 +237,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <iteration>
-                    <classification title="WebLogic-specific Webservice Ant Tasks" severity="optional" effort="13"/>                    
-                </iteration>
+                <classification title="WebLogic-specific Webservice Ant Tasks" severity="optional" effort="13"/>                    
             </perform>
         </rule>
         <rule id="weblogic-xml-descriptor-17000">
@@ -273,9 +247,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <iteration>
-                    <classification title="WebLogic Annotation Manifest" effort="7" severity="mandatory" description="Externally configured value can override the value set for that property by a metada annotation but not the value set by a setter method."/>
-                </iteration>
+                <classification title="WebLogic Annotation Manifest" effort="7" severity="mandatory" description="Externally configured value can override the value set for that property by a metada annotation but not the value set by a setter method."/>
             </perform>
         </rule>
     </rules>
