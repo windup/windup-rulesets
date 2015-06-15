@@ -1,192 +1,165 @@
 <?xml version="1.0"?>
-<ruletest id="weblogic-xml-descriptors-tests" xmlns="http://windup.jboss.org/schema/jboss-ruleset"
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+<ruletest id="weblogic-xml-descriptors-tests" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
 
-   <testDataPath>data</testDataPath>
-   <rulePath>../</rulePath>
-   <ruleset>
-      <rules>
-         <rule id="weblogic-xml-descriptors-01000-test">
-            <when>
-               <not>
-                   <or>
-                       <classification-exists classification="WebLogic EAR Application Descriptor" />    
-                       <!-- hint-exists message="weblogic-application.xml Elements mapping" /-->
-                   </or>
-                  
-               </not>
-            </when>
-            <perform>
-               <fail
-                  message="WebLogic EAR Application Descriptor - weblogic-application was not recognized!" />
-            </perform>
-         </rule>
-         <rule id="weblogic-xml-descriptors-02000-test">
-            <when>
-               <not>
-                  <classification-exists
-                     classification="WebLogic Entity EJB Configuration" />
-               </not>
-            </when>
-            <perform>
-               <fail message="WebLogic Entity EJB Configuration was not recognized!" />
-            </perform>
-         </rule>
-         <rule id="weblogic-xml-descriptors-03000-test">
-            <when>
-               <not>
-                  <hint-exists
-                     message="This element in the weblogic-ejb-jar.xml file, which defaults to True,.*" />
-               </not>
-            </when>
-            <perform>
-               <fail message="WebLogic EJB parameter delay-updates-until-end-of-tx not found!" />
-            </perform>
-         </rule>
-         <rule id="weblogic-xml-descriptors-04000-test">
-            <when>
-               <not>
-                  <classification-exists
-                     classification="WebLogic EJB XML" />
-               </not>
-            </when>
-            <perform>
-               <fail message="WebLogic EJB XML descriptor was not found!" />
-            </perform>
-         </rule>
-         <rule id="weblogic-xml-descriptors-05000-test">
-            <when>
-               <not>
-                  <classification-exists
-                     classification="WebLogic EJB XML" />
-               </not>
-            </when>
-            <perform>
-               <fail message="WebLogic EJB XML descriptor was not found!" />
-            </perform>
-         </rule>
-         <rule id="weblogic-xml-descriptors-06000-test">
-            <when>
-               <not>
-                  <classification-exists
-                     classification="WebLogic EJB XML" />
-               </not>
-            </when>
-            <perform>
-               <fail message="WebLogic EJB XML not found!" />
-            </perform>
-         </rule>
-         <rule id="weblogic-xml-descriptors-07000-test">
-            <when>
-               <not>
-                  <classification-exists
-                     classification="WebLogic SOAP Client" />
-               </not>
-            </when>
-            <perform>
-               <fail message="WebLogic SOAP Client classification not found!" />
-            </perform>
-         </rule>
-         <rule id="weblogic-xml-descriptors-09000-test">
-            <when>
-               <not>
-                  <classification-exists
-                     classification="WebLogic Webservice Policy" />
-               </not>
-            </when>
-            <perform>
-               <fail message="WebLogic Webservice Policy was not found!" />
-            </perform>
-         </rule>
-         <rule id="weblogic-xml-descriptors-10000-test">
-            <when>
-               <not>
-                  <classification-exists
-                     classification="WebLogic Webservice Descriptor" />
-               </not>
-            </when>
-            <perform>
-               <fail message="WebLogic Webservice Descriptor not found!" />
-            </perform>
-         </rule>
-         <rule id="weblogic-xml-descriptors-11000-test">
-            <when>
-               <not>
-                  <classification-exists
-                     classification="WebLogic JMS Descriptor" />
-               </not>
-            </when>
-            <perform>
-               <fail message="WebLogic JMS Descriptor not found!" />
-            </perform>
-         </rule>
-         <rule id="weblogic-xml-descriptors-12000-test">
-            <when>
-               <not>
-                  <classification-exists
-                     classification="WebLogic Web Application Descriptor" />
-               </not>
-            </when>
-            <perform>
-               <fail message="WebLogic Web Application Descriptor not found!" />
-            </perform>
-         </rule>
-         <!--  rule id="weblogic-xml-descriptors-13000-test">
-            <when>
-               <not>
-                  <classification-exists
-                     classification="" />
-               </not>
-            </when>
-            <perform>
-               <fail message="" />
-            </perform>
-         </rule-->
-         <rule id="weblogic-xml-descriptors-14000-test">
-            <when>
-               <not>
-                  <classification-exists
-                     classification="WebLogic Webservice Type Mapping" />
-               </not>
-            </when>
-            <perform>
-               <fail message="WebLogic Webservice Type Mapping not found!" />
-            </perform>
-         </rule>
-         <rule id="weblogic-xml-descriptors-15000-test">
-            <when>
-               <not>
-                  <classification-exists
-                     classification="WebLogic Services Configuration" />
-               </not>
-            </when>
-            <perform>
-               <fail message="WebLogic Services Runtime Configuration was not found!" />
-            </perform>
-         </rule>
-         <rule id="weblogic-xml-descriptors-16000-test">
-            <when>
-               <not>
-                  <classification-exists
-                     classification="WebLogic-specific Webservice Ant Tasks" />
-               </not>
-            </when>
-            <perform>
-               <fail message="WebLogic-specific Webservice Ant Tasks not found!" />
-            </perform>
-         </rule>
-         <rule id="weblogic-xml-descriptor-17000-test">
-            <when>
-               <not>
-                  <classification-exists
-                     classification="WebLogic Annotation Manifest" />
-               </not>
-            </when>
-            <perform>
-               <fail message="WebLogic Annotation Manifest was not found!" />
-            </perform>
-         </rule>
-      </rules>
-   </ruleset>
+    <testDataPath>data</testDataPath>
+    <rulePath>../</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="weblogic-xml-descriptors-01000-test">
+                <when>
+                    <not>
+                        <or>
+                            <classification-exists classification="WebLogic EAR Application Descriptor" />
+                        </or>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebLogic EAR Application Descriptor - weblogic-application was not recognized!" />
+                </perform>
+            </rule>
+            <rule id="weblogic-xml-descriptors-02000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="WebLogic Entity EJB Configuration" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebLogic Entity EJB Configuration was not recognized!" />
+                </perform>
+            </rule>
+            <rule id="weblogic-xml-descriptors-03000-test">
+                <when>
+                    <not>
+                        <hint-exists message=".*delay-updates-until-end-of-tx.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebLogic EJB parameter delay-updates-until-end-of-tx not found!" />
+                </perform>
+            </rule>
+            <rule id="weblogic-xml-descriptors-04000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="WebLogic EJB XML" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebLogic EJB XML descriptor was not found!" />
+                </perform>
+            </rule>
+            <rule id="weblogic-xml-descriptors-05000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="WebLogic EJB XML" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebLogic EJB XML descriptor was not found!" />
+                </perform>
+            </rule>
+            <rule id="weblogic-xml-descriptors-06000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="WebLogic EJB XML" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebLogic EJB XML not found!" />
+                </perform>
+            </rule>
+            <rule id="weblogic-xml-descriptors-07000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="WebLogic SOAP Client" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebLogic SOAP Client classification not found!" />
+                </perform>
+            </rule>
+            <rule id="weblogic-xml-descriptors-09000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="WebLogic Webservice Policy" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebLogic Webservice Policy was not found!" />
+                </perform>
+            </rule>
+            <rule id="weblogic-xml-descriptors-10000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="WebLogic Webservice Descriptor" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebLogic Webservice Descriptor not found!" />
+                </perform>
+            </rule>
+            <rule id="weblogic-xml-descriptors-11000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="WebLogic JMS Descriptor" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebLogic JMS Descriptor not found!" />
+                </perform>
+            </rule>
+            <rule id="weblogic-xml-descriptors-12000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="WebLogic Web Application Descriptor" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebLogic Web Application Descriptor not found!" />
+                </perform>
+            </rule>
+            <!-- rule id="weblogic-xml-descriptors-13000-test"> <when> <not> <classification-exists classification="" /> </not> </when> <perform> <fail 
+                message="" /> </perform> </rule -->
+            <rule id="weblogic-xml-descriptors-14000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="WebLogic Webservice Type Mapping" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebLogic Webservice Type Mapping not found!" />
+                </perform>
+            </rule>
+            <rule id="weblogic-xml-descriptors-15000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="WebLogic Services Configuration" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebLogic Services Runtime Configuration was not found!" />
+                </perform>
+            </rule>
+            <rule id="weblogic-xml-descriptors-16000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="WebLogic-specific Webservice Ant Tasks" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebLogic-specific Webservice Ant Tasks not found!" />
+                </perform>
+            </rule>
+            <rule id="weblogic-xml-descriptor-17000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="WebLogic Annotation Manifest" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebLogic Annotation Manifest was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
 </ruletest>

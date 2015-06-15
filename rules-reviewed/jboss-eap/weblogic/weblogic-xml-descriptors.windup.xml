@@ -1,281 +1,256 @@
 <?xml version="1.0"?>
-<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="weblogic-xml-descriptor-xml-descriptors"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="weblogic-xml-descriptor-xml-descriptors" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
-    
+
     <metadata>
         <description>
             This ruleset provides analysis of WebLogic proprietary XML descriptors and specific application parameters
-            which needs to be replaced by some alternative configuration when migrating to JBoss EAP 6+.
+            which needs to be
+            replaced by some alternative configuration when migrating to JBoss EAP 6+.
         </description>
         <dependencies>
-            <addon id="org.jboss.windup.rules,windup-rules-javaee,2.3.0.Final"/>
-            <addon id="org.jboss.windup.rules,windup-rules-java,2.3.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,2.3.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,2.3.0.Final" />
         </dependencies>
-        <sourceTechnology id="weblogic"/>
-        <targetTechnology id="eap" versionRange="[6,)"/>
+        <sourceTechnology id="weblogic" />
+        <targetTechnology id="eap" versionRange="[6,)" />
         <tag>xml descriptors</tag>
     </metadata>
+
     <rules>
         <rule id="weblogic-xml-descriptor-01000">
-            <when>                
-                <xmlfile matches="/*[local-name()='weblogic-application']">
-                </xmlfile>
+            <when>
+                <xmlfile matches="/*[local-name()='weblogic-application']" />
             </when>
             <perform>
-                <iteration>
-                    <classification title="WebLogic EAR Application Descriptor" severity="mandatory" effort="1" description="The weblogic-application.xml deployment descriptor file is used to describe Oracle WebLogic Server EAR archives.">                         
-                        <link href="https://access.redhat.com/articles/1328043" description="Migrate the Oracle WebLogic Server weblogic-application.xml Descriptor File Configurations to JBoss EAP 6"/>
-                    </classification>
-                    <hint title="weblogic-application.xml Elements mapping" effort="1">
-                        <message>Oracle WebLogic Server EAR configures through application-param element some application settings which could be mapped to context-param element in web.xml descriptor.</message>
-                    </hint>
-                </iteration>
+                <classification title="WebLogic EAR Application Descriptor" severity="mandatory" effort="1">
+                    <description>
+                        The weblogic-application.xml deployment descriptor file is used to describe Oracle WebLogic Server EAR archives
+                    </description>
+                    <link href="https://access.redhat.com/articles/1328043" title="Migrate the Oracle WebLogic Server weblogic-application.xml Descriptor File Configurations to JBoss EAP 6" />
+                </classification>
+                <hint title="weblogic-application.xml Elements mapping" effort="1">
+                    <message>Oracle WebLogic Server EAR configures some application settings through the `application-param` element. These settings
+                        could be replaced with `context-param` elements in Java EE Servlet `web.xml` descriptor.
+                    </message>
+                </hint>
             </perform>
         </rule>
         <rule id="weblogic-xml-descriptor-02000">
             <when>
-                <xmlfile matches="/*[local-name()='weblogic-rdbms-jar']"/>
+                <xmlfile matches="/*[local-name()='weblogic-rdbms-jar']" />
             </when>
             <perform>
-                <iteration>
-                    <classification title="WebLogic Entity EJB Configuration" severity="mandatory" effort="3" description="WebLogic Entity EJB Configuration used for RDBMS based persistence services.">
-                        <link href="https://access.redhat.com/articles/1326803" description="Migrate Oracle WebLogic Server Configuration Files and Descriptors to JBoss EAP 6" />
-                    </classification>
-                    <!-- xslt description="JBoss EJB CMP Descriptor (Windup-Generated)" template="transformations/xslt/weblogic-entity2-to-jboss.xsl" extension="-jbosscmp-jdbc.xml"/-->
-                </iteration>
+                <classification title="WebLogic Entity EJB Configuration" severity="mandatory" effort="3">
+                    <description>WebLogic Entity EJB Configuration used for RDBMS based persistence services.</description>
+                    <link href="https://access.redhat.com/articles/1326803" title="Migrate Oracle WebLogic Server Configuration Files and Descriptors to JBoss EAP 6" />
+                </classification>
             </perform>
         </rule>
         <rule id="weblogic-xml-descriptor-03000">
             <when>
-                <xmlfile matches="//*[local-name()='delay-updates-until-end-of-tx']/text()"/>
+                <xmlfile matches="//*[local-name()='delay-updates-until-end-of-tx']/text()" />
             </when>
             <perform>
-                <iteration>
-                    <hint title="WebLogic EJB specific configuration" severity="optional" effort="0">
-                        <message>WebLogic Specific Transaction Property Delay Updates</message>
-                    </hint>
-                    <hint title="Mapping of delay-updates-until-end-of-tx to JBoss EAP 6 configuration element" severity="optional" effort="1">
-                        <message>
-                            This element in the weblogic-ejb-jar.xml file, which defaults to True, 
-                            is used for performance reasons to delay updates to the persistent store of all beans 
-                            until the end of the transaction. 
-                            When set to False, updates are sent to the database after each method invocation,
-                             but are not committed until the end of the transaction. 
-                             This allows other processes to access the persisted data while the transaction is waiting to be completed. 
-                             In JBoss EAP 6, you can achieve the same behavior by specifying the &amp;lt;sync-on-commit-only&amp;gt; in jbosscmp-jdbc.xml file.
-                        </message>
-                        <link href="https://access.redhat.com/articles/1326823" description="Map delay-updates-until-end-of-tx element from weblogic-ejb-jar.xml Elements to the JBoss Enterprise Application Platform Equivalent" />
-                        <tag>performance</tag>
-                        <tag>ejb</tag>
-                        <tag>database</tag>
-                    </hint>
-                </iteration>
+                <hint title="WebSphere `delay-updates-until-end-of-tx` configuration element" severity="optional" effort="1">
+                    <message>
+                        The WebSphere &amp;lt;delay-updates-until-end-of-tx&amp;lt; configuration element, which defaults to `true`,
+                        is used for performance reasons to delay updates to the persistent store of all beans
+                        until the end of the transaction. When set to `false`, updates are sent to the
+                        database after each method invocation, but are not committed until the end of the transaction.
+                        This allows other processes to access the
+                        persisted data while the transaction is waiting to be completed.
+                        In JBoss EAP 6, you can achieve the same
+                        behavior by specifying
+                        the &amp;lt;sync-on-commit-only&amp;gt; in jbosscmp-jdbc.xml file.
+                    </message>
+                    <link href="https://access.redhat.com/articles/1326823"
+                        title="Map delay-updates-until-end-of-tx element from weblogic-ejb-jar.xml Elements to the JBoss Enterprise Application Platform Equivalent" />
+                    <tag>performance</tag>
+                    <tag>ejb</tag>
+                    <tag>database</tag>
+                </hint>
             </perform>
         </rule>
         <rule id="weblogic-xml-descriptor-04000">
             <when>
-                <xmlfile as="default" matches="/weblogic-ejb-jar">
-                </xmlfile>
+                <xmlfile as="default" matches="/weblogic-ejb-jar" />
             </when>
             <perform>
-                <iteration>
-                    <classification title="WebLogic EJB XML" severity="mandatory" effort="3">
-                        <link href="https://access.redhat.com/articles/1326823" description="Map weblogic-ejb-jar.xml Elements to the jboss-ejb3.xml Descriptor" />
-                    </classification>
-                    <!-- TODO verify it should work in EAP6 -->
-                    <xslt description="JBoss EJB Descriptor (Windup-Generated)" template="../../../rules/jboss-eap/weblogic/transformations/xslt/weblogic-ejb-to-jboss.xsl" extension="-jboss.xml"/>
-                </iteration>
+                <classification title="WebLogic EJB XML" severity="mandatory" effort="3">
+                    <link href="https://access.redhat.com/articles/1326823" title="Map weblogic-ejb-jar.xml Elements to the jboss-ejb3.xml Descriptor" />
+                </classification>
+                <!-- TODO verify it should work in EAP6 -->
+                <xslt title="JBoss EJB Descriptor (Windup-Generated)" template="../../../rules/jboss-eap/weblogic/transformations/xslt/weblogic-ejb-to-jboss.xsl"
+                    extension="-jboss.xml" />
             </perform>
         </rule>
         <rule id="weblogic-xml-descriptor-05000">
             <when>
                 <xmlfile as="default" matches="/wl9:weblogic-ejb-jar">
-                    <namespace prefix="wl9" uri="http://www.bea.com/ns/weblogic/90"/>
+                    <namespace prefix="wl9" uri="http://www.bea.com/ns/weblogic/90" />
                 </xmlfile>
             </when>
             <perform>
-                <iteration>
-                    <classification title="WebLogic EJB XML" severity="mandatory" effort="3">
-                        <link href="https://access.redhat.com/articles/1326823" description="Map weblogic-ejb-jar.xml Elements to the jboss-ejb3.xml Descriptor" />
-                    </classification>                        
-                    <!-- xslt description="JBoss EJB Descriptor (Windup-Generated)" template="transformations/xslt/weblogic9-ejb-to-jboss.xsl" extension="-jboss.xml"/-->
-                </iteration>
+                <classification title="WebLogic EJB XML" severity="mandatory" effort="3">
+                    <link href="https://access.redhat.com/articles/1326823" title="Map weblogic-ejb-jar.xml Elements to the jboss-ejb3.xml Descriptor" />
+                </classification>
             </perform>
         </rule>
         <rule id="weblogic-xml-descriptor-06000">
             <when>
                 <xmlfile as="default" matches="/wl10:weblogic-ejb-jar">
-                    <namespace prefix="wl10" uri="http://www.bea.com/ns/weblogic/10.0"/>
+                    <namespace prefix="wl10" uri="http://www.bea.com/ns/weblogic/10.0" />
                 </xmlfile>
             </when>
             <perform>
-                <iteration>
-                    <classification title="WebLogic EJB XML" severity="mandatory" effort="3">
-                        <link href="https://access.redhat.com/articles/1326823" description="Map weblogic-ejb-jar.xml Elements to the jboss-ejb3.xml Descriptor" />
-                    </classification>                        
-                    <!-- xslt description="JBoss EJB Descriptor (Windup-Generated)" template="transformations/xslt/weblogic10-ejb-to-jboss.xsl" extension="-jboss.xml"/-->
-                </iteration>
+                <classification title="WebLogic EJB XML" severity="mandatory" effort="3">
+                    <link href="https://access.redhat.com/articles/1326823" title="Map weblogic-ejb-jar.xml Elements to the jboss-ejb3.xml Descriptor" />
+                </classification>
             </perform>
         </rule>
         <!-- TODO WINDUP-641 -->
         <rule id="weblogic-xml-descriptor-07000">
             <when>
                 <xmlfile as="default" matches="/weblogic-wsee-standaloneclient |/wl10:weblogic-wsee-standaloneclient">
-                    <namespace prefix="wl10" uri="http://www.bea.com/ns/weblogic/weblogic-wsee-standaloneclient"/>
+                    <namespace prefix="wl10" uri="http://www.bea.com/ns/weblogic/weblogic-wsee-standaloneclient" />
                 </xmlfile>
             </when>
             <perform>
-                <iteration>
-                    <classification title="WebLogic SOAP Client Mapping" severity="mandatory" effort="5">
-                    </classification>
-                </iteration>
+                <classification title="WebLogic SOAP Client Mapping" severity="mandatory" effort="5" />
             </perform>
         </rule>
-        <!-- TODO NOT FINISHED do we need this? java to WSDL is generated or not?
         <rule id="weblogic-xml-descriptor-08000">
             <when>
                 <xmlfile as="default" matches="/java-wsdl-mapping">
-                    <namespace prefix="jee" uri="http://java.sun.com/xml/ns/j2ee"/>
+                    <namespace prefix="jee" uri="http://java.sun.com/xml/ns/j2ee" />
                 </xmlfile>
             </when>
             <perform>
-                <iteration>
-                    <classification title="Java to WSDL Mapping" severity="mandatory" effort="3"/>
-                </iteration>
+                <classification title="Java to WSDL Mapping" severity="mandatory" effort="3" />
             </perform>
-        </rule>--> 
-        <!-- TODO WINDUP-640 -->
+        </rule>
         <rule id="weblogic-xml-descriptor-09000">
             <when>
                 <xmlfile as="default" matches="/webservice-policy-ref | /wl:webservice-policy-ref | /wl9:webservice-policy-ref">
-                    <namespace prefix="wl9" uri="http://www.bea.com/ns/weblogic/90"/>
-                    <namespace prefix="wl" uri="http://www.bea.com/ns/weblogic/webservice-policy-ref"/>
+                    <namespace prefix="wl9" uri="http://www.bea.com/ns/weblogic/90" />
+                    <namespace prefix="wl" uri="http://www.bea.com/ns/weblogic/webservice-policy-ref" />
                 </xmlfile>
             </when>
             <perform>
-                <iteration>
-                    <classification title="WebLogic Webservice Policy" severity="mandatory" effort="5"/>
-                </iteration>
+                <classification title="WebLogic Webservice Policy" severity="mandatory" effort="5" />
             </perform>
         </rule>
         <rule id="weblogic-xml-descriptor-10000">
             <when>
                 <xmlfile as="webservices" matches="/weblogic-webservices | /wl:weblogic-webservices | /wl9:weblogic-webservices">
-                    <namespace prefix="wl9" uri="http://www.bea.com/ns/weblogic/90"/>
-                    <namespace prefix="wl" uri="http://www.bea.com/ns/weblogic/weblogic-webservices"/>
+                    <namespace prefix="wl9" uri="http://www.bea.com/ns/weblogic/90" />
+                    <namespace prefix="wl" uri="http://www.bea.com/ns/weblogic/weblogic-webservices" />
                 </xmlfile>
                 <xmlfile as="webservices-types" matches="//webservice-type | //wl:webservice-type | //wl9:webservice-type" from="webservices">
-                    <namespace prefix="wl9" uri="http://www.bea.com/ns/weblogic/90"/>
-                    <namespace prefix="wl" uri="http://www.bea.com/ns/weblogic/weblogic-webservices"/>
+                    <namespace prefix="wl9" uri="http://www.bea.com/ns/weblogic/90" />
+                    <namespace prefix="wl" uri="http://www.bea.com/ns/weblogic/weblogic-webservices" />
                 </xmlfile>
             </when>
             <perform>
                 <iteration over="webservices">
-                    <classification title="WebLogic Webservice Descriptor" effort="3" severity="mandatory" description="weblogic-webservices can be migrated to jboss-webservices.xml descriptor or to Annotation based configuration">
-                        <!-- link href="" description="" /-->
-                    </classification>
+                    <classification title="WebLogic Webservice Descriptor" effort="3" severity="mandatory" />
                 </iteration>
-                <!-- no KB article WINDUP-639 -->
                 <iteration over="webservices-types">
                     <hint title="Webservice Type" severity="optional" effort="3">
-                        <message>According to used Web Service type see JBoss EAP 6 product documentation how it should be used.</message>
-                        <link href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Development_Guide/chap-JAX-RS_Web_Services.html" description="JAX-RS Web Services Guide" />
-                        <link href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Development_Guide/chap-JAX-WS_Web_Services.html" description="JAX-WS Web Services Guide" />
+                        <message>WebLogic webservices can be migrated to `jboss-webservices.xml` descriptor or to a Java EE standard Annotation based
+                            configuration. Reference the JBoss EAP 6 product documentation for more information.
+                        </message>
+                        <link
+                            href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Development_Guide/chap-JAX-RS_Web_Services.html"
+                            title="JAX-RS Web Services Guide" />
+                        <link
+                            href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Development_Guide/chap-JAX-WS_Web_Services.html"
+                            title="JAX-WS Web Services Guide" />
                     </hint>
                 </iteration>
             </perform>
         </rule>
         <rule id="weblogic-xml-descriptor-11000">
             <when>
-                <xmlfile as="default" matches="/*[local-name()='weblogic-jms']">
-                </xmlfile>
+                <xmlfile as="default" matches="/*[local-name()='weblogic-jms']" />
             </when>
             <perform>
-                <iteration>
-                    <classification title="WebLogic JMS Descriptor" severity="mandatory" effort="2">
-                        <link href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#sect-Configuration" description="EAP 6 JMS Server configuration" />
-                    </classification>
-                    <!-- xslt file is to the old messaging server configuration -->
-                    <!-- xslt description="JBoss Messaging Queue/Topic Configuration (Windup-Generated)" template="transformations/xslt/weblogic-jms-to-jboss-messaging.xsl" extension="-jms-queuetopic-service.xml"/-->
-                </iteration>
+                <classification title="WebLogic JMS Descriptor" severity="mandatory" effort="2">
+                    <link
+                        href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#sect-Configuration"
+                        title="EAP 6 JMS Server configuration" />
+                </classification>
             </perform>
         </rule>
         <rule id="weblogic-xml-descriptor-12000">
             <when>
                 <xmlfile as="default" matches="/bea:weblogic-web-app | /wlso:weblogic-web-app | /wls:weblogic-web-app | /weblogic-web-app">
-                    <namespace prefix="wlso" uri="http://xmlns.oracle.com/weblogic/weblogic-web-app"/>
-                    <namespace prefix="bea" uri="http://www.bea.com/ns/weblogic/90"/>
-                    <namespace prefix="wls" uri="http://www.bea.com/ns/weblogic/weblogic-web-app"/>
+                    <namespace prefix="wlso" uri="http://xmlns.oracle.com/weblogic/weblogic-web-app" />
+                    <namespace prefix="bea" uri="http://www.bea.com/ns/weblogic/90" />
+                    <namespace prefix="wls" uri="http://www.bea.com/ns/weblogic/weblogic-web-app" />
                 </xmlfile>
             </when>
             <perform>
-                <iteration>
-                    <classification title="WebLogic Web Application Descriptor" severity="mandatory" effort="3">
-                        <link href="https://access.redhat.com/articles/1326803" description="Migrate Oracle WebLogic Server Configuration Files and Descriptors to the JBoss EAP 6 Equivalent"/>
-                        <link href="https://access.redhat.com/articles/1327803" description="Map weblogic.xml Configurations to JBoss"/>
-                    </classification>
-                    <!-- xslt description="JBoss Web EAP5 (Windup-Generated)" template="transformations/xslt/weblogic-jboss5-web-xml.xsl" extension="-jboss-web.xml"/-->
-                </iteration>
+                <classification title="WebLogic Web Application Descriptor" severity="mandatory" effort="3">
+                    <link href="https://access.redhat.com/articles/1326803" title="Migrate Oracle WebLogic Server Configuration Files and Descriptors to the JBoss EAP 6 Equivalent" />
+                    <link href="https://access.redhat.com/articles/1327803" title="Map weblogic.xml Configurations to JBoss" />
+                </classification>
             </perform>
         </rule>
-        <!-- TODO this rule is unclear -->
         <rule id="weblogic-xml-descriptor-13000">
+            <!-- TODO this rule is unclear -->
             <when>
-                <xmlfile as="default" public-id="BEA.+RMI Runtime DTD 1..">
-                </xmlfile>
+                <xmlfile as="default" public-id="BEA.+RMI Runtime DTD 1.." />
             </when>
             <perform>
-                <iteration>
-                    <classification title="WebLogic RMI XML Version 1.x" severity="mandatory" effort="0"/>
-                </iteration>
+                <classification title="WebLogic RMI XML Version 1.x" severity="mandatory" effort="0" />
             </perform>
         </rule>
         <rule id="weblogic-xml-descriptor-14000">
             <when>
                 <xmlfile as="default" matches="/wsdd:type-mapping">
-                    <namespace prefix="wsdd" uri="http://www.bea.com/servers/wls70"/>
+                    <namespace prefix="wsdd" uri="http://www.bea.com/servers/wls70" />
                 </xmlfile>
             </when>
             <perform>
-                <iteration>
-                    <classification title="WebLogic Webservice Type Mapping" severity="mandatory" effort="0"/>
-                </iteration>
+                <classification title="WebLogic Webservice Type Mapping" severity="mandatory" effort="0" />
             </perform>
         </rule>
         <rule id="weblogic-xml-descriptor-15000">
             <when>
                 <xmlfile as="default" matches="/wlw:wlw-config">
-                    <namespace prefix="wlw" uri="http://www.bea.com/2003/03/wlw/config/"/>
+                    <namespace prefix="wlw" uri="http://www.bea.com/2003/03/wlw/config/" />
                 </xmlfile>
             </when>
             <perform>
-                <iteration>
-                    <classification title="WebLogic Services Configuration" description="WebLogic specific configuration of web services runtime parameters" severity="mandatory" effort="0"/>
-                </iteration>
+                <classification title="WebLogic Services Configuration" severity="mandatory" effort="0">
+                    <description>WebLogic specific configuration of web services runtime parameters</description>
+                </classification>
             </perform>
         </rule>
         <rule id="weblogic-xml-descriptor-16000">
             <when>
-                <xmlfile as="default" matches="/project/taskdef[@classname='weblogic.ant.taskdefs.webservices.servicegen.ServiceGenTask'] | /project/taskdef[@classname='weblogic.ant.taskdefs.webservices.javaschema.JavaSchema'] | /project/taskdef[@classname='weblogic.ant.taskdefs.webservices.autotype.JavaSource2DD'] | /project/taskdef[@classname='weblogic.ant.taskdefs.webservices.clientgen.ClientGenTask']">
+                <xmlfile as="default"
+                    matches="/project/taskdef[@classname='weblogic.ant.taskdefs.webservices.servicegen.ServiceGenTask'] | /project/taskdef[@classname='weblogic.ant.taskdefs.webservices.javaschema.JavaSchema'] | /project/taskdef[@classname='weblogic.ant.taskdefs.webservices.autotype.JavaSource2DD'] | /project/taskdef[@classname='weblogic.ant.taskdefs.webservices.clientgen.ClientGenTask']">
                 </xmlfile>
             </when>
             <perform>
-                <iteration>
-                    <classification title="WebLogic-specific Webservice Ant Tasks" severity="optional" effort="13"/>                    
-                </iteration>
+                <classification title="WebLogic-specific Webservice Ant Tasks" severity="optional" effort="13" />
             </perform>
         </rule>
         <rule id="weblogic-xml-descriptor-17000">
             <when>
                 <xmlfile as="default" matches="/wl:annotation-manifest | /annotation-manifest">
-                    <namespace prefix="wl" uri="http://www.bea.com/2004/03/wlw/external-config/"/>
+                    <namespace prefix="wl" uri="http://www.bea.com/2004/03/wlw/external-config/" />
                 </xmlfile>
             </when>
             <perform>
-                <iteration>
-                    <classification title="WebLogic Annotation Manifest" effort="7" severity="mandatory" description="Externally configured value can override the value set for that property by a metada annotation but not the value set by a setter method."/>
-                </iteration>
+                <classification title="WebLogic Annotation Manifest" effort="7" severity="mandatory">
+                    <description>Externally configured value can override the value set for that property by a metada annotation but not the value set
+                        by a setter method.
+                    </description>
+                </classification>
             </perform>
         </rule>
     </rules>
