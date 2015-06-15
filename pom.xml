@@ -23,6 +23,9 @@
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
         <version.windup>2.3.0-SNAPSHOT</version.windup>
+        
+        <!-- Tests input -->
+        <runTestsMatching></runTestsMatching>
     </properties>
 
     <scm>
@@ -224,6 +227,9 @@
                 <groupId>org.apache.maven.plugins</groupId>
                	<artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
+                    <systemPropertyVariables>
+                        <runTestsMatching>${runTestsMatching}</runTestsMatching>
+                    </systemPropertyVariables>
                     <argLine>-Xms512m -Xmx2048m -XX:MaxPermSize=768m -XX:ReservedCodeCacheSize=128m</argLine>
                	</configuration>
             </plugin>
