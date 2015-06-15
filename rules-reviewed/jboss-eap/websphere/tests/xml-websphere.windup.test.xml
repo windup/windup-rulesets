@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+    <testDataPath>data</testDataPath>
+    <rulePath>../</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="xml-websphere-01000">
+                <when>
+                    <not>
+                        <classification-exists classification="IBM Process Server Rules 6.0"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebSphere RuleSet was not detected"/>
+                </perform>
+            </rule>
+	    <rule id="xml-websphere-02000">
+                <when>
+                    <not>
+                        <classification-exists classification="WebSphere EAR Application Binding"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebSphere ApplicationBinding was not detected"/>
+                </perform>
+            </rule>
+            <rule id="xml-websphere-03000">
+                <when>
+                    <not>
+                        <classification-exists classification="WebSphere Web Application Extension"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebSphere WebAppExtension was not detected"/>
+                </perform>
+            </rule>
+            <rule id="xml-websphere-04000">
+                <when>
+                    <not>
+                        <classification-exists classification="WebSphere Web Extension"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="websphere ext:web-ext was not detected"/>
+                </perform>
+            </rule>
+            <rule id="xml-websphere-05000">
+                <when>
+                    <not>
+                        <classification-exists classification="WebSphere Web Binding Extension"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="ext:web-bnd was not detected"/>
+                </perform>
+            </rule>
+            <rule id="xml-websphere-06000">
+                <when>
+                    <not>
+                        <classification-exists classification="WebSphere Web Application Binding"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebSphere WebAppBinding was not detected"/>
+                </perform>
+            </rule>
+            <rule id="xml-websphere-07000">
+                <when>
+                    <not>
+                        <classification-exists classification="WebSphere ETools WSClient Extension"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebSphere WsClientExtension was not detected"/>
+                </perform>
+            </rule>
+            <rule id="xml-websphere-08000">
+                <when>
+                    <not>
+                        <classification-exists classification="WebSphere ETools WSClient Binding"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebSphere ClientBinding was not detected"/>
+                </perform>
+            </rule>
+            <rule id="xml-websphere-09000">
+                <when>
+                    <not>
+                        <classification-exists classification="IBM Deployment Descriptor"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebSphere Deployment was not detected"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

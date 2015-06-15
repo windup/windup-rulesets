@@ -1,0 +1,152 @@
+<?xml version="1.0"?>
+<ruleset id="xml-websphere" xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of WebSphere proprietary xml files and constructs that may require individual attention when migrating to JBoss EAP 6+.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-xml,2.3.0.Final"/>
+        </dependencies>
+        <sourceTechnology id="websphere" />
+        <targetTechnology id="eap" versionRange="[6,)" />
+    </metadata>
+    <rules>
+        <rule id="xml-websphere-01000">
+            <when>
+                <xmlfile matches="/rl:RuleSet">
+                    <namespace prefix="rl" uri="http://www.ibm.com/xmlns/prod/websphere/wbi/br/6.0.0"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <iteration>
+                    <classification title="IBM Process Server Rules 6.0" effort="3">
+			<description>WBI is a websphere specific business integration solution. This needs to be migrated to Drools.</description>
+			<link href="TODO" description="WBI to Drools migration"/>
+		    </classification>
+                    <xslt description="Drools (Windup-Generated)" template="transformations/xslt/websphere-psrules-to-drools.xsl" extension="-drools-example.drl"/>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="xml-websphere-02000">
+            <when>
+                <xmlfile as="default" matches="/applicationbnd:ApplicationBinding">
+                    <namespace prefix="applicationbnd" uri="applicationbnd.xmi"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <iteration>
+                    <classification title="WebSphere EAR Application Binding" effort="3">
+			<description>Websphere application binding is websphere specific way for binding user roles for authorization and needs to be migrated.</description>
+			<link href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.2/html/Administration_and_Configuration_Guide/Enabling_Role-Based_Access_Control.html" description=" Enabling Role-Based Access Control in JBoss"/>
+		    </classification>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="xml-websphere-03000">
+            <when>
+                <xmlfile as="default" matches="/webappext:WebAppExtension">
+                    <namespace prefix="webappext" uri="webappext.xmi"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <iteration>
+                    <classification title="WebSphere Web Application Extension" effort="0">
+			<description>This files is a websphere specific JSP engine configuration and needs to be migrated.</description>
+			<link href="http://docs.jboss.org/jbossweb/3.0.x/jasper-howto.html" description="JSP engine in JBoss Web configuration"/>
+	            </classification>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="xml-websphere-04000">
+            <when>
+                <xmlfile as="default" matches="/ext:web-ext">
+                    <namespace prefix="ext" uri="http://websphere.ibm.com/xml/ns/javaee"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <iteration>
+                    <classification title="WebSphere Web Extension" effort="3">
+		    	<description>This files is a websphere specific JSP engine configuration and needs to be migrated.</description>
+		    </classification>
+                    <xslt description="JBoss Web EAP5 (Windup-Generated)" template="transformations/xslt/websphere-jboss5-web-xml.xsl" extension="-jboss-web.xml"/>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="xml-websphere-05000">
+            <when>
+                <xmlfile as="default" matches="/ext:web-bnd">
+                    <namespace prefix="ext" uri="http://websphere.ibm.com/xml/ns/javaee"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <iteration>
+                    <classification title="WebSphere Web Binding Extension" effort="3">
+		    	<description>This files is a websphere specific binding configuration and needs to be migrated.</description>
+			<link href="TODO" description="JBoss binding configuration"/>
+		    </classification>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="xml-websphere-06000">
+            <when>
+                <xmlfile as="default" matches="/webappbnd:WebAppBinding">
+                    <namespace prefix="webappbnd" uri="webappbnd.xmi"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <iteration>
+                    <classification title="WebSphere Web Application Binding" effort="0">
+		    	<description>This file is a websphere specific file that configures JSP engine and therefore needs to be migrated.</description>
+		    	<link href="http://docs.jboss.org/jbossweb/7.0.x/" description="JBoss Web configuration"/>
+		    </classification>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="xml-websphere-07000">
+            <when>
+                <xmlfile as="default" matches="/com.ibm.etools.webservice.wscext:WsClientExtension">
+                    <namespace prefix="com.ibm.etools.webservice.wscext" uri="http://www.ibm.com/websphere/appserver/schemas/5.0.2/wscext.xmi"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <iteration>
+                    <classification title="WebSphere ETools WSClient Extension" effort="3">
+		    	<description>Client IBM-specific deployment descriptor extension that needs to be migrated to JBoss WS.</description>
+		    	<link href="https://docs.jboss.org/author/display/JBWS/Predefined+client+and+endpoint+configurations" description="JBoss WS configuration"/>
+		    </classification>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="xml-websphere-08000">
+            <when>
+                <xmlfile as="default" matches="/com.ibm.etools.webservice.wscbnd:ClientBinding">
+                    <namespace prefix="com.ibm.etools.webservice.wscbnd" uri="http://www.ibm.com/websphere/appserver/schemas/5.0.2/wscbnd.xmi"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <iteration>
+                    <classification title="WebSphere ETools WSClient Binding" effort="3">
+		    	<description>Client IBM-specific deployment descriptor binding that needs to be migrated to JBoss WS.</description>
+			<link href="https://docs.jboss.org/author/display/JBWS/Web+Services+Introduction" description="JBoss WS configuration"/>
+		    </classification>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="xml-websphere-09000">
+            <when>
+                <xmlfile as="default" matches="/appdeployment:Deployment">
+                    <namespace prefix="appdeployment" uri="http://www.ibm.com/websphere/appserver/schemas/5.0/appdeployment.xmi"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <iteration>
+                    <classification title="IBM Deployment Descriptor" effort="0">
+			<description>IBM-specific deployment descriptor generated when the deployment is done.</description>
+		    </classification>
+                </iteration>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
