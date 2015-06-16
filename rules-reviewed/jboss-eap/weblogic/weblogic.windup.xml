@@ -212,5 +212,27 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="weblogic-12000">
+            <when>
+                <xmlfile matches="/jdbc-data-source/jdbc-driver-params/property/name[text()='FastConnectionFailoverEnabled']">
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="WebLogic uses Oracle FCF JDBC property" effort="1" severity="mandatory">
+                    <message><![CDATA[
+                        Oracle Fast Connection Failover is specific property supported only by Oracle JDBC driver which provides support 
+                        for their vendor's special features transparently to the application server in which they are deployed. 
+                        
+                        For example, one can supply a URL like this to the Oracle JDBC driver and the driver will provide transparent load-balancing and fail-over:
+                        ```
+                        <xa-datasource-property name="URL">jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(LOAD_BALANCE=ON)(FAILOVER=ON)(ADDRESS=(PROTOCOL=TCP)(HOST=my.host.org)(PORT=1521))(ADDRESS=(PROTOCOL=TCP)(HOST=my.host.org)(PORT=1521)))(CONNECT_DATA=(SERVICE_NAME=servjboss)(failover_mode=(type=select)(method=basic)))</xa-datasource-property>
+                        ```
+                        ]]>
+                    </message>
+                    <link href="https://access.redhat.com/articles/1329233" title="Implement Oracle Fast Connection Failover (FCF) in JBoss EAP 6"/>
+                    <link href="https://access.redhat.com/solutions/42463" title="Use Oracle FCF in JBoss EAP"/>
+                </hint>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
