@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<ruleset id="websphere-catchall" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of WebSphere proprietary classes and constructs that may require individual attention when
+            migrating to JBoss EAP 6+. Specifically, this ruleset catches proprietary references that did not have more specific hints or
+            classifications added to them.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,2.3.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,2.3.0.Final" />
+        </dependencies>
+        <sourceTechnology id="websphere" />
+        <targetTechnology id="eap" versionRange="[6,)" />
+        <phase>PostMigrationRulesPhase</phase>
+    </metadata>
+    <rules>
+        <rule id="websphere-catchall-00000">
+            <when>
+                <javaclass references="{package}.{type}" />
+            </when>
+            <perform>
+                <iteration>
+                    <when>
+                        <not>
+                            <has-hint />
+                        </not>
+                    </when>
+                    <perform>
+                        <classification title="IBM" severity="mandatory" />
+                        <hint effort="13" severity="mandatory">
+                            <message>
+                                This is an IBM proprietary type and needs to be migrated to a compatible API. There is currently no detailed
+                                information about this type.
+                            </message>
+                        </hint>
+                    </perform>
+                </iteration>
+            </perform>
+            <where param="package">
+                <matches pattern="(com\.)?(websphere|ibm)(\..*)?" />
+            </where>
+            <where param="type">
+                <matches pattern="[^.]+" />
+            </where>
+        </rule>
+    </rules>
+</ruleset>
