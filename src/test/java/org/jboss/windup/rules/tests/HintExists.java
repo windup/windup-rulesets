@@ -69,4 +69,10 @@ public class HintExists extends GraphCondition
         return q.evaluate(event, context);
     }
 
+    @Override
+    public String toString()
+    {
+        return "HintExists.withMessage('" + messagePattern + "').in(" + filename + ")";
+
+    };
 }

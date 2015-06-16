@@ -1,13 +1,4 @@
-import com.ibm.websphere.sib.api.jms.JmsQueue;
-import com.ibm.websphere.sib.api.jms.JmsConnectionFactory;
-import com.ibm.websphere.sib.api.jms.JmsQueueConnectionFactory;
-import com.ibm.websphere.sib.api.jms.JmsTopicConnectionFactory;
-import com.ibm.websphere.sib.api.jms.JmsFactoryFactory;
-import com.ibm.websphere.sib.api.jms.JmsTopic;
-import com.ibm.websphere.sib.api.jms.JmsMsgProducer;
-import com.ibm.websphere.sib.api.jms.JmsMsgConsumer;
-import com.ibm.websphere.sib.api.jms.JmsDestination;
-import com.ibm.websphere.sib.api.jms.JmsConnectionFactory;
+
 import com.ibm.msg.client.jms.JmsConnection;
 import com.ibm.msg.client.jms.JmsConnectionMetaData;
 import ibm.com.msg.client.jms.JmsDestination;
@@ -38,22 +29,16 @@ import com.ibm.msg.client.jms.JmsXASession;
 import com.ibm.msg.client.jms.JmsXATopicConnection;
 import com.ibm.msg.client.jms.JmsXATopicConnectionFactory;
 import com.ibm.msg.client.jms.JmsXATopicSession;
-import com.ibm.jms.JMSBytesMessage;
-import com.ibm.jms.JMSMapMessage;
-import com.ibm.jms.JMSMessage;
-import com.ibm.jms.JMSObjectMessage;
-import com.ibm.jms.JMSStreamMessage;
-import com.ibm.jms.JMSTextMessage;
 
 /**
  * Testing detection of com.ibm.websphere.sib.api.jms.JmsConnectionFactory
  */
-public class JmsTopicConnectionFactory
+public class WebSphereJMSExample
 {
     public static void main(String[] args) throws IOException, JMSException
     {
-        JmsFactoryFactory fact = JmsFactoryFactory.getInstance();
-        JmsConnectionFactory connectionFact = fact.createConnectionFactory();
+        JmsTopicConnectionFactory fact = JmsFactoryFactory.getInstance();
+        JmsQueueConnectionFactory connectionFact = fact.createConnectionFactory();
 
         connFact.setBusName("busName");
         connFact.setProviderEndpoints("providerEndpoints");
