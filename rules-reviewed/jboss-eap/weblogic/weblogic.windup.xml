@@ -234,5 +234,15 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="weblogic-13000">
+            <when>
+                <filecontent filename="MANIFEST.MF" pattern="Weblogic-Application-Version:"/>
+            </when>
+            <perform>
+                <classification effort="1" severity="optional" title="WebLogic Side-By-Side Redeployment possibly used">
+                    <link href="https://access.redhat.com/articles/1329253" title="Replace WebLogic Side-By-Side Production Redeployment in EAP 6"/>
+                </classification>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
