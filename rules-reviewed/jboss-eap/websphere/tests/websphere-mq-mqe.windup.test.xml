@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+    <testDataPath>samples/websphere-mqe</testDataPath>
+    <rulePath>../websphere-mq.windup.xml</rulePath>
+    <ruleset>
+        <metadata></metadata>
+        <rules>
+
+            <rule id="websphere-mq-00000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="IBM MQe" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Classification not found: IBM MQe" />
+                </perform>
+            </rule>
+            
+            <rule id="websphere-mq-01000-test">
+                <when>
+                    <not>
+                        <hint-exists message="IBM MQe DiskFields" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found for com.ibm.mqe.adapters.MQeDiskFieldsAdapter" />
+                </perform>
+            </rule>
+
+            <rule id="websphere-mq-02000-test">
+                <when>
+                    <not>
+                        <hint-exists message="IBM MQe Queue administration API" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Classification not found for com.ibm.mqe.administration.MQeQueueAdminMsg" />
+                </perform>
+            </rule>
+
+            <rule id="websphere-mq-06000-test">
+                <when>
+                    <not>
+                        <hint-exists message="IBM MQe constants are used.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found for IBM MQe constants: com.ibm.mqe.jms.MQeJMSMsgFieldNames." />
+                </perform>
+            </rule>
+
+        </rules>
+    </ruleset>
+</ruletest>

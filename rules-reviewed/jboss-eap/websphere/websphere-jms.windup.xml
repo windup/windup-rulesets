@@ -12,6 +12,8 @@
         </dependencies>
         <sourceTechnology id="websphere" />
         <targetTechnology id="eap" versionRange="[6,)" />
+        <targetTechnology id="java-ee" versionRange="[6,)" />
+        <tag>reviewed-2015-06-17</tag>
     </metadata>
     <rules>
         <rule id="websphere-jms-00000">
@@ -19,8 +21,13 @@
                 <javaclass references="{package}.{type}" />
             </when>
             <perform>
-                <classification title="IBM JMS" effort="1" severity="mandatory">
-                    <link href="https://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html" title="Java EE JMS Documentation" />
+                <classification title="IBM JMS Client" effort="3" severity="mandatory">
+                    <description>WebSphere MQ client API is used to communicate with the MQ server from client-side applications.
+                        For JBoss EAP 6, this needs to be replaced with standard Java EE 6 JMS API, or with HornetQ client API.
+                    </description>
+                    <link title="Java EE 6 JMS Tutorial" href="https://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html" />
+                    <link title="HornetQ User Manual" href="http://docs.jboss.org/hornetq/2.4.0.Final/docs/user-manual/html_single/index.html#d0e1472" />
+                    <link title="HornetQ Core Client API Javadoc" href="https://docs.jboss.org/hornetq/2.4.0.Final/api/index.html?org/hornetq/api/core/client/package-summary.html" />
                     <tag>JMS</tag>
                 </classification>
             </perform>
@@ -34,47 +41,69 @@
 
         <rule id="websphere-jms-01000">
             <when>
-                <javaclass references="com.ibm{package}.Jms{type}ConnectionFactory" />
+                <javaclass references="{package}.{prefix}{type}ConnectionFactory" />
             </when>
             <perform>
-                <hint title="IBM Jms{type}ConnectionFactory reference" effort="1" severity="mandatory">
+                <hint title="IBM {prefix}{type}ConnectionFactory reference" effort="1" severity="mandatory">
                     <message>
-                        IBM Jms{type}ConnectionFactory is an encapsulation of JMS servers to which Connections can be created for message
-                        distribution.
-
-                        This reference should be replaced with the Java EE standard API: `javax.jms.{type}ConnectionFactory`.
+                        IBM {prefix}{type}ConnectionFactory is a proprietary encapsulation of JMS servers to which Connections can be created for
+                        message distribution. This reference should be replaced with the Java EE standard API: `javax.jms.{type}ConnectionFactory`.
                     </message>
                     <link href="https://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html" title="Java EE JMS Documentation" />
                     <tag>JMS</tag>
                 </hint>
             </perform>
             <where param="package">
-                <matches pattern="(\..*)?\.jms" />
+                <matches pattern="com.ibm(\.[^.]*)*\.jms" />
+            </where>
+            <where param="prefix">
+                <matches pattern="(Jms|MQeJNDI|MQe|MQ)?+" />
+            </where>
+            <where param="type">
+                <matches pattern="[^.]*?" />
             </where>
         </rule>
 
         <rule id="websphere-jms-02000">
             <when>
-                <javaclass references="com.ibm.{*}.jms.JmsMsg{type}" />
+                <javaclass references="{package}.JmsMsg{type}" />
             </when>
             <perform>
                 <hint effort="1" severity="mandatory">
                     <message>
-                        IBM JMS message {type}s are used for sending/reading messages to/from a topic or queue. This reference should be replaced
-                        with the Java EE standard API `javax.jms.Message{type}`.
+                        IBM JMS message {type}s are used for sending/reading messages to/from a topic or queue. This reference should be
+                        replaced with the Java EE standard API `javax.jms.Message{type}`.
                     </message>
-                    <link href="TODO" title="JMS migration" />
+                    <link href="https://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html" title="Java EE JMS Documentation" />
                     <tag>JMS</tag>
                 </hint>
             </perform>
+            <where param="package">
+                <matches pattern="com.ibm(\..*)?\.jms" />
+            </where>
             <where param="type">
                 <matches pattern="(Producer|Consumer)" />
             </where>
         </rule>
 
+        <rule id="websphere-jms-02500">
+            <when>
+                <javaclass references="com.ibm.mqe.jms.{type}Queue" />
+            </when>
+            <perform>
+                <hint severity="Mandatory" effort="1">
+                    <message>
+                        `MQe{type}Queue` is a WebSphere implementation of a JMS `Queue` and should be migrated to
+                        the Java EE 6 JMS standard interface `javax.jms.Queue`.
+                    </message>
+                    <link title="Java EE 6 JMS Tutorial" href="https://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html" />
+                </hint>
+            </perform>
+        </rule>
+
         <rule id="websphere-jms-03000">
             <when>
-                <javaclass references="{package}.JMS{type}Message" />
+                <javaclass references="{package}.{prefix}{type}Message" />
             </when>
             <perform>
                 <iteration>
@@ -86,10 +115,10 @@
                     <perform>
                         <hint effort="1" severity="mandatory">
                             <message>
-                                JMS {type} messages represent the actual data passed through JMS destinations. This reference should be replaced
-                                with the Java EE standard API `javax.jms.{type}Message`.
+                                JMS {type} messages represent the actual data passed through JMS destinations. This reference should be
+                                replaced with the Java EE standard API `javax.jms.{type}Message`.
                             </message>
-                            <link href="https://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html#bnces" title="Java EE JMS Message API" />
+                            <link href="https://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html#bnces" title="Java EE 6 JMS Tutorial - Message API" />
                             <tag>JMS</tag>
                         </hint>
                     </perform>
@@ -98,6 +127,9 @@
             <where param="type">
                 <matches pattern="(Text|Stream|Object|Map|Bytes)?" />
             </where>
+            <where param="prefix">
+                <matches pattern="(JMS|MQe|MQ)" />
+            </where>
             <where param="package">
                 <matches pattern="com.ibm(\..*)?\.jms" />
             </where>
@@ -105,7 +137,7 @@
 
         <rule id="websphere-jms-04000">
             <when>
-                <javaclass references="{package}.Jms{type}" />
+                <javaclass references="{package}.{prefix}{type}" />
             </when>
             <perform>
                 <iteration>
@@ -117,7 +149,7 @@
                     <perform>
                         <hint effort="1" severity="mandatory">
                             <message>
-                                This is a WebSphere specific interface and needs to be migrated to the Java EE standard API `javax.jms.{type}`.
+                                {prefix}{type} is an IBM proprietary interface and needs to be migrated to the Java EE standard API `javax.jms.{type}`.
                             </message>
                             <link href="https://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html" title="Java EE JMS Documentation" />
                             <tag>JMS</tag>
@@ -127,6 +159,12 @@
             </perform>
             <where param="package">
                 <matches pattern="com.ibm(\..*)?\.jms" />
+            </where>
+            <where param="prefix">
+                <matches pattern="(Jms|MQe|MQ)" />
+            </where>
+            <where param="type">
+                <matches pattern="[^.]+" />
             </where>
         </rule>
     </rules>
