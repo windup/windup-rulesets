@@ -160,6 +160,16 @@
                     <fail message="WebLogic Annotation Manifest was not found!" />
                 </perform>
             </rule>
+	    <rule id="weblogic-xml-descriptor-18000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="plan.xml deployment descriptor file"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebLogic plan.xml deployment descriptor not detected"/>
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>

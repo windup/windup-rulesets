@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <wls:deployment-plan xmlns:wls="http://xmlns.oracle.com/weblogic/deployment-plan">
+ <!--weblogic-version:10.3.5-->
+ <wls:application-name>example.ear</wls:application-name>
+ <wls:variable-definition>
+    <wls:variable>
+        <wls:name>datasource_name</wls:name>
+        <wls:value></wls:value>
+        <wls:description>The name of the datasource to map to the mosaic application</wls:description>
+    </wls:variable>
+ </wls:variable-definition>
+<wls:module-override>
+    <wls:module-name>example2.war</wls:module-name>
+    <wls:module-type>war</wls:module-type>
+    <wls:module-descriptor>
+        <wls:root-element>weblogic-web-app</wls:root-element>
+        <wls:uri>WEB-INF/weblogic.xml</wls:uri>
+        <wls:variable-assignment>
+            <wls:name>new_context_root</wls:name>
+            <wls:xpath>/weblogic-web-app/context-root</wls:xpath>
+            <wls:operation>replace</wls:operation>
+        </wls:variable-assignment>
+        <wls:variable-assignment>
+            <wls:name>datasource_name</wls:name>
+            <wls:xpath>/weblogic-web-app/resource-description/[res-ref-name="jdbc/LogicalDS"]/jndi-name</wls:xpath>
+            <wls:operation>replace</wls:operation>
+        </wls:variable-assignment>
+    </wls:module-descriptor>
+  </wls:module-override>
+</wls:deployment-plan>
