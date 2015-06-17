@@ -73,15 +73,15 @@ public class WindupRulesTest
 
     @Deployment
     @AddonDependencies({
-                @AddonDependency(name = "org.jboss.windup.exec:windup-exec"),
-                @AddonDependency(name = "org.jboss.windup.config:windup-config-xml"),
-                @AddonDependency(name = "org.jboss.windup.rules.apps:windup-rules-java"),
-                @AddonDependency(name = "org.jboss.windup.rules.apps:windup-rules-java-ee"),
-                @AddonDependency(name = "org.jboss.windup.rules.apps:windup-rules-java-project"),
-                @AddonDependency(name = "org.jboss.windup.rules.apps:windup-rules-xml"),
-                @AddonDependency(name = "org.jboss.windup.reporting:windup-reporting"),
-                @AddonDependency(name = "org.jboss.windup.utils:windup-utils"),
-                @AddonDependency(name = "org.jboss.forge.furnace.container:cdi")
+        @AddonDependency(name = "org.jboss.windup.exec:windup-exec"),
+        @AddonDependency(name = "org.jboss.windup.config:windup-config-xml"),
+        @AddonDependency(name = "org.jboss.windup.rules.apps:windup-rules-java"),
+        @AddonDependency(name = "org.jboss.windup.rules.apps:windup-rules-java-ee"),
+        @AddonDependency(name = "org.jboss.windup.rules.apps:windup-rules-java-project"),
+        @AddonDependency(name = "org.jboss.windup.rules.apps:windup-rules-xml"),
+        @AddonDependency(name = "org.jboss.windup.reporting:windup-reporting"),
+        @AddonDependency(name = "org.jboss.windup.utils:windup-utils"),
+        @AddonDependency(name = "org.jboss.forge.furnace.container:cdi")
     })
     public static AddonArchive getDeployment()
     {
@@ -108,12 +108,12 @@ public class WindupRulesTest
         final Map<String, Exception> errors = new LinkedHashMap<>();
 
         FileSuffixPredicate predicate = new FileSuffixPredicate("\\.windup\\.test\\.xml");
-        final File directory = new File("rules");
+        final File rulesDir = new File("rules");
         final File rulesReviewed = new File("rules-reviewed");
-        Visitor<File> mainVisitor = new RuleTestVisitor(successes, errors, directory);
+        Visitor<File> mainVisitor = new RuleTestVisitor(successes, errors, rulesDir);
         Visitor<File> rulesReviewedVisitor = new RuleTestVisitor(successes, errors, rulesReviewed);
 
-        FileVisit.visit(directory, predicate, mainVisitor);
+        FileVisit.visit(rulesDir, predicate, mainVisitor);
         FileVisit.visit(rulesReviewed, predicate, rulesReviewedVisitor);
 
         System.out.println("Successful tests:\n");
@@ -288,6 +288,8 @@ public class WindupRulesTest
         windupConfiguration.addDefaultUserRulesDirectory(baseRuleDirectory.toPath());
 
         final String baseRulesPathNormalized = baseRuleDirectory.toPath().normalize().toAbsolutePath().toString();
+        LOG.info("Base path for rules is: " + baseRulesPathNormalized);
+        
         windupConfiguration.setRuleProviderFilter(new Predicate<RuleProvider>()
         {
             @Override

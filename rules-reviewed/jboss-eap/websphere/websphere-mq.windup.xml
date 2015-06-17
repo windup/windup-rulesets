@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset id="websphere-mq"
+        xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <metadata>
+        <description>
+            Provides analysis of WebSphere JMS proprietary classes and constructs that may require individual attention when migrating to JBoss EAP 6+.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,2.2.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-java,2.2.0.Final"/>
+        </dependencies>
+        <sourceTechnology id="websphere"/>
+        <sourceTechnology id="websphere-mq"/>
+        <targetTechnology id="eap" versionRange="[6,)"/>
+        <targetTechnology id="jms" versionRange="[6,)"/>
+        <tag>reviewed-2015-06-09</tag>
+        <tag>messaging</tag>
+        <tag>mq</tag>
+        <tag>mqe</tag>
+        <tag>ibm</tag>
+        <tag>jms</tag>
+    </metadata>
+
+    <rules>
+        <!-- MQe*Adapter -->
+        <rule id="websphere-mq-01000">
+            <when>
+                <javaclass references="com.ibm.mqe.adapters.MQe{*}Adapter">
+                    <location>INHERITANCE</location>
+                </javaclass>
+            </when>
+            <perform>
+                <classification title="WebSphere MQe JMS adapter" effort="4">
+                    <link description="Javadoc" href="http://www-01.ibm.com/support/knowledgecenter/SSVHEW_6.2.0/com.ibm.mqe.javadoc/java/com/ibm/mqe/adapters/package-summary.html"/>
+                </classification>
+                <hint severity="Mandatory" title="WebSphere MQe JMS adapter">
+                    <message>
+                        WebSphere MQe JMS adapter can be [deployed to JBoss EAP 6](https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6/html/Administration_and_Configuration_Guide/Deploy_the_WebSphere_MQ_Resource_Adapter.html).
+                    </message>
+                    <link description="JBoss EAP 6 Administration and Configuration Guide: Deploy the WebSphere MQ Resource Adapter"
+                          href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6/html/Administration_and_Configuration_Guide/Deploy_the_WebSphere_MQ_Resource_Adapter.html"/>
+                </hint>
+            </perform>
+        </rule>
+
+        <!-- MQe*AdminMsg -->
+        <rule id="websphere-mq-02000">
+            <when>
+                <javaclass references="com.ibm.mqe.administration.MQe{*}AdminMsg">
+                    <location>INHERITANCE</location>
+                </javaclass>
+            </when>
+            <perform>
+                <classification title="WebSphere MQ JMS administration API" description="Provides classes used to administer and monitor a Websphere MQ Everyplace queue manager." effort="4">
+                    <link description="Javadoc" href="http://www-01.ibm.com/support/knowledgecenter/SSVHEW_6.2.0/com.ibm.mqe.javadoc/java/com/ibm/mqe/adapters/package-summary.html"/>
+                </classification>
+                <hint severity="Mandatory">
+                    <message>In JBoss EAP 6, the JMS destinations can be controlled with JBoss CLI.</message>
+                    <link description="JBoss CLI" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#Configure_the_JMS_Server1"/>
+                </hint>
+            </perform>
+        </rule>
+
+
+
+        <!-- WebSphere JMS MQ -->
+
+        <!-- Package-matching generic rule - MQ. -->
+        <rule id="websphere-mq-02500">
+            <when>
+                <javaclass references="com.ibm.mq.jms.{*}"/>
+            </when>
+            <perform>
+                <classification title="WebSphere MQ API">
+                    <link description="Javadoc" href="http://www-01.ibm.com/support/knowledgecenter/SSVHEW_6.2.0/com.ibm.mqe.javadoc/java/com/ibm/mqe/jms/package-summary.html"/>
+                </classification>
+            </perform>
+        </rule>
+
+        <!-- Package-matching generic rule - MQe. -->
+        <rule id="websphere-mq-02501">
+            <when>
+                <javaclass references="com.ibm.mqe.jms.{*}"/>
+            </when>
+            <perform>
+                <classification title="WebSphere MQe API">
+                    <link description="Javadoc" href="http://www-01.ibm.com/support/knowledgecenter/SSVHEW_6.2.0/com.ibm.mqe.javadoc/java/com/ibm/mqe/jms/package-summary.html"/>
+                </classification>
+            </perform>
+        </rule>
+
+        <!-- Example code to match:
+            Properties env = new Properties();
+            env.put(
+                Context.INITIAL_CONTEXT_FACTORY,
+                "com.ibm.mq.jms.context.WMQInitialContextFactory");
+        -->
+        <rule id="websphere-mq-03000">
+            <when>
+                <!-- WINDUP-615
+                <or>
+                    <javaclass references="com.ibm.mq.jms.context.WMQInitialContextFactory" >
+                        <location>STRING</location>
+                    </javaclass>
+                    <filecontent filename="{*}.properties" pattern="{*}com.ibm.mq.jms.context.WMQInitialContextFactory{*}"/>
+                    <filecontent filename="{*}.xml" pattern="{*}&quot;com.ibm.mq.jms.context.WMQInitialContextFactory&quot;{*}"/>
+                </or>
+                -->
+                <filecontent filename="{*}.{ext}" pattern="{*}com.ibm.mq.jms.context.WMQInitialContextFactory{*}"/>
+            </when>
+            <perform>
+                <classification title="WebSphere MQ JMS InitialContextFactory">
+                    <link description="Javadoc" href="http://www-01.ibm.com/support/knowledgecenter/SSVHEW_6.2.0/com.ibm.mqe.javadoc/java/com/ibm/mqe/jms/MQeQueueConnection.html"/>
+                </classification>
+                <hint severity="Mandatory" effort="3">
+                    <message>The `WMQInitialContextFactory` is an implementation of `InitialContextFactory`
+                        used to get object instances from JNDI.
+                        The equivalent functionality needs to be configured on JBoss EAP 6 using HornetQ.
+                        For server scenarios, the `InitialContextFactory` is provided by EAP6 and you only need to instantiate `InitialContext ctx = new InitialContext();`.
+                    </message>
+                    <link description="Migration Guide - HornetQ" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Migration_Guide/index.html#Migrate_Your_Application_to_Use_HornetQ_as_the_JMS_Provider"/>
+                    <link description="Java EE 6 JMS Tutorial" href="https://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html"/>
+                </hint>
+            </perform>
+            <where param="ext"><matches pattern="(java|properties|xml)"/></where>
+        </rule>
+
+        <!-- .scp config files - WINDUPRULE-1 -->
+        <rule id="websphere-mq-04000">
+            <when>
+                <filecontent filename="{*}.scp" pattern="{*}"/>
+            </when>
+            <perform>
+                <classification title="WebSphere MQ JMS configuration file">
+                </classification>
+                <hint severity="Mandatory" effort="3">
+                    <message>
+                        WebSphere .scp files contain scripts for the `jmsadmin` program which is used
+                        to configure the WebSphere MQ destinations and routing.
+                        To configure messaging in JBoss EAP 6, use either the Management Console or Management CLI with it's scripting feature.</message>
+                    <link description="Configure Messaging with HornetQ" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Migration_Guide/index.html#Configure_Messaging_with_HornetQ2"/>
+                    <link description="Java EE 6 JMS Tutorial" href="https://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html"/>
+                </hint>
+            </perform>
+        </rule>
+
+
+
+        <rule id="websphere-mq-05000">
+            <when>
+                <javaclass references="com.ibm.msg.client.wmq.WMQConstants"/>
+            </when>
+            <perform>
+                <classification title="WebSphere MQ Everyplace JMS constants">
+                    <link description="Javadoc" href="http://www-01.ibm.com/support/knowledgecenter/SSVHEW_6.2.0/com.ibm.mqe.javadoc/java/com/ibm/mqe/jms/MQeQueueConnection.html"/>
+                </classification>
+                <hint severity="Mandatory" effort="1">
+                    <message>Replace with Java EE 6 JMS.</message>
+                    <link description="Java EE 6 JMS Tutorial" href="https://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html"/>
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="websphere-mq-05500">
+            <when>
+                <javaclass references="com.ibm.msg.client.{*}"/>
+            </when>
+            <perform>
+                <classification severity="Mandatory" effort="3" title="WebSphere MQ client API">
+                    <!-- Fails XSD validation.
+                    <description>WebSphere MQ client API is used to communicate with the MQ server from client-side applications.
+                        For JBoss EAP 6, this needs to be replaced with standard Java EE 6 JMS API, or with HornetQ client API.
+                    </description>
+                    -->
+                    <link description="Javadoc" href="http://www-01.ibm.com/support/knowledgecenter/SSVHEW_6.2.0/com.ibm.mqe.javadoc/java/com/ibm/mqe/jms/MQeQueueConnection.html"/>
+                    <link description="Java EE 6 JMS Tutorial" href="https://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html"/>
+                    <link description="HornetQ User Manual" href="http://docs.jboss.org/hornetq/2.4.0.Final/docs/user-manual/html_single/index.html#d0e1472"/>
+                    <link description="HornetQ Core Client API Javadoc" href="https://docs.jboss.org/hornetq/2.4.0.Final/api/index.html?org/hornetq/api/core/client/package-summary.html"/>
+                </classification>
+            </perform>
+        </rule>
+
+        <rule id="websphere-mq-057500">
+            <when>
+                <javaclass references="com.ibm.mqe.jms.{*}"/>
+            </when>
+            <perform>
+                <classification severity="Mandatory" effort="3" title="Proprietary WebSphere MQ JMS API">
+                    <link description="Javadoc" href="http://www-01.ibm.com/support/knowledgecenter/SSVHEW_6.2.0/com.ibm.mqe.javadoc/java/com/ibm/mqe/jms/MQeQueueConnection.html"/>
+                </classification>
+            </perform>
+        </rule>
+
+        <rule id="websphere-mq-06000">
+            <when>
+                <javaclass references="com.ibm.mqe.jms.MQeJMSAuthenticator"/>
+            </when>
+            <perform>
+                <hint severity="Mandatory" effort="1">
+                    <message>
+                        `MQeJMSAuthenticator` is WebSphere proprietary JMS authentication API.
+                        To migrate to JBoss EAP 6, replace with Java EE 6 JAAS for JMS authentication.
+                    </message>
+                    <link description="JBoss EAP security domain" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.2/html-single/Development_Guide/index.html#About_Security_Domains"/>
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="websphere-mq-07000">
+            <when>
+                <javaclass references="com.ibm.mqe.jms.MQeJMSMsgFieldNames"/>
+            </when>
+            <perform>
+                <hint effort="1" severity="Optional">
+                    <message>
+                        WebSphere MQe constants are used to name fields when a JMS message is mapped to an `MQeMsgObject`.
+                        Can be discarded when migrating to JBoss EAP 6.
+                    </message>
+                    <link description="Javadoc" href="http://www-01.ibm.com/support/knowledgecenter/SSVHEW_6.2.0/com.ibm.mqe.javadoc/java/com/ibm/mqe/jms/MQeQueueConnection.html"/>
+                </hint>
+            </perform>
+        </rule>
+
+
+        <rule id="websphere-mq-11000">
+            <when>
+                <javaclass references="com.ibm.mqe.jms.MQeJNDIConnectionFactory"/>
+            </when>
+            <perform>
+                <hint severity="Mandatory" effort="1">
+                    <message>
+                        `MQeJNDIConnectionFactory` is a WebLogic implementation of a JMS `ConnectionFactory`.
+                        To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.ConnectionFactory` in your code,
+                        and use standard ways to obtain it from the `InitialContext` or inject it through CDI's `@Inject`.
+                    </message>
+                    <link description="Java EE 6 JMS Tutorial" href="https://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="websphere-mq-12000">
+            <when>
+                <javaclass references="com.ibm.mqe.jms.MQeJNDIQueueConnectionFactory"/>
+            </when>
+            <perform>
+                <hint severity="Mandatory" effort="1">
+                    <message>
+                        `MQeJNDIQueueConnectionFactory` is a WebLogic implementation of a JMS `ConnectionFactory`.
+                        To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.ConnectionFactory` in your code,
+                        and use standard ways to obtain it from the `InitialContext` or inject it through CDI's `@Inject`.
+                    </message>
+                    <link description="Java EE 6 JMS Tutorial" href="https://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="websphere-mq-16000">
+            <when>
+                <javaclass references="com.ibm.mqe.jms.MQeJMSQueue"/>
+            </when>
+            <perform>
+                <hint severity="Mandatory" effort="1">
+                    <message>
+                        `MQeJMSQueue` is a WebLogic implementation of a JMS `Queue`.
+                        To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.Queue`.
+                    </message>
+                    <link description="Java EE 6 JMS Tutorial" href="https://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="websphere-mq-17000">
+            <when>
+                <javaclass references="com.ibm.mqe.jms.MQeJMSJNDIQueue"/>
+            </when>
+            <perform>
+                <hint severity="Mandatory" effort="1">
+                    <message>
+                        `MQeJMSJNDIQueue` is a WebLogic implementation of a JMS `Queue`.
+                        To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.Queue`.
+                    </message>
+                    <link description="Java EE 6 JMS Tutorial" href="https://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html"/>
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="websphere-mq-18000">
+            <when>
+                <javaclass references="com.ibm.mqe.jms.MQe{type}"/>
+            </when>
+            <perform>
+                <hint severity="Mandatory" effort="1">
+                    <message>
+                        `MQe{type}` is a WebLogic implementation of a JMS `{type}`.
+                        To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.{type}`.
+                    </message>
+                    <link description="Java EE 6 JMS Tutorial" href="https://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html"/>
+                </hint>
+            </perform>
+        </rule>
+
+
+        <!-- WebSphere JMS MQ -->
+        <rule id="websphere-mq-19000">
+            <when>
+                <javaclass references="com.ibm.mq.jms.MQ{type}"/>
+            </when>
+            <perform>
+                <hint severity="Mandatory" effort="1">
+                    <message>`MQ{type}` is a proprietary WebSphere MQ implementation of standard Java EE JMS interface.
+                        To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.{type}`.</message>
+                    <link description="Java EE 6 JMS Tutorial" href="https://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html"/>
+                </hint>
+            </perform>
+        </rule>
+
+
+
+        <!-- Covers these classes:
+            com.ibm.websphere.sib.api.jms.JmsTopicConnectionFactory
+            com.ibm.websphere.sib.api.jms.JmsTopic
+            com.ibm.websphere.sib.api.jms.JmsQueueConnectionFactory
+            com.ibm.websphere.sib.api.jms.JmsQueue
+            com.ibm.websphere.sib.api.jms.JmsMsgProducer
+            com.ibm.websphere.sib.api.jms.JmsMsgConsumer
+            com.ibm.websphere.sib.api.jms.JmsDestination
+            com.ibm.websphere.sib.api.jms.JmsConnectionFactory
+            com.ibm.msg.client.jms.JmsConnection
+            com.ibm.msg.client.jms.JmsConnectionMetaData
+            com.ibm.msg.client.jms.JmsDestination
+            com.ibm.msg.client.jms.JmsMessageConsumer
+            com.ibm.msg.client.jms.JmsMessageProducer
+            com.ibm.msg.client.jms.JmsQueue
+            com.ibm.msg.client.jms.JmsQueueBrowser
+            com.ibm.msg.client.jms.JmsQueueConnection
+            com.ibm.msg.client.jms.JmsQueueConnectionFactory
+            com.ibm.msg.client.jms.JmsQueueReceiver
+            com.ibm.msg.client.jms.JmsQueueSender
+            com.ibm.msg.client.jms.JmsQueueSession
+            com.ibm.msg.client.jms.JmsSession
+            com.ibm.msg.client.jms.JmsTemporaryQueue
+            com.ibm.msg.client.jms.JmsTemporaryTopic
+            com.ibm.msg.client.jms.JmsTopic
+            com.ibm.msg.client.jms.JmsTopicConnection
+            com.ibm.msg.client.jms.JmsTopicConnectionFactory
+            com.ibm.msg.client.jms.JmsTopicPublisher
+            com.ibm.msg.client.jms.JmsTopicSession
+            com.ibm.msg.client.jms.JmsTopicSubscriber
+            com.ibm.msg.client.jms.JmsXAConnection
+            com.ibm.msg.client.jms.JmsXAConnectionFactory
+            com.ibm.msg.client.jms.JmsXAQueueConnection
+            com.ibm.msg.client.jms.JmsXAQueueConnectionFactory
+            com.ibm.msg.client.jms.JmsXAQueueSession
+            com.ibm.msg.client.jms.JmsXASession
+            com.ibm.msg.client.jms.JmsXATopicConnection
+            com.ibm.msg.client.jms.JmsXATopicConnectionFactory
+            com.ibm.msg.client.jms.JmsXATopicSession
+            com.ibm.jms.JMSBytesMessage
+            com.ibm.jms.JMSMapMessage
+            com.ibm.jms.JMSMessage
+            com.ibm.jms.JMSObjectMessage
+            com.ibm.jms.JMSStreamMessage
+            com.ibm.jms.JMSTextMessage
+        -->
+        <rule id="websphere-mq-20000">
+            <when>
+                <javaclass references="com.ibm.{prefix}{type}"/>
+            </when>
+            <perform>
+                <hint severity="Mandatory" effort="1">
+                    <message>
+                        `{prefix}{type}` is a proprietary WebSphere MQ implementation of standard Java EE JMS interface.
+                        To migrate to JBoss EAP 6, use the Java EE 6 JMS interface `javax.jms.{type}`.
+                    </message>
+                    <link description="Java EE 6 JMS Tutorial" href="https://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html"/>
+                    <link description="WebSphere MQ Javadoc." href="http://www-01.ibm.com/support/knowledgecenter/SSFKSJ_8.0.0/com.ibm.mq.javadoc.doc/WMQJMSClasses/overview-summary.html"/>
+                </hint>
+            </perform>
+            <where param="prefix"><matches pattern="(websphere\.sib\.api\.|msg.client\.)?jms\.(Jms|JMS)"/></where>
+        </rule>
+
+    </rules>
+</ruleset>
