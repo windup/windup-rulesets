@@ -23,17 +23,17 @@
                 <javaclass references="{package}.{type}" />
             </when>
             <perform>
-                <classification title="IBM MQe" effort="3" severity="mandatory">
-                    <description>WebSphere MQe client API is used to communicate with the MQ server from client-side applications.
+                <classification title="IBM MQ" effort="3" severity="mandatory">
+                    <description>WebSphere MQ client API is used to communicate with the MQ server from client-side applications.
                         For JBoss EAP 6, this needs to be replaced with standard Java EE 6 JMS API, or with HornetQ client API.
                     </description>
                     <link title="Java EE 6 JMS Tutorial" href="https://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html" />
-                    <link title="WebSphere MQe JavaDoc" href="http://www-01.ibm.com/support/knowledgecenter/SSVHEW_6.2.0/com.ibm.mqe.javadoc/java/overview-summary.html" />
+                    <link title="WebSphere MQ JavaDoc" href="http://www-01.ibm.com/support/knowledgecenter/SSVHEW_6.2.0/com.ibm.mqe.javadoc/java/overview-summary.html" />
                     <tag>JMS</tag>
                 </classification>
             </perform>
             <where param="package">
-                <matches pattern="com.ibm(\..*)?\.(wmq|mqe)" />
+                <matches pattern="com.ibm(\..*)?\.(mq|wmq).*" />
             </where>
             <where param="type">
                 <matches pattern="[^.]+" />
@@ -42,52 +42,12 @@
 
         <rule id="websphere-mq-01000">
             <when>
-                <javaclass references="com.ibm.mqe.adapters.MQe{type}Adapter">
-                    <location>INHERITANCE</location>
-                </javaclass>
-            </when>
-            <perform>
-                <hint severity="Mandatory" effort="3">
-                    <message>
-                        IBM MQe {type} adapter provides plug-in communications adapters or data storage adapters for queue managers. These can
-                        be deployed to JBoss EAP.
-                    </message>
-                    <link title="JBoss EAP 6 Administration and Configuration Guide: Deploy the WebSphere MQ Resource Adapter"
-                        href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6/html/Administration_and_Configuration_Guide/Deploy_the_WebSphere_MQ_Resource_Adapter.html" />
-                    <link title="MQe Adapter Javadoc"
-                        href="http://www-01.ibm.com/support/knowledgecenter/SSVHEW_6.2.0/com.ibm.mqe.javadoc/java/com/ibm/mqe/adapters/package-summary.html" />
-                </hint>
-            </perform>
-        </rule>
-
-        <rule id="websphere-mq-02000">
-            <when>
-                <javaclass references="com.ibm.mqe.administration.MQe{type}AdminMsg">
-                    <location>INHERITANCE</location>
-                </javaclass>
-            </when>
-            <perform>
-                <hint severity="Mandatory" effort="3">
-                    <message>IBM MQe {type} administration API provides classes used to administer and monitor a WebSphere MQ Everyplace queue manager. In
-                        JBoss EAP 6, the JMS destinations can be configured with the JBoss Admin CLI.
-                    </message>
-                    <link title="JBoss Admin CLI Guide for JMS"
-                        href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#Configure_the_JMS_Server1" />
-                    <link title="IBM MQe Admin API Javadoc"
-                        href="http://www-01.ibm.com/support/knowledgecenter/SSVHEW_6.2.0/com.ibm.mqe.javadoc/java/com/ibm/mqe/administration/package-summary.html" />
-                </hint>
-            </perform>
-        </rule>
-
-
-        <rule id="websphere-mq-03000">
-            <when>
                 <!-- https://issues.jboss.org/browse/WINDUP-615 -->
                 <filecontent filename="{*}.{ext}" pattern="{*}com.ibm.mq.jms.context.WMQInitialContextFactory{*}" />
             </when>
             <perform>
-                <classification title="IBM MQe Configuration">
-                    <description>WebSphere MQe client API is used to communicate with the MQ server from client-side applications.
+                <classification title="IBM MQ Configuration">
+                    <description>WebSphere MQ client API is used to communicate with the MQ server from client-side applications.
                         For JBoss EAP 6, this needs to be replaced with standard Java EE 6 JMS API, or with HornetQ client API.
                     </description>
                 </classification>
@@ -108,13 +68,13 @@
             </where>
         </rule>
 
-        <rule id="websphere-mq-04000">
+        <rule id="websphere-mq-02000">
             <!-- https://issues.jboss.org/browse/WINDUPRULE-1 -->
             <when>
                 <filecontent filename="{*}.scp" pattern="{*}" />
             </when>
             <perform>
-                <classification title="IBM MQe Configuration" />
+                <classification title="IBM MQ Configuration" />
                 <hint severity="Mandatory" effort="3">
                     <message>
                         WebSphere .scp files contain scripts for the `jmsadmin` program which is used
@@ -128,40 +88,6 @@
                 </hint>
             </perform>
         </rule>
-
-        <rule id="websphere-mq-05000">
-            <when>
-                <javaclass references="com.ibm.mqe.jms.MQeJMSAuthenticator" />
-            </when>
-            <perform>
-                <hint severity="Mandatory" effort="5">
-                    <message>
-                        `MQeJMSAuthenticator` is a WebSphere proprietary JMS authentication API.
-                        To migrate to JBoss EAP 6, replace with Java EE 6 JAAS for JMS authentication.
-                    </message>
-                    <link title="Configure JBoss EAP Security Domain"
-                        href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.2/html-single/Development_Guide/index.html#About_Security_Domains" />
-                </hint>
-            </perform>
-        </rule>
-
-        <rule id="websphere-mq-06000">
-            <when>
-                <javaclass references="com.ibm.mqe.jms.MQeJMSMsgFieldNames" />
-            </when>
-            <perform>
-                <hint effort="1" severity="Optional">
-                    <message>
-                        IBM MQe constants are used to name fields when a JMS message is mapped to an `MQeMsgObject`. These are provided to
-                        enable WebSphere MQ Everyplace applications to interpret messages sent by JMS or to construct messages that a JMS application
-                        will understand.
-
-                        These settings can be discarded when migrating to JBoss EAP 6 with HornetQ.
-                    </message>
-                </hint>
-            </perform>
-        </rule>
-
 
     </rules>
 </ruleset>

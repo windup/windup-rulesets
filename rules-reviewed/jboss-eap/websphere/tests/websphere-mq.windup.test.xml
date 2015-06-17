@@ -27,29 +27,27 @@
         </metadata>
 
         <rules>
-
             <rule id="websphere-mq-00000-test">
                 <when>
                     <not>
-                        <classification-exists classification="IBM MQe" />
+                        <classification-exists classification="IBM MQ" />
                     </not>
                 </when>
                 <perform>
-                    <fail message="Classification not found: IBM MQe" />
+                    <fail message="Classification not found: IBM MQ" />
                 </perform>
             </rule>
-
-            <rule id="websphere-mq-03000-test-1">
+            <rule id="websphere-mq-01000-test-1">
                 <when>
                     <not>
-                        <classification-exists classification="IBM MQe Configuration" />
+                        <classification-exists classification="IBM MQ Configuration" />
                     </not>
                 </when>
                 <perform>
-                    <fail message="Classification not found: IBM MQe Configuration" />
+                    <fail message="Classification not found: IBM MQ Configuration" />
                 </perform>
             </rule>
-            <rule id="websphere-mq-03000-test-2">
+            <rule id="websphere-mq-01000-test-2">
                 <when>
                     <not>
                         <hint-exists message="`WMQInitialContextFactory` is an implementation of.*" />
@@ -59,8 +57,7 @@
                     <fail message="Hint not found for `WMQInitialContextFactory` configuration" />
                 </perform>
             </rule>
-
-            <rule id="websphere-mq-04000-test">
+            <rule id="websphere-mq-02000-test">
                 <when>
                     <not>
                         <hint-exists message="WebSphere .scp files contain scripts.*" />
@@ -68,16 +65,6 @@
                 </when>
                 <perform>
                     <fail message="Hint not found for WebSphere .scp files" />
-                </perform>
-            </rule>
-            <rule id="websphere-mq-05000-test">
-                <when>
-                    <not>
-                        <hint-exists message="`MQeJMSAuthenticator` is a WebSphere proprietary.*" />
-                    </not>
-                </when>
-                <perform>
-                    <fail message="Hint not found for `MQeJMSAuthenticator`." />
                 </perform>
             </rule>
         </rules>

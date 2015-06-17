@@ -9,6 +9,7 @@ import com.ibm.mqe.jms.MQeConnection;
 import com.ibm.mqe.jms.MQeTopicConnection;
 import com.ibm.mqe.jms.MQeTopicPublisher;
 import com.ibm.mqe.jms.MQeTopicSession;
+import com.ibm.mqe.jms.MQeJMSAuthenticator;
 import javax.naming.NamingException;
 
 
@@ -24,6 +25,7 @@ public class ExamplePublish
     public static void main(String[] args)
             throws NamingException, MQeJMSException, IOException
     {
+        MQeJMSAuthenticator auth = new com.ibm.mqe.jms.MQeJMSAuthenticator();
         ExamplePublish publisher = new ExamplePublish();
         publisher.connect();
         String message = "ignored";
