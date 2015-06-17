@@ -125,6 +125,16 @@
                     <fail message="Hint for WebLogic JDBC Fast Connection Failover not found"/>
                 </perform>
             </rule>
+            <rule id="weblogic-13000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="WebLogic Side-By-Side Redeployment possibly used"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebLogic Side-By-Side Redeployment classification not found!"/>
+                </perform>
+            </rule>            
         </rules>
     </ruleset>
 </ruletest>
