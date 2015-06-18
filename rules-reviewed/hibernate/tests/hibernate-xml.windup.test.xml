@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<ruletest id="weblogic-xml-descriptors-tests" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <testDataPath>data</testDataPath>
+    <rulePath>../</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="hibernate-xml-01000-test">
+                <when>
+                    <not>
+                        <or>
+                            <hint-exists message="In versions of Hibernate prior to 3.5, text type was mapped to JDBC CLOB." in="hibernate-mapping.xml" />
+                        </or>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hibernate deprecated string type hint not found!" />
+                </perform>
+            </rule>
+	    <rule id="hibernate-xml-01000-test2">
+                <when>
+                       <hint-exists message="In versions of Hibernate prior to 3.5, text type was mapped to JDBC CLOB." in="hibernate-fake-mapping.xml" />
+                </when>
+                <perform>
+                    <fail message="Hibernate deprecated string type hint not found!" />
+                </perform>
+            </rule>
+	  </rules>
+    </ruleset>
+</ruletest>
