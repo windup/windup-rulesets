@@ -162,8 +162,21 @@
                 <hint effort="1">
                     <message>Migrate to JBoss EAP 6: org.jboss.security.SecurityContextAssociation</message>
                     <link
-                        href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.3/html-single/API_Documentation/files/javadoc/org/jboss/security/SecurityContextAssociation.html"
-                        title="Security Context - JBoss 6" />
+                        href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/API_Documentation/files/javadoc/org/jboss/security/SecurityContextAssociation.html"
+                        title="Security Context - JBoss EAP 6" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="weblogic-webapp-09000">
+            <when>
+                <javaclass references="weblogic.servlet.security.ServletAuthentication"/>
+            </when>
+            <perform>
+                <hint effort="1" severity="mandatory" title="WebLogic proprietary annotation ServletAuthentication">
+                    <message>Migrate to Standard Java EE 6 Servlet Security: javax.servlet.annotation.ServletSecurity</message>
+                    <link
+                        href="https://access.redhat.com/articles/1329213"
+                        title="Migrate Oracle WebLogic Server Programmatic Login to JBoss EAP 6" />
                 </hint>
             </perform>
         </rule>
