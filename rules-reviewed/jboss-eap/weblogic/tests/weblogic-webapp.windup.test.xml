@@ -86,6 +86,16 @@
                     <fail message="WebLogic Security API hint not found!" />
                 </perform>
             </rule>
+            <rule id="weblogic-webapp-09000-test">
+                <when>
+                    <not>
+                        <hint-exists message=".*javax.servlet.annotation.ServletSecurity" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Migrate Oracle WebLogic Server Programmatic Login hint not found!" />
+                </perform>
+            </rule>            
         </rules>
     </ruleset>
 </ruletest>

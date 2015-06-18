@@ -134,7 +134,17 @@
                 <perform>
                     <fail message="WebLogic Side-By-Side Redeployment classification not found!"/>
                 </perform>
-            </rule>            
+            </rule>
+            <rule id="weblogic-14000-test">
+                <when>
+                    <not>
+                        <hint-exists message=".*Oracle Wallet Manager.*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebLogic Oracle Wallet Manager hint not found!"/>
+                </perform>
+            </rule> 
         </rules>
     </ruleset>
 </ruletest>

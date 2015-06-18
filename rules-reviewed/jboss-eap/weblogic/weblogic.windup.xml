@@ -229,7 +229,7 @@
                         ```
                         ]]>
                     </message>
-                    <link href="https://access.redhat.com/articles/1329233" title="Implement Oracle Fast Connection Failover (FCF) in JBoss EAP 6"/>
+                    <link href="https://access.redhat.com/articles/1329233" title="Implement Oracle Fast Connection Failover (FCF) in EAP 6"/>
                     <link href="https://access.redhat.com/solutions/42463" title="Use Oracle FCF in JBoss EAP"/>
                 </hint>
             </perform>
@@ -242,6 +242,20 @@
                 <classification effort="1" severity="optional" title="WebLogic Side-By-Side Redeployment possibly used">
                     <link href="https://access.redhat.com/articles/1329253" title="Replace WebLogic Side-By-Side Production Redeployment in EAP 6"/>
                 </classification>
+            </perform>
+        </rule>
+        <rule id="weblogic-14000">
+            <when>
+                <filecontent filename="{*}" pattern="oracle.net.wallet_location"/>
+            </when>
+            <perform>
+                <hint effort="3" severity="mandatory" title="WebLogic Oracle Wallet used">
+                    <message>
+                        Weblogic administrators use wallets created by Oracle Wallet Manager to manage public key security credentials on application clients and servers. 
+                        These wallets must first be converted to standard Java KeyStore (JKS) entries that can then be used to configure the credentials in JBoss EAP 6.
+                    </message>
+                    <link href="https://access.redhat.com/articles/1329073" title="Replace WebLogic Oracle Wallets When Migrating to EAP 6"/>
+                </hint>
             </perform>
         </rule>
     </rules>
