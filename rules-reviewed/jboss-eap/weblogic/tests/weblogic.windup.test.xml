@@ -135,6 +135,16 @@
                     <fail message="WebLogic Side-By-Side Redeployment classification not found!"/>
                 </perform>
             </rule>            
+	     <rule id="weblogic-14000-test">
+                <when>
+                    <not>
+                        <hint-exists message="In JBoss, you instantiate the InitialContext .*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint for InitialContext initialization not found"/>
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
