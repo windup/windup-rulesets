@@ -242,9 +242,24 @@
                 <classification effort="1" severity="optional" title="WebLogic Side-By-Side Redeployment possibly used">
                     <link href="https://access.redhat.com/articles/1329253" title="Replace WebLogic Side-By-Side Production Redeployment in EAP 6"/>
                 </classification>
+	    		</perform>
+			</rule>
+			<rule id="weblogic-14000">
+            <when>
+                <javaclass references="javax.naming.InitialContext(java.util.Hashtable{*}" as="default">
+                    <location>CONSTRUCTOR_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <iteration>
+                    <hint title="Proprietary InitialContext initialization" effort="1">
+                        <message>In JBoss, you instantiate the InitialContext with no arguments and then look up the service using portable JNDI lookup rules</message>
+								<link href="http://docbuilder.usersys.redhat.com/13710/#Migrate_WebLogic_JNDI_Lookups_to_Use_Portable_JNDI_Syntax" title="JNDI migration" />
+                    </hint>
+                </iteration>
             </perform>
         </rule>
-        <rule id="weblogic-14000">
+        <rule id="weblogic-15000">
             <when>
                 <filecontent filename="{*}" pattern="oracle.net.wallet_location"/>
             </when>
