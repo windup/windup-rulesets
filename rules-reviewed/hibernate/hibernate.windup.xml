@@ -10,23 +10,23 @@
             <addon id="org.jboss.windup.rules,windup-rules-javaee,2.3.0.Final" />
             <addon id="org.jboss.windup.rules,windup-rules-java,2.3.0.Final" />
         </dependencies>
-        <sourceTechnology id="hibernate" versionRange="[,3.9)"/>
+        <sourceTechnology id="hibernate" versionRange="[,3.9)" />
         <targetTechnology id="hibernate" versionRange="[4,)" />
-        <tag>hibernate</tag>
+        <tag>reviewed-2015-06-18</tag>
     </metadata>
 
     <rules>
         <rule id="hibernate-01000">
-           <when>
-                <javaclass references="org.hibernate.annotations.Type" matchesSource="{*}text{*}"/>
+            <when>
+                <javaclass references="org.hibernate.annotations.Type" matchesSource="{*}text{*}" />
             </when>
             <perform>
                 <iteration>
                     <hint title="@Type(type=text) is deprecated in Hibernate 4" effort="1">
                         <message>
-                            This way of specifying a type is deprecated in Hibernate 4. It should be migrated to @Lob
+                            Hibernate 4 text LOB type definitions should be defined using to `@Lob`, instead.
                         </message>
-			 <link href="http://docbuilder.usersys.redhat.com/13710/#Migrate_Your_Hibernate_33x_Application_to_Hibernate_4x" title="Hibernate 4 java @Type migration." />
+                        <link href="http://docbuilder.usersys.redhat.com/13710/#Migrate_Your_Hibernate_33x_Application_to_Hibernate_4x" title="Hibernate 4 java @Type migration." />
                     </hint>
                 </iteration>
             </perform>

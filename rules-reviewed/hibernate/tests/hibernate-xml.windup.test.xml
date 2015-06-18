@@ -9,23 +9,21 @@
             <rule id="hibernate-xml-01000-test">
                 <when>
                     <not>
-                        <or>
-                            <hint-exists message="In versions of Hibernate prior to 3.5, text type was mapped to JDBC CLOB." in="hibernate-mapping.xml" />
-                        </or>
+                        <hint-exists message="In versions of Hibernate prior to 3.5, text type was mapped to JDBC CLOB.*" in="hibernate-mapping.xml" />
                     </not>
                 </when>
                 <perform>
                     <fail message="Hibernate deprecated string type hint not found!" />
                 </perform>
             </rule>
-	    <rule id="hibernate-xml-01000-test2">
+            <rule id="hibernate-xml-01000-test2">
                 <when>
-                       <hint-exists message="In versions of Hibernate prior to 3.5, text type was mapped to JDBC CLOB." in="hibernate-fake-mapping.xml" />
+                    <hint-exists message="In versions of Hibernate prior to 3.5, text type was mapped to JDBC CLOB.*" in="hibernate-fake-mapping.xml" />
                 </when>
                 <perform>
                     <fail message="Hibernate deprecated string type hint not found!" />
                 </perform>
             </rule>
-	  </rules>
+        </rules>
     </ruleset>
 </ruletest>
