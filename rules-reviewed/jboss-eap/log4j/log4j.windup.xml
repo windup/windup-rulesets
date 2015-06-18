@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="Log4jRules" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <metadata>
+        <description>
+            This ruleset provides analysis of Log4J classes and constructs that may require individual attention when migrating to JBoss EAP 6+.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,2.0.1.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,2.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="log4j" />
+        <targetTechnology id="eap" versionRange="[6,)" />
+        <tag>reviewed-2015-06-18</tag>
+    </metadata>
+
+    <rules>
+        <rule id="log4j-01000">
+            <when>
+                <project>
+                    <artifact groupId="log4j" artifactId="log4j" />
+                </project>
+            </when>
+            <perform>
+                <lineitem
+                    message="Deploying log4j.jar can result in non-deterministic ClassLoading issues. It is recommended to use the built-in Log4j module configured via `jboss-deployment-structure.xml`" />
+            </perform>
+        </rule>
+        <rule id="log4j-02000">
+            <when>
+                <filecontent pattern="{*}" filename="log4j.xml" />
+            </when>
+            <perform>
+                <classification title="Log4j Configuration" effort="1">
+                    <link href="https://access.redhat.com/solutions/405893" title="How to configure Log4J in EAP6" />
+                    <link href="https://access.redhat.com/solutions/105653" title="How to separate Log4J application logging from the 'server.log' in JBoss EAP 6" />
+                    <link href="https://access.redhat.com/discussions/478983" title="Use my own 'log4j.xml' with EAP 6.1" />
+                    <link href="https://access.redhat.com/solutions/375273" title="EAP 6 deadlocks on a ConsoleHandler and java.io.PrintStream" />
+                </classification>
+            </perform>
+        </rule>
+        <rule id="log4j-03000">
+            <when>
+                <filecontent pattern="org.apache.log4j.ConsoleAppender" filename="log4j.{suffix}" />
+            </when>
+            <perform>
+                <hint effort="1" severity="Optional" title="Log4j ConsoleAppender Configuration - Potential Deadlock">
+                    <message>
+                        Using ConsoleAppender configured in log4j.{suffix} can cause a deadlock on JBoss EAP 6. 
+                        It is recommended to Remove application level log4j ConsoleAppenders.</message>
+                    <link href="https://access.redhat.com/solutions/375273" title="EAP 6 deadlocks when using ConsoleHandler and java.io.PrintStream" />
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

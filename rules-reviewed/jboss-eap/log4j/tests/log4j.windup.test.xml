@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+    <testDataPath>data</testDataPath>
+    <rulePath>../log4j.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="log4j-01000-test">
+                <when>
+                    <not>
+                        <lineitem-exists message="Deploying log4j.jar can result in non-deterministic ClassLoading issues.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Log4j artifact not found!" />
+                </perform>
+            </rule>
+            <rule id="log4j-02000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="Log4j Configuration" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="log4j.xml file classification not found!" />
+                </perform>
+            </rule>
+            <rule id="log4j-03000-test-1">
+                <when>
+                    <not>
+                        <hint-exists message="Using ConsoleAppender configured in log4j\.properties.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="log4j.properties file ConsoleAppender not found!" />
+                </perform>
+            </rule>
+            <rule id="log4j-03000-test-2">
+                <when>
+                    <not>
+                        <hint-exists message="Using ConsoleAppender configured in log4j\.xml.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="log4j.xml file ConsoleAppender config not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

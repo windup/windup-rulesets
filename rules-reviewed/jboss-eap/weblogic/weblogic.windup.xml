@@ -229,22 +229,29 @@
                         ```
                         ]]>
                     </message>
-                    <link href="https://access.redhat.com/articles/1329233" title="Implement Oracle Fast Connection Failover (FCF) in EAP 6"/>
-                    <link href="https://access.redhat.com/solutions/42463" title="Use Oracle FCF in JBoss EAP"/>
+                    <link href="https://access.redhat.com/articles/1329233" title="Implement Oracle Fast Connection Failover (FCF) in EAP 6" />
+                    <link href="https://access.redhat.com/solutions/42463" title="Use Oracle FCF in JBoss EAP" />
                 </hint>
             </perform>
         </rule>
         <rule id="weblogic-13000">
             <when>
-                <filecontent filename="MANIFEST.MF" pattern="Weblogic-Application-Version:"/>
+                <filecontent filename="MANIFEST.MF" pattern="Weblogic-Application-Version:" />
             </when>
             <perform>
-                <classification effort="1" severity="optional" title="WebLogic Side-By-Side Redeployment possibly used">
-                    <link href="https://access.redhat.com/articles/1329253" title="Replace WebLogic Side-By-Side Production Redeployment in EAP 6"/>
+                <classification effort="1" severity="optional" title="WebLogic Side-By-Side Redeployment">
+                    <link href="https://access.redhat.com/articles/1329253" title="Replace WebLogic Side-By-Side Production Redeployment in EAP 6" />
                 </classification>
-	    		</perform>
-			</rule>
-			<rule id="weblogic-14000">
+                <hint effort="3" title="WebLogic Side-By-Side Redeployment Configuration" severity="Mandatory">
+                    <message>
+                        Oracle WebLogic Server includes a proprietary side-by-side production redeployment feature. For applications that meet certain requirements and restrictions, the new version of the application is deployed while the older version is still running. The old and new applications must be running on the same server or cluster. The new version of the application accepts new web session requests while the older version finishes processing requests already in process. Upon completion of the existing session requests, the older version of the application is then undeployed.
+                        In JBoss EAP, you can either deploy the new application to a secondary server group or cluster, or deploy the new application serially to the same clustered domain.
+                    </message>
+                    <link href="https://access.redhat.com/articles/1329253" title="Replace WebLogic Side-By-Side Production Redeployment in EAP 6" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="weblogic-14000">
             <when>
                 <javaclass references="javax.naming.InitialContext(java.util.Hashtable{*}" as="default">
                     <location>CONSTRUCTOR_CALL</location>
@@ -253,15 +260,19 @@
             <perform>
                 <iteration>
                     <hint title="Proprietary InitialContext initialization" effort="1">
-                        <message>In JBoss, you instantiate the InitialContext with no arguments and then look up the service using portable JNDI lookup rules</message>
-								<link href="http://docbuilder.usersys.redhat.com/13710/#Migrate_WebLogic_JNDI_Lookups_to_Use_Portable_JNDI_Syntax" title="JNDI migration" />
+                        <message>In JBoss EAP, the InitialContext should be instantiated with no arguments. Once an instance is constructed, look up the service using portable JNDI lookup syntax.
+                        
+                        `InitialContext context = new InitialContext();
+                        Service service = (Service) context.lookup( "java:app/service/" + ServiceImpl.class.getSimpleName() );`
+                        </message>
+                        <link href="http://docbuilder.usersys.redhat.com/13710/#Migrate_WebLogic_JNDI_Lookups_to_Use_Portable_JNDI_Syntax" title="JNDI migration" />
                     </hint>
                 </iteration>
             </perform>
         </rule>
         <rule id="weblogic-15000">
             <when>
-                <filecontent filename="{*}" pattern="oracle.net.wallet_location"/>
+                <filecontent filename="{*}" pattern="oracle.net.wallet_location" />
             </when>
             <perform>
                 <hint effort="3" severity="mandatory" title="WebLogic Oracle Wallet used">
@@ -269,7 +280,7 @@
                         Weblogic administrators use wallets created by Oracle Wallet Manager to manage public key security credentials on application clients and servers. 
                         These wallets must first be converted to standard Java KeyStore (JKS) entries that can then be used to configure the credentials in JBoss EAP 6.
                     </message>
-                    <link href="https://access.redhat.com/articles/1329073" title="Replace WebLogic Oracle Wallets When Migrating to EAP 6"/>
+                    <link href="https://access.redhat.com/articles/1329073" title="Replace WebLogic Oracle Wallets When Migrating to EAP 6" />
                 </hint>
             </perform>
         </rule>
