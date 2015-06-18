@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="hibernate-xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <metadata>
+        <description>
+            This ruleset provides analysis of Hibernate older version xml configuration files and their migration to newer one.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,2.3.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,2.3.0.Final" />
+        </dependencies>
+        <sourceTechnology id="hibernate" versionRange="[,3.9)"/>
+        <targetTechnology id="hibernate" versionRange="[4,)" />
+        <tag>hibernate</tag>
+	<tag>xml configuration</tag>
+    </metadata>
+
+    <rules>
+        <rule id="hibernate-xml-01000">
+            <when>
+                <xmlfile as="1" matches="/hibernate-mapping">
+                </xmlfile>
+                <xmlfile as="2" matches="//*[@type='string']" from="1">
+                </xmlfile>
+            </when>
+            <perform>
+                <iteration over="1">
+                    <hint title="String type is deprecated, use materialized_clob instead" effort="1">
+			<message>In versions of Hibernate prior to 3.5, text type was mapped to JDBC CLOB. A new Hibernate type, materialized_clob, was added in Hibernate 4 to map Java String properties to JDBC CLOB</message>
+		    </hint>
+                    <link href="http://docbuilder.usersys.redhat.com/13710/#Migrate_Your_Hibernate_33x_Application_to_Hibernate_4x" title="Hibernate 3 to 4 - JDBC CLOB migration"/>
+                </iteration>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
