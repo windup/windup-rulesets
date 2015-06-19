@@ -12,6 +12,8 @@
         </dependencies>
         <sourceTechnology id="hibernate" versionRange="[,3.9)" />
         <targetTechnology id="hibernate" versionRange="[4,)" />
+	<tag>hibernate</tag>
+	<tag>configuration</tag>
         <tag>reviewed-2015-06-18</tag>
     </metadata>
 
@@ -22,10 +24,27 @@
                 <xmlfile as="2" matches="//*[@type='string']" from="1" />
             </when>
             <perform>
-                <iteration over="1">
-                    <hint title="Hibernate: Deprecated 'string' CLOB data type" effort="1">
+                <iteration over="2">
+                    <hint title="Hibernate: Deprecated 'string' CLOB data type" effort="1" severity="mandatory">
                         <message>In versions of Hibernate prior to 3.5, text type was mapped to JDBC CLOB. A new Hibernate type, `materialized_clob`, was added in Hibernate 4 to map Java `String` properties to JDBC CLOB</message>
-                        <link href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Migration_Guide/sect-Changes_Dependent_on_Your_Application_Architecture_and_Components.html#Migrate_Your_Hibernate_33x_Application_to_Hibernate_4x" title="Hibernate 3 to 4 - JDBC CLOB migration" />
+                        <link href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6/html/Migration_Guide/Migrate_Your_Hibernate_3.5.x_Application_to_Hibernate_4.x.html" title="Hibernate 3 to 4 - JDBC CLOB migration" />
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+	<rule id="hibernate-xml-02000">
+            <when>
+               <xmlfile as="1" matches="/hibernate-configuration" />
+               <xmlfile as="2" matches="//property[@name='hibernate.jdbc.use_streams_for_binary']" from="1" />
+            </when>
+            <perform>
+                <iteration over="2">
+                    <hint title="hibernate.jdbc.use_streams_for_binary must be set according to the provider" effort="1" severity="mandatory">
+                         <message><![CDATA[
+                        If you are using Oracle and using the ```materialized_clob``` or ```materialized_blob``` properties, this global environment variable must be set to true. 
+			If you are using PostgreSQL and using the CLOB or BLOB properties, this global environment variable  must be set to false. 
+                    ]]></message>
+                        <link href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6/html/Migration_Guide/Migrate_Your_Hibernate_3.5.x_Application_to_Hibernate_4.x.html" title="Hibernate 3.5 to 4 - properties" />
                     </hint>
                 </iteration>
             </perform>
