@@ -52,12 +52,9 @@
         </rule>
         <rule id="websphere-xml-03000">
             <when>
-                <or>
-                    <xmlfile matches="/webappext:WebAppExtension">
-                        <namespace prefix="webappext" uri="webappext.xmi"/>
-                    </xmlfile>
-                    <filecontent filename="ibm-web-ext.xmi" pattern="{*}"/>
-                </or>
+                <xmlfile matches="/webappext:WebAppExtension">
+                    <namespace prefix="webappext" uri="webappext.xmi"/>
+                </xmlfile>
             </when>
             <perform>
                 <classification title="WebSphere Web Application Extension configuration file" effort="3">
@@ -109,13 +106,9 @@
         </rule>
         <rule id="websphere-xml-06000">
             <when>
-                <or>
-                    <xmlfile matches="/webappbnd:WebAppBinding">
-                        <namespace prefix="webappbnd" uri="webappbnd.xmi"/>
-                    </xmlfile>
-                    <!-- Typically resides in WEB-INF/ibm-web-bnd.xmi -->
-                    <filecontent filename="ibm-web-bnd.xmi" pattern="{*}"/>
-                </or>
+                <xmlfile matches="/webappbnd:WebAppBinding">
+                    <namespace prefix="webappbnd" uri="webappbnd.xmi"/>
+                </xmlfile>
             </when>
             <perform>
                 <classification title="WebSphere Web Application Binding" effort="0">
