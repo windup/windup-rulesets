@@ -24,6 +24,16 @@
                     <fail message="Hibernate deprecated string type hint not found!" />
                 </perform>
             </rule>
+	    <rule id="hibernate-xml-02000">
+                <when>
+			<not>
+                    		<hint-exists message="If you are using Oracle and using the" />
+			</not>
+                </when>
+                <perform>
+                    <fail message="Hibernate properties configuration hint not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>

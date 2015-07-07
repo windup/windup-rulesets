@@ -22,11 +22,44 @@
             </when>
             <perform>
                 <iteration>
-                    <hint title="@Type(type=text) is deprecated in Hibernate 4" effort="1">
+                    <hint title="@Type(type=text) is deprecated in Hibernate 4" effort="1" severity="mandatory">
                         <message>
-                            Hibernate 4 text LOB type definitions should be defined using to `@Lob`, instead.
+                            In versions of Hibernate prior to 3.5, text type was mapped to JDBC CLOB. A new Hibernate type, materialized_clob, was added in Hibernate 4 to map Java String properties to JDBC CLOB. Therefore, Hibernate 4 text LOB type definitions should be defined using `@Lob`, instead.
                         </message>
-                        <link href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Migration_Guide/sect-Changes_Dependent_on_Your_Application_Architecture_and_Components.html#Migrate_Your_Hibernate_33x_Application_to_Hibernate_4x" title="Hibernate 4 java @Type migration." />
+                        <link href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.1/html/Migration_Guide/Migrate_Your_Hibernate_33x_Application_to_Hibernate_4x.html" title="Hibernate 4 java @Type migration." />
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>	
+	<rule id="hibernate-02000">
+            <when>
+                <javaclass references="org.hibernate.criterion.Projections.{method}{*}">
+			<location>METHOD_CALL</location>
+		</javaclass>
+            </when>
+            <perform>
+                    <hint title="Hibernate 4 projection return types" effort="1" severity="optional">
+                        <message>
+                            The return types of the numeric aggregate criteria projections has changed to Long in hibernate 4. This change may introduce conflicts in the code.
+                        </message>
+                        <link href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.1/html/Migration_Guide/Migrate_Your_Hibernate_33x_Application_to_Hibernate_4x.html" title="Hibernate 4 projections return type change." />
+                    </hint>
+            </perform>
+	    <where param="method"><matches pattern="(count|rowCount|sum)" /></where>
+        </rule>
+	<rule id="hibernate-03000">
+            <when>
+                <javaclass references="org.hibernate.cfg.AnnotationConfiguration{*}">
+			<location>CONSTRUCTOR_CALL</location>
+		</javaclass>
+            </when>
+            <perform>
+                <iteration>
+                    <hint title="The initial naming strategy was changed from DefaultNamingStrategy to EJB3NamingStrategy in Hibernate 4" effort="1" severity="optional">
+                        <message>
+                            The initial/default naming strategy in Hibernate 4 was changed from DefaultNamingStrategy to EJB3NamingStrategy. This can result in naming mismatches. If you rely on the naming strategy, call Configuration#setNamingStrategy.
+                        </message>
+                        <link href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6/html/Migration_Guide/Migrate_Your_Hibernate_3.5.x_Application_to_Hibernate_4.x.html" title="Hibernate 4 naming strategy change documentation." />
                     </hint>
                 </iteration>
             </perform>

@@ -9,11 +9,31 @@
             <rule id="hibernate-01000-test">
                 <when>
                     <not>
-                        <hint-exists message="Hibernate 4 text LOB type definitions should be defined using to `@Lob`, instead." />
+                        <hint-exists message="In versions of Hibernate prior to 3.5, text type was mapped to JDBC CLOB" />
                     </not>
                 </when>
                 <perform>
                     <fail message="Hibernate hint for @Type(type='text') was not found!" />
+                </perform>
+            </rule>
+	    <rule id="hibernate-02000-test">
+                <when>
+                    <not>
+                        <hint-exists message="The return types of the numeric aggregate criteria projections has changed to Long in hibernate 4. This change may introduce conflicts in the code." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hibernate hint for projections return type change was not found!" />
+                </perform>
+            </rule>
+	    <rule id="hibernate-03000-test">
+                <when>
+                    <not>
+                        <hint-exists message="The return types of the numeric aggregate criteria projections has changed to Long in hibernate 4. This change may introduce conflicts in the code." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hibernate hint for naming convention hint was not found!" />
                 </perform>
             </rule>
 	  </rules>
