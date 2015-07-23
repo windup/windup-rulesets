@@ -16,6 +16,7 @@
         <targetTechnology id="eap" versionRange="[6,)"/>
         <tag>reviewed-2015-06-02</tag>
     </metadata>
+    
     <rules>
         <rule id="weblogic-services-01000">
             <when>
@@ -27,6 +28,7 @@
                 <classification title="WebLogic Startup Service" effort="3" severity="mandatory">
                     <link href="http://docs.oracle.com/javaee/6/api/javax/ejb/Singleton.html" title="EJB3.1 Singleton Bean"/>
                     <link href="http://docs.oracle.com/javaee/6/api/javax/ejb/Startup.html" title="EJB3.1 Startup Bean"/>
+                    <tag>startup</tag>
                 </classification>
                 <hint title="Use of WebLogic Startup Service" effort="0" severity="mandatory">
                     <message>Replace this class with a class using the EJB 3.1 @Singleton and @Startup annotations.</message>
@@ -61,8 +63,9 @@
                     <message>
                         NonCatalogLogger is a logger for logging messages to the WebLogic log. This should be replaced
                         with SLF4J, Log4J, or Java Logging.
-                     </message>
-                     <link href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Migration_Guide/chap-Migrate_Your_Application.html#sect-Logging_Changes" title="JBoss Logging Migration Information"/>
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Migration_Guide/chap-Migrate_Your_Application.html#sect-Logging_Changes" title="JBoss Logging Migration Information"/>
+                    <tag>logging</tag>
                 </hint>
             </perform>
         </rule>

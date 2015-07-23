@@ -26,6 +26,7 @@
             <perform>
                 <classification title="WebLogic Scheduled Job" effort="3" severity="mandatory">
                     <link href="https://docs.oracle.com/javaee/6/tutorial/doc/bnboy.html" title="EJB Timer Service" />
+                    <tag>scheduler</tag>
                 </classification>
                 <hint title="WebLogic Scheduled Job" effort="0" severity="mandatory">
                     <message>
@@ -34,6 +35,8 @@
                         More information is available within the [Java EE
                         6 Tutorial](https://docs.oracle.com/javaee/6/tutorial/doc/bnboy.html).
                     </message>
+                    <tag>ejb</tag>
+                    <tag>timer</tag>
                 </hint>
             </perform>
         </rule>
@@ -71,6 +74,7 @@
                         [javax.transaction.TransactionManager](http://docs.oracle.com/javaee/7/api/javax/transaction/TransactionManager.html)
                     </message>
                     <link href="http://docs.oracle.com/javaee/7/api/javax/transaction/TransactionManager.html" title="Java Enterprise Edition TransactionManager" />
+                    <tag>transactions</tag>
                 </hint>
             </perform>
             <where param="classname">
@@ -97,6 +101,7 @@
             <perform>
                 <hint title="WebLogic TransactionManager Usage" effort="1" severity="mandatory">
                     <message>Replace with the Java EE standard method 'javax.transaction.TransactionManager.resume(Transaction tx)'.</message>
+                    <tag>transactions</tag>
                 </hint>
             </perform>
         </rule>
@@ -120,6 +125,7 @@
             <perform>
                 <hint title="WebLogic TransactionManager Usage" effort="1" severity="mandatory">
                     <message>Replace with the Java EE standard javax.transaction.TransactionManager.suspend()</message>
+                    <tag>transactions</tag>
                 </hint>
             </perform>
         </rule>
@@ -132,6 +138,7 @@
             <perform>
                 <hint title="WebLogic TxHelper Usage" effort="1" severity="mandatory">
                     <message>Remove the 'weblogic.transaction.TxHelper' import statement.</message>
+                    <tag>transactions</tag>
                 </hint>
             </perform>
         </rule>
@@ -153,6 +160,7 @@
                             (TransactionManager)context.lookup("java:jboss/TransactionManager");
                             ```
                         </message>
+                        <tag>transactions</tag>
                     </hint>
                 </iteration>
             </perform>
@@ -172,7 +180,8 @@
                     </message>
                     <link href="https://docs.oracle.com/database/121/JAJDB/oracle/jdbc/class-use/OracleClob.html" title="Oracle JDBC Documentation" />
                     <link href="http://docs.oracle.com/javase/7/docs/api/java/sql/Clob.html" title="java.sql.Clob interface" />
-                </hint>
+                    <tag>jdbc</tag>
+            </hint>
             </perform>
         </rule>
         <rule id="weblogic-10000">
@@ -186,6 +195,7 @@
                     </message>
                     <link href="https://docs.oracle.com/database/121/JAJDB/oracle/jdbc/class-use/OracleClob.html" title="Oracle JDBC Documentation" />
                     <link href="http://docs.oracle.com/javase/7/docs/api/java/sql/Clob.html" title="java.sql.Clob interface" />
+                    <tag>jdbc</tag>
                 </hint>
             </perform>
         </rule>
@@ -209,6 +219,7 @@
                     </message>
                     <link href="https://docs.oracle.com/javase/7/docs/technotes/guides/logging/overview.html" title="JDK Logging Documentation" />
                     <link href="http://www.jboss.org/quickstarts/eap/logging/" title="JBoss Logging Quickstart" />
+                    <tag>logging</tag>
                 </hint>
             </perform>
         </rule>
@@ -220,9 +231,9 @@
             <perform>
                 <hint title="WebLogic uses Oracle FCF JDBC property" effort="1" severity="mandatory">
                     <message><![CDATA[
-                        Oracle Fast Connection Failover is specific property supported only by Oracle JDBC driver which provides support 
-                        for their vendor's special features transparently to the application server in which they are deployed. 
-                        
+                        Oracle Fast Connection Failover is specific property supported only by Oracle JDBC driver which provides support
+                        for their vendor's special features transparently to the application server in which they are deployed.
+
                         For example, one can supply a URL like this to the Oracle JDBC driver and the driver will provide transparent load-balancing and fail-over:
                         ```
                         <xa-datasource-property name="URL">jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(LOAD_BALANCE=ON)(FAILOVER=ON)(ADDRESS=(PROTOCOL=TCP)(HOST=my.host.org)(PORT=1521))(ADDRESS=(PROTOCOL=TCP)(HOST=my.host.org)(PORT=1521)))(CONNECT_DATA=(SERVICE_NAME=servjboss)(failover_mode=(type=select)(method=basic)))</xa-datasource-property>
@@ -231,6 +242,7 @@
                     </message>
                     <link href="https://access.redhat.com/articles/1329233" title="Implement Oracle Fast Connection Failover (FCF) in EAP 6" />
                     <link href="https://access.redhat.com/solutions/42463" title="Use Oracle FCF in JBoss EAP" />
+                    <tag>jdbc</tag>
                 </hint>
             </perform>
         </rule>
@@ -261,12 +273,13 @@
                 <iteration>
                     <hint title="Proprietary InitialContext initialization" effort="1">
                         <message>In JBoss EAP, the InitialContext should be instantiated with no arguments. Once an instance is constructed, look up the service using portable JNDI lookup syntax.
-                        
+
                         `InitialContext context = new InitialContext();
                         Service service = (Service) context.lookup( "java:app/service/" + ServiceImpl.class.getSimpleName() );`
                         </message>
                         <link href="https://docs.jboss.org/author/display/AS72/How+do+I+migrate+my+application+from+WebLogic+to+JBoss+EAP+6#HowdoImigratemyapplicationfromWebLogictoJBossEAP6-UnderstandDifferencesBetweenWebLogicandJBossImplementations" title="JNDI migration" />
                     </hint>
+                    <tag>jndi</tag>
                 </iteration>
             </perform>
         </rule>
@@ -277,7 +290,7 @@
             <perform>
                 <hint effort="3" severity="mandatory" title="WebLogic Oracle Wallet used">
                     <message>
-                        Weblogic administrators use wallets created by Oracle Wallet Manager to manage public key security credentials on application clients and servers. 
+                        Weblogic administrators use wallets created by Oracle Wallet Manager to manage public key security credentials on application clients and servers.
                         These wallets must first be converted to standard Java KeyStore (JKS) entries that can then be used to configure the credentials in JBoss EAP 6.
                     </message>
                     <link href="https://access.redhat.com/articles/1329073" title="Replace WebLogic Oracle Wallets When Migrating to EAP 6" />

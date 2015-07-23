@@ -33,6 +33,7 @@
                     <message>Oracle WebLogic Server EAR configures some application settings through the `application-param` element. These settings
                         could be replaced with `context-param` elements in Java EE Servlet `web.xml` descriptor.
                     </message>
+                    <tag>webservice</tag>
                 </hint>
             </perform>
         </rule>
@@ -42,8 +43,11 @@
             </when>
             <perform>
                 <classification title="WebLogic Entity EJB Configuration" severity="mandatory" effort="3">
-                    <description>WebLogic Entity EJB Configuration used for RDBMS based persistence services.</description>
+                    <description>WebLogic Entity EJB Configuration are used for RDBMS based persistence services.</description>
                     <link href="https://access.redhat.com/articles/1326803" title="Migrate Oracle WebLogic Server Configuration Files and Descriptors to JBoss EAP 6" />
+                    <tag>database</tag>
+                    <tag>ejb</tag>
+                    <tag>configuration</tag>
                 </classification>
             </perform>
         </rule>
@@ -79,6 +83,7 @@
             <perform>
                 <classification title="WebLogic EJB XML" severity="mandatory" effort="3">
                     <link href="https://access.redhat.com/articles/1326823" title="Map weblogic-ejb-jar.xml Elements to the jboss-ejb3.xml Descriptor" />
+                    <tag>ejb</tag>
                 </classification>
             </perform>
         </rule>
@@ -91,6 +96,8 @@
             <perform>
                 <classification title="WebLogic EJB XML" severity="mandatory" effort="3">
                     <link href="https://access.redhat.com/articles/1326823" title="Map weblogic-ejb-jar.xml Elements to the jboss-ejb3.xml Descriptor" />
+                    <tag>ejb</tag>
+                    <tag>configuration</tag>
                 </classification>
             </perform>
         </rule>
@@ -103,6 +110,8 @@
             <perform>
                 <classification title="WebLogic EJB XML" severity="mandatory" effort="3">
                     <link href="https://access.redhat.com/articles/1326823" title="Map weblogic-ejb-jar.xml Elements to the jboss-ejb3.xml Descriptor" />
+                    <tag>ejb</tag>
+                    <tag>configuration</tag>
                 </classification>
             </perform>
         </rule>
@@ -114,7 +123,9 @@
                 </xmlfile>
             </when>
             <perform>
-                <classification title="WebLogic SOAP Client Mapping" severity="mandatory" effort="5" />
+                <classification title="WebLogic SOAP Client Mapping" severity="mandatory" effort="5">
+                    <tag>soap</tag>
+                </classification>
             </perform>
         </rule>
         <rule id="weblogic-xml-descriptor-08000">
@@ -124,7 +135,9 @@
                 </xmlfile>
             </when>
             <perform>
-                <classification title="Java to WSDL Mapping" severity="mandatory" effort="3" />
+                <classification title="Java to WSDL Mapping" severity="mandatory" effort="3">
+                    <tag>wsdl</tag>
+                </classification>
             </perform>
         </rule>
         <rule id="weblogic-xml-descriptor-09000">
@@ -135,7 +148,9 @@
                 </xmlfile>
             </when>
             <perform>
-                <classification title="WebLogic Webservice Policy" severity="mandatory" effort="5" />
+                <classification title="WebLogic Webservice Policy" severity="mandatory" effort="5">
+                    <tag>webservice</tag>
+                </classification>
             </perform>
         </rule>
         <rule id="weblogic-xml-descriptor-10000">
@@ -151,7 +166,9 @@
             </when>
             <perform>
                 <iteration over="webservices">
-                    <classification title="WebLogic Webservice Descriptor" effort="3" severity="mandatory" />
+                    <classification title="WebLogic Webservice Descriptor" effort="3" severity="mandatory">
+                        <tag>webservice</tag>
+                    </classification>
                 </iteration>
                 <iteration over="webservices-types">
                     <hint title="Webservice Type" severity="optional" effort="3">
@@ -177,6 +194,8 @@
                     <link
                         href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#sect-Configuration"
                         title="EAP 6 JMS Server configuration" />
+                    <tag>jms</tag>
+                    <tag>configuration</tag>
                 </classification>
             </perform>
         </rule>
@@ -192,6 +211,7 @@
                 <classification title="WebLogic Web Application Descriptor" severity="mandatory" effort="3">
                     <link href="https://access.redhat.com/articles/1326803" title="Migrate Oracle WebLogic Server Configuration Files and Descriptors to the JBoss EAP 6 Equivalent" />
                     <link href="https://access.redhat.com/articles/1327803" title="Map weblogic.xml Configurations to JBoss" />
+                    <tag>web-app</tag>
                 </classification>
             </perform>
         </rule>
@@ -211,7 +231,9 @@
                 </xmlfile>
             </when>
             <perform>
-                <classification title="WebLogic Webservice Type Mapping" severity="mandatory" effort="0" />
+                <classification title="WebLogic Webservice Type Mapping" severity="mandatory" effort="0">
+                    <tag>webservice</tag>
+                </classification>
             </perform>
         </rule>
         <rule id="weblogic-xml-descriptor-15000">
@@ -223,6 +245,8 @@
             <perform>
                 <classification title="WebLogic Services Configuration" severity="mandatory" effort="0">
                     <description>WebLogic specific configuration of web services runtime parameters</description>
+                    <tag>webservice</tag>
+                    <tag>configuration</tag>
                 </classification>
             </perform>
         </rule>
@@ -233,7 +257,9 @@
                 </xmlfile>
             </when>
             <perform>
-                <classification title="WebLogic-specific Webservice Ant Tasks" severity="optional" effort="13" />
+                <classification title="WebLogic-specific Webservice Ant Tasks" severity="optional" effort="13">
+                    <tag>webservice</tag>
+                </classification>
             </perform>
         </rule>
         <rule id="weblogic-xml-descriptor-17000">
@@ -244,9 +270,11 @@
             </when>
             <perform>
                 <classification title="WebLogic Annotation Manifest" effort="7" severity="mandatory">
-                    <description>Externally configured value can override the value set for that property by a metada annotation but not the value set
-                        by a setter method.
+                    <description>
+                        In this file, the value set for a property by a metada annotation
+                        can be overriden. (It does not override the values set by a setter method.)
                     </description>
+                    <tag>configuration</tag>
                 </classification>
             </perform>
         </rule>
@@ -258,9 +286,12 @@
             </when>
             <perform>
                 <classification title="plan.xml deployment descriptor file" effort="3" severity="mandatory">
-                    <description>WebLogic plan.xml deployment descriptor file provides a way to target the application deployment for a specific environment
+                    <description>
+                        WebLogic `plan.xml` deployment descriptor file provides a way
+                        to target the application deployment for a specific environment.
                     </description>
-		    <link href="https://access.redhat.com/articles/1329173" title="Replace the WebLogic plan.xml Deployment Descriptor Configuration" />
+        		    <link href="https://access.redhat.com/articles/1329173" title="Replace the WebLogic plan.xml Deployment Descriptor Configuration" />
+                    <tag>configuration</tag>
                 </classification>
             </perform>
         </rule>
