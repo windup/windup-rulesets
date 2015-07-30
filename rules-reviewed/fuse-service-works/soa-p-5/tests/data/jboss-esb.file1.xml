@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jbossesb
+    xmlns="http://anonsvn.labs.jboss.com/labs/jbossesb/trunk/product/etc/schemas/xml/jbossesb-1.0.1.xsd"
+    parameterReloadSecs="5">
+
+    <providers>
+        <hibernate-provider name="Hibernateprovider" hibernate-cfg-file="hibernate.cfg.xml">
+            <hibernate-bus busid="helloHibernateChannel">
+                <hibernate-message-filter
+                    classname="org.jboss.soa.esb.samples.quickstart.hibernateaction.Order"
+                    event="onLoad,onDelete"
+                />
+            </hibernate-bus>
+        </hibernate-provider>
+
+        <jms-provider name="JBossMQ" connection-factory="ConnectionFactory"
+            jndi-context-factory="org.jnp.interfaces.NamingContextFactory"
+            jndi-URL="localhost" >
+
+            <jms-bus busid="quickstartEsbChannel">
+                <jms-message-filter
+                    dest-type="QUEUE"
+                    dest-name="queue/A"
+                    selector="source='fromHelloworldHibernateAction'"
+                />
+            </jms-bus>
+        </jms-provider>
+
+        <ftp-provider name="FTPprovider" hostname="@FTP_HOSTNAME@" >
+              <ftp-bus busid="helloFTPChannel" >
+                  <ftp-message-filter
+                      username="@FTP_USERNAME@"
+                      password="@FTP_PASSWORD@"
+                      read-only="true"
+                      passive="false"
+                      directory="@FTP_DIRECTORY@"
+                      input-suffix=".dat"
+                      work-suffix=".esbWorking"
+                      post-delete="false"
+                      post-suffix=".COMPLETE"
+                      error-delete="false"
+                      error-suffix=".HAS_ERROR"
+                  />
+              </ftp-bus>
+        </ftp-provider>
+
+        <camel-provider name="provider1">
+            <camel-bus busid="bus1">
+                <from uri="file:///tmp/input?delete=true"/>
+            </camel-bus>
+        </camel-provider>
+
+        <jms-jca-provider name="JBossMessaging" connection-factory="XAConnectionFactory">
+            <jms-bus busid="jmsbusidinjcaprovider">
+                <jms-message-filter dest-type="QUEUE"
+                    dest-name="queue/jmsqueueformyexample" />
+            </jms-bus>
+        </jms-jca-provider>
+
+        <http-provider name="HTTP" host="localhost" port="8765">
+            <http-bus busid="HTTP-1" context="/jbossesb/httpgateway/serviceA"/>
+            <http-bus busid="HTTP-2" context="/jbossesb/httpgateway/serviceB"/>
+         </http-provider>
+
+        <schedule-provider name="schedule">
+            <cron-schedule scheduleid="cron-trigger" cronExpression="0/1 * * * * ?" />
+        </schedule-provider>
+
+        <fs-provider name="FS Provider">
+            <fs-bus busid="fsBus">
+                <fs-message-filter directory="/mypath" input-suffix=".txt" post-delete="true" />
+            </fs-bus>
+        </fs-provider>
+     </providers>
+
+    <services>
+        <service category="MyJMSGatewayListenerService" name="MyName">
+            <listeners>
+                <jms-listener name="JMS-DLQListener" busidref="DeadMessageQueue" maxThreads="1" is-gateway="true"/>
+                <jms-listener name="JMS-DLQListener" busidref="DeadMessageQueue" maxThreads="1" is-gateway="false"/>
+                <udp-listener name="udp-listener" host="localhost" port="9999" is-gateway="true" />
+                <ftp-listener name="ftp-listener-example" busidref="helloFTPChannel" maxThreads="1" is-gateway="true"/>
+                <camel-gateway name="my-camel-gateway" busidref="bus1"/>
+                <http-gateway name="my-http-gateway" />
+            </listeners>
+            <actions>
+                <action name="transform" class="org.jboss.soa.esb.smooks.SmooksAction">
+                    <property name="smooksConfig" value="/smooks-res.xml" />
+                    <property name="resultType" value="JAVA" />
+                </action>
+                <action name="proxy" class="org.jboss.soa.esb.actions.soap.proxy.SOAPProxy">
+                    <property name="wsdl" value="internal://jboss.ws:context=Quickstart_webservice_proxy_basic_ws,endpoint=HelloWorldWS"/>
+                </action>
+            </actions>
+            <action name="print-before"  class="org.jboss.soa.esb.actions.SystemPrintln">
+                <property name="message" value="Message before action XXX" />
+            </action>
+            <action name="routeAction" class="org.jboss.soa.esb.actions.StaticRouter">
+                <property name="destinations">
+                    <route-to service-category="ExpressShipping" service-name="ExpressShippingService"/>
+                    <route-to service-category="NormalShipping" service-name="NormalShippingService"/>
+                </property>
+            </action>
+
+            <action class="org.jboss.soa.esb.actions.routing.JMSRouter">
+                <property name="jndiName" value="queue/A"/>
+            </action>
+        </service>
+
+        <service category="MyServiceCategory" name="MyActionListener" description="Hello World">
+            <actions mep="OneWay">
+                <action name="action1" class="MyAction" process="displayMessage" />
+                <action name="action1" class="MyOtherAction" process="displayMessage" />
+                <action name="testStore" class="org.jboss.soa.esb.actions.TestMessageStore"/>
+                <action name="groovy" class="org.jboss.soa.esb.actions.scripting.GroovyActionProcessor">
+                    <property name="script" value="/scripts/helloWorld.groovy" />
+                </action>
+                <action name="create_new_process_instance" class="org.jboss.soa.esb.services.jbpm.actions.BpmProcessor">
+                    <property name="command" value="StartProcessInstanceCommand" />
+                    <property name="process-definition-name" value="processDefinition2"/>
+                    <property name="actor" value="FrankSinatra"/>
+                    <property name="esbToBpmVars">
+                        <!-- esb-name maps to getBody().get("eVar1") -->
+                        <mapping esb="eVar1" bpm="counter" value="45" />
+                        <mapping esb="BODY_CONTENT" bpm="theBody" />
+                    </property>
+                </action>
+                <action name="notify" class="org.jboss.soa.esb.actions.Notifier"  okMethod="notifyOK">
+                    <property name="destinations">
+                        <NotificationList type="OK">
+                            <target class="NotifyConsole" />
+                            <target class="NotifyFiles" >
+                                <file name="@results.dir@/goodresult.log" />
+                            </target>
+                        </NotificationList>
+                        <NotificationList type="err">
+                            <target class="NotifyConsole" />
+                            <target class="NotifyFiles" >
+                                <file name="@results.dir@/badresult.log" />
+                            </target>
+                        </NotificationList>
+                    </property>
+                </action>
+                <action name="transformByteArr" class="org.jboss.soa.esb.actions.converters.ByteArrayToString">
+                    <property name="encoding" value="UTF-8" />
+                </action>
+                <action name="transformLongToDate" class="org.jboss.soa.esb.actions.converters.LongToDateConverter"/>
+                <action name="transformObjectToCSV" class="org.jboss.soa.esb.actions.converters.ObjectToCSVString">
+                    <property name="bean-properties" value="name,address,phoneNumber"/>
+                    <property name="fail-on-missing-property" value="true" />
+                </action>
+                <action name="objectinvoke" class="org.jboss.soa.esb.actions.converters.ObjectInvoke">
+                    <property name="class-processor" value="org.jboss.MyXXXProcessor"/>
+                    <property name="class-method" value="processXXX" />
+                </action>
+                <action name="transform" class="org.jboss.soa.esb.actions.converters.ObjectToXStream">
+                    <property name="class-alias" value="MyAlias" />
+                    <property name="exclude-package" value="true" />
+                </action>
+                <action name="transform" class="org.jboss.soa.esb.actions.converters.XStreamToObject">
+                    <property name="class-alias" value="MyAlias" />
+                    <property name="exclude-package" value="true" />
+                    <property name="incoming-type" value="com.acme.MyXXXClass" />
+                    <property name="root-node" value="/rootNode/MyAlias" />
+                    <property name="aliases">
+                        <alias name="alias1" value="com.acme.MyXXXClass1"/>
+                        <alias name="alias2" value="com.acme.MyXXXClass2"/>
+                    </property>
+                </action>
+                <action name="XSLTTransform" class="org.jboss.soa.esb.actions.transformation.xslt.XsltAction">
+                    <property name="templateFile" value="mystylesheet.xslt"/>
+                    <property name="failOnWarning" value="false"/>
+                </action>
+                <action name="smookstransform" class="org.jboss.soa.esb.actions.converters.SmooksTransformer">
+                    <property name="resource-config" value="/smooks/config-01.xml" />
+                    <property name="from" value="DVDStore:OrderDispatchService" />
+                    <property name="from-type" value="text/xml:fullFillOrder" />
+                    <property name="to" value="DVDWarehouse_1:OrderHandlingService" />
+                    <property name="to-type" value="text/xml:shipOrder" />
+                </action>
+                <action name="PersistAction" class="org.jboss.soa.esb.actions.MessagePersister" >
+                    <property name="classification" value="test"/>
+                    <property name="message-store-class" value="org.jboss.internal.soa.esb.persistence.format.db.DBMessageStoreImpl"/>
+                </action>
+                <action name="ejbprocessor" class="org.jboss.soa.esb.actions.EJBProcessor">
+                    <property name="ejb3" value="true" />
+                    <property name="method" value="executeMyThing" />
+                    <property name="jndi-name" value="somejndi/remote" />
+                    <property name="initial-context-factory" value="org.jnp.interfaces.NamingContextFactory" />
+                    <property name="provider-url" value="127.0.0.1:1099" />
+                    <property name="esb-out-var" value="myresult" />
+                </action>
+                <action name="scriptingaction" class="org.jboss.soa.esb.actions.scripting.ScriptingAction">
+                    <property name="script" value="/scripts/myscript.beanshell"/>
+                </action>
+                <action name="aggregator" class="org.jboss.soa.esb.actions.Aggregator">
+                    <property name="timeoutInMillies" value="20000"/>
+                </action>
+                <action name="streamingaggregator" class="org.jboss.soa.esb.actions.StreamingAggregator">
+                    <property name="timeoutInMillies" value="20000"/>
+                </action>
+                <action name="httprouter" class="org.jboss.soa.esb.actions.routing.http.HttpRouter">
+                    <property name="endpointUrl" value="http://host:80/blah">
+                        <http-client-property name="file" value="/ht.props"/>
+                    </property>
+                    <property name="method" value="GET"/>
+                    <property name="responseType" value="STRING"/>
+                    <property name="headers">
+                        <header name="blah" value="blahval"></header>
+                    </property>
+                </action>
+                <action name="send-email"  class="org.jboss.soa.esb.actions.routing.email.EmailRouter">
+                    <property name="unwrap" value="true" />
+                    <property name="host" value="smtpHost" />
+                    <property name="port" value="25" />
+                    <property name="username" value="smtpUser" />
+                    <property name="password" value="smtpPassword" />
+                    <property name="from" value="jbossesb@xyz.com" />
+                    <property name="sendTo" value="system2@xyz.com" />
+                    <property name="subject" value="Message Subject" />
+                </action>
+                <action process="split" name="ContentBasedRouter" class="org.jboss.soa.esb.actions.ContentBasedRouter">
+                    <property name="cbrAlias" value="XPath"/>
+                    <property name="destinations">
+                        <route-to service-category="ExpressShipping" service-name="ExpressShippingService" expression="/order['status='1']" />
+                        <route-to service-category="NormalShipping" service-name="NormalShippingService" expression="/order['status='2']" />
+                    </property>
+                </action>
+                <action name="staticwiretap" class="org.jboss.soa.esb.actions.StaticWiretap">
+                    <property name="destinations">
+                        <route-to service-category="ExpressShipping" service-name="ExpressShippingService"/>
+                        <route-to service-category="NormalShipping" service-name="NormalShippingService"/>
+                    </property>
+                </action>
+                <action name="routeAction" class="org.jboss.soa.esb.actions.StaticRouter">
+                    <property name="destinations">
+                        <route-to service-category="ExpressShipping" service-name="ExpressShippingService"/>
+                        <route-to service-category="NormalShipping" service-name="NormalShippingService"/>
+                    </property>
+                </action>
+                <action name="soapprocessor1" class="org.jboss.soa.esb.actions.soap.SOAPProcessor">
+                    <property name="jbossws-endpoint" value="endpoint"/>
+                </action>
+                <action name="soapui-client-action" class="org.jboss.soa.esb.actions.soap.SOAPClient">
+                    <property name="wsdl" value="http://localhost:18080/acme/services/RetailerCallback?wsdl"/>
+                    <property name="operation" value="SendSalesOrderNotification"/>
+                </action>
+            </actions>
+        </service>
+    </services>
+</jbossesb>
