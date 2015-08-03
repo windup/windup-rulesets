@@ -1,0 +1,200 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+   id="xml-webservices" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides informative, not actionable rules. It identifies some Apache Axis, XFire or Apache CXF configuration for Web Services.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,2.3.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,2.3.0.Final" />
+        </dependencies>
+        <sourceTechnology id="java-ee" />
+        <targetTechnology id="eap" versionRange="[6,)" />
+        <tag>reviewed-2015-08-03</tag>
+    </metadata>
+    
+    <rules>
+        <rule id="xml-webservices_01000">
+            <when>
+                <xmlfile as="default" matches="/serviceGroup/service/operation"/>
+            </when>
+            <perform>
+                <iteration>
+                    <classification title="Apache Axis Service Group" effort="0" severity="optional">
+                        <tag>Apache Axis</tag>
+                        <tag>Web Service</tag>
+                    </classification>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="xml-webservices_02000">
+            <when>
+                <xmlfile as="default" matches="/module/InFlow"/>
+            </when>
+            <perform>
+                <iteration>
+                    <classification title="Apache Axis Module" effort="0" severity="optional">
+                        <tag>Apache Axis</tag>
+                        <tag>Web Service</tag>
+                    </classification>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="xml-webservices_03000">
+            <when>
+                <xmlfile as="default" matches="/axisconfig">
+                </xmlfile>
+            </when>
+            <perform>
+                <iteration>
+                    <classification title="Apache Axis Configuration" effort="0" severity="optional">
+                        <tag>Apache Axis</tag>
+                        <tag>Web Service</tag>
+                    </classification>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="xml-webservices_04000">
+            <when>
+                <xmlfile as="default" matches="/xfire:beans">
+                    <namespace prefix="xfire" uri="http://xfire.codehaus.org/config/1.0"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <iteration>
+                    <classification title="XFire 1.x Configuration" effort="0" severity="optional">
+                        <tag>XFire</tag>
+                        <tag>Web Service</tag>
+                    </classification>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="xml-webservices_05000">
+            <when>
+                <xmlfile as="default" matches="/*[local-name()='handler-chains']">
+                    <namespace prefix="j2e" uri="http://java.sun.com/xml/ns/j2ee"/>
+                    <namespace prefix="jee" uri="http://java.sun.com/xml/ns/javaee"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <iteration>
+                    <classification title="JAX-WS Handler Chain" effort="0" severity="optional">
+                        <tag>Web Service</tag>
+                    </classification>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="xml-webservices_06000">
+             <when>
+                <xmlfile as="webservices" matches="/*[local-name()='webservices']" >
+                    <namespace prefix="j2e" uri="http://java.sun.com/xml/ns/j2ee"/>
+                    <namespace prefix="jee" uri="http://java.sun.com/xml/ns/javaee"/>
+                </xmlfile>
+                <xmlfile as="handler-classes" matches="//*[local-name()='handler-class']" from="webservices">
+                    <namespace prefix="j2e" uri="http://java.sun.com/xml/ns/j2ee"/>
+                    <namespace prefix="jee" uri="http://java.sun.com/xml/ns/javaee"/>
+                </xmlfile>
+            </when>
+            <perform>
+                 <iteration over="webservices">
+                    <classification title="Java Webservice Configuration" effort="0" severity="optional">
+                        <tag>Web Service</tag>
+                    </classification>
+                 </iteration>
+                 <iteration over="handler-classes">
+                    <hint title="Use of Web Service Handler2" effort="0" severity="optional">
+                        <message>EAP 6 developer documentation describes JAX-WS Web Services Common API.</message>
+                        <link href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Development_Guide/sect-JAX-WS_Development_Reference.html#JAX-WS_Common_API_Reference" title="JAX-WS Web Services Common API">JAX-WS Web Services Common API</link>
+                    </hint>
+                 </iteration>
+            </perform>
+        </rule>
+        <rule id="xml-webservices_06001">
+            <when>
+                <xmlfile as="webservices" matches="/*[local-name()='webservices']" >
+                    <namespace prefix="j2e" uri="http://java.sun.com/xml/ns/j2ee"/>
+                    <namespace prefix="jee" uri="http://java.sun.com/xml/ns/javaee"/>
+                </xmlfile>
+                <xmlfile as="endpoints" matches="//*[local-name()='service-endpoint-interface']" from="webservices">
+                    <namespace prefix="j2e" uri="http://java.sun.com/xml/ns/j2ee"/>
+                    <namespace prefix="jee" uri="http://java.sun.com/xml/ns/javaee"/>
+                </xmlfile>
+            </when>
+            <perform>
+                 <iteration over="webservices">
+                    <classification title="Java Webservice Configuration" effort="0" severity="optional">
+                        <tag>Web Service</tag>
+                    </classification>
+                 </iteration>
+                 <iteration over="endpoints">
+                    <hint title="Use of Web Service Handler2" effort="0" severity="optional">
+                        <message>EAP 6 developer documentation about JAX-WS Web Services Endpoints</message>
+                        <link href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Development_Guide/sect-JAX-WS_Web_Service_Endpoints.html" title="About JAX-WS Web Services Endpoints">About JAX-WS Web Service Endpoints</link>
+                    </hint>
+                 </iteration>
+            </perform>
+        </rule>
+        <rule id="xml-webservices_07000">
+            <when>
+                <xmlfile as="default" matches="/extensions">
+                    <namespace prefix="cxf" uri="http://cxf.apache.org/bus/extension"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <iteration>
+                    <classification title="Apache CXF Bus Extension" effort="0"  severity="optional">
+                        <tag>Web Service</tag>
+                        <tag>Apache CXF</tag>
+                    </classification>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="xml-webservices_08000">
+            <when>
+                <xmlfile as="default" matches="//*[local-name()='Policy']">
+                    <namespace prefix="wsp" uri="http://schemas.xmlsoap.org/ws/2004/09/policy"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <iteration>
+                    <classification title="WS-Policy" effort="0" severity="optional">
+                        <tag>Web Service</tag>
+                        <tag>Security</tag>
+                    </classification>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="xml-webservices_09000">
+            <when>
+                <xmlfile as="default" matches="/*[local-name()='Envelope']">
+                    <namespace prefix="se" uri="http://schemas.xmlsoap.org/soap/envelope/"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <iteration>
+                    <classification title="SOAP Envelope" effort="0" severity="optional">
+                        <tag>SOAP</tag>
+                        <tag>Web service</tag>
+                    </classification>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="xml-webservices_10000">
+            <when>
+                <xmlfile as="default" matches="/*[local-name()='definitions']">
+                    <namespace prefix="wsdl" uri="http://schemas.xmlsoap.org/wsdl/"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <iteration>
+                    <classification title="WSDL Definition" effort="0" severity="optional">
+                        <tag>Web Service</tag>
+                        <tag>wsdl</tag>
+                    </classification>
+                </iteration>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

@@ -1,0 +1,18 @@
+<beans xmlns="http://xfire.codehaus.org/config/1.0">
+   <service>
+       <name>testservice</name>
+       <serviceClass>org.example.TestService
+       </serviceClass>
+       <implementationClass>org.codehaus.xfire.spring.TestServiceImpl</implementationClass>
+       <namespace>urn:my:namespace</namespace>
+       <serviceFactory>org.codehaus.xfire.jaxws.JAXWSServiceFactory</serviceFactory>
+    
+       <properties>
+           <property key="myKey">value</property>
+           </properties>
+    
+       <inHandlers>
+           <handler handlerClass="org.codehaus.xfire.spring.TestHandler"/>
+       </inHandlers>
+   </service>
+</beans>
