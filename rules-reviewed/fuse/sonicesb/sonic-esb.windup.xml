@@ -1,0 +1,417 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="sonic-esb"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset contains rules that assist in migrating from Sonic ESB to Apache Camel.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,2.3.0.Final" />
+        </dependencies>
+    </metadata>
+    <rules>
+        <rule id="sonic-esb-01000">
+            <when>
+                <javaclass references="com.sonicsw.xq.XQService">
+                    <location>INHERITANCE</location>
+                </javaclass>
+            </when>
+            <perform>
+                 <classification title="Sonic ESB Service" effort="0">
+                     <link href="http://documentation.progress.com/output/Sonic/8.0.0/Docs8.0/api/esb_api/com/sonicsw/xq/XQService.html" title="XQService Javadoc"/>
+                     <tag>SonicESB</tag>
+                 </classification>
+                 <hint effort="4" severity="mandatory">
+                     <message><![CDATA[
+                         
+                         
+                       Sonic ESB services inherit from XQService.  In Camel, this can be achieved through the simple Java Bean Camel Component.
+
+                       * [Camel Java Bean Component](http://camel.apache.org/bean.html)
+                         
+                         
+                     ]]></message>
+                     <tag>Apache Camel</tag>
+                 </hint>
+            </perform>
+        </rule>
+        <rule id="sonic-esb-02000">
+            <when>
+                <javaclass references="com.sonicsw.xq.XQServiceContext">
+                    <location>TYPE</location>
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                 <hint effort="4" severity="mandatory">
+                     <message><![CDATA[
+                         
+                             Sonic ESB services leverage the service(XQServiceContext context) method to implement business logic.  When messages are routed to the service, the service(XQServiceContext context) method is executed.
+                             In Camel, this is achieved by routing messages to the Java Bean via the Camel Route's Bean Component syntax.
+
+                             * [Camel Java Bean Component](http://camel.apache.org/bean.html)
+                             * [Camel Binding Annotations](http://camel.apache.org/parameter-binding-annotations.html)
+
+                             Camel's Java Bean Component can leverage annotations annotations on the method to specify how Camel Message body values are mapped to the method parameters.  Additionally, the @Handler annotation can be leveraged to setup the default Java Bean method.
+
+                             **For example:**
+
+                             ```java
+                             public void service(XQServiceContext ctx) throws XQServiceException {
+                                 ...
+                             }
+                             ```
+
+                             **Should become:**
+
+                             ```java
+                             @Handler
+                             public void service(@Header messageHeader, @Body messageBody, Exchange exchange) {
+                                 ...
+                             }
+                             ```
+
+                             * org.apache.camel.Body
+                             * org.apache.camel.Header
+                             * org.apache.camel.Exchange
+
+                         
+                     ]]></message>
+                     <tag>SonicESB</tag>
+                     <tag>Apache Camel</tag>
+                 </hint>
+            </perform>
+        </rule>
+        <rule id="sonic-esb-03000">
+            <when>
+                <javaclass references="com.sonicsw.xq.XQInitContext">
+                    <location>TYPE</location>
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                 <hint effort="4" severity="mandatory">
+                     <message><![CDATA[
+                         
+                             The XQInitContext is used to receive initialization information for the service from Sonic ESB.
+
+                             This is not neccessary for Camel.  The init() method that receives this object should be replaced with Spring Bean property injection.  For initialization beyond propery injection, leverage Spring's @PostConstruct annotation on this init() method.
+
+                             * [Spring @PostConstruct Documentation](http://docs.spring.io/spring/docs/2.5.x/reference/beans.html#beans-postconstruct-and-predestroy-annotations)
+
+                             ```java
+                             @PostConstruct
+                             public void init() {
+                                 //leverage injected properties
+                             }
+                             ```
+
+                         
+                     ]]></message>
+                     <tag>SonicESB</tag>
+                     <tag>Spring</tag>
+                     <tag>Apache Camel</tag>
+                 </hint>
+            </perform>
+        </rule>
+        <rule id="sonic-esb-04000">
+            <when>
+                <javaclass references="com.sonicsw.xq.XQInitContext.getParameters{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                 <hint effort="1" severity="mandatory">
+                     <message>Migrate XQInitContext.getParameters to Spring property injection.</message>
+                     <tag>SonicESB</tag>
+                     <tag>Apache Camel</tag>
+                 </hint>
+            </perform>
+        </rule>
+        <rule id="sonic-esb-05000">
+            <when>
+                <javaclass references="com.sonicsw.xq.XQParameters.getParameter{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                 <hint effort="1" severity="mandatory">
+                     <message>Migrate XQParameters.getParameter to Spring property injection.</message>
+                     <tag>SonicESB</tag>
+                     <tag>Spring</tag>
+                     <tag>Apache Camel</tag>
+                 </hint>
+            </perform>
+        </rule>
+        <rule id="sonic-esb-06000">
+            <when>
+                <javaclass references="com.sonicsw.xq.XQParameters">
+                    <location>IMPORT</location>
+                    <location>TYPE</location>
+                </javaclass>
+            </when>
+            <perform>
+                 <hint effort="1" severity="mandatory">
+                     <message>Migrate XQParameters to Spring property injection.</message>
+                     <tag>SonicESB</tag>
+                     <tag>Spring</tag>
+                     <tag>Apache Camel</tag>
+                 </hint>
+            </perform>
+        </rule>
+        <rule id="sonic-esb-07000">
+            <when>
+                <javaclass references="com.sonicsw.xq.XQParameterInfo">
+                    <location>IMPORT</location>
+                    <location>TYPE</location>
+                </javaclass>
+            </when>
+            <perform>
+                 <hint effort="3" severity="mandatory">
+                     <message>Migrate XQParameterInfo to Spring property injection.</message>
+                     <tag>SonicESB</tag>
+                     <tag>Spring</tag>
+                     <tag>Apache Camel</tag>
+                 </hint>
+            </perform>
+        </rule>
+        <rule id="sonic-esb-08000">
+            <when>
+                <javaclass references="com.sonicsw.xq.XQMessage">
+                    <location>IMPORT</location>
+                    <location>TYPE</location>
+                </javaclass>
+            </when>
+            <perform>
+                 <hint effort="3" severity="mandatory">
+                     <message>Migrate to org.apache.camel.Message</message>
+                     <tag>SonicESB</tag>
+                     <tag>Apache Camel</tag>
+                 </hint>
+            </perform>
+        </rule>
+        <rule id="sonic-esb-09000">
+            <when>
+                <javaclass references="com.sonicsw.xq.XQMessage.getHeaderValue{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                 <hint effort="3" severity="mandatory">
+                     <message>Migrate to org.apache.camel.Message.getHeader(String name)</message>
+                     <tag>SonicESB</tag>
+                     <tag>Apache Camel</tag>
+                 </hint>
+            </perform>
+        </rule>
+        <rule id="sonic-esb-10000">
+            <when>
+                <javaclass references="com.sonicsw.xq.XQMessage.setHeaderValue{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                 <hint effort="3" severity="mandatory">
+                     <message>Migrate to org.apache.camel.Message.setHeader(String name, Object value)</message>
+                     <tag>SonicESB</tag>
+                     <tag>Apache Camel</tag>
+                 </hint>
+            </perform>
+        </rule>
+        <rule id="sonic-esb-11000">
+            <when>
+                <javaclass references="com.sonicsw.xq.XQMessage.getHeaderNames{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                 <hint effort="1" severity="mandatory">
+                     <message>Migrate to org.apache.camel.Message.getHeaders()</message>
+                     <tag>SonicESB</tag>
+                     <tag>Apache Camel</tag>
+                 </hint>
+            </perform>
+        </rule>
+        <rule id="sonic-esb-12000">
+            <when>
+                <javaclass references="com.sonicsw.xq.XQPart">
+                    <location>IMPORT</location> 
+                    <location>TYPE</location>
+                </javaclass>
+            </when>
+            <perform>
+                 <hint effort="3" severity="mandatory">
+                     <message>Migrate XQPart to an attachment on the org.apache.camel.Message</message>
+                     <tag>SonicESB</tag>
+                     <tag>Apache Camel</tag>
+                 </hint>
+            </perform>
+        </rule>
+        <rule id="sonic-esb-13000">
+            <when>
+                <javaclass references="com.sonicsw.xq.XQMessage.getPartCount{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                 <hint effort="1" severity="mandatory">
+                     <message>Migrate to org.apache.camel.Message.getAttachments().size()</message>
+                     <tag>SonicESB</tag>
+                     <tag>Apache Camel</tag>
+                 </hint>
+            </perform>
+        </rule>
+        <rule id="sonic-esb-14000">
+            <when>
+                <javaclass references="com.sonicsw.xq.XQMessage.getPart({*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                 <hint effort="1" severity="mandatory">
+                     <message>Migrate to org.apache.camel.Message.getAttachment(String id)</message>
+                     <tag>SonicESB</tag>
+                     <tag>Apache Camel</tag>
+                 </hint>
+            </perform>
+        </rule>
+        <rule id="sonic-esb-15000">
+            <when>
+                <javaclass references="com.sonicsw.xq.XQLog">
+                    <location>IMPORT</location>
+                    <location>TYPE</location>
+                </javaclass>
+            </when>
+            <perform>
+                 <hint effort="1" severity="mandatory">
+                     <message><![CDATA[ 
+                        Migrate to [Apache SLF4J](http://www.slf4j.org).
+                     ]]></message>
+                     <tag>SonicESB</tag>
+                     <tag>slf4j</tag>
+                     <tag>Apache Camel</tag>
+                 </hint>
+            </perform>
+        </rule>
+        <rule id="sonic-esb-16000">
+            <when>
+                <javaclass references="com.sonicsw.xq.XQServiceException">
+                    <location>IMPORT</location>
+                    <location>TYPE</location>
+                </javaclass>
+            </when>
+            <perform>
+                 <hint effort="1" severity="mandatory">
+                     <message><![CDATA[
+                     
+                     
+                             Create a custom ServiceException class, extending Exception.  The documentation below explains exception handling in Camel.
+
+                                 * [Camel Exception Handling](http://camel.apache.org/exception-clause.html)
+                                 
+                                 
+                     ]]></message>
+                     <tag>SonicESB</tag>
+                     <tag>Apache Camel</tag>
+                 </hint>
+            </perform>
+        </rule>
+        <rule id="sonic-esb-17000">
+            <when>
+                <javaclass references="com.sonicsw.xq.XQMessage.getCorrelationId{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                 <hint effort="1" severity="mandatory">
+                     <message><![CDATA[
+                     
+                     
+                             Correlation is handled several ways in Camel.  Read the article below.
+
+                                 * [Camel Exception Handling](http://camel.apache.org/correlation-identifier.html)
+
+
+                     ]]></message>
+                     <tag>SonicESB</tag>
+                     <tag>Apache Camel</tag>
+                 </hint>
+            </perform>
+        </rule>
+        <rule id="sonic-esb-18000">
+            <when>
+                <javaclass references="com.sonicsw.xq.XQAddressFactory.createEndpointAddress{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                 <hint effort="3" severity="mandatory">
+                     <message><![CDATA[
+                     
+                             This indicates that the Sonic ESB Service is routing messages to a [1...N] endpoints.  To achieve this in Camel, take the business logic in the service, and populate a header property with an array of target enpoints.
+                             Next, create a Recipient List processor to route the message to N endpoints.
+
+                             * [Camel Recipient List](http://camel.apache.org/recipientlist-annotation.html)
+                                 
+
+                     ]]></message>
+                     <tag>SonicESB</tag>
+                     <tag>Apache Camel</tag>
+                 </hint>
+            </perform>
+        </rule>
+        <rule id="sonic-esb-19000">
+            <when>
+                <javaclass references="com.sonicsw.xq.XQServiceContext.addOutgoing{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                 <hint effort="1" severity="mandatory">
+                     <message><![CDATA[
+                     
+                         
+                             Sonic ESB uses the addOutgoing method to set the outgoing message.
+                             This is achieved in Camel by either modifying the @Body parameter in the Java Bean Component method, or literally setting a new message to the Exchange.
+
+                             * [Camel Setting Response](http://camel.apache.org/using-getin-or-getout-methods-on-exchange.html)
+
+                         
+                     ]]></message>
+                     <tag>SonicESB</tag>
+                     <tag>Apache Camel</tag>
+                 </hint>
+            </perform>
+        </rule>
+        <rule id="sonic-esb-20000">
+            <when>
+                <javaclass references="com.sonicsw.xq.XQEnvelope">
+                    <location>TYPE</location>
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+               <hint effort="3" severity="mandatory">
+                  <message>Migrate to org.apache.camel.Exchange</message>
+                  <tag>SonicESB</tag>
+                  <tag>Apache Camel</tag>
+               </hint>
+            </perform>
+        </rule>
+        <rule id="sonic-esb-21000">
+            <when>
+                <javaclass references="com.sonicsw.xq.XQEnvelope.getMessage{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+               <hint effort="1" severity="mandatory">
+                  <message>Migrate to org.apache.camel.Message.getIn()</message>
+                  <tag>SonicESB</tag>
+                  <tag>Apache Camel</tag>
+               </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

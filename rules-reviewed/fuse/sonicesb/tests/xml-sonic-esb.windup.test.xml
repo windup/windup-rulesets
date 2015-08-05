@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ruletest id="xml-sonic-esb-tests" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+   <testDataPath>data</testDataPath>
+   <rulePath>../xml-sonic-esb.windup.xml</rulePath>
+   <ruleset>
+      <rules>
+         <rule id="xml-sonic-esb-01000-test">
+            <when>
+               <not>
+                  <classification-exists
+                     classification="SonicESB Service Configuration" />
+               </not>
+            </when>
+            <perform>
+               <fail message="SonicESB Service Configuration was not found" />
+            </perform>
+         </rule>
+      </rules>
+   </ruleset>
+</ruletest>
