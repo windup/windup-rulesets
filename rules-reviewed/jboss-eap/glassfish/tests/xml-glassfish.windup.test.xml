@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+    <testDataPath>data</testDataPath>
+    <ruleset>
+        <rules>
+            <rule id="xml-glassfish-01000">
+                <when>
+                    <not>
+                        <classification-exists classification="Glassfish Web Descriptor"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Glassfish Web Descriptor classification is missing"/>
+                </perform>
+            </rule>
+	    <rule id="xml-glassfish-02000">
+                <when>
+                    <not>
+                        <classification-exists classification="Glassfish EJB Descriptor"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Glassfish EJB Descriptor classification is missing"/>
+                </perform>
+            </rule>
+	    <rule id="xml-glassfish-03000">
+                <when>
+                    <not>
+                        <classification-exists classification="Glassfish Application EAR configuration file"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Glassfish Application EAR classification is missing"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+    <testDataPath>data</testDataPath>
+    <ruleset>
+        <rules>
+            <rule id="xml-orion-01000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="Oracle Application Platform EJB Descriptor"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Orion EJB App descriptor classification is missing"/>
+                </perform>
+            </rule>
+	    <rule id="xml-orion-02000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="Oracle Application Platform Web Descriptor"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="ORion web descriptor classification is missing"/>
+                </perform>
+            </rule>
+	    <rule id="xml-orion-03000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="Oracle Application EAR configuration file"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Oracle Application configuration file classification is missing"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="xml-jonas"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of JOnAS proprietary xml files that may require individual
+            attention when migrating to JBoss EAP 6+.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-xml,2.3.0.Final" />
+        </dependencies>
+        <sourceTechnology id="jonas" />
+        <targetTechnology id="eap" versionRange="[6,)" />
+        <tag>reviewed-2015-08-04</tag>
+        <tag>webapp</tag>
+    </metadata>
+    <rules>
+        <rule id="xml-jonas-01000">
+            <when>
+                <xmlfile as="default" public-id=".+JOnAS Web App.+">
+                </xmlfile>
+            </when>
+            <perform>
+                <iteration>
+                    <classification title="JOnAS Web Descriptor" effort="3" severity="mandatory">
+			<description> JOnAS web descriptor is a file that is by convention named jonas-web.xml. It is JOnAS specific configuration file used to map JNDI name to bean reference name, bind virtual host address, specify root url for binding the application etc. This file is not supported in JBoss EAP 6 and needs to be migrated to web.xml or JBoss-specific jboss-web.xml.</description>
+		        <link href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.2/html/Security_Guide/jboss-webxml_Configuration_Reference.html" title="JBoss EAP web descriptor"/>
+                        <tag>configuration</tag>
+                    </classification>
+                </iteration>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

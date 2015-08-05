@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE jrun-web-app PUBLIC "-//Adobe, Inc.//DTD jrun-web 1.0//EN"
+  "http://www.adobe.com/dtd/jrun-web.dtd">
+
+<!-- ============================================================= -->
+<!-- This XML file contains web application elements that are      -->
+<!-- specific to the JRun Application Server                       -->
+<!-- ============================================================= -->
+
+
+<jrun-web-app>
+
+    <!-- This setting is used in JRun SP to get CF to work correctly.  -->
+    <!-- Without this line, CF on JRun SP1 doesn't work -->
+    <!-- If the server doesn't have the SP installed, JRun just ignores -->
+    <!-- this line -->
+    <enable-jrun-web-services>false</enable-jrun-web-services>
+  <!-- session persistence needs to be disabled due to our classloader setup  -->
+  <session-config>
+    <persistence-config>
+      <active>false</active>
+    </persistence-config>
+  </session-config>
+
+</jrun-web-app>

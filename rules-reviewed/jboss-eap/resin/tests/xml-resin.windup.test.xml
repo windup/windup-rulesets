@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+    <testDataPath>data</testDataPath>
+    <ruleset>
+        <rules>
+            <rule id="xml-resin-01000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="Resin Web Application Descriptor"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Resin Web Application Descriptor classification is missing"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+    <testDataPath>data</testDataPath>
+    <ruleset>
+        <rules>
+            <rule id="xml-jrun-01000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="JRun Web App descriptor" in="jrunWebXml.xml"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="JRun Web App descriptor classification is missing"/>
+                </perform>
+            </rule>
+	    <rule id="xml-jrun-02000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="JRun ejb-jar configuration" in="jrun-ejb.xml"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="JRun ejb-jar classification is missing"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
