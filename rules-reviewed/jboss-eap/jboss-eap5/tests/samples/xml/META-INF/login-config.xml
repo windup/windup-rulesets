@@ -1,0 +1,14 @@
+<policy>
+    <application-policy name="testUsersRoles">
+        <authentication>
+            <login-module code="org.jboss.security.auth.spi.UsersRolesLoginModule"
+                          flag="required">
+                <module-option name="usersProperties">usersb64.properties</module-option>
+                <module-option name="rolesProperties">test-users-roles.properties</module-option>
+                <module-option name="unauthenticatedIdentity">nobody</module-option>
+                <module-option name="hashAlgorithm">MD5</module-option>
+                <module-option name="hashEncoding">base64</module-option>
+            </login-module>
+        </authentication>
+    </application-policy>
+</policy>

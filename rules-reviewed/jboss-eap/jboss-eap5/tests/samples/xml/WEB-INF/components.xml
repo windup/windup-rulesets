@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<components xmlns="http://jboss.com/products/seam/components"
+            xmlns:core="http://jboss.com/products/seam/core"
+            xmlns:persistence="http://jboss.com/products/seam/persistence"
+            xmlns:security="http://jboss.com/products/seam/security"
+            xmlns:mail="http://jboss.com/products/seam/mail"
+            xmlns:web="http://jboss.com/products/seam/web"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:transaction="http://jboss.com/products/seam/transaction"
+		    xmlns:resteasy="http://jboss.com/products/seam/resteasy"
+            xsi:schemaLocation=
+                "http://jboss.com/products/seam/core http://jboss.com/products/seam/core-2.2.xsd
+                 http://jboss.com/products/seam/persistence http://jboss.com/products/seam/persistence-2.2.xsd
+                 http://jboss.com/products/seam/security http://jboss.com/products/seam/security-2.2.xsd
+                 http://jboss.com/products/seam/mail http://jboss.com/products/seam/mail-2.2.xsd
+                 http://jboss.com/products/seam/web http://jboss.com/products/seam/web-2.2.xsd
+                 http://jboss.com/products/seam/components http://jboss.com/products/seam/components-2.2.xsd
+                 http://jboss.com/products/seam/transaction http://jboss.com/products/seam/transaction-2.2.xsd
+                 http://jboss.com/products/seam/resteasy http://jboss.com/products/seam/resteasy-2.2.xsd">
+
+    <core:init jndi-pattern="JPowerAdmin/#{ejbName}/local"/>
+
+    <core:manager concurrent-request-timeout="500" conversation-timeout="120000" conversation-id-parameter="cid" parent-conversation-id-parameter="pid"/>
+
+    <persistence:managed-persistence-context name="entityManager" auto-create="true" persistence-unit-jndi-name="java:/JPowerAdminEntityManagerFactory"/>
+
+    <transaction:ejb-transaction/>
+
+    <security:identity authenticate-method="#{authenticator.authenticate}" remember-me="false"/>
+
+    <!-- Make sure this URL pattern is the same as that used by the Faces Servlet -->
+    <web:hot-deploy-filter url-pattern="*.html"/>
+
+    <web:rewrite-filter view-mapping="*.html"/>
+
+    <web:exception-filter url-pattern="*.html"/>
+
+    <web:character-encoding-filter encoding="utf-8" override-client="true" url-pattern="*.html"/>
+
+    <mail:mail-session session-jndi-name="java:/Mail" />
+
+    <resteasy:application scan-providers="true" scan-resources="true" resource-path-prefix="/restv2" />
+
+    <event type="org.jboss.seam.security.notLoggedIn">
+        <action execute="#{redirect.captureCurrentView}"/>
+        <action execute="#{identity.tryLogin}"/>
+    </event>
+
+    <event type="org.jboss.seam.security.loginSuccessful">
+        <action execute="#{redirect.returnToCapturedView}"/>
+    </event>
+
+    <component name="passwordHasher">
+        <property name="hashingAlgorithm">MD5</property>
+    </component>
+
+	<component name="domain">
+		<property name="type">MASTER</property>
+	</component>
+
+	<component name="newDomain">
+		<property name="type">MASTER</property>
+	</component>
+
+
+	<component name="record">
+		<property name="ttl">3600</property>
+		<property name="type">A</property>
+	</component>
+
+	<component name="newRecord">
+		<property name="ttl">3600</property>
+		<property name="type">A</property>
+	</component>
+
+
+	<component name="primaryNS">
+		<property name="ttl">3600</property>
+		<property name="type">NS</property>
+		<property name="content">ns1.nicmus.com</property>
+	</component>
+
+	<component name="secondaryNS">
+		<property name="ttl">3600</property>
+		<property name="type">NS</property>
+		<property name="content">ns2.nicmus.com</property>
+	</component>
+
+	<component name="thernaryNS">
+		<property name="ttl">3600</property>
+		<property name="type">NS</property>
+		<property name="content">ns3.nicmus.com</property>
+	</component>
+
+
+	<component name="soaRecord">
+		<property name="primary">ns1.nicmus.com</property>
+	 	<property name="refresh">10800</property>
+	 	<property name="retry">3600</property>
+	 	<property name="expire">604800</property>
+	 	<property name="defaultTTL">3600</property>
+	</component>
+
+	<component name="tableScannerRunner">
+        <property name="passwordTokenScanIntervalTime">60000</property>
+	</component>
+
+</components>

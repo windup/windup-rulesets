@@ -1,0 +1,339 @@
+<?xml version="1.0"?>
+<ruleset id="jboss-eap5-xml"
+         xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <!-- Rules converted from XmlJBoss5Rules.windup. -->
+
+    <metadata>
+        <description>
+            This ruleset provides analysis of JBoss EAP 5 configuration XML files that may require individual attention
+            when migrating to JBoss EAP 6+. Mainly deals with datasources, JBoss Web and EJB configuration.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,2.3.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-java,2.3.0.Final"/>
+        </dependencies>
+        <sourceTechnology id="eap" versionRange="[5,6)"/>
+        <targetTechnology id="eap" versionRange="[6,)"/>
+        <tag>jboss-eap5</tag>
+        <tag>ejb</tag>
+        <tag>seam</tag>
+        <tag>reviewed-2015-08-27</tag>
+    </metadata>
+
+    <rules>
+        <rule id="jboss-eap5-xml-01000">
+            <when>
+                <xmlfile matches="//mbean[@code='org.jboss.cache.TreeCache']"/>
+            </when>
+            <perform>
+                <classification title="JBoss Cache" effort="3">
+                    <description>
+                        JBoss Cache TreeCache is a distributed tree-like structure that is replicated across several members.
+                        Updates will be multicast to all group members reliably and in the same order.
+                    </description>
+                    <link title="JBoss Cache documentation" href="https://developer.jboss.org/wiki/JBossCacheOfficialDocumentation"/>
+                    <tag>cache</tag>
+                    <tag>distributed</tag>
+                    <tag>cluster</tag>
+                </classification>
+            </perform>
+        </rule>
+        <rule id="jboss-eap5-xml-02000">
+            <when>
+                <xmlfile public-id=".*JBoss.+DTD Java EE.+5.*"/>
+            </when>
+            <perform>
+                <classification title="JBoss 5.x EAR Descriptor" effort="5">
+                    <description>
+                        A JBoss specific EAR descriptor allows extensions to Java EE EAR archives configuration.
+                    </description>
+                    <link title="JBoss DTD's" href="http://www.jboss.org/j2ee/dtd/"/>
+                </classification>
+            </perform>
+        </rule>
+        <rule id="jboss-eap5-xml-03000">
+            <when>
+                <xmlfile matches="/classloading"/>
+            </when>
+            <perform>
+                <classification title="JBoss Classloading configuration, typically in jboss-classloading.xml." effort="1">
+                    <description>
+                        JBoss EAP 5 allows detailed classloading configuration.
+                    </description>
+                    <link title="JBoss EAP 5 Classloading" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/5/html/Microcontainer_User_Guide/sect-JBoss_Microcontainer_User_Guide-The_ClassLoading_Layer-ClassLoading.html"/>
+                </classification>
+            </perform>
+        </rule>
+        <rule id="jboss-eap5-xml-04000">
+            <when>
+                <xmlfile matches="/jbc:classloading">
+                    <namespace prefix="jbc" uri="urn:jboss:classloading:1.0"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <classification title="JBoss EAP 5 Classloading Configuration" effort="5">
+                    <description>
+                        JBoss EAP 5 allows detailed classloading configuration.
+                    </description>
+                    <link title="JBoss EAP 5 Classloading documentation" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/5/html/Microcontainer_User_Guide/sect-JBoss_Microcontainer_User_Guide-The_ClassLoading_Layer-ClassLoading.html"/>
+                </classification>
+            </perform>
+        </rule>
+
+        <!-- Seam -->
+        <rule id="jboss-eap5-xml-05000">
+            <when>
+                <xmlfile matches="/sc:components">
+                    <namespace prefix="sc" uri="http://jboss.com/products/seam/components"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <classification title="JBoss Seam Components" effort="5">
+                    <description>
+                        Allows to configure a Seam component using XML: to isolate deployment-specific information from
+                        the Java code, to enable the creation of re-usable frameworks, to configure Seam's built-in functionality, etc.
+                        Seam provides two basic approaches to configuring components:
+                        configuration via property settings in a properties file or in `web.xml`,
+                        and configuration via `components.xml`.
+                    </description>
+                    <link title="JBoss Seam documentation - Configuring Seam components" href="https://docs.jboss.org/seam/latest/reference/html/xml.html"/>
+                    <tag>seam</tag>
+                </classification>
+            </perform>
+        </rule>
+        <rule id="jboss-eap5-xml-06000">
+            <when>
+                <xmlfile matches="/sp:pages">
+                    <namespace prefix="sp" uri="http://jboss.com/products/seam/pages"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <classification title="JBoss Seam Pages" effort="5">
+                    <description>
+                        The `pages.xml` file specifies the page flow and other configuration of the Seam Framework.
+                    </description>
+                    <link href="https://docs.jboss.org/seam/latest/reference/html_single/" title="Seam Framework Reference"/>
+                    <tag>seam</tag>
+                </classification>
+            </perform>
+        </rule>
+        <rule id="jboss-eap5-xml-07000">
+            <when>
+                <xmlfile matches="/page" in="{*}.page.xml"/>
+            </when>
+            <perform>
+                <classification title="JBoss Seam Page" effort="3"/>
+            </perform>
+        </rule>
+
+
+        <rule id="jboss-eap5-xml-08000">
+            <when>
+                <xmlfile matches="//*[local-name()='jboss-app']" in="jboss-app.xml"/>
+            </when>
+            <perform>
+                <classification title="JBoss EAR Configuration" effort="1">
+                    <description>
+                        The `jboss-app.xml` file configures a Java EE application deployments specifically for JBoss EAP.
+                    </description>
+                    <!--<link href="" title=""> TODO: ESSC-25 -->
+                    <tag>deployment</tag>
+                    <tag>descriptor</tag>
+                </classification>
+            </perform>
+        </rule>
+        <rule id="jboss-eap5-xml-09000">
+            <when>
+                <xmlfile matches="//*[local-name()='jboss-web']" in="jboss-web.xml"/>
+            </when>
+            <perform>
+                <classification title="JBoss Web Application Descriptor" effort="1">
+                    <description>
+                        The `jboss-web.xml` file configures a Java EE web application specifically for JBoss EAP.
+                        It is an extension to standard `web.xml`.
+                    </description>
+                    <tag>web</tag>
+                    <tag>deployment</tag>
+                    <tag>descriptor</tag>
+                </classification>
+            </perform>
+        </rule>
+        <rule id="jboss-eap5-xml-10000">
+            <when>
+                <xmlfile matches="//*[local-name()='classloading']" in="jboss-classloading.xml"/>
+            </when>
+            <perform>
+                <classification title="JBoss 5 Classloader Configuration" effort="5">
+                    <description>
+                        The `jboss-classloading.xml` file allows customization of classloading in JBoss EAP 5.
+                    </description>
+                    <link title="JBoss EAP 5 Classloading documentation" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/5/html/Microcontainer_User_Guide/sect-JBoss_Microcontainer_User_Guide-The_ClassLoading_Layer-ClassLoading.html"/>
+                    <tag>classloading</tag>
+                </classification>
+                <hint title="JBoss 5 Classloader Configuration" effort="5" severity="MANDATORY">
+                    <message>
+                        In EAP 6, the classloading configuration is not done through `jboss-classloading.xml`.
+                        Since EAP 6 it is of modular nature, based on JBoss Modules.
+                        Learn how to divide your application's dependencies into modules
+                        and what dependencies and APIs are available automatically.
+                    </message>
+                    <link title="JBoss EAP 6 Class Loading and Modules" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Development_Guide/chap-Class_Loading_and_Modules.html"/>
+                    <tag>classloading</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-eap5-xml-11000">
+            <when>
+                <xmlfile matches="//*[local-name()='jboss-deployment-structure']" in="jboss-deployment-structure.xml"/>
+            </when>
+            <perform>
+                <classification title="JBoss Module and Classloading Configuration (since AS 7 / EAP 6)" effort="1">
+                    <description>
+                        The `jboss-deployment-structure.xml` file allows the creator of the deployment to control the dependencies
+                        and classloading of deployments.
+                    </description>
+                    <!-- TODO: There's no such page for EAP 5. -->
+                    <link title="Class Loading and Modules" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6/html/Development_Guide/chap-Class_Loading_and_Modules.html"/>
+                    <tag>classloading</tag>
+                </classification>
+            </perform>
+        </rule>
+        <rule id="jboss-eap5-xml-12000">
+            <when>
+                <xmlfile matches="//*[local-name()='jbosscmp-jdbc']" in="jbosscmp-jdbc.xml"/>
+            </when>
+            <perform>
+                <classification title="JBoss EJB 2 CMP Deployment Descriptor" effort="5">
+                    <description>
+                        The `jbosscmp-jdbc.xml` is a deployment decriptor controlling the Container Managed Persistence.
+                    </description>
+                    <link title="JBoss EAP 4: The jbosscmp-jdbc Structure" href="https://docs.jboss.org/jbossas/docs/Server_Configuration_Guide/4/html/The_CMP_Engine-The_jbosscmp_jdbc_Structure.html"/>
+                    <tag>jdbc</tag>
+                    <tag>ejb2</tag>
+                </classification>
+            </perform>
+        </rule>
+        <rule id="jboss-eap5-xml-13000">
+            <when>
+                <xmlfile matches="//*[local-name()='jboss']" in="jboss.xml"/>
+            </when>
+            <perform>
+                <classification title="JBoss EJB Deployment Descriptor (prior to AS 7 / EAP 6)" effort="5">
+                    <description>
+                        The `jboss.xml` descriptor in deployments is ignored by JBoss AS 7+ or JBoss EAP 6+.
+                        Replace it with `jboss-ejb3.xml`.
+                    </description>
+                    <link title="jboss.xml Deployment Descriptor" href="http://docs.jboss.org/ejb3/app-server/tutorial/jboss_deployment_descriptor/jboss_dd.html"/>
+                    <tag>descriptor</tag>
+                </classification>
+            </perform>
+        </rule>
+        <rule id="jboss-eap5-xml-14000">
+            <when>
+                <xmlfile matches="//*[local-name()='security-domain' and starts-with(text(), 'java:/jaas/')]"/>
+            </when>
+            <perform>
+                <hint title="JBoss EAP security-domain configuration - java:/jaas/" effort="5" severity="MANDATORY">
+                    <message>
+                        `java:/jaas/` is a JBoss EAP `security-domain` URI.
+                        Remove the `java:/jaas/` prefix for `security-domain` elements in AS 7 / EAP 6.
+                    </message>
+                    <link title="Java Authentication and Authorization Service (JAAS) Reference Guide" href="http://docs.oracle.com/javase/7/docs/technotes/guides/security/jaas/JAASRefGuide.html"/>
+                    <tag>security</tag>
+                    <tag>jaas</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-eap5-xml-16000">
+            <when>
+                <!-- TODO: This should generate CLI script. -->
+                <xmlfile matches="//*[local-name()='policy']" in="login-config.xml"/>
+            </when>
+            <perform>
+                <classification title="JBoss Security Configuration Descriptor (prior to AS 7 / EAP 6)" effort="5">
+                    <link title="JBoss Login Modules" href="http://docs.jboss.org/jbosssecurity/docs/6.0/security_guide/html/Login_Modules.html"/>
+                    <tag>security</tag>
+                </classification>
+                <hint title="JBoss Security Configuration Descriptor (prior to AS 7 / EAP 6)" effort="5" severity="MANDATORY">
+                    <message>
+                        When migrating to JBoss AS 7 or JBoss EAP 6+,
+                        the `login-config.xml` descriptor is no longer supported.
+                        Security is now configured in the `security-domain` element inside the server configuration.
+                    </message>
+                    <link title="JBoss EAP 6.4 - How To Configure Server Security" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-6.4/red-hat-jboss-enterprise-application-platform-64-how-to-configure-server-security"/>
+                    <tag>security</tag>
+                </hint>
+            </perform>
+        </rule>
+
+        <!-- EAP 6 -->
+        <rule id="jboss-eap5-xml-17000">
+            <when>
+                <xmlfile matches="//*[local-name()='ejb-jar']" in="jboss-ejb3.xml"/>
+            </when>
+            <perform>
+                <classification title="JBoss EJB 3 Deployment Descriptor (JBoss AS 7 / JBoss EAP 6 and later)" effort="5">
+                    <description>
+                        A JBoss specific EJB 3 configuration allows extensions of Java EE EJB 3.
+                    </description>
+                    <link title="jboss-ejb3.xml Deployment Descriptor Reference" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6/html/Development_Guide/jboss-ejb3xml_Deployment_Descriptor_Reference.html"/>
+                </classification>
+            </perform>
+        </rule>
+
+        <!-- EAP 6 -->
+        <rule id="jboss-eap5-xml-18000">
+            <when>
+                <xmlfile matches="//*[local-name()='webservices']" in="jboss-webservices.xml"/>
+            </when>
+            <perform>
+                <classification title="JBoss Webservices Deployment Descriptor (JBoss AS 7 / JBoss EAP 6 and later)" effort="5">
+                    <description>
+                        JBossWS 4.0 introduces a new deployment descriptor to configure web services.
+                        The `jboss-webservices.xml` file provides additional information for the given deployment
+                        and partially replaces the obsolete `jboss.xml` file.
+
+                        For EJB webservice deployments, the expected location of the `jboss-webservices.xml` descriptor file
+                        is in the `META-INF/` directory. For POJO and EJB webservice endpoints bundled in WAR file,
+                        the expected location of the `jboss-webservices.xml` file is in the `WEB-INF/` directory.
+                    </description>
+                    <link title="jboss-webservices.xml Deployment Descriptor" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.3/html/Migration_Guide/sect-Web_Services_Changes.html"/>
+                    <tag>jboss-ws</tag>
+                    <tag>descriptor</tag>
+                    <tag>webservices</tag>
+                </classification>
+            </perform>
+        </rule>
+        <rule id="jboss-eap5-xml-19000">
+            <when>
+                <xmlfile as="jboss-app" matches="/jboss-app"/>
+                <xmlfile as="jboss-app-no-DTD" matches="/jboss-app" public-id=""/>
+            </when>
+            <perform>
+                <iteration over="jboss-app">
+                    <classification title="JBoss application Descriptor" effort="5"/>
+                </iteration>
+                <iteration over="jboss-app-no-DTD">
+                    <classification title="JBoss application descriptor with missing DTD" effort="5"/>
+                </iteration>
+                <iteration over="jboss-app-no-DTD">
+                    <xslt title="JBoss application descriptor - JBoss 5 (Windup-generated)" template="transformations/xslt/jboss-app-to-jboss5.xsl" extension="-jboss5.xml"/>
+                </iteration>
+            </perform>
+        </rule>
+
+        <!-- EAP 4 -> EAP 5 transformation? -->
+        <rule id="jboss-eap5-xml-20000">
+            <when>
+                <xmlfile matches="//server/mbean[@code='org.jboss.mq.server.jmx.Queue']"/>
+            </when>
+            <perform>
+                <classification title="JBoss EAP 4 JMS configuration" effort="5"/>
+                <xslt title="Queue Destinations Service (Windup-generated)" template="transformations/xslt/jboss4-mq-to-jboss5.xsl" extension="-jboss5.xml"/>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

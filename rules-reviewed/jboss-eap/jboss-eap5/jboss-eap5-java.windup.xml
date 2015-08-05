@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<ruleset id="jboss-eap5-java"
+         xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <!-- Rules converted from Tubame JBossRules.windup.xml -->
+
+    <metadata>
+        <description>
+            This ruleset provides analysis of JBoss EAP 5 .java files that may require individual attention
+            when migrating to JBoss EAP 6+.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,2.3.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-java,2.3.0.Final"/>
+        </dependencies>
+        <sourceTechnology id="eap" versionRange="[5,6)"/>
+        <targetTechnology id="eap" versionRange="[6,)"/>
+        <tag>jboss-eap5</tag>
+        <tag>jms</tag>
+        <tag>ejb</tag>
+        <tag>reviewed-2015-08-28</tag>
+    </metadata>
+
+    <rules>
+        <rule id="jboss-eap5-java-01000">
+            <when>
+                <javaclass references="org.jboss.ejb3.annotation.Management">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <classification title="JBoss EAP 5 JMX ManagementBean" effort="3">
+                    <tag>jmx</tag>
+                </classification>
+            </perform>
+        </rule>
+        <rule id="jboss-eap5-java-02000">
+            <when>
+                <javaclass references="javax.jms.QueueConnectionFactory">
+                    <location>FIELD_DECLARATION</location>
+                    <location>VARIABLE_DECLARATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="javax.jms.QueueConnectionFactory" effort="1" severity="MANDATORY">
+                    <message>`QueueConnectionFactory` was used to obtain connection to JMS queues.
+                        Replace the lookup string `QueueConnectionFactory` with `ConnectionFactory`.
+                    </message>
+                    <tag>jms</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-eap5-java-04000">
+            <when>
+                <javaclass references="org.jboss.annotation.ejb.Service">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="org.jboss.annotation.ejb.Service" effort="3" severity="MANDATORY">
+                    <message>
+                        The `@Service` annotation is one of JBoss EJB 3.0 extensions which creates a singleton EJB.
+                        Use the new `org.jboss.ejb3.annotation.Service` instead.
+                    </message>
+                    <link title="JBoss EJB 3.0 extensions" href="https://docs.jboss.org/ejb3/docs/reference/build/reference/en/html/jboss_extensions.html"/>
+                    <link title="JBoss EJB 3.0 Javadoc" href="https://docs.jboss.org/ejb3/embedded/api/org/jboss/annotation/ejb/package-summary.html"/>
+                    <tag>ejb</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-eap5-java-05000">
+            <when>
+                <javaclass references="org.jboss.annotation.ejb.Management">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="org.jboss.annotation.ejb.Management" effort="3" severity="MANDATORY">
+                    <message>
+                        The `@Management` annotation is one of JBoss EJB 3.0 extensions which wraps the the bean
+                        as an MBean and install it in the JBoss MBean Server.
+                        Use the new `org.jboss.ejb3.annotation.Management` instead.
+                    </message>
+                    <link title="JBoss EJB 3.0 extensions" href="https://docs.jboss.org/ejb3/docs/reference/build/reference/en/html/jboss_extensions.html"/>
+                    <link title="JBoss EJB 3.0 Javadoc" href="https://docs.jboss.org/ejb3/embedded/api/org/jboss/annotation/ejb/package-summary.html"/>
+                    <tag>ejb</tag>
+                    <tag>jmx</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-eap5-java-06000">
+            <when>
+                <javaclass references="org.jboss.annotation.ejb.LocalBinding">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="org.jboss.annotation.ejb.LocalBinding" effort="3" severity="MANDATORY">
+                    <message>
+                        The `@LocalBinding` annotation is one of JBoss EJB 3.0 extensions
+                        which specifies the local jndi binding for an EJB local interface.
+                        Migrate to `org.jboss.ejb3.annotation.LocalBinding`.
+                    </message>
+                    <link title="JBoss EJB 3.0 extensions" href="https://docs.jboss.org/ejb3/docs/reference/build/reference/en/html/jboss_extensions.html"/>
+                    <link title="JBoss EJB 3.0 Javadoc" href="https://docs.jboss.org/ejb3/embedded/api/org/jboss/annotation/ejb/package-summary.html"/>
+                    <tag>ejb</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-eap5-java-07000">
+            <when>
+                <javaclass references="org.jboss.annotation.ejb.Depends">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="org.jboss.annotation.ejb.Depends" effort="3" severity="MANDATORY">
+                    <message>
+                        The `@Depends` annotation is one of JBoss EJB 3.0 extensions
+                        which specifies a deployment dependency for a bean.
+                        Validate that a JBoss EAP 6 Dependency exists.
+                    </message>
+                    <link title="JBoss EJB 3.0 extensions" href="https://docs.jboss.org/ejb3/docs/reference/build/reference/en/html/jboss_extensions.html"/>
+                    <link title="JBoss EJB 3.0 Javadoc" href="https://docs.jboss.org/ejb3/embedded/api/org/jboss/annotation/ejb/package-summary.html"/>
+                    <tag>ejb</tag>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

@@ -1,0 +1,16 @@
+<application-policy name="testLDAP">
+    <authentication>
+        <login-module code="org.jboss.security.auth.spi.LdapLoginModule" flag="required">
+            <module-option name="java.naming.factory.initial">com.sun.jndi.ldap.LdapCtxFactory</module-option>
+            <module-option name="java.naming.provider.url">ldap://ldaphost.jboss.org:1389/</module-option>
+            <module-option name="java.naming.security.authentication">simple</module-option>
+            <module-option name="principalDNPrefix">uid=</module-option>
+            <module-option name="principalDNSuffix">,ou=People,dc=jboss,dc=org</module-option>
+            <module-option name="rolesCtxDN">ou=Roles,dc=jboss,dc=org</module-option>
+            <module-option name="uidAttributeID">member</module-option>
+            <module-option name="matchOnUserDN">true</module-option>
+            <module-option name="roleAttributeID">cn</module-option>
+            <module-option name="roleAttributeIsDN">false </module-option>
+        </login-module>
+    </authentication>
+</application-policy>
