@@ -46,6 +46,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ocpsoft.logging.Logger;
 import org.ocpsoft.rewrite.config.Configuration;
+import org.ocpsoft.rewrite.config.ConfigurationBuilder;
 import org.ocpsoft.rewrite.config.Rule;
 import org.ocpsoft.rewrite.context.Context;
 import org.ocpsoft.rewrite.param.DefaultParameterValueStore;
@@ -70,6 +71,7 @@ public class WindupRulesTest
     private static Logger LOG = Logger.getLogger(WindupRulesTest.class);
 
     private static final String RUN_TEST_MATCHING = "runTestsMatching";
+    private static final String RUN_TEST_ID_MATCHING = "runTestIdMatching";
 
     @Deployment
     @AddonDependencies({
@@ -184,6 +186,17 @@ public class WindupRulesTest
 
                     Configuration ruleTestConfiguration = parser.getBuilder().getConfiguration(context);
 
+                    String idsToExecute = System.getProperty(RUN_TEST_ID_MATCHING);
+                    if(idsToExecute != null) {
+                        ConfigurationBuilder newConfiguration = ConfigurationBuilder.begin();
+                        for (Rule rule : ruleTestConfiguration.getRules())
+                        {
+                            if(rule.getId().matches(idsToExecute)) {
+                                newConfiguration.addRule(rule);
+                            }
+                        }
+                        ruleTestConfiguration = newConfiguration;
+                    }
                     for (Rule rule : ruleTestConfiguration.getRules())
                     {
                         parser.getBuilder().enhanceRuleMetadata(parser.getBuilder(), rule);

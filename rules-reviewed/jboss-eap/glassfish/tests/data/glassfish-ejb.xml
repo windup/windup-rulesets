@@ -1,0 +1,30 @@
+<!DOCTYPE glassfish-ejb-jar PUBLIC "-//GlassFish.org//
+DTD GlassFish Application Server 3.1 EJB 3.1//EN" 
+"http://glassfish.org/dtds/glassfish-ejb-jar_3_1-1.dtd">
+<glassfish-ejb-jar>
+<display-name>First Module</display-name>
+<enterprise-beans>
+    <ejb>
+        <ejb-name>CustomerEJB</ejb-name>
+        <jndi-name>customer</jndi-name>
+        <bean-pool>
+            <steady-pool-size>10</steady-pool-size>
+            <resize-quantity>10</resize-quantity>
+            <max-pool-size>100</max-pool-size>
+            <pool-idle-timeout-in-seconds>600</pool-idle-timeout-in-seconds>
+        </bean-pool>
+        <bean-cache>
+            <max-cache-size>100</max-cache-size>
+            <resize-quantity>10</resize-quantity>
+            <removal-timeout-in-seconds>3600</removal-timeout-in-seconds>
+            <victim-selection-policy>LRU</victim-selection-policy>
+        </bean-cache>
+    </ejb>
+    <cmp-resource>
+        <jndi-name>jdbc/__default</jndi-name>
+        <create-tables-at-deploy>true</create-tables-at-deploy>
+        <drop-tables-at-undeploy>true</drop-tables-at-undeploy>
+    </cmp-resource>
+</enterprise-beans>
+<keep-state>true</keep-state>
+</glassfish-ejb-jar>

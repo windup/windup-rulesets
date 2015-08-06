@@ -1,0 +1,44 @@
+<?xml version="1.0" standalone='yes'?>
+<!DOCTYPE orion-web-app PUBLIC '//Evermind//Orion web-application'
+ 'http://xmlns.oracle.com/ias/dtds/orion-web.dtd'>
+<orion-web-app
+   jsp-cache-directory="./persistence"
+   servlet-webdir="/servlet"
+   development="false"
+   jsp-timeout="0"
+   jsp-taglib-locations="./jsp/lib/taglib"
+>
+   <mime-mappings path="./mime.types" />
+   <web-app>
+      <servlet>
+         <servlet-name>jsp</servlet-name>
+         <servlet-class>oracle.jsp.runtimev2.JspServlet</servlet-class>
+         <load-on-startup>0</load-on-startup>
+         <init-param>
+            <param-name>check_page_scope</param-name>
+            <param-value>true</param-value>
+         </init-param>
+      </servlet>
+
+      <servlet-mapping>
+         <servlet-name>jsp</servlet-name>
+         <url-pattern>/*.jsp</url-pattern>
+      </servlet-mapping>
+      <servlet-mapping>
+         <servlet-name>jsp</servlet-name>
+         <url-pattern>/*.JSP</url-pattern>
+      </servlet-mapping>
+
+      <servlet>
+         <servlet-name>rmi</servlet-name>
+         <servlet-class>
+            com.evermind.server.rmi.RMIHttpTunnelServlet
+         </servlet-class>
+      </servlet>
+      <servlet-mapping>
+         <servlet-name>rmi</servlet-name>
+         <url-pattern>/*.tunnelrmi</url-pattern>
+      </servlet-mapping>
+
+   </web-app>
+</orion-web-app>
