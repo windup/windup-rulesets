@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://windup.jboss.org/schema/jboss-ruletest" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+   xmlns="http://windup.jboss.org/schema/jboss-ruletest" elementFormDefault="qualified">
+   <!-- Root element. -->
+   <xs:element name="ruletest">
+      <xs:annotation>
+         <xs:documentation>Root element of Windup ruletest.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element name="testDataPath" minOccurs="1" type="xs:string" />
+            <xs:element name="sourceMode" minOccurs="0" maxOccurs="1" type="xs:boolean" />
+            <xs:element name="rulePath" minOccurs="1" type="xs:string" />
+            <xs:element ref="ruleset" minOccurs="0" maxOccurs="unbounded" />
+         </xs:sequence>
+         <xs:attribute type="xs:string" name="id"/>
+      </xs:complexType>
+   </xs:element>
+
+   <xs:element name="ruleset">
+      <xs:annotation>
+         <xs:documentation>Root element of Windup ruleset.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element name="rules" minOccurs="1">
+               <xs:complexType>
+                  <xs:sequence>
+                     <xs:element name="rule" minOccurs="0" maxOccurs="unbounded" type="rule" />
+                     <xs:element name="file-mapping" type="mapping" minOccurs="0" maxOccurs="unbounded" />
+                     <xs:element name="package-mapping" type="mapping" minOccurs="0" maxOccurs="unbounded" />
+                  </xs:sequence>
+               </xs:complexType>
+            </xs:element>
+         </xs:sequence>
+         <xs:attribute type="xs:string" name="id"/>
+      </xs:complexType>
+   </xs:element>
+
+   <xs:complexType name="rule">
+      <xs:sequence>
+         <xs:element name="when" type="when" />
+         <xs:element name="perform" type="iteration">
+         </xs:element>
+         <xs:element name="otherwise" type="iteration" minOccurs="0" maxOccurs="1" />
+         <xs:element name="where" type="where" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
+      <xs:attribute type="xs:string" name="id"/>
+   </xs:complexType>
+
+
+   <!-- CONDITION DEFINITIONS -->
+
+   <xs:element name="classification-exists">
+      <xs:complexType>
+         <xs:attribute type="xs:string" name="classification"/>
+         <xs:attribute type="xs:string" name="in"/>
+      </xs:complexType>
+   </xs:element>
+
+   <xs:element name="file-exists">
+      <xs:complexType>
+         <xs:attribute type="xs:string" name="filename" use="required" />
+      </xs:complexType>
+   </xs:element>   
+
+   <xs:element name="hint-exists">
+      <xs:complexType>
+         <xs:attribute type="xs:string" name="message"/>
+         <xs:attribute type="xs:string" name="in"/>
+      </xs:complexType>
+   </xs:element>
+
+   <xs:element name="lineitem-exists">
+      <xs:complexType>
+         <xs:attribute type="xs:string" name="message"/>
+         <xs:attribute type="xs:string" name="in"/>
+      </xs:complexType>
+   </xs:element>
+
+   <!-- OPERATION DEFINITIONS -->
+   <xs:element name="fail">
+      <xs:complexType>
+         <xs:attribute type="xs:string" name="message" />
+      </xs:complexType>
+   </xs:element>
+
+   <!-- MAIN BUILDING BLOCKS -->
+   <xs:complexType name="where">
+      <xs:sequence>
+         <xs:element name="matches" minOccurs="0" maxOccurs="unbounded">
+            <xs:complexType>
+               <xs:simpleContent>
+                  <xs:extension base="xs:string">
+                     <xs:attribute type="xs:string" name="pattern" />
+                  </xs:extension>
+               </xs:simpleContent>
+            </xs:complexType>
+         </xs:element>
+      </xs:sequence>
+      <xs:attribute type="xs:string" name="param"/>
+   </xs:complexType>
+
+   <xs:complexType name="when-base">
+      <!-- Conditions -->
+      <xs:choice maxOccurs="unbounded">
+         <xs:element name="true" minOccurs="0" maxOccurs="1" />
+         <xs:element name="false" minOccurs="0" maxOccurs="1" />
+         <xs:element ref="classification-exists" minOccurs="0" maxOccurs="unbounded" />
+         <xs:element ref="file-exists" minOccurs="0" maxOccurs="unbounded" />
+         <xs:element ref="hint-exists" minOccurs="0" maxOccurs="unbounded" />
+         <xs:element ref="lineitem-exists" minOccurs="0" maxOccurs="unbounded" />
+      </xs:choice>
+   </xs:complexType>
+
+   <xs:complexType name="when">
+      <xs:complexContent>
+         <xs:extension base="when-base">
+            <xs:choice maxOccurs="unbounded">
+               <xs:element name="or" type="when" minOccurs="0" maxOccurs="unbounded" />
+               <xs:element name="and" type="when" minOccurs="0" maxOccurs="unbounded" />
+               <xs:element name="not" type="when" minOccurs="0" maxOccurs="unbounded" />
+            </xs:choice>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+
+   <xs:complexType name="iteration-when">
+      <xs:complexContent>
+         <xs:extension base="when-base">
+            <xs:choice maxOccurs="unbounded">
+               <xs:element name="or" type="iteration-when" minOccurs="0" maxOccurs="unbounded" />
+               <xs:element name="and" type="iteration-when" minOccurs="0" maxOccurs="unbounded" />
+               <xs:element name="not" type="iteration-when" minOccurs="0" maxOccurs="unbounded" />
+            </xs:choice>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+
+   <xs:complexType name="iteration">
+      <xs:choice maxOccurs="unbounded">
+         <xs:element name="when" type="iteration-when" minOccurs="0" maxOccurs="1" />
+         <xs:element name="perform" type="iteration" />
+         <xs:element name="otherwise" type="iteration" minOccurs="0" maxOccurs="1" />
+         <xs:element name="iteration" type="iteration" minOccurs="0" maxOccurs="unbounded" />
+         <xs:element ref="fail" minOccurs="0" maxOccurs="unbounded" />
+         <xs:element ref="classification-exists" minOccurs="0" maxOccurs="unbounded" />
+         <xs:element ref="file-exists" minOccurs="0" maxOccurs="unbounded" />
+         <xs:element ref="hint-exists" minOccurs="0" maxOccurs="unbounded" />
+         <xs:element ref="lineitem-exists" minOccurs="0" maxOccurs="unbounded" />
+      </xs:choice>
+      <xs:attribute type="xs:string" name="over" />
+   </xs:complexType>
+
+   <xs:complexType name="mapping">
+      <xs:attribute type="xs:string" name="from"/>
+      <xs:attribute type="xs:string" name="to"/>
+   </xs:complexType>
+</xs:schema>
