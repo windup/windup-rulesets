@@ -1,0 +1,529 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+    <testDataPath>data</testDataPath>
+    <rulePath>../soa-p-5.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="soa-p-5-01000-test-1">
+                <when>
+                    <not>
+                        <classification-exists classification="JBoss ESB 5 Action Handler" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="ESB 5 Action Handler classification not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-01000-test-2">
+                <when>
+                    <not>
+                        <hint-exists message="Custom action classes should be migrated to CDI Beans in Fuse Service Works" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="ESB 5 Action Handler hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-02000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="JBoss ESB Deployment Descriptor" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="JBoss ESB Deployment Descriptor not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-03000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="JBoss ESB Pipeline Configuration" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="JBoss ESB Pipeline not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-04000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="Smooks Configuration" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Smooks configuration not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-05000-test">
+                <when>
+                    <not>
+                        <hint-exists message="This listener requires a composite service binding in Fuse Service Works." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="JMS Gateway conversion instructions are missing!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-06000-test">
+                <when>
+                    <not>
+                        <hint-exists message="An ESB-aware listener is no longer required in Fuse Service Works" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Instruction to remove esb-aware listener is missing!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-07000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Each .*? definition in SOA-P 5 represents a service which can be" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Migrate action pipeline hint is missing!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-08000-test">
+                <when>
+                    <not>
+                        <hint-exists message="The logic and execution flow of a service in SOA-P 5 is defined in an" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Service pipeline hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-09000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Although Camel has both Hibernate and JPA components that are.*[\n]*.*useful in consuming records, there isn't any support for Hibernate events." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hibernate bus hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-10000-test">
+                <when>
+                    <not>
+                        <hint-exists message="A jms-bus definition can be converted to a JMS or JCA gateway" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="jms-bus migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-11000-test">
+                <when>
+                    <not>
+                        <hint-exists message="A ftp-bus definition can be converted to a FTP gateway" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="ftp-bus migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-12000-test">
+                <when>
+                    <not>
+                        <hint-exists message="A camel-bus definition can be converted to a Camel gateway" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="camel-bus migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-13000-test">
+                <when>
+                    <not>
+                        <hint-exists message="A UDP Listener definition can be converted to a TCP/UDP" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="udp-listener migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-14000-test">
+                <when>
+                    <not>
+                        <hint-exists message="A jms-jca-provider definition can be converted to a JCA" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="jms-jca-provider migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-15000-test">
+                <when>
+                    <not>
+                        <hint-exists message="A http-provider definition can be converted to a HTTP gateway" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="http-listener migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-16000-test">
+                <when>
+                    <not>
+                        <hint-exists message="A cron-schedule definition can be converted to a Quartz" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="cron-schedule migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-17000-test">
+                <when>
+                    <not>
+                        <hint-exists message="This listener requires a composite service binding in Fuse Service Works. The configuration for a FTP binding" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="ftp gateway listener migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-18000-test">
+                <when>
+                    <not>
+                        <hint-exists message="The configuration for a Camel binding can be found in the camel-bus definition associated" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Camel gateway listener migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-19000-test">
+                <when>
+                    <not>
+                        <hint-exists message="A .*?http-gateway.* can be replaced in Fuse Service Works by a http binding added to your composite service." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="http-gateway listener migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-20000-test">
+                <when>
+                    <not>
+                        <hint-exists message="of as SmooksAction to transform message content. You most likely will want to use a Smooks transform" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Smooks transform migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-21000-test">
+                <when>
+                    <not>
+                        <hint-exists message="In a Fuse Service Works Smooks transform, you can specify your Smooks configuration with the .*?config.* attribute." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Smooks config migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-22000-test">
+                <when>
+                    <not>
+                        <hint-exists message="to specify your Smooks configuration and from/to types." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Smooks result type migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-23000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Instead of the JBoss ESB SOAPProxy action which transforms a specified WSDL and rewrites the address to the JBoss ESB server," />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="SOAPProxy migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-24000-test">
+                <when>
+                    <not>
+                        <hint-exists message="you may want to create a Bean service which logs the message in the manner you wish" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="SystemPrintln migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-25000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Fuse Service Works, you should use Camel's routing \(either through Java DSL routes or route.xml\)\." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="StaticRouter migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-26000-test">
+                <when>
+                    <not>
+                        <hint-exists message="In order to replace the use of the JMSRouter in Fuse Service Works, you should use a JMS binding. You may need to review the options for JMS bindings in" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="JMSRouter migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-27000-test">
+                <when>
+                    <not>
+                        <hint-exists message="TestMessageStore is an out-of-the-box ESB action that is used in JBoss Application Server" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="TestMessageStore migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-28000-test">
+                <when>
+                    <not>
+                        <hint-exists message="The GroovyActionProcessor action executes a Groovy script. You can duplicate this functionality in" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="GroovyActionProcessor migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-29000-test">
+                <when>
+                    <not>
+                        <hint-exists message="The BpmProcessor makes calls to jBPM 3 through the jBPM command API. Fuse Service Works supports jBPM 5, so you will need" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="ESB JBPM migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-30000-test">
+                <when>
+                    <not>
+                        <hint-exists message="A fs-bus definition can be converted to a Camel binding on a composite service in Fuse Service Works." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="fs-bus migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-31000-test">
+                <when>
+                    <not>
+                        <hint-exists message="JBoss ESB uses notifiers to transform ESB aware messages to a format that ESB-unaware services can handle. Fuse Service Works uses bi-directional gateways to transfer messages" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="ESB Notifier migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-32000-test">
+                <when>
+                    <not>
+                        <hint-exists message="JBoss ESB uses a ByteArrayToString action to do conversion on a message body. In Fuse Service Works" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="ByteArrayToString migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-33000-test">
+                <when>
+                    <not>
+                        <hint-exists message="JBoss ESB uses the LongToDateConverter action to do conversion on a message body." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="LongToDateConverter migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-34000-test">
+                <when>
+                    <not>
+                        <hint-exists message="JBoss ESB uses the ObjectToCSVString action to do conversion on a message body. Fuse Service Works" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="ObjectToCSVString migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-35000-test">
+                <when>
+                    <not>
+                        <hint-exists message="JBoss ESB uses a ObjectInvoke action to invoke a processor on a message." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="ObjectInvoke migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-36000-test">
+                <when>
+                    <not>
+                        <hint-exists message="JBoss ESB uses an ObjectToXStream action to do convert an Object payload to XML using the XStream" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="ObjectToXStream migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-37000-test">
+                <when>
+                    <not>
+                        <hint-exists message="JBoss ESB uses an XStreamToObject action to convert XML in a payload to an object using the XStream processor." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="XStreamToObject migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-38000-test">
+                <when>
+                    <not>
+                        <hint-exists message="JBoss ESB uses the XsltAction action to transform documents in a payload. Fuse Service Works would use Camel to do this type of" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="XsltAction migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-39000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Fuse Service Works uses a .*?transform.*? to replace the invocation of a SmooksTransformer to transform message content." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="SmooksTransformer migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-40000-test">
+                <when>
+                    <not>
+                        <hint-exists message="JBoss ESB uses the MessagePersister action to persist a message. Fuse Service Works would use" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="MessagePersister migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-41000-test">
+                <when>
+                    <not>
+                        <hint-exists message="JBoss ESB uses the EJBProcessor action to invoke a stateless session bean with the contents of a message." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="EJBProcessor migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-42000-test">
+                <when>
+                    <not>
+                        <hint-exists message="The ScriptingAction executes a script using the BeanScriptingFramework. You can duplicate this functionality in Fuse Service Works" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="ScriptingAction migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-43000-test-a">
+                <when>
+                    <not>
+                        <hint-exists message="JBoss ESB uses the Aggregator action to aggregate a message sequence into a single aggregated message." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="ESB Aggregator migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-43000-test-b">
+                <when>
+                    <not>
+                        <hint-exists message="JBoss ESB uses the StreamingAggregator action to aggregate a message sequence into a single aggregated message." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="ESB Streaming Aggregator migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-44000-test">
+                <when>
+                    <not>
+                        <hint-exists message="In order to replace the use of the HttpRouter in JBoss ESB, you should use a HTTP reference binding." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="ESB HTTP Router migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-45000-test">
+                <when>
+                    <not>
+                        <hint-exists message="In order to replace the use of the EmailRouter in Fuse Service Works, you should use a mail reference binding." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="ESB Email Router migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-46000-test">
+                <when>
+                    <not>
+                        <hint-exists message="In order to replace the use of the ContentBasedRouter in Fuse Service Works, you should use Camel to route messages." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="ContentBasedRouter migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-47000-test">
+                <when>
+                    <not>
+                        <hint-exists message="In order to replace the use of the StaticWiretap in Fuse Service Works, you should use a" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="StaticWiretap migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-48000-test">
+                <when>
+                    <not>
+                        <hint-exists message="In order to replace the use of the StaticRouter in Fuse Service Works, you should use Camel to route messages." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="StaticRouter migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-49000-test">
+                <when>
+                    <not>
+                        <hint-exists message="In order to replace the use of the SOAPProcessor you should use a SOAP reference binding in Fuse Service Works." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="SOAPProcessor migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="soa-p-5-50000-test">
+                <when>
+                    <not>
+                        <hint-exists message="In order to replace the use of the SOAPClient in Fuse Service Works, you should use a SOAP reference" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="SOAPClient migration hint not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
