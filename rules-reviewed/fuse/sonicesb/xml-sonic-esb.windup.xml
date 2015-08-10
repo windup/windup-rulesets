@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="xml-sonic-esb"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <metadata>
+        <description>
+            This rule set identifies Sonic ESB XML configuration files. 
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-xml,2.3.0.Final" />
+        </dependencies>
+    </metadata>
+
+    <rules>
+        <rule id="xml-sonic-esb-01000">
+            <when>
+                <xmlfile matches="/*[local-name()='serviceType']">
+                    <namespace prefix="xq" uri="http://www.sonicsw.com/sonicxq"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <classification title="SonicESB Service Configuration" effort="4"/>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

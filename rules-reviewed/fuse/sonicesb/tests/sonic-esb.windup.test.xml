@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruletest id="sonic-esb-tests" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+   <testDataPath>data</testDataPath>
+   <rulePath>../sonic-esb.windup.xml</rulePath>
+   <ruleset>
+      <rules>
+         <rule id="sonic-esb-01000-test">
+            <when>
+               <not>
+                  <classification-exists classification="Sonic ESB Service" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Sonic ESB Service classification was not found!" />
+            </perform>
+         </rule>
+         <rule id="sonic-esb-02000-test">
+            <when>
+               <not>
+                  <hint-exists message=".*service(XQServiceContext context)*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="XQServiceContext hint was not found!" />
+            </perform>
+         </rule>
+<!--          <rule id="sonic-esb-03000-test"> -->
+<!--             <when> -->
+<!--                <not> -->
+<!--                   <hint-exists message=".*The XQInitContext is used*" /> -->
+<!--                </not> -->
+<!--             </when> -->
+<!--             <perform> -->
+<!--                <fail message="XQInitContext hint was not found!" /> -->
+<!--             </perform> -->
+<!--          </rule> -->
+         <rule id="sonic-esb-04000-test">
+            <when>
+               <not>
+                  <hint-exists
+                     message=".*Migrate XQInitContext.getParameters to Spring property injection" />
+               </not>
+            </when>
+            <perform>
+               <fail message="XQInitContext.getParameters hint was not found!" />
+            </perform>
+         </rule>
+         <rule id="sonic-esb-05000-test">
+            <when>
+               <not>
+                  <hint-exists
+                     message=".*Migrate XQParameters.getParameter to Spring property injection" />
+               </not>
+            </when>
+            <perform>
+               <fail message="XQParameters.getParameter hint was not found!" />
+            </perform>
+         </rule>
+         <rule id="sonic-esb-06000-test">
+            <when>
+               <not>
+                  <hint-exists
+                     message=".*Migrate XQParameters to Spring property injection" />
+               </not>
+            </when>
+            <perform>
+               <fail message="XQParameters hint was not found!" />
+            </perform>
+         </rule>
+         <rule id="sonic-esb-07000-test">
+            <when>
+               <not>
+                  <hint-exists
+                     message=".*Migrate XQParameterInfo to Spring property injection" />
+               </not>
+            </when>
+            <perform>
+               <fail message="com.sonicsw.xq.XQParameterInfo hint was not found!" />
+            </perform>
+         </rule>
+         <rule id="sonic-esb-08000-test">
+            <when>
+               <not>
+                  <hint-exists message=".*Migrate to org.apache.camel.Message" />
+               </not>
+            </when>
+            <perform>
+               <fail message="com.sonicsw.xq.XQMessage hint was not found!" />
+            </perform>
+         </rule>
+         <rule id="sonic-esb-09000-test">
+            <when>
+               <not>
+                  <hint-exists message="Migrate to org.apache.camel.Message.getHeader*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="com.sonicsw.xq.XQMessage.getHeaderValue hint was not found!" />
+            </perform>
+         </rule>
+         <rule id="sonic-esb-10000-test">
+            <when>
+               <not>
+                  <hint-exists message="Migrate to org.apache.camel.Message.setHeader" />
+               </not>
+            </when>
+            <perform>
+               <fail
+                  message="com.sonicsw.xq.XQMessage.getHeaderValue hint was not found!" />
+            </perform>
+         </rule>
+         <rule id="sonic-esb-11000-test">
+            <when>
+               <not>
+                  <hint-exists message="Migrate to org.apache.camel.Message.getHeaders" />
+               </not>
+            </when>
+            <perform>
+               <fail
+                  message="com.sonicsw.xq.XQMessage.getHeaderNames hint was not found!" />
+            </perform>
+         </rule>
+         <rule id="sonic-esb-12000-test">
+            <when>
+               <not>
+                  <hint-exists message=".*Migrate XQPart to an attachment" />
+               </not>
+            </when>
+            <perform>
+               <fail message="com.sonicsw.xq.XQPart hint was not found!" />
+            </perform>
+         </rule>
+         <rule id="sonic-esb-13000-test">
+            <when>
+               <not>
+                  <hint-exists message=".*Migrate to org.apache.camel.Message.getAttachments*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="com.sonicsw.xq.XQMessage.getPartCount hint was not found!" />
+            </perform>
+         </rule>
+         <rule id="sonic-esb-14000-test">
+            <when>
+               <not>
+                  <hint-exists message=".*Migrate to org.apache.camel.Message.getAttachment" />
+               </not>
+            </when>
+            <perform>
+               <fail message="com.sonicsw.xq.XQMessage.getPart hint was not found!" />
+            </perform>
+         </rule>
+         <rule id="sonic-esb-15000-test">
+            <when>
+               <not>
+                  <hint-exists message=".*Apache SLF4J" />
+               </not>
+            </when>
+            <perform>
+               <fail message="com.sonicsw.xq.XQLog hint was not found!" />
+            </perform>
+         </rule>
+         <rule id="sonic-esb-16000-test">
+            <when>
+               <not>
+                  <hint-exists
+                     message=".*Create a custom ServiceException class" />
+               </not>
+            </when>
+            <perform>
+               <fail
+                  message="com.sonicsw.xq.XQServiceException hint was not found!" />
+            </perform>
+         </rule>
+         <rule id="sonic-esb-17000-test">
+            <when>
+               <not>
+                  <hint-exists
+                     message=".*Correlation is handled several ways in Camel" />
+               </not>
+            </when>
+            <perform>
+               <fail
+                  message="com.sonicsw.xq.XQMessage.getCorrelationId hint was not found!" />
+            </perform>
+         </rule>
+         <rule id="sonic-esb-18000-test">
+            <when>
+               <not>
+                  <hint-exists message=".*Sonic ESB Service is routing" />
+               </not>
+            </when>
+            <perform>
+               <fail
+                  message="com.sonicsw.xq.XQAddressFactory.createEndpointAddress hint was not found!" />
+            </perform>
+         </rule>
+         <rule id="sonic-esb-19000-test">
+            <when>
+               <not>
+                  <hint-exists message=".*Sonic ESB uses the addOutgoing*" />
+               </not>
+            </when>
+            <perform>
+               <fail
+                  message="com.sonicsw.xq.XQServiceContext.addOutgoing hint was not found!" />
+            </perform>
+         </rule>
+         <rule id="sonic-esb-20000-test">
+            <when>
+               <not>
+                  <hint-exists message=".*Migrate to org.apache.camel.Exchange" />
+               </not>
+            </when>
+            <perform>
+               <fail message="com.sonicsw.xq.XQEnvelope hint was not found!" />
+            </perform>
+         </rule>
+         <rule id="sonic-esb-21000-test">
+            <when>
+               <not>
+                  <hint-exists message="Migrate to org.apache.camel.Message.getIn*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Method call com.sonicsw.xq.XQEnvelope.getMessage hint was not found!" />
+            </perform>
+         </rule>
+      </rules>
+   </ruleset>
+</ruletest>
