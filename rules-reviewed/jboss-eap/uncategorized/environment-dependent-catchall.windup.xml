@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="environment-dependent-calls"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides generic rules that should match when migrating from different server
+            to JBoss EAP 6+.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,2.3.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,2.3.0.Final" />
+        </dependencies>
+        <targetTechnology id="eap" versionRange="[6,)" />
+        <targetTechnology id="java-ee" versionRange="[6,)" />
+        <phase>PostMigrationRulesPhase</phase>
+        <tag>reviewed-2015-08-17</tag>
+    </metadata>
+    <rules>
+        <rule id="environment-dependent-calls-01000">
+            <when>
+                <javaclass references="java.lang.Class.forName({*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                 <hint title="Dynamic instantiation of class" effort="0" severity="optional">
+                       <message>The class is dynamically loaded within application. During the migration, multiple classes that are provided on classpath by a different server may not be present anymore.
+                        Please ensure that the dynamically loaded class is available to JBoss.</message>
+                       <tag>classloader</tag>
+                 </hint>
+            </perform>
+        </rule>
+        <rule id="environment-dependent-calls-02000">
+            <when>
+                <javaclass references="javax.naming.{*}Context.lookup{*}" as="default">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <iteration>
+                    <hint title="JNDI lookup" effort="0" severity="optional">
+                        <message><![CDATA[
+                                           This method lookups an object using a JNDI String. During the migration process, some entity JNDI bindings may change.
+                                           Ensure that the JNDI Name does not need to change for JBoss
+                                           
+                                           *For Example:*
+                                                           
+                                           ```java
+                                           (ConnectionFactory)initialContext.lookup("weblogic.jms.ConnectionFactory");
+                                           ```
+                                           
+                                           *should become:*
+                                           
+                                           ```java
+                                           (ConnectionFactory)initialContext.lookup("/ConnectionFactory");
+                                           ```
+                        ]]></message>
+			<link title="JBoss JNDI Reference" href="https://docs.jboss.org/author/display/AS71/JNDI+Reference" />
+			<tag>jndi</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="environment-dependent-calls-03000">
+            <when>
+                <javaclass references="javax.naming.InitialContext({*})" as="default">
+                    <location>CONSTRUCTOR_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <iteration>
+                    <hint title="InitialContext initialization" effort="0" severity="optional">
+                    <message>InitialContext looks for the properties located in multiple places. Besides checking the map that may be passed to this constructor, it also checks the system properties and jndi.properties file. Ensure that these InitialContext connection properties do not need to be changed for JBoss.</message>
+                    <tag>jndi</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="environment-dependent-calls-04000">
+ 		<!--could also check JMXConnectorFactory.PROTOCOL_PROVIDER_PACKAGES in the provided hash map--> 
+            <when>
+                <javaclass references="javax.management.{suffix}{*}" as="default">
+                    <location>CONSTRUCTOR_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <iteration>
+                    <hint effort="0" severity="optional"><message>After migration, some of the JMX beans provided by the previous server may not be present anymore. 
+                    Ensure that the {suffix} does not need to change for JBoss</message>
+                    </hint>
+                </iteration>
+            </perform>
+            <where param="suffix">
+                <matches pattern="(ObjectName)|(remote.JMXServiceURL)" />
+            </where>
+        </rule>
+        <rule id="environment-dependent-calls-05000">
+            <when>
+                <javaclass references="javax.management.remote.JMXConnectorFactory.connect({*})" as="default">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <iteration>
+                    <hint title="JMX connection" effort="0" severity="optional"><message>After migration, JMX connection String or parameters may be different than the one provided by previous server.
+		    As an example, javax.management.remote.JMXConnectorFactory.PROTOCOL_PROVIDER_PACKAGES will change. 
+                    Ensure that any of the parameters does not need to change for JBoss.</message>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

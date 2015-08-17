@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+    <testDataPath>data</testDataPath>
+    <ruleset>
+        <rules>
+            <rule id="environment-dependent-calls-01000-test">
+                <when>
+                    <not>
+                        <hint-exists message="The class is dynamically loaded within application. During the migration, multiple classes"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Dynamic class initiation using Class.classForName was not detected, but it should have been."/>
+                </perform>
+            </rule>
+	    <rule id="environment-dependent-calls-02000-test">
+                <when>
+                    <not>
+                        <hint-exists message="This method lookups an object using a JNDI String. During the migration process, some entity JNDI bindings may change."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="JNDI lookup hint not detected."/>
+                </perform>
+            </rule>
+	    <rule id="environment-dependent-calls-03000-test">
+                <when>
+                    <not>
+                        <hint-exists message="InitialContext looks for the properties located in multiple places."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="InitialContext initialization hint was not found."/>
+                </perform>
+            </rule>
+            <rule id="environment-dependent-calls-04000-test">
+                <when>
+                    <not>
+                        <hint-exists message="nsure that the remote.JMXServiceURL does not need to change for JBoss"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="JMX url initialization for remote.JMXServiceURL not detected."/>
+                </perform>
+            </rule>
+            <rule id="environment-dependent-calls-04000-test2">
+                <when>
+                    <not>
+                        <hint-exists message="nsure that the ObjectName does not need to change for JBoss"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="JMX url initialization for ObjectName not detected."/>
+                </perform>
+            </rule>
+            <rule id="environment-dependent-calls-05000-test">
+                <when>
+                    <not>
+                        <hint-exists message="After migration, JMX connection String or parameters may be different than the one provided by previous server."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="JMXConnectorFactory.connect() hint not detected."/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

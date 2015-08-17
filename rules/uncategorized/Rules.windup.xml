@@ -25,19 +25,6 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="OtherBaseRules_6bcvk">
-            <when>
-                <javaclass references="java.lang.Class.classForName{*}" as="default">
-                    <location>METHOD_CALL</location>
-                </javaclass>
-            </when>
-            <perform>
-                <iteration>
-                    <hint effort="1"><message>Ensure class is available to JBoss</message>
-                    </hint>
-                </iteration>
-            </perform>
-        </rule>
         <rule id="OtherBaseRules_8jyqn">
             <when>
                 <javaclass references="oracle.sql.{*}" as="default">
@@ -125,102 +112,6 @@
             <perform>
                 <iteration>
                     <hint effort="0"><message>IBM CICS Adapter</message>
-                    </hint>
-                </iteration>
-            </perform>
-        </rule>
-        <rule id="OtherBaseRules_16aynk">
-            <when>
-                <javaclass references="javax.naming.{*}Context.lookup{*}" as="default">
-                    <location>METHOD_CALL</location>
-                </javaclass>
-            </when>
-            <perform>
-                <iteration>
-                    <hint effort="1">
-                        <message><![CDATA[
-                           
-                                           Ensure that the JNDI Name does not need to change for JBoss
-                                           
-                                           *For Example:*
-                                                           
-                                           ```java
-                                           (ConnectionFactory)initialContext.lookup("weblogic.jms.ConnectionFactory");
-                                           ```
-                                           
-                                           *should become:*
-                                           
-                                           ```java
-                                           (ConnectionFactory)initialContext.lookup("/ConnectionFactory");
-                                           ```
-                                           
-                           
-                        ]]></message>
-                    </hint>
-                </iteration>
-            </perform>
-        </rule>
-        <rule id="OtherBaseRules_18bicn">
-            <when>
-                <javaclass references="javax.naming.InitialContext({*})" as="default">
-                    <location>CONSTRUCTOR_CALL</location>
-                </javaclass>
-            </when>
-            <perform>
-                <iteration>
-                    <hint effort="1"><message>Ensure that the InitialContext connection properties do not need to change for JBoss</message>
-                    </hint>
-                </iteration>
-            </perform>
-        </rule>
-        <rule id="OtherBaseRules_1Agqai">
-            <when>
-                <javaclass references="javax.management.remote.JMXServiceURL({*})" as="default">
-                    <location>CONSTRUCTOR_CALL</location>
-                </javaclass>
-            </when>
-            <perform>
-                <iteration>
-                    <hint effort="0"><message>Ensure that the connection properties do not need to change for JBoss</message>
-                    </hint>
-                </iteration>
-            </perform>
-        </rule>
-        <rule id="OtherBaseRules_1Csnki">
-            <when>
-                <javaclass references="javax.management.ObjectName({*})" as="default">
-                    <location>CONSTRUCTOR_CALL</location>
-                </javaclass>
-            </when>
-            <perform>
-                <iteration>
-                    <hint effort="1"><message>Ensure that the ObjectName exists in JBoss</message>
-                    </hint>
-                </iteration>
-            </perform>
-        </rule>
-        <rule id="OtherBaseRules_1Efbtf">
-            <when>
-                <javaclass references="javax.management.remote.JMXConnectorFactory.connect({*})" as="default">
-                    <location>METHOD_CALL</location>
-                </javaclass>
-            </when>
-            <perform>
-                <iteration>
-                    <hint effort="0"><message>Ensure that the connection properties do not need to change for JBoss</message>
-                    </hint>
-                </iteration>
-            </perform>
-        </rule>
-        <rule id="OtherBaseRules_20xslg">
-            <when>
-                <javaclass references="java.sql.DriverManager{*}" as="default">
-                    <location>METHOD_CALL</location>
-                </javaclass>
-            </when>
-            <perform>
-                <iteration>
-                    <hint effort="0"><message>Move to a JCA Connector unless this class is used for batch processes, then refactor as necessary</message>
                     </hint>
                 </iteration>
             </perform>
