@@ -13,6 +13,16 @@
                     <fail message="CMP Entity EJB hint not found!"/>
                 </perform>
             </rule>
+            <rule id="eap6-xml-02000-test">
+                <when>
+                    <not>
+                        <hint-exists message="JBoss Web was replaced by Undertow, which does not contain support for the Valve functionality."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="JBoss Web Valve hint not found!"/>
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
