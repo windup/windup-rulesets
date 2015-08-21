@@ -54,5 +54,23 @@
                 </iteration>
             </perform>
         </rule>
+        <rule id="eap6-xml-03000">
+            <when>
+                <xmlfile matches="/webservices/webservice-description/jaxrpc-mapping-file | /jee:webservices/jee:webservice-description/jee:jaxrpc-mapping-file | /jcp:webservices/jcp:webservice-description/jcp:jaxrpc-mapping-file | /j2ee:webservices/j2ee:webservice-description/j2ee:jaxrpc-mapping-file">
+                    <namespace prefix="j2ee" uri="http://java.sun.com/xml/ns/j2ee"/>
+                    <namespace prefix="jcp" uri="http://xmlns.jcp.org/xml/ns/javaee"/>
+                    <namespace prefix="jee" uri="http://java.sun.com/xml/ns/javaee"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <iteration>
+                    <hint title="JAX-RPC specific configuration." effort="3" severity="mandatory">
+                    <message>JAX-RPC support was removed in JBoss EAP 7. All the RPC calls will need to be migrated to JAX-WS.</message>
+                    <tag>rpc</tag>
+                    <tag>jax-ws</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
