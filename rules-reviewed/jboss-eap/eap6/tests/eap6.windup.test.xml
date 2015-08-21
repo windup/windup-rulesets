@@ -23,6 +23,16 @@
                     <fail message="Apache CXF integration hint not found!"/>
                 </perform>
             </rule>
+            <rule id="eap6-03000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="Manifest.mf - specifies application dependencies"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Manifest.MF not found!"/>
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
