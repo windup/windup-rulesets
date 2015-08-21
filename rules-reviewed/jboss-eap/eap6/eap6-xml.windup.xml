@@ -72,5 +72,17 @@
                 </iteration>
             </perform>
         </rule>
+        <rule id="eap6-xml-04000">
+            <when>
+                <file filename="deployment-plan.xml"/>
+            </when>
+            <perform>
+                    <classification title="JSR-88 deployment plans are no more supported by JBoss EAP7." effort="3" severity="mandatory">
+                    	<description>This file should be removed and instead rely on proprietary functionality to automate deployments. Please consult WildFly/EAP admin documentation to learn about such functionality.</description>
+                    	<link title="Wildfly admin guide" href="https://docs.jboss.org/author/display/WFLY8/Admin+Guide"/>
+                    	<tag>configuration</tag>
+                    </classification>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
