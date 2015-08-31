@@ -84,5 +84,22 @@
                     </classification>
             </perform>
         </rule>
+
+        <rule id="eap6-xml-05000">
+            <when>
+                <xmlfile matches="/msg:messaging-deployment" in="{*}-jms.xml">
+                    <namespace prefix="msg" uri="urn:jboss:messaging-deployment:1.0"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <classification title="Proprietary JMS Resource Definitions" effort="1">
+                    <description>The proprietary XML descriptors, previously used to setup JMS resources, are deprecated in WildFly 10. 
+	An updated version of this file was generated using XSLT transformation.</description>
+                    <tag>jms</tag>
+                </classification>
+                <xslt title="JMS Resource Definition (Windup-Generated)" template="transformations/xslt/deprecated-jms-resources.xsl" extension="-windup-generated.xml"/>
+            </perform>
+        </rule>
+
     </rules>
 </ruleset>

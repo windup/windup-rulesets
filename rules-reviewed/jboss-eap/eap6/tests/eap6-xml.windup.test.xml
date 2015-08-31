@@ -43,6 +43,16 @@
                     <fail message="deployment-plan.xml classification not found!"/>
                 </perform>
             </rule>
+            <rule id="eap6-xml-05000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="Proprietary JMS Resource Definitions"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint for all the *-jms.xml files not found!"/>
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
