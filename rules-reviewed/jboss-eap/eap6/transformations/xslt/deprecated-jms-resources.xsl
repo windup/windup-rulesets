@@ -7,16 +7,16 @@ xmlns="urn:jboss:messaging-activemq-deployment:1.0"
     <xsl:output method="xml" indent="yes"/>
 
     <xsl:template match="/md:messaging-deployment">
-     <messaging-deployment >
+     <xsl:element name="messaging-deployment" namespace="urn:jboss:messaging-activemq-deployment:1.0">
        <xsl:apply-templates/>
-     </messaging-deployment>
+      </xsl:element>
     </xsl:template>
 
 
     <xsl:template match="md:hornetq-server">
-        <server >
+        <xsl:element name="server" namespace="urn:jboss:messaging-activemq-deployment:1.0">
                   <xsl:apply-templates/>
-        </server>
+        </xsl:element>
            
     </xsl:template>
 

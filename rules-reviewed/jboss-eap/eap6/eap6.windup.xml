@@ -12,8 +12,8 @@
             <addon id="org.jboss.windup.rules,windup-rules-javaee,2.3.0.Final" />
             <addon id="org.jboss.windup.rules,windup-rules-java,2.3.0.Final" />
         </dependencies>
-        <sourceTechnology id="weblogic" />
-        <targetTechnology id="eap" versionRange="[6,)" />
+        <sourceTechnology id="eap" versionRange="[6,7)" />
+	<targetTechnology id="eap" versionRange="[7,)" />
         <tag>reviewed-2015-06-08</tag>
     </metadata>
 
@@ -31,6 +31,7 @@
                     <hint title="CMP Entity EJB" effort="5" severity="mandatory">
                     <message>CMP entity beans are no longer supported in JBoss EAP 7. User is requested to use JPA entity beans that fully replaced the functionality provided by CMP beans.
 		    This entity needs to be migrated using JPA persistence.xml or using JPA annotations.</message>
+                    <link title="CMP Entity migration to Wildfly" href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-JAXRPC#HowdoImigratemyapplicationfromAS7toWildFly-CMPEntityEJBs"/>
                     <tag>cmp</tag>
                     <tag>jpa</tag>
                     </hint>
@@ -64,6 +65,7 @@
                 <iteration>
                     <classification title="Manifest.mf - specifies application dependencies" effort="1" severity="mandatory">
                     <description>Verify in advance, that all the modules this application depends on still exist.</description>
+                    <link title="CMP Entity migration to Wildfly" href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-JAXRPC#HowdoImigratemyapplicationfromAS7toWildFly-CMPEntityEJBs"/>
                     <tag>configuration</tag>
                     </classification>
                 </iteration>

@@ -11,10 +11,11 @@
         <dependencies>
             <addon id="org.jboss.windup.rules,windup-rules-xml,2.3.0.Final" />
         </dependencies>
-        <sourceTechnology id="weblogic" />
-        <targetTechnology id="eap" versionRange="[6,)" />
+        <sourceTechnology id="eap" versionRange="[6,7)" />
+        <targetTechnology id="eap" versionRange="[7,)" />
         <tag>reviewed-2015-06-08</tag>
     </metadata>
+
 
 
     <rules>
@@ -29,10 +30,9 @@
             <perform>
                 <iteration>
                     <hint title="CMP Entity EJB configuration." effort="3" severity="mandatory">
-                    <!-- TODO: Migrate this link tom some JBoss -->
                     <message>CMP entity beans are no longer supported in JBoss EAP 7. User is requested to use JPA entity beans that fully replaced the functionality provided by CMP beans.
 		    Configuration provided in this ejb-jar.xml should be configured using JPA persistence.xml or using JPA annotations.</message>
-                    <link title="CMP Bean to JPA migration" href="http://what-when-how.com/enterprise-javabeans-3/migrating-cmp-2-entity-beans-to-the-ejb-3-jpa-part-1/"/>
+                    <link title="CMP Bean migration" href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-JAXRPC#HowdoImigratemyapplicationfromAS7toWildFly-CMPEntityEJBs"/>
                     <tag>jpa</tag>
                     <tag>cmp</tag>
                     </hint>
@@ -49,6 +49,7 @@
                 <iteration>
                     <hint title="Valve is not supported in JBoss EAP 7." effort="0" severity="mandatory">
                     <message>JBoss Web was replaced by Undertow, which does not contain support for the Valve functionality. There is no workaround currently.</message>
+                    <link title="Valve migration" href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-JBossWebValves"/>
                     <tag>web</tag>
                     </hint>
                 </iteration>
@@ -60,12 +61,14 @@
                     <namespace prefix="j2ee" uri="http://java.sun.com/xml/ns/j2ee"/>
                     <namespace prefix="jcp" uri="http://xmlns.jcp.org/xml/ns/javaee"/>
                     <namespace prefix="jee" uri="http://java.sun.com/xml/ns/javaee"/>
+
                 </xmlfile>
             </when>
             <perform>
                 <iteration>
                     <hint title="JAX-RPC specific configuration." effort="3" severity="mandatory">
                     <message>JAX-RPC support was removed in JBoss EAP 7. All the RPC calls will need to be migrated to JAX-WS.</message>
+                    <link href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-JAXRPC" title="JAX-RPC migration documentation" />
                     <tag>rpc</tag>
                     <tag>jax-ws</tag>
                     </hint>
@@ -95,6 +98,7 @@
                 <classification title="Proprietary JMS Resource Definitions" effort="1">
                     <description>The proprietary XML descriptors, previously used to setup JMS resources, are deprecated in WildFly 10. 
 	An updated version of this file was generated using XSLT transformation.</description>
+                    <link title="JMS migration documentation" href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-ProprietaryJMSResourceDefinitions" />
                     <tag>jms</tag>
                 </classification>
                 <xslt title="JMS Resource Definition (Windup-Generated)" template="transformations/xslt/deprecated-jms-resources.xsl" extension="-windup-generated.xml"/>
