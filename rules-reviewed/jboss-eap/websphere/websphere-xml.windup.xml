@@ -54,7 +54,7 @@
         </rule>
         <rule id="websphere-xml-03000">
             <when>
-                <file filename="ibm-web-ext.xmi" as="1"/>
+                <file filename="ibm-web-ext.{file_ext}" as="1" />
                 <xmlfile from="1" matches="/webappext:WebAppExtension" as="2">
                     <namespace prefix="webappext" uri="webappext.xmi"/>
                 </xmlfile>
@@ -75,6 +75,9 @@
                     </hint>
                 </iteration>
             </perform>
+            <where param="file_ext">
+                <matches pattern="xml|xmi"/>
+            </where>
         </rule>
 
         <rule id="websphere-xml-04000">
@@ -116,7 +119,7 @@
         </rule>
         <rule id="websphere-xml-06000">
             <when>
-                <file filename="ibm-web-bnd.xmi" as="1"/>
+                <file filename="ibm-web-bnd.{file_ext}" as="1"/>
                 <xmlfile from="1" matches="/webappbnd:WebAppBinding" as="2">
                     <namespace prefix="webappbnd" uri="webappbnd.xmi"/>
                 </xmlfile>
@@ -141,6 +144,9 @@
                     </hint>
                 </iteration>
             </perform>
+            <where param="file_ext">
+               <matches pattern="xml|xmi" />
+            </where>
         </rule>
 
         <rule id="websphere-xml-07000">
