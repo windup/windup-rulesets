@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<server>
+    <mbean
+        code="org.jboss.mq.server.jmx.Queue"
+        name="jboss.mq.destination:service=Queue,name=MessageHubQueue">
+        <attribute name="JNDIName">rbs.envoy.MessageHubQueue</attribute>
+        <depends optional-attribute-name="DestinationManager">jboss.mq:service=DestinationManager</depends>
+    </mbean>
+
+    <mbean
+        code="org.jboss.mq.server.jmx.Topic"
+        name="jboss.mq.destination:service=Topic,name=AdminTopic">
+        <attribute name="JNDIName">rbs.administration.AdminTopic</attribute>
+        <depends optional-attribute-name="DestinationManager">jboss.mq:service=DestinationManager</depends>
+    </mbean>
+</server>

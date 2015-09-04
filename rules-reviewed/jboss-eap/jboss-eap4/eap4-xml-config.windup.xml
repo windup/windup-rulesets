@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset id="eap4-eap6"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:wu="http://windup.jboss.org/schema/jboss-ruleset"
+         xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <metadata>
+        <description>
+            This ruleset provides analysis of JBoss EAP 4 configuration XML files that may require individual attention
+            when migrating to JBoss EAP 6+. Mainly deals with datasources, JBoss Web and EJB configuration.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,2.3.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-java,2.3.0.Final"/>
+        </dependencies>
+        <sourceTechnology id="eap" versionRange="[4,5)"/>
+        <targetTechnology id="eap" versionRange="[6,)"/>
+        <tag>jboss-web</tag>
+        <tag>datasources</tag>
+        <tag>ejb</tag>
+        <tag>reviewed-2015-08-28</tag>
+    </metadata>
+
+
+    <!-- Rules converted from Tubame JBossMigrationKnowhowEAP4toEAP6-En.xml -->
+
+    <rules>
+
+        <rule id="eap4-eap6-25000">
+            <when>
+                <xmlfile matches="/datasources/local-tx-datasource/connection-url[contains(text(),'jdbc:postgres')]" in="{*}-ds.xml"/>
+            </when>
+            <perform>
+                <hint title="PostgreSQL JDBC URL" effort="5" severity="MANDATORY">
+                    <message>
+                        This is a JDBC URL, which describes the basic information about
+                        where and how to connect to the database.
+                        This particular URL points to a PostgreSQL database.
+
+                        In EAP 6, the databases are configured in these steps:
+
+                        1. Add the JDBC driver as an EAP 6 module. Download it [here](https://jdbc.postgresql.org/download.html).
+                        2. Create a datasource (actual values need to be changed):
+                            ```
+                            $ EAP_HOME/bin/jboss-cli --connect
+                            [standalone@localhost:9999 /] data-source add --name=ExampleDS --jndi-name=java:/ExampleDS \\
+                                --connection-url=... --driver-name=postgresql \\
+                                --user-name=... --password=...
+                            ```
+                        3. Use the datasource according to JPA 2.0 standards.
+                    </message>
+                    <link title="JBoss EAP 6 Migration: Update the DataSource Configuration" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Migration_Guide/index.html#Update_the_DataSource_Configuration"/>
+                    <link title="JBoss EAP 6 Datasource Configuration" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#sect-Datasource_Configuration"/>
+                    <tag>datasource</tag>
+                    <tag>postgresql</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="eap4-eap6-26000">
+            <when>
+                <xmlfile matches="/datasources/local-tx-datasource/connection-url[contains(text(),'jdbc:oracle')]" in="{*}-ds.xml"/>
+            </when>
+            <perform>
+                <hint title="Oracle Database JDBC URL" effort="5" severity="MANDATORY">
+                    <message>
+                        This is a JDBC URL, which describes the basic information about
+                        where and how to connect to the database.
+                        This particular URL points to an Oracle Database.
+
+                        In EAP 6, the databases are configured in these steps:
+
+                        1. Add the JDBC driver as an EAP 6 module. Download it [here](http://www.oracle.com/technetwork/database/features/jdbc/index-091264.html).
+                        2. Create a datasource (actual values need to be changed):
+                            ```
+                            $ EAP_HOME/bin/jboss-cli --connect
+                            [standalone@localhost:9999 /] data-source add --name=ExampleDS --jndi-name=java:/ExampleDS \\
+                                --connection-url=... --driver-name=oracle \\
+                                --user-name=... --password=...
+                            ```
+                        3. Use the datasource according to JPA 2.0 standards.
+
+                            ```
+                            @PersistenceContext EntityManager em;
+                            ```
+                    </message>
+                    <link title="JBoss EAP 6 Datasource Configuration" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#sect-Datasource_Configuration"/>
+                    <tag>datasource</tag>
+                    <tag>oracle</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="eap4-eap6-27000">
+            <when>
+                <xmlfile matches="/datasources/local-tx-datasource/connection-url[contains(text(),'jdbc:sqlserver')]" in="{*}-ds.xml"/>
+            </when>
+            <perform>
+                <hint title="Microsoft SQL Server JDBC URL" effort="5" severity="MANDATORY">
+                    <message>
+                        This is a JDBC URL, which describes the basic information about
+                        where and how to connect to the database.
+                        This particular URL points to an Microsoft SQL Server.
+
+                        In EAP 6, the databases are configured in these steps:
+
+                        1. Add the JDBC driver as an EAP 6 module. Download it [here](https://msdn.microsoft.com/en-us/sqlserver/aa937724.aspx).
+                        2. Create a datasource (actual values need to be changed):
+                            ```
+                            $ EAP_HOME/bin/jboss-cli --connect
+                            [standalone@localhost:9999 /] data-source add --name=ExampleDS --jndi-name=java:/ExampleDS \\
+                                --connection-url=... --driver-name=mssql \\
+                                --user-name=... --password=...
+                            ```
+                        3. Use the datasource according to JPA 2.0 standards.
+
+                            ```
+                            @PersistenceContext EntityManager em;
+                            ```
+                    </message>
+                    <link title="JBoss EAP 6 Datasource Configuration" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#sect-Datasource_Configuration"/>
+                    <tag>datasource</tag>
+                </hint>
+            </perform>
+        </rule>
+
+
+
+
+
+        <!-- server.xml applies to both EAP 4 and EAP 5. -->
+        <rule id="eap4-eap6-28000">
+            <when>
+                <xmlfile matches="/Server/Service/Connector/@port" in="server.xml"/>
+            </when>
+            <perform>
+                <hint title="JBoss Web connector port" effort="1" severity="MANDATORY">
+                    <message>
+                        <![CDATA[
+                        The `<Connector port="..."/>` attribute specifies the port
+                        on which JBoss Web listens for requests.
+                        In JBoss EAP 6, set the port number using JBoss CLI or a web console:
+                        ```
+                        :read-children-names(child-type=interface)
+                        /subsystem=web/connector=http/:read-resource
+                        ## Notice the "socket-binding" => "http"
+                        /socket-binding-group=standard-sockets/socket-binding=http/:read-resource
+                        ## Now set the HTTP port to what you need.
+                        /socket-binding-group=standard-sockets/socket-binding=http/:write-attribute(name=port, value=80)
+                        ```
+                        ]]>
+                    </message>
+                    <link title="EAP 6 Socket Binding Groups" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#sect-Socket_Binding_Groups"/>
+                    <link title="AS 7 Interfaces and ports" href="https://docs.jboss.org/author/display/AS7/Interfaces+and+ports"/>
+                    <tag>connector</tag>
+                    <tag>port</tag>
+                    <tag>web</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="eap4-eap6-29000">
+            <when>
+                <xmlfile matches="/Server/Service/Connector/@protocol" in="server.xml"/>
+            </when>
+            <perform>
+                <hint title="JBoss Web connector protocol" effort="1" severity="MANDATORY">
+                    <message>
+                        <![CDATA[
+                        The `<Connector protocol="..."/>` attribute specifies the protocol
+                        of the particular JBoss Web connector.
+                        In JBoss EAP 6, set the protocol using JBoss CLI or a web console:
+                        ```
+                        :read-children-names(child-type=interface)
+                        /subsystem=web/connector=http/:read-resource
+                        /subsystem=web/connector=http/:write-attribute(name=protocol, value=HTTP/1.1)
+                        ##  To enable NIO protocol:
+                        /subsystem=web/connector=http/:write-attribute(name=protocol, value=org.apache.coyote.http11.Http11NioProtocol)
+                        ```
+                        ]]>
+                    </message>
+                    <link title="Setup a thread pool for an HTTP Connector" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#Define_Thread_Pools_for_HTTP_Connector_in_JBoss_Enterprise_Application_Platform"/>
+                    <tag>protocol</tag>
+                    <tag>web</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="eap4-eap6-30000">
+            <when>
+                <xmlfile matches="/Server/Service/Connector/@maxThreads" in="server.xml"/>
+            </when>
+            <perform>
+                <hint title="JBoss Web connector - maximal number of threads" effort="1" severity="MANDATORY">
+                    <!-- TODO: sgilda will change this to a public article: https://access.redhat.com/solutions/389513 -->
+                    <message>
+                        <![CDATA[
+                        The `<Connector maxThreads="..."/>` attribute specifies the
+                        maximum number of JBoss Web Connector threads.
+                        In JBoss EAP 6, the
+                        [connections do not map 1:1 to threads](https://access.redhat.com/solutions/389513),
+                        thanks to use of `javax.nio`. There can be more connection
+                        served by less threads.
+
+                        You can set the maximum number of connections using JBoss CLI or a web console:
+                        ```
+                        /subsystem=web/connector=http/:write-attribute(name=max-connections, value=200)
+                        ```
+                        The default is 512 per CPU core.
+
+                        You can limit the number of threads using JBoss CLI or a web console:
+                        ```
+                        /subsystem=web/connector=http/:read-resource
+                        ##  Define a thread factory
+                        /subsystem=threads/thread-factory=http-connector-factory:add(thread-name-pattern="HTTP-%t", priority="9", group-name="uq-thread-pool")
+                        ##  Create an executor
+                        /subsystem=threads/unbounded-queue-thread-pool=uq-thread-pool:add(thread-factory="http-connector-factory", keepalive-time=\{time=30, unit="seconds"}, max-threads=30)
+                        ##  Make the HTTP web connector use this thread pool
+                        /subsystem=web/connector=http:write-attribute(name=executor, value="uq-thread-pool")
+                        ```
+                        ]]>
+                    </message>
+                    <link title="Setup a thread pool for an HTTP Connector" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#Define_Thread_Pools_for_HTTP_Connector_in_JBoss_Enterprise_Application_Platform"/>
+                    <link title="Define Thread Pools for HTTP Connector in JBoss EAP 6" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#Define_Thread_Pools_for_HTTP_Connector_in_JBoss_Enterprise_Application_Platform"/>
+                    <tag>http</tag>
+                    <tag>web</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="eap4-eap6-31000">
+            <when>
+                <xmlfile matches="/Server/Service/Connector/@connectionTimeout" in="server.xml"/>
+            </when>
+            <perform>
+                <hint title="JBoss Web connector connection timeout" effort="1" severity="MANDATORY">
+                    <message>
+                        <![CDATA[
+                        The `<Connector connectionTimeout="..."/>` attribute specifies the connection timeout
+                        of the particular JBoss Web connector.
+                        In JBoss EAP 6, set the connection timeout using a system property:
+                        ```
+                        /system-property=org.apache.coyote.ajp.DEFAULT_CONNECTION_TIMEOUT/:add(value=600000)
+                        /system-property=org.apache.coyote.http11.DEFAULT_CONNECTION_TIMEOUT/:add(value=120000)
+                        ```
+                        ]]>
+                    </message>
+                    <link title="Map HTTP/HTTPS/AJP Connector Attributes" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Migration_Guide/index.html#sect-JBoss_Web_Component_Changes"/>
+                    <tag>http</tag>
+                    <tag>web</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="eap4-eap6-32000">
+            <when>
+                <xmlfile matches="/Server/Service/Connector/@emptySessionPath" in="server.xml"/>
+            </when>
+            <perform>
+                <hint title="JBoss Web HTTP connector - empty path of the session cookie" effort="1" severity="MANDATORY">
+                    <message>
+                        <![CDATA[
+                        JBoss Web's `emptySessionPath` option sets the path of a session cookie to '/'.
+                        In JBoss EAP 6, the path is set in a web framework, or in `web.xml`:
+                        ```xml
+                        <session-config>
+                            <cookie-config>
+                                <path>/</path>
+                                <http-only>true</http-only>
+                                <secure/>
+                            </cookie-config>
+                            <tracking-mode>COOKIE</tracking-mode>
+                        </session-config>
+                        ```
+                        Not to be confused with Undertow's `path` which sets the session files storage path.
+                        ]]>
+                    </message>
+                    <!-- TODO: Missing from https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Migration_Guide/index.html#sect-JBoss_Web_Component_Changes -->
+                    <link title="JBoss EAP 6 Web Subsystem" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#chap-Web_Subsystem"/>
+                    <tag>http</tag>
+                    <tag>web</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="eap4-eap6-33000">
+            <when>
+                <xmlfile matches="/Server/Service/Connector/@enableLookups" in="server.xml"/>
+            </when>
+            <perform>
+                <hint title="JBoss Web connector DNS lookups" effort="1" severity="MANDATORY">
+                    <message>
+                        <![CDATA[
+                        The `<Connector enableLookups="..."/>` attribute
+                        enables DNS lookup through `request.getRemoteHost()`.
+                        Define this setting using JBoss CLI or the web console.
+                        ```
+                        /subsystem=web/connector=http:write-attribute(name=enable-lookups, value=true)
+                        ```
+                        ]]>
+                    </message>
+                    <link title="Map HTTP/HTTPS/AJP Connector Attributes" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Migration_Guide/index.html#sect-JBoss_Web_Component_Changes"/>
+                    <link title="JBoss EAP 6 Web Subsystem" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#chap-Web_Subsystem"/>
+                    <tag>http</tag>
+                    <tag>web</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="eap4-eap6-34000">
+            <when>
+                <xmlfile matches="/Server/Service/Connector/@redirectPort" in="server.xml"/>
+            </when>
+            <perform>
+                <hint title="JBoss Web HTTP connector port for redirections" effort="1" severity="MANDATORY">
+                    <message>
+                        <![CDATA[
+                        The `<Connector redirectPort="..."/>` attribute
+                        specifies  a port number to be used in cases of redirection; the common ones being redirection to secure (HTTPS) or AJP connector.
+
+                        Define this setting using JBoss CLI or the web console.
+                        ```
+                        /subsystem=web/connector=http:write-attribute(name=redirect-port, value=8433)
+                        ```
+                        ]]>
+                    </message>
+                    <link title="Map HTTP/HTTPS/AJP Connector Attributes" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Migration_Guide/index.html#sect-JBoss_Web_Component_Changes"/>
+                    <tag>http</tag>
+                    <tag>web</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="eap4-eap6-35000">
+            <when>
+                <xmlfile matches="/Server/Service/Connector/@scheme" in="server.xml"/>
+            </when>
+            <perform>
+                <hint title="JBoss Web connector scheme" effort="1" severity="MANDATORY">
+                    <message>
+                        <![CDATA[
+                        The `<Connector scheme="..."/>` attribute
+                        specifies the web connector scheme, such as HTTP or HTTPS.
+
+                        Define this setting using JBoss CLI or the web console.
+                        ```
+                        /subsystem=web/connector=http:write-attribute(name=scheme, value=http)
+                        ```
+                        ]]>
+                    </message>
+                    <!-- TODO: Missing from https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Migration_Guide/index.html#sect-JBoss_Web_Component_Changes -->
+                    <link title="Map HTTP/HTTPS/AJP Connector Attributes" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Migration_Guide/index.html#sect-JBoss_Web_Component_Changes"/>
+                    <tag>http</tag>
+                    <tag>web</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="eap4-eap6-36000">
+            <when>
+                <xmlfile matches="/Server/Service/Connector[@secure='true']" in="server.xml"/>
+            </when>
+            <perform>
+                <hint title="JBoss Web HTTP connector - the secure option" effort="1" severity="MANDATORY">
+                    <message>
+                        The `secure` option tells the browser (or other HTTP clients) to only send the cookie over SSL connections.
+                        This means the cookie will not be available to any part of the site that is not secure.
+                        If you serve both protocols, the non-secure http connection will then use URL re-writing with the long ";jsessionid=XXXXXXX" appended to every URL.
+
+                        You should set this to true ONLY if you are only serving https content, for mixed content this setting in NOT recomended.
+
+                        Define this setting using JBoss CLI or the web console.
+                        ```
+                        /subsystem=web/connector=http:write-attribute(name=secure, value=true)
+                        ```
+                    </message>
+                    <link title="Map HTTP/HTTPS/AJP Connector Attributes" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Migration_Guide/index.html#sect-JBoss_Web_Component_Changes"/>
+                    <tag>http</tag>
+                    <tag>web</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="eap4-eap6-37000">
+            <when>
+                <xmlfile matches="/Server/Service/Engine/@jvmRoute" in="server.xml"/>
+            </when>
+            <perform>
+                <hint title="JBoss Web HTTP - jvmRoute" effort="3" severity="MANDATORY">
+                    <message>
+                        In JBoss Web, the `jvmRoute` attribute of the Engine element allows the load balancer to match requests
+                        to the JVM currently responsible for updating the relevant session.
+                        It does this by appending the name of the JVM to the `JSESSIONID` of the request,
+                        and matching this against the worker name provided in `workers.properites`.
+
+                        In JBoss EAP 6,
+                        the `jvmRoute` is set to the same value as the server name.
+                        If you need to customize it, you can use a command like the following.
+                        Replace or remove the `/profile=ha portion` of the command, depending on which profile you use or
+                        whether you use a standalone server.
+                        Replace the string `CUSTOM_ROUTE_NAME` with your custom jvmRoute name.
+
+                        ```
+                        /profile=ha/subsystem=web:write-attribute(name="instance-id", value="CUSTOM_ROUTE_NAME")
+                        ```
+
+                        The default can be overriden by setting the `jvmRoute` system property.
+                    </message>
+                    <link title="JBoss EAP 6 HTTP Clustering and Load Balancing" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#Configure_the_Enterprise_Application_Platform_to_Accept_Requests_From_an_External_HTTPD1"/>
+                    <link title="JBoss EAP 6 System properties" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#System_Properties"/>
+                    <tag>http</tag>
+                    <tag>web</tag>
+                </hint>
+            </perform>
+        </rule>
+
+
+
+
+        <!-- jboss.xml -->
+        <rule id="eap4-eap6-38000">
+            <when>
+                <xmlfile matches="/jboss/container-configurations/container-configuration[@extends='Standard Stateless SessionBean']" in="jboss.xml"/>
+            </when>
+            <perform>
+                <hint title="JBoss EAP 4 EJB container configuration" effort="3" severity="MANDATORY">
+                    <message>
+                        JBoss EAP 4 and 5 allows overriding the container settings in `jboss.xml` files.
+                        Extending `"Standard Stateless SessionBean"` allows configuring the instance pool.
+                        Bean-specific instance pool can be set with one line in JBoss EAP 6 management CLI.
+                    </message>
+                    <link title="JBoss EAP 6 Migration Guide: Replace the jboss.xml File" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Migration_Guide/index.html#sect-EJB_Changes"/>
+                    <link title="Assign Bean Pools for Session and Message-Driven Beans" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#Assign_Bean_Pools_for_Session_and_Message-Driven_Beans"/>
+                    <link title="jboss.xml DTD" href="http://www.jboss.org/j2ee/dtd/jboss_5_0.dtd"/>
+                    <link title="JBoss EAP 4: Container configuration information" href="https://docs.jboss.org/jbossas/docs/Server_Configuration_Guide/4/html/EJBDeployer_MBean-Container_configuration_information.html"/>
+                    <tag>http</tag>
+                    <tag>web</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="eap4-eap6-39000">
+            <when>
+                <xmlfile matches="/jboss/container-configurations/container-configuration[@extends='Clustered Stateless SessionBean']" in="jboss.xml"/>
+            </when>
+            <perform>
+                <hint title="JBoss EAP 4 EJB container configuration" effort="3" severity="MANDATORY">
+                    <message>
+                        JBoss EAP 4 allows overriding the container settings in `jboss.xml` files.
+                        Extending `"Clustered Stateless SessionBean"` allows configuring the instance pool.
+                        Bean-specific instance pool can be set with one line in JBoss EAP 6 management CLI.
+                    </message>
+                    <link title="JBoss EAP 6 Migration Guide: Replace the jboss.xml File" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Migration_Guide/index.html#sect-EJB_Changes"/>
+                    <link title="Assign Bean Pools for Session and Message-Driven Beans" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#Assign_Bean_Pools_for_Session_and_Message-Driven_Beans"/>
+                    <link title="jboss.xml DTD" href="http://www.jboss.org/j2ee/dtd/jboss_5_0.dtd"/>
+                    <link title="JBoss EAP 4: Container configuration information" href="https://docs.jboss.org/jbossas/docs/Server_Configuration_Guide/4/html/EJBDeployer_MBean-Container_configuration_information.html"/>
+                    <tag>ejb</tag>
+                    <tag>pool</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="eap4-eap6-40000">
+            <when>
+                <xmlfile matches="/jboss/container-configurations/container-configuration[@extends='Standard Message Driven Bean']" in="jboss.xml"/>
+            </when>
+            <perform>
+                <hint title="JBoss EAP 4 EJB container configuration" effort="3" severity="MANDATORY">
+                    <message>
+                        JBoss EAP 4 and 5 allows overriding the container settings in `jboss.xml` files.
+                        Extending `"Standard Message Driven Bean"` allows configuring the instance pool.
+                        MDB's bean-specific instance pool can be set with one line in JBoss EAP 6 management CLI.
+                        Use the `bean-instance-pool-ref` CLI node of the respective configuration part.
+                    </message>
+                    <link title="JBoss EAP 6 Migration Guide: Replace the jboss.xml File" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Migration_Guide/index.html#sect-EJB_Changes"/>
+                    <link title="Assign Bean Pools for Session and Message-Driven Beans" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#Assign_Bean_Pools_for_Session_and_Message-Driven_Beans"/>
+                    <link title="jboss.xml DTD" href="http://www.jboss.org/j2ee/dtd/jboss_5_0.dtd"/>
+                    <link title="JBoss EAP 4: Container configuration information" href="https://docs.jboss.org/jbossas/docs/Server_Configuration_Guide/4/html/EJBDeployer_MBean-Container_configuration_information.html"/>
+                    <tag>ejb</tag>
+                    <tag>pool</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="eap4-eap6-41000">
+            <when>
+                <xmlfile matches="/jboss/container-configurations/container-configuration[@extends='Singleton Message Driven Bean']" in="jboss.xml"/>
+            </when>
+            <perform>
+                <hint title="JBoss EAP 4 EJB container configuration" effort="3" severity="MANDATORY">
+                    <message>
+                        JBoss EAP 4 and 5 allows overriding the container settings in `jboss.xml` files.
+                        Extending `"Singleton Message Driven Bean"` allows configuring the instance pool.
+                        Singleton Message Driven Bean's bean-specific bean-specific instance pool can be set with one line in JBoss EAP 6 management CLI.
+                        Use the `bean-instance-pool-ref` CLI node of the respective configuration part.
+                    </message>
+                    <link title="JBoss EAP 6 Migration Guide: Replace the jboss.xml File" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Migration_Guide/index.html#sect-EJB_Changes"/>
+                    <link title="Assign Bean Pools for Session and Message-Driven Beans" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#Assign_Bean_Pools_for_Session_and_Message-Driven_Beans"/>
+                    <link title="jboss.xml DTD" href="http://www.jboss.org/j2ee/dtd/jboss_5_0.dtd"/>
+                    <link title="JBoss EAP 4: Container configuration information" href="https://docs.jboss.org/jbossas/docs/Server_Configuration_Guide/4/html/EJBDeployer_MBean-Container_configuration_information.html"/>
+                    <tag>ejb</tag>
+                    <tag>pool</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="eap4-eap6-42000">
+            <when>
+                <xmlfile matches="/jboss/container-configurations/container-configuration[@extends='Standard Message Inflow Driven Bean']" in="jboss.xml"/>
+            </when>
+            <perform>
+                <hint title="JBoss EAP 4 EJB container configuration" effort="3" severity="MANDATORY">
+                    <message>
+                        JBoss EAP 4 and 5 allows overriding the container settings in `jboss.xml` files.
+                        Extending `"Standard Message Inflow Driven Bean"` allows configuring the instance pool.
+                        Standard Message Inflow Driven Bean's bean-specific bean-specific instance pool can be set with one line in JBoss EAP 6 management CLI.
+                        Use the `bean-instance-pool-ref` CLI node of the respective configuration part.
+                    </message>
+                    <link title="JBoss EAP 6 Migration Guide: Replace the jboss.xml File" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Migration_Guide/index.html#sect-EJB_Changes"/>
+                    <link title="Assign Bean Pools for Session and Message-Driven Beans" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#Assign_Bean_Pools_for_Session_and_Message-Driven_Beans"/>
+                    <link title="jboss.xml DTD" href="http://www.jboss.org/j2ee/dtd/jboss_5_0.dtd"/>
+                    <link title="JBoss EAP 4: Container configuration information" href="https://docs.jboss.org/jbossas/docs/Server_Configuration_Guide/4/html/EJBDeployer_MBean-Container_configuration_information.html"/>
+                    <tag>ejb</tag>
+                    <tag>pool</tag>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

@@ -1,0 +1,34 @@
+<!-- A custom SQL-based login module. -->
+<application-policy name="example">
+    <authentication>
+        <login-module code="com.example.LoginModule" flag="required">
+            <module-option name = "unauthenticatedIdentity">guest</module-option>
+            <module-option name="dsJndiName">java:/DefaultDS</module-option>
+            <module-option name="principalsQuery">
+                SELECT passwd FROM Users WHERE username=?
+            </module-option>
+            <module-option name="isLoggedInQuery">
+                SELECT * FROM ActiveUsers WHERE username=?
+            </module-option>
+            <module-option name="setLoggedInQuery">
+                INSERT into ActiveUsers (username) VALUES (?)
+            </module-option>
+            <module-option name="rolesQuery">
+                SELECT userRoles,'Roles' FROM UserRoles WHERE username=?
+            </module-option>
+            <module-option name="debug">true</module-option>
+            <module-option name="hashAlgorithm">MD5</module-option>
+            <module-option name="hashEncoding">base64</module-option>
+            <module-option name="maxRetries">3</module-option>
+            <module-option name="resetCounterQuery">
+                UPDATE users SET fla = 0 WHERE username = ?
+            </module-option>
+            <module-option name="incrementCounterQuery">
+                UPDATE users SET fla = (SELECT fla FROM users WHERE username = ?) + 1
+            </module-option>
+            <module-option name="getCounterQuery">
+                SELECT fla FROM users WHERE username = ?
+            </module-option>
+        </login-module>
+    </authentication>
+</application-policy>

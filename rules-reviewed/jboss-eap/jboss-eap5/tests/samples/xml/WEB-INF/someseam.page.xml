@@ -1,0 +1,10 @@
+<page login-required="true" view-id="/admin/*">
+    <restrict>#{s:hasRole('admin')}</restrict>
+    <rule if="#{!s:hasRole('admin')}">
+        <redirect view-id="/admin-login"/>
+    </rule>
+    <navigation from-action="#{identity.logout}">
+        <end-conversation/>
+        <redirect view-id="/admin-login"/>
+    </navigation>
+</page>
