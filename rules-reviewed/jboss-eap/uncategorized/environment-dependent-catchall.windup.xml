@@ -33,7 +33,7 @@
         </rule>
         <rule id="environment-dependent-calls-02000">
             <when>
-                <javaclass references="javax.naming.{*}Context.lookup{*}" as="default">
+                <javaclass references="javax.naming.Context.lookup{*}" as="default">
                     <location>METHOD_CALL</location>
                 </javaclass>
             </when>
@@ -43,15 +43,15 @@
                         <message><![CDATA[
                                            This method lookups an object using a JNDI String. During the migration process, some entity JNDI bindings may change.
                                            Ensure that the JNDI Name does not need to change for JBoss
-                                           
+
                                            *For Example:*
-                                                           
+
                                            ```java
                                            (ConnectionFactory)initialContext.lookup("weblogic.jms.ConnectionFactory");
                                            ```
-                                           
+
                                            *should become:*
-                                           
+
                                            ```java
                                            (ConnectionFactory)initialContext.lookup("/ConnectionFactory");
                                            ```
@@ -78,7 +78,7 @@
             </perform>
         </rule>
         <rule id="environment-dependent-calls-04000">
- 		<!--could also check JMXConnectorFactory.PROTOCOL_PROVIDER_PACKAGES in the provided hash map--> 
+ 		<!--could also check JMXConnectorFactory.PROTOCOL_PROVIDER_PACKAGES in the provided hash map-->
             <when>
                 <javaclass references="javax.management.{suffix}{*}" as="default">
                     <location>CONSTRUCTOR_CALL</location>
@@ -86,7 +86,7 @@
             </when>
             <perform>
                 <iteration>
-                    <hint effort="0" severity="optional"><message>After migration, some of the JMX beans provided by the previous server may not be present anymore. 
+                    <hint effort="0" severity="optional"><message>After migration, some of the JMX beans provided by the previous server may not be present anymore.
                     Ensure that the {suffix} does not need to change for JBoss</message>
                     </hint>
                 </iteration>
@@ -104,7 +104,7 @@
             <perform>
                 <iteration>
                     <hint title="JMX connection" effort="0" severity="optional"><message>After migration, JMX connection String or parameters may be different than the one provided by previous server.
-		    As an example, javax.management.remote.JMXConnectorFactory.PROTOCOL_PROVIDER_PACKAGES will change. 
+		    As an example, javax.management.remote.JMXConnectorFactory.PROTOCOL_PROVIDER_PACKAGES will change.
                     Ensure that any of the parameters does not need to change for JBoss.</message>
                     </hint>
                 </iteration>
