@@ -44,6 +44,16 @@
                     <fail message="websphere ext:web-ext was not detected" />
                 </perform>
             </rule>
+            <rule id="websphere-xml-04000-hint-test">
+               <when>
+                  <not>
+                     <hint-exists message="This file contains WebSphere specific JSP engine configuration.*" />
+                  </not>
+               </when>
+               <perform>
+                  <fail message="Hint for IBM Websphere ext:web-ext was not detected" />
+               </perform>
+            </rule>            
             <rule id="websphere-xml-05000">
                 <when>
                     <not>
