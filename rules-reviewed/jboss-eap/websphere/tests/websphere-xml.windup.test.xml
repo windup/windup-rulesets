@@ -33,7 +33,7 @@
                 <perform>
                     <fail message="Hint for WebSphere ApplicationBinding was not detected!" />
                 </perform>
-            </rule>            
+            </rule>
             <rule id="websphere-xml-03000-test">
                 <when>
                     <not>
@@ -42,6 +42,16 @@
                 </when>
                 <perform>
                     <fail message="WebSphere WebAppExtension was not detected" />
+                </perform>
+            </rule>
+            <rule id="websphere-xml-03000-hint-test">
+                <when>
+                    <not>
+                        <hint-exists message="This file contains WebSphere specific web application bindings.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint for WebSphere WebAppExtension was not detected" />
                 </perform>
             </rule>
             <rule id="websphere-xml-04000-test">
@@ -63,7 +73,7 @@
                <perform>
                   <fail message="Hint for IBM Websphere ext:web-ext was not detected" />
                </perform>
-            </rule>            
+            </rule>
             <rule id="websphere-xml-05000-test">
                 <when>
                     <not>
@@ -83,7 +93,7 @@
                 <perform>
                     <fail message="hint for ext:web-bnd was not detected" />
                 </perform>
-            </rule>            
+            </rule>
             <rule id="websphere-xml-06000-test">
                 <when>
                     <not>
@@ -92,6 +102,16 @@
                 </when>
                 <perform>
                     <fail message="WebSphere WebAppBinding was not detected" />
+                </perform>
+            </rule>
+            <rule id="websphere-xml-06000-hint-test">
+                <when>
+                    <not>
+                        <hint-exists message="This file configures the specific Websphere Web application bindings.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint for WebSphere WebAppBinding was not detected!" />
                 </perform>
             </rule>
             <rule id="websphere-xml-07000-test">
