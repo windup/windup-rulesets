@@ -26,11 +26,21 @@
 	    <rule id="environment-dependent-calls-03000-test">
                 <when>
                     <not>
-                        <hint-exists message="InitialContext looks for the properties located in multiple places."/>
+                        <hint-exists message="In JBoss EAP, the InitialContext should be instantiated with no arguments."/>
                     </not>
                 </when>
                 <perform>
                     <fail message="InitialContext initialization hint was not found."/>
+                </perform>
+            </rule>
+            <rule id="environment-dependent-calls-03500-test">
+                <when>
+                    <not>
+                        <classification-exists classification="JNDI properties file" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Classification for jndi.properties file was not found."/>
                 </perform>
             </rule>
             <rule id="environment-dependent-calls-04000-test">

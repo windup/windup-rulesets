@@ -13,7 +13,6 @@
         </dependencies>
         <targetTechnology id="eap" versionRange="[6,)" />
         <targetTechnology id="java-ee" versionRange="[6,)" />
-        <phase>PostMigrationRulesPhase</phase>
         <tag>reviewed-2015-08-17</tag>
     </metadata>
     <rules>
@@ -24,7 +23,7 @@
                 </javaclass>
             </when>
             <perform>
-                 <hint title="Dynamic instantiation of class" effort="0" severity="optional">
+                 <hint title="Dynamic instantiation of class" effort="1" severity="mandatory">
                        <message>The class is dynamically loaded within application. During the migration, multiple classes that are provided on classpath by a different server may not be present anymore.
                         Please ensure that the dynamically loaded class is available to JBoss.</message>
                        <tag>classloader</tag>
@@ -39,7 +38,7 @@
             </when>
             <perform>
                 <iteration>
-                    <hint title="JNDI lookup" effort="0" severity="optional">
+                    <hint title="JNDI lookup" effort="1" severity="mandatory">
                         <message><![CDATA[
                                            This method lookups an object using a JNDI String. During the migration process, some entity JNDI bindings may change.
                                            Ensure that the JNDI Name does not need to change for JBoss
@@ -64,16 +63,34 @@
         </rule>
         <rule id="environment-dependent-calls-03000">
             <when>
-                <javaclass references="javax.naming.InitialContext({*})" as="default">
+                <javaclass references="javax.naming.InitialContext(java.util.Hashtable{*}" as="default">
                     <location>CONSTRUCTOR_CALL</location>
                 </javaclass>
             </when>
             <perform>
                 <iteration>
-                    <hint title="InitialContext initialization" effort="0" severity="optional">
-                    <message>InitialContext looks for the properties located in multiple places. Besides checking the map that may be passed to this constructor, it also checks the system properties and jndi.properties file. Ensure that these InitialContext connection properties do not need to be changed for JBoss.</message>
+                    <hint title="Proprietary InitialContext initialization" effort="1" severity="mandatory">
+                    <message>In JBoss EAP, the InitialContext should be instantiated with no arguments. Once an instance is constructed, look up the service using portable JNDI lookup syntax. Ensure also that in case system properties for InitialContext are provided, they do not need to be changed for the JBoss.
+
+                        `InitialContext context = new InitialContext();
+                        Service service = (Service) context.lookup( "java:app/service/" + ServiceImpl.class.getSimpleName() );`
+                        </message>
+                   <link href="https://access.redhat.com/articles/1496973" title="Migrate Applications From Other Platforms to Use Portable JNDI Syntax in Red Hat JBoss Enterprise Application Platform" /> 
                     <tag>jndi</tag>
                     </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="environment-dependent-calls-03500">
+            <when>
+                <file filename="jndi.properties" as="default"/>
+            </when>
+            <perform>
+                <iteration>
+                    <classification title="JNDI properties file" severity="mandatory" effort="1">
+                        <description> The JNDI automatically reads the application resource files from all components in the applications' classpaths. The JNDI then makes the properties from these files available to the service providers. Please ensure the property values listed in this file are available to JBoss.</description>
+                        <tag>webservice</tag>
+                    </classification>
                 </iteration>
             </perform>
         </rule>
@@ -86,7 +103,7 @@
             </when>
             <perform>
                 <iteration>
-                    <hint effort="0" severity="optional"><message>After migration, some of the JMX beans provided by the previous server may not be present anymore.
+                    <hint effort="1" severity="optional"><message>After migration, some of the JMX beans provided by the previous server may not be present anymore.
                     Ensure that the {suffix} does not need to change for JBoss</message>
                     </hint>
                 </iteration>
@@ -103,7 +120,7 @@
             </when>
             <perform>
                 <iteration>
-                    <hint title="JMX connection" effort="0" severity="optional"><message>After migration, JMX connection String or parameters may be different than the one provided by previous server.
+                    <hint title="JMX connection" effort="1" severity="mandatory"><message>After migration, JMX connection String or parameters may be different than the one provided by previous server.
 		    As an example, javax.management.remote.JMXConnectorFactory.PROTOCOL_PROVIDER_PACKAGES will change.
                     Ensure that any of the parameters does not need to change for JBoss.</message>
                     </hint>
