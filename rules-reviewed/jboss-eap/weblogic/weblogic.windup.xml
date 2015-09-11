@@ -263,26 +263,6 @@
                 </hint>
             </perform>
         </rule>
-        <rule id="weblogic-14000">
-            <when>
-                <javaclass references="javax.naming.InitialContext(java.util.Hashtable{*}" as="default">
-                    <location>CONSTRUCTOR_CALL</location>
-                </javaclass>
-            </when>
-            <perform>
-                <iteration>
-                    <hint title="Proprietary InitialContext initialization" effort="1">
-                        <message>In JBoss EAP, the InitialContext should be instantiated with no arguments. Once an instance is constructed, look up the service using portable JNDI lookup syntax.
-
-                        `InitialContext context = new InitialContext();
-                        Service service = (Service) context.lookup( "java:app/service/" + ServiceImpl.class.getSimpleName() );`
-                        </message>
-                        <link href="https://access.redhat.com/articles/1496973" title="Migrate Oracle WebLogic Applications to Use Portable JNDI Syntax in Red Hat JBoss Enterprise Application Platform" />
-                        <tag>jndi</tag>
-                    </hint>
-                </iteration>
-            </perform>
-        </rule>
         <rule id="weblogic-15000">
             <when>
                 <filecontent filename="{*}" pattern="oracle.net.wallet_location" />
