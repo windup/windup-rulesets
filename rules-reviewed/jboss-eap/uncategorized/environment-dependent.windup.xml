@@ -38,7 +38,7 @@
             </when>
             <perform>
                 <iteration>
-                    <hint title="JNDI lookup" effort="1" severity="mandatory">
+                    <hint title="Call of JNDI lookup" effort="1" severity="mandatory">
                         <message><![CDATA[
                                            This method lookups an object using a JNDI String. During the migration process, some entity JNDI bindings may change.
                                            Ensure that the JNDI Name does not need to change for JBoss
@@ -103,7 +103,7 @@
             </when>
             <perform>
                 <iteration>
-                    <hint effort="1" severity="optional"><message>After migration, some of the JMX beans provided by the previous server may not be present anymore.
+                    <hint title="Reference to javax.management.{suffix}" effort="1" severity="optional"><message>After migration, some of the JMX beans provided by the previous server may not be present anymore.
                     Ensure that the {suffix} does not need to change for JBoss</message>
                     </hint>
                 </iteration>

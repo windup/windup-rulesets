@@ -69,7 +69,7 @@
                 <javaclass references="{package}.JmsMsg{type}" />
             </when>
             <perform>
-                <hint effort="1" severity="mandatory">
+                <hint title="IBM JMS message JmsMsg{type}" effort="1" severity="mandatory">
                     <message>
                         IBM JMS message {type}s are used for sending/reading messages to/from a topic or queue. This reference should be
                         replaced with the Java EE standard API `javax.jms.Message{type}`.
@@ -91,7 +91,7 @@
                 <javaclass references="com.ibm.mqe.jms.{type}Queue" />
             </when>
             <perform>
-                <hint severity="Mandatory" effort="1">
+                <hint title="WebSphere implementation MQe{type}Queue of JMS Queue" severity="mandatory" effort="1">
                     <message>
                         `MQe{type}Queue` is a WebSphere implementation of a JMS `Queue` and should be migrated to
                         the Java EE 6 JMS standard interface `javax.jms.Queue`.
@@ -113,7 +113,7 @@
                         </not>
                     </when>
                     <perform>
-                        <hint effort="1" severity="mandatory">
+                        <hint title="IBM JMS {type} message" effort="1" severity="mandatory">
                             <message>
                                 JMS {type} messages represent the actual data passed through JMS destinations. This reference should be
                                 replaced with the Java EE standard API `javax.jms.{type}Message`.
@@ -147,7 +147,7 @@
                         </not>
                     </when>
                     <perform>
-                        <hint effort="1" severity="mandatory">
+                        <hint title="IBM proprietary interface {prefix}{type}" effort="1" severity="mandatory">
                             <message>
                                 {prefix}{type} is an IBM proprietary interface and needs to be migrated to the Java EE standard API `javax.jms.{type}`.
                             </message>
