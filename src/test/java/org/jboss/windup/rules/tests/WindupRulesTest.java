@@ -38,6 +38,7 @@ import org.jboss.windup.graph.GraphContext;
 import org.jboss.windup.graph.GraphContextFactory;
 import org.jboss.windup.graph.model.ProjectModel;
 import org.jboss.windup.graph.model.resource.FileModel;
+import org.jboss.windup.rules.apps.java.config.SourceModeOption;
 import org.jboss.windup.util.exception.WindupException;
 import org.jboss.windup.util.file.FileSuffixPredicate;
 import org.jboss.windup.util.file.FileVisit;
@@ -299,6 +300,7 @@ public class WindupRulesTest
         windupConfiguration.setInputPath(Paths.get(inputPath.getFilePath()));
         windupConfiguration.setOutputDirectory(output.toPath());
         windupConfiguration.addDefaultUserRulesDirectory(baseRuleDirectory.toPath());
+        windupConfiguration.setOptionValue(SourceModeOption.NAME, true);
 
         final String baseRulesPathNormalized = baseRuleDirectory.toPath().normalize().toAbsolutePath().toString();
         windupConfiguration.setRuleProviderFilter(new Predicate<RuleProvider>()
