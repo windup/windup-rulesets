@@ -48,6 +48,7 @@ public class RuleTestHandler implements ElementHandler<RuleTest>
     public static final String RULETEST = "ruletest";
     public static final String TEST_DATA_PATH = "testDataPath";
     public static final String RULE_PATH = "rulePath";
+    public static final String SOURCE_MODE = "sourceMode";
 
     @Override
     public RuleTest processElement(ParserContext context, Element element) throws ConfigurationException
@@ -65,8 +66,10 @@ public class RuleTestHandler implements ElementHandler<RuleTest>
             {
                 ruleTest.addRulePath(child.getTextContent().trim());
             }
-            else
+            else if(child.getNodeName().equals(SOURCE_MODE))
             {
+                ruleTest.setSourceMode(Boolean.valueOf(child.getTextContent()));
+            }else {
                 context.processElement(child);
             }
         }

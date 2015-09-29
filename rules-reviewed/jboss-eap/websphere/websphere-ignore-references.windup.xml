@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="websphere-ignore-references" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <metadata>
+        <description>
+            This ruleset provides references within Websphere classes implying the class should not be scanned by windup.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,2.3.1.Final" />
+        </dependencies>
+         <targetTechnology id="eap" versionRange="[6,)" />
+        <targetTechnology id="java-ee" versionRange="[6,)" />
+    </metadata>
+    <rules>
+        <javaclass-ignore reference-prefix="com.ibm.ws.webservices" />
+    </rules>
+</ruleset>
