@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+   <testDataPath>data</testDataPath>
+   <rulePath>../commonj.windup.xml</rulePath>
+   <ruleset>
+      <rules>
+         <rule id="commonj-01000-test">
+            <when>
+               <when>
+                  <not>
+                     <classification-exists classification="Commonj Timer Manager API" />
+                  </not>
+               </when>
+            </when>
+            <perform>
+               <fail message="Classification for Commonj Timer Manager API was not found!" />
+            </perform>
+         </rule>
+         <rule id="commonj-02000-test">
+            <when>
+               <when>
+                  <not>
+                     <hint-exists message=".*Commonj Timer Manager API is similar.*" />
+                  </not>
+               </when>
+            </when>
+            <perform>
+               <fail message="Hint for Commonj TimerManager Interface was not found!" />
+            </perform>
+         </rule>
+         <rule id="commonj-03000-test">
+            <when>
+               <when>
+                  <not>
+                     <hint-exists message=".*Commonj Timer Interface is similar.*" />
+                  </not>
+               </when>
+            </when>
+            <perform>
+               <fail message="Hint for Commonj Timer Interface was not found!" />
+            </perform>
+         </rule>
+         <rule id="commonj-04000-test">
+            <when>
+               <when>
+                  <not>
+                     <classification-exists classification="Commonj WorkManager API" />
+                  </not>
+               </when>
+            </when>
+            <perform>
+               <fail message="Classification Commonj WorkManager API was not found!" />
+            </perform>
+         </rule>
+         <rule id="commonj-05000-test">
+            <when>
+               <when>
+                  <not>
+                    <hint-exists message=".*The CommonJ WorkManager can be replaced with a JCA Resource Adapter" />
+                  </not>
+               </when>
+            </when>
+            <perform>
+               <fail message="Hint for Commonj WorkManager API was not found!" />
+            </perform>
+         </rule>
+         <rule id="commonj-06000-test">
+            <when>
+               <when>
+                  <not>
+                     <hint-exists message=".*Replace commonj.work.Work.*" />
+                  </not>
+               </when>
+            </when>
+            <perform>
+               <fail message="Hint for Commonj WorkManager API was not found!" />
+            </perform>
+         </rule>
+         <rule id="commonj-07000-test">
+            <when>
+               <when>
+                  <not>
+                     <hint-exists message=".*Replace CommonJ Work.*" />
+                  </not>
+               </when>
+            </when>
+            <perform>
+               <fail message="Hint for Commonj WorkManager API Exception was not found!" />
+            </perform>
+         </rule>
+      </rules>
+   </ruleset>
+</ruletest>
