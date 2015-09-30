@@ -1,0 +1,199 @@
+<?xml version="1.0"?>
+<ruletest id="generic-catchall" xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+   <testDataPath>data</testDataPath>
+   <rulePath>../generic-catchall.windup.xml</rulePath>
+   <ruleset>
+      <rules>
+         <rule id="generic-catchall-00000-test">
+            <when>
+               <not>
+                  <classification-exists classification="Doug Lea Concurrency util" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Doug Lea Concurrency util classification was not found!" />
+            </perform>
+         </rule>
+         <rule id="generic-catchall-00001-test">
+            <when>
+               <not>
+                  <classification-exists classification="backport-util-concurrent" />
+               </not>
+            </when>
+            <perform>
+               <fail message="backport-util-concurrent classification was not found" />
+            </perform>
+         </rule>
+         <rule id="generic-catchall-00002-test">
+            <when>
+               <not>
+                  <classification-exists classification="Mule API" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Mule API classification was not found" />
+            </perform>
+         </rule>
+         <rule id="generic-catchall-00002-hint-test">
+            <when>
+               <not>
+                  <hint-exists message="Mule API type was used.*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Mule API type hint was not found!" />
+            </perform>
+         </rule>
+         <rule id="generic-catchall-00003-test">
+            <when>
+               <not>
+                  <classification-exists classification="MX4J" />
+               </not>
+            </when>
+            <perform>
+               <fail message="MX4J classification was not found" />
+            </perform>
+         </rule>
+         <rule id="generic-catchall-00003-hint-test">
+            <when>
+               <not>
+                  <hint-exists message="MX4J type reference was used." />
+               </not>
+            </when>
+            <perform>
+               <fail message="MX4J hint was not found" />
+            </perform>
+         </rule>
+         <rule id="generic-catchall-00100-test">
+            <when>
+               <not>
+                  <classification-exists classification="Apache Tuscany" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Apache Tuscany classification was not found" />
+            </perform>
+         </rule>
+         <rule id="generic-catchall-00100-hint-test">
+            <when>
+               <not>
+                  <hint-exists message="Apache Tuscany type reference was used." />
+               </not>
+            </when>
+            <perform>
+               <fail message="Apache Tuscany hint was not found" />
+            </perform>
+         </rule>
+         <rule id="generic-catchall-00200-hint-test">
+            <when>
+               <not>
+                  <hint-exists message="Tibco ActiveMatrix Stub.*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Tibco generated stub hint was not found" />
+            </perform>
+         </rule>
+         <rule id="generic-catchall-00300-test">
+            <when>
+               <not>
+                  <classification-exists classification="Tibco" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Tibco classification was not found" />
+            </perform>
+         </rule>         
+         <rule id="generic-catchall-00300-hint-test">
+            <when>
+               <not>
+                  <hint-exists message="Tibco type reference found.*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Tibco generated stub hint was not found" />
+            </perform>
+         </rule>
+        <rule id="generic-catchall-00400-hint-test">
+            <when>
+               <not>
+                  <hint-exists message="SAP CrystalReports type reference found.*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="SAP CrystalReports type reference hint was not found" />
+            </perform>
+         </rule>
+         <rule id="generic-catchall-00500-hint-test">
+            <when>
+               <not>
+                  <hint-exists message="IONA type reference found.*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="IONA type reference hint was not found" />
+            </perform>
+         </rule>
+         <rule id="generic-catchall-00600-hint-test">
+            <when>
+               <not>
+                  <hint-exists message="Apache activeio.*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Apache type reference hint was not found" />
+            </perform>
+         </rule>
+         <rule id="generic-catchall-00601-hint-test">
+            <when>
+               <not>
+                  <hint-exists message="Apache activemq.*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Apache type reference hint was not found" />
+            </perform>
+         </rule>         
+         <rule id="generic-catchall-00700-hint-test">
+            <when>
+               <not>
+                  <hint-exists message="jboss type reference found.*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="jboss type reference hint was not found" />
+            </perform>
+         </rule>
+         <rule id="generic-catchall-00701-hint-test">
+            <when>
+               <not>
+                  <hint-exists message="jbpm type reference found.*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="jbpm type reference hint was not found" />
+            </perform>
+         </rule>         
+         <rule id="generic-catchall-00800-hint-test">
+            <when>
+               <not>
+                  <hint-exists message="Java EE API.*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Java EE API type reference hint was not found" />
+            </perform>
+         </rule>
+         <rule id="generic-catchall-00900-hint-test">
+            <when>
+               <not>
+                  <hint-exists message="java.sql.DriverManager type reference found.*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="java.sql.DriverManager type reference hint was not found" />
+            </perform>
+         </rule>
+      </rules>
+   </ruleset>
+</ruletest>

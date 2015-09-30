@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<ruletest id="websphere-catchall-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+    <testDataPath>data</testDataPath>
+    <rulePath>../websphere-catchall.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="websphere-catchall-00000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="IBM" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebSphere catchall classification was not detected!" />
+                </perform>
+            </rule>
+            <rule id="websphere-catchall-00000-hint-test">
+                <when>
+                    <not>
+                        <hint-exists message="This is an IBM proprietary type and needs to be migrated to a compatible API.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebSphere catchall hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="websphere-catchall-00001-test">
+                <when>
+                    <not>
+                        <classification-exists classification="IBM Log" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="IBM Log catchall classification was not detected!" />
+                </perform>
+            </rule>
+            <rule id="websphere-catchall-00001-hint-test">
+                <when>
+                    <not>
+                        <hint-exists message="This is an IBM ILog proprietary type and needs to be migrated to a compatible API.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="IBM Log catchall hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

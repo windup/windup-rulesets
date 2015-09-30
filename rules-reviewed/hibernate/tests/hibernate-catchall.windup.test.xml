@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<ruletest id="weblogic-xml-descriptors-tests" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <testDataPath>data</testDataPath>
+    <rulePath>../hibernate-catchall.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="hibernate-catchall-00000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="Hibernate" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hibernate classification was not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-catchall-00001-test">
+                <when>
+                    <not>
+                        <classification-exists classification="Hibernate 2.x" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hibernate 2.x classification was not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-catchall-00001-hint-test">
+                <when>
+                    <not>
+                        <hint-exists message=".*This is an old Hibernate package name.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hibernate package name hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

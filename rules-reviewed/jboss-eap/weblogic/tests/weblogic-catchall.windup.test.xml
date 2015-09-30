@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="weblogic-catchall-tests">
+    <testDataPath>data-catchall</testDataPath>
+    <rulePath>../weblogic-catchall.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="weblogic-catchall-01000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="Oracle Weblogic" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Oracle Weblogic catchall classification not found" />
+                </perform>
+            </rule>
+           <rule id="weblogic-catchall-01000-hint-test">
+                <when>
+                    <not>
+                        <hint-exists message="This is an Oracle proprietary type and needs to be migrated to a compatible API.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Oracle Weblogic catchall hint not found" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
