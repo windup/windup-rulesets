@@ -1,0 +1,266 @@
+<?xml version="1.0"?>
+<ruleset id="generic-catchall" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of generic proprietary classes and constructs that may require individual attention when
+            migrating to JBoss EAP 6+.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,2.3.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,2.3.0.Final" />
+        </dependencies>
+<!--         <sourceTechnology id="java" /> -->
+        <targetTechnology id="eap" versionRange="[6,)" />
+        <phase>PostMigrationRulesPhase</phase>
+        <tag>reviewed-2015-09-30</tag>
+    </metadata>
+    <rules>
+        <rule id="generic-catchall-00000">
+            <when>
+                <javaclass references="{domain}.oswego.cs.dl.util.concurrent.{*}" />
+            </when>
+            <perform>
+                <iteration>
+                    <when>
+                        <not>
+                            <has-hint />
+                        </not>
+                    </when>
+                    <perform>
+                        <classification title="Doug Lea Concurrency util" severity="mandatory">
+                            <tag>catchall</tag>
+                        </classification>
+                        <hint effort="1" severity="mandatory" title="Doug Lea Concurrency type reference">
+                            <message>
+                                This is an old Doug Lea Concurrency util type and needs to be migrated to a compatible java.util.concurrent API. There is currently no detailed
+                                information about this type.
+                            </message>
+                            <tag>catchall</tag>
+                        </hint>
+                    </perform>
+                </iteration>
+            </perform>
+            <where param="domain">
+               <matches pattern="(edu|EDU)" />
+            </where>
+        </rule>
+        <rule id="generic-catchall-00001">
+            <when>
+                <javaclass references="edu.emory.mathcs.backport.java.util.{*}" />
+            </when>
+            <perform>
+                <iteration>
+                    <when>
+                        <not>
+                            <has-hint />
+                        </not>
+                    </when>
+                    <perform>
+                        <classification title="backport-util-concurrent" severity="mandatory">
+                            <tag>catchall</tag>
+                        </classification>
+                        <hint effort="1" severity="mandatory" title="backport-util-concurrent type reference">
+                            <message>
+                                This type is the backport of java.util.concurrent API, introduced in Java 5.0 and further refined in Java 6.0, to older Java platforms. 
+                                You should use java.util.concurrent API instead.
+                            </message>
+                            <tag>catchall</tag>
+                        </hint>
+                    </perform>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="generic-catchall-00002">
+            <when>
+                <javaclass references="org.mule.{*}" />
+            </when>
+            <perform>
+                <iteration>
+                    <when>
+                        <not>
+                            <has-hint />
+                        </not>
+                    </when>
+                    <perform>
+                        <classification title="Mule API" severity="optional">
+                            <tag>catchall</tag>
+                        </classification>
+                        <hint effort="1" severity="mandatory" title="Mule API type reference">
+                            <message>Mule API type was used. You should convert these types to Apache Camel. 
+                            </message>
+                            <link href="http://camel.apache.org" title="Apache Camel"/>
+                            <tag>catchall</tag>
+                            <tag>mule</tag>
+                        </hint>
+                    </perform>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="generic-catchall-00003">
+            <when>
+                <javaclass references="mx4j.{*}" />
+            </when>
+            <perform>
+                <iteration>
+                    <when>
+                        <not>
+                            <has-hint />
+                        </not>
+                    </when>
+                    <perform>
+                        <classification title="MX4J" severity="optional" effort="0">
+                            <tag>catchall</tag>
+                        </classification>
+                        <hint effort="1" severity="mandatory" title="MX4J type reference">
+                            <message>MX4J type reference was used.</message>
+                            <tag>catchall</tag>
+                            <tag>mx4j</tag>
+                        </hint>
+                    </perform>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="generic-catchall-00100">
+            <when>
+                <javaclass references="org.osoa.sca.annotations.{*}" />
+            </when>
+            <perform>
+                <iteration>
+                    <when>
+                        <not>
+                            <has-hint />
+                        </not>
+                    </when>
+                    <perform>
+                        <classification title="Apache Tuscany" severity="optional" effort="0">
+                            <tag>catchall</tag>
+                        </classification>
+                        <hint effort="1" severity="mandatory" title="Apache Tuscany type reference">
+                            <message>Apache Tuscany type reference was used.</message>
+                            <tag>catchall</tag>
+                            <tag>soa</tag>
+                            <tag>apache-tuscany</tag>
+                        </hint>
+                    </perform>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="generic-catchall-00200">
+            <when>
+                <javaclass references="amx_.{*}">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+               <hint effort="1" title="Tibco ActiveMatrix Stub" severity="optional">
+                    <message>Tibco ActiveMatrix Stub; regenerate the SOAP Client for the class</message>
+                    <tag>tibco</tag>
+                    <tag>soa</tag>
+               </hint>
+            </perform>
+        </rule>
+        <rule id="generic-catchall-00300">
+            <when>
+                <javaclass references="com.tibco.{*}">
+                </javaclass>
+            </when>
+            <perform>
+               <classification effort="0" severity="optional" title="Tibco"/>
+               <hint effort="1" title="Tibco type reference" severity="optional">
+                    <message>Tibco type reference found. No specific details available.</message>
+                    <tag>catchall</tag>
+               </hint>
+            </perform>
+        </rule>
+        <rule id="generic-catchall-00400">
+            <when>
+                <javaclass references="com.crystaldecisions.{*}">
+                </javaclass>
+            </when>
+            <perform>
+               <classification effort="0" severity="optional" title="SAP CrystalReports"/>
+               <hint effort="1" title="SAP CrystalReports type reference" severity="optional">
+                    <message>SAP CrystalReports type reference found. No specific details available.</message>
+                    <tag>catchall</tag>
+                    <tag>sap</tag>
+               </hint>
+            </perform>
+        </rule>
+        <rule id="generic-catchall-00500">
+            <when>
+                <javaclass references="com.iona.{*}">
+                </javaclass>
+            </when>
+            <perform>
+               <classification effort="0" severity="optional" title="IONA"/>
+               <hint effort="1" title="IONA type reference" severity="optional">
+                    <message>IONA type reference found. No specific details available.</message>
+                    <tag>catchall</tag>
+                    <tag>iona</tag>
+               </hint>
+            </perform>
+        </rule>
+        <rule id="generic-catchall-00600">
+            <when>
+                <javaclass references="org.apache.{subpackage}.{*}">
+                </javaclass>
+            </when>
+            <perform>
+               <classification effort="0" severity="optional" title="Apache {subpackage}"/>
+               <hint effort="1" title="Apache {subpackage} type reference" severity="optional">
+                    <message>Apache {subpackage} type reference found. No specific details available.</message>
+                    <tag>catchall</tag>
+               </hint>
+            </perform>
+            <where param="subpackage">
+               <matches pattern="(activeio|activemq)" />
+            </where>
+        </rule>
+        <rule id="generic-catchall-00700">
+            <when>
+                <javaclass references="org.{subpackage}.{*}">
+                </javaclass>
+            </when>
+            <perform>
+               <classification effort="0" severity="optional" title="{subpackage}"/>
+               <hint effort="1" title="{subpackage} type reference" severity="optional">
+                    <message>{subpackage} type reference found. No specific details available.</message>
+                    <tag>catchall</tag>
+               </hint>
+            </perform>
+            <where param="subpackage">
+               <matches pattern="(jboss|jbpm)" />
+            </where>
+        </rule>
+        <rule id="generic-catchall-00800">
+            <when>
+                <javaclass references="javax.{subpackage}.{*}">
+                </javaclass>
+            </when>
+            <perform>
+               <classification effort="0" severity="optional" title="Java EE API"/>
+               <hint effort="1" title="{subpackage} type reference" severity="optional">
+                    <message>Java EE API {subpackage} type reference found. No specific details available.</message>
+                    <tag>catchall</tag>
+               </hint>
+            </perform>
+            <where param="subpackage">
+               <matches pattern="(persistence|management|naming|sql|ejb)" />
+            </where>
+        </rule>
+        <rule id="generic-catchall-00900">
+            <when>
+                <javaclass references="java.sql.DriverManager">
+                </javaclass>
+            </when>
+            <perform>
+               <classification effort="0" severity="optional" title="Reference to java.sql.DriverManager"/>
+               <hint effort="1" title="java.sql.DriverManager type reference" severity="optional">
+                    <message>java.sql.DriverManager type reference found. No specific details available.</message>
+                    <tag>catchall</tag>
+               </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

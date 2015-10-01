@@ -24,7 +24,7 @@
                     <fail message="Hibernate deprecated string type hint not found!" />
                 </perform>
             </rule>
-	    <rule id="hibernate-xml-02000">
+	       <rule id="hibernate-xml-02000">
                 <when>
 			<not>
                     		<hint-exists message="If you are using Oracle and using the" />
@@ -32,6 +32,16 @@
                 </when>
                 <perform>
                     <fail message="Hibernate properties configuration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-xml-03000">
+                <when>
+                    <not>
+                        <hint-exists message="From Hibernate 4.0 there were moved classes from package org.hibernate.connection.*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hibernate hint for Removed package org.hibernate.connection was not found!"/>
                 </perform>
             </rule>
         </rules>

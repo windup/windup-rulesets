@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruletest id="sonic-catchall-tests" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+   <testDataPath>data</testDataPath>
+   <rulePath>../sonic-catchall.windup.xml</rulePath>
+   <ruleset>
+      <rules>
+         <rule id="sonic-catchall-01000-test">
+            <when>
+               <not>
+                  <classification-exists classification="Sonic" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Sonic classification was not found!" />
+            </perform>
+         </rule>
+         <rule id="sonic-catchall-01000-hint-test">
+            <when>
+               <not>
+                  <hint-exists message=".*is a Sonic proprietary type and needs to be migrated.*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Sonic type reference hint was not found!" />
+            </perform>
+         </rule>
+      </rules>
+   </ruleset>
+</ruletest>

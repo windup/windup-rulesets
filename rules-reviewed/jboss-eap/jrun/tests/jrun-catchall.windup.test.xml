@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<ruletest id="jrun-catchall" xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+   <testDataPath>data</testDataPath>
+   <rulePath>../jrun-catchall.windup.xml</rulePath>
+   <ruleset>
+      <rules>
+         <rule id="jrun-catchall-00000-test">
+            <when>
+               <not>
+                  <classification-exists classification="JRun" />
+               </not>
+            </when>
+            <perform>
+               <fail message="jrun classification was not found!" />
+            </perform>
+         </rule>
+         <rule id="jrun-catchall-00001-test">
+            <when>
+               <not>
+                  <classification-exists classification="JRunX" />
+               </not>
+            </when>
+            <perform>
+               <fail message="jrunx classification was not found" />
+            </perform>
+         </rule>
+      </rules>
+   </ruleset>
+</ruletest>

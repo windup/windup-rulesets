@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="hibernate-catchall" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+   <metadata>
+      <description>
+         This ruleset provides analysis that may require individual attention when
+         migrating to newer Hibernate java constructs.
+      </description>
+      <dependencies>
+         <addon id="org.jboss.windup.rules,windup-rules-javaee,2.3.0.Final" />
+         <addon id="org.jboss.windup.rules,windup-rules-java,2.3.0.Final" />
+      </dependencies>
+      <sourceTechnology id="hibernate" versionRange="[,3.9)" />
+      <targetTechnology id="hibernate" versionRange="[4,)" />
+      <targetTechnology id="eap" versionRange="[6,)" />
+      <tag>reviewed-2015-09-23</tag>
+   </metadata>
+
+   <rules>
+      <rule id="hibernate-catchall-00000">
+         <when>
+            <javaclass references="{package}.{type}" />
+         </when>
+         <perform>
+            <iteration>
+               <when>
+                  <not>
+                     <has-hint />
+                  </not>
+               </when>
+               <perform>
+                  <classification title="Hibernate" severity="mandatory" />
+                  <hint effort="0" severity="mandatory" title="Hibernate type reference {package}.{type}">
+                     <message>
+                        This is a Hibernate type and it will need to be verified for compatibility with the latest Hibernate version.</message>
+                     <tag>catchall</tag>
+                  </hint>
+               </perform>
+            </iteration>
+         </perform>
+         <where param="package">
+            <matches pattern="(org\.)?(hibernate)(\..*)?" />
+         </where>
+         <where param="type">
+            <matches pattern="[^.]+" />
+         </where>
+      </rule>
+      <rule id="hibernate-catchall-00001">
+         <when>
+            <javaclass references="net.sf.hibernate.{classname}" />
+         </when>
+         <perform>
+            <classification title="Hibernate 2.x" severity="mandatory" />
+            <hint effort="1" severity="mandatory" title="Hibernate type reference net.sf.hibernate.{classname}">
+               <message>
+                  This is an old Hibernate package name from version 2.x and needs to be migrated to a compatible API to Hibernate 4.x/5.x,
+                  where package name is org.hibernate.
+               </message>
+               <link title="Hibernate Migration Guides" href="https://developer.jboss.org/wiki/Hibernate3MigrationGuides" />
+               <tag>catchall</tag>
+            </hint>
+         </perform>
+         <where param="classname">
+            <matches pattern="[^.]+" />
+         </where>
+      </rule>
+   </rules>
+</ruleset>

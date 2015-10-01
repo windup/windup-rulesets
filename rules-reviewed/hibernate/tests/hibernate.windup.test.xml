@@ -1,41 +1,109 @@
 <?xml version="1.0"?>
 <ruletest id="weblogic-xml-descriptors-tests" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+   xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
 
-    <testDataPath>data</testDataPath>
-    <rulePath>../</rulePath>
-    <ruleset>
-        <rules>
-            <rule id="hibernate-01000-test">
-                <when>
-                    <not>
-                        <hint-exists message="In versions of Hibernate prior to 3.5, text type was mapped to JDBC CLOB" />
-                    </not>
-                </when>
-                <perform>
-                    <fail message="Hibernate hint for @Type(type='text') was not found!" />
-                </perform>
-            </rule>
-	    <rule id="hibernate-02000-test">
-                <when>
-                    <not>
-                        <hint-exists message="The return types of the numeric aggregate criteria projections has changed to Long in hibernate 4. This change may introduce conflicts in the code." />
-                    </not>
-                </when>
-                <perform>
-                    <fail message="Hibernate hint for projections return type change was not found!" />
-                </perform>
-            </rule>
-	    <rule id="hibernate-03000-test">
-                <when>
-                    <not>
-                        <hint-exists message="The return types of the numeric aggregate criteria projections has changed to Long in hibernate 4. This change may introduce conflicts in the code." />
-                    </not>
-                </when>
-                <perform>
-                    <fail message="Hibernate hint for naming convention hint was not found!" />
-                </perform>
-            </rule>
-	  </rules>
-    </ruleset>
+   <testDataPath>data</testDataPath>
+   <rulePath>../</rulePath>
+   <ruleset>
+      <rules>
+         <rule id="hibernate-01000-test">
+            <when>
+               <not>
+                  <hint-exists message="In versions of Hibernate prior to 3.5, text type was mapped to JDBC CLOB" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Hibernate hint for @Type(type='text') was not found!" />
+            </perform>
+         </rule>
+         <rule id="hibernate-02000-test">
+            <when>
+               <not>
+                  <hint-exists
+                     message="The return types of the numeric aggregate criteria projections has changed to Long in hibernate 4. This change may introduce conflicts in the code." />
+               </not>
+            </when>
+            <perform>
+               <fail message="Hibernate hint for projections return type change was not found!" />
+            </perform>
+         </rule>
+         <rule id="hibernate-03000-test">
+            <when>
+               <not>
+                  <hint-exists
+                     message="The return types of the numeric aggregate criteria projections has changed to Long in hibernate 4. This change may introduce conflicts in the code." />
+               </not>
+            </when>
+            <perform>
+               <fail message="Hibernate hint for naming convention hint was not found!" />
+            </perform>
+         </rule>
+         <rule id="hibernate-04000-test">
+            <when>
+               <not>
+                  <hint-exists
+                     message="The deprecated classes in org.hibernate.classic package.*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Hibernate hint for org.hibernate.classic package hint was not found!" />
+            </perform>
+         </rule>
+         <rule id="hibernate-05000-test">
+            <when>
+               <not>
+                  <hint-exists
+                     message="Replace org.hibernate.dialect.resolver.DialectResolver.*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Hibernate hint for org.hibernate.dialect.resolver.DialectResolver was not found!" />
+            </perform>
+         </rule>
+         <rule id="hibernate-06000-test">
+            <when>
+               <not>
+                  <hint-exists
+                     message="Replace org.hibernate.jdbc.BatcherFactory.*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Hibernate hint for replacement of org.hibernate.jdbc.BatcherFactory was not found!" />
+            </perform>
+         </rule>
+         <rule id="hibernate-07000-test">
+            <when>
+               <not>
+                  <hint-exists
+                     message="Replace org.hibernate.jdbc.Batcher.*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Hibernate hint for replacement of org.hibernate.jdbc.Batcher was not found!" />
+            </perform>
+         </rule>
+         <rule id="hibernate-08000-test">
+            <when>
+               <not>
+                  <hint-exists
+                     message="Replace org.hibernate.engine.SessionImplementor.*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Hibernate hint for replacement of org.hibernate.engine.SessionImplementor was not found!" />
+            </perform>
+         </rule>
+         <rule id="hibernate-09000-test">
+            <when>
+               <not>
+                  <hint-exists
+                     message="The classes in org.hibernate.connection.*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Hibernate hint for replacement of org.hibernate.connection package was not found!" />
+            </perform>
+         </rule>
+      </rules>
+   </ruleset>
 </ruletest>
