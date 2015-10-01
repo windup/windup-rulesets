@@ -15,6 +15,7 @@ public class RuleTest
 {
     private String testDataPath;
     private List<String> rulePaths = new ArrayList<>();
+    private boolean sourceMode = true;
 
     /**
      * Contains the path to the test data. This should be a relative path, relative to the file that contains the test itself (the *.windup.text.xml
@@ -43,4 +44,8 @@ public class RuleTest
     {
         rulePaths.add(rulePath);
     }
+
+    public void setSourceMode(boolean value) {sourceMode=value;}
+
+    public boolean isSourceMode() { return sourceMode;}
 }

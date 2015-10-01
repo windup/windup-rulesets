@@ -210,7 +210,7 @@ public class WindupRulesTest
                     // run windup
                     File testDataPath = new File(ruleTestFile.getParentFile(), ruleTest.getTestDataPath());
                     Path reportPath = outputPath.resolve("reports");
-                    runWindup(context, directory, rulePaths, testDataPath, reportPath.toFile());
+                    runWindup(context, directory, rulePaths, testDataPath, reportPath.toFile(),ruleTest.isSourceMode());
 
                     // run the assertions from the ruletest file
                     GraphRewrite event = new GraphRewrite(context);
@@ -283,7 +283,7 @@ public class WindupRulesTest
         return FileUtils.getTempDirectory().toPath().resolve("WindupRulesTests").resolve("windupgraph_" + RandomStringUtils.randomAlphanumeric(6));
     }
 
-    private void runWindup(GraphContext context, File baseRuleDirectory, final List<Path> rulePaths, File input, File output) throws IOException
+    private void runWindup(GraphContext context, File baseRuleDirectory, final List<Path> rulePaths, File input, File output, boolean sourceMode) throws IOException
     {
         ProjectModel pm = context.getFramed().addVertex(null, ProjectModel.class);
         pm.setName("Project: " + input.getAbsolutePath());
@@ -300,7 +300,7 @@ public class WindupRulesTest
         windupConfiguration.setInputPath(Paths.get(inputPath.getFilePath()));
         windupConfiguration.setOutputDirectory(output.toPath());
         windupConfiguration.addDefaultUserRulesDirectory(baseRuleDirectory.toPath());
-        windupConfiguration.setOptionValue(SourceModeOption.NAME, true);
+        windupConfiguration.setOptionValue(SourceModeOption.NAME, sourceMode);
 
         final String baseRulesPathNormalized = baseRuleDirectory.toPath().normalize().toAbsolutePath().toString();
         windupConfiguration.setRuleProviderFilter(new Predicate<RuleProvider>()

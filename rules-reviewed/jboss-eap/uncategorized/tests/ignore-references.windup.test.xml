@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+    <testDataPath>data</testDataPath>
+    <sourceMode>false</sourceMode>
+    <ruleset>
+        <rules>
+            <rule id="weblogic-ignore-01000-test">
+                <when>
+                        <or>
+                        <file-exists filename="IgnoreTest1.java" />
+                        <not>
+                          <file-exists filename="IgnoreTest1.class" />
+                        </not>
+                      </or>
+                </when>
+                <perform>
+                    <fail message="IgnoreTest1.class should have been ignored and not decompiled." />
+                </perform>
+            </rule>
+            <rule id="weblogic-ignore-01000-test-2">
+                <when>
+		       <not>
+                        <file-exists filename="NotIgnored.java" />
+                       </not>
+                </when>
+                <perform>
+                    <fail message="NotIgnored.class should not have been ignored and should have been decompiled." />
+                </perform>
+            </rule>
+             <rule id="weblogic-ignore-02000-test">
+                <when>
+                        <file-exists filename="IgnoreTest2.java" />
+                </when>
+                <perform>
+                    <fail message="IgnoreTest2.class should have been ignored and not decompiled." />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
