@@ -10,7 +10,9 @@
             <addon id="org.jboss.windup.rules,windup-rules-javaee,2.3.0.Final" />
             <addon id="org.jboss.windup.rules,windup-rules-java,2.3.0.Final" />
         </dependencies>
-<!--         <sourceTechnology id="java" /> -->
+        <sourceTechnology id="java" />
+        <sourceTechnology id="javaee" />
+        <sourceTechnology id="soa" />
         <targetTechnology id="eap" versionRange="[6,)" />
         <phase>PostMigrationRulesPhase</phase>
         <tag>reviewed-2015-09-30</tag>
@@ -31,7 +33,7 @@
                         <classification title="Doug Lea Concurrency util" severity="mandatory">
                             <tag>catchall</tag>
                         </classification>
-                        <hint effort="1" severity="mandatory" title="Doug Lea Concurrency type reference">
+                        <hint effort="0" severity="mandatory" title="Doug Lea Concurrency type reference">
                             <message>
                                 This is an old Doug Lea Concurrency util type and needs to be migrated to a compatible java.util.concurrent API. There is currently no detailed
                                 information about this type.
@@ -60,7 +62,7 @@
                         <classification title="backport-util-concurrent" severity="mandatory">
                             <tag>catchall</tag>
                         </classification>
-                        <hint effort="1" severity="mandatory" title="backport-util-concurrent type reference">
+                        <hint effort="0" severity="mandatory" title="backport-util-concurrent type reference">
                             <message>
                                 This type is the backport of java.util.concurrent API, introduced in Java 5.0 and further refined in Java 6.0, to older Java platforms. 
                                 You should use java.util.concurrent API instead.
@@ -86,7 +88,7 @@
                         <classification title="Mule API" severity="optional">
                             <tag>catchall</tag>
                         </classification>
-                        <hint effort="1" severity="mandatory" title="Mule API type reference">
+                        <hint effort="0" severity="mandatory" title="Mule API type reference">
                             <message>Mule API type was used. You should convert these types to Apache Camel. 
                             </message>
                             <link href="http://camel.apache.org" title="Apache Camel"/>
@@ -112,7 +114,7 @@
                         <classification title="MX4J" severity="optional" effort="0">
                             <tag>catchall</tag>
                         </classification>
-                        <hint effort="1" severity="mandatory" title="MX4J type reference">
+                        <hint effort="0" severity="mandatory" title="MX4J type reference">
                             <message>MX4J type reference was used.</message>
                             <tag>catchall</tag>
                             <tag>mx4j</tag>
@@ -136,7 +138,7 @@
                         <classification title="Apache Tuscany" severity="optional" effort="0">
                             <tag>catchall</tag>
                         </classification>
-                        <hint effort="1" severity="mandatory" title="Apache Tuscany type reference">
+                        <hint effort="0" severity="mandatory" title="Apache Tuscany type reference">
                             <message>Apache Tuscany type reference was used.</message>
                             <tag>catchall</tag>
                             <tag>soa</tag>
@@ -153,7 +155,7 @@
                 </javaclass>
             </when>
             <perform>
-               <hint effort="1" title="Tibco ActiveMatrix Stub" severity="optional">
+               <hint effort="0" title="Tibco ActiveMatrix Stub" severity="optional">
                     <message>Tibco ActiveMatrix Stub; regenerate the SOAP Client for the class</message>
                     <tag>tibco</tag>
                     <tag>soa</tag>
@@ -167,7 +169,7 @@
             </when>
             <perform>
                <classification effort="0" severity="optional" title="Tibco"/>
-               <hint effort="1" title="Tibco type reference" severity="optional">
+               <hint effort="0" title="Tibco type reference" severity="optional">
                     <message>Tibco type reference found. No specific details available.</message>
                     <tag>catchall</tag>
                </hint>
@@ -180,7 +182,7 @@
             </when>
             <perform>
                <classification effort="0" severity="optional" title="SAP CrystalReports"/>
-               <hint effort="1" title="SAP CrystalReports type reference" severity="optional">
+               <hint effort="0" title="SAP CrystalReports type reference" severity="optional">
                     <message>SAP CrystalReports type reference found. No specific details available.</message>
                     <tag>catchall</tag>
                     <tag>sap</tag>
@@ -194,7 +196,7 @@
             </when>
             <perform>
                <classification effort="0" severity="optional" title="IONA"/>
-               <hint effort="1" title="IONA type reference" severity="optional">
+               <hint effort="0" title="IONA type reference" severity="optional">
                     <message>IONA type reference found. No specific details available.</message>
                     <tag>catchall</tag>
                     <tag>iona</tag>
@@ -208,7 +210,7 @@
             </when>
             <perform>
                <classification effort="0" severity="optional" title="Apache {subpackage}"/>
-               <hint effort="1" title="Apache {subpackage} type reference" severity="optional">
+               <hint effort="0" title="Apache {subpackage} type reference" severity="optional">
                     <message>Apache {subpackage} type reference found. No specific details available.</message>
                     <tag>catchall</tag>
                </hint>
@@ -224,7 +226,7 @@
             </when>
             <perform>
                <classification effort="0" severity="optional" title="{subpackage}"/>
-               <hint effort="1" title="{subpackage} type reference" severity="optional">
+               <hint effort="0" title="{subpackage} type reference" severity="optional">
                     <message>{subpackage} type reference found. No specific details available.</message>
                     <tag>catchall</tag>
                </hint>
@@ -240,7 +242,7 @@
             </when>
             <perform>
                <classification effort="0" severity="optional" title="Java EE API"/>
-               <hint effort="1" title="{subpackage} type reference" severity="optional">
+               <hint effort="0" title="{subpackage} type reference" severity="optional">
                     <message>Java EE API {subpackage} type reference found. No specific details available.</message>
                     <tag>catchall</tag>
                </hint>
@@ -256,7 +258,7 @@
             </when>
             <perform>
                <classification effort="0" severity="optional" title="Reference to java.sql.DriverManager"/>
-               <hint effort="1" title="java.sql.DriverManager type reference" severity="optional">
+               <hint effort="0" title="java.sql.DriverManager type reference" severity="optional">
                     <message>java.sql.DriverManager type reference found. No specific details available.</message>
                     <tag>catchall</tag>
                </hint>
