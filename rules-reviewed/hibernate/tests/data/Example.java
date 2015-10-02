@@ -17,6 +17,7 @@ import org.hibernate.dialect.resolver.DialectResolver;
 import org.hibernate.jdbc.NonBatchingBatcherFactory;
 import org.hibernate.jdbc.NonBatchingBatcher;
 import org.hibernate.engine.SessionImplementor;
+import org.hibernate.collection.PersistentBag;
 
 public class Example
 {
@@ -24,6 +25,7 @@ public class Example
     private static SessionFactory _sessions = null;
     private static Properties pops = new Properties();
     
+    private PersistentBag resultBag;
 
     static
     {

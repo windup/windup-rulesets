@@ -160,5 +160,16 @@
             <matches pattern="[^.]+" />
          </where>
       </rule>
+      <rule id="hibernate-10000">
+         <when>
+            <javaclass references="org.hibernate.collection.PersistentBag" />
+         </when>
+         <perform>
+            <hint title="Replace class org.hibernate.collection.PersistentBag" effort="1" severity="mandatory">
+               <message>The class org.hibernate.collection.PersistentBag was moved to org.hibernate.collection.internal.PersistentBag in Hibernate 4</message>
+               <tag>hibernate</tag>
+            </hint>
+         </perform>
+      </rule>
    </rules>
 </ruleset>
