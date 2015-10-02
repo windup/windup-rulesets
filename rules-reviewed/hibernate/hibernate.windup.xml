@@ -171,5 +171,24 @@
             </hint>
          </perform>
       </rule>
+      <rule id="hibernate-10100">
+         <when>
+            <javaclass references="net.sf.hibernate.{classname}" />
+         </when>
+         <perform>
+            <classification title="Hibernate 2.x" severity="mandatory" />
+            <hint effort="1" severity="mandatory" title="Hibernate type reference net.sf.hibernate.{classname}">
+               <message>
+                  This is an old Hibernate package name from version 2.x and needs to be migrated to a compatible API to Hibernate 4.x/5.x,
+                  where package name is org.hibernate.
+               </message>
+               <link title="Hibernate Migration Guides" href="https://developer.jboss.org/wiki/Hibernate3MigrationGuides" />
+               <tag>hibernate</tag>
+            </hint>
+         </perform>
+         <where param="classname">
+            <matches pattern="[^.]+" />
+         </where>
+      </rule>
    </rules>
 </ruleset>
