@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruletest id="weblogic-xml-descriptors-tests" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<ruletest id="hibernate-tests" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
 
    <testDataPath>data</testDataPath>
@@ -102,6 +102,17 @@
             </when>
             <perform>
                <fail message="Hibernate hint for replacement of org.hibernate.connection package was not found!" />
+            </perform>
+         </rule>
+         <rule id="hibernate-10000-test">
+            <when>
+               <not>
+                  <hint-exists
+                     message="The class org.hibernate.collection.PersistentBag was.*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Hibernate hint for replacement of org.hibernate.collection.PersistentBag package was not found!" />
             </perform>
          </rule>
       </rules>
