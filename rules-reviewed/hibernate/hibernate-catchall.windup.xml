@@ -20,7 +20,7 @@
    <rules>
       <rule id="hibernate-catchall-00000">
          <when>
-            <javaclass references="{package}.{type}" />
+            <javaclass references="org.hibernate.{package-remainder}.{type}" />
          </when>
          <perform>
             <iteration>
@@ -31,16 +31,15 @@
                </when>
                <perform>
                   <classification title="Hibernate" severity="mandatory" />
-                  <hint effort="0" severity="mandatory" title="Hibernate type reference {package}.{type}">
-                     <message>
-                        This is a Hibernate type and it will need to be verified for compatibility with the latest Hibernate version.</message>
+                  <hint effort="0" severity="mandatory" title="Hibernate type reference org.hibernate.{package-remainder}.{type}">
+                     <message>This is a Hibernate type and it will need to be verified for compatibility with the latest Hibernate version.</message>
                      <tag>catchall</tag>
                   </hint>
                </perform>
             </iteration>
          </perform>
-         <where param="package">
-            <matches pattern="(org\.)?(hibernate)(\..*)?" />
+         <where param="package-remainder">
+            <matches pattern="(.*)?" />
          </where>
          <where param="type">
             <matches pattern="[^.]+" />
