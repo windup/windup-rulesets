@@ -289,40 +289,40 @@
                <matches pattern="(jboss|jbpm)" />
             </where>
         </rule>
-        <rule id="generic-catchall-00800">
-            <when>
-                <javaclass references="javax.{subpackage}.{*}">
-                </javaclass>
-            </when>
-            <perform>
-               <iteration>
-                  <when>
-                     <not>
-                        <has-hint />
-                     </not>
-                  </when>
-                  <perform>
-                     <iteration>
-                        <when>
-                           <not>
-                              <has-hint />
-                           </not>
-                        </when>
-                        <perform>
-                           <classification effort="0" severity="optional" title="Java EE API" />
-                           <hint effort="0" title="{subpackage} type reference" severity="optional">
-                              <message>Java EE API {subpackage} type reference found. No specific details available.</message>
-                              <tag>catchall</tag>
-                           </hint>
-                        </perform>
-                     </iteration>
-                  </perform>
-               </iteration>
-            </perform>
-            <where param="subpackage">
-               <matches pattern="(persistence|management|naming|sql|ejb)" />
-            </where>
-        </rule>
+<!--         <rule id="generic-catchall-00800"> -->
+<!--             <when> -->
+<!--                 <javaclass references="javax.{subpackage}.{*}"> -->
+<!--                 </javaclass> -->
+<!--             </when> -->
+<!--             <perform> -->
+<!--                <iteration> -->
+<!--                   <when> -->
+<!--                      <not> -->
+<!--                         <has-hint /> -->
+<!--                      </not> -->
+<!--                   </when> -->
+<!--                   <perform> -->
+<!--                      <iteration> -->
+<!--                         <when> -->
+<!--                            <not> -->
+<!--                               <has-hint /> -->
+<!--                            </not> -->
+<!--                         </when> -->
+<!--                         <perform> -->
+<!--                            <classification effort="0" severity="optional" title="Java EE API" /> -->
+<!--                            <hint effort="0" title="{subpackage} type reference" severity="optional"> -->
+<!--                               <message>Java EE API {subpackage} type reference found. No specific details available.</message> -->
+<!--                               <tag>catchall</tag> -->
+<!--                            </hint> -->
+<!--                         </perform> -->
+<!--                      </iteration> -->
+<!--                   </perform> -->
+<!--                </iteration> -->
+<!--             </perform> -->
+<!--             <where param="subpackage"> -->
+<!--                <matches pattern="(management|naming|sql)" /> -->
+<!--             </where> -->
+<!--         </rule> -->
         <rule id="generic-catchall-00900">
             <when>
                <javaclass references="java.sql.DriverManager">
