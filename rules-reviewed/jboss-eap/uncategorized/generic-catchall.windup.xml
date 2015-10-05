@@ -155,11 +155,20 @@
                 </javaclass>
             </when>
             <perform>
-               <hint effort="0" title="Tibco ActiveMatrix Stub" severity="optional">
-                    <message>Tibco ActiveMatrix Stub; regenerate the SOAP Client for the class</message>
-                    <tag>tibco</tag>
-                    <tag>soa</tag>
-               </hint>
+               <iteration>
+                  <when>
+                     <not>
+                        <has-hint />
+                     </not>
+                  </when>
+                  <perform>
+                     <hint effort="0" title="Tibco ActiveMatrix Stub" severity="optional">
+                          <message>Tibco ActiveMatrix Stub; regenerate the SOAP Client for the class</message>
+                          <tag>tibco</tag>
+                          <tag>soa</tag>
+                     </hint>
+                  </perform>
+               </iteration>
             </perform>
         </rule>
         <rule id="generic-catchall-00300">
@@ -168,11 +177,20 @@
                 </javaclass>
             </when>
             <perform>
-               <classification effort="0" severity="optional" title="Tibco"/>
-               <hint effort="0" title="Tibco type reference" severity="optional">
-                    <message>Tibco type reference found. No specific details available.</message>
-                    <tag>catchall</tag>
-               </hint>
+               <iteration>
+                  <when>
+                     <not>
+                        <has-hint />
+                     </not>
+                  </when>
+                  <perform>
+                     <classification effort="0" severity="optional" title="Tibco"/>
+                     <hint effort="0" title="Tibco type reference" severity="optional">
+                          <message>Tibco type reference found. No specific details available.</message>
+                          <tag>catchall</tag>
+                     </hint>
+                  </perform>
+               </iteration>
             </perform>
         </rule>
         <rule id="generic-catchall-00400">
@@ -181,12 +199,21 @@
                 </javaclass>
             </when>
             <perform>
-               <classification effort="0" severity="optional" title="SAP CrystalReports"/>
-               <hint effort="0" title="SAP CrystalReports type reference" severity="optional">
-                    <message>SAP CrystalReports type reference found. No specific details available.</message>
-                    <tag>catchall</tag>
-                    <tag>sap</tag>
-               </hint>
+               <iteration>
+                  <when>
+                     <not>
+                        <has-hint />
+                     </not>
+                  </when>
+                  <perform>
+                     <classification effort="0" severity="optional" title="SAP CrystalReports"/>
+                     <hint effort="0" title="SAP CrystalReports type reference" severity="optional">
+                          <message>SAP CrystalReports type reference found. No specific details available.</message>
+                          <tag>catchall</tag>
+                          <tag>sap</tag>
+                     </hint>
+                  </perform>
+               </iteration>
             </perform>
         </rule>
         <rule id="generic-catchall-00500">
@@ -195,12 +222,21 @@
                 </javaclass>
             </when>
             <perform>
-               <classification effort="0" severity="optional" title="IONA"/>
-               <hint effort="0" title="IONA type reference" severity="optional">
-                    <message>IONA type reference found. No specific details available.</message>
-                    <tag>catchall</tag>
-                    <tag>iona</tag>
-               </hint>
+               <iteration>
+                  <when>
+                     <not>
+                        <has-hint />
+                     </not>
+                  </when>
+                  <perform>
+                     <classification effort="0" severity="optional" title="IONA"/>
+                     <hint effort="0" title="IONA type reference" severity="optional">
+                          <message>IONA type reference found. No specific details available.</message>
+                          <tag>catchall</tag>
+                          <tag>iona</tag>
+                     </hint>
+                  </perform>
+               </iteration>
             </perform>
         </rule>
         <rule id="generic-catchall-00600">
@@ -209,11 +245,20 @@
                 </javaclass>
             </when>
             <perform>
-               <classification effort="0" severity="optional" title="Apache {subpackage}"/>
-               <hint effort="0" title="Apache {subpackage} type reference" severity="optional">
-                    <message>Apache {subpackage} type reference found. No specific details available.</message>
-                    <tag>catchall</tag>
-               </hint>
+               <iteration>
+                  <when>
+                     <not>
+                        <has-hint />
+                     </not>
+                  </when>
+                  <perform>
+                     <classification effort="0" severity="optional" title="Apache {subpackage}"/>
+                     <hint effort="0" title="Apache {subpackage} type reference" severity="optional">
+                          <message>Apache {subpackage} type reference found. No specific details available.</message>
+                          <tag>catchall</tag>
+                     </hint>
+                  </perform>
+               </iteration>
             </perform>
             <where param="subpackage">
                <matches pattern="(activeio|activemq)" />
@@ -225,11 +270,20 @@
                 </javaclass>
             </when>
             <perform>
-               <classification effort="0" severity="optional" title="{subpackage}"/>
-               <hint effort="0" title="{subpackage} type reference" severity="optional">
-                    <message>{subpackage} type reference found. No specific details available.</message>
-                    <tag>catchall</tag>
-               </hint>
+               <iteration>
+                  <when>
+                     <not>
+                        <has-hint />
+                     </not>
+                  </when>
+                  <perform>
+                     <classification effort="0" severity="optional" title="{subpackage}"/>
+                     <hint effort="0" title="{subpackage} type reference" severity="optional">
+                          <message>{subpackage} type reference found. No specific details available.</message>
+                          <tag>catchall</tag>
+                     </hint>
+                  </perform>
+               </iteration>
             </perform>
             <where param="subpackage">
                <matches pattern="(jboss|jbpm)" />
@@ -241,11 +295,29 @@
                 </javaclass>
             </when>
             <perform>
-               <classification effort="0" severity="optional" title="Java EE API"/>
-               <hint effort="0" title="{subpackage} type reference" severity="optional">
-                    <message>Java EE API {subpackage} type reference found. No specific details available.</message>
-                    <tag>catchall</tag>
-               </hint>
+               <iteration>
+                  <when>
+                     <not>
+                        <has-hint />
+                     </not>
+                  </when>
+                  <perform>
+                     <iteration>
+                        <when>
+                           <not>
+                              <has-hint />
+                           </not>
+                        </when>
+                        <perform>
+                           <classification effort="0" severity="optional" title="Java EE API" />
+                           <hint effort="0" title="{subpackage} type reference" severity="optional">
+                              <message>Java EE API {subpackage} type reference found. No specific details available.</message>
+                              <tag>catchall</tag>
+                           </hint>
+                        </perform>
+                     </iteration>
+                  </perform>
+               </iteration>
             </perform>
             <where param="subpackage">
                <matches pattern="(persistence|management|naming|sql|ejb)" />
@@ -253,15 +325,24 @@
         </rule>
         <rule id="generic-catchall-00900">
             <when>
-                <javaclass references="java.sql.DriverManager">
-                </javaclass>
+               <javaclass references="java.sql.DriverManager">
+               </javaclass>
             </when>
             <perform>
-               <classification effort="0" severity="optional" title="Reference to java.sql.DriverManager"/>
-               <hint effort="0" title="java.sql.DriverManager type reference" severity="optional">
-                    <message>java.sql.DriverManager type reference found. No specific details available.</message>
-                    <tag>catchall</tag>
-               </hint>
+               <iteration>
+                  <when>
+                     <not>
+                        <has-hint />
+                     </not>
+                  </when>
+                  <perform>
+                     <classification effort="0" severity="optional" title="Reference to java.sql.DriverManager" />
+                     <hint effort="0" title="java.sql.DriverManager type reference" severity="optional">
+                        <message>java.sql.DriverManager type reference found. No specific details available.</message>
+                        <tag>catchall</tag>
+                     </hint>
+                  </perform>
+               </iteration>
             </perform>
         </rule>
     </rules>
