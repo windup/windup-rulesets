@@ -4,9 +4,12 @@
 //
 import weblogic.i18n.logging.NonCatalogLogger;
 import com.tangosol.io.ReadBuffer;
+import com.bea.BeaImport;
 import bea.jolt.JoltService;
 import oracle.sql.OracleConnection;
 import oracle.somepackage.ClassFactory;
+import com.oracle.ProprietaryOracleClass;
+import com.weblogic.ProprietaryWeblogicClass;
 
 
 class NonCatalogLoggerTest
@@ -17,9 +20,9 @@ class NonCatalogLoggerTest
     {
         LOG.alert("logged!");
     }
-    
+
     private class MyOracleConnection implements OracleConnection {
-        
-        
+
+
     }
 }

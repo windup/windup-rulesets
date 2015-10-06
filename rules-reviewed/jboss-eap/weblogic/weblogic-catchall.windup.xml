@@ -15,16 +15,9 @@
         <phase>PostMigrationRulesPhase</phase>
     </metadata>
     <rules>
-        <rule id="weblogic-catchall-00000">
+        <rule id="weblogic-catchall-01000">
             <when>
-                <or>
-                    <javaclass references="com.{subpackage}.{type}" />
-                    <javaclass references="bea.{*}" />
-                    <javaclass references="oracle.{*}" />
-                    <javaclass references="oracle.sql.{*}" />
-                    <javaclass references="weblogic.{*}" />
-                </or>
-                
+                <javaclass references="com.bea{subpackage}.{type}" />
             </when>
             <perform>
                 <iteration>
@@ -34,10 +27,9 @@
                         </not>
                     </when>
                     <perform>
-                        <classification title="Oracle Weblogic" severity="mandatory" />
-                        <hint effort="0" severity="mandatory" title="Oracle proprietary type reference">
+                        <hint effort="0" severity="mandatory" title="Proprietary type reference found">
                             <message>
-                                This is an Oracle proprietary type and needs to be migrated to a compatible API. There is currently no detailed
+                                This is an Oracle proprietary type (com.bea{subpackage}.{type}) and needs to be migrated to a compatible API. There is currently no detailed
                                 information about this type.
                             </message>
                             <tag>catchall</tag>
@@ -46,10 +38,201 @@
                 </iteration>
             </perform>
             <where param="subpackage">
-                <matches pattern="(bea|oracle|tangosol|weblogic)(\..*)?" />
+                <matches pattern="(\..*)?" />
             </where>
             <where param="type">
                 <matches pattern="[^.]+" />
+            </where>
+        </rule>
+        <rule id="weblogic-catchall-02000">
+            <when>
+                <javaclass references="com.oracle{subpackage}.{type}" />
+            </when>
+            <perform>
+                <iteration>
+                    <when>
+                        <not>
+                            <has-hint />
+                        </not>
+                    </when>
+                    <perform>
+                        <hint effort="0" severity="mandatory" title="Proprietary type reference found">
+                            <message>
+                                This is an Oracle proprietary type (com.oracle{subpackage}.{type}) and needs to be migrated to a compatible API. There is currently no detailed
+                                information about this type.
+                            </message>
+                            <tag>catchall</tag>
+                        </hint>
+                    </perform>
+                </iteration>
+            </perform>
+            <where param="subpackage">
+                <matches pattern="(\..*)?" />
+            </where>
+            <where param="type">
+                <matches pattern="[^.]+" />
+            </where>
+        </rule>
+        <rule id="weblogic-catchall-03000">
+            <when>
+                <javaclass references="com.tangosol{subpackage}.{type}" />
+            </when>
+            <perform>
+                <iteration>
+                    <when>
+                        <not>
+                            <has-hint />
+                        </not>
+                    </when>
+                    <perform>
+                        <hint effort="0" severity="mandatory" title="Proprietary type reference found">
+                            <message>
+                                This is an Oracle proprietary type (com.tangosol{subpackage}.{type}) and needs to be migrated to a compatible API. There is currently no detailed
+                                information about this type.
+                            </message>
+                            <tag>catchall</tag>
+                        </hint>
+                    </perform>
+                </iteration>
+            </perform>
+            <where param="subpackage">
+                <matches pattern="(\..*)?" />
+            </where>
+            <where param="type">
+                <matches pattern="[^.]+" />
+            </where>
+        </rule>
+        <rule id="weblogic-catchall-04000">
+            <when>
+                <javaclass references="com.weblogic{subpackage}.{type}" />
+            </when>
+            <perform>
+                <iteration>
+                    <when>
+                        <not>
+                            <has-hint />
+                        </not>
+                    </when>
+                    <perform>
+                        <hint effort="0" severity="mandatory" title="Proprietary type reference found">
+                            <message>
+                                This is an Oracle proprietary type (com.weblogic{subpackage}.{type}) and needs to be migrated to a compatible API. There is currently no detailed
+                                information about this type.
+                            </message>
+                            <tag>catchall</tag>
+                        </hint>
+                    </perform>
+                </iteration>
+            </perform>
+            <where param="subpackage">
+                <matches pattern="(\..*)?" />
+            </where>
+            <where param="type">
+                <matches pattern="[^.]+" />
+            </where>
+        </rule>
+        <rule id="weblogic-catchall-05000">
+            <when>
+                <javaclass references="bea.{remainder}" />
+            </when>
+            <perform>
+                <iteration>
+                    <when>
+                        <not>
+                            <has-hint />
+                        </not>
+                    </when>
+                    <perform>
+                        <hint effort="0" severity="mandatory" title="Oracle proprietary type reference">
+                            <message>
+                                This is an Oracle proprietary type (bea.{remainder}) and needs to be migrated to a compatible API. There is currently no detailed
+                                information about this type.
+                            </message>
+                            <tag>catchall</tag>
+                        </hint>
+                    </perform>
+                </iteration>
+            </perform>
+            <where param="remainder">
+                <matches pattern=".*"/>
+            </where>
+        </rule>
+        <rule id="weblogic-catchall-06000">
+            <when>
+                <javaclass references="oracle.{remainder}" />
+            </when>
+            <perform>
+                <iteration>
+                    <when>
+                        <not>
+                            <has-hint />
+                        </not>
+                    </when>
+                    <perform>
+                        <hint effort="0" severity="mandatory" title="Oracle proprietary type reference">
+                            <message>
+                                This is an Oracle proprietary type (oracle.{remainder}) and needs to be migrated to a compatible API. There is currently no detailed
+                                information about this type.
+                            </message>
+                            <tag>catchall</tag>
+                        </hint>
+                    </perform>
+                </iteration>
+            </perform>
+            <where param="remainder">
+                <matches pattern=".*"/>
+            </where>
+        </rule>
+        <rule id="weblogic-catchall-07000">
+            <when>
+                <javaclass references="oracle.sql.{remainder}" />
+            </when>
+            <perform>
+                <iteration>
+                    <when>
+                        <not>
+                            <has-hint />
+                        </not>
+                    </when>
+                    <perform>
+                        <hint effort="0" severity="mandatory" title="Oracle proprietary type reference">
+                            <message>
+                                This is an Oracle proprietary type (oracle.sql.{remainder}) and needs to be migrated to a compatible API. There is currently no detailed
+                                information about this type.
+                            </message>
+                            <tag>catchall</tag>
+                        </hint>
+                    </perform>
+                </iteration>
+            </perform>
+            <where param="remainder">
+                <matches pattern=".*"/>
+            </where>
+        </rule>
+        <rule id="weblogic-catchall-08000">
+            <when>
+                <javaclass references="weblogic.{remainder}" />
+            </when>
+            <perform>
+                <iteration>
+                    <when>
+                        <not>
+                            <has-hint />
+                        </not>
+                    </when>
+                    <perform>
+                        <hint effort="0" severity="mandatory" title="Oracle proprietary type reference">
+                            <message>
+                                This is an Oracle proprietary type (weblogic.{remainder}) and needs to be migrated to a compatible API. There is currently no detailed
+                                information about this type.
+                            </message>
+                            <tag>catchall</tag>
+                        </hint>
+                    </perform>
+                </iteration>
+            </perform>
+            <where param="remainder">
+                <matches pattern=".*"/>
             </where>
         </rule>
     </rules>
