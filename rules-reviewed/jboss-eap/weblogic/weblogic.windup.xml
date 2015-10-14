@@ -83,7 +83,7 @@
         </rule>
         <rule id="weblogic-05000">
             <when>
-                <or>
+                <any>
                     <javaclass references="weblogic.transaction.TransactionManager.resume{*}">
                         <location>METHOD_CALL</location>
                     </javaclass>
@@ -96,7 +96,7 @@
                     <javaclass references="weblogic.transaction.ClientTransactionManager.forceResume{*}">
                         <location>METHOD_CALL</location>
                     </javaclass>
-                </or>
+                </any>
             </when>
             <perform>
                 <hint title="WebLogic TransactionManager Usage of resume method" effort="1" severity="mandatory">
@@ -107,7 +107,7 @@
         </rule>
         <rule id="weblogic-06000">
             <when>
-                <or>
+                <any>
                     <javaclass references="weblogic.transaction.TransactionManager.suspend{*}">
                         <location>METHOD_CALL</location>
                     </javaclass>
@@ -120,7 +120,7 @@
                     <javaclass references="weblogic.transaction.ClientTransactionManager.forceSuspend{*}">
                         <location>METHOD_CALL</location>
                     </javaclass>
-                </or>
+                </any>
             </when>
             <perform>
                 <hint title="WebLogic TransactionManager Usage of suspend method" effort="1" severity="mandatory">
