@@ -14,25 +14,30 @@
 	<h1>Book Hotel</h1>
 </div>
 <div class="section">
-	<div class="entry errors">
+    <s:div styleClass="entry errors">
 		<h:messages id="messages" globalOnly="true"/>
-	</div>
+	</s:div>
 
 	<ui:include src="hotelview.xhtml"/>
 	
 	<div style="clear:both"/>
 
 	<h:form id="booking">
+	      <h:outputText>
+	           <s:taskId/>
+	      </h:outputText>
 	<fieldset>
 			
 		<s:decorate id="checkinDateDecorate" template="edit.xhtml">
 			<ui:define name="label">Check In Date:</ui:define>
 			<rich:calendar id="checkinDate" value="#{booking.checkinDate}" required="true" datePattern="MM/dd/yyyy" event="onblur" reRender="checkinDateDecorate" style="width: auto;" />
+			<s:validate />
 		</s:decorate>
 		
 		<s:decorate id="checkoutDateDecorate" template="edit.xhtml">
 			<ui:define name="label">Check Out Date:</ui:define>
 			<rich:calendar id="checkoutDate" value="#{booking.checkoutDate}" required="true" datePattern="MM/dd/yyyy" event="onblur" reRender="checkoutDateDecorate"  style="width: auto;"/>
+			<s:validateEquality for="checkinDateDecorate" />
 		</s:decorate>
 		
 		<s:decorate id="bedsDecorate" template="edit.xhtml">
@@ -92,7 +97,9 @@
 		</s:decorate>
 		
 		<div class="buttonBox">
-			<h:commandButton id="proceed" value="Proceed" action="#{hotelBooking.setBookingDetails}"/>
+			<h:commandButton id="proceed" value="Proceed" action="#{hotelBooking.setBookingDetails}">
+			     <s:defaultAction/>
+			 </h:commandButton>
 			&#160;
 			<s:button id="cancel" value="Cancel" action="#{hotelBooking.cancel}"/>
 		</div>

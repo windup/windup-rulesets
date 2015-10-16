@@ -28,7 +28,7 @@
        &#160;
        <a:status id="status">
           <f:facet id="StartStatus" name="start">
-             <h:graphicImage id="SpinnerGif" value="/img/spinner.gif"/>
+             <s:graphicImage id="SpinnerGif" value="/img/spinner.gif" cache="true" cacheKey="id-0.5"/>
           </f:facet>
        </a:status>
 	   <br/>
@@ -46,28 +46,30 @@
 <a:outputPanel id="searchResults">
   <div class="section">
 	<h:outputText id="NoHotelsFoundMessage" value="No Hotels Found" rendered="#{hotels != null and hotels.rowCount==0}"/>
-	<h:dataTable id="hotels" value="#{hotels}" var="hot" rendered="#{hotels.rowCount>0}">
-		<h:column id="column1">
-			<f:facet id="NameFacet" name="header">Name</f:facet>
-			#{hot.name}
-		</h:column>
-		<h:column id="column2">
-			<f:facet id="AddressFacet" name="header">Address</f:facet>
-			#{hot.address}
-		</h:column>
-		<h:column id="column3">
-			<f:facet id="CityStateFacet" name="header">City, State</f:facet>
-			#{hot.city}, #{hot.state}, #{hot.country}
-		</h:column> 
-		<h:column id="column4">
-			<f:facet id="ZipFacet" name="header">Zip</f:facet>
-			#{hot.zip}
-		</h:column>
-		<h:column id="column5">
-			<f:facet id="ActionFacet" name="header">Action</f:facet>
-			<s:link id="viewHotel" value="View Hotel" action="#{hotelBooking.selectHotel(hot)}"/>
-		</h:column>
-	</h:dataTable>
+	<s:cache key="index" region="pageFragments">
+		<h:dataTable id="hotels" value="#{hotels}" var="hot" rendered="#{hotels.rowCount>0}">
+			<h:column id="column1">
+				<f:facet id="NameFacet" name="header">Name</f:facet>
+				#{hot.name}
+			</h:column>
+			<h:column id="column2">
+				<f:facet id="AddressFacet" name="header">Address</f:facet>
+				#{hot.address}
+			</h:column>
+			<h:column id="column3">
+				<f:facet id="CityStateFacet" name="header">City, State</f:facet>
+				#{hot.city}, #{hot.state}, #{hot.country}
+			</h:column> 
+			<h:column id="column4">
+				<f:facet id="ZipFacet" name="header">Zip</f:facet>
+				#{hot.zip}
+			</h:column>
+			<h:column id="column5">
+				<f:facet id="ActionFacet" name="header">Action</f:facet>
+				<s:link id="viewHotel" value="View Hotel" action="#{hotelBooking.selectHotel(hot)}"/>
+			</h:column>
+		</h:dataTable>
+	</s:cache>
 	<s:link id="MoreResultsLink" value="More results" action="#{hotelSearch.nextPage}" rendered="#{hotelSearch.nextPageAvailable}"/>
   </div>
 </a:outputPanel>
@@ -77,7 +79,10 @@
 </div>
 <div class="section">
   <h:form id="bookings">
-	<h:outputText id="NoBookingsFoundMessage" value="No Bookings Found" rendered="#{bookings.rowCount==0}"/>
+s	<s:fragment rendered="#{bookings.rowCount==0}">
+	   No Bookings Found
+    </s:fragment>
+	<s:remote include="helloAction"/>
 	<h:dataTable id="bookings" value="#{bookings}" var="book" rendered="#{bookings.rowCount>0}">
 		<h:column id="column1">
 			<f:facet id="NameFacet" name="header">Name</f:facet>
