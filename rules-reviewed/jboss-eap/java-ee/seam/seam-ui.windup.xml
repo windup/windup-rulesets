@@ -1,0 +1,609 @@
+<?xml version="1.0"?>
+<ruleset id="seam-ui-jsf" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <metadata>
+        <description>
+            This ruleset provides generic migration knowledge from the Seam 2 UI controls to pure JSF UI Controls
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,2.3.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,2.3.0.Final" />
+        </dependencies>
+        <sourceTechnology id="java-ee" />
+        <sourceTechnology id="seam" versionRange="[2.0,2.1,2.2,2.3]"/>
+        <targetTechnology id="eap" versionRange="[6,)" />
+        <tag>reviewed-2015-10-16</tag>
+    </metadata>
+
+    <rules>
+        <rule id="seam-ui-00000">
+            <when>
+                <xmlfile matches="//*[namespace-uri()='http://jboss.com/products/seam/taglib'] | //*[namespace-uri()='http://jboss.org/schema/seam/taglib']">
+                </xmlfile>
+            </when>
+            <perform>
+                <classification title="JSF Seam Template" effort="0" severity="mandatory">
+                    <tag>Seam UI control</tag>
+                </classification>
+            </perform>
+        </rule>
+        <rule id="seam-ui-jsf-00001">
+            <when>
+                <xmlfile matches="//s:button">
+                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Seam 2 UI control s:button found" effort="1" severity="mandatory">
+                    <message>
+                        Seam UI &lt;s:button&gt; JSF control should be replaced by &lt;h:button&gt; instead of &lt;s:button&gt;.
+                        There are differences in attributes like _action_ attribute maps to _outcome_ and there is no _propagation_ attribute.
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Web_Framework_Kit/2.7/html/Seam_Guide/_seam_2_ui_controls_migration_to_jsf.html"
+                        title="Seam 2 UI controls migration to JSF" />
+                    <tag>Seam</tag>
+                    <tag>JSF</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-ui-jsf-01000">
+            <when>
+                <xmlfile matches="//s:link">
+                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Seam 2 UI control s:link found" effort="1" severity="mandatory">
+                    <message>
+                        You can use &lt;h:link&gt; instead of Seam UI &lt;s:link&gt;.
+                        There are differences in attributes like _action_ attribute maps to _outcome_ and there is no _propagation_ attribute.
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Web_Framework_Kit/2.7/html/Seam_Guide/_seam_2_ui_controls_migration_to_jsf.html"
+                        title="Seam 2 UI controls migration to JSF" />
+                    <tag>Seam</tag>
+                    <tag>JSF</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-ui-jsf-01001">
+            <when>
+                <xmlfile matches="//s:conversationId">
+                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Seam 2 UI control s:conversationId found" effort="3" severity="mandatory">
+                    <message>
+                        There is no direct mapping for &lt;s:conversationId&gt; in JSF UI controls.
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Web_Framework_Kit/2.7/html/Seam_Guide/_seam_2_ui_controls_migration_to_jsf.html"
+                        title="Seam 2 UI controls migration to JSF" />
+                    <tag>Seam</tag>
+                    <tag>JSF</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-ui-jsf-01002">
+            <when>
+                <xmlfile matches="//s:conversationPropagation">
+                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Seam 2 UI control s:conversationPropagation found" effort="3" severity="mandatory">
+                    <message>
+                        There is no direct mapping for &lt;s:conversationPropagation&gt; in JSF UI controls
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Web_Framework_Kit/2.7/html/Seam_Guide/_seam_2_ui_controls_migration_to_jsf.html"
+                        title="Seam 2 UI controls migration to JSF" />
+                    <tag>Seam</tag>
+                    <tag>JSF</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-ui-jsf-01003">
+            <when>
+                <xmlfile matches="//s:taskId">
+                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Seam 2 UI control s:taskId found" effort="3" severity="mandatory">
+                    <message>
+                        There is no direct mapping for &lt;s:taskId&gt; in JSF UI controls
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Web_Framework_Kit/2.7/html/Seam_Guide/_seam_2_ui_controls_migration_to_jsf.html"
+                        title="Seam 2 UI controls migration to JSF" />
+                    <tag>Seam</tag>
+                    <tag>JSF</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-ui-jsf-01004">
+            <when>
+                <xmlfile matches="//s:defaultAction">
+                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Seam 2 UI control s:defaultAction found" effort="3" severity="mandatory">
+                    <message>
+                        There is no direct mapping for &lt;s:defaultAction&gt; in JSF UI controls
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Web_Framework_Kit/2.7/html/Seam_Guide/_seam_2_ui_controls_migration_to_jsf.html"
+                        title="Seam 2 UI controls migration to JSF" />
+                    <tag>Seam</tag>
+                    <tag>JSF</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-ui-jsf-01005">
+            <when>
+                <xmlfile matches="//s:convertDateTime">
+                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Seam 2 UI control s:convertDateTime found" effort="1" severity="mandatory">
+                    <message>
+                        Replace it with &lt;f:convertDateTime type="time" pattern="kk:mm:ss"&gt;.
+                        You can achieve a similar effect by using the standard &lt;f:convertDateTime&gt; tag and setting the locale,
+                         or setting the context-param *javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE* to *true*.
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Web_Framework_Kit/2.7/html/Seam_Guide/_seam_2_ui_controls_migration_to_jsf.html"
+                        title="Seam 2 UI controls migration to JSF" />
+                    <tag>Seam</tag>
+                    <tag>JSF</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-ui-jsf-01006">
+            <when>
+                <xmlfile matches="//s:convertEntity">
+                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Seam 2 UI control s:convertEntity found" effort="1" severity="mandatory">
+                    <message>
+                        There is no direct mapping for &lt;s:convertEntity&gt; in JSF UI controls. Use &lt;f:converter converterId="&lt;yourConverterClass&gt;"&gt; instead.
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Web_Framework_Kit/2.7/html/Seam_Guide/_seam_2_ui_controls_migration_to_jsf.html"
+                        title="Seam 2 UI controls migration to JSF" />
+                    <tag>Seam</tag>
+                    <tag>JSF</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-ui-jsf-01007">
+            <when>
+                <xmlfile matches="//s:enumItem">
+                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Seam 2 UI control s:enumItem found" effort="3" severity="mandatory">
+                    <message>
+                        There is no direct mapping for &lt;s:enumItem&gt; in JSF UI controls
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Web_Framework_Kit/2.7/html/Seam_Guide/_seam_2_ui_controls_migration_to_jsf.html"
+                        title="Seam 2 UI controls migration to JSF" />
+                    <tag>Seam</tag>
+                    <tag>JSF</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-ui-jsf-01008">
+            <when>
+                <xmlfile matches="//s:token">
+                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Seam 2 UI control s:token found" effort="3" severity="mandatory">
+                    <message>
+                        There is no direct mapping for &lt;s:token&gt; in JSF UI controls
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Web_Framework_Kit/2.7/html/Seam_Guide/_seam_2_ui_controls_migration_to_jsf.html"
+                        title="Seam 2 UI controls migration to JSF" />
+                    <tag>Seam</tag>
+                    <tag>JSF</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-ui-jsf-01009">
+            <when>
+                <xmlfile matches="//s:formattedText">
+                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Seam 2 UI control s:formattedText found" effort="3" severity="mandatory">
+                    <message>
+                        There is no direct mapping for &lt;s:formattedText&gt; in JSF UI controls
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Web_Framework_Kit/2.7/html/Seam_Guide/_seam_2_ui_controls_migration_to_jsf.html"
+                        title="Seam 2 UI controls migration to JSF" />
+                    <tag>Seam</tag>
+                    <tag>JSF</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-ui-jsf-01010">
+            <when>
+                <xmlfile matches="//s:cache">
+                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Seam 2 UI control s:cache found" effort="3" severity="mandatory">
+                    <message>
+                        There is no direct mapping for &lt;s:cache&gt; in JSF UI controls
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Web_Framework_Kit/2.7/html/Seam_Guide/_seam_2_ui_controls_migration_to_jsf.html"
+                        title="Seam 2 UI controls migration to JSF" />
+                    <tag>Seam</tag>
+                    <tag>JSF</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-ui-jsf-01011">
+            <when>
+                <xmlfile matches="//s:resource">
+                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Seam 2 UI control s:resource found" effort="3" severity="mandatory">
+                    <message>
+                        There is no direct mapping for &lt;s:resource&gt; in JSF UI controls
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Web_Framework_Kit/2.7/html/Seam_Guide/_seam_2_ui_controls_migration_to_jsf.html"
+                        title="Seam 2 UI controls migration to JSF" />
+                    <tag>Seam</tag>
+                    <tag>JSF</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-ui-jsf-01012">
+            <when>
+                <xmlfile matches="//s:download">
+                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Seam 2 UI control s:download found" effort="3" severity="mandatory">
+                    <message>
+                        There is no direct mapping for &lt;s:download&gt; in JSF UI controls
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Web_Framework_Kit/2.7/html/Seam_Guide/_seam_2_ui_controls_migration_to_jsf.html"
+                        title="Seam 2 UI controls migration to JSF" />
+                    <tag>Seam</tag>
+                    <tag>JSF</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-ui-jsf-01013">
+            <when>
+                <xmlfile matches="//s:remote">
+                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Seam 2 UI control s:remote found" effort="3" severity="mandatory">
+                    <message>
+                        There is no direct mapping for &lt;s:remote&gt; in JSF UI controls
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Web_Framework_Kit/2.7/html/Seam_Guide/_seam_2_ui_controls_migration_to_jsf.html"
+                        title="Seam 2 UI controls migration to JSF" />
+                    <tag>Seam</tag>
+                    <tag>JSF</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-ui-jsf-01014">
+            <when>
+                <xmlfile matches="//s:selectItems">
+                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Seam 2 UI control s:selectItems found" effort="1" severity="mandatory">
+                    <message>
+                        Replace it by using &lt;h:selectItems&gt;.
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Web_Framework_Kit/2.7/html/Seam_Guide/_seam_2_ui_controls_migration_to_jsf.html"
+                        title="Seam 2 UI controls migration to JSF" />
+                    <tag>Seam</tag>
+                    <tag>JSF</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-ui-jsf-01015">
+            <when>
+                <xmlfile matches="//s:validate">
+                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Seam 2 UI control s:validate found" effort="1" severity="mandatory">
+                    <message>
+                      Replace it by using &lt;f:validateBean&gt;.
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Web_Framework_Kit/2.7/html/Seam_Guide/_seam_2_ui_controls_migration_to_jsf.html"
+                        title="Seam 2 UI controls migration to JSF" />
+                    <tag>Seam</tag>
+                    <tag>JSF</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-ui-jsf-01016">
+            <when>
+                <xmlfile matches="//s:fragment">
+                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Seam 2 UI control s:fragment found" effort="1" severity="mandatory">
+                    <message>
+                        There is &lt;ui:fragment&gt; to use instead in pure JSF.
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Web_Framework_Kit/2.7/html/Seam_Guide/_seam_2_ui_controls_migration_to_jsf.html"
+                        title="Seam 2 UI controls migration to JSF" />
+                    <tag>Seam</tag>
+                    <tag>JSF</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-ui-jsf-01017">
+            <when>
+                <xmlfile matches="//s:convertEnum">
+                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Seam 2 UI control s:convertEnum found" effort="3" severity="mandatory">
+                    <message>
+                        There is no direct mapping for &lt;s:convertEnum&gt; in JSF UI controls, but JSF 2 has got a built-in EnumConverter which can be extended if necessary.
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Web_Framework_Kit/2.7/html/Seam_Guide/_seam_2_ui_controls_migration_to_jsf.html"
+                        title="Seam 2 UI controls migration to JSF" />
+                    <link href="https://docs.oracle.com/javaee/6/api/javax/faces/convert/EnumConverter.html"
+                        title="Java EE javax.faces.convert.EnumConverter"/>
+                    <tag>Seam</tag>
+                    <tag>JSF</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-ui-jsf-01018">
+            <when>
+                <xmlfile matches="//s:convertAtomicBoolean">
+                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Seam 2 UI control s:convertAtomicBoolean found" effort="3" severity="mandatory">
+                    <message>
+                        There is no direct mapping for &lt;s:convertAtomicBoolean&gt; in JSF UI controls. Create a custom converter for a replacement.
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Web_Framework_Kit/2.7/html/Seam_Guide/_seam_2_ui_controls_migration_to_jsf.html"
+                        title="Seam 2 UI controls migration to JSF" />
+                    <link href="https://docs.oracle.com/javaee/6/tutorial/doc/bnaus.html"
+                            title="Creating and Using a Custom Converter" />
+                    <tag>Seam</tag>
+                    <tag>JSF</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-ui-jsf-01019">
+            <when>
+                <xmlfile matches="//s:convertAtomicInteger">
+                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Seam 2 UI control s:convertAtomicInteger found" effort="3" severity="mandatory">
+                    <message>
+                        There is no direct mapping for &lt;s:convertAtomicInteger&gt; in JSF UI controls. Create a custom converter for a replacement.
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Web_Framework_Kit/2.7/html/Seam_Guide/_seam_2_ui_controls_migration_to_jsf.html"
+                        title="Seam 2 UI controls migration to JSF" />
+                    <link href="https://docs.oracle.com/javaee/6/tutorial/doc/bnaus.html"
+                            title="Creating and Using a Custom Converter" />
+                    <tag>Seam</tag>
+                    <tag>JSF</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-ui-jsf-01020">
+            <when>
+                <xmlfile matches="//s:convertAtomicLong">
+                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Seam 2 UI control s:convertAtomicLong found" effort="3" severity="mandatory">
+                    <message>
+                        There is no direct mapping for &lt;s:convertAtomicLong&gt; in JSF UI controls. Create a custom converter for a replacement.
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Web_Framework_Kit/2.7/html/Seam_Guide/_seam_2_ui_controls_migration_to_jsf.html"
+                        title="Seam 2 UI controls migration to JSF" />
+                    <link href="https://docs.oracle.com/javaee/6/tutorial/doc/bnaus.html"
+                            title="Creating and Using a Custom Converter" />
+                    <tag>Seam</tag>
+                    <tag>JSF</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-ui-jsf-01021">
+            <when>
+                <xmlfile matches="//s:validateEquality">
+                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Seam 2 UI control s:validateEquality found" effort="1" severity="mandatory">
+                    <message>
+                        There is no direct mapping for &lt;s:validateEquality&gt; in JSF UI controls. 
+                        Use respective &lt;f:validate*&gt; like:message
+                        * &lt;f:validateDoubleRange&gt;, 
+                        * &lt;f:validateLength&gt;, 
+                        * &lt;f:validateLongRange&gt;,
+                        * &lt;f:validateRequired&gt;.
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Web_Framework_Kit/2.7/html/Seam_Guide/_seam_2_ui_controls_migration_to_jsf.html"
+                        title="Seam 2 UI controls migration to JSF" />
+                    <tag>Seam</tag>
+                    <tag>JSF</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-ui-jsf-01022">
+            <when>
+                <xmlfile matches="//s:validateAll">
+                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Seam 2 UI control s:validateAll found" effort="1" severity="mandatory">
+                    <message>
+                        There is no direct mapping for &lt;s:validateAll&gt; in JSF UI controls, but you can achieve a similar effect by using &lt;f:validateBean&gt; or [Richfaces](http://richfaces.jboss.org/) &lt;rich:validator&gt;.
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Web_Framework_Kit/2.7/html/Seam_Guide/_seam_2_ui_controls_migration_to_jsf.html"
+                        title="Seam 2 UI controls migration to JSF" />
+                    <tag>Seam</tag>
+                    <tag>JSF</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-ui-jsf-01023">
+            <when>
+                <xmlfile matches="//s:decorate">
+                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Seam 2 UI control s:decorate found" effort="3" severity="mandatory">
+                    <message>
+                        There is no direct mapping for &lt;s:decorate&gt; in JSF UI controls, but you can achieve the same functionality by using the UIInputContainer and a composite container, both of which are demonstrated in the [Open18 migration example](https://github.com/seam/migration/blob/develop/open18_java_ee_6) 
+                        [input.xhtml](https://raw.githubusercontent.com/seam/migration/develop/open18_java_ee_6/src/main/webapp/resources/components/input.xhtml) file.
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Web_Framework_Kit/2.7/html/Seam_Guide/_seam_2_ui_controls_migration_to_jsf.html"
+                        title="Seam 2 UI controls migration to JSF" />
+                    <tag>Seam</tag>
+                    <tag>JSF</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-ui-jsf-01024">
+            <when>
+                <xmlfile matches="//s:div">
+                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Seam 2 UI control s:div found" effort="1" severity="mandatory">
+                    <message>
+                        There is no direct mapping for &lt;s:div&gt; in JSF UI controls, but it could be done with an &lt;h:panelGroup layout="block"&gt; or a &lt;ui:fragment&gt; containing a div.
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Web_Framework_Kit/2.7/html/Seam_Guide/_seam_2_ui_controls_migration_to_jsf.html"
+                        title="Seam 2 UI controls migration to JSF" />
+                    <tag>Seam</tag>
+                    <tag>JSF</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-ui-jsf-01025">
+            <when>
+                <xmlfile matches="//s:span">
+                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Seam 2 UI control s:span found" effort="1" severity="mandatory">
+                    <message>
+                        There is no direct mapping for &lt;s:span&gt; in JSF UI controls, but you can achieve a similar effect by using &lt;h:panelGroup&gt; or a &lt;ui:fragment&gt; with a span element.
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Web_Framework_Kit/2.7/html/Seam_Guide/_seam_2_ui_controls_migration_to_jsf.html"
+                        title="Seam 2 UI controls migration to JSF" />
+                    <tag>Seam</tag>
+                    <tag>JSF</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-ui-jsf-01026">
+            <when>
+                <xmlfile matches="//s:label">
+                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Seam 2 UI control s:label found" effort="1" severity="mandatory">
+                    <message>
+                        There is no direct mapping for &lt;s:label&gt; in JSF UI controls, but &lt;h:outputLabel&gt; is similar.
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Web_Framework_Kit/2.7/html/Seam_Guide/_seam_2_ui_controls_migration_to_jsf.html"
+                        title="Seam 2 UI controls migration to JSF" />
+                    <tag>Seam</tag>
+                    <tag>JSF</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-ui-jsf-01027">
+            <when>
+                <xmlfile matches="//s:message">
+                <!-- why is not namespace taken into account ?  wsdl:message is caught too -->
+                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Seam 2 UI control s:message found" effort="1" severity="mandatory">
+                    <message>
+                        Use &lt;h:message for="name" errorClass="invalid"&gt; or [Richfaces](http://richfaces.jboss.org/) &lt;rich:message&gt;.
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Web_Framework_Kit/2.7/html/Seam_Guide/_seam_2_ui_controls_migration_to_jsf.html"
+                        title="Seam 2 UI controls migration to JSF" />
+                    <tag>Seam</tag>
+                    <tag>JSF</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-ui-jsf-01028">
+            <when>
+                <xmlfile matches="//s:fileUpload">
+                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Seam 2 UI control s:fileUpload found" effort="1" severity="mandatory">
+                    <message>
+                        There is no direct mapping for &lt;s:fileUpload&gt; in JSF UI controls. You can achieve similar functionality by using [Richfaces](http://richfaces.jboss.org/) &lt;rich:fileUpload&gt;
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Web_Framework_Kit/2.7/html/Seam_Guide/_seam_2_ui_controls_migration_to_jsf.html"
+                        title="Seam 2 UI controls migration to JSF" />
+                    <tag>Seam</tag>
+                    <tag>JSF</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-ui-jsf-01029">
+            <when>
+                <xmlfile matches="//s:graphicImage">
+                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Seam 2 UI control s:graphicImage found" effort="1" severity="mandatory">
+                    <message>
+                        There is no direct mapping for &lt;s:graphicImage&gt; in JSF UI controls, but you can use &lt;h:graphicImage&gt; as Seam extends that JSF UI control.
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Web_Framework_Kit/2.7/html/Seam_Guide/_seam_2_ui_controls_migration_to_jsf.html"
+                        title="Seam 2 UI controls migration to JSF" />
+                    <tag>Seam</tag>
+                    <tag>JSF</tag>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
