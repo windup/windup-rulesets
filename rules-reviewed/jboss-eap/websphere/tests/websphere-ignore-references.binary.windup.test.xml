@@ -18,6 +18,19 @@
                     <fail message="IgnoreTest1.class should have been ignored and not decompiled." />
                 </perform>
             </rule>
+            <rule id="websphere-ignore-02000-test">
+                <when>
+                      <or>
+                        <file-exists filename="R4A0RUBean.java" />
+                        <not>
+                          <file-exists filename="R4A0RUBean.class" />
+                        </not>
+                      </or>
+                </when>
+                <perform>
+                    <fail message="IgnoreTestBean.class should have been ignored and not decompiled." />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
