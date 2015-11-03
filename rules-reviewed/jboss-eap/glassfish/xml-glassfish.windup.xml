@@ -15,7 +15,7 @@
         <targetTechnology id="eap" versionRange="[6,)" />
         <tag>reviewed-2015-08-04</tag>
         <tag>webapp</tag>
-	<tag>glassfish</tag>
+        <tag>glassfish</tag>
     </metadata>
     <rules>
         <rule id="xml-glassfish-01000">
@@ -24,13 +24,15 @@
                 </xmlfile>
             </when>
             <perform>
-                <iteration>
-                    <classification title="Glassfish Web Descriptor" effort="3" severity="mandatory">
-			<description> Glassfish specific web descriptor file that is by convention named glassfish-web.xml. It is used to configure web application properties likes cache, session configuration, JNDI name binding etc.</description>
-		    <link href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.2/html/Security_Guide/jboss-webxml_Configuration_Reference.html" title="JBoss EAP web descriptor"/>
-                    <tag>configuration</tag>
-		    </classification>
-                </iteration>
+               <iteration>
+                  <classification title="Glassfish Web Descriptor" effort="3" severity="mandatory">
+                     <description> Glassfish specific web descriptor file that is by convention named glassfish-web.xml. It is used to configure web application properties likes cache, session configuration, JNDI name binding etc.</description>
+                     <link
+                        href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.2/html/Security_Guide/jboss-webxml_Configuration_Reference.html"
+                        title="JBoss EAP web descriptor" />
+                     <tag>configuration</tag>
+                  </classification>
+               </iteration>
             </perform>
         </rule>
 	<rule id="xml-glassfish-02000">
@@ -41,10 +43,10 @@
             <perform>
                 <iteration>
                     <classification title="Glassfish EJB Descriptor" effort="3" severity="mandatory">
-			<description> Glassfish specific ejb configuration file used to configure EJBs, map them to jndi names etc.</description>
-		    <link href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6/html/Development_Guide/jboss-ejb3xml_Deployment_Descriptor_Reference.html" title="JBoss-ejb3.xml Deployment Descriptor Reference"/>
-                    <tag>configuration</tag>
-		    </classification>
+                        <description> Glassfish specific ejb configuration file used to configure EJBs, map them to jndi names etc.</description>
+                        <link href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6/html/Development_Guide/jboss-ejb3xml_Deployment_Descriptor_Reference.html" title="JBoss-ejb3.xml Deployment Descriptor Reference"/>
+                        <tag>configuration</tag>
+                    </classification>
                 </iteration>
             </perform>
         </rule>
@@ -56,10 +58,10 @@
             <perform>
                 <iteration>
                     <classification title="Glassfish Application EAR configuration file" effort="3" severity="optional">
-			<description> Glassfish-application  is a Glassfish specific EAR configuration file used to configure security roles, url addresses, JNDI binding etc. This file is glassfish specific and needs to be migrated to application.xml or jboss-app.xml.</description>
-			<link href="http://www.jboss.org/schema/jbossas/jboss-app_7_0.xsd" title="JBoss application configuration xsd file"/>
+                        <description> Glassfish-application  is a Glassfish specific EAR configuration file used to configure security roles, url addresses, JNDI binding etc. This file is glassfish specific and needs to be migrated to application.xml or jboss-app.xml.</description>
+                        <link href="http://www.jboss.org/schema/jbossas/jboss-app_7_0.xsd" title="JBoss application configuration xsd file"/>
                         <tag>configuration</tag>
-		     </classification>
+                    </classification>
                 </iteration>
             </perform>
         </rule>
