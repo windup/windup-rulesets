@@ -297,7 +297,7 @@ public class WindupRulesTest
         pm.setRootFileModel(inputPath);
         WindupConfiguration windupConfiguration = new WindupConfiguration()
                     .setGraphContext(context);
-        windupConfiguration.setInputPath(Paths.get(inputPath.getFilePath()));
+        windupConfiguration.addInputPath(Paths.get(inputPath.getFilePath()));
         windupConfiguration.setOutputDirectory(output.toPath());
         windupConfiguration.addDefaultUserRulesDirectory(baseRuleDirectory.toPath());
         windupConfiguration.setOptionValue(SourceModeOption.NAME, sourceMode);
