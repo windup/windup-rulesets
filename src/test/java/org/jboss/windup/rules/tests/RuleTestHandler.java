@@ -19,7 +19,7 @@ import org.w3c.dom.Element;
  * The rulePath element is optional. If it is not specified, the default will be "../", which will run all rules in the parent directory of this test.
  *
  * <pre>
- * &lt;ruletest xmlns=&quot;http://windup.jboss.org/schema/jboss-ruleset&quot;&gt;
+ * &lt;ruletest xmlns=&quot;http://windup.jboss.org/schema/jboss-ruletest&quot;&gt;
  *  &lt;testDataPath&gt;data&lt;/testDataPath&gt;
  *  &lt;rulePath&gt;directory&lt;/rulePath&gt;
  *  &lt;ruleset&gt;
@@ -42,13 +42,14 @@ import org.w3c.dom.Element;
  * @author jsightler
  *
  */
-@NamespaceElementHandler(elementName = RuleTestHandler.RULETEST, namespace = "http://windup.jboss.org/schema/jboss-ruleset")
+@NamespaceElementHandler(elementName = RuleTestHandler.RULETEST, namespace = "http://windup.jboss.org/schema/jboss-ruletest")
 public class RuleTestHandler implements ElementHandler<RuleTest>
 {
     public static final String RULETEST = "ruletest";
     public static final String TEST_DATA_PATH = "testDataPath";
     public static final String RULE_PATH = "rulePath";
     public static final String SOURCE_MODE = "sourceMode";
+    public static final String RULESET = "ruleset";
 
     @Override
     public RuleTest processElement(ParserContext context, Element element) throws ConfigurationException
@@ -69,7 +70,11 @@ public class RuleTestHandler implements ElementHandler<RuleTest>
             else if(child.getNodeName().equals(SOURCE_MODE))
             {
                 ruleTest.setSourceMode(Boolean.valueOf(child.getTextContent()));
-            }else {
+            }
+            else if (child.getNodeName().equals(RULESET))
+            {
+                ruleTest.addRulePath(child.getTextContent().trim());
+            } else {
                 context.processElement(child);
             }
         }

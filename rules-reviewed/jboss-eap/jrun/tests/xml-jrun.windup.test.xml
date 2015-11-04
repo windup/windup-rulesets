@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
-<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+<ruletest id="xml-jrun-tests" xmlns="http://windup.jboss.org/schema/jboss-ruletest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruletest http://windup.jboss.org/schema/jboss-ruletest.xsd">
     <testDataPath>data</testDataPath>
+    <rulePath>../xml-jrun.windup.xml</rulePath>
     <ruleset>
         <rules>
             <rule id="xml-jrun-01000-test">
@@ -13,7 +15,7 @@
                     <fail message="JRun Web App descriptor classification is missing"/>
                 </perform>
             </rule>
-	    <rule id="xml-jrun-02000-test">
+            <rule id="xml-jrun-02000-test">
                 <when>
                     <not>
                         <classification-exists classification="JRun ejb-jar configuration" in="jrun-ejb.xml"/>
