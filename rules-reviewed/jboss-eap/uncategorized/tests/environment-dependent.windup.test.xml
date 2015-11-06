@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset">
     <testDataPath>data</testDataPath>
+    <rulePath>../environment-dependent.windup.xml</rulePath>
     <ruleset>
         <rules>
             <rule id="environment-dependent-calls-01000-test">
@@ -13,7 +14,7 @@
                     <fail message="Dynamic class initiation using Class.classForName was not detected, but it should have been."/>
                 </perform>
             </rule>
-	    <rule id="environment-dependent-calls-02000-test">
+            <rule id="environment-dependent-calls-02000-test">
                 <when>
                     <not>
                         <hint-exists message="This method lookups an object using a JNDI String. During the migration process, some entity JNDI bindings may change."/>
@@ -23,7 +24,7 @@
                     <fail message="JNDI lookup hint not detected."/>
                 </perform>
             </rule>
-	    <rule id="environment-dependent-calls-03000-test">
+            <rule id="environment-dependent-calls-03000-test">
                 <when>
                     <not>
                         <hint-exists message="In JBoss EAP, the InitialContext should be instantiated with no arguments."/>
