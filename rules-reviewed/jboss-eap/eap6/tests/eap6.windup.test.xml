@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+    <testDataPath>data</testDataPath>
+    <ruleset>
+        <rules>
+            <rule id="eap6-01000-test">
+                <when>
+                    <not>
+                        <hint-exists message="This entity needs to be migrated using JPA persistence.xml or using JPA annotations."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="CMP Java entity hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="eap6-02000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="Apache CFX integration with JBoss"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Apache CXF integration hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="eap6-03000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="Manifest.mf - specifies application dependencies"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Manifest.MF not found!"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
