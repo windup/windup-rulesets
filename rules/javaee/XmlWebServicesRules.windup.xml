@@ -50,9 +50,10 @@
         </rule>
         <rule id="XmlWebserviceRules_Altni">
             <when>
-                <xmlfile as="default" matches="/jee:handler-chains | /j2e:handler-chains">
+                <xmlfile as="default" matches="/jcp:handler-chains | /jee:handler-chains | /j2e:handler-chains">
                     <namespace prefix="j2e" uri="http://java.sun.com/xml/ns/j2ee"/>
                     <namespace prefix="jee" uri="http://java.sun.com/xml/ns/javaee"/>
+                    <namespace prefix="jcp" uri="http://xmlns.jcp.org/xml/ns/javaee"/>
                 </xmlfile>
             </when>
             <perform>
@@ -63,17 +64,20 @@
         </rule>
         <rule id="XmlWebserviceRules_Cbxnb">
             <when>
-                <xmlfile as="webservices" matches="/jee:webservices | /j2e:webservices">
+                <xmlfile as="webservices" matches="/jcp:webservices | /jee:webservices | /j2e:webservices">
                     <namespace prefix="j2e" uri="http://java.sun.com/xml/ns/j2ee"/>
                     <namespace prefix="jee" uri="http://java.sun.com/xml/ns/javaee"/>
+                    <namespace prefix="jcp" uri="http://xmlns.jcp.org/xml/ns/javaee"/>
                 </xmlfile>
-                <xmlfile as="handler-classes" matches="//jee:handler-class | //j2e:handler-class" from="webservices">
+                <xmlfile as="handler-classes" matches="//jcp:handler-class | //jee:handler-class | //j2e:handler-class" from="webservices">
                     <namespace prefix="j2e" uri="http://java.sun.com/xml/ns/j2ee"/>
                     <namespace prefix="jee" uri="http://java.sun.com/xml/ns/javaee"/>
+                    <namespace prefix="jcp" uri="http://xmlns.jcp.org/xml/ns/javaee"/>
                 </xmlfile>
-                <xmlfile as="service-interfaces" matches="//jee:service-endpoint-interface | //j2e:service-endpoint-interface" from="webservices">
+                <xmlfile as="service-interfaces" matches="//jcp:service-endpoint-interface | //jee:service-endpoint-interface | //j2e:service-endpoint-interface" from="webservices">
                     <namespace prefix="j2e" uri="http://java.sun.com/xml/ns/j2ee"/>
                     <namespace prefix="jee" uri="http://java.sun.com/xml/ns/javaee"/>
+                    <namespace prefix="jcp" uri="http://xmlns.jcp.org/xml/ns/javaee"/>
                 </xmlfile>
             </when>
             <perform>

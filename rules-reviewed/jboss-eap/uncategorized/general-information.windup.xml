@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="general-information"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <rules>
+        <rule id="XmlEjbRules_2fmb">
+            <when>
+                <xmlfile as="default" matches="/ejb-jar | /j2e:ejb-jar | /jee:ejb-jar | /jcp:ejb-jar">
+                    <namespace prefix="j2e" uri="http://java.sun.com/xml/ns/j2ee"/>
+                    <namespace prefix="jee" uri="http://java.sun.com/xml/ns/javaee"/>
+                    <namespace prefix="jcp" uri="http://xmlns.jcp.org/xml/ns/javaee"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <iteration>
+                    <classification title="EJB XML" effort="0"/>
+                </iteration>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
