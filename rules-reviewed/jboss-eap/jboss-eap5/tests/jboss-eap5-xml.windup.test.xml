@@ -3,186 +3,181 @@
 <ruletest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:wu="http://windup.jboss.org/schema/jboss-ruleset" xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="jboss-eap5-xml-test-r1" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <testDataPath>samples/xml/</testDataPath>
     <rulePath>../jboss-eap5-xml.windup.xml</rulePath>
-    <ruleset id="jboss-eap5-xml" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
-
-
-        <rule id="jboss-eap5-xml-01000-test-c1">
-            <when>
-                <not>
-                    <classification-exists classification="JBoss Cache"/>
-                </not>
-            </when>
-            <perform>
-                <fail message="Classification not found: JBoss Cache"/>
-            </perform>
-        </rule>
-        <rule id="jboss-eap5-xml-02000-test-c1">
-            <when>
-                <not>
-                    <classification-exists classification="JBoss 5.x EAR Descriptor"/>
-                </not>
-            </when>
-            <perform>
-                <fail message="Classification not found: JBoss 5.x EAR Descriptor"/>
-            </perform>
-        </rule>
-        <rule id="jboss-eap5-xml-03000-test-c1">
-            <when>
-                <not>
-                    <classification-exists classification="JBoss Classloading configuration, typically in jboss-classloading.xml."/>
-                </not>
-            </when>
-            <perform>
-                <fail message="Classification not found: JBoss Classloading configuration, typically in jboss-classloading.xml."/>
-            </perform>
-        </rule>
-        <rule id="jboss-eap5-xml-04000-test-c1">
-            <when>
-                <not>
-                    <classification-exists classification="JBoss EAP 5 Classloading Configuration"/>
-                </not>
-            </when>
-            <perform>
-                <fail message="Classification not found: JBoss EAP 5 Classloading Configuration"/>
-            </perform>
-        </rule>
-
-        <!-- Seam -->
-        <rule id="jboss-eap5-xml-05000-test-c1">
-            <when>
-                <not>
-                    <classification-exists classification="JBoss Seam Components"/>
-                </not>
-            </when>
-            <perform>
-                <fail message="Classification not found: JBoss Seam Components"/>
-            </perform>
-        </rule>
-        <rule id="jboss-eap5-xml-06000-test-c1">
-            <when>
-                <not>
-                    <classification-exists classification="JBoss Seam Pages"/>
-                </not>
-            </when>
-            <perform>
-                <fail message="Classification not found: JBoss Seam Pages"/>
-            </perform>
-        </rule>
-        <rule id="jboss-eap5-xml-07000-test-c1">
-            <when>
-                <not>
-                    <classification-exists classification="JBoss Seam Page"/>
-                </not>
-            </when>
-            <perform>
-                <fail message="Classification not found: JBoss Seam Page"/>
-            </perform>
-        </rule>
-
-
-        <rule id="jboss-eap5-xml-08000-test-c1">
-            <when>
-                <not>
-                    <classification-exists classification="JBoss EAR Configuration"/>
-                </not>
-            </when>
-            <perform>
-                <fail message="Classification not found: JBoss EAR Configuration"/>
-            </perform>
-        </rule>
-        <rule id="jboss-eap5-xml-09000-test-c1">
-            <when>
-                <not>
-                    <classification-exists classification="JBoss Web Application Descriptor"/>
-                </not>
-            </when>
-            <perform>
-                <fail message="Classification not found: JBoss Web Application Descriptor"/>
-            </perform>
-        </rule>
-        <rule id="jboss-eap5-xml-10000-test-c1">
-            <when>
-                <not>
-                    <classification-exists classification="JBoss 5 Classloader Configuration"/>
-                </not>
-            </when>
-            <perform>
-                <!-- Let's move this rule to eap6 when we have it.
-                <fail message="Classification not found: JBoss 5 Classloader Configuration"/>
-                -->
-            </perform>
-        </rule>
-        <rule id="jboss-eap5-xml-11000-test-c1">
-            <when>
-                <not>
-                    <classification-exists classification="JBoss Module and Classloading Configuration"/>
-                </not>
-            </when>
-            <perform>
-                <fail message="Classification not found: JBoss Module and Classloading Configuration"/>
-            </perform>
-        </rule>
-        <rule id="jboss-eap5-xml-12000-test-c1">
-            <when>
-                <not>
-                    <classification-exists classification="JBoss EJB 2 CMP Deployment Descriptor"/>
-                </not>
-            </when>
-            <perform>
-                <fail message="Classification not found: JBoss EJB 2 CMP Deployment Descriptor"/>
-            </perform>
-        </rule>
-        <rule id="jboss-eap5-xml-13000-test-c1">
-            <when>
-                <not>
-                    <classification-exists classification="JBoss EJB Deployment Descriptor"/>
-                </not>
-            </when>
-            <perform>
-                <fail message="Classification not found: JBoss EJB Deployment Descriptor"/>
-            </perform>
-        </rule>
-        <rule id="jboss-eap5-xml-14000-test-h1">
-            <when>
-                <not>
-                    <hint-exists message="`java:/jaas/` is a JBoss EAP `security-domain` URI."/>
-                </not>
-            </when>
-            <perform>
-                <fail message="Hint not found: `java:/jaas/` is a JBoss EAP `security-domain` URI. Replace it with a standard Java EE security configuration."/>
-            </perform>
-        </rule>
-        <rule id="jboss-eap5-xml-16000-test-c1">
-            <when>
-                <not>
-                    <classification-exists classification="JBoss Security Configuration Descriptor"/>
-                </not>
-            </when>
-            <perform>
-                <fail message="Classification not found: JBoss Security Configuration Descriptor"/>
-            </perform>
-        </rule>
-        <rule id="jboss-eap5-xml-16000-test-h1">
-            <when>
-                <not>
-                    <hint-exists message="login-config.xml"/>
-                </not>
-            </when>
-            <perform>
-                <fail message="Hint not found: `login-config.xml` descriptor is no longer supported."/>
-            </perform>
-        </rule>
-
-        <rule id="jboss-eap5-xml-20000-test-c1">
-            <when>
-                <not>
-                    <classification-exists classification="JBoss EAP 4 JMS configuration"/>
-                </not>
-            </when>
-            <perform>
-                <fail message="Classification not found: JBoss EAP 4 JMS configuration"/>
-            </perform>
-        </rule>
-
+    <ruleset>
+        <rules>
+            <rule id="jboss-eap5-xml-01000-test-c1">
+               <when>
+                   <not>
+                       <classification-exists classification="JBoss Cache"/>
+                   </not>
+               </when>
+               <perform>
+                   <fail message="Classification not found: JBoss Cache"/>
+               </perform>
+           </rule>
+           <rule id="jboss-eap5-xml-02000-test-c1">
+               <when>
+                   <not>
+                       <classification-exists classification="JBoss 5.x EAR Descriptor"/>
+                   </not>
+               </when>
+               <perform>
+                   <fail message="Classification not found: JBoss 5.x EAR Descriptor"/>
+               </perform>
+           </rule>
+           <rule id="jboss-eap5-xml-03000-test-c1">
+               <when>
+                   <not>
+                       <classification-exists classification="JBoss Classloading configuration, typically in jboss-classloading.xml."/>
+                   </not>
+               </when>
+               <perform>
+                   <fail message="Classification not found: JBoss Classloading configuration, typically in jboss-classloading.xml."/>
+               </perform>
+           </rule>
+           <rule id="jboss-eap5-xml-04000-test-c1">
+               <when>
+                   <not>
+                       <classification-exists classification="JBoss EAP 5 Classloading Configuration"/>
+                   </not>
+               </when>
+               <perform>
+                   <fail message="Classification not found: JBoss EAP 5 Classloading Configuration"/>
+               </perform>
+           </rule>
+           <!-- Seam -->
+           <rule id="jboss-eap5-xml-05000-test-c1">
+               <when>
+                   <not>
+                       <classification-exists classification="JBoss Seam Components"/>
+                   </not>
+               </when>
+               <perform>
+                   <fail message="Classification not found: JBoss Seam Components"/>
+               </perform>
+           </rule>
+           <rule id="jboss-eap5-xml-06000-test-c1">
+               <when>
+                   <not>
+                       <classification-exists classification="JBoss Seam Pages"/>
+                   </not>
+               </when>
+               <perform>
+                   <fail message="Classification not found: JBoss Seam Pages"/>
+               </perform>
+           </rule>
+           <rule id="jboss-eap5-xml-07000-test-c1">
+               <when>
+                   <not>
+                       <classification-exists classification="JBoss Seam Page"/>
+                   </not>
+               </when>
+               <perform>
+                   <fail message="Classification not found: JBoss Seam Page"/>
+               </perform>
+           </rule>
+           <rule id="jboss-eap5-xml-08000-test-c1">
+               <when>
+                   <not>
+                       <classification-exists classification="JBoss EAR Configuration"/>
+                   </not>
+               </when>
+               <perform>
+                   <fail message="Classification not found: JBoss EAR Configuration"/>
+               </perform>
+           </rule>
+           <rule id="jboss-eap5-xml-09000-test-c1">
+               <when>
+                   <not>
+                       <classification-exists classification="JBoss Web Application Descriptor"/>
+                   </not>
+               </when>
+               <perform>
+                   <fail message="Classification not found: JBoss Web Application Descriptor"/>
+               </perform>
+           </rule>
+           <rule id="jboss-eap5-xml-10000-test-c1">
+               <when>
+                   <not>
+                       <classification-exists classification="JBoss 5 Classloader Configuration"/>
+                   </not>
+               </when>
+               <perform>
+                   <!-- Let's move this rule to eap6 when we have it.
+                   <fail message="Classification not found: JBoss 5 Classloader Configuration"/>
+                   -->
+               </perform>
+           </rule>
+           <rule id="jboss-eap5-xml-11000-test-c1">
+               <when>
+                   <not>
+                       <classification-exists classification="JBoss Module and Classloading Configuration"/>
+                   </not>
+               </when>
+               <perform>
+                   <fail message="Classification not found: JBoss Module and Classloading Configuration"/>
+               </perform>
+           </rule>
+           <rule id="jboss-eap5-xml-12000-test-c1">
+               <when>
+                   <not>
+                       <classification-exists classification="JBoss EJB 2 CMP Deployment Descriptor"/>
+                   </not>
+               </when>
+               <perform>
+                   <fail message="Classification not found: JBoss EJB 2 CMP Deployment Descriptor"/>
+               </perform>
+           </rule>
+           <rule id="jboss-eap5-xml-13000-test-c1">
+               <when>
+                   <not>
+                       <classification-exists classification="JBoss EJB Deployment Descriptor"/>
+                   </not>
+               </when>
+               <perform>
+                   <fail message="Classification not found: JBoss EJB Deployment Descriptor"/>
+               </perform>
+           </rule>
+           <rule id="jboss-eap5-xml-14000-test-h1">
+               <when>
+                   <not>
+                       <hint-exists message="`java:/jaas/` is a JBoss EAP `security-domain` URI."/>
+                   </not>
+               </when>
+               <perform>
+                   <fail message="Hint not found: `java:/jaas/` is a JBoss EAP `security-domain` URI. Replace it with a standard Java EE security configuration."/>
+               </perform>
+           </rule>
+           <rule id="jboss-eap5-xml-16000-test-c1">
+               <when>
+                   <not>
+                       <classification-exists classification="JBoss Security Configuration Descriptor"/>
+                   </not>
+               </when>
+               <perform>
+                   <fail message="Classification not found: JBoss Security Configuration Descriptor"/>
+               </perform>
+           </rule>
+           <rule id="jboss-eap5-xml-16000-test-h1">
+               <when>
+                   <not>
+                       <hint-exists message="login-config.xml"/>
+                   </not>
+               </when>
+               <perform>
+                   <fail message="Hint not found: `login-config.xml` descriptor is no longer supported."/>
+               </perform>
+           </rule>
+           <rule id="jboss-eap5-xml-20000-test-c1">
+               <when>
+                   <not>
+                       <classification-exists classification="JBoss EAP 4 JMS configuration"/>
+                   </not>
+               </when>
+               <perform>
+                   <fail message="Classification not found: JBoss EAP 4 JMS configuration"/>
+               </perform>
+           </rule>
+        </rules>
     </ruleset>
 </ruletest>
