@@ -104,6 +104,29 @@
                 <xslt title="JMS Resource Definition (Windup-Generated)" template="transformations/xslt/deprecated-jms-resources.xsl" extension="-windup-generated.xml"/>
             </perform>
         </rule>
+        <rule id="eap6-xml-06000">
+            <when>
+              <or>
+                <xmlfile matches="/jboss:jboss-deployment-structure/jboss:deployment/jboss:dependencies" in="jboss-deployment-structure.xml">
+                    <namespace prefix="jboss" uri="urn:jboss:deployment-structure:1.0"/>
+                </xmlfile>
+                <xmlfile matches="/jboss:jboss-deployment-structure/jboss:deployment/jboss:dependencies" in="jboss-deployment-structure.xml">
+                    <namespace prefix="jboss" uri="urn:jboss:deployment-structure:1.1"/>
+                </xmlfile>
+                 <xmlfile matches="/jboss:jboss-deployment-structure/jboss:deployment/jboss:dependencies" in="jboss-deployment-structure.xml">
+                    <namespace prefix="jboss" uri="urn:jboss:deployment-structure:1.2"/>
+                </xmlfile>
+              </or>
+            </when>
+            <perform>
+                <iteration>
+                    <classification title="JBoss deployment structure- specifies application dependencies" effort="1" severity="mandatory">
+                    <description>Verify in advance, that all the modules this application depends on still exist.</description>
+                    <tag>configuration</tag>
+                    </classification>
+                </iteration>
+            </perform>
+        </rule>
 
     </rules>
 </ruleset>

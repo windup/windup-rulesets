@@ -50,7 +50,17 @@
                     </not>
                 </when>
                 <perform>
-                    <fail message="Hint for all the *-jms.xml files not found!"/>
+                    <fail message="Classification for all the *-jms.xml files not found!"/>
+                </perform>
+            </rule>
+            <rule id="eap6-xml-06000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="JBoss deployment structure- specifies application dependencies"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Classification jboss deployment structure not found!"/>
                 </perform>
             </rule>
         </rules>

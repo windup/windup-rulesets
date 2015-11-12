@@ -59,13 +59,12 @@
         </rule>
         <rule id="eap6-03000">
             <when>
-                <file filename="MANIFEST.MF"/>
+                <filecontent filename="MANIFEST.MF" pattern="Dependencies:" />
             </when>
             <perform>
                 <iteration>
                     <classification title="Manifest.mf - specifies application dependencies" effort="1" severity="mandatory">
                     <description>Verify in advance, that all the modules this application depends on still exist.</description>
-                    <link title="CMP Entity migration to Wildfly" href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-CMPEntityEJBs"/>
                     <tag>configuration</tag>
                     </classification>
                 </iteration>
