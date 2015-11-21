@@ -30,7 +30,7 @@ public class AuthenticatorAction
 	List results = em.createQuery("select u from User u where u.username=#{identity.username} and u.password=#{identity.password}")
                          .getResultList();
       
-	if (results.size()==0) {
+	if (results.isEmpty()) {
 	    return false;
 	} else {
 	    user = (User) results.get(0);
