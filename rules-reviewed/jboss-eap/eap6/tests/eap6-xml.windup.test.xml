@@ -56,7 +56,11 @@
             <rule id="eap6-xml-06000-test">
                 <when>
                     <not>
-                        <classification-exists classification="JBoss deployment structure- specifies application dependencies"/>
+                       <iterable-filter size="3">
+                         <to-file-model>
+                          <classification-exists classification="JBoss deployment structure- specifies application dependencies"/>
+                         </to-file-model>
+                       </iterable-filter>
                     </not>
                 </when>
                 <perform>
