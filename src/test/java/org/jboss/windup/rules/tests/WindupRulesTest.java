@@ -293,8 +293,8 @@ public class WindupRulesTest
         FileUtils.deleteDirectory(output);
         Files.createDirectories(output.toPath());
 
-        inputPath.setBoundProject(pm);
-        pm.setRootOriginLocation(inputPath);
+        inputPath.setProjectModel(pm);
+        pm.setRootFileModel(inputPath);
         WindupConfiguration windupConfiguration = new WindupConfiguration()
                     .setGraphContext(context);
         windupConfiguration.addInputPath(Paths.get(inputPath.getFilePath()));
