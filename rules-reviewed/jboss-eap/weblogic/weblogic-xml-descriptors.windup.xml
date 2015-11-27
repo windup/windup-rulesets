@@ -60,9 +60,9 @@
                 <xmlfile matches="//*[local-name()='delay-updates-until-end-of-tx']/text()" />
             </when>
             <perform>
-                <hint title="WebSphere `delay-updates-until-end-of-tx` configuration element" severity="optional" effort="1">
+                <hint title="WebLogic `delay-updates-until-end-of-tx` configuration element" severity="optional" effort="1">
                     <message>
-                        The WebSphere &amp;lt;delay-updates-until-end-of-tx&amp;lt; configuration element, which defaults to `true`,
+                        The WebLogic &amp;lt;delay-updates-until-end-of-tx&amp;lt; configuration element, which defaults to `true`,
                         is used for performance reasons to delay updates to the persistent store of all beans
                         until the end of the transaction. When set to `false`, updates are sent to the
                         database after each method invocation, but are not committed until the end of the transaction.
@@ -123,6 +123,24 @@
                 </classification>
             </perform>
         </rule>
+        <rule id="weblogic-xml-descriptor-06001">
+            <when>
+                <xmlfile matches="//*[local-name() = 'allow-concurrent-calls' and translate(text(),'TRUE','true') = 'true' ]">
+                    <namespace prefix="wl9" uri="http://www.bea.com/ns/weblogic/90" />
+                 </xmlfile>
+            </when>
+            <perform>
+               <hint title="WebLogic Stateful Session Bean" severity="mandatory" effort="1">
+                  <message>Replace WebLogic proprietary configuration by Java EE 6 annotation @AccessTimeout.
+                  The equivalent usage is `@AccessTimeout(value= -1)`</message>
+                  
+                  <link href="http://docs.oracle.com/javaee/6/api/javax/ejb/AccessTimeout.html" title="Java EE 6 annotation @AccessTimeout" />
+                  <tag>ejb</tag>
+                  <tag>configuration</tag>
+                  <tag>weblogic</tag>
+               </hint>
+            </perform>
+        </rule>        
         <!-- TODO WINDUP-641 -->
         <rule id="weblogic-xml-descriptor-07000">
             <when>

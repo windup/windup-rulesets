@@ -68,6 +68,16 @@
                     <fail message="WebLogic EJB XML not found!" />
                 </perform>
             </rule>
+            <rule id="weblogic-xml-descriptors-06001-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace WebLogic proprietary configuration by Java EE 6 annotation @AccessTimeout.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebLogic SFSB configuration not found!" />
+                </perform>
+            </rule>            
             <rule id="weblogic-xml-descriptors-07000-test">
                 <when>
                     <not>
