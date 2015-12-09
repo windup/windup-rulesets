@@ -5,12 +5,13 @@
 import java.util.Hashtable;
 import javax.naming.InitialContext;
 
-class JNDITest 
+class JNDITest
 {
     public long schedule(long time)
     {
-	Hashtable<String, String> env = new Hashtable<String, String>();
-	env.put( "provider_url", "t3://localhost:7001");
+        Hashtable<String, String> env = new Hashtable<String, String>();
+        env.put("java.naming.factory.initial", "weblogic.jndi.WLInitialContextFactory");
+        env.put("java.naming.provider.url", "t3://localhost:7001");
         InitialContext context = new InitialContext(env);
     }
 
