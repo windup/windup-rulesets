@@ -1,245 +1,271 @@
 <?xml version="1.0"?>
-<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="WebSphereRules"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
-    <rules>
-        <rule id="KIE_API-org.drools.KnowledgeBase-to-org.kie.api.KieBase">
-            <when>
-                <javaclass references="org.drools.KnowledgeBase">
-                    <location>IMPORT</location>
-                </javaclass>
-            </when>
-            <perform>
-                <iteration>
-                    <hint title="org.drools.KnowledgeBase is deprecated" effort="0">
-                        <message>Replace with : org.kie.api.KieBase</message>
-                    </hint>
-                </iteration>
-            </perform>
-        </rule>
-        <rule id="KIE_API-org.drools.event.AgendaEventListener-to-org.kie.api.event.rule.AgendaEventListener">
-            <when>
-                <javaclass references="org.drools.event.AgendaEventListener">
-                    <location>IMPORT</location>
-                </javaclass>
-            </when>
-            <perform>
-                <iteration>
-                    <hint title="org.drools.event.AgendaEventListener is deprecated" effort="0">
-                        <message>Replace with : org.kie.api.event.rule.AgendaEventListener</message>
-                    </hint>
-                </iteration>
-            </perform>
-        </rule>
-        <rule id="KIE_API-org.drools.event.rule.AgendaEventListener-to-org.kie.api.event.rule.AgendaEventListener">
-            <when>
-                <javaclass references="org.drools.event.rule.AgendaEventListener">
-                    <location>IMPORT</location>
-                </javaclass>
-            </when>
-            <perform>
-                <iteration>
-                    <hint title="AgendaEventListener is deprecated"  effort="0">
-                        <message>Replace with : org.kie.api.event.rule.AgendaEventListener</message>
-                    </hint>
-                </iteration>
-            </perform>
-        </rule>
-        <rule id="KIE_API-org.drools.event.DefaultAgendaEventListener-to-org.kie.drools.core.event.DefaultAgendaEventListener">
-            <when>
-                <javaclass references="org.drools.event.DefaultAgendaEventListener">
-                    <location>IMPORT</location>
-                </javaclass>
-            </when>
-            <perform>
-                <iteration>
-                    <hint title="org.drools.event.DefaultAgendaEventListener is deprecated"  effort="0">
-                        <message>Replace with : org.kie.drools.core.event.DefaultAgendaEventListener</message>
-                    </hint>
-                </iteration>
-            </perform>
-        </rule>
-        <rule id="KIE_API-org.drools.event.rule.DefaultAgendaEventListener-to-org.kie.api.event.rule.DefaultAgendaEventListener">
-            <when>
-                <javaclass references="org.drools.event.rule.DefaultAgendaEventListener">
-                    <location>IMPORT</location>
-                </javaclass>
-            </when>
-            <perform>
-                <iteration>
-                    <hint title="org.drools.event.rule.DefaultAgendaEventListener is deprecated"  effort="0">
-                        <message>Replace with : org.kie.api.event.rule.DefaultAgendaEventListener</message>
-                    </hint>
-                </iteration>
-            </perform>
-        </rule>
-        <rule id="KIE_API-org.drools.event.process.ProcessEventListener-to-org.kie.api.event.process.ProcessEventListener">
-            <when>
-                <javaclass references="org.drools.event.process.ProcessEventListener">
-                    <location>IMPORT</location>
-                </javaclass>
-            </when>
-            <perform>
-                <iteration>
-                    <hint title="org.drools.event.process.ProcessEventListener is deprecated"  effort="0">
-                        <message>Replace with : org.kie.api.event.process.ProcessEventListener</message>
-                    </hint>
-                </iteration>
-            </perform>
-        </rule>
-        <rule id="KIE_API-org.drools.event.process.DefaultProcessEventListener-to-org.kie.api.event.process.DefaultProcessEventListener">
-            <when>
-                <javaclass references="org.drools.event.process.DefaultProcessEventListener">
-                    <location>IMPORT</location>
-                </javaclass>
-            </when>
-            <perform>
-                <iteration>
-                    <hint title="org.drools.event.process.DefaultProcessEventListener is deprecated"  effort="0">
-                        <message>Replace with : org.kie.api.event.process.DefaultProcessEventListener</message>
-                    </hint>
-                </iteration>
-            </perform>
-        </rule>
-        <rule id="KIE_API-org.drools.logger.KnowledgeRuntimeLogger-to-org.kie.api.logger.KieRuntimeLogger">
-            <when>
-                <javaclass references="org.drools.logger.KnowledgeRuntimeLogger">
-                    <location>IMPORT</location>
-                </javaclass>
-            </when>
-            <perform>
-                <iteration>
-                    <hint title="org.drools.logger.KnowledgeRuntimeLogger is deprecated"  effort="0">
-                        <message>Replace with : org.kie.api.logger.KieRuntimeLogger</message>
-                    </hint>
-                </iteration>
-            </perform>
-        </rule>
-        <rule id="KIE_API-org.drools.logger.KnowledgeRuntimeLoggerFactory-to-org.kie.api.logger.KieLoggers">
-            <when>
-                <javaclass references="org.drools.logger.KnowledgeRuntimeLoggerFactory">
-                    <location>IMPORT</location>
-                </javaclass>
-            </when>
-            <perform>
-                <iteration>
-                    <hint title="org.drools.logger.KnowledgeRuntimeLoggerFactory is deprecated"  effort="0">
-                        <message>Replace with : org.kie.api.logger.KieLoggers</message>
-                    </hint>
-                </iteration>
-            </perform>
-        </rule>
-        <rule id="KIE_API-org.drools.runtime.StatefulKnowledgeSession-to-org.kie.api.runtime.KieSession">
-            <when>
-                <javaclass references="org.drools.runtime.StatefulKnowledgeSession">
-                    <location>IMPORT</location>
-                </javaclass>
-            </when>
-            <perform>
-                <iteration>
-                    <hint title="org.drools.runtime.StatefulKnowledgeSession is deprecated"  effort="0">
-                        <message>Replace with : org.kie.api.runtime.KieSession</message>
-                    </hint>
-                </iteration>
-            </perform>
-        </rule>
-        <rule id="KIE_API-org.drools.runtime.StatelessKnowledgeSession-to-org.kie.api.runtime.KieSession">
-            <when>
-                <javaclass references="org.drools.runtime.StatelessKnowledgeSession">
-                    <location>IMPORT</location>
-                </javaclass>
-            </when>
-            <perform>
-                <iteration>
-                    <hint title="org.drools.runtime.StatelessKnowledgeSession is deprecated"  effort="0">
-                        <message>Replace with : org.kie.api.runtime.KieSession</message>
-                    </hint>
-                </iteration>
-            </perform>
-        </rule>
-        <rule id="KIE_API-org.drools.builder.KnowledgeBuilderFactory-to-org.kie.internal.builder.KnowledgeBuilderFactory">
-            <when>
-                <javaclass references="org.drools.builder.KnowledgeBuilderFactory">
-                    <location>IMPORT</location>
-                </javaclass>
-            </when>
-            <perform>
-                <iteration>
-                    <hint title="org.drools.builder.KnowledgeBuilderFactory is deprecated"  effort="0">
-                        <message>Replace with : org.kie.internal.builder.KnowledgeBuilderFactory</message>
-                    </hint>
-                </iteration>
-            </perform>
-        </rule>
-        <rule id="KIE_API-org.drools.io.ResourceFactory-to-org.kie.internal.io.ResourceFactory">
-            <when>
-                <javaclass references="org.drools.io.ResourceFactory">
-                    <location>IMPORT</location>
-                </javaclass>
-            </when>
-            <perform>
-                <iteration>
-                    <hint title="org.drools.io.ResourceFactory is deprecated"  effort="0">
-                        <message>Replace with : org.kie.internal.io.ResourceFactory</message>
-                    </hint>
-                </iteration>
-            </perform>
-        </rule>
-        <rule id="KIE_API-org.drools.io.ResourceType-to-org.kie.internal.io.ResourceType">
-            <when>
-                <javaclass references="org.drools.io.ResourceType">
-                    <location>IMPORT</location>
-                </javaclass>
-            </when>
-            <perform>
-                <iteration>
-                    <hint title="org.drools.io.ResourceType is deprecated"  effort="0">
-                        <message>Replace with : org.kie.internal.io.ResourceType</message>
-                    </hint>
-                </iteration>
-            </perform>
-        </rule>
-        <rule id="KIE_API-org.drools.runtime.Environment-to-org.kie.api.runtime.Environment">
-            <when>
-                <javaclass references="org.drools.runtime.Environment">
-                    <location>IMPORT</location>
-                </javaclass>
-            </when>
-            <perform>
-                <iteration>
-                    <hint title="org.drools.runtime.Environment is deprecated"  effort="0">
-                        <message>Replace with : org.kie.api.runtime.Environment</message>
-                    </hint>
-                </iteration>
-            </perform>
-        </rule>
-        <rule id="KIE_API-org.drools.runtime.EnvironmentName-to-org.kie.api.runtime.EnvironmentName">
-            <when>
-                <javaclass references="org.drools.runtime.EnvironmentName">
-                    <location>IMPORT</location>
-                </javaclass>
-            </when>
-            <perform>
-                <iteration>
-                    <hint title="org.drools.runtime.EnvironmentName is deprecated"  effort="0">
-                        <message>Replace with : org.kie.api.runtime.EnvironmentName</message>
-                    </hint>
-                </iteration>
-            </perform>
-        </rule>
-        <rule id="KIE_API-org.drools.runtime.KnowledgeSessionConfiguration-to-org.kie.api.runtime.KieSessionConfiguration">
-            <when>
-                <javaclass references="org.drools.runtime.KnowledgeSessionConfiguration">
-                    <location>IMPORT</location>
-                </javaclass>
-            </when>
-            <perform>
-                <iteration>
-                    <hint title="org.drools.runtime.KnowledgeSessionConfiguration is deprecated"  effort="0">
-                        <message>Replace with : org.kie.api.runtime.KieSessionConfiguration</message>
-                    </hint>
-                </iteration>
-            </perform>
-        </rule>
-    </rules>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+  id="WebSphereRules" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+  <rules>
+    <rule id="KIE_API-org.drools.KnowledgeBase-to-org.kie.api.KieBase">
+      <when>
+        <javaclass references="org.drools.KnowledgeBase">
+          <location>IMPORT</location>
+        </javaclass>
+      </when>
+      <perform>
+        <iteration>
+          <hint title="org.drools.KnowledgeBase is deprecated"
+            effort="0">
+            <message>Replace with : org.kie.api.KieBase</message>
+          </hint>
+        </iteration>
+      </perform>
+    </rule>
+    <rule id="KIE_API-org.drools.event.AgendaEventListener-to-org.kie.api.event.rule.AgendaEventListener">
+      <when>
+        <javaclass references="org.drools.event.AgendaEventListener">
+          <location>IMPORT</location>
+        </javaclass>
+      </when>
+      <perform>
+        <iteration>
+          <hint title="org.drools.event.AgendaEventListener is deprecated"
+            effort="0">
+            <message>Replace with : org.kie.api.event.rule.AgendaEventListener</message>
+          </hint>
+        </iteration>
+      </perform>
+    </rule>
+    <rule id="KIE_API-org.drools.event.rule.AgendaEventListener-to-org.kie.api.event.rule.AgendaEventListener">
+      <when>
+        <javaclass references="org.drools.event.rule.AgendaEventListener">
+          <location>IMPORT</location>
+        </javaclass>
+      </when>
+      <perform>
+        <iteration>
+          <hint title="AgendaEventListener is deprecated" effort="0">
+            <message>Replace with : org.kie.api.event.rule.AgendaEventListener</message>
+          </hint>
+        </iteration>
+      </perform>
+    </rule>
+    <rule id="KIE_API-org.drools.event.DefaultAgendaEventListener-to-org.kie.drools.core.event.DefaultAgendaEventListener">
+      <when>
+        <javaclass references="org.drools.event.DefaultAgendaEventListener">
+          <location>IMPORT</location>
+        </javaclass>
+      </when>
+      <perform>
+        <iteration>
+          <hint
+            title="org.drools.event.DefaultAgendaEventListener is deprecated"
+            effort="0">
+            <message>Replace with : org.kie.drools.core.event.DefaultAgendaEventListener</message>
+          </hint>
+        </iteration>
+      </perform>
+    </rule>
+    <rule id="KIE_API-org.drools.event.rule.DefaultAgendaEventListener-to-org.kie.api.event.rule.DefaultAgendaEventListener">
+      <when>
+        <javaclass references="org.drools.event.rule.DefaultAgendaEventListener">
+          <location>IMPORT</location>
+        </javaclass>
+      </when>
+      <perform>
+        <iteration>
+          <hint
+            title="org.drools.event.rule.DefaultAgendaEventListener is deprecated"
+            effort="0">
+            <message>Replace with : org.kie.api.event.rule.DefaultAgendaEventListener</message>
+          </hint>
+        </iteration>
+      </perform>
+    </rule>
+    <rule id="KIE_API-org.drools.event.process.ProcessEventListener-to-org.kie.api.event.process.ProcessEventListener">
+      <when>
+        <javaclass references="org.drools.event.process.ProcessEventListener">
+          <location>IMPORT</location>
+        </javaclass>
+      </when>
+      <perform>
+        <iteration>
+          <hint
+            title="org.drools.event.process.ProcessEventListener is deprecated"
+            effort="0">
+            <message>Replace with : org.kie.api.event.process.ProcessEventListener</message>
+          </hint>
+        </iteration>
+      </perform>
+    </rule>
+    <rule id="KIE_API-org.drools.event.process.DefaultProcessEventListener-to-org.kie.api.event.process.DefaultProcessEventListener">
+      <when>
+        <javaclass
+          references="org.drools.event.process.DefaultProcessEventListener">
+          <location>IMPORT</location>
+        </javaclass>
+      </when>
+      <perform>
+        <iteration>
+          <hint
+            title="org.drools.event.process.DefaultProcessEventListener is deprecated"
+            effort="0">
+            <message>Replace with : org.kie.api.event.process.DefaultProcessEventListener</message>
+          </hint>
+        </iteration>
+      </perform>
+    </rule>
+    <rule id="KIE_API-org.drools.logger.KnowledgeRuntimeLogger-to-org.kie.api.logger.KieRuntimeLogger">
+      <when>
+        <javaclass references="org.drools.logger.KnowledgeRuntimeLogger">
+          <location>IMPORT</location>
+        </javaclass>
+      </when>
+      <perform>
+        <iteration>
+          <hint title="org.drools.logger.KnowledgeRuntimeLogger is deprecated"
+            effort="0">
+            <message>Replace with : org.kie.api.logger.KieRuntimeLogger</message>
+          </hint>
+        </iteration>
+      </perform>
+    </rule>
+    <rule id="KIE_API-org.drools.logger.KnowledgeRuntimeLoggerFactory-to-org.kie.api.logger.KieLoggers">
+      <when>
+        <javaclass references="org.drools.logger.KnowledgeRuntimeLoggerFactory">
+          <location>IMPORT</location>
+        </javaclass>
+      </when>
+      <perform>
+        <iteration>
+          <hint
+            title="org.drools.logger.KnowledgeRuntimeLoggerFactory is deprecated"
+            effort="0">
+            <message>Replace with : org.kie.api.logger.KieLoggers</message>
+          </hint>
+        </iteration>
+      </perform>
+    </rule>
+    <rule id="KIE_API-org.drools.runtime.StatefulKnowledgeSession-to-org.kie.api.runtime.KieSession">
+      <when>
+        <javaclass references="org.drools.runtime.StatefulKnowledgeSession">
+          <location>IMPORT</location>
+        </javaclass>
+      </when>
+      <perform>
+        <iteration>
+          <hint
+            title="org.drools.runtime.StatefulKnowledgeSession is deprecated"
+            effort="0">
+            <message>Replace with : org.kie.api.runtime.KieSession</message>
+          </hint>
+        </iteration>
+      </perform>
+    </rule>
+    <rule id="KIE_API-org.drools.runtime.StatelessKnowledgeSession-to-org.kie.api.runtime.KieSession">
+      <when>
+        <javaclass references="org.drools.runtime.StatelessKnowledgeSession">
+          <location>IMPORT</location>
+        </javaclass>
+      </when>
+      <perform>
+        <iteration>
+          <hint
+            title="org.drools.runtime.StatelessKnowledgeSession is deprecated"
+            effort="0">
+            <message>Replace with : org.kie.api.runtime.KieSession</message>
+          </hint>
+        </iteration>
+      </perform>
+    </rule>
+    <rule id="KIE_API-org.drools.builder.KnowledgeBuilderFactory-to-org.kie.internal.builder.KnowledgeBuilderFactory">
+      <when>
+        <javaclass references="org.drools.builder.KnowledgeBuilderFactory">
+          <location>IMPORT</location>
+        </javaclass>
+      </when>
+      <perform>
+        <iteration>
+          <hint
+            title="org.drools.builder.KnowledgeBuilderFactory is deprecated"
+            effort="0">
+            <message>Replace with : org.kie.internal.builder.KnowledgeBuilderFactory</message>
+          </hint>
+        </iteration>
+      </perform>
+    </rule>
+    <rule id="KIE_API-org.drools.io.ResourceFactory-to-org.kie.internal.io.ResourceFactory">
+      <when>
+        <javaclass references="org.drools.io.ResourceFactory">
+          <location>IMPORT</location>
+        </javaclass>
+      </when>
+      <perform>
+        <iteration>
+          <hint title="org.drools.io.ResourceFactory is deprecated"
+            effort="0">
+            <message>Replace with : org.kie.internal.io.ResourceFactory</message>
+          </hint>
+        </iteration>
+      </perform>
+    </rule>
+    <rule id="KIE_API-org.drools.io.ResourceType-to-org.kie.internal.io.ResourceType">
+      <when>
+        <javaclass references="org.drools.io.ResourceType">
+          <location>IMPORT</location>
+        </javaclass>
+      </when>
+      <perform>
+        <iteration>
+          <hint title="org.drools.io.ResourceType is deprecated"
+            effort="0">
+            <message>Replace with : org.kie.internal.io.ResourceType</message>
+          </hint>
+        </iteration>
+      </perform>
+    </rule>
+    <rule id="KIE_API-org.drools.runtime.Environment-to-org.kie.api.runtime.Environment">
+      <when>
+        <javaclass references="org.drools.runtime.Environment">
+          <location>IMPORT</location>
+        </javaclass>
+      </when>
+      <perform>
+        <iteration>
+          <hint title="org.drools.runtime.Environment is deprecated"
+            effort="0">
+            <message>Replace with : org.kie.api.runtime.Environment</message>
+          </hint>
+        </iteration>
+      </perform>
+    </rule>
+    <rule id="KIE_API-org.drools.runtime.EnvironmentName-to-org.kie.api.runtime.EnvironmentName">
+      <when>
+        <javaclass references="org.drools.runtime.EnvironmentName">
+          <location>IMPORT</location>
+        </javaclass>
+      </when>
+      <perform>
+        <iteration>
+          <hint title="org.drools.runtime.EnvironmentName is deprecated"
+            effort="0">
+            <message>Replace with : org.kie.api.runtime.EnvironmentName</message>
+          </hint>
+        </iteration>
+      </perform>
+    </rule>
+    <rule id="KIE_API-org.drools.runtime.KnowledgeSessionConfiguration-to-org.kie.api.runtime.KieSessionConfiguration">
+      <when>
+        <javaclass references="org.drools.runtime.KnowledgeSessionConfiguration">
+          <location>IMPORT</location>
+        </javaclass>
+      </when>
+      <perform>
+        <iteration>
+          <hint
+            title="org.drools.runtime.KnowledgeSessionConfiguration is deprecated"
+            effort="0">
+            <message>Replace with : org.kie.api.runtime.KieSessionConfiguration</message>
+          </hint>
+        </iteration>
+      </perform>
+    </rule>
+  </rules>
 </ruleset>
