@@ -292,5 +292,52 @@
                 </hint>
             </perform>
         </rule>
+
+        <rule id="weblogic-016000">
+            <when>
+                <!-- https://issues.jboss.org/browse/WINDUP-615 -->
+                <filecontent filename="{*}.{ext}" pattern="weblogic.jndi.WLInitialContextFactory" />
+            </when>
+            <perform>
+                <hint title="WebLogic Initial Context Configuration" severity="mandatory" effort="3">
+                    <message>
+                    <![CDATA[
+                        `WLInitialContextFactory` is an implementation of `InitialContextFactory`
+                        used to get object instances from JNDI. The equivalent functionality needs to be configured on JBoss EAP 6.
+
+                        `InitialContextFactory` is provided by EAP and you only need to instantiate `InitialContext ctx = new InitialContext();`.
+                    ]]>]
+                    </message>
+                    <tag>configuration</tag>
+                    <tag>weblogic</tag>
+                </hint>
+            </perform>
+            <where param="ext">
+                <matches pattern="(java|properties|xml)" />
+            </where>
+        </rule>
+
+        <rule id="weblogic-017000">
+            <when>
+                <!-- https://issues.jboss.org/browse/WINDUP-615 -->
+                <filecontent filename="{*}.{ext}" pattern="t3://" />
+            </when>
+            <perform>
+                <hint title="WebLogic Initial Context Configuration" severity="mandatory" effort="3">
+                    <message>
+                    <![CDATA[
+                        `t3://` URLs are used to configure a JNDI InitialContext within WebLogic. The equivalent functionality needs to be configured on JBoss EAP 6.
+
+                        `InitialContextFactory` is provided by EAP and you only need to instantiate `InitialContext ctx = new InitialContext();`.
+                    ]]>]
+                    </message>
+                    <tag>configuration</tag>
+                    <tag>weblogic</tag>
+                </hint>
+            </perform>
+            <where param="ext">
+                <matches pattern="(java|properties|xml)" />
+            </where>
+        </rule>
     </rules>
 </ruleset>

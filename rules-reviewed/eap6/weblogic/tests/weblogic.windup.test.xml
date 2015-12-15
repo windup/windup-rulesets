@@ -156,6 +156,27 @@
                     <fail message="WebLogic Oracle Wallet Manager hint not found!" />
                 </perform>
             </rule>
+
+            <rule id="weblogic-16000-test">
+                <when>
+                    <not>
+                        <hint-exists message=".*`WLInitialContextFactory` is an implementation of `InitialContextFactory`.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebLogic Initial Context hint not found!" />
+                </perform>
+            </rule>
+            <rule id="weblogic-17000-test">
+                <when>
+                    <not>
+                        <hint-exists message=".*`t3://` URLs are used to configure a JNDI InitialContext within WebLogic.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebLogic Context URL hint not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
