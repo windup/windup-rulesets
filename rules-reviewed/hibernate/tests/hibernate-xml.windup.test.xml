@@ -44,6 +44,26 @@
                     <fail message="Hibernate hint for Removed package org.hibernate.connection was not found!"/>
                 </perform>
             </rule>
+            <rule id="hibernate-xml-04000">
+                <when>
+                    <not>
+                        <classification-exists classification="Hibernate: Deprecated dtd configuration namespace"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hibernate deprecated DTD configuration namespace not catched!"/>
+                </perform>
+            </rule>
+            <rule id="hibernate-xml-05000">
+                <when>
+                    <not>
+                        <classification-exists classification="Hibernate: Deprecated dtd mapping namespace"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hibernate deprecated DTD mapping namespace not catched!"/>
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
