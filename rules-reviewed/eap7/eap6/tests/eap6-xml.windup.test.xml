@@ -6,11 +6,13 @@
             <rule id="eap6-xml-01000-test">
                 <when>
                     <not>
-                        <hint-exists message="CMP entity beans are no longer supported in JBoss EAP 7. User is requested to use JPA"/>
+                      <iterable-filter size="2">
+                        <hint-exists message="Configuration provided in this ejb-jar.xml should be configured using JPA persistence.xml or using JPA annotations."/>
+                      </iterable-filter>
                     </not>
                 </when>
                 <perform>
-                    <fail message="CMP Entity EJB hint not found!"/>
+                    <fail message="There should be 2 hints for CMP Entity definitions in ejb-jar.xml"/>
                 </perform>
             </rule>
             <rule id="eap6-xml-02000-test">
