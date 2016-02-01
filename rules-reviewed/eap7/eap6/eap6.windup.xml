@@ -85,12 +85,32 @@
                 <iteration>
                     <classification title="JBoss Web Valve" effort="1" severity="mandatory">
                       <description>JBoss Web was replaced by Undertow, which does not contain support for the Valve functionality. It may be needed to migrate to Undertow handlers.</description>
-                      <link title="How to migrate valves" href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-JBossWebSubsystem" />
+                      <link title="How to migrate valves" href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-JBossWebValves" />
                       <tag>web</tag>
                       <tag>undertow</tag>
                     </classification>
                 </iteration>
             </perform>
         </rule>
+        <rule id="eap6-05000">
+            <when>
+               <or>
+                 <javaclass references="javax.enterprise.deploy{*}">
+                    <location>IMPORT</location>
+                </javaclass>
+               </or>
+            </when>
+            <perform>
+                <iteration>
+                    <hint title="JSR 88 deployment plan not supported" effort="1" severity="mandatory">
+                      <message>This class is using JSR 88 specific classes. Rely instead on proprietary functionality to automate deployments. Please consult WildFly/EAP admin documentation to learn about such functionality</message>
+                      <link title="Wildfly admin guide" href="https://docs.jboss.org/author/display/WFLY8/Admin+Guide"/>
+                      <tag>configuration</tag>
+                      <tag>undertow</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+
     </rules>
 </ruleset>

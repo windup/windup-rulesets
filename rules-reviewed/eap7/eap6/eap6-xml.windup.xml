@@ -41,7 +41,7 @@
         </rule>
         <rule id="eap6-xml-02000">
             <when>
-                <xmlfile matches="//valve | //jboss:valve" in="jboss-web.xml">
+                <xmlfile matches="/jboss-web/valve | /jboss:jboss-web/jboss:valve" in="jboss-web.xml">
                     <namespace prefix="jboss" uri="http://www.jboss.com/xml/ns/javaee"/>
                 </xmlfile>
             </when>
@@ -49,7 +49,7 @@
                 <iteration>
                     <hint title="Valve is not supported in JBoss EAP 7." effort="1" severity="mandatory">
                     <message>JBoss Web was replaced by Undertow, which does not contain support for the Valve functionality. It may be needed to migrate to Undertow handlers.</message>
-                    <link title="Valve migration" href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-JBossWebSubsystem"/>
+                    <link title="Valve migration" href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-JBossWebValves"/>
                     <tag>web</tag>
                     </hint>
                 </iteration>
