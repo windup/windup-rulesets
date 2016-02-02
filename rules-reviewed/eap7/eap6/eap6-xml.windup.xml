@@ -107,15 +107,7 @@
         <rule id="eap6-xml-06000">
             <when>
               <or>
-                <xmlfile matches="/j:jboss-deployment-structure/j:deployment/j:dependencies | j:jboss-deployment-structure/j:sub-deployment/j:dependencies | j:jboss-deployment-structure/j:module/j:dependencies" in="jboss-deployment-structure.xml">
-                    <namespace prefix="j" uri="urn:jboss:deployment-structure:1.0"/>
-                </xmlfile>
-                <xmlfile matches="/j:jboss-deployment-structure/j:deployment/j:dependencies | j:jboss-deployment-structure/j:sub-deployment/j:dependencies | j:jboss-deployment-structure/j:module/j:dependencies" in="jboss-deployment-structure.xml">
-                    <namespace prefix="j" uri="urn:jboss:deployment-structure:1.1"/>
-                </xmlfile>
-                 <xmlfile matches="/j:jboss-deployment-structure/j:deployment/j:dependencies | j:jboss-deployment-structure/j:sub-deployment/j:dependencies | j:jboss-deployment-structure/j:module/j:dependencies" in="jboss-deployment-structure.xml">
-                    <namespace prefix="j" uri="urn:jboss:deployment-structure:1.2"/>
-                </xmlfile>
+               <xmlfile matches="/*[local-name()='jboss-deployment-structure']/*[local-name()='deployment' or local-name()='sub-deployment' or local-name()='module']/*[local-name()='dependencies']" in="jboss-deployment-structure.xml"/>
               </or>
             </when>
             <perform>
