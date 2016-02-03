@@ -57,12 +57,23 @@
         </rule>
         <rule id="eap6-xml-03000">
             <when>
+               <or>
                 <xmlfile matches="/webservices/webservice-description/jaxrpc-mapping-file | /jee:webservices/jee:webservice-description/jee:jaxrpc-mapping-file | /jcp:webservices/jcp:webservice-description/jcp:jaxrpc-mapping-file | /j2ee:webservices/j2ee:webservice-description/j2ee:jaxrpc-mapping-file">
                     <namespace prefix="j2ee" uri="http://java.sun.com/xml/ns/j2ee"/>
                     <namespace prefix="jcp" uri="http://xmlns.jcp.org/xml/ns/javaee"/>
                     <namespace prefix="jee" uri="http://java.sun.com/xml/ns/javaee"/>
-
                 </xmlfile>
+                <xmlfile matches="/ejb-jar/enterprise-beans/session/service-ref/jaxrpc-mapping-file | /jee:ejb-jar/jee:enterprise-beans/jee:session/jee:service-ref/jee:jaxrpc-mapping-file | /jcp:ejb-jar/jcp:enterprise-beans/jcp:session/jcp:service-ref/jcp:jaxrpc-mapping-file | /j2ee:ejb-jar/j2ee:enterprise-beans/j2ee:session/j2ee:service-ref/j2ee:jaxrpc-mapping-file">
+                    <namespace prefix="j2ee" uri="http://java.sun.com/xml/ns/j2ee"/>
+                    <namespace prefix="jcp" uri="http://xmlns.jcp.org/xml/ns/javaee"/>
+                    <namespace prefix="jee" uri="http://java.sun.com/xml/ns/javaee"/>
+                </xmlfile>
+                 <xmlfile matches="/java-wsdl-mapping | /jee:java-wsdl-mapping | /jcp:java-wsdl-mapping | /j2ee:java-wsdl-mapping">
+                    <namespace prefix="j2ee" uri="http://java.sun.com/xml/ns/j2ee"/>
+                    <namespace prefix="jcp" uri="http://xmlns.jcp.org/xml/ns/javaee"/>
+                    <namespace prefix="jee" uri="http://java.sun.com/xml/ns/javaee"/>
+                </xmlfile>
+               </or>
             </when>
             <perform>
                 <iteration>
