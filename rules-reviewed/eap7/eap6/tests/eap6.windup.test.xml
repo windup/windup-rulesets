@@ -33,6 +33,30 @@
                     <fail message="Manifest.MF not found!"/>
                 </perform>
             </rule>
+             <rule id="eap6-04000-test">
+                <when>
+                    <not>
+                      <iterable-filter size="2">
+                       <to-file-model>
+                         <classification-exists classification="JBoss Web Valve"/>
+                       </to-file-model>
+                      </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="org.apache.catalina.Valve interface implementation or ValveBase extension not detected!"/>
+                </perform>
+            </rule>
+            <rule id="eap6-05000-test">
+                <when>
+                    <not>
+                         <hint-exists message="This class is using JSR 88 specific classes."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint with the class using JSR 88 specific packages not found!"/>
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
