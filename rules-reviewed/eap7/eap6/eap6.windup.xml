@@ -111,6 +111,22 @@
                 </iteration>
             </perform>
         </rule>
+        <rule id="eap6-05000">
+            <when>
+                 <javaclass references="org.jboss.as.clustering.singleton.SingletonService">
+                     <location>IMPORT</location>
+                 </javaclass>
+            </when>
+            <perform>
+                <iteration>
+                    <hint title="Outdated HA Singleton" effort="1" severity="mandatory">
+                      <message>EAP 7 includes a new API for building Singleton services, which significantly simplifies the process, and solves the issues found in the legacy solution.</message>
+                      <link title="Migration of HA Singleton" href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-HASingleton"/>
+                      <tag>singleton</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
 
     </rules>
 </ruleset>
