@@ -67,6 +67,17 @@
                     <fail message="EAP specific singleton service not found!"/>
                 </perform>
             </rule>
+            <rule id="eap6-07000-test">
+                <when>
+                    <not>
+                         <hint-exists message="The @Clustered annotation is ignored in EAP 7 and is not useful."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="@Clustered annotation not found!"/>
+                </perform>
+            </rule>
+            
         </rules>
     </ruleset>
 </ruletest>

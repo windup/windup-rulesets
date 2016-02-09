@@ -111,7 +111,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="eap6-05000">
+        <rule id="eap6-06000">
             <when>
                  <javaclass references="org.jboss.as.clustering.singleton.SingletonService">
                      <location>IMPORT</location>
@@ -127,6 +127,22 @@
                 </iteration>
             </perform>
         </rule>
-
+        <rule id="eap6-07000">
+            <when>
+                <javaclass references="org.jboss.ejb3.annotation.Clustered">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Stateful Session EJB Clustering changes in EAP 7" effort="1" severity="optional">
+                    <message>
+                        The @Clustered annotation is ignored in EAP 7 and is not useful. In case the application is started using HA profile, the replication will be done automatically.
+                    </message>
+                    <link href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-StatefulSessionEJBClustering" title="Clustered annotation in EAP 7" />
+                    <tag>cluster</tag>
+                    <tag>ejb</tag>
+                </hint>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
