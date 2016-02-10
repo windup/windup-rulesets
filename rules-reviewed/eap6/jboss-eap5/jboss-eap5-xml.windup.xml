@@ -186,7 +186,7 @@
                     <link title="JBoss EAP 5 Classloading documentation" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/5/html/Microcontainer_User_Guide/sect-JBoss_Microcontainer_User_Guide-The_ClassLoading_Layer-ClassLoading.html"/>
                     <tag>classloading</tag>
                 </classification>
-                <hint title="JBoss 5 Classloader Configuration" effort="5" severity="MANDATORY">
+                <hint title="JBoss 5 Classloader Configuration" effort="5" severity="mandatory">
                     <message>
                         In EAP 6, the classloading configuration is not done through `jboss-classloading.xml`.
                         Since EAP 6 it is of modular nature, based on JBoss Modules.
@@ -253,7 +253,7 @@
                 <xmlfile matches="//*[local-name()='security-domain' and starts-with(text(), 'java:/jaas/')]"/>
             </when>
             <perform>
-                <hint title="JBoss EAP security-domain configuration - java:/jaas/" effort="5" severity="MANDATORY">
+                <hint title="JBoss EAP security-domain configuration - java:/jaas/" effort="5" severity="mandatory">
                     <message>
                         `java:/jaas/` is a JBoss EAP `security-domain` URI.
                         Remove the `java:/jaas/` prefix for `security-domain` elements in AS 7 / EAP 6.
@@ -275,7 +275,7 @@
                     <link title="JBoss Login Modules" href="http://docs.jboss.org/jbosssecurity/docs/6.0/security_guide/html/Login_Modules.html"/>
                     <tag>security</tag>
                 </classification>
-                <hint title="JBoss Security Configuration Descriptor (prior to AS 7 / EAP 6)" effort="5" severity="MANDATORY">
+                <hint title="JBoss Security Configuration Descriptor (prior to AS 7 / EAP 6)" effort="5" severity="mandatory">
                     <message>
                         When migrating to JBoss AS 7 or JBoss EAP 6+,
                         the `login-config.xml` descriptor is no longer supported.
