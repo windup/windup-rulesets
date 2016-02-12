@@ -13,7 +13,7 @@
         </dependencies>
         <targetTechnology id="eap" versionRange="[6,)" />
         <targetTechnology id="java-ee" versionRange="[6,)" />
-        <tag>reviewed-2015-08-17</tag>
+        <tag>reviewed-2016-02-12</tag>
     </metadata>
     <rules>
         <rule id="environment-dependent-calls-01000">
@@ -71,11 +71,15 @@
             <perform>
                 <iteration>
                     <hint title="Proprietary InitialContext initialization" effort="1" severity="mandatory">
-                    <message>In JBoss EAP, the InitialContext should be instantiated with no arguments. Once an instance is constructed, look up the service using portable JNDI lookup syntax. Ensure also that in case system properties for InitialContext are provided, they do not need to be changed for the JBoss.
+                    <message><![CDATA[
+                        In JBoss EAP, the InitialContext should be instantiated with no arguments. Once an instance is constructed, look up the service using portable JNDI lookup syntax. Ensure also that in case system properties for InitialContext are provided, they do not need to be changed for the JBoss.
 
-                        `InitialContext context = new InitialContext();
-                        Service service = (Service) context.lookup( "java:app/service/" + ServiceImpl.class.getSimpleName() );`
-                    </message>
+                        ```java
+                        InitialContext context = new InitialContext();
+                        Service service = (Service) context.lookup( "java:app/service/" + ServiceImpl.class.getSimpleName() );
+                        ```
+                        
+                    ]]></message>
                     <link href="https://access.redhat.com/articles/1496973" title="Migrate Applications From Other Platforms to Use Portable JNDI Syntax in Red Hat JBoss Enterprise Application Platform" /> 
                     <tag>jndi</tag>
                     </hint>
@@ -106,7 +110,7 @@
                 <iteration>
                     <hint title="Reference to javax.management.{suffix}" effort="1" severity="optional">
                         <message>After migration, some of the JMX beans provided by the previous server may not be present anymore.
-                    Ensure that the {suffix} does not need to change for JBoss.
+                    Ensure that the `javax.management.{suffix}` does not need to change for JBoss.
                         </message>
                         <tag>jmx</tag>
                     </hint>
@@ -126,8 +130,8 @@
                 <iteration>
                     <hint title="JMX connection" effort="1" severity="mandatory">
                        <message>After migration, JMX connection String or parameters may be different than the one provided by previous server.
-                       As an example, javax.management.remote.JMXConnectorFactory.PROTOCOL_PROVIDER_PACKAGES will change.
-                       Ensure that any of the parameters does not need to change for JBoss.
+                       As an example, `javax.management.remote.JMXConnectorFactory.PROTOCOL_PROVIDER_PACKAGES` will change.
+                       Ensure that any of the parameters does not need to change for JBoss EAP.
                        </message>
                        <tag>jmx</tag>
                     </hint>
