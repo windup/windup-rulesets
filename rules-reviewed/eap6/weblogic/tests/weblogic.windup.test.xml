@@ -47,7 +47,7 @@
             <rule id="weblogic-05000-test">
                 <when>
                     <not>
-                        <hint-exists message="Replace with the Java EE standard method 'javax\.transaction\.TransactionManager\.resume\(Transaction tx\)'." />
+                        <hint-exists message="Replace with the Java EE standard method .*javax\.transaction\.TransactionManager\.resume\(Transaction tx\).*" />
                     </not>
                 </when>
                 <perform>
@@ -57,7 +57,7 @@
             <rule id="weblogic-06000-test">
                 <when>
                     <not>
-                        <hint-exists message="Replace with the Java EE standard javax.transaction.TransactionManager.suspend" />
+                        <hint-exists message="Replace with the Java EE standard .*javax.transaction.TransactionManager.suspend.*" />
                     </not>
                 </when>
                 <perform>
@@ -67,18 +67,18 @@
             <rule id="weblogic-07000-test">
                 <when>
                     <not>
-                        <hint-exists message="Remove the 'weblogic.transaction.TxHelper' import statement." />
+                        <hint-exists message="Remove the .*weblogic.transaction.TxHelper.* import statement." />
                     </not>
                 </when>
                 <perform>
-                    <fail message="Note to remove weblogic.transaction.TxHelper import is missing!" />
+                    <fail message="Note to remove .*weblogic.transaction.TxHelper.* import is missing!" />
                 </perform>
             </rule>
             <rule id="weblogic-08000-test">
                 <when>
                     <not>
                         <hint-exists
-                            message=".*Look up the Java Enterprise Edition javax.transaction.TransactionManager in JBoss EAP using the following code.*" />
+                            message=".*Look up the Java Enterprise Edition .*javax.transaction.TransactionManager.* in JBoss EAP using the following code.*" />
                     </not>
                 </when>
                 <perform>
@@ -89,7 +89,7 @@
             <rule id="weblogic-09000-test">
                 <when>
                     <not>
-                        <hint-exists message=".*This Oracle and WebLogic specific code \(OracleThinClob\) should be replaced with the use.*" />
+                        <hint-exists message=".*This Oracle and WebLogic specific code \(.*OracleThinClob.*\) should be replaced with the use.*" />
                     </not>
                 </when>
                 <perform>
@@ -99,7 +99,7 @@
             <rule id="weblogic-10000-test">
                 <when>
                     <not>
-                        <hint-exists message=".*This code is specific to WebLogic and should be replaced with java.sql.Clob.setCharacterStream\(1\).*" />
+                        <hint-exists message=".*This code is specific to WebLogic and should be replaced with .*java.sql.Clob.setCharacterStream\(1\).*" />
                     </not>
                 </when>
                 <perform>
@@ -109,7 +109,7 @@
             <rule id="weblogic-11000-test">
                 <when>
                     <not>
-                        <hint-exists message="The WebLogic NonCatalogLogger is not supported.*" />
+                        <hint-exists message="The WebLogic .*NonCatalogLogger.* is not supported.*" />
                     </not>
                 </when>
                 <perform>

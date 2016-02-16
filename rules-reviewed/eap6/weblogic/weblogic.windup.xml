@@ -105,7 +105,7 @@
             </when>
             <perform>
                 <hint title="WebLogic TransactionManager Usage of resume method" effort="1" severity="mandatory">
-                    <message>Replace with the Java EE standard method 'javax.transaction.TransactionManager.resume(Transaction tx)'.</message>
+                    <message>Replace with the Java EE standard method `javax.transaction.TransactionManager.resume(Transaction tx)`.</message>
                     <tag>transactions</tag>
                     <tag>weblogic</tag>
                 </hint>
@@ -130,7 +130,7 @@
             </when>
             <perform>
                 <hint title="WebLogic TransactionManager Usage of suspend method" effort="1" severity="mandatory">
-                    <message>Replace with the Java EE standard javax.transaction.TransactionManager.suspend()</message>
+                    <message>Replace with the Java EE standard `javax.transaction.TransactionManager.suspend()`</message>
                     <tag>transactions</tag>
                     <tag>weblogic</tag>
                 </hint>
@@ -144,7 +144,7 @@
             </when>
             <perform>
                 <hint title="WebLogic TxHelper Usage" effort="1" severity="mandatory">
-                    <message>Remove the 'weblogic.transaction.TxHelper' import statement.</message>
+                    <message>Remove the `weblogic.transaction.TxHelper` import statement.</message>
                     <tag>transactions</tag>
                     <tag>weblogic</tag>
                 </hint>
@@ -159,15 +159,16 @@
             <perform>
                 <iteration>
                     <hint title="WebLogic ClientTxHelper" effort="1">
-                        <message>
-                            Look up the Java Enterprise Edition javax.transaction.TransactionManager in JBoss EAP using the following code:
+                        <message><![CDATA[
+                            Look up the Java Enterprise Edition `javax.transaction.TransactionManager` in JBoss EAP using the following code:
 
                             ```java
                             InitialContext context = new InitialContext();
                             TransactionManager transactionManager =
                             (TransactionManager)context.lookup("java:jboss/TransactionManager");
                             ```
-                        </message>
+                            
+                        ]]></message>
                         <tag>transactions</tag>
                         <tag>weblogic</tag>
                     </hint>
@@ -184,7 +185,7 @@
             <perform>
                 <hint title="WebLogic JDBC Code" effort="1" severity="mandatory">
                     <message>
-                        This Oracle and WebLogic specific code (OracleThinClob) should be replaced with the use
+                        This Oracle and WebLogic specific code (`OracleThinClob`) should be replaced with the use
                         of the java.sql.Clob interface.
                     </message>
                     <link href="https://docs.oracle.com/database/121/JAJDB/oracle/jdbc/class-use/OracleClob.html" title="Oracle JDBC Documentation" />
@@ -201,7 +202,7 @@
             <perform>
                 <hint title="WebLogic JDBC Code" effort="1" severity="mandatory">
                     <message>
-                        This code is specific to WebLogic and should be replaced with java.sql.Clob.setCharacterStream(1)
+                        This code is specific to WebLogic and should be replaced with `java.sql.Clob.setCharacterStream(1)`
                     </message>
                     <link href="https://docs.oracle.com/database/121/JAJDB/oracle/jdbc/class-use/OracleClob.html" title="Oracle JDBC Documentation" />
                     <link href="http://docs.oracle.com/javase/7/docs/api/java/sql/Clob.html" title="java.sql.Clob interface" />
@@ -220,13 +221,14 @@
             <perform>
                 <hint effort="1" title="WebLogic Logger Usage">
                     <message>
-                        The WebLogic NonCatalogLogger is not supported on JBoss EAP, and should be migrated to a supported logging framework,
+                        The WebLogic `NonCatalogLogger` is not supported on JBoss EAP, and should be migrated to a supported logging framework,
                         such as the JDK Logger or JBoss Logging:
 
                         ```java
                         import java.util.logging.Logger;
                         Logger LOG = Logger.getLogger("MyLogger");
                         ```
+                        
                     </message>
                     <link href="https://docs.oracle.com/javase/7/docs/technotes/guides/logging/overview.html" title="JDK Logging Documentation" />
                     <link href="http://www.jboss.org/quickstarts/eap/logging/" title="JBoss Logging Quickstart" />
@@ -250,6 +252,7 @@
                         ```
                         <xa-datasource-property name="URL">jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(LOAD_BALANCE=ON)(FAILOVER=ON)(ADDRESS=(PROTOCOL=TCP)(HOST=my.host.org)(PORT=1521))(ADDRESS=(PROTOCOL=TCP)(HOST=my.host.org)(PORT=1521)))(CONNECT_DATA=(SERVICE_NAME=servjboss)(failover_mode=(type=select)(method=basic)))</xa-datasource-property>
                         ```
+                        
                         ]]>
                     </message>
                     <link href="https://access.redhat.com/articles/1329233" title="Implement Oracle Fast Connection Failover (FCF) in EAP 6" />
@@ -306,7 +309,7 @@
                         used to get object instances from JNDI. The equivalent functionality needs to be configured on JBoss EAP 6.
 
                         `InitialContextFactory` is provided by EAP and you only need to instantiate `InitialContext ctx = new InitialContext();`.
-                    ]]>]
+                    ]]>
                     </message>
                     <tag>configuration</tag>
                     <tag>weblogic</tag>
