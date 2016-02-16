@@ -301,8 +301,7 @@
         </rule>
         <rule id="generic-catchall-00700">
             <when>
-                <javaclass references="org.{subpackage}{package-remainder}.{type}">
-                </javaclass>
+                 <javaclass references="org.{subpackage}.{package-remainder}{type}"/>
             </when>
             <perform>
                <iteration>
@@ -313,8 +312,8 @@
                   </when>
                   <perform>
                      <classification effort="0" severity="optional" title="JBoss API"/>
-                     <hint effort="0" title="org.{subpackage}.{package-remainder}.{type} reference" severity="optional">
-                        <message>org.{subpackage}.{package-remainder}.{type} reference found. No specific details available.</message>
+                     <hint effort="0" title="org.{subpackage}.{package-remainder}{type} reference" severity="optional">
+                        <message>org.{subpackage}.{package-remainder}{type} reference found. No specific details available.</message>
                           <tag>catchall</tag>
                           <tag>jboss</tag>
                      </hint>
@@ -325,10 +324,10 @@
                <matches pattern="(jboss|jbpm)" />
             </where>
            <where param="package-remainder">
-               <matches pattern="(.*)?" />
+               <matches pattern="([a-z]+\.)*" />
             </where>
             <where param="type">
-               <matches pattern="[^.]+" />
+               <matches pattern="[^.()]+" />
             </where>
         </rule>
 <!--         <rule id="generic-catchall-00800"> -->

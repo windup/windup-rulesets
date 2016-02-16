@@ -164,14 +164,24 @@
                <fail message="jboss type reference hint was not found" />
             </perform>
          </rule>
-         <rule id="generic-catchall-00701-hint-test">
+         <rule id="generic-catchall-00700-jbpm1-test">
             <when>
                <not>
-                  <hint-exists message="org.jbpm.* reference found.*" />
+                  <hint-exists message="org.jbpm.db.JbpmSession reference found.*" />
                </not>
             </when>
             <perform>
-               <fail message="jbpm type reference hint was not found" />
+               <fail message="jbpm type org.jbpm.db.JbpmSession reference hint was not found" />
+            </perform>       
+         </rule>           
+         <rule id="generic-catchall-00700-jbpm2-test">
+            <when>
+               <not>
+                  <hint-exists message="org.jbpm.JbpmContext reference found.*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="jbpm type org.jbpm.JbpmContext reference hint was not found" />
             </perform>       
          </rule>         
 <!--          <rule id="generic-catchall-00800-hint-test"> -->
