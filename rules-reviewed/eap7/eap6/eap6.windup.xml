@@ -21,7 +21,7 @@
     <rules>
         <rule id="eap6-01000">
             <when>
-                <javaclass references="{type}">
+                <javaclass references="javax.ejb.EntityBean">
                     <location>IMPLEMENTS_TYPE</location>
                     <location>INHERITANCE</location>
                 </javaclass>
@@ -37,9 +37,6 @@
                     </hint>
                 </iteration>
             </perform>
-            <where param="type">
-                <matches pattern="javax.ejb.EntityBean|javax.ejb.EJBLocalHome" />
-            </where>
         </rule>
          <rule id="eap6-02000">
             <when>
@@ -50,7 +47,6 @@
                     <classification title="Apache CFX integration with JBoss " effort="3" severity="mandatory">
                     <description>Migrate all functionality specified in such XML descriptor. It is mostly already supported by the JAX-WS specification, included in Java EE 7. For specific functionality consult the Apache CFX documentation link provided.</description>
                     <link title="Apache CFX Integration" href="https://docs.jboss.org/author/display/JBWS/Apache+CXF+integration"/>
-                    <tag>cmp</tag>
                     <tag>jpa</tag>
                     <tag>configuration</tag>
                     </classification>
