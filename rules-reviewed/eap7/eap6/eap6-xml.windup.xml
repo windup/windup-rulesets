@@ -31,10 +31,30 @@
                 <iteration>
                     <hint title="CMP Entity EJB configuration." effort="3" severity="mandatory">
                     <message>CMP entity beans are no longer supported in JBoss EAP 7. User is requested to use JPA entity beans that fully replaced the functionality provided by CMP beans.
-		    Configuration provided in this ejb-jar.xml should be configured using JPA persistence.xml or using JPA annotations.</message>
+		    CMP configuration provided in this ejb-jar.xml should be configured using JPA persistence.xml or using JPA annotations.</message>
                     <link title="CMP Bean migration" href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-CMPEntityEJBs"/>
                     <tag>jpa</tag>
                     <tag>cmp</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="eap6-xml-01500">
+            <when>
+                <xmlfile matches="/ejb-jar/enterprise-beans/entity[persistence-type = 'Bean'] | /jee:ejb-jar/jee:enterprise-beans/jee:entity[jee:persistence-type = 'Bean'] | /j2e:ejb-jar/j2e:enterprise-beans/j2e:entity[j2e:persistence-type = 'Bean'] | /jcp:ejb-jar/jcp:enterprise-beans/jcp:entity[jcp:persistence-type = 'Bean']" in="ejb-jar.xml">
+                    <namespace prefix="j2e" uri="http://java.sun.com/xml/ns/j2ee"/>
+                    <namespace prefix="jee" uri="http://java.sun.com/xml/ns/javaee"/>
+                    <namespace prefix="jcp" uri="http://xmlns.jcp.org/xml/ns/javaee"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <iteration>
+                    <hint title="BMP Entity EJB configuration." effort="3" severity="mandatory">
+                    <message>BMP entity beans are no longer supported in JBoss EAP 7. User is requested to use JPA entity beans that fully replaced the functionality provided by CMP beans.
+		    BMP configuration provided in this ejb-jar.xml should be configured using JPA persistence.xml or using JPA annotations.</message>
+                    <!-- <link title="CMP Bean migration" href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-CMPEntityEJBs"/> -->
+                    <tag>jpa</tag>
+                    <tag>bmp</tag>
                     </hint>
                 </iteration>
             </perform>
