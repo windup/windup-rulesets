@@ -83,6 +83,16 @@
                     <fail message="Classification jboss deployment structure not found!"/>
                 </perform>
             </rule>
+            <rule id="eap6-xml-07000-test">
+                <when>
+                    <not>
+                          <hint-exists message="The clustering element is ignored in EAP 7 and is not useful."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Clustering element hint in jboss-ejb3.xml not found!"/>
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
