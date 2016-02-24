@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="eap6-test" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <testDataPath>data</testDataPath>
     <ruleset>
         <rules>
@@ -77,7 +78,44 @@
                     <fail message="@Clustered annotation not found!"/>
                 </perform>
             </rule>
-            
+            <rule id="eap6-08000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Default Remote JNDI Provider URL has changed in EAP 7.*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="JNDI Provider URL change hints not found!"/>
+                </perform>
+            </rule>
+            <rule id="eap6-08001-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <to-file-model>
+                                <hint-exists message="The default remote connection port has changed in .*jboss-ejb-client.properties.*"/>
+                            </to-file-model>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="The default remote connection port hint not found in jboss-ejb-client.properties or there are more/less than expected!"/>
+                </perform>
+            </rule>
+            <rule id="eap6-08002-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <to-file-model>
+                                <hint-exists message="The default remote connection port has changed from.*"/>
+                            </to-file-model>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="The default remote connection port hint in java not found or there are more/less than expected!"/>
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>

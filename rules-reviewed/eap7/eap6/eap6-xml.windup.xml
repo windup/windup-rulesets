@@ -13,7 +13,7 @@
         </dependencies>
         <sourceTechnology id="eap" versionRange="[6,7)" />
         <targetTechnology id="eap7" versionRange="[7,)" />
-        <tag>reviewed-2015-06-08</tag>
+        <tag>reviewed-2016-02-29</tag>
     </metadata>
 
 
@@ -31,7 +31,7 @@
                 <iteration>
                     <hint title="CMP Entity EJB configuration." effort="3" severity="mandatory">
                     <message>CMP entity beans are no longer supported in JBoss EAP 7. User is requested to use JPA entities that fully replaced the functionality provided by CMP beans.
-		    CMP configuration provided in this ejb-jar.xml should be configured using JPA persistence.xml or using JPA annotations.</message>
+                    CMP configuration provided in this ejb-jar.xml should be configured using JPA persistence.xml or using JPA annotations.</message>
                     <link title="CMP Bean migration" href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-CMPEntityEJBs"/>
                     <tag>jpa</tag>
                     <tag>cmp</tag>
@@ -51,7 +51,7 @@
                 <iteration>
                     <hint title="BMP Entity EJB configuration." effort="3" severity="mandatory">
                     <message>BMP entity beans are no longer supported in JBoss EAP 7. User is requested to use JPA entities that fully replaced the functionality provided by BMP beans.
-		    BMP configuration provided in this ejb-jar.xml should be configured using JPA persistence.xml or using JPA annotations.</message>
+                   BMP configuration provided in this ejb-jar.xml should be configured using JPA persistence.xml or using JPA annotations.</message>
                     <!-- <link title="CMP Bean migration" href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-CMPEntityEJBs"/> -->
                     <tag>jpa</tag>
                     <tag>bmp</tag>
@@ -112,13 +112,12 @@
             </when>
             <perform>
                     <classification title="JSR-88 deployment plans are no more supported by JBoss EAP7." effort="3" severity="mandatory">
-                    	<description>This file should be removed and instead rely on proprietary functionality to automate deployments. Please consult EAP 7 admin documentation to learn about such functionality.</description>
-                    	<link title="Wildfly admin guide" href="https://docs.jboss.org/author/display/WFLY8/Admin+Guide"/>
-                    	<tag>configuration</tag>
+                        <description>This file should be removed and instead rely on proprietary functionality to automate deployments. Please consult EAP 7 admin documentation to learn about such functionality.</description>
+                        <link title="Wildfly admin guide" href="https://docs.jboss.org/author/display/WFLY8/Admin+Guide"/>
+                        <tag>configuration</tag>
                     </classification>
             </perform>
         </rule>
-
         <rule id="eap6-xml-05000">
             <when>
                 <xmlfile matches="/msg:messaging-deployment" in="{*}-jms.xml">
@@ -128,7 +127,7 @@
             <perform>
                 <classification title="Proprietary JMS Resource Definitions" effort="1">
                     <description>The proprietary XML descriptors, previously used to setup JMS resources, are deprecated in EAP 7.
-	An updated version of this file was generated using XSLT transformation.</description>
+    An updated version of this file was generated using XSLT transformation.</description>
                     <link title="JMS migration documentation" href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-ProprietaryJMSResourceDefinitions" />
                     <tag>jms</tag>
                 </classification>
@@ -173,7 +172,7 @@
                 <xmlfile matches="/*[local-name()='jboss-web']/*[local-name()='replication-config']/*[local-name()='replication-trigger']" in="jboss-web.xml"/>
             </when>
             <perform>
-                <hint title="Web Session Clustering config changes in EAP 7" effort="1" severity="optional">
+                <hint title="Web Session Clustering config replication-trigger changes in EAP 7" effort="1" severity="optional">
                     <message>
                        The EAP 7 Web Session Clustering configuration deprecates `replication-trigger` element in `jboss-web.xml` file descriptor.
                     </message>
@@ -199,7 +198,7 @@
                     <tag>configuration</tag>
                 </hint>
             </perform>
-        </rule>   
+        </rule>
         <rule id="eap6-xml-08002">
             <when>
                 <xmlfile matches="/*[local-name()='jboss-web']/*[local-name()='replication-config']/*[local-name()='backups']" in="jboss-web.xml"/>
@@ -215,7 +214,7 @@
                     <tag>configuration</tag>
                 </hint>
             </perform>
-        </rule>    
+        </rule>
         <rule id="eap6-xml-08003">
             <when>
                 <xmlfile matches="/*[local-name()='jboss-web']/*[local-name()='replication-config']/*[local-name()='use-jk']" in="jboss-web.xml"/>
@@ -225,9 +224,9 @@
                     <message>
                          The EAP 7 Web Session Clustering configuration deprecates `use-jk` element without replacement in `jboss-web.xml` file descriptor.
 
-                         Previously by specifying `use-jk` element, the instance-id of the node handling a given request was appended to the jsessionid (for use by load balancers such as mod_jk, mod_proxy_balancer, mod_cluster, etc.) depending on the value specified for `use-jk`.
+                         Previously by specifying `use-jk` element, the instance-id of the node handling a given request was appended to the jsessionid (foruse by load balancers such as mod_jk, mod_proxy_balancer, mod_cluster, etc.) depending on the value specified for `use-jk`.
 
-                         In the new implementation, the instance-id, if defined, is always appended to the jsessionid.                                    
+                         In the new implementation, the instance-id, if defined, is always appended to the jsessionid.
                     </message>
                     <link href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-WebSessionClustering" title="Web Session Clustering config migration changes in EAP 7" />
                     <tag>cluster</tag>
@@ -235,7 +234,7 @@
                     <tag>configuration</tag>
                 </hint>
             </perform>
-        </rule>    
+        </rule>
         <rule id="eap6-xml-08004">
             <when>
                 <xmlfile matches="/*[local-name()='jboss-web']/*[local-name()='replication-config']/*[local-name()='max-unreplicated-interval']" in="jboss-web.xml"/>
@@ -247,8 +246,8 @@
                        
                        Previously, this configuration option was an optimization that would prevent the replicate of a session’s timestamp if no session attribute was changed. While this sounds nice, in practice it doesn't prevent any RPCs, since session access requires cache transaction RPCs regardless of whether any session attributes changed.
                         
-                       In the new implementation, the timestamp of a session is replicated on every request. 
-                       This prevents stale session meta data following failover.                        
+                       In the new implementation, the timestamp of a session is replicated on every request.
+                       This prevents stale session meta data following failover.
                     </message>
                     <link href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-WebSessionClustering" title="Web Session Clustering config migration changes in EAP 7" />
                     <tag>cluster</tag>
@@ -256,7 +255,7 @@
                     <tag>configuration</tag>
                 </hint>
             </perform>
-        </rule>    
+        </rule>
         <rule id="eap6-xml-08005">
             <when>
                 <xmlfile matches="/*[local-name()='jboss-web']/*[local-name()='replication-config']/*[local-name()='snapshot-mode']" in="jboss-web.xml"/>
@@ -274,7 +273,7 @@
                     <tag>configuration</tag>
                 </hint>
             </perform>
-        </rule>    
+        </rule>
         <rule id="eap6-xml-08006">
             <when>
                 <xmlfile matches="/*[local-name()='jboss-web']/*[local-name()='replication-config']/*[local-name()='snapshot-interval']" in="jboss-web.xml"/>
@@ -282,14 +281,8 @@
             <perform>
                 <hint title="Web Session Clustering config snapshot-interval changes in EAP 7" effort="1" severity="optional">
                     <message><![CDATA[
-                       The EAP 7 Web Session Clustering configuration changes `snapshot-interval` element meaning in `jboss-web.xml` file descriptor.
-                       Using `snapshot-interval` element is only relevant if there is used 
-                       
-                       ```xml
-                       <snapshot-mode>INTERVAL</snapshot-mode>
-                       ```
-                       
-                       ]]>
+                       The EAP 7 Web Session Clustering configuration removed `snapshot-interval` element from `jboss-web.xml` file descriptor.
+                       This option was only relevant for `<snapshot-mode>INTERVAL</snapshot-mode>`. Since <snapshot-mode> is no longer used, this option is no longer used as well.]]>
                     </message>
                     <link href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-WebSessionClustering" title="Web Session Clustering config migration changes in EAP 7" />
                     <tag>cluster</tag>
@@ -297,7 +290,7 @@
                     <tag>configuration</tag>
                 </hint>
             </perform>
-        </rule>    
+        </rule>
         <rule id="eap6-xml-08007">
             <when>
                 <xmlfile matches="/*[local-name()='jboss-web']/*[local-name()='replication-config']/*[local-name()='session-notification-policy']" in="jboss-web.xml"/>
@@ -317,7 +310,7 @@
                     <tag>configuration</tag>
                 </hint>
             </perform>
-        </rule>     
+        </rule>
         <rule id="eap6-xml-09000">
             <when>
                 <xmlfile matches="/*[local-name()='jboss-web']/*[local-name()='passivation-config']" in="jboss-web.xml"/>
