@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="hibernate4-xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <metadata>
+        <description>
+            This ruleset provides analysis of configuration migration to Hibernate 5.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,2.4.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,2.4.0.Final" />
+        </dependencies>
+        <sourceTechnology id="hibernate" versionRange="[4,5)" />
+        <targetTechnology id="hibernate5" versionRange="[5,)" />
+        <targetTechnology id="eap7" versionRange="[7,)" />
+        <tag>reviewed-2016-02-29</tag>
+    </metadata>
+
+    <rules>
+        <rule id="hibernate4-xml-00001">
+            <when>
+                <filecontent pattern="hibernate.transaction.factory_class" filename="hibernate.{file-ext}" />
+            </when>
+            <perform>
+                <hint title="Hibernate: Deprecated property hibernate.transaction.factory_class" effort="1" severity="mandatory">
+                    <message>
+                        Replace configuration transaction property 
+                            `hibernate.transaction.factory_class=org.hibernate.engine.transaction.spi.TransactionFactory`
+                        with 
+                            `hibernate.transaction.coordinator_class=org.hibernate.resource.transaction.TransactionCoordinatorBuilder`
+                        </message>
+                    <link href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#transactions"
+                        title="Hibernate 5 redesigned Transactions SPI" />
+                    <tag>hibernate</tag>
+                    <tag>configuration</tag>
+                    <tag>transaction</tag>
+                </hint>
+            </perform>
+            <where param="file-ext">
+                <matches pattern="(cfg.xml|properties)" />
+            </where>
+        </rule>
+    </rules>
+</ruleset>

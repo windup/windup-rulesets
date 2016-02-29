@@ -1,0 +1,608 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="hibernate4" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis for migration to Hibernate 5.x.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,2.4.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,2.4.0.Final" />
+        </dependencies>
+        <sourceTechnology id="hibernate" versionRange="[4,)" />
+        <targetTechnology id="hibernate5" versionRange="[5,)" />
+        <targetTechnology id="eap7" versionRange="[7,)" />
+        <tag>reviewed-2016-02-29</tag>
+    </metadata>
+    <rules>
+        <rule id="hibernate4-00001">
+            <when>
+                <javaclass references="org.hibernate.cfg.Configuration.addFile{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Method org.hibernate.cfg.Configuration.addFile is deprecated in Hibernate 5" effort="1"
+                    severity="mandatory">
+                    <message>Use `org.hibernate.boot.MetadataSources#addFile` instead.</message>
+                    <link
+                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#re-purposing-of-configuration"
+                        title="Changes in Configuration for Hibernate 5" />
+                    <link
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0.beta/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
+                        title="Hibernate and JPA migration changes" />
+                    <tag>hibernate</tag>
+                    <tag>configuration</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate4-00002">
+            <when>
+                <javaclass references="org.hibernate.cfg.Configuration.{add}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Method org.hibernate.cfg.Configuration.add() is deprecated in Hibernate 5" effort="1"
+                    severity="mandatory">
+                    <message>There is no direct replacement for method `org.hibernate.cfg.Configuration#add`</message>
+                    <link
+                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#re-purposing-of-configuration"
+                        title="Changes in Configuration for Hibernate 5" />
+                    <link
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0.beta/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
+                        title="Hibernate and JPA migration changes" />
+                    <tag>hibernate</tag>
+                    <tag>configuration</tag>
+                </hint>
+            </perform>
+            <where param="add">
+                <matches pattern="(add\([^)]*\))" />
+            </where>
+        </rule>
+        <rule id="hibernate4-00003">
+            <when>
+                <javaclass references="org.hibernate.cfg.Configuration.addXML{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Method org.hibernate.cfg.Configuration.addXML is deprecated in Hibernate 5" effort="1"
+                    severity="mandatory">
+                    <message>There is no direct replacement for method `org.hibernate.cfg.Configuration#addXML`.</message>
+                    <link
+                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#re-purposing-of-configuration"
+                        title="Changes in Configuration for Hibernate 5" />
+                    <link
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0.beta/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
+                        title="Hibernate and JPA migration changes" />
+                    <tag>hibernate</tag>
+                    <tag>configuration</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate4-00004">
+            <when>
+                <javaclass references="org.hibernate.cfg.Configuration.addCacheableFile{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Method org.hibernate.cfg.Configuration.addCacheableFile is deprecated in Hibernate 5" effort="1"
+                    severity="mandatory">
+                    <message>Use `org.hibernate.boot.MetadataSources#addCacheableFile` instead.</message>
+                    <link
+                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#re-purposing-of-configuration"
+                        title="Changes in Configuration for Hibernate 5" />
+                    <link
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0.beta/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
+                        title="Hibernate and JPA migration changes" />
+                    <tag>hibernate</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate4-00005">
+            <when>
+                <javaclass references="org.hibernate.cfg.Configuration.addURL{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Method org.hibernate.cfg.Configuration.addURL is deprecated in Hibernate 5" effort="1"
+                    severity="mandatory">
+                    <message>Use `org.hibernate.boot.MetadataSources#addURL` instead.</message>
+                    <link
+                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#re-purposing-of-configuration"
+                        title="Changes in Configuration for Hibernate 5" />
+                    <link
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0.beta/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
+                        title="Hibernate and JPA migration changes" />
+                    <tag>hibernate</tag>
+                    <tag>configuration</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate4-00006">
+            <when>
+                <javaclass references="org.hibernate.cfg.Configuration.addInputStream{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Method org.hibernate.cfg.Configuration.addInputStream is deprecated in Hibernate 5" effort="1"
+                    severity="mandatory">
+                    <message>Use `org.hibernate.boot.MetadataSources#addInputStream` instead.</message>
+                    <link
+                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#re-purposing-of-configuration"
+                        title="Changes in Configuration for Hibernate 5" />
+                    <link
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0.beta/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
+                        title="Hibernate and JPA migration changes" />
+                    <tag>hibernate</tag>
+                    <tag>configuration</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate4-00007">
+            <when>
+                <javaclass references="org.hibernate.cfg.Configuration.addResource{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Method org.hibernate.cfg.Configuration.addResource is deprecated in Hibernate 5" effort="1"
+                    severity="mandatory">
+                    <message>Use `org.hibernate.boot.MetadataSources#addResource` instead.</message>
+                    <link
+                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#re-purposing-of-configuration"
+                        title="Changes in Configuration for Hibernate 5" />
+                    <link
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0.beta/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
+                        title="Hibernate and JPA migration changes" />
+                    <tag>hibernate</tag>
+                    <tag>configuration</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate4-00008">
+            <when>
+                <javaclass references="org.hibernate.cfg.Configuration.addClass{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Method org.hibernate.cfg.Configuration.addClass is deprecated in Hibernate 5" effort="1"
+                    severity="mandatory">
+                    <message>Use `org.hibernate.boot.MetadataSources#addClass` instead.</message>
+                    <link
+                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#re-purposing-of-configuration"
+                        title="Changes in Configuration for Hibernate 5" />
+                    <link
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0.beta/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
+                        title="Hibernate and JPA migration changes" />
+                    <tag>hibernate</tag>
+                    <tag>configuration</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate4-00009">
+            <when>
+                <javaclass references="org.hibernate.cfg.Configuration.addAnnotatedClass{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Method org.hibernate.cfg.Configuration.addAnnotatedClass is deprecated in Hibernate 5" effort="1"
+                    severity="mandatory">
+                    <message>Use `org.hibernate.boot.MetadataSources#addAnnotatedClass` instead.</message>
+                    <link
+                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#re-purposing-of-configuration"
+                        title="Changes in Configuration for Hibernate 5" />
+                    <link
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0.beta/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
+                        title="Hibernate and JPA migration changes" />
+                    <tag>hibernate</tag>
+                    <tag>configuration</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate4-00010">
+            <when>
+                <javaclass references="org.hibernate.cfg.Configuration.addPackage{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Method org.hibernate.cfg.Configuration.addPackage is deprecated in Hibernate 5" effort="1"
+                    severity="mandatory">
+                    <message>Use `org.hibernate.boot.MetadataSources#addPackage` instead.</message>
+                    <link
+                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#re-purposing-of-configuration"
+                        title="Changes in Configuration for Hibernate 5" />
+                    <link
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0.beta/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
+                        title="Hibernate and JPA migration changes" />
+                    <tag>hibernate</tag>
+                    <tag>configuration</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate4-00011">
+            <when>
+                <javaclass references="org.hibernate.cfg.Configuration.addJar{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Method org.hibernate.cfg.Configuration.addJar is deprecated in Hibernate 5" effort="1"
+                    severity="mandatory">
+                    <message>Use `org.hibernate.boot.MetadataSources#addJar` instead.</message>
+                    <link
+                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#re-purposing-of-configuration"
+                        title="Changes in Configuration for Hibernate 5" />
+                    <link
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0.beta/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
+                        title="Hibernate and JPA migration changes" />
+                    <tag>hibernate</tag>
+                    <tag>configuration</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate4-00012">
+            <when>
+                <javaclass references="org.hibernate.cfg.Configuration.addDirectory{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Method org.hibernate.cfg.Configuration.addDirectory is deprecated in Hibernate 5" effort="1"
+                    severity="mandatory">
+                    <message>Use `org.hibernate.boot.MetadataSources#addDirectory` instead.</message>
+                    <link
+                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#re-purposing-of-configuration"
+                        title="Changes in Configuration for Hibernate 5" />
+                    <link
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0.beta/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
+                        title="Hibernate and JPA migration changes" />
+                    <tag>hibernate</tag>
+                    <tag>configuration</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate4-00013">
+            <when>
+                <javaclass references="org.hibernate.cfg.Configuration.registerTypeContributor{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Method org.hibernate.cfg.Configuration.registerTypeContributor is deprecated in Hibernate 5"
+                    effort="1" severity="mandatory">
+                    <message>Use `org.hibernate.boot.MetadataBuilder#applyTypes` instead.</message>
+                    <link
+                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#re-purposing-of-configuration"
+                        title="Changes in Configuration for Hibernate 5" />
+                    <link
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0.beta/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
+                        title="Hibernate and JPA migration changes" />
+                    <tag>hibernate</tag>
+                    <tag>configuration</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate4-00014">
+            <when>
+                <javaclass references="org.hibernate.cfg.Configuration.registerTypeOverride{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Method org.hibernate.cfg.Configuration.registerTypeOverride is deprecated in Hibernate 5"
+                    effort="1" severity="mandatory">
+                    <message>Use `org.hibernate.boot.MetadataBuilder#applyBasicType` instead.</message>
+                    <link
+                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#re-purposing-of-configuration"
+                        title="Changes in Configuration for Hibernate 5" />
+                    <link
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0.beta/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
+                        title="Hibernate and JPA migration changes" />
+                    <tag>hibernate</tag>
+                    <tag>configuration</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate4-00015">
+            <when>
+                <javaclass references="org.hibernate.cfg.Configuration.setProperty{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Method org.hibernate.cfg.Configuration.setProperty is deprecated in Hibernate 5" effort="1"
+                    severity="mandatory">
+                    <message>Use `org.hibernate.boot.registry.StandardServiceRegistryBuilder#applySetting` instead.</message>
+                    <link
+                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#re-purposing-of-configuration"
+                        title="Changes in Configuration for Hibernate 5" />
+                    <link
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0.beta/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
+                        title="Hibernate and JPA migration changes" />
+                    <tag>hibernate</tag>
+                    <tag>configuration</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate4-00016">
+            <when>
+                <javaclass references="org.hibernate.cfg.Configuration.setProperties{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Method org.hibernate.cfg.Configuration.setProperties is deprecated in Hibernate 5" effort="1"
+                    severity="mandatory">
+                    <message>There is no direct replacement.</message>
+                    <link
+                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#re-purposing-of-configuration"
+                        title="Changes in Configuration for Hibernate 5" />
+                    <link
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0.beta/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
+                        title="Hibernate and JPA migration changes" />
+                    <tag>hibernate</tag>
+                    <tag>configuration</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate4-00017">
+            <when>
+                <javaclass references="org.hibernate.cfg.Configuration.addProperties{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Method org.hibernate.cfg.Configuration.addProperties is deprecated in Hibernate 5" effort="1"
+                    severity="mandatory">
+                    <message>Use `org.hibernate.boot.registry.StandardServiceRegistryBuilder#applySettings` instead.</message>
+                    <link
+                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#re-purposing-of-configuration"
+                        title="Changes in Configuration for Hibernate 5" />
+                    <link
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0.beta/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
+                        title="Hibernate and JPA migration changes" />
+                    <tag>hibernate</tag>
+                    <tag>configuration</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate4-00018">
+            <when>
+                <javaclass references="org.hibernate.cfg.Configuration.setNamingStrategy{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Method org.hibernate.cfg.Configuration.setNamingStrategy is deprecated in Hibernate 5" effort="1"
+                    severity="mandatory">
+                    <message>There is no direct replacement.</message>
+                    <link
+                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#re-purposing-of-configuration"
+                        title="Changes in Configuration for Hibernate 5" />
+                    <link
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0.beta/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
+                        title="Hibernate and JPA migration changes" />
+                    <tag>hibernate</tag>
+                    <tag>configuration</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate4-00019">
+            <when>
+                <javaclass references="org.hibernate.cfg.Configuration.setImplicitNamingStrategy{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Method org.hibernate.cfg.Configuration.setImplicitNamingStrategy is deprecated in Hibernate 5"
+                    effort="1" severity="mandatory">
+                    <message>Use `org.hibernate.boot.MetadataBuilder#setImplicitNamingStrategy` instead.</message>
+                    <link
+                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#re-purposing-of-configuration"
+                        title="Changes in Configuration for Hibernate 5" />
+                    <link
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0.beta/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
+                        title="Hibernate and JPA migration changes" />
+                    <tag>hibernate</tag>
+                    <tag>configuration</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate4-00020">
+            <when>
+                <javaclass references="org.hibernate.cfg.Configuration.setPhysicalNamingStrategy{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Method org.hibernate.cfg.Configuration.setPhysicalNamingStrategy is deprecated in Hibernate 5"
+                    effort="1" severity="mandatory">
+                    <message>Use `org.hibernate.boot.MetadataBuilder#setPhysicalNamingStrategy` instead.</message>
+                    <link
+                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#re-purposing-of-configuration"
+                        title="Changes in Configuration for Hibernate 5" />
+                    <link
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0.beta/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
+                        title="Hibernate and JPA migration changes" />
+                    <tag>hibernate</tag>
+                    <tag>configuration</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate4-00021">
+            <when>
+                <javaclass references="org.hibernate.cfg.Configuration.{configure}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Method org.hibernate.cfg.Configuration.configure is deprecated in Hibernate 5" effort="1"
+                    severity="mandatory">
+                    <message>Use `org.hibernate.boot.registry.StandardServiceRegistryBuilder#configure` instead.</message>
+                    <link
+                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#re-purposing-of-configuration"
+                        title="Changes in Configuration for Hibernate 5" />
+                    <link
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0.beta/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
+                        title="Hibernate and JPA migration changes" />
+                    <tag>hibernate</tag>
+                    <tag>configuration</tag>
+                </hint>
+            </perform>
+            <where param="configure">
+                <matches pattern="(configure\([^)]*\))" />
+            </where>
+        </rule>
+        <rule id="hibernate4-00022">
+            <when>
+                <javaclass references="org.hibernate.cfg.Configuration.setInterceptor{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Method org.hibernate.cfg.Configuration.setInterceptor is deprecated in Hibernate 5" effort="1"
+                    severity="mandatory">
+                    <message>Use `org.hibernate.boot.SessionFactoryBuilder#applyInterceptor` instead.</message>
+                    <link
+                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#re-purposing-of-configuration"
+                        title="Changes in Configuration for Hibernate 5" />
+                    <link
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0.beta/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
+                        title="Hibernate and JPA migration changes" />
+                    <tag>hibernate</tag>
+                    <tag>configuration</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate4-00023">
+            <when>
+                <javaclass references="org.hibernate.cfg.Configuration.setEntityNotFoundDelegate{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Method org.hibernate.cfg.Configuration.setEntityNotFoundDelegate is deprecated in Hibernate 5"
+                    effort="1" severity="mandatory">
+                    <message>Use `org.hibernate.boot.SessionFactoryBuilder#applyEntityNotFoundDelegate` instead.</message>
+                    <link
+                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#re-purposing-of-configuration"
+                        title="Changes in Configuration for Hibernate 5" />
+                    <link
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0.beta/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
+                        title="Hibernate and JPA migration changes" />
+                    <tag>hibernate</tag>
+                    <tag>configuration</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate4-00024">
+            <when>
+                <javaclass references="org.hibernate.cfg.Configuration.setSessionFactoryObserver{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Method org.hibernate.cfg.Configuration.setSessionFactoryObserver is deprecated in Hibernate 5"
+                    effort="1" severity="mandatory">
+                    <message>Use `org.hibernate.boot.SessionFactoryBuilder#addSessionFactoryObservers` instead.</message>
+                    <link
+                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#re-purposing-of-configuration"
+                        title="Changes in Configuration for Hibernate 5" />
+                    <link
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0.beta/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
+                        title="Hibernate and JPA migration changes" />
+                    <tag>hibernate</tag>
+                    <tag>configuration</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate4-00025">
+            <when>
+                <javaclass references="org.hibernate.cfg.Configuration.setCurrentTenantIdentifierResolver{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Method org.hibernate.cfg.Configuration.setCurrentTenantIdentifierResolver is deprecated in Hibernate 5"
+                    effort="1" severity="mandatory">
+                    <message>Use `org.hibernate.boot.SessionFactoryBuilder#applyCurrentTenantIdentifierResolver` instead.</message>
+                    <link
+                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#re-purposing-of-configuration"
+                        title="Changes in Configuration for Hibernate 5" />
+                    <link
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0.beta/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
+                        title="Hibernate and JPA migration changes" />
+                    <tag>hibernate</tag>
+                    <tag>configuration</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate4-00026">
+            <when>
+                <javaclass references="org.hibernate.metamodel.spi.{type}"/>
+            </when>
+            <perform>
+                <hint title="org.hibernate.metamodel.spi.{type} was moved in Hibernate 5" effort="1" severity="mandatory">
+                    <message>Use `org.hibernate.boot.model.{type}` instead.</message>
+                    <link
+                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#type-handling"
+                        title="Changes in Type handling for Hibernate 5" />
+                    <link
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0.beta/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
+                        title="Hibernate and JPA migration changes" />
+                    <tag>hibernate</tag>
+                </hint>
+            </perform>
+            <where param="type">
+                <matches pattern="(TypeContributor|TypeContributions)"/>
+            </where>
+        </rule>
+        <rule id="hibernate4-00027">
+            <when>
+                <javaclass references="org.hibernate.cfg.AnnotationConfiguration"/>
+            </when>
+            <perform>
+                <hint title="org.hibernate.cfg.AnnotationConfiguration was removed in Hibernate 5" effort="1" severity="mandatory">
+                    <message>
+                    All functionality from `org.hibernate.cfg.AnnotationConfiguration` has been moved to `org.hibernate.cfg.Configuration`.
+                    </message>
+                    <link
+                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#deprecations"
+                        title="Removed or deprecated types in Hibernate 5" />
+                    <link
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0.beta/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
+                        title="Hibernate and JPA migration changes" />
+                    <tag>hibernate</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate4-00028">
+            <when>
+                <javaclass references="org.hibernate.id.{idclass}"/>
+            </when>
+            <perform>
+                <hint title="Class org.hibernate.id.{idclass} was removed in Hibernate 5" effort="1" severity="mandatory">
+                    <message>Use `org.hibernate.id.enhanced.SequenceStyleGenerator` instead.</message>
+                    <link
+                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#deprecations"
+                        title="Removed or deprecated types in Hibernate 5" />
+                    <link
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0.beta/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
+                        title="Hibernate and JPA migration changes" />
+                    <tag>hibernate</tag>
+                </hint>
+            </perform>
+            <where param="idclass">
+                <matches pattern="(TableGenerator|TableHiLoGenerator|SequenceGenerator|SequenceIdentityGenerator|SequenceHiLoGenerator)" />
+            </where>
+        </rule>
+    </rules>
+</ruleset>

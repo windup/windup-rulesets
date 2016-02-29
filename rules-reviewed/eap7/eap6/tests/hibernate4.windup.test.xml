@@ -1,0 +1,292 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="eap6-test" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+   <testDataPath>data/data-hibernate4</testDataPath>
+   <ruleset>
+      <rules>
+         <rule id="hibernate4-00001-test">
+            <when>
+               <not>
+                  <hint-exists message="Use .*org.hibernate.boot.MetadataSources#addFile.*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Hint for org.hibernate.cfg.Configuration.addFile was not found!" />
+            </perform>
+         </rule>
+        <rule id="hibernate4-00002-test">
+            <when>
+               <not>
+                  <hint-exists message="There is no direct replacement for method .*org.hibernate.cfg.Configuration#add().*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="method org.hibernate.cfg.Configuration.add hint not found!" />
+            </perform>
+         </rule>
+         <rule id="hibernate4-00003-test">
+            <when>
+               <not>
+                  <hint-exists message="There is no direct replacement for method .*org.hibernate.cfg.Configuration#addXML.*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Hint for method org.hibernate.cfg.Configuration.addXML not found!" />
+            </perform>
+         </rule>
+         <rule id="hibernate4-00004-test">
+            <when>
+               <not>
+                  <hint-exists message="Use .*org.hibernate.boot.MetadataSources#addCacheableFile.*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Hint for org.hibernate.cfg.Configuration.addCacheableFile not found!" />
+            </perform>
+         </rule>
+         <rule id="hibernate4-00005-test">
+            <when>
+               <not>
+                  <hint-exists message="Use .*org.hibernate.boot.MetadataSources#addURL.* instead." />
+               </not>
+            </when>
+            <perform>
+               <fail message="Hint for org.hibernate.cfg.Configuration.addURL not found!" />
+            </perform>
+         </rule>
+         <rule id="hibernate4-00006-test">
+            <when>
+               <not>
+                  <hint-exists message="Use .*org.hibernate.boot.MetadataSources#addInputStream.* instead." />
+               </not>
+            </when>
+            <perform>
+               <fail message="Hint for org.hibernate.cfg.Configuration.addInputStream not found!" />
+            </perform>
+         </rule>
+         <rule id="hibernate4-00007-test">
+            <when>
+               <not>
+                  <hint-exists message="Use .*org.hibernate.boot.MetadataSources#addResource.* instead." />
+               </not>
+            </when>
+            <perform>
+               <fail message="Hint org.hibernate.cfg.Configuration.addResource not found!" />
+            </perform>
+         </rule>
+         <rule id="hibernate4-00008-test">
+            <when>
+               <not>
+                  <hint-exists message="Use .*org.hibernate.boot.MetadataSources#addClass.* instead." />
+               </not>
+            </when>
+            <perform>
+               <fail message="org.hibernate.cfg.Configuration.addClass hint not found!" />
+            </perform>
+         </rule>
+         <rule id="hibernate4-00009-test">
+            <when>
+               <not>
+                  <hint-exists message="Use .*org.hibernate.boot.MetadataSources#addAnnotatedClass.* instead." />
+               </not>
+            </when>
+            <perform>
+               <fail
+                  message="Hint for org.hibernate.cfg.Configuration.addAnnotatedClass not found!" />
+            </perform>
+         </rule>
+         <rule id="hibernate4-00010-test">
+            <when>
+               <not>
+                  <hint-exists message="Use .*org.hibernate.boot.MetadataSources#addPackage.* instead." />
+               </not>
+            </when>
+            <perform>
+               <fail message="Hint for org.hibernate.cfg.Configuration.addPackage not found!" />
+            </perform>
+         </rule>
+         <rule id="hibernate4-00011-test">
+            <when>
+               <not>
+                  <hint-exists message="Use .*org.hibernate.boot.MetadataSources#addJar.*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Hint for org.hibernate.cfg.Configuration.addJar not found!" />
+            </perform>
+         </rule>
+         <rule id="hibernate4-00012-test">
+            <when>
+               <not>
+                  <hint-exists message="Use .*org.hibernate.boot.MetadataSources#addDirectory.*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Hint for org.hibernate.cfg.Configuration.addDirectory not found!" />
+            </perform>
+         </rule>
+         <rule id="hibernate4-00013-test">
+            <when>
+               <not>
+                  <hint-exists message="Use .*org.hibernate.boot.MetadataBuilder#applyTypes.*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Hint for org.hibernate.cfg.Configuration.registerTypeOverride not found!" />
+            </perform>
+         </rule>
+         <rule id="hibernate4-00014-test">
+            <when>
+               <not>
+                  <hint-exists message="Use .*org.hibernate.boot.MetadataBuilder#applyBasicType.*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Hint for org.hibernate.cfg.Configuration.setProperty  not found!" />
+            </perform>
+         </rule>
+         <rule id="hibernate4-00015-test">
+            <when>
+               <not>
+                  <hint-exists message="Use .*org.hibernate.boot.registry.StandardServiceRegistryBuilder#applySetting.*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Hint for org.hibernate.cfg.Configuration.setProperty not found!" />
+            </perform>
+         </rule>
+         <rule id="hibernate4-00016-test">
+            <when>
+               <not>
+                   <hint-exists message="There is no direct replacement." />
+               </not>
+            </when>
+            <perform>
+               <fail message="Hint for org.hibernate.cfg.Configuration.setProperties not found!" />
+            </perform>
+         </rule>
+         <rule id="hibernate4-00017-test">
+            <when>
+               <not>
+                  <hint-exists message="Use .*org.hibernate.boot.registry.StandardServiceRegistryBuilder#applySettings" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Hint for org.hibernate.cfg.Configuration.addProperties not found!" />
+            </perform>
+         </rule>
+         <rule id="hibernate4-00018-test">
+            <when>
+               <not>
+                  <hint-exists message="There is no direct replacement." />
+               </not>
+            </when>
+            <perform>
+               <fail message="Hint for org.hibernate.cfg.Configuration.setNamingStrategy not found!" />
+            </perform>
+         </rule>
+         <rule id="hibernate4-00019-test">
+            <when>
+               <not>
+                  <hint-exists message="Use .*org.hibernate.boot.MetadataBuilder#setImplicitNamingStrategy.*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Hint for org.hibernate.cfg.Configuration.setImplicitNamingStrategy not found!" />
+            </perform>
+         </rule>
+         <rule id="hibernate4-00020-test">
+            <when>
+               <not>
+                  <hint-exists message="Use .*org.hibernate.boot.MetadataBuilder#setPhysicalNamingStrategy.*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Hint for org.hibernate.cfg.Configuration.setPhysicalNamingStrategy not found!" />
+            </perform>
+         </rule>
+         <!-- -->
+         <rule id="hibernate4-00021-test">
+            <when>
+               <not>
+                  <hint-exists message="Use .*org.hibernate.boot.registry.StandardServiceRegistryBuilder#configure.*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Hint for org.hibernate.cfg.Configuration.configure not found!" />
+            </perform>
+         </rule>
+         <!-- -->
+         <rule id="hibernate4-00022-test">
+            <when>
+               <not>
+                  <hint-exists message="Use .*org.hibernate.boot.SessionFactoryBuilder#applyInterceptor.*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Hint for org.hibernate.cfg.Configuration.setInterceptor not found!" />
+            </perform>
+         </rule>
+         <rule id="hibernate4-00023-test">
+            <when>
+               <not>
+                  <hint-exists message="Use .*org.hibernate.boot.SessionFactoryBuilder#applyEntityNotFoundDelegate.*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Hint for org.hibernate.cfg.Configuration.setEntityNotFoundDelegate not found!" />
+            </perform>
+         </rule>
+         <rule id="hibernate4-00024-test">
+            <when>
+               <not>
+                  <hint-exists message="Use .*org.hibernate.boot.SessionFactoryBuilder#addSessionFactoryObservers.*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Hint for org.hibernate.cfg.Configuration.setSessionFactoryObserver not found!" />
+            </perform>
+         </rule>
+         <rule id="hibernate4-00025-test">
+            <when>
+               <not>
+                  <hint-exists message="Use .*org.hibernate.boot.SessionFactoryBuilder#applyCurrentTenantIdentifierResolver.*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Hint for org.hibernate.cfg.Configuration.setCurrentTenantIdentifierResolver not found!" />
+            </perform>
+         </rule>
+         <rule id="hibernate4-00026-test">
+            <when>
+               <not>
+                  <hint-exists message="Use .*org.hibernate.boot.model.*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Hint for org.hibernate.metamodel.spi.TypeContributor|TypeContributions not found!" />
+            </perform>
+         </rule>
+         <rule id="hibernate4-00027-test">
+            <when>
+               <not>
+                  <hint-exists message="All functionality from .*org.hibernate.cfg.AnnotationConfiguration.*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Hint for org.hibernate.cfg.AnnotationConfiguration not found!" />
+            </perform>
+         </rule>
+         <rule id="hibernate4-00028-test">
+            <when>
+               <not>
+                  <hint-exists message="Use .*org.hibernate.id.enhanced.SequenceStyleGenerator.*" />
+               </not>
+            </when>
+            <perform>
+               <fail message="Hint for org.hibernate.id.* not found!" />
+            </perform>
+         </rule>
+      </rules>
+   </ruleset>
+</ruletest>
