@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jboss-web xmlns="http://www.jboss.com/xml/ns/javaee"
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="
+<jboss-web xmlns="http://www.jboss.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
       http://www.jboss.com/xml/ns/javaee
       http://www.jboss.org/j2ee/schema/jboss-web_5_1.xsd">
-   <context-root>/</context-root>
-   <valve> </valve>
+    <context-root>/</context-root>
+    <replication-config>
+        <cache-name>test</cache-name>
+        <replication-trigger>SET_AND_NON_PRIMITIVE_GET</replication-trigger>
+        <replication-granularity>SESSION</replication-granularity>
+        <replication-field-batch-mode>true</replication-field-batch-mode>
+        <replication-mode>SYNCHRONOUS</replication-mode> 
+        <backups>2</backups>
+        <use-jk>false</use-jk>
+        <max-unreplicated-interval>30</max-unreplicated-interval>
+        <snapshot-mode>INSTANT</snapshot-mode>
+        <snapshot-interval>1000</snapshot-interval>
+        <session-notification-policy>org.jboss.web.tomcat.service.session.notification.IgnoreUndeployLegacyClusteredSessionNotificationPolicy</session-notification-policy>
+    </replication-config>
+    <max-active-sessions>25</max-active-sessions>
+    <passivation-config>
+      <use-session-passivation>true</use-session-passivation>
+      <passivation-min-idle-time>120</passivation-min-idle-time>
+      <passivation-max-idle-time>600</passivation-max-idle-time>
+   </passivation-config>
+   <valve></valve>
 </jboss-web>

@@ -13,8 +13,8 @@
             <addon id="org.jboss.windup.rules,windup-rules-java,2.3.0.Final" />
         </dependencies>
         <sourceTechnology id="eap" versionRange="[6,7)" />
-	    <targetTechnology id="eap7" versionRange="[7,)" />
-        <tag>reviewed-2015-06-08</tag>
+        <targetTechnology id="eap7" versionRange="[7,)" />
+        <tag>reviewed-2016-02-29</tag>
     </metadata>
 
 
@@ -30,7 +30,7 @@
                 <iteration>
                     <hint title="Entity EJB" effort="5" severity="mandatory">
                     <message>Entity beans are no longer supported in JBoss EAP 7. User is requested to use JPA entities that fully replaced the functionality provided by Entity beans.
-		    This entity needs to be migrated using JPA persistence.xml or using JPA annotations.</message>
+                    This entity needs to be migrated using JPA persistence.xml or using JPA annotations.</message>
                     <link title="CMP Entity migration to Wildfly" href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-CMPEntityEJBs"/>
                     <tag>cmp</tag>
                     <tag>jpa</tag>
@@ -99,7 +99,7 @@
             <perform>
                 <iteration>
                     <hint title="JSR 88 deployment plan not supported" effort="1" severity="mandatory">
-                      <message>This class is using JSR 88 specific classes. Rely instead on proprietary functionality to automate deployments. Please consult WildFly/EAP admin documentation to learn about such functionality</message>
+                      <message>This class is using JSR 88 specific classes. Rely instead on proprietary functionality to automate deployments. Please consult EAP 7 admin documentation to learn about such functionality</message>
                       <link title="Wildfly admin guide" href="https://docs.jboss.org/author/display/WFLY8/Admin+Guide"/>
                       <tag>configuration</tag>
                       <tag>undertow</tag>
@@ -139,6 +139,122 @@
                     <tag>ejb</tag>
                 </hint>
             </perform>
+        </rule>
+        <rule id="eap6-08000">
+            <when>
+                <filecontent pattern="remote://{node}:{port}" filename="{*}.{extension}" />
+            </when>
+            <perform>
+                <hint title="Remote JNDI Provider URL has changed in EAP 7" effort="1" severity="mandatory">
+                    <message>
+                        Default Remote JNDI Provider URL has changed in EAP 7. External applications using JNDI to lookup remote resources, for instance an EJB or a JMS Queue,
+                        may need to change the value for the JNDI InitialContext environment's property named `java.naming.provider.url`.
+                        The default URL scheme is now **http-remoting** instead of **remote**, and the default URL port is now **8080** instead of **4447**.
+                        
+                        As an example, consider the application server host is localhost, then clients previously accessing EAP 6 would use
+                         
+                        ```
+                        java.naming.factory.initial=org.jboss.naming.remote.client.InitialContextFactory
+                        java.naming.provider.url=remote://localhost:4447
+                        ```
+                        
+                        while clients now accessing EAP 7 should use instead
+                        
+                        ```
+                        java.naming.factory.initial=org.jboss.naming.remote.client.InitialContextFactory
+                        java.naming.provider.url=http-remoting://localhost:8080
+                        ```
+
+                    </message>
+                    <link href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-RemoteJNDIClients" title="Remote JNDI URL in EAP 7" />
+                    <tag>jndi</tag>
+                    <tag>configuration</tag>
+                    <tag>ejb</tag>
+                </hint>
+            </perform>
+            <where param="node">
+                <matches pattern=".*"/>
+            </where>
+            <where param="port">
+               <matches pattern="\d*"/>
+            </where>
+            <where param="extension">
+                <matches pattern="(java|properties|xml)"/>
+            </where>
+        </rule>
+        <rule id="eap6-08001">
+            <when>
+                    <filecontent pattern="remote.connection.{*}.port{portnumber}" filename="jboss-ejb-client.properties" />
+            </when>
+            <perform>
+                <hint title="jboss-ejb-client.properties - Default Remote Connection Port changes" effort="1" severity="mandatory">
+                    <message>
+                        The default remote connection port has changed in **jboss-ejb-client.properties** from '4447' to '8080'.
+
+                        In EAP 6, the jboss-ejb-client.properties file looked similar to the following:
+                        
+                        ```
+                        remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED=false
+                        remote.connections=default
+                        remote.connection.default.host=localhost
+                        remote.connection.default.port=4447
+                        remote.connection.default.connect.options.org.xnio.Options.SASL_POLICY_NOANONYMOUS=false
+                        ```
+                        
+                        In EAP 7, the properties file looks like this:
+                        
+                        ```
+                        remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED=false
+                        remote.connections=default
+                        remote.connection.default.host=localhost
+                        remote.connection.default.port=8080
+                        remote.connection.default.connect.options.org.xnio.Options.SASL_POLICY_NOANONYMOUS=false
+                        ```
+                        
+                    </message>
+                    <link href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-EJBClient" title="Remote JNDI URL in EAP 7" />
+                    <tag>jndi</tag>
+                    <tag>configuration</tag>
+                    <tag>ejb</tag>
+                </hint>
+            </perform>
+            <where param="portnumber">
+               <matches pattern='(.*(?!8080)\d{4})'/>
+            </where>
+        </rule>
+        <rule id="eap6-08002">
+            <when>
+                    <filecontent pattern="remote.connection.{*}.port{portnumber}" filename="{*}.java" />
+            </when>
+            <perform>
+                <hint title="Java - Default Remote Connection Port has changed in EAP 7" effort="1" severity="mandatory">
+                    <message>
+                        The default remote connection port has changed from '4447' to '8080'.
+
+                        In EAP 6, Remote EJB client Java code looks like the following:
+                        
+                        ```java
+                        Properties properties = new Properties();
+                        properties.put("remote.connection.default.port", "4447");
+                        ```
+                        
+                        In EAP 7, the Java client code looks like this:
+                        
+                        ```java
+                        Properties properties = new Properties();
+                        properties.put("remote.connection.default.port", "8080");
+                        ```
+                        
+                    </message>
+                    <link href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-EJBClient" title="Remote JNDI URL in EAP 7" />
+                    <tag>jndi</tag>
+                    <tag>configuration</tag>
+                    <tag>ejb</tag>
+                </hint>
+            </perform>
+            <where param="portnumber">
+               <matches pattern='(.*(?!8080)\d{4})'/>
+            </where>
         </rule>
     </rules>
 </ruleset>

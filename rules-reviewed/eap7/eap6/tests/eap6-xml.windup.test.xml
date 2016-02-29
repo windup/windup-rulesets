@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="eap6-xml-test" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <testDataPath>data</testDataPath>
     <ruleset>
         <rules>
@@ -86,11 +87,111 @@
             <rule id="eap6-xml-07000-test">
                 <when>
                     <not>
-                          <hint-exists message="The clustered element is ignored in EAP 7 and is not useful."/>
+                          <hint-exists message="The .*clustered.* element is ignored in EAP 7 and is not useful."/>
                     </not>
                 </when>
                 <perform>
                     <fail message="Clustering element hint in jboss-ejb3.xml not found!"/>
+                </perform>
+            </rule>
+            <rule id="eap6-xml-08000-test">
+                <when>
+                    <not>
+                          <hint-exists message="The EAP 7 Web Session Clustering configuration deprecates .*replication-trigger.*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="replication-config/replication-trigger element hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="eap6-xml-08001-test">
+                <when>
+                    <not>
+                          <hint-exists message="The EAP 7 Web Session Clustering configuration deprecates element .*replication-mode.*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="replication-config/replication-mode element hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="eap6-xml-08002-test">
+                <when>
+                    <not>
+                          <hint-exists message="The EAP 7 Web Session Clustering configuration deprecates .*backups.*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="replication-config/backups element hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="eap6-xml-08003-test">
+                <when>
+                    <not>
+                          <hint-exists message="The EAP 7 Web Session Clustering configuration deprecates .*use-jk.*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="replication-config/use-jk element hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="eap6-xml-08004-test">
+                <when>
+                    <not>
+                          <hint-exists message="The EAP 7 Web Session Clustering configuration deprecates .*max-unreplicated-interval.*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="replication-config/max-unreplicated-interval element hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="eap6-xml-08005-test">
+                <when>
+                    <not>
+                          <hint-exists message="The EAP 7 Web Session Clustering configuration deprecates .*snapshot-mode.* "/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="replication-config/snapshot-mode element hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="eap6-xml-08006-test">
+                <when>
+                    <not>
+                          <hint-exists message=".*The EAP 7 Web Session Clustering configuration removed .*snapshot-interval.*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="replication-config/snapshot-interval element hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="eap6-xml-08007-test">
+                <when>
+                    <not>
+                          <hint-exists message="The EAP 7 Web Session Clustering configuration deprecates .*session-notification-policy.*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="replication-config/session-notification-policy element hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="eap6-xml-09000-test">
+                <when>
+                    <not>
+                        <hint-exists message="The EAP 7 Web Session Clustering configuration deprecates .*passivation-config.*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="passivation-config element hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="eap6-xml-10000-test">
+                <when>
+                    <not>
+                          <hint-exists message="The EAP 7 Web Session Clustering configuration changed .*max-active-sessions.*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="jboss-web/max-active-sessions hint not found!"/>
                 </perform>
             </rule>
         </rules>
