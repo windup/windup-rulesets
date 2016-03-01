@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="hibernate4-xml-test" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/data-hibernate4</testDataPath>
+    <ruleset>
+        <rules>
+            <rule id="hibernate4-xml-00001-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <to-file-model>
+                                <hint-exists message=".*Replace configuration transaction property.*"/>
+                            </to-file-model>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="There should be hint for property hibernate.transaction.factory_class"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
