@@ -142,8 +142,8 @@
             </when>
             <perform>
                 <iteration>
-                    <classification title="JBoss deployment structure- specifies application dependencies" effort="1" severity="mandatory">
-                    <description>Verify in advance, that all the modules this application depends on still exist.</description>
+                    <classification title="JBoss deployment structure - specifies application dependencies" effort="1" severity="mandatory">
+                    <description>Verify in advance that all the modules this application depends on still exist.</description>
                     <tag>configuration</tag>
                     </classification>
                 </iteration>
@@ -244,10 +244,10 @@
                     <message>
                        The EAP 7 Web Session Clustering configuration deprecates `max-unreplicated-interval` element in `jboss-web.xml` file descriptor.
                        
-                       Previously, this configuration option was an optimization that would prevent the replicate of a session’s timestamp if no session attribute was changed. While this sounds nice, in practice it doesn't prevent any RPCs, since session access requires cache transaction RPCs regardless of whether any session attributes changed.
+                       Previously, this configuration option was an optimization that would prevent the replication of a session’s timestamp if no session attribute was changed. While this sounds nice, in practice it doesn't prevent any RPCs, since session access requires cache transaction RPCs regardless of whether any session attributes changed.
                         
                        In the new implementation, the timestamp of a session is replicated on every request.
-                       This prevents stale session meta data following failover.
+                       This prevents stale session metadata following failover.
                     </message>
                     <link href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-WebSessionClustering" title="Web Session Clustering config migration changes in EAP 7" />
                     <tag>cluster</tag>
@@ -282,7 +282,7 @@
                 <hint title="Web Session Clustering config snapshot-interval changes in EAP 7" effort="1" severity="optional">
                     <message><![CDATA[
                        The EAP 7 Web Session Clustering configuration removed `snapshot-interval` element from `jboss-web.xml` file descriptor.
-                       This option was only relevant for `<snapshot-mode>INTERVAL</snapshot-mode>`. Since <snapshot-mode> is no longer used, this option is no longer used as well.]]>
+                       This option was only relevant for `<snapshot-mode>INTERVAL</snapshot-mode>`. Since `snapshot-mode` is no longer used, this option is no longer used as well.]]>
                     </message>
                     <link href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-WebSessionClustering" title="Web Session Clustering config migration changes in EAP 7" />
                     <tag>cluster</tag>
@@ -322,9 +322,9 @@
                        
                        * `use-session-passivation` enabled the passivation, but now passivation is enabled by specifying a non-negative value for `max-active-sessions` element.
                        
-                       * `passivation-min-idle-time` is not supported and the new implementation avoids of waiting some time before the passivation.
+                       * `passivation-min-idle-time` is not supported and the new implementation avoids waiting some time before the passivation.
                        
-                       * `passivation-max-idle-time` is not supported and the new implementation support only lazy passivation. Sessions are only passivated when necessary to comply with `max-active-sessions`.
+                       * `passivation-max-idle-time` is not supported and the new implementation supports only lazy passivation. Sessions are only passivated when necessary to comply with `max-active-sessions`.
                     </message>
                     <link href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-WebSessionClustering" title="Web Session Clustering config migration changes in EAP 7" />
                     <tag>cluster</tag>
