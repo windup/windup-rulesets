@@ -256,5 +256,18 @@
                <matches pattern='(.*(?!8080)\d{4})'/>
             </where>
         </rule>
+        <rule id="eap6-09000">
+            <when>
+                    <javaclass references="org.hornetq.{*}" />
+            </when>
+            <perform>
+                <classification title="HornetQ was removed in EAP 7" effort="1" severity="mandatory">
+                    <description>HornetQ was replaced by ActiveMQ Artemis in EAP 7. You should replace all references to `org.hornetq.*` with JMS API or ActiveMQ Artemis API.</description>
+                    <link href="https://activemq.apache.org/artemis/migration.html" title="ActiveMQ Artemis Migration" />
+                    <tag>hornetq</tag>
+                    <tag>jms</tag>
+                </classification>
+            </perform>
+        </rule>
     </rules>
 </ruleset>

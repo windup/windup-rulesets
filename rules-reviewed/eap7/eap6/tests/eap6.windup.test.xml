@@ -116,6 +116,16 @@
                     <fail message="The default remote connection port hint in java not found or there are more/less than expected!"/>
                 </perform>
             </rule>
+            <rule id="eap6-09000-test">
+             <when>
+                    <not>
+                        <classification-exists classification="HornetQ was removed in EAP 7"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="The classification aboutg hornetq is not found!"/>
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
