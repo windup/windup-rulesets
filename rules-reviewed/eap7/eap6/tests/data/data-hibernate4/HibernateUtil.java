@@ -1,8 +1,15 @@
+
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Properties;
+
+import java.sql.Connection; 
+import java.sql.DatabaseMetaData; 
+import java.sql.SQLException; 
+import java.util.Properties; 
 
 import org.hibernate.SessionFactory;
 import org.hibernate.SessionFactoryObserver;
@@ -21,6 +28,15 @@ import org.hibernate.type.CurrencyType;
 import org.hibernate.usertype.UserType;
 import org.hibernate.metamodel.spi.TypeContributor;
 import org.hibernate.metamodel.spi.TypeContributions;
+import org.hibernate.boot.Metadata; 
+import org.hibernate.boot.spi.MetadataImplementor; 
+import org.hibernate.cfg.Configuration; 
+import org.hibernate.engine.jdbc.spi.JdbcServices; 
+import org.hibernate.engine.spi.SessionFactoryImplementor; 
+import org.hibernate.integrator.spi.Integrator; 
+import org.hibernate.service.spi.SessionFactoryServiceRegistry; 
+import org.hibernate.usertype.CompositeUserType; 
+import org.hibernate.usertype.UserType; 
 
 public class HibernateUtil
 {
@@ -134,5 +150,52 @@ public class HibernateUtil
     {
         getSessionFactory().close();
     }
+    
+    private boolean use42Api(String jdbc42Apis, SessionFactoryImplementor sessionFactory) {
+
+        boolean use42Api;
+           if (jdbc42Apis == null) {
+
+               if (JavaVersion.getMajorVersion() >= 1 && JavaVersion.getMinorVersion() >= 8) {
+                
+                Connection conn = null;
+                try {
+                       JdbcServices jdbcServices = sessionFactory.getServiceRegistry().getService(JdbcServices.class);
+                       conn = jdbcServices.getBootstrapJdbcConnectionAccess().obtainConnection();
+                       
+                       DatabaseMetaData dmd = conn.getMetaData();
+                       int driverMajorVersion = dmd.getDriverMajorVersion();
+                       int driverMinorVersion = dmd.getDriverMinorVersion();
+                       
+                       if (driverMajorVersion >= 5) {
+                           use42Api = true;
+                       } else if (driverMajorVersion >= 4 && driverMinorVersion >= 2) {
+                           use42Api = true;
+                       } else {
+                           use42Api = false;
+                       }
+                   } catch (SQLException e) {
+                       use42Api = false;
+                   } catch (NoSuchMethodError e) {
+                     // Occurs in Hibernate 4.2.12
+                       use42Api = false;
+                   } finally {
+                       
+                       if (conn != null) {
+                           try {
+                               conn.close();
+                           } catch (SQLException e) {
+                               // Ignore
+                           }
+                       }
+                   }
+               } else {
+                   use42Api = false;
+               }
+           } else {
+               use42Api = Boolean.parseBoolean(jdbc42Apis);
+           }
+           return use42Api;
+       }
 
 }

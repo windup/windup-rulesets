@@ -9,10 +9,11 @@
             <addon id="org.jboss.windup.rules,windup-rules-javaee,2.4.0.Final" />
             <addon id="org.jboss.windup.rules,windup-rules-java,2.4.0.Final" />
         </dependencies>
-        <sourceTechnology id="hibernate" versionRange="[4,)" />
+        <sourceTechnology id="hibernate" versionRange="[4,5)" />
+        <sourceTechnology id="eap" versionRange="[6,7)" />
         <targetTechnology id="hibernate5" versionRange="[5,)" />
         <targetTechnology id="eap7" versionRange="[7,)" />
-        <tag>reviewed-2016-02-29</tag>
+        <tag>reviewed-2016-03-08</tag>
     </metadata>
     <rules>
         <rule id="hibernate4-00001">
@@ -381,51 +382,18 @@
                 </javaclass>
             </when>
             <perform>
-                <hint title="Method org.hibernate.cfg.Configuration.setNamingStrategy is deprecated in Hibernate 5" effort="1"
-                    severity="mandatory">
-                    <message>There is no direct replacement.</message>
-                    <link
-                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#re-purposing-of-configuration"
-                        title="Changes in Configuration for Hibernate 5" />
-                    <link
-                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0.beta/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
-                        title="Hibernate and JPA migration changes" />
-                    <tag>hibernate</tag>
-                    <tag>configuration</tag>
-                </hint>
-            </perform>
-        </rule>
-        <rule id="hibernate4-00019">
-            <when>
-                <javaclass references="org.hibernate.cfg.Configuration.setImplicitNamingStrategy{*}">
-                    <location>METHOD_CALL</location>
-                </javaclass>
-            </when>
-            <perform>
-                <hint title="Method org.hibernate.cfg.Configuration.setImplicitNamingStrategy is deprecated in Hibernate 5"
-                    effort="1" severity="mandatory">
-                    <message>Use `org.hibernate.boot.MetadataBuilder#setImplicitNamingStrategy` instead.</message>
-                    <link
-                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#re-purposing-of-configuration"
-                        title="Changes in Configuration for Hibernate 5" />
-                    <link
-                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0.beta/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
-                        title="Hibernate and JPA migration changes" />
-                    <tag>hibernate</tag>
-                    <tag>configuration</tag>
-                </hint>
-            </perform>
-        </rule>
-        <rule id="hibernate4-00020">
-            <when>
-                <javaclass references="org.hibernate.cfg.Configuration.setPhysicalNamingStrategy{*}">
-                    <location>METHOD_CALL</location>
-                </javaclass>
-            </when>
-            <perform>
-                <hint title="Method org.hibernate.cfg.Configuration.setPhysicalNamingStrategy is deprecated in Hibernate 5"
-                    effort="1" severity="mandatory">
-                    <message>Use `org.hibernate.boot.MetadataBuilder#setPhysicalNamingStrategy` instead.</message>
+                <hint title="Method org.hibernate.cfg.Configuration.setNamingStrategy is deprecated in Hibernate 5" effort="1" severity="mandatory">
+                    <message>
+                        Historically Hibernate provided just a singular contract for applying a "naming strategy". 
+                        Starting in 5.0 this has been split into 2 distinct contracts:
+                         
+                        * ImplicitNamingStrategy - is used whenever a table or column is not explicitly named to determine the name to use. 
+                        * PhysicalNamingStrategy - is used to convert a "logical name" (either implicit or explicit) name of a table or column into a physical name (e.g. following corporate naming guidelines)
+                        
+                        Use methods `org.hibernate.boot.MetadataBuilder#setImplicitNamingStrategy(ImplicitNamingStrategy implicitNamingStrategy)` or 
+                        `org.hibernate.boot.MetadataBuilder#setPhysicalNamingStrategy(PhysicalNamingStrategy physicalNamingStrategy)` 
+                        instead of `public Configuration setNamingStrategy(NamingStrategy namingStrategy)()`
+                    </message>
                     <link
                         href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#re-purposing-of-configuration"
                         title="Changes in Configuration for Hibernate 5" />
@@ -589,7 +557,7 @@
                 <javaclass references="org.hibernate.id.{idclass}"/>
             </when>
             <perform>
-                <hint title="Class org.hibernate.id.{idclass} was removed in Hibernate 5" effort="1" severity="mandatory">
+                <hint title="Class org.hibernate.id.{idclass} was removed/deprecated in Hibernate 5" effort="1" severity="mandatory">
                     <message>Use `org.hibernate.id.enhanced.SequenceStyleGenerator` instead.</message>
                     <link
                         href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#deprecations"
@@ -602,6 +570,200 @@
             </perform>
             <where param="idclass">
                 <matches pattern="(TableGenerator|TableHiLoGenerator|SequenceGenerator|SequenceIdentityGenerator|SequenceHiLoGenerator)" />
+            </where>
+        </rule>
+        <rule id="hibernate4-00030">
+            <when>
+                <javaclass references="org.hibernate.hql.spi.{type}" />
+            </when>
+            <perform>
+                <hint title="Class org.hibernate.hql.spi.{type} was moved in Hibernate 5" effort="1" severity="mandatory">
+                    <message>Hibernate 5 moved `org.hibernate.hql.spi.{type}` class to new `org.hibernate.hql.spi.id` package.</message>
+                    <link
+                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#misc"
+                        title="Hibernate 5 Misc changes" />
+                    <tag>hibernate</tag>
+                </hint>
+            </perform>
+            <where param="type">
+                <matches pattern="(MultiTableBulkIdStrategy|MultiTableBulkIdStrategy.DeleteHandler|MultiTableBulkIdStrategy.UpdateHandler|AbstractTableBasedBulkIdHandler|AbstractTableBasedBulkIdHandler.ProcessedWhereClause|TableBasedDeleteHandlerImpl|TableBasedUpdateHandlerImpl)" />
+            </where>
+        </rule>
+        <rule id="hibernate4-00031">
+            <when>
+                <javaclass references="org.hibernate.hql.spi.PersistentTableBulkIdStrategy" />
+            </when>
+            <perform>
+                <hint title="Class org.hibernate.hql.spi.PersistentTableBulkIdStrategy was moved in Hibernate 5" effort="1" severity="mandatory">
+                    <message>Hibernate 5 moved `org.hibernate.hql.spi.PersistentTableBulkIdStrategy` class to new `org.hibernate.hql.spi.id.persistent` package.</message>
+                    <link
+                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#misc"
+                        title="Hibernate 5 Misc changes" />
+                    <tag>hibernate</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate4-00032">
+            <when>
+                <javaclass references="org.hibernate.hql.spi.TemporaryTableBulkIdStrategy" />
+            </when>
+            <perform>
+                <hint title="Class org.hibernate.hql.spi.TemporaryTableBulkIdStrategy was replaced in Hibernate 5" effort="1" severity="mandatory">
+                    <message>Hibernate 5 replaced `org.hibernate.hql.spi.TemporaryTableBulkIdStrategy` class with `org.hibernate.hql.spi.id.global.GlobalTemporaryTableBulkIdStrategy` and `org.hibernate.hql.spi.id.local.LocalTemporaryTableBulkIdStrategy`.</message>
+                    <link
+                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#misc"
+                        title="Hibernate 5 Misc changes" />
+                    <tag>hibernate</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate4-00033">
+            <when>
+                <javaclass references="org.hibernate.integrator.spi.Integrator">
+                    <location>IMPLEMENTS_TYPE</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Interface org.hibernate.integrator.spi.Integrator was changed in Hibernate 5" effort="1" severity="optional">
+                    <message>Hibernate 5 changed contract `org.hibernate.integrator.spi.Integrator` to account for bootstrap redesign.
+                    Check if you implement method `integrate(Configuration configuration, SessionFactoryImplementor sessionFactory, SessionFactoryServiceRegistry serviceRegistry)` which is no longer there.
+                    </message>
+                    <link
+                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#changedmoved-contracts"
+                        title="Hibernate 5 Changed or Moved Contracts" />
+                    <tag>hibernate</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate4-00034">
+            <when>
+                <javaclass references="org.hibernate.engine.jdbc.spi.JdbcServices">
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Class org.hibernate.engine.jdbc.spi.JdbcServices was changed in Hibernate 5" effort="1" severity="optional">
+                    <message>Hibernate 5 extracted new interface `org.hibernate.engine.jdbc.env.spi.JdbcEnvironment` from `org.hibernate.engine.jdbc.spi.JdbcServices`.</message>
+                    <link
+                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#changedmoved-contracts"
+                        title="Hibernate 5 Changed or Moved Contracts" />
+                     <link
+                        href="https://docs.jboss.org/hibernate/orm/5.0/javadocs/index.html?org/hibernate/engine/jdbc/env/spi/JdbcEnvironment.html"
+                        title="Hibernate 5 JdbcEnvironment new API" />
+                    <tag>hibernate</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate4-00035">
+            <when>
+                <javaclass references="org.hibernate.id.Configurable">
+                    <location>IMPLEMENTS_TYPE</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Interface org.hibernate.id.Configurable changed method parameter in configure method in Hibernate 5" effort="1" severity="mandatory">
+                    <message>Hibernate 5 changed the signature of `org.hibernate.id.Configurable#configure` method to accept `ServiceRegistry` rather than just `Dialect`</message>
+                    <link
+                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#changedmoved-contracts"
+                        title="Hibernate 5 Changed or Moved Contracts" />
+                     <link
+                        href="https://docs.jboss.org/hibernate/orm/5.0/javadocs/org/hibernate/id/Configurable.html#configure-org.hibernate.type.Type-java.util.Properties-org.hibernate.service.ServiceRegistry-"
+                        title="Hibernate 5 Configurable API" />
+                    <tag>hibernate</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate4-00036">
+            <when>
+                <javaclass references="org.hibernate.id.PersistentIdentifierGenerator">
+                    <location>IMPLEMENTS_TYPE</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="PersistentIdentifierGenerator implementations need to implement ExportableProducer#registerExportables" effort="1" severity="mandatory">
+                    <message>Since Hibernate 5, The `org.hibernate.id.PersistentIdentifierGenerator` extends new `org.hibernate.boot.model.relational.ExportableProducer` interface which will affect all `org.hibernate.id.PersistentIdentifierGenerator` implementations.
+                    Therefore you need to implement additionally `ExportableProducer#registerExportables(org.hibernate.boot.model.relational.Database database)` method.</message>
+                    <link
+                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#changedmoved-contracts"
+                        title="Hibernate 5 Changed or Moved Contracts" />
+                     <link
+                        href="https://docs.jboss.org/hibernate/orm/5.0/javadocs/org/hibernate/boot/model/relational/ExportableProducer.html#registerExportables-org.hibernate.boot.model.relational.Database-"
+                        title="Hibernate 5 ExportableProducer API" />
+                    <tag>hibernate</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate4-00037">
+            <when>
+                <javaclass references="org.hibernate.envers.configuration.AuditConfiguration" />
+            </when>
+            <perform>
+                <hint title="Class org.hibernate.envers.configuration.AuditConfiguration was removed in Hibernate 5" effort="1" severity="mandatory">
+                    <message>Hibernate 5 removed `AuditConfiguration` in preference for new `org.hibernate.envers.boot.internal.EnversService`.</message>
+                    <link
+                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#changedmoved-contracts"
+                        title="Hibernate 5 Changed or Moved Contracts" />
+                     <link
+                        href="https://docs.jboss.org/hibernate/orm/5.0/javadocs/index.html?org/hibernate/envers/boot/internal/EnversService.html"
+                        title="Hibernate 5 EnversService API" />
+                    <tag>hibernate</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate4-00038">
+            <when>
+                <or>
+                    <javaclass references="org.hibernate.spatial.dialect.{spatial}">
+                        <location>INHERITANCE</location>
+                    </javaclass>
+                    <javaclass references="org.hibernate.spatial.JTSGeometryJavaTypeDescriptor">
+                        <location>INHERITANCE</location>
+                    </javaclass>
+                    <javaclass references="org.hibernate.spatial.GeolatteGeometryJavaTypeDescriptor">
+                        <location>INHERITANCE</location>
+                    </javaclass>
+                    <javaclass references="org.hibernate.type.descriptor.java.{javatype}">
+                        <location>INHERITANCE</location>
+                    </javaclass>
+                    <javaclass references="org.hibernate.type.descriptor.sql.{sqltype}">
+                        <location>INHERITANCE</location>
+                    </javaclass>
+                    <javaclass references="org.hibernate.type.descriptor.converter.AttributeConverterSqlTypeDescriptorAdapter">
+                        <location>INHERITANCE</location>
+                    </javaclass>
+                    <javaclass references="org.hibernate.type.PostgresUUIDType.PostgresUUIDSqlTypeDescriptor">
+                        <location>INHERITANCE</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint
+                    title="Built-in implementations of org.hibernate.type.descriptor.sql.SqlTypeDescriptor needs to register in Hibernate 5"
+                    effort="1" severity="mandatory">
+                    <message>Built-in implementations of `org.hibernate.type.descriptor.sql.SqlTypeDescriptor` and `org.hibernate.type.descriptor.java.JavaTypeDescriptor` no longer
+                        auto-register themselves with `org.hibernate.type.descriptor.sql.SqlTypeDescriptorRegistry` and `org.hibernate.type.descriptor.java.JavaTypeDescriptorRegistry`.
+                        Applications using custom `SqlTypeDescriptor`/`JavaTypeDescriptor` implementations which extends the built-in ones and
+                        rely on that behavior should be updated to call `SqlTypeDescriptorRegistry#addDescriptor` or `JavaTypeDescriptorRegistry#addDescriptor` themselves.
+                     This warning is important especially for users of Hibernate 4.3.</message>
+                    <link href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#type-handling"
+                        title="Hibernate 5 Type Handling" />
+                    <link
+                        href="https://docs.jboss.org/hibernate/orm/5.0/javadocs/index.html?org/hibernate/type/descriptor/sql/SqlTypeDescriptorRegistry.html"
+                        title="Hibernate 5 javadoc for SqlTypeDescriptorRegistry#addDescriptor" />
+                    <link href="https://docs.jboss.org/hibernate/orm/5.0/javadocs/index.html?org/hibernate/type/descriptor/java/JavaTypeDescriptorRegistry.html" title="Hibernate 5 javadoc for JavaTypeDescriptorRegistry#addDescriptor" />
+                    <tag>hibernate</tag>
+                </hint>
+            </perform>
+            <where param="spatial">
+                <matches
+                    pattern="(mysql.MySQLGeometryTypeDescriptor | h2geodb.GeoDBGeometryTypeDescriptor | postgis.PGGeometryTypeDescriptor | oracle.SDOGeometryTypeDescriptor | sqlserver.SqlServer2008GeometryTypeDescriptor)" />
+            </where>
+            <where param="javatype">
+                <matches
+                    pattern="(AbstractTypeDescriptor | BigDecimalTypeDescriptor | BigIntegerTypeDescriptor | BlobTypeDescriptor | BooleanTypeDescriptor | ByteArrayTypeDescriptor | ByteTypeDescriptor | CalendarDateTypeDescriptor | CalendarTimeTypeDescriptor | CalendarTypeDescriptor | CharacterArrayTypeDescriptor | CharacterTypeDescriptor | ClassTypeDescriptor | ClobTypeDescriptor | CurrencyTypeDescriptor | DateTypeDescriptor | DoubleTypeDescriptor | DurationJavaDescriptor | EnumJavaTypeDescriptor | FloatTypeDescriptor | InstantJavaDescriptor | IntegerTypeDescriptor | JavaTypeDescriptorRegistry.FallbackJavaTypeDescriptor | JdbcDateTypeDescriptor | JdbcTimestampTypeDescriptor | JdbcTimeTypeDescriptor | LocalDateTimeJavaDescriptor | LocalDateJavaDescriptor | LocaleTypeDescriptor | LocalTimeJavaDescriptor | LongTypeDescriptor | NClobTypeDescriptor | OffsetDateTimeJavaDescriptor | OffsetTimeJavaDescriptor | PrimitiveByteArrayTypeDescriptor | PrimitiveCharacterArrayTypeDescriptor | SerializableTypeDescriptor | ShortTypeDescriptor | StringTypeDescriptor | TimeZoneTypeDescriptor | UrlTypeDescriptor | UUIDTypeDescriptor | ZonedDateTimeJavaDescriptor)" />
+            </where>
+            <where param="sqltype">
+                <matches
+                    pattern="(BigIntTypeDescriptor|BinaryTypeDescriptor|BitTypeDescriptor|BlobTypeDescriptor|BooleanTypeDescriptor|CharTypeDescriptor|ClobTypeDescriptor|DateTypeDescriptor|DecimalTypeDescriptor|DoubleTypeDescriptor|FloatTypeDescriptor|IntegerTypeDescriptor|LongNVarcharTypeDescriptor|LongVarbinaryTypeDescriptor|LongVarcharTypeDescriptor|NCharTypeDescriptor|NClobTypeDescriptor|NumericTypeDescriptor|NVarcharTypeDescriptor|RealTypeDescriptor|SmallIntTypeDescriptor|SqlTypeDescriptorRegistry.ObjectSqlTypeDescriptor|TimestampTypeDescriptor|TimeTypeDescriptor|TinyIntTypeDescriptor|VarbinaryTypeDescriptor|VarcharTypeDescriptor)" />
             </where>
         </rule>
     </rules>
