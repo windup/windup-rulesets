@@ -11,6 +11,7 @@
             <addon id="org.jboss.windup.rules,windup-rules-java,2.4.0.Final" />
         </dependencies>
         <sourceTechnology id="hibernate" versionRange="[4,5)" />
+        <sourceTechnology id="eap" versionRange="[6,7)" />
         <targetTechnology id="hibernate5" versionRange="[5,)" />
         <targetTechnology id="eap7" versionRange="[7,)" />
         <tag>reviewed-2016-02-29</tag>
@@ -24,13 +25,16 @@
             <perform>
                 <hint title="Hibernate: Deprecated property hibernate.transaction.factory_class" effort="1" severity="mandatory">
                     <message>
-                        Replace configuration transaction property 
-                            `hibernate.transaction.factory_class=org.hibernate.engine.transaction.spi.TransactionFactory`
-                        with 
-                            `hibernate.transaction.coordinator_class=org.hibernate.resource.transaction.TransactionCoordinatorBuilder`
+                        Replace configuration transaction property `hibernate.transaction.factory_class`
+                        with `hibernate.transaction.coordinator_class`.
+                            
+                        Next the contract in `hibernate.transaction.coordinator_class` property should refer to `org.hibernate.resource.transaction.TransactionCoordinatorBuilder` 
+                        instead of to `org.hibernate.engine.transaction.spi.TransactionFactory`
                         </message>
                     <link href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#transactions"
                         title="Hibernate 5 redesigned Transactions SPI" />
+                    <link href="https://docs.jboss.org/hibernate/orm/5.1/javadocs/index.html?org/hibernate/cfg/AvailableSettings.html#TRANSACTION_COORDINATOR_STRATEGY"
+                     title="Hibernate javadoc for org.hibernate.cfg.AvailableSettings.TRANSACTION_COORDINATOR_STRATEGY" />
                     <tag>hibernate</tag>
                     <tag>configuration</tag>
                     <tag>transaction</tag>
@@ -39,6 +43,114 @@
             <where param="file-ext">
                 <matches pattern="(cfg.xml|properties)" />
             </where>
+        </rule>
+        <rule id="hibernate4-xml-00002">
+            <when>
+                <filecontent filename="{*}.hbm.xml" pattern="org.hibernate.id.{idclass}"/>
+            </when>
+            <perform>
+                <hint title="Class org.hibernate.id.{idclass} was removed/deprecated in Hibernate 5" effort="1" severity="mandatory">
+                    <message>Use `org.hibernate.id.enhanced.SequenceStyleGenerator` instead.</message>
+                    <link
+                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#deprecations"
+                        title="Removed or deprecated types in Hibernate 5" />
+                    <link
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0.beta/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
+                        title="Hibernate and JPA migration changes" />
+                    <tag>hibernate</tag>
+                </hint>
+            </perform>
+            <where param="idclass">
+                <matches pattern="(TableGenerator|TableHiLoGenerator|SequenceGenerator|SequenceIdentityGenerator|SequenceHiLoGenerator)" />
+            </where>
+        </rule>
+        <rule id="hibernate4-xml-00003">
+            <when>
+                <xmlfile 
+                   matches="//generator/@class[windup:matches(self::node(), '{generator}')]"
+                 in="{*}.hbm.xml"/>
+            </when>
+            <perform>
+               <hint title="Identifier generator {generator} was removed/deprecated in Hibernate 5" effort="1" severity="mandatory">
+                  <message>Identifier generator {generator} was removed/deprecated in Hibernate 5. You can use `sequence` generator instead.</message>
+                    <link
+                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#deprecations"
+                        title="Removed or deprecated types in Hibernate 5" />
+                    <link
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0.beta/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
+                        title="Hibernate and JPA migration changes" />
+                    <tag>hibernate</tag>
+                </hint>
+            </perform>
+            <where param="generator">
+                <matches pattern="(seqhilo|sequence-identity|hilo)" />
+            </where>
+        </rule>
+        <rule id="hibernate4-xml-00004">
+            <when>
+                <or>
+                    <xmlfile matches="//property[text() = 'org.hibernate.hql.spi.TemporaryTableBulkIdStrategy']" as="cfg" in="hibernate.cfg.xml" />
+                    <filecontent pattern="hibernate.hql.bulk_id_strategy=org.hibernate.hql.spi.TemporaryTableBulkIdStrategy" filename="hibernate.properties" as="properties" />
+                </or>
+            </when>
+            <perform>
+                <iteration over="cfg">
+                    <hint title="TemporaryTableBulkIdStrategy was replaced in Hibernate 5" effort="1" severity="mandatory">
+                        <message>Since Hibernate 5, the `org.hibernate.hql.spi.TemporaryTableBulkIdStrategy` class was replaced by `org.hibernate.hql.spi.id.global.GlobalTemporaryTableBulkIdStrategy` and `org.hibernate.hql.spi.id.local.LocalTemporaryTableBulkIdStrategy`.</message>
+                        <link
+                            href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#deprecations"
+                            title="Removed or deprecated types in Hibernate 5" />
+                        <link
+                            href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0.beta/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
+                            title="Hibernate and JPA migration changes" />
+                        <tag>hibernate</tag>
+                        <tag>configuration</tag>
+                    </hint>
+                </iteration>
+                <iteration over="properties">
+                    <hint title="TemporaryTableBulkIdStrategy was replaced in Hibernate 5" effort="1" severity="mandatory">
+                        <message>Since Hibernate 5, the `org.hibernate.hql.spi.TemporaryTableBulkIdStrategy` class was replaced by `org.hibernate.hql.spi.id.global.GlobalTemporaryTableBulkIdStrategy` and `org.hibernate.hql.spi.id.local.LocalTemporaryTableBulkIdStrategy`.</message>
+                        <link
+                            href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#deprecations"
+                            title="Removed or deprecated types in Hibernate 5" />
+                        <link
+                            href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0.beta/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
+                            title="Hibernate and JPA migration changes" />
+                        <tag>hibernate</tag>
+                        <tag>configuration</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="hibernate4-xml-00005">
+            <when>
+                <or>
+                    <xmlfile matches="//property[text() = 'org.hibernate.hql.spi.PersistentTableBulkIdStrategy']" as="cfg" in="hibernate.cfg.xml" />
+                    <filecontent pattern="hibernate.hql.bulk_id_strategy=org.hibernate.hql.spi.PersistentTableBulkIdStrategy" filename="hibernate.properties" as="properties" />
+                </or>
+            </when>
+            <perform>
+                <iteration over="cfg">
+                    <hint title="Class PersistentTableBulkIdStrategy was moved in Hibernate 5" effort="1" severity="mandatory">
+                        <message>Since Hibernate 5, the `org.hibernate.hql.spi.PersistentTableBulkIdStrategy` class was moved to new package and you should use it as `org.hibernate.hql.spi.id.persistent.PersistentTableBulkIdStrategy`.</message>
+                        <link
+                            href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#misc"
+                            title="Hibernate 5 Misc changes" />
+                        <tag>hibernate</tag>
+                        <tag>configuration</tag>
+                    </hint>
+                </iteration>
+                <iteration over="properties">
+                    <hint title="Class PersistentTableBulkIdStrategy was moved in Hibernate 5" effort="1" severity="mandatory">
+                        <message>Since Hibernate 5, the `org.hibernate.hql.spi.PersistentTableBulkIdStrategy` class was moved to new package and you should use it as `org.hibernate.hql.spi.id.persistent.PersistentTableBulkIdStrategy`.</message>
+                        <link
+                            href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#misc"
+                            title="Hibernate 5 Misc changes" />
+                        <tag>hibernate</tag>
+                        <tag>configuration</tag>
+                    </hint>
+                </iteration>
+            </perform>
         </rule>
     </rules>
 </ruleset>
