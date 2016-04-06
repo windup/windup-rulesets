@@ -269,5 +269,42 @@
                 </classification>
             </perform>
         </rule>
+        <rule id="eap6-10000">
+            <when>
+                <javaclass references="org.jboss.logging.{annotation}">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Deprecated JBoss Logging annotations" effort="1" severity="mandatory">
+                    <message>JBoss Logging annotations in package `org.jboss.logging` are deprecated. You should replace them by the corresponding annotations from package `org.jboss.logging.annotations`. Note that using the `org.jboss.logging.annotations` package requires adding a new dependency: `org.jboss.logging:jboss-logging-annotations`.</message>
+                    <!-- doesn't exist yet, but there's no other documentation -->
+                    <!-- <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_jboss_logging_changes" title="JBoss Logging Changes" /> -->
+                    <tag>logging</tag>
+                </hint>
+            </perform>
+            <where param="annotation">
+                <matches pattern="(Cause|Field|FormatWith|LoggingClass|LogMessage|Message|MessageBundle|MessageLogger|Param|Property)" />
+            </where>
+        </rule>
+        <rule id="eap6-11000">
+            <when>
+                <or>
+                    <!-- when analyzing compiled classes -->
+                    <filecontent filename="{*}.java" pattern="com.sun.faces.facelets.FACELET_CONTEXT"/>
+                    <!-- when analyzing Java sources -->
+                    <filecontent filename="{*}.java" pattern="FaceletContext.FACELET_CONTEXT_KEY"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Value of FaceletContext.FACELET_CONTEXT_KEY has changed" effort="1" severity="mandatory">
+                    <message>Value of `FaceletContext.FACELET_CONTEXT_KEY` has changed between JSF 2.1 and 2.2. The variable is a compile-time constant expression, so when the program was originally compiled, the reference to `FACELET_CONTEXT_KEY` was replaced by its value during compilation. The application must be recompiled so that the reference to `FACELET_CONTEXT_KEY` is replaced by its new value.</message>
+                    <!-- doesn't exist yet -->
+                    <!-- <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#compatibility_issue_between_jsf_2_1_and_jsf_2_2" title="Compatibility Issue Between JSF 2.1 and JSF 2.2"/> -->
+                    <link href="https://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1257" title="JAVASERVERFACES_SPEC_PUBLIC-1257"/>
+                    <tag>jsf</tag>
+                </hint>
+            </perform>
+        </rule>
     </rules>
 </ruleset>

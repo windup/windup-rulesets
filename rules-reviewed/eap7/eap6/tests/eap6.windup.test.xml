@@ -126,6 +126,26 @@
                     <fail message="The classification aboutg hornetq is not found!"/>
                 </perform>
             </rule>
+            <rule id="eap6-10000-test">
+                <when>
+                    <not>
+                         <hint-exists message="JBoss Logging annotations in package `org.jboss.logging` are deprecated"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="The hint about deprecated JBoss Logging annotations not found!"/>
+                </perform>
+            </rule>
+            <rule id="eap6-11000-test">
+                <when>
+                    <not>
+                         <hint-exists message="Value of `FaceletContext.FACELET_CONTEXT_KEY` has changed"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="The hint about changed value of FaceletContext.FACELET_CONTEXT_KEY not found!"/>
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
