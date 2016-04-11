@@ -164,7 +164,7 @@ public class WindupRulesTest
             }
             try
             {
-            	Map<String, Exception> exceptions = null;
+                Map<String, Exception> exceptions;
                 Path outputPath = getDefaultPath();
                 try (GraphContext context = factory.create(outputPath))
                 {
@@ -219,9 +219,12 @@ public class WindupRulesTest
                 	ruleSubset.perform(event, createEvalContext(event));
                 	exceptions = ruleSubset.getExceptions();
                 }
-                if ( exceptions != null && exceptions.isEmpty() ) {
+                if (exceptions != null && exceptions.isEmpty())
+                {
                 	successes.add(ruleTestFile.toString());
-                } else { // here are added all failed tests instead of failed test files 
+                } else
+                {
+                    // here are added all failed tests instead of failed test files
                 	errors.putAll(exceptions);
                 }
             }
