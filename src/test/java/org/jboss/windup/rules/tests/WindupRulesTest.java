@@ -164,6 +164,7 @@ public class WindupRulesTest
             }
             try
             {
+                Map<String, Exception> exceptions;
                 Path outputPath = getDefaultPath();
                 try (GraphContext context = factory.create(outputPath))
                 {
@@ -203,7 +204,7 @@ public class WindupRulesTest
                         parser.getBuilder().enhanceRuleMetadata(parser.getBuilder(), rule);
                         if (rule instanceof Context)
                         {
-                            ((Context) rule).put(RuleMetadataType.HALT_ON_EXCEPTION, true);
+                            ((Context) rule).put(RuleMetadataType.HALT_ON_EXCEPTION, false);
                         }
                     }
 
@@ -214,9 +215,18 @@ public class WindupRulesTest
 
                     // run the assertions from the ruletest file
                     GraphRewrite event = new GraphRewrite(context);
-                    RuleSubset.create(ruleTestConfiguration).perform(event, createEvalContext(event));
+                	RuleSubset ruleSubset = RuleSubset.create(ruleTestConfiguration);
+                	ruleSubset.perform(event, createEvalContext(event));
+                	exceptions = ruleSubset.getExceptions();
                 }
-                successes.add(ruleTestFile.toString());
+                if (exceptions != null && exceptions.isEmpty())
+                {
+                	successes.add(ruleTestFile.toString());
+                } else
+                {
+                    // here are added all failed tests instead of failed test files
+                	errors.putAll(exceptions);
+                }
             }
             catch (Exception e)
             {
