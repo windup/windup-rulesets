@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +35,8 @@ import org.jboss.windup.config.metadata.RuleMetadataType;
 import org.jboss.windup.config.parser.ParserContext;
 import org.jboss.windup.exec.WindupProcessor;
 import org.jboss.windup.exec.configuration.WindupConfiguration;
+import org.jboss.windup.exec.configuration.options.SourceOption;
+import org.jboss.windup.exec.configuration.options.TargetOption;
 import org.jboss.windup.graph.GraphContext;
 import org.jboss.windup.graph.GraphContextFactory;
 import org.jboss.windup.graph.model.ProjectModel;
@@ -211,7 +214,7 @@ public class WindupRulesTest
                     // run windup
                     File testDataPath = new File(ruleTestFile.getParentFile(), ruleTest.getTestDataPath());
                     Path reportPath = outputPath.resolve("reports");
-                    runWindup(context, directory, rulePaths, testDataPath, reportPath.toFile(),ruleTest.isSourceMode());
+                    runWindup(context, directory, rulePaths, testDataPath, reportPath.toFile(), ruleTest.isSourceMode(), ruleTest.getSource(), ruleTest.getTarget());
 
                     // run the assertions from the ruletest file
                     GraphRewrite event = new GraphRewrite(context);
@@ -293,7 +296,7 @@ public class WindupRulesTest
         return FileUtils.getTempDirectory().toPath().resolve("WindupRulesTests").resolve("windupgraph_" + RandomStringUtils.randomAlphanumeric(6));
     }
 
-    private void runWindup(GraphContext context, File baseRuleDirectory, final List<Path> rulePaths, File input, File output, boolean sourceMode) throws IOException
+    private void runWindup(GraphContext context, File baseRuleDirectory, final List<Path> rulePaths, File input, File output, boolean sourceMode, String source, String target) throws IOException
     {
         ProjectModel pm = context.getFramed().addVertex(null, ProjectModel.class);
         pm.setName("Project: " + input.getAbsolutePath());
@@ -311,6 +314,11 @@ public class WindupRulesTest
         windupConfiguration.setOutputDirectory(output.toPath());
         windupConfiguration.addDefaultUserRulesDirectory(baseRuleDirectory.toPath());
         windupConfiguration.setOptionValue(SourceModeOption.NAME, sourceMode);
+        if (StringUtils.isNotBlank(source))
+            windupConfiguration.setOptionValue(SourceOption.NAME, Collections.singletonList(source));
+
+        if (StringUtils.isNotBlank(target))
+            windupConfiguration.setOptionValue(TargetOption.NAME, Collections.singletonList(target));
 
         final String baseRulesPathNormalized = baseRuleDirectory.toPath().normalize().toAbsolutePath().toString();
         windupConfiguration.setRuleProviderFilter(new Predicate<RuleProvider>()

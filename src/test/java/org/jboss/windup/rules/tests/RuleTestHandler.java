@@ -2,6 +2,7 @@ package org.jboss.windup.rules.tests;
 
 import static org.joox.JOOX.$;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -18,10 +19,14 @@ import org.w3c.dom.Element;
  *
  * The rulePath element is optional. If it is not specified, the default will be "../", which will run all rules in the parent directory of this test.
  *
+ * The source and target elements are optional. If not specified, they will default to using all rules.
+ *
  * <pre>
  * &lt;ruletest xmlns=&quot;http://windup.jboss.org/schema/jboss-ruleset&quot;&gt;
  *  &lt;testDataPath&gt;data&lt;/testDataPath&gt;
  *  &lt;rulePath&gt;directory&lt;/rulePath&gt;
+ *  &lt;source&gt;glassfish&lt;/source&gt;
+    &lt;target&gt;directory&lt;/target&gt;
  *  &lt;ruleset&gt;
  *      &lt;rules&gt;
  *          &lt;rule&gt;
@@ -49,6 +54,8 @@ public class RuleTestHandler implements ElementHandler<RuleTest>
     public static final String TEST_DATA_PATH = "testDataPath";
     public static final String RULE_PATH = "rulePath";
     public static final String SOURCE_MODE = "sourceMode";
+    public static final String SOURCE = "source";
+    public static final String TARGET = "target";
 
     @Override
     public RuleTest processElement(ParserContext context, Element element) throws ConfigurationException
@@ -66,10 +73,20 @@ public class RuleTestHandler implements ElementHandler<RuleTest>
             {
                 ruleTest.addRulePath(child.getTextContent().trim());
             }
-            else if(child.getNodeName().equals(SOURCE_MODE))
+            else if (child.getNodeName().equals(SOURCE_MODE))
             {
                 ruleTest.setSourceMode(Boolean.valueOf(child.getTextContent()));
-            }else {
+            }
+            else if (child.getNodeName().equals(SOURCE))
+            {
+                ruleTest.setSource(child.getTextContent().trim());
+            }
+            else if (child.getNodeName().equals(TARGET))
+            {
+                ruleTest.setTarget(child.getTextContent().trim());
+            }
+            else
+            {
                 context.processElement(child);
             }
         }

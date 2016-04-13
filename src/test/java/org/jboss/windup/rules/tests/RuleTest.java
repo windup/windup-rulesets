@@ -16,14 +16,39 @@ public class RuleTest
     private String testDataPath;
     private List<String> rulePaths = new ArrayList<>();
     private boolean sourceMode = true;
+    private String source;
+    private String target;
 
     /**
-     * Contains the path to the test data. This should be a relative path, relative to the file that contains the test itself (the *.windup.text.xml
-     * file).
+     * Gets the source technology to operate on (eg, Glassfish).
      */
-    public void setTestDataPath(String testDataPath)
+    public String getSource()
     {
-        this.testDataPath = testDataPath;
+        return source;
+    }
+
+    /**
+     * Gets the source technology to operate on (eg, Glassfish).
+     */
+    public void setSource(String source)
+    {
+        this.source = source;
+    }
+
+    /**
+     * Gets the target technology to operate on (eg, eap or eap6).
+     */
+    public String getTarget()
+    {
+        return target;
+    }
+
+    /**
+     * Gets the target technology to operate on (eg, eap or eap6).
+     */
+    public void setTarget(String target)
+    {
+        this.target = target;
     }
 
     /**
@@ -35,17 +60,44 @@ public class RuleTest
         return testDataPath;
     }
 
+    /**
+     * Contains the path to the test data. This should be a relative path, relative to the file that contains the test itself (the *.windup.text.xml
+     * file).
+     */
+    public void setTestDataPath(String testDataPath)
+    {
+        this.testDataPath = testDataPath;
+    }
+
+    /**
+     * Contains the paths to the rules that will be executed by this test.
+     */
     public List<String> getRulePaths()
     {
         return Collections.unmodifiableList(rulePaths);
     }
 
+    /**
+     * Contains the paths to the rules that will be executed by this test.
+     */
     public void addRulePath(String rulePath)
     {
         rulePaths.add(rulePath);
     }
 
-    public void setSourceMode(boolean value) {sourceMode=value;}
+    /**
+     * Indicates whether or not this particular test should be run on source code.
+     */
+    public boolean isSourceMode()
+    {
+        return sourceMode;
+    }
 
-    public boolean isSourceMode() { return sourceMode;}
+    /**
+     * Indicates whether or not this particular test should be run on source code.
+     */
+    public void setSourceMode(boolean value)
+    {
+        sourceMode = value;
+    }
 }
