@@ -1,0 +1,474 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="resteasy-eap6-test" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/data-resteasy</testDataPath>
+    <ruleset>
+        <rules>
+            <rule id="resteasy-eap6-000001-test">
+                <when>
+                    <not>
+                        <hint-exists message="Caching in the RESTEasy client framework in resteasy-jaxrs is replaced by caching in the JAX-RS 2.0.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="RESTeasy Cache Client changes hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000002-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace class .*org.jboss.resteasy.client.ClientRequest`.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="RESTeasy Client Application Changes hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000003-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace .*org.jboss.resteasy.client.ClientResponse.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="org.jboss.resteasy.client.ClientResponse hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000004-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace this class with .*org.jboss.resteasy.client.jaxrs." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="org.jboss.resteasy.client.jaxrs.* hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000005-test">
+                <when>
+                    <not>
+                        <hint-exists message="There is no direct replacement for .*org.jboss.resteasy.client.EntityTypeFactory.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="org.jboss.resteasy.client.EntityTypeFactory hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000006-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace the .*org.jboss.resteasy.client.ClientExecutor.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="org.jboss.resteasy.client.ClientExecutor hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000007-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace the .*org.jboss.resteasy.client.ClientRequestFactory.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="ClientRequestFactory hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000008-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace the .*org.jboss.resteasy.client.ClientResponseFailure.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="ClientResponseFailure hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000009-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace .*org.jboss.resteasy.spi.StringConverter.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="StringConverter hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000010-test">
+                <when>
+                    <not>
+                        <hint-exists message=".*InjectorFactory.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="InjectorFactory hint not found!" />
+                </perform>
+            </rule>
+            <!-- JAX-RS Interceptors -->
+            <rule id="resteasy-eap6-000011-test">
+                <when>
+                    <not>
+                        <hint-exists message="The interface .*org.jboss.resteasy.spi.interception.MessageBodyWriterInterceptor.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="MessageBodyWriterInterceptor hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000012-test">
+                <when>
+                    <not>
+                        <hint-exists message="The interface .*org.jboss.resteasy.spi.interception.MessageBodyReaderInterceptor.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="MessageBodyReaderInterceptor hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000013-test">
+                <when>
+                    <not>
+                        <hint-exists message="The interface .*org.jboss.resteasy.spi.interception.MessageBodyWriterContext.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="MessageBodyWriterContext hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000014-test">
+                <when>
+                    <not>
+                        <hint-exists message=".*org.jboss.resteasy.core.interception.InterceptorRegistry.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="org.jboss.resteasy.core.interception.InterceptorRegistry hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000015-test">
+                <when>
+                    <not>
+                        <hint-exists message=".*org.jboss.resteasy.core.interception.InterceptorRegistryListener.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="InterceptorRegistryListener hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000017-test">
+                <when>
+                    <not>
+                        <hint-exists message="No direct replacement.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="ApacheHttpClientExecutor hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000018-test">
+                <when>
+                    <not>
+                        <hint-exists message="Use .*org.jboss.resteasy.plugins.cache.server.InfinispanCache.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="SimpleServerCache hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000019-test">
+                <when>
+                    <not>
+                        <hint-exists message="Use .*javax.ws.rs.container.DynamicFeature.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="AcceptedByMethod hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000020-test">
+                <when>
+                    <not>
+                        <hint-exists message="Remove annotation .*@org.jboss.resteasy.annotations.cache.ServerCached.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="ServerCached hint not found!" />
+                </perform>
+            </rule>            
+            <rule id="resteasy-eap6-000021-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replaced by .*javax.ws.rs.core.Link.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Link hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000022-test">
+                <when>
+                    <not>
+                        <hint-exists message=".*org.jboss.resteasy.spi.interception.ClientExecutionContext.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="ClientExecutionContext hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000023-test">
+                <when>
+                    <not>
+                        <hint-exists message="Use .*javax.ws.rs.client.Invocation.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="ClientExecutionInterceptor hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000024-test">
+                <when>
+                    <not>
+                        <hint-exists message="Most of the .*org.jboss.resteasy.spi.ResteasyProviderFactory#add.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="ResteasyProviderFactory hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000025-test">
+                <when>
+                    <not>
+                        <hint-exists message="Use .*javax.ws.rs.ext.ReaderInterceptorContext.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="MessageBodyReaderContext hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000029-test">
+                <when>
+                    <not>
+                        <hint-exists message="Use .*javax.ws.rs.container.ContainerResponseFilter.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="PostProcessInterceptor hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000030-test">
+                <when>
+                    <not>
+                        <hint-exists message="Use .*javax.ws.rs.container.ContainerRequestFilter.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="MessageBodyReaderContext hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000032-test">
+                <when>
+                    <not>
+                        <hint-exists message="There were multiple changes on adding/removing methods on.*Registry.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="org.jboss.resteasy.spi.Registry hint not found!" />
+                </perform>
+            </rule>            
+            <rule id="resteasy-eap6-000101-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replaced by .*javax.ws.rs.ForbiddenException.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="ForbiddenException hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000103-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replaced by .*javax.ws.rs.NotAllowedException.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="NotAllowedException hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000104-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replaced by .*javax.ws.rs.NotAcceptableException.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="NotAcceptableException hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000105-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replaced by .*javax.ws.rs.NotFoundException.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="NotFoundException hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000106-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replaced by .*javax.ws.rs.NotAuthorizedException.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="NotAuthorizedException hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000107-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replaced by .*javax.ws.rs.NotSupportedException.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="NotSupportedException hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000118-test">
+                <when>
+                    <not>
+                        <hint-exists message="RESTEasy 3 deprecates method .*org.jboss.resteasy.plugins.delegates.ServerCookie#checkName.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Not used hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000119-test">
+                <when>
+                    <not>
+                        <hint-exists message="Empty" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Empty hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000120-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace method calls of .*encodeRedirectUrl.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="ResteasyHttpServletResponseWrapper.encodeRedirectUrl hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000121-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace .*ResteasyHttpServletResponseWrapper#encodeURL.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="encodeURL hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000122-test">
+                <when>
+                    <not>
+                        <hint-exists message=".*MultipartFormDataInputImpl#getFormData.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="MultipartFormDataInputImpl#getFormData hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000123-test">
+                <when>
+                    <not>
+                        <hint-exists message=".*MultipartFormDataInput#getFormData.* method will be removed.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="MultipartFormDataInput#getFormData hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000125-test">
+                <when>
+                    <not>
+                        <hint-exists
+                            message="As of Version 2.1 of the Java Servlet API, use .*ResteasyHttpServletRequestWrapper.isRequestedSessionIdFromURL.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="ResteasyHttpServletRequestWrapper.isRequestedSessionIdFromURL hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000126-test">
+                <when>
+                    <not>
+                        <hint-exists message="Method .*org.jboss.resteasy.plugins.providers.jaxb.SecureUnmarshaller#isValidating.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="SecureUnmarshaller#isValidating hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000127-test">
+                <when>
+                    <not>
+                        <hint-exists
+                            message="RESTEasy 3 deprecates method .*org.jboss.resteasy.plugins.delegates.ServerCookie#maybeQuote.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="ServerCookie#maybeQuote hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000128-test">
+                <when>
+                    <not>
+                        <hint-exists message="Method .*org.jboss.resteasy.plugins.providers.jaxb.SecureUnmarshaller#setAdapter.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="SecureUnmarshaller#setAdapter hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000129-test">
+                <when>
+                    <not>
+                        <hint-exists
+                            message="As of version 2.1, due to ambiguous meaning of the message parameter. To set a status code use .*setStatus.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="ResteasyHttpServletResponseWrapper#setStatus hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000130-test">
+                <when>
+                    <not>
+                        <hint-exists
+                            message="RESTEasy 3 deprecates method .*org.jboss.resteasy.plugins.providers.jaxb.SecureUnmarshaller#setValidating.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="SecureUnmarshaller#setValidating hint not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000131-test">
+                <when>
+                    <not>
+                        <hint-exists message="RESTEasy 3 deprecates .*org.jboss.resteasy.auth.oauth.OAuthValidator#validateMessage.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="OAuthValidator#validateMessage hint not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
