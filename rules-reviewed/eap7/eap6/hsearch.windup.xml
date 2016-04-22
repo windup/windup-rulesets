@@ -153,7 +153,7 @@
                     <tag>hibernate-search</tag>
                 </hint>
             </perform>
-        </rule>        
+        </rule>
         <rule id="hsearch-00010">
             <when>
                 <javaclass references="org.hibernate.search.spi.SearchFactoryIntegrator" />
@@ -170,7 +170,7 @@
                     <tag>hibernate-search</tag>
                 </hint>
             </perform>
-        </rule>       
+        </rule>
         <rule id="hsearch-00011">
             <when>
                 <javaclass references="org.hibernate.search.Version" />
@@ -307,7 +307,7 @@
                     <tag>hibernate-search</tag>
                 </hint>
             </perform>
-        </rule>      
+        </rule>
         <rule id="hsearch-00109">
             <when>
                 <javaclass references="org.hibernate.search.annotations.Key">
@@ -327,7 +327,7 @@
                     <tag>hibernate-search</tag>
                 </hint>
             </perform>
-        </rule>        
+        </rule>
         <rule id="hsearch-00110">
             <when>
                 <javaclass references="org.hibernate.search.backend.configuration.impl.IndexWriterSetting.{constant}" />
@@ -450,7 +450,7 @@
                      ```java
                      @IndexedEmbedded(includeEmbeddedObjectId=true)
                      ```
-                
+
                     ]]></message>
                     <link
                         href="https://access.qa.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_miscellaneous_hibernate_search_changes"
@@ -464,15 +464,24 @@
         </rule>
         <rule id="hsearch-00116">
             <when>
-                <!-- https://issues.jboss.org/browse/WINDUP-974 -->            
-                <javaclass references="org.hibernate.search.annotations.NumericField">
-                    <location>ANNOTATION</location>
-                    <annotation-literal name="index" pattern="Index.YES"/>
-                </javaclass>
+                <or>
+                    <!-- https://issues.jboss.org/browse/WINDUP-974 -->
+                    <javaclass references="org.hibernate.search.annotations.Field">
+                        <location>ANNOTATION</location>
+                        <annotation-literal name="index" pattern="Index.YES"/>
+                        <annotation-type pattern="org.hibernate.search.annotations.NumericFields"/>
+                    </javaclass>
+                    <javaclass references="org.hibernate.search.annotations.Field">
+                        <location>ANNOTATION</location>
+                        <annotation-literal name="index" pattern="Index.YES"/>
+                        <annotation-type pattern="org.hibernate.search.annotations.NumericField"/>
+                    </javaclass>
+                </or>
             </when>
             <perform>
                 <hint title="Hibernate Search 5 changes indexing null values" effort="1" severity="mandatory">
-                    <message>Numbers and dates are now indexed as numeric fields by default. Properties of type int, long, float, double, and their
+                    <message><![CDATA[
+            Numbers and dates are now indexed as numeric fields by default. Properties of type int, long, float, double, and their
             corresponding wrapper classes are no longer indexed as strings. Instead, they are now indexed using Lucene’s appropriate numeric
             encoding. The id fields are an exception to this rule. Even when they are represented by a numeric type, they are still indexed as
             a string keyword by default. The use of `@NumericField` is now obsolete unless you want to specify a custom precision for the numeric
@@ -483,19 +492,19 @@
             Date and Calendar are no longer indexed as strings. Instead, instances are encoded as long values representing the number
             of milliseconds since January 1, 1970, 00:00:00 GMT. You can switch the indexing format by using the new EncodingType enum. For example:
 
-        ```java
-        @DateBridge(encoding=EncodingType.STRING)
-        @CalendarBridge(encoding=EncodingType.STRING)
-        ```
+            ```java
+            @DateBridge(encoding=EncodingType.STRING)
+            @CalendarBridge(encoding=EncodingType.STRING)
+            ```
 
-        The encoding change for numbers and dates is important and can have a big impact on application behavior. If you have
+            The encoding change for numbers and dates is important and can have a big impact on application behavior. If you have
             a query that targets a field that was previously string-encoded, but is now encoded numerically, you must update the query. Numeric
              fields must be searched with a NumericRangeQuery. You must also make sure that all fields targeted by faceting are string encoded.
             If you use the Search query DSL, the correct query should be created automatically for you.
-            </message>
+            ]]></message>
                     <link
                         href="https://access.qa.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_miscellaneous_hibernate_search_changes"
-                        title="Miscelanous Changes in Hibernate Search 5.x" />
+                        title="Miscellaneous Changes in Hibernate Search 5.x" />
                     <link href="https://docs.jboss.org/hibernate/search/5.5/api/index.html?org/hibernate/search/bridge/builtin/package-summary.html" title="org.hibernate.search.bridge.builtin package javadoc" />
                     <tag>hibernate-search</tag>
                 </hint>
@@ -520,7 +529,7 @@
                     This is no longer allowed. Instead, you must choose a number to represent the null value, such as -1. </message>
                     <link
                         href="https://access.qa.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_miscellaneous_hibernate_search_changes"
-                        title="Miscelanous Changes in Hibernate Search 5.x" />
+                        title="Miscellaneous Changes in Hibernate Search 5.x" />
                     <tag>hibernate-search</tag>
                 </hint>
             </perform>
@@ -542,7 +551,7 @@
                     <message>Significant improvements were made to the faceting engine. Most of the changes do not affect the API. The one notable exception is that you must now annotate any fields you intend to use for faceting with the @Facet or @Facets annotation.</message>
                     <link
                         href="https://access.qa.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_miscellaneous_hibernate_search_changes"
-                        title="Miscelanous Changes in Hibernate Search 5.x" />
+                        title="Miscellaneous Changes in Hibernate Search 5.x" />
                     <link href="http://in.relation.to/2015/05/11/hibernate-search-530-beta-1-with-native-lucene-faceting" title="Lucene native faceting" />
                     <link href="http://docs.jboss.org/hibernate/search/5.5/reference/en-US/html_single/#query-faceting" title="Query faceting" />
                     <tag>hibernate-search</tag>
@@ -577,7 +586,7 @@
                     <tag>maven</tag>
                 </hint>
             </perform>
-        </rule>        
+        </rule>
         <rule id="hsearch-00210">
             <when>
                 <javaclass references="org.apache.lucene.search.SortField({*})">
@@ -1068,7 +1077,7 @@ fulltextQuery.setSort(new Sort(new SortField("title", SortField.Type.STRING)))
                         title="Lucene - Renamed and Repackaged Classes" />
                 </hint>
             </perform>
-        </rule>        
+        </rule>
 <!-- The following lists the replacement classes for those removed: -->
 <!--     o.a.l.search.function.DocValues -> o.a.l.queries.function.DocValues -->
 <!--     o.a.l.search.function.FieldScoreQuery ->o.a.l.queries.function.FunctionQuery -->
@@ -1120,7 +1129,7 @@ fulltextQuery.setSort(new Sort(new SortField("title", SortField.Type.STRING)))
             </where>
         </rule>
 <!-- Solr utilities classes, for example TokenizerFactory or TokenFilterFactory, were moved into Apache Lucene.
- For this reason we could remove the dependency to Apache Solr. Good news is a simplified dependency graph! 
+ For this reason we could remove the dependency to Apache Solr. Good news is a simplified dependency graph!
  The bad news, if you depend on some of these utilities or custom analyzers, you’ll need to find the new (package) name -->
          <rule id="hsearch-00239">
             <when>
