@@ -127,7 +127,9 @@
             <rule id="hsearch-00100-test">
                 <when>
                     <not>
-                        <hint-exists message="Use .*NumericFieldMapping.*"/>
+                        <iterable-filter size="2">
+                            <hint-exists message="Use .*NumericFieldMapping.*"/>
+                        </iterable-filter>
                     </not>
                 </when>
                 <perform>
@@ -207,7 +209,9 @@
             <rule id="hsearch-00110-test">
                 <when>
                     <not>
-                        <hint-exists message="The .*IndexWriterSetting.MAX_THREAD_STATES.*"/>
+<!--                         <iterable-filter size="2"> -->
+                            <hint-exists message="The .*IndexWriterSetting.*"/>
+<!--                         </iterable-filter> -->
                     </not>
                 </when>
                 <perform>
@@ -267,7 +271,9 @@
             <rule id="hsearch-00116-test">
                 <when>
                     <not>
-                        <hint-exists message="Numbers and dates are now indexed as numeric fields by default.*"/>
+                        <iterable-filter size="2">
+                            <hint-exists message="Numbers and dates are now indexed as numeric fields by default.*"/>
+                        </iterable-filter>
                     </not>
                 </when>
                 <perform>
@@ -594,6 +600,16 @@
                     <fail message="hsearch-00239 hint not found!" />
                 </perform>
             </rule>
+            <rule id="hsearch-00240-test">
+                <when>
+                    <not>
+                        <hint-exists message=".*threadsForIndexWriter.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="hsearch-00240 hint not found!" />
+                </perform>
+            </rule>            
         </rules>
     </ruleset>
 </ruletest>

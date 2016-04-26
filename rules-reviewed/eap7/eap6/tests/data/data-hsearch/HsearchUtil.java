@@ -42,7 +42,8 @@ import org.hibernate.search.store.Workspace;
 import org.hibernate.search.filter.FilterKey;
 import org.hibernate.search.filter.StandardFilterKey;
 import org.hibernate.search.impl.FullTextSharedSessionBuilderDelegator;
-import org.hibernate.search.backend.configuration.impl.IndexWriterSetting.MAX_THREAD_STATES;
+import static org.hibernate.search.backend.configuration.impl.IndexWriterSetting.MAX_THREAD_STATES;
+import org.hibernate.search.backend.configuration.impl.IndexWriterSetting;
 import org.hibernate.search.bridge.spi.ConversionContext;
 import org.hibernate.search.FullTextSharedSessionBuilder;
 import org.hibernate.search.engine.spi.SearchFactoryImplementor;
@@ -112,13 +113,13 @@ public class HsearchUtil {
         
         DirectoryHelper.getVerifiedIndexDir("indexname",new Properties(), true);
 
-        fullTextSession
-        .createIndexer( Hotel.class )
-        .batchSizeToLoadObjects( 25 )
-        .cacheMode( CacheMode.NORMAL )
-        .threadsToLoadObjects( 5 )
-        .threadsForSubsequentFetching( 20 )
-        .startAndWait();
+        MassIndexer massIndexer = fullTextSession.createIndexer( Hotel.class );
+        massIndexer.batchSizeToLoadObjects( 25 );
+        massIndexer.cacheMode( CacheMode.NORMAL );
+        massIndexer.threadsForIndexWriter( 5 );
+        massIndexer.threadsToLoadObjects( 5 );
+        massIndexer.threadsForSubsequentFetching( 20 );
+        massIndexer.startAndWait();
         
         HSQuery query = queryContext.getFactory().createHSQuery();
         ExtendedSearchIntegrator searchIntegrator = query.getExtendedSearchIntegrator();
@@ -126,6 +127,7 @@ public class HsearchUtil {
         BuildContext context = (BuildContext) searchIntegrator;
         context.getIndexingStrategy();
         
+        System.out.println(IndexWriterSetting.TERM_INDEX_INTERVAL + " test");
     }
     
     private void callConstructors(){
@@ -136,7 +138,8 @@ public class HsearchUtil {
         entityDescriptor.setCacheInMemory(new HashMap());
         entityDescriptor.getCacheInMemory();
 
-        NumericFieldMapping numMapping = new NumericFieldMapping("foo", property, entityDescriptor, new SearchMapping());
+        NumericFieldMapping numMapping = new NumericFieldMapping(property, entityDescriptor, new SearchMapping());
+        System.out.println(new NumericFieldMapping(new PropertyDescriptor(null, null), new EntityDescriptor(), new SearchMapping()));
 
         SearchMapping searchmapping =  new SearchMapping();
         indexMapping indexMapping = new IndexedMapping(searchmapping, entityDescriptor);

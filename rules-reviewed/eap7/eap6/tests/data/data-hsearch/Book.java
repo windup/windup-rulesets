@@ -1,3 +1,4 @@
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,6 +14,7 @@ import org.hibernate.search.annotations.Analyze;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.DateBridge;
+import org.hibernate.search.annotations.CalendarBridge;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
@@ -47,7 +49,26 @@ public class Book
     private Set<Author> authors = new HashSet<Author>();
     private Date publicationDate;
     private Integer isbn;
+    private double price;
     
+    /**
+     * @return the price
+     */
+    @Field
+    public double getPrice()
+    {
+        return price;
+    }
+
+    /**
+     * @param price the price to set
+     */
+    
+    public void setPrice(double price)
+    {
+        this.price = price;
+    }
+
     @NumericFields({
         @NumericField(forField="isbn")
       })
@@ -100,8 +121,6 @@ public class Book
         this.id = id;
     }
 
-    @Field(store = Store.NO, indexNullAs=Field.DEFAULT_NULL_TOKEN)
-    @Analyzer(definition = "customanalyzer")
     public String getSubtitle()
     {
         return subtitle;
@@ -112,8 +131,7 @@ public class Book
         this.subtitle = subtitle;
     }
 
-    @Field(analyze = Analyze.NO, store = Store.YES)
-    @DateBridge(resolution = Resolution.DAY)
+    @Field(analyze = Analyze.NO, store = Store.YES)    
     public Date getPublicationDate()
     {
         return publicationDate;
@@ -122,6 +140,14 @@ public class Book
     public void setPublicationDate(Date publicationDate)
     {
         this.publicationDate = publicationDate;
+    }
+    
+    @CalendarBridge(resolution = Resolution.DAY)
+    public Calendar getCalendarPublication() 
+    {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(this.publicationDate);
+        return cal;
     }
 }
 
