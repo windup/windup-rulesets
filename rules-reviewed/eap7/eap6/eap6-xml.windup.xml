@@ -13,7 +13,7 @@
         </dependencies>
         <sourceTechnology id="eap" versionRange="[6,7)" />
         <targetTechnology id="eap7" versionRange="[7,)" />
-        <tag>reviewed-2016-02-29</tag>
+        <tag>reviewed-2016-05-02</tag>
     </metadata>
 
 
@@ -32,7 +32,7 @@
                     <hint title="CMP Entity EJB configuration." effort="3" severity="mandatory">
                     <message>CMP entity beans are no longer supported in JBoss EAP 7. User is requested to use JPA entities that fully replaced the functionality provided by CMP beans.
                     CMP configuration provided in this ejb-jar.xml should be configured using JPA persistence.xml or using JPA annotations.</message>
-                    <link title="CMP Bean migration" href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-CMPEntityEJBs"/>
+                    <link title="CMP Bean migration" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_entity_beans_to_jpa"/>
                     <tag>jpa</tag>
                     <tag>cmp</tag>
                     </hint>
@@ -52,7 +52,7 @@
                     <hint title="BMP Entity EJB configuration." effort="3" severity="mandatory">
                     <message>BMP entity beans are no longer supported in JBoss EAP 7. User is requested to use JPA entities that fully replaced the functionality provided by BMP beans.
                    BMP configuration provided in this ejb-jar.xml should be configured using JPA persistence.xml or using JPA annotations.</message>
-                    <!-- <link title="CMP Bean migration" href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-CMPEntityEJBs"/> -->
+                    <link title="CMP Bean migration" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_entity_beans_to_jpa" />
                     <tag>jpa</tag>
                     <tag>bmp</tag>
                     </hint>
@@ -69,7 +69,7 @@
                 <iteration>
                     <hint title="Valve is not supported in JBoss EAP 7." effort="1" severity="mandatory">
                     <message>JBoss Web was replaced by Undertow, which does not contain support for the Valve functionality. It may be needed to migrate to Undertow handlers.</message>
-                    <link title="Valve migration" href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-JBossWebValves"/>
+                    <link title="Valve migration" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_custom_application_valves"/>
                     <tag>web</tag>
                     </hint>
                 </iteration>
@@ -99,7 +99,7 @@
                 <iteration>
                     <hint title="JAX-RPC specific configuration." effort="3" severity="mandatory">
                     <message>JAX-RPC support was removed in JBoss EAP 7. All the RPC calls will need to be migrated to JAX-WS.</message>
-                    <link href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-JAXRPC" title="JAX-RPC migration documentation" />
+                    <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_jax_rpc_support_changes" title="JAX-RPC support changes" />
                     <tag>rpc</tag>
                     <tag>jax-ws</tag>
                     </hint>
@@ -113,7 +113,7 @@
             <perform>
                     <classification title="JSR-88 deployment plans are no more supported by JBoss EAP7." effort="3" severity="mandatory">
                         <description>This file should be removed and instead rely on proprietary functionality to automate deployments. Please consult EAP 7 admin documentation to learn about such functionality.</description>
-                        <link title="Wildfly admin guide" href="https://docs.jboss.org/author/display/WFLY8/Admin+Guide"/>
+                        <link title="Migrate Deployment plan configurations" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_deployment_plan_configurations"/>
                         <tag>configuration</tag>
                     </classification>
             </perform>
@@ -128,7 +128,7 @@
                 <classification title="Proprietary JMS Resource Definitions" effort="1">
                     <description>The proprietary XML descriptors, previously used to setup JMS resources, are deprecated in EAP 7.
     An updated version of this file was generated using XSLT transformation.</description>
-                    <link title="JMS migration documentation" href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-ProprietaryJMSResourceDefinitions" />
+                    <link title="JMS migration documentation" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_messaging_application_jms_deployment_descriptors" />
                     <tag>jms</tag>
                 </classification>
                 <xslt title="JMS Resource Definition (Windup-Generated)" template="transformations/xslt/deprecated-jms-resources.xsl" extension="-windup-generated.xml"/>
@@ -143,8 +143,9 @@
             <perform>
                 <iteration>
                     <classification title="JBoss deployment structure - specifies application dependencies" effort="1" severity="mandatory">
-                    <description>Verify in advance that all the modules this application depends on still exist.</description>
-                    <tag>configuration</tag>
+                        <description>Verify in advance that all the modules this application depends on still exist.</description>
+                        <link title="Migrate explicit module dependencies" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_explicit_module_dependencies" />
+                        <tag>configuration</tag>
                     </classification>
                 </iteration>
             </perform>
@@ -159,7 +160,7 @@
                     <message>
                         The `clustered` element is ignored in EAP 7 and is not useful. In case the application is started using HA profile, the replication will be done automatically.
                     </message>
-                    <link href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-StatefulSessionEJBClustering" title="Clustered annotation in EAP 7" />
+                    <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_stateful_session_ejb_clustering_changes" title="Clustered annotation in EAP 7" />
                     <tag>cluster</tag>
                     <tag>ejb</tag>
                     <tag>configuration</tag>
@@ -176,7 +177,7 @@
                     <message>
                        The EAP 7 Web Session Clustering configuration deprecates `replication-trigger` element in `jboss-web.xml` file descriptor.
                     </message>
-                    <link href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-WebSessionClustering" title="Web Session Clustering config migration changes in EAP 7" />
+                    <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_web_session_clustering_changes" title="Web Session Clustering config migration changes in EAP 7" />
                     <tag>cluster</tag>
                     <tag>web</tag>
                     <tag>configuration</tag>
@@ -192,7 +193,7 @@
                     <message>
                        The EAP 7 Web Session Clustering configuration deprecates element `replication-mode` element without replacement in `jboss-web.xml` file descriptor.
                     </message>
-                    <link href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-WebSessionClustering" title="Web Session Clustering config migration changes in EAP 7" />
+                    <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_web_session_clustering_changes" title="Web Session Clustering config migration changes in EAP 7" />
                     <tag>cluster</tag>
                     <tag>web</tag>
                     <tag>configuration</tag>
@@ -208,7 +209,7 @@
                     <message>
                        The EAP 7 Web Session Clustering configuration deprecates `backups` element without replacement in `jboss-web.xml` file descriptor.
                     </message>
-                    <link href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-WebSessionClustering" title="Web Session Clustering config migration changes in EAP 7" />
+                    <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_web_session_clustering_changes" title="Web Session Clustering config migration changes in EAP 7" />
                     <tag>cluster</tag>
                     <tag>web</tag>
                     <tag>configuration</tag>
@@ -228,7 +229,7 @@
 
                          In the new implementation, the instance-id, if defined, is always appended to the jsessionid.
                     </message>
-                    <link href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-WebSessionClustering" title="Web Session Clustering config migration changes in EAP 7" />
+                    <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_web_session_clustering_changes" title="Web Session Clustering config migration changes in EAP 7" />
                     <tag>cluster</tag>
                     <tag>web</tag>
                     <tag>configuration</tag>
@@ -249,7 +250,7 @@
                        In the new implementation, the timestamp of a session is replicated on every request.
                        This prevents stale session metadata following failover.
                     </message>
-                    <link href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-WebSessionClustering" title="Web Session Clustering config migration changes in EAP 7" />
+                    <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_web_session_clustering_changes" title="Web Session Clustering config migration changes in EAP 7" />
                     <tag>cluster</tag>
                     <tag>web</tag>
                     <tag>configuration</tag>
@@ -267,7 +268,7 @@
                      
                      Previously, one could configure `snapshot-mode` as INSTANT or INTERVAL. Infinispan’s replication queue renders this configuration option obsolete.
                     </message>
-                    <link href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-WebSessionClustering" title="Web Session Clustering config migration changes in EAP 7" />
+                    <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_web_session_clustering_changes" title="Web Session Clustering config migration changes in EAP 7" />
                     <tag>cluster</tag>
                     <tag>web</tag>
                     <tag>configuration</tag>
@@ -284,7 +285,7 @@
                        The EAP 7 Web Session Clustering configuration removed `snapshot-interval` element from `jboss-web.xml` file descriptor.
                        This option was only relevant for `<snapshot-mode>INTERVAL</snapshot-mode>`. Since `snapshot-mode` is no longer used, this option is no longer used as well.]]>
                     </message>
-                    <link href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-WebSessionClustering" title="Web Session Clustering config migration changes in EAP 7" />
+                    <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_web_session_clustering_changes" title="Web Session Clustering config migration changes in EAP 7" />
                     <tag>cluster</tag>
                     <tag>web</tag>
                     <tag>configuration</tag>
@@ -304,7 +305,7 @@
                        
                        In the new implementation, this behaviour is specification driven and not configurable.
                     </message>
-                    <link href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-WebSessionClustering" title="Web Session Clustering config migration changes in EAP 7" />
+                    <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_web_session_clustering_changes" title="Web Session Clustering config migration changes in EAP 7" />
                     <tag>cluster</tag>
                     <tag>web</tag>
                     <tag>configuration</tag>
@@ -326,7 +327,7 @@
                        
                        * `passivation-max-idle-time` is not supported and the new implementation supports only lazy passivation. Sessions are only passivated when necessary to comply with `max-active-sessions`.
                     </message>
-                    <link href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-WebSessionClustering" title="Web Session Clustering config migration changes in EAP 7" />
+                    <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_web_session_clustering_changes" title="Web Session Clustering config migration changes in EAP 7" />
                     <tag>cluster</tag>
                     <tag>web</tag>
                     <tag>configuration</tag>
@@ -347,7 +348,7 @@
                        In the new implementation, `&lt;max-active-sessions/&gt;` is used to enable session passivation. If session creation would cause the number of active sessions to exceed `&lt;max-active-sessions/&gt;`,
  then the oldest session known to the session manager will passivate to make room for the new session.
                     </message>
-                    <link href="https://docs.jboss.org/author/display/WFLY10/How+do+I+migrate+my+application+from+AS7+to+WildFly#HowdoImigratemyapplicationfromAS7toWildFly-WebSessionClustering" title="Web Session Clustering config migration changes in EAP 7" />
+                    <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_web_session_clustering_changes" title="Web Session Clustering config migration changes in EAP 7" />
                     <tag>cluster</tag>
                     <tag>web</tag>
                     <tag>configuration</tag>
