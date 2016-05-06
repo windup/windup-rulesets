@@ -20,8 +20,10 @@
             <rule id="hibernate4-00002-test">
                 <when>
                     <not>
-                        <hint-exists
-                            message="There is no direct replacement for method .*org.hibernate.cfg.Configuration#add().*" />
+                        <iterable-filter size="1">
+                            <hint-exists
+                                message="There is no direct replacement for method .*org.hibernate.cfg.Configuration#add\(\).*" />
+                        </iterable-filter>
                     </not>
                 </when>
                 <perform>

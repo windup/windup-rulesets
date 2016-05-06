@@ -154,6 +154,28 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    
+    <profiles>
+        <profile>
+            <id>java7</id>
+            <properties>
+                <arguments>-Xms512m -Xmx2048m -XX:MaxPermSize=768m -XX:ReservedCodeCacheSize=128m</arguments>
+            </properties>
+            <activation>
+                <jdk>1.7</jdk>
+            </activation>
+        </profile>
+        <profile>
+            <id>java8</id>
+            <properties>
+                <arguments>-Xms512m -Xmx2048m -XX:MaxMetaspaceSize=768m -XX:ReservedCodeCacheSize=128m</arguments>
+            </properties>
+            <activation>
+                <jdk>1.8</jdk>
+            </activation>
+        </profile>
+    </profiles>
+
 
     <build>
         <resources>
@@ -220,7 +242,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                	<artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <argLine>-Xms512m -Xmx2048m -XX:MaxPermSize=768m -XX:ReservedCodeCacheSize=128m</argLine>
+                    <argLine>${arguments}</argLine>
                	</configuration>
             </plugin>
             <plugin>
