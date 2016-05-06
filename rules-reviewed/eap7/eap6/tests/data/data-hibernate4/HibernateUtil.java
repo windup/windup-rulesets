@@ -80,7 +80,7 @@ public class HibernateUtil
         try {
             Configuration configuration = new Configuration();
             configuration.configure();
-            configuration.add(xml);
+            configuration.add(new XmlDocumentImpl(null, null));
             configuration.setImplicitNamingStrategy();
             configuration.addXML(xml);
             configuration.addCacheableFile("");

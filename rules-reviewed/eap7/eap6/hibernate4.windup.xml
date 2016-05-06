@@ -39,14 +39,14 @@
         </rule>
         <rule id="hibernate4-00002">
             <when>
-                <javaclass references="org.hibernate.cfg.Configuration.{add}">
+                <javaclass references="org.hibernate.cfg.Configuration.add({*})">
                     <location>METHOD_CALL</location>
                 </javaclass>
             </when>
             <perform>
                 <hint title="Method org.hibernate.cfg.Configuration.add() is deprecated in Hibernate 5" effort="1"
                     severity="mandatory">
-                    <message>There is no direct replacement for method `org.hibernate.cfg.Configuration#add`</message>
+                    <message>There is no direct replacement for method `org.hibernate.cfg.Configuration#add()`.</message>
                     <link
                         href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#re-purposing-of-configuration"
                         title="Changes in Configuration for Hibernate 5" />
@@ -57,9 +57,6 @@
                     <tag>configuration</tag>
                 </hint>
             </perform>
-            <where param="add">
-                <matches pattern="(add\([^)]*\))" />
-            </where>
         </rule>
         <rule id="hibernate4-00003">
             <when>
