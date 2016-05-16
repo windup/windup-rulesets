@@ -3,8 +3,7 @@
     xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <metadata>
         <description>
-            This ruleset provides analysis of WebSphere proprietary xml files and constructs that may require individual attention when
-            migrating to JBoss EAP 6+.
+            This ruleset provides analysis of WebSphere proprietary xml files and constructs that may require individual attention when migrating to JBoss EAP 6+.
         </description>
         <dependencies>
             <addon id="org.jboss.windup.rules,windup-rules-xml,2.3.0.Final"/>
@@ -38,9 +37,7 @@
             </when>
             <perform>
                 <classification title="WebSphere EAR Application Binding" effort="3">
-                    <description>This WebSphere application binding is an IBM proprietary method for binding user roles for authorization and needs to be
-                        migrated to JAAS or KeyCloak.
-                    </description>
+                    <description>This WebSphere application binding is an IBM proprietary method for binding user roles for authorization and needs to be migrated to JAAS or KeyCloak.</description>
                     <link title=" Enabling Role-Based Access Control in JBoss"
                         href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Security_Guide/Enabling_Role-Based_Access_Control.html"/>
                     <tag>security</tag>
@@ -48,8 +45,11 @@
                 </classification>
                 <hint title="WebSphere Application Binding Configuration" severity="mandatory" effort="0">
                     <message>
-                        This file contains a specific IBM WebSphere Application binding configuration.
-                        To migrate to EAP 6, configure EAP 6 accordingly using the CLI interface or web console.
+                      <![CDATA[
+                      This file contains a specific IBM WebSphere Application binding configuration.
+
+                      To migrate to EAP 6, configure EAP 6 accordingly using the CLI interface or web console.
+                      ]]>
                     </message>
                     <link title="Migrate IBM WebSphere Application Server Web Application Extension or Binding Files" href="https://access.redhat.com/articles/1330673"/>
                 </hint>
@@ -64,18 +64,23 @@
             </when>
             <perform>
                 <iteration over="1">
-                    <classification title="WebSphere Web Application Extension configuration file" effort="3">
-                        <description>WebSphere (Java EE version prior to version 5) specific JSP engine configuration</description>
+                    <classification title="WebSphere proprietary JSP engine configuration" effort="3">
+                        <description>WebSphere (Java EE version prior to version 5) proprietary JSP engine configuration</description>
                         <link title="WebAppExtension javadoc" href="http://www-01.ibm.com/support/knowledgecenter/SS7JFU_6.1.0/com.ibm.websphere.javadoc.doc/configdoc/webappext/WebAppExtension.html"/>
                         <tag>jsp</tag>
                         <tag>websphere</tag>
                     </classification>
                 </iteration>
                 <iteration over="2">
-                    <hint title="JSP Engine Configuration in Web Application Binding" severity="mandatory" effort="0">
-                        <message>This file contains WebSphere specific web application bindings. This would derive from J2EE web application.
-                            To migrate to EAP 6, configure EAP 6 accordingly using the CLI interface or web console.</message>
-                            <link title="JSP engine configuration migration to EAP 6" href="https://access.redhat.com/articles/1330673#jspattributes"/>
+                    <hint title="WebSphere proprietary JSP engine configuration" severity="mandatory" effort="1">
+                        <message>
+                          <![CDATA[
+                          This file contains WebSphere specific web application bindings. This would derive from J2EE web application.
+
+                          To migrate to EAP 6, configure EAP 6 accordingly using the CLI interface or web console.
+                          ]]>
+                        </message>
+                        <link title="JSP engine configuration migration to EAP 6" href="https://access.redhat.com/articles/1330673#jspattributes"/>
                     </hint>
                 </iteration>
             </perform>
@@ -91,14 +96,19 @@
                 </xmlfile>
             </when>
             <perform>
-                <classification title="WebSphere Web Extension" effort="0">
-                    <description>WebSphere specific JSP engine configuration</description>
+                <classification title="WebSphere proprietary JSP engine configuration" effort="0">
+                    <description>WebSphere proprietary JSP engine configuration</description>
                     <tag>jsp</tag>
                     <tag>websphere</tag>
                 </classification>
-                <hint title="WebSphere specific JSP engine configuration" severity="mandatory" effort="3">
-                    <message>This file contains WebSphere specific JSP engine configuration.
-                        To migrate to EAP 6, configure EAP 6 accordingly using the CLI interface or web console.</message>
+                <hint title="WebSphere proprietary JSP engine configuration" severity="mandatory" effort="3">
+                    <message>
+                      <![CDATA[
+                      This file contains WebSphere proprietary JSP engine configuration.
+
+                      To migrate to EAP 6, configure EAP 6 accordingly using the CLI interface or web console.
+                      ]]>
+                      </message>
                     <link title="JSP engine configuration migration to EAP 6" href="https://access.redhat.com/articles/1330673"/>
                 </hint>
             </perform>
@@ -110,14 +120,19 @@
                 </xmlfile>
             </when>
             <perform>
-                <classification title="WebSphere Web Application Binding Extension" effort="3">
-                    <description>WebSphere specific binding configuration.</description>
+                <classification title="WebSphere proprietary binding configuration" effort="3">
+                    <description>WebSphere proprietary binding configuration.</description>
                     <tag>configuration</tag>
                     <tag>websphere</tag>
                 </classification>
-                <hint title="WebSphere specific binding configuration" severity="mandatory" effort="0">
-                    <message>This file contains WebSphere specific binding configuration.
-                        To migrate to EAP 6, configure EAP 6 accordingly using the CLI interface or web console.
+                <!-- FIXME - Set as optional for current customer -->
+                <hint title="WebSphere proprietary binding configuration" severity="optional" effort="0">
+                    <message>
+                      <![CDATA[
+                      This file contains WebSphere proprietary binding configuration.
+
+                      To migrate to EAP 6, configure EAP 6 accordingly using the CLI interface or web console.
+                      ]]>
                     </message>
                     <!-- TODO: WINDUP-657 -->
                 </hint>
@@ -133,9 +148,7 @@
             <perform>
                 <iteration over="1">
                     <classification title="WebSphere Web Application Binding" effort="0">
-                        <description>
-                            WebSphere 6 web application binding configuration file.
-                        </description>
+                        <description>WebSphere 6 web application binding configuration file.</description>
                         <link title="WebAppBinding javadoc" href="http://rjweb002.royalsun.com.br/configDocs/webappbnd/WebAppBinding.html"/>
                         <tag>ejb</tag>
                         <tag>websphere</tag>
@@ -145,8 +158,11 @@
                 <iteration over="2">
                     <hint title="WebSphere Web Application Bindings" effort="5">
                         <message>
-                            This file configures the specific WebSphere Web application bindings.
-                            Configure EAP 6 Web subsystem accordingly using the CLI interface or web console.
+                          <![CDATA[
+                          This file configures the specific WebSphere Web application bindings.
+
+                          Configure EAP 6 Web subsystem accordingly using the CLI interface or web console.
+                          ]]>
                         </message>
                         <link title="Configure the EAP6 Web Subsystem" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#chap-Web_Subsystem"/>
                         <link href="http://docs.jboss.org/jbossweb/7.0.x/" title="JBoss Web configuration"/>
@@ -195,7 +211,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <classification title="IBM Deployment Descriptor" effort="0">
+                <classification title="WebSphere deployment descriptor" effort="0">
                     <description>This file is an auto-generated WebSphere proprietary deployment descriptor.</description>
                     <tag>websphere</tag>
                 </classification>
