@@ -27,10 +27,9 @@
                         </not>
                     </when>
                     <perform>
-                        <hint effort="0" severity="potential" title="Proprietary type reference found">
+                        <hint title="Proprietary type reference found" effort="0" severity="potential">
                             <message>
-                                This is an Oracle proprietary type (`com.bea{subpackage}.{type}`) and needs to be migrated to a compatible API. There is currently no detailed
-                                information about this type.
+                                This is an Oracle proprietary type (`com.bea{subpackage}.{type}`) and needs to be migrated to a compatible API. There is currently no detailed information about this type.
                             </message>
                             <tag>catchall</tag>
                         </hint>
@@ -56,10 +55,9 @@
                         </not>
                     </when>
                     <perform>
-                        <hint effort="0" severity="potential" title="Proprietary type reference found">
+                        <hint title="Proprietary type reference found" effort="0" severity="potential">
                             <message>
-                                This is an Oracle proprietary type (`com.oracle{subpackage}.{type}`) and needs to be migrated to a compatible API. There is currently no detailed
-                                information about this type.
+                                This is an Oracle proprietary type (`com.oracle{subpackage}.{type}`) and needs to be migrated to a compatible API. There is currently no detailed information about this type.
                             </message>
                             <tag>catchall</tag>
                         </hint>
@@ -85,10 +83,9 @@
                         </not>
                     </when>
                     <perform>
-                        <hint effort="0" severity="potential" title="Proprietary type reference found">
+                        <hint title="Proprietary type reference found" effort="0" severity="potential" >
                             <message>
-                                This is an Oracle proprietary type (`com.tangosol{subpackage}.{type}`) and needs to be migrated to a compatible API. There is currently no detailed
-                                information about this type.
+                                This is an Oracle proprietary type (`com.tangosol{subpackage}.{type}`) and needs to be migrated to a compatible API. There is currently no detailed information about this type.
                             </message>
                             <tag>catchall</tag>
                         </hint>
@@ -114,10 +111,13 @@
                         </not>
                     </when>
                     <perform>
-                        <hint effort="0" severity="potential" title="Proprietary type reference found">
+                        <hint title="WebLogic proprietary type reference found" effort="0" severity="potential">
                             <message>
-                                This is an Oracle proprietary type (`com.weblogic{subpackage}.{type}`) and needs to be migrated to a compatible API. There is currently no detailed
-                                information about this type.
+                              <![CDATA[
+                              This is an Oracle WebLogic proprietary type (`com.weblogic{subpackage}.{type}`) and needs to be migrated to a compatible API. There is currently no detailed information about this type.
+
+                              Please review each item and make sure that no reference to Oracle WebLogic classes is remaining.
+                              ]]>
                             </message>
                             <tag>catchall</tag>
                         </hint>
@@ -143,10 +143,13 @@
                         </not>
                     </when>
                     <perform>
-                        <hint effort="0" severity="potential" title="Oracle proprietary type reference">
+                        <hint title="Oracle BEA proprietary type reference" effort="0" severity="potential">
                             <message>
-                                This is an Oracle proprietary type (`bea.{remainder}`) and needs to be migrated to a compatible API. There is currently no detailed
-                                information about this type.
+                              <![CDATA[
+                              This is an Oracle proprietary type (`bea.{remainder}`) and needs to be migrated to a compatible API. There is currently no detailed information about this type.
+
+                              Please review each item and make sure that no reference to Oracle WebLogic classes is remaining.
+                              ]]>
                             </message>
                             <tag>catchall</tag>
                         </hint>
@@ -159,7 +162,7 @@
         </rule>
         <rule id="weblogic-catchall-06000">
             <when>
-                <javaclass references="oracle.{remainder}" />
+                <javaclass references="oracle.sql.{remainder}" />
             </when>
             <perform>
                 <iteration>
@@ -169,10 +172,42 @@
                         </not>
                     </when>
                     <perform>
-                        <hint effort="0" severity="potential" title="Oracle proprietary type reference">
+                        <hint title="Oracle proprietary SQL type reference" effort="0" severity="potential">
                             <message>
-                                This is an Oracle proprietary type (`oracle.{remainder}`) and needs to be migrated to a compatible API. There is currently no detailed
-                                information about this type.
+                              <![CDATA[
+                              This is an Oracle proprietary SQL type (`oracle.sql.{remainder}`).
+
+                              In most of the cases, it does not need to be migrated to a compatible API.
+                              ]]>
+                            </message>
+                            <tag>catchall</tag>
+                        </hint>
+                    </perform>
+                </iteration>
+            </perform>
+            <where param="remainder">
+                <matches pattern=".*"/>
+            </where>
+        </rule>
+        <rule id="weblogic-catchall-06500">
+            <when>
+                <javaclass references="oracle.jdbc.{remainder}" />
+            </when>
+            <perform>
+                <iteration>
+                    <when>
+                        <not>
+                            <has-hint />
+                        </not>
+                    </when>
+                    <perform>
+                        <hint title="Oracle proprietary JDBC type reference" effort="1" severity="optional">
+                            <message>
+                              <![CDATA[
+                              This is an Oracle proprietary JDBC type (`oracle.sql.{remainder}`).
+
+                              It should be replaced by standard Java EE JCA, datasource and JDBC types.
+                              ]]>
                             </message>
                             <tag>catchall</tag>
                         </hint>
@@ -185,7 +220,7 @@
         </rule>
         <rule id="weblogic-catchall-07000">
             <when>
-                <javaclass references="oracle.sql.{remainder}" />
+                <javaclass references="oracle.{remainder}" />
             </when>
             <perform>
                 <iteration>
@@ -195,10 +230,11 @@
                         </not>
                     </when>
                     <perform>
-                        <hint effort="0" severity="potential" title="Oracle proprietary type reference">
+                        <hint title="Oracle proprietary type reference" effort="0" severity="potential">
                             <message>
-                                This is an Oracle proprietary type (`oracle.sql.{remainder}`) and needs to be migrated to a compatible API. There is currently no detailed
-                                information about this type.
+                              <![CDATA[
+                              This is an Oracle proprietary type (`oracle.{remainder}`) and needs to be migrated to a compatible API. There is currently no detailed information about this type.
+                              ]]>
                             </message>
                             <tag>catchall</tag>
                         </hint>
@@ -221,10 +257,14 @@
                         </not>
                     </when>
                     <perform>
-                        <hint effort="0" severity="potential" title="Oracle proprietary type reference">
+                        <hint title="WebLogic proprietary type reference" effort="1" severity="potential">
                             <message>
-                                This is an Oracle proprietary type (`weblogic.{remainder}`) and needs to be migrated to a compatible API. There is currently no detailed
-                                information about this type.
+                              <![CDATA[
+                              This is an Oracle WebLogic proprietary type (`weblogic.{remainder}`) and needs to be migrated to a compatible API. There is currently no detailed
+                              information about this type.
+
+                              Please review each item and make sure that no reference to Oracle WebLogic classes is remaining.
+                              ]]>
                             </message>
                             <tag>catchall</tag>
                         </hint>
