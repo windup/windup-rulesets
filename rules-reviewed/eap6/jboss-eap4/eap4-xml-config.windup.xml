@@ -97,6 +97,7 @@
             <perform>
                 <hint title="Microsoft SQL Server JDBC URL" effort="5" severity="mandatory">
                     <message>
+                      <![CDATA[
                         This is a JDBC URL, which describes the basic information about
                         where and how to connect to the database.
                         This particular URL points to an Microsoft SQL Server.
@@ -116,6 +117,7 @@
                             ```
                             @PersistenceContext EntityManager em;
                             ```
+                      ]]>
                     </message>
                     <link title="JBoss EAP 6 Datasource Configuration" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#sect-Datasource_Configuration"/>
                     <tag>datasource</tag>
@@ -354,6 +356,7 @@
             <perform>
                 <hint title="JBoss Web HTTP connector - the secure option" effort="1" severity="mandatory">
                     <message>
+                        <![CDATA[
                         The `secure` option tells the browser (or other HTTP clients) to only send the cookie over SSL connections.
                         This means the cookie will not be available to any part of the site that is not secure.
                         If you serve both protocols, the non-secure http connection will then use URL re-writing with the long ";jsessionid=XXXXXXX" appended to every URL.
@@ -364,6 +367,7 @@
                         ```
                         /subsystem=web/connector=http:write-attribute(name=secure, value=true)
                         ```
+                        ]]>
                     </message>
                     <link title="Map HTTP/HTTPS/AJP Connector Attributes" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Migration_Guide/index.html#sect-JBoss_Web_Component_Changes"/>
                     <tag>http</tag>
@@ -378,6 +382,7 @@
             <perform>
                 <hint title="JBoss Web HTTP - jvmRoute" effort="3" severity="mandatory">
                     <message>
+                        <![CDATA[
                         In JBoss Web, the `jvmRoute` attribute of the Engine element allows the load balancer to match requests
                         to the JVM currently responsible for updating the relevant session.
                         It does this by appending the name of the JVM to the `JSESSIONID` of the request,
@@ -395,6 +400,7 @@
                         ```
 
                         The default can be overriden by setting the `jvmRoute` system property.
+                        ]]>
                     </message>
                     <link title="JBoss EAP 6 HTTP Clustering and Load Balancing" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#Configure_the_Enterprise_Application_Platform_to_Accept_Requests_From_an_External_HTTPD1"/>
                     <link title="JBoss EAP 6 System properties" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#System_Properties"/>
@@ -415,9 +421,11 @@
             <perform>
                 <hint title="JBoss EAP 4 EJB container configuration" effort="3" severity="mandatory">
                     <message>
+                        <![CDATA[
                         JBoss EAP 4 and 5 allows overriding the container settings in `jboss.xml` files.
                         Extending `"Standard Stateless SessionBean"` allows configuring the instance pool.
                         Bean-specific instance pool can be set with one line in JBoss EAP 6 management CLI.
+                        ]]>
                     </message>
                     <link title="JBoss EAP 6 Migration Guide: Replace the jboss.xml File" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Migration_Guide/index.html#sect-EJB_Changes"/>
                     <link title="Assign Bean Pools for Session and Message-Driven Beans" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#Assign_Bean_Pools_for_Session_and_Message-Driven_Beans"/>
@@ -435,9 +443,11 @@
             <perform>
                 <hint title="JBoss EAP 4 EJB container configuration" effort="3" severity="mandatory">
                     <message>
+                        <![CDATA[
                         JBoss EAP 4 allows overriding the container settings in `jboss.xml` files.
                         Extending `"Clustered Stateless SessionBean"` allows configuring the instance pool.
                         Bean-specific instance pool can be set with one line in JBoss EAP 6 management CLI.
+                        ]]>
                     </message>
                     <link title="JBoss EAP 6 Migration Guide: Replace the jboss.xml File" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Migration_Guide/index.html#sect-EJB_Changes"/>
                     <link title="Assign Bean Pools for Session and Message-Driven Beans" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#Assign_Bean_Pools_for_Session_and_Message-Driven_Beans"/>
@@ -455,10 +465,12 @@
             <perform>
                 <hint title="JBoss EAP 4 EJB container configuration" effort="3" severity="mandatory">
                     <message>
+                        <![CDATA[
                         JBoss EAP 4 and 5 allows overriding the container settings in `jboss.xml` files.
                         Extending `"Standard Message Driven Bean"` allows configuring the instance pool.
                         MDB's bean-specific instance pool can be set with one line in JBoss EAP 6 management CLI.
                         Use the `bean-instance-pool-ref` CLI node of the respective configuration part.
+                        ]]>
                     </message>
                     <link title="JBoss EAP 6 Migration Guide: Replace the jboss.xml File" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Migration_Guide/index.html#sect-EJB_Changes"/>
                     <link title="Assign Bean Pools for Session and Message-Driven Beans" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#Assign_Bean_Pools_for_Session_and_Message-Driven_Beans"/>
@@ -476,10 +488,12 @@
             <perform>
                 <hint title="JBoss EAP 4 EJB container configuration" effort="3" severity="mandatory">
                     <message>
+                        <![CDATA[
                         JBoss EAP 4 and 5 allows overriding the container settings in `jboss.xml` files.
                         Extending `"Singleton Message Driven Bean"` allows configuring the instance pool.
                         Singleton Message Driven Bean's bean-specific bean-specific instance pool can be set with one line in JBoss EAP 6 management CLI.
                         Use the `bean-instance-pool-ref` CLI node of the respective configuration part.
+                        ]]>
                     </message>
                     <link title="JBoss EAP 6 Migration Guide: Replace the jboss.xml File" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Migration_Guide/index.html#sect-EJB_Changes"/>
                     <link title="Assign Bean Pools for Session and Message-Driven Beans" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#Assign_Bean_Pools_for_Session_and_Message-Driven_Beans"/>
@@ -497,10 +511,12 @@
             <perform>
                 <hint title="JBoss EAP 4 EJB container configuration" effort="3" severity="mandatory">
                     <message>
+                        <![CDATA[
                         JBoss EAP 4 and 5 allows overriding the container settings in `jboss.xml` files.
                         Extending `"Standard Message Inflow Driven Bean"` allows configuring the instance pool.
                         Standard Message Inflow Driven Bean's bean-specific bean-specific instance pool can be set with one line in JBoss EAP 6 management CLI.
                         Use the `bean-instance-pool-ref` CLI node of the respective configuration part.
+                        ]]>
                     </message>
                     <link title="JBoss EAP 6 Migration Guide: Replace the jboss.xml File" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Migration_Guide/index.html#sect-EJB_Changes"/>
                     <link title="Assign Bean Pools for Session and Message-Driven Beans" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#Assign_Bean_Pools_for_Session_and_Message-Driven_Beans"/>
