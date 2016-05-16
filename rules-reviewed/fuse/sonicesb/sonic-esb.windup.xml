@@ -25,15 +25,13 @@
                      <tag>sonic-esb</tag>
                  </classification>
                  <hint title="Sonic ESB service - inheritance from com.sonicsw.xq.XQService" effort="4" severity="mandatory">
-                     <message><![CDATA[
-
-
+                     <message>
+                       <![CDATA[
                        Sonic ESB services inherit from XQService.  In Camel, this can be achieved through the simple Java Bean Camel Component.
 
                        * [Camel Java Bean Component](http://camel.apache.org/bean.html)
-
-
-                     ]]></message>
+                       ]]>
+                     </message>
                      <tag>camel</tag>
                  </hint>
             </perform>
@@ -47,39 +45,38 @@
             </when>
             <perform>
                  <hint title="Reference to com.sonicsw.xq.XQServiceContext" effort="4" severity="mandatory">
-                     <message><![CDATA[
+                     <message>
+                       <![CDATA[
+                       Sonic ESB services leverage the service(XQServiceContext context) method to implement business logic.  When messages are routed to the service, the service(XQServiceContext context) method is executed.
+                       In Camel, this is achieved by routing messages to the Java Bean via the Camel Route's Bean Component syntax.
 
-                             Sonic ESB services leverage the service(XQServiceContext context) method to implement business logic.  When messages are routed to the service, the service(XQServiceContext context) method is executed.
-                             In Camel, this is achieved by routing messages to the Java Bean via the Camel Route's Bean Component syntax.
+                       * [Camel Java Bean Component](http://camel.apache.org/bean.html)
+                       * [Camel Binding Annotations](http://camel.apache.org/parameter-binding-annotations.html)
 
-                             * [Camel Java Bean Component](http://camel.apache.org/bean.html)
-                             * [Camel Binding Annotations](http://camel.apache.org/parameter-binding-annotations.html)
+                       Camel's Java Bean Component can leverage annotations annotations on the method to specify how Camel Message body values are mapped to the method parameters.  Additionally, the @Handler annotation can be leveraged to setup the default Java Bean method.
 
-                             Camel's Java Bean Component can leverage annotations annotations on the method to specify how Camel Message body values are mapped to the method parameters.  Additionally, the @Handler annotation can be leveraged to setup the default Java Bean method.
+                       **For example:**
 
-                             **For example:**
+                       ```java
+                       public void service(XQServiceContext ctx) throws XQServiceException \{
+                       ...
+                       }
+                       ```
 
-                             ```java
-                             public void service(XQServiceContext ctx) throws XQServiceException \{
-                                 ...
-                             }
-                             ```
+                       **Should become:**
 
-                             **Should become:**
+                       ```java
+                       @Handler
+                       public void service(@Header messageHeader, @Body messageBody, Exchange exchange) \{
+                       ...
+                       }
+                       ```
 
-                             ```java
-                             @Handler
-                             public void service(@Header messageHeader, @Body messageBody, Exchange exchange) \{
-                                 ...
-                             }
-                             ```
-
-                             * org.apache.camel.Body
-                             * org.apache.camel.Header
-                             * org.apache.camel.Exchange
-
-
-                     ]]></message>
+                       * org.apache.camel.Body
+                       * org.apache.camel.Header
+                       * org.apache.camel.Exchange
+                       ]]>
+                     </message>
                      <tag>sonic-esb</tag>
                      <tag>camel</tag>
                  </hint>
@@ -94,23 +91,22 @@
             </when>
             <perform>
                  <hint title="Reference to com.sonicsw.xq.XQInitContext" effort="4" severity="mandatory">
-                     <message><![CDATA[
+                     <message>
+                       <![CDATA[
+                       The XQInitContext is used to receive initialization information for the service from Sonic ESB.
 
-                             The XQInitContext is used to receive initialization information for the service from Sonic ESB.
+                       This is not neccessary for Camel.  The init() method that receives this object should be replaced with Spring Bean property injection.  For initialization beyond propery injection, leverage Spring's @PostConstruct annotation on this init() method.
 
-                             This is not neccessary for Camel.  The init() method that receives this object should be replaced with Spring Bean property injection.  For initialization beyond propery injection, leverage Spring's @PostConstruct annotation on this init() method.
+                       * [Spring @PostConstruct Documentation](http://docs.spring.io/spring/docs/2.5.x/reference/beans.html#beans-postconstruct-and-predestroy-annotations)
 
-                             * [Spring @PostConstruct Documentation](http://docs.spring.io/spring/docs/2.5.x/reference/beans.html#beans-postconstruct-and-predestroy-annotations)
-
-                             ```java
-                             @PostConstruct
-                             public void init() \{
-                                 //leverage injected properties
-                             }
-                             ```
-
-
-                     ]]></message>
+                       ```java
+                       @PostConstruct
+                       public void init() \{
+                       //leverage injected properties
+                       }
+                       ```
+                       ]]>
+                     </message>
                      <tag>sonic-esb</tag>
                      <tag>spring</tag>
                      <tag>camel</tag>
@@ -305,15 +301,13 @@
             </when>
             <perform>
                  <hint title="Reference to com.sonicsw.xq.XQServiceException " effort="1" severity="mandatory">
-                     <message><![CDATA[
+                     <message>
+                       <![CDATA[
+                       Create a custom ServiceException class, extending Exception.  The documentation below explains exception handling in Camel.
 
-
-                             Create a custom ServiceException class, extending Exception.  The documentation below explains exception handling in Camel.
-
-                                 * [Camel Exception Handling](http://camel.apache.org/exception-clause.html)
-
-
-                     ]]></message>
+                       * [Camel Exception Handling](http://camel.apache.org/exception-clause.html)
+                       ]]>
+                     </message>
                      <tag>sonic-esb</tag>
                      <tag>camel</tag>
                  </hint>
@@ -327,15 +321,12 @@
             </when>
             <perform>
                  <hint title="Call of com.sonicsw.xq.XQMessage.getCorrelationId" effort="1" severity="mandatory">
-                     <message><![CDATA[
+                     <message>
+                       <![CDATA[
+                       Correlation is handled several ways in Camel.  Read the article below.
 
-
-                             Correlation is handled several ways in Camel.  Read the article below.
-
-                                 * [Camel Exception Handling](http://camel.apache.org/correlation-identifier.html)
-
-
-                     ]]></message>
+                       * [Camel Exception Handling](http://camel.apache.org/correlation-identifier.html)
+                       ]]></message>
                      <tag>sonic-esb</tag>
                      <tag>camel</tag>
                  </hint>
@@ -349,15 +340,15 @@
             </when>
             <perform>
                  <hint title="Call of com.sonicsw.xq.XQAddressFactory.createEndpointAddress" effort="3" severity="mandatory">
-                     <message><![CDATA[
+                     <message>
+                       <![CDATA[
+                       This indicates that the Sonic ESB Service is routing messages to a [1...N] endpoints.  To achieve this in Camel, take the business logic in the service, and populate a header property with an array of target enpoints.
 
-                             This indicates that the Sonic ESB Service is routing messages to a [1...N] endpoints.  To achieve this in Camel, take the business logic in the service, and populate a header property with an array of target enpoints.
-                             Next, create a Recipient List processor to route the message to N endpoints.
+                       Next, create a Recipient List processor to route the message to N endpoints.
 
-                             * [Camel Recipient List](http://camel.apache.org/recipientlist-annotation.html)
-
-
-                     ]]></message>
+                       * [Camel Recipient List](http://camel.apache.org/recipientlist-annotation.html)
+                       ]]>
+                     </message>
                      <tag>sonic-esb</tag>
                      <tag>camel</tag>
                  </hint>
@@ -371,16 +362,14 @@
             </when>
             <perform>
                  <hint title="Call of com.sonicsw.xq.XQServiceContext.addOutgoing" effort="1" severity="mandatory">
-                     <message><![CDATA[
+                     <message>
+                       <![CDATA[
+                       Sonic ESB uses the addOutgoing method to set the outgoing message.
+                       This is achieved in Camel by either modifying the @Body parameter in the Java Bean Component method, or literally setting a new message to the Exchange.
 
-
-                             Sonic ESB uses the addOutgoing method to set the outgoing message.
-                             This is achieved in Camel by either modifying the @Body parameter in the Java Bean Component method, or literally setting a new message to the Exchange.
-
-                             * [Camel Setting Response](http://camel.apache.org/using-getin-or-getout-methods-on-exchange.html)
-
-
-                     ]]></message>
+                       * [Camel Setting Response](http://camel.apache.org/using-getin-or-getout-methods-on-exchange.html)
+                       ]]>
+                     </message>
                      <tag>sonic-esb</tag>
                      <tag>camel</tag>
                  </hint>
