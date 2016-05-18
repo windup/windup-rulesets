@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<ruleset id="os-specific" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This is a ruleset for Windows operating system specific rules while migrating to Linux operating system.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,2.4.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,2.4.0.Final" />
+        </dependencies>
+        <!-- version ranges applied to from and to technologies -->
+        <sourceTechnology id="windows" />
+        <targetTechnology id="linux" />
+        <tag>reviewed-2016-05-16</tag>
+    </metadata>
+    <rules>
+        <rule id="os-specific-00001">
+            <when>
+                <or>
+                    <filecontent filename="{*}.{extensions}" pattern="{pattern}" />
+                </or>
+            </when>
+            <perform>
+                <hint title="Windows file system path" effort="1" severity="mandatory">
+                    <message>This file system path is Windows platform dependent. It is needed to adapt to a Linux plaftorm dependent.</message>
+                    <tag>os-windows</tag>
+                </hint>
+            </perform>
+            <where param="extensions">
+                <matches pattern="(java|properties|jsp|jpsf|tag|xml|txt|js)" />
+            </where>
+            <where param="pattern">
+                <matches pattern="(([A-Z|a-z]:[\\][^/]?)|(\\\\[^\\]+\\))" />
+            </where>
+        </rule>
+    </rules>
+</ruleset>
