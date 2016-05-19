@@ -4,8 +4,7 @@
 
     <metadata>
         <description>
-            Provides analysis of WebSphere proprietary classes and constructs that may require individual attention when migrating to JBoss
-            EAP 6+.
+            Provides analysis of WebSphere proprietary classes and constructs that may require individual attention when migrating to JBoss EAP 6+.
         </description>
         <dependencies>
             <addon id="org.jboss.windup.rules,windup-rules-javaee,2.2.0.Final" />
@@ -26,14 +25,13 @@
                 </javaclass>
             </when>
             <perform>
-                <classification title="IBM WorkManager" />
-                <hint title="IBM Work Manager" severity="mandatory" effort="5">
+                <hint title="WebSphere Work Manager" severity="mandatory" effort="5">
                     <message>
-                        WebSphere Asynchronous Work is a Work Manager, whose purpose is to
-                        allow the user utilizing threads while letting the
-                        container manage them.
-                        For migration to JBoss EAP 6, [replace with JCA Work
-                        Manager](https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Administration_and_Configuration_Guide/Configure_the_Java_Connector_Architecture_JCA_Subsystem.html).
+                      <![CDATA[
+                      WebSphere Asynchronous Work is a Work Manager, whose purpose is to allow the user utilizing threads while letting the container manage them.
+
+                      For migration to JBoss EAP 6, [replace with JCA Work Manager](https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Administration_and_Configuration_Guide/Configure_the_Java_Connector_Architecture_JCA_Subsystem.html).
+                      ]]>
                     </message>
                     <link title="Configure the Java Connector Architecture (JCA) Subsystem"
                         href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Administration_and_Configuration_Guide/Configure_the_Java_Connector_Architecture_JCA_Subsystem.html" />
@@ -49,14 +47,13 @@
                 <javaclass references="com.ibm.websphere.startupservice.{*}StartUp{*}" />
             </when>
             <perform>
-                <classification title="WebSphere Startup Service" effort="0" />
                 <hint title="WebSphere Startup Service" severity="mandatory" effort="4">
                     <message>
-                        WebSphere Startup Service serves as a callback to be invoked when the server or application starts.
-                        When migrating to
-                        JBoss EAP 6, this has to be replaced with standard EJB 3.1 Startup Bean,
-                        using `@Startup @Singleton` class and `@PostConstruct`
-                        method.
+                      <![CDATA[
+                      WebSphere Startup Service serves as a callback to be invoked when the server or application starts.
+
+                      When migrating to JBoss EAP 6, this has to be replaced with standard EJB 3.1 Startup Bean, using `@Startup @Singleton` class and `@PostConstruct` method.
+                      ]]>
                     </message>
                     <link href="http://docs.oracle.com/javaee/6/api/javax/ejb/Singleton.html" title="EJB 3.1 Singleton Bean" />
                     <link href="http://docs.oracle.com/javaee/6/api/javax/ejb/Startup.html" title="EJB 3.1 Startup Bean" />

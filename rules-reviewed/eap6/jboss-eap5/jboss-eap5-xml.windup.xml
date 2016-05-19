@@ -161,7 +161,7 @@
                 <xmlfile matches="//*[local-name()='jboss-web']" in="jboss-web.xml"/>
             </when>
             <perform>
-                <classification title="JBoss Web Application Descriptor" effort="1">
+                <classification title="JBoss web application descriptor (jboss-web.xml)" effort="1">
                     <description>
                         The `jboss-web.xml` file configures a Java EE web application specifically for JBoss EAP.
                         It is an extension to standard `web.xml`.
@@ -179,16 +179,15 @@
                 <xmlfile matches="//*[local-name()='classloading']" in="jboss-classloading.xml"/>
             </when>
             <perform>
-                <classification title="JBoss 5 Classloader Configuration" effort="0">
-                    <description>
-                        The `jboss-classloading.xml` file allows customization of classloading in JBoss EAP 5.
-                    </description>
-                    <link title="JBoss EAP 5 Classloading documentation" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/5/html/Microcontainer_User_Guide/sect-JBoss_Microcontainer_User_Guide-The_ClassLoading_Layer-ClassLoading.html"/>
+                <classification title="JBoss 5 classloader configuration (jboss-classloading.xml)" effort="0" severity="optional">
+                    <description>The `jboss-classloading.xml` file allows customization of classloading in JBoss EAP 5.</description>
+                    <link title="JBoss EAP 6 Class Loading and Modules" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/5/html/Microcontainer_User_Guide/sect-JBoss_Microcontainer_User_Guide-The_ClassLoading_Layer-ClassLoading.html"/>
                     <tag>classloading</tag>
                 </classification>
-                <hint title="JBoss 5 Classloader Configuration" effort="5" severity="mandatory">
+                <!-- FIXME - Not relevant for WLS to EAP 6 migration -->
+                <hint title="JBoss 5 classloader configuration (jboss-classloading.xml)" effort="0" severity="optional">
                     <message>
-                        In EAP 6, the classloading configuration is not done through `jboss-classloading.xml`.
+                        In JBoss EAP 6, the classloading configuration is not done through `jboss-classloading.xml`.
                         Since EAP 6 it is of modular nature, based on JBoss Modules.
                         Learn how to divide your application's dependencies into modules
                         and what dependencies and APIs are available automatically.
@@ -204,7 +203,7 @@
                 <xmlfile matches="//*[local-name()='jboss-deployment-structure']" in="jboss-deployment-structure.xml"/>
             </when>
             <perform>
-                <classification title="JBoss Module and Classloading Configuration (since AS 7 / EAP 6)" effort="1">
+                <classification title="JBoss module and classloading configuration (jboss-deployment-structure.xml)" effort="1">
                     <description>
                         The `jboss-deployment-structure.xml` file allows the creator of the deployment to control the dependencies
                         and classloading of deployments.
@@ -221,7 +220,7 @@
                 <xmlfile matches="//*[local-name()='jbosscmp-jdbc']" in="jbosscmp-jdbc.xml"/>
             </when>
             <perform>
-                <classification title="JBoss EJB 2 CMP Deployment Descriptor" effort="5">
+                <classification title="JBoss EJB 2 CMP Deployment descriptor (jbosscmp-jdbc.xml)" effort="5">
                     <description>
                         The `jbosscmp-jdbc.xml` is a deployment decriptor controlling the Container Managed Persistence.
                     </description>
@@ -237,7 +236,8 @@
                 <xmlfile matches="//*[local-name()='jboss']" in="jboss.xml"/>
             </when>
             <perform>
-                <classification title="JBoss EJB Deployment Descriptor (prior to AS 7 / EAP 6)" effort="5">
+                <!-- Depending on the project, this should be set to severity="mandatory", effort="1". "ResolveJBossLegacyEjbXmlRuleProvider" classification use to duplicate this rule. -->
+                <classification title="JBoss EJB XML deployment descriptor prior to EAP 6." effort="0" severity="optional">
                     <description>
                         The `jboss.xml` descriptor in deployments is ignored by JBoss AS 7+ or JBoss EAP 6+.
                         Replace it with `jboss-ejb3.xml`.
@@ -252,8 +252,9 @@
             <when>
                 <xmlfile matches="//*[local-name()='security-domain' and starts-with(text(), 'java:/jaas/')]"/>
             </when>
+            <!-- FIXME - not alway optional ... overridden for WLS to EAP migration -->
             <perform>
-                <hint title="JBoss EAP security-domain configuration - java:/jaas/" effort="5" severity="mandatory">
+                <hint title="JBoss EAP security-domain configuration - java:/jaas/" effort="3" severity="optional">
                     <message>
                         `java:/jaas/` is a JBoss EAP `security-domain` URI.
                         Remove the `java:/jaas/` prefix for `security-domain` elements in AS 7 / EAP 6.
@@ -271,11 +272,11 @@
                 <xmlfile matches="//*[local-name()='policy']" in="login-config.xml"/>
             </when>
             <perform>
-                <classification title="JBoss Security Configuration Descriptor (prior to AS 7 / EAP 6)" effort="0">
+                <classification title="JBoss security configuration descriptor (prior to AS 7 / EAP 6)" effort="0">
                     <link title="JBoss Login Modules" href="http://docs.jboss.org/jbosssecurity/docs/6.0/security_guide/html/Login_Modules.html"/>
                     <tag>security</tag>
                 </classification>
-                <hint title="JBoss Security Configuration Descriptor (prior to AS 7 / EAP 6)" effort="5" severity="mandatory">
+                <hint title="JBoss security configuration descriptor (prior to AS 7 / EAP 6)" effort="5" severity="mandatory">
                     <message>
                         When migrating to JBoss AS 7 or JBoss EAP 6+,
                         the `login-config.xml` descriptor is no longer supported.
@@ -294,7 +295,7 @@
                 <xmlfile matches="//*[local-name()='ejb-jar']" in="jboss-ejb3.xml"/>
             </when>
             <perform>
-                <classification title="JBoss EJB 3 Deployment Descriptor (JBoss AS 7 / JBoss EAP 6 and later)" effort="5">
+                <classification title="JBoss EJB 3 deployment descriptor (jboss-ejb3.xml)" effort="5">
                     <description>
                         A JBoss specific EJB 3 configuration allows extensions of Java EE EJB 3.
                     </description>
@@ -310,7 +311,7 @@
                 <xmlfile matches="//*[local-name()='webservices']" in="jboss-webservices.xml"/>
             </when>
             <perform>
-                <classification title="JBoss Webservices Deployment Descriptor (JBoss AS 7 / JBoss EAP 6 and later)" effort="5">
+                <classification title="JBoss web-services deployment descriptor (jboss-webservices.xml)" effort="5">
                     <description>
                         JBossWS 4.0 introduces a new deployment descriptor to configure web services.
                         The `jboss-webservices.xml` file provides additional information for the given deployment
@@ -320,7 +321,7 @@
                         is in the `META-INF/` directory. For POJO and EJB webservice endpoints bundled in WAR file,
                         the expected location of the `jboss-webservices.xml` file is in the `WEB-INF/` directory.
                     </description>
-                    <link title="jboss-webservices.xml Deployment Descriptor" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.3/html/Migration_Guide/sect-Web_Services_Changes.html"/>
+                    <link title="JBoss web-services deployment descriptor (jboss-webservices.xml)" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.3/html/Migration_Guide/sect-Web_Services_Changes.html"/>
                     <tag>jboss-ws</tag>
                     <tag>descriptor</tag>
                     <tag>webservice</tag>
@@ -335,7 +336,7 @@
             </when>
             <perform>
                 <iteration over="jboss-app">
-                    <classification title="JBoss application Descriptor" effort="5">
+                    <classification title="JBoss application descriptor" effort="5">
                         <tag>jboss-eap5</tag>
                     </classification>
                 </iteration>
