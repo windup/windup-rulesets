@@ -50,7 +50,7 @@
                       See the [javax.servlet.annotation JavaDoc](http://docs.oracle.com/javaee/6/api/javax/servlet/annotation/package-summary.html) for more information.
                       ]]>
                     </message>
-                    <link href="https://access.redhat.com/articles/1249423" title="WebLogic proprietary servlet annotations" />
+                    <link href="https://access.redhat.com/articles/1249423" title="Migrate WebLogic Proprietary Servlet Annotations" />
                     <tag>servlet</tag>
                     <tag>weblogic</tag>
                 </hint>
@@ -71,7 +71,7 @@
                       See the [javax.servlet.annotation JavaDoc](http://docs.oracle.com/javaee/6/api/javax/servlet/annotation/package-summary.html) for more information.
                       ]]>
                     </message>
-                    <link href="https://access.redhat.com/articles/1249423" title="WebLogic proprietary servlet annotations" />
+                    <link href="https://access.redhat.com/articles/1249423" title="Migrate WebLogic Proprietary Servlet Annotations" />
                     <tag>servlet</tag>
                     <tag>weblogic</tag>
                 </hint>
@@ -92,7 +92,7 @@
                       See the [javax.servlet.annotation JavaDoc](http://docs.oracle.com/javaee/6/api/javax/servlet/annotation/package-summary.html) for more information.
                       ]]>
                     </message>
-                    <link href="https://access.redhat.com/articles/1249423" title="WebLogic proprietary servlet annotations" />
+                    <link href="https://access.redhat.com/articles/1249423" title="Migrate WebLogic Proprietary Servlet Annotations" />
                     <tag>servlet</tag>
                     <tag>weblogic</tag>
                 </hint>
@@ -147,23 +147,7 @@
                 </hint>
             </perform>
         </rule>
-
         <rule id="weblogic-webapp-07000">
-            <when>
-                <javaclass references="weblogic.security.Security" />
-            </when>
-            <perform>
-                <hint title="WebLogic proprietary security reference to weblogic.security.Security" effort="1" severity="mandatory">
-                    <message>Migrate to JBoss EAP 6: org.jboss.security.SecurityContextAssociation</message>
-                    <link href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/API_Documentation/files/javadoc/org/jboss/security/SecurityContextAssociation.html" title="Security Context - JBoss EAP 6" />
-                    <link href="https://access.redhat.com/solutions/55114" title="Security context retrieval in POJOs" />
-                    <tag>security</tag>
-                    <tag>weblogic</tag>
-                </hint>
-            </perform>
-        </rule>
-
-        <rule id="weblogic-webapp-08000">
             <when>
                 <javaclass references="weblogic.security.{*}" />
             </when>
@@ -175,16 +159,29 @@
                     </not>
                 </when>
                 <hint title="WebLogic proprietary security API" effort="3" severity="mandatory">
-                    <message>The usage if the WebLogic proprietary security API should be replaced by standard Java EE mechanisms or the ones provided by JBoss EAP.</message>
+                    <message>The usage of the WebLogic proprietary security API should be replaced by standard Java EE mechanisms or the ones provided by JBoss EAP.</message>
                     <link href="http://docs.oracle.com/cd/E12839_01/apirefs.1111/e13941/weblogic/security/Security.html" title="WebLogic security API documentation" />
-                    <link href="https://access.redhat.com/documentation/en/jboss-enterprise-application-platform/?version=6.4" title="EAP security documentation" />
+                    <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform?category=security&amp;version=6.4" title="EAP security documentation" />
                     <tag>security</tag>
                     <tag>weblogic</tag>
                 </hint>
               </iteration>
             </perform>
         </rule>
-
+        <rule id="weblogic-webapp-08000">
+            <when>
+                <javaclass references="weblogic.security.Security" />
+            </when>
+            <perform>
+                <hint title="WebLogic proprietary security reference to weblogic.security.Security" effort="1" severity="mandatory">
+                    <message>Migrate to JBoss EAP 6: `org.jboss.security.SecurityContextAssociation`.</message>
+                    <link href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/API_Documentation/files/javadoc/org/jboss/security/SecurityContextAssociation.html" title="Security Context - JBoss EAP 6" />
+                    <link href="https://access.redhat.com/solutions/55114" title="Security context retrieval in POJOs" />
+                    <tag>security</tag>
+                    <tag>weblogic</tag>
+                </hint>
+            </perform>
+        </rule>
         <rule id="weblogic-webapp-09000">
             <when>
                 <javaclass references="weblogic.servlet.security.ServletAuthentication"/>
