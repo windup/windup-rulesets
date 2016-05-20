@@ -5,8 +5,8 @@
 
     <metadata>
         <description>
-            This ruleset contains rules to detect WebLogic specific services code (eg, startup listeners, and access to WebLogic specific service
-            lookup utilities), and to assist in the conversion of this code to code that is compatible with JBoss EAP 6+.
+            This ruleset contains rules to detect WebLogic specific services code (eg, startup listeners, and access to WebLogic specific service lookup utilities),
+            and to assist in the conversion of this code to code that is compatible with JBoss EAP 6+.
         </description>
         <dependencies>
             <addon id="org.jboss.windup.rules,windup-rules-javaee,2.3.0.Final"/>
@@ -16,7 +16,7 @@
         <targetTechnology id="eap" versionRange="[6,)"/>
         <tag>reviewed-2015-06-02</tag>
     </metadata>
-    
+
     <rules>
         <rule id="weblogic-services-01000">
             <when>
@@ -25,15 +25,11 @@
                 </javaclass>
             </when>
             <perform>
-                <classification title="WebLogic Startup Service" effort="3" severity="mandatory">
+                <hint title="Use of WebLogic Startup Service" effort="3" severity="mandatory">
+                    <message>Replace this class with a class using the EJB 3.1 `@Singleton` and `@Startup; annotations.</message>
                     <link href="http://docs.oracle.com/javaee/6/api/javax/ejb/Singleton.html" title="EJB3.1 Singleton Bean"/>
                     <link href="http://docs.oracle.com/javaee/6/api/javax/ejb/Startup.html" title="EJB3.1 Startup Bean"/>
                     <tag>startup</tag>
-                    <tag>weblogic</tag>
-                </classification>
-                <hint title="Use of WebLogic Startup Service" effort="0" severity="mandatory">
-                    <message>Replace this class with a class using the EJB 3.1 @Singleton and @Startup annotations.</message>
-                    <tag>webservice</tag>
                     <tag>weblogic</tag>
                 </hint>
             </perform>
@@ -43,12 +39,13 @@
                 <javaclass references="weblogic.common.T3ServicesDef"/>
             </when>
             <perform>
-                <hint title="Use of T3ServicesDef" effort="3" severity="mandatory">
+                <hint title="WebLogic T3ServicesDef usage" effort="3" severity="mandatory">
                     <message>
-                        T3ServicesDef provides access to core services of the container, such as Timers and Logging facilities.
+                      <![CDATA[
+                      `T3ServicesDef` provides access to core services of the container, such as Timers and Logging facilities.
 
-                        Replace the services provided by this with a Singleton EJB (using the @Singleton annotation) that provides access to
-                        the equivalent services from JBoss EAP.
+                      Replace the services provided by this with a Singleton EJB (using the `@Singleton` annotation) that provides access to the equivalent services from JBoss EAP.
+                      ]]>
                     </message>
                     <link href="http://docs.oracle.com/javaee/6/tutorial/doc/gipvi.html" title="Java EE Tutorial - @Singleton Session Bean"/>
                     <tag>webservice</tag>
@@ -59,17 +56,20 @@
         <rule id="weblogic-services-03000">
             <when>
                 <or>
-                    <javaclass references="weblogic.logging.NonCatalogLogger"/>
-                    <javaclass references="weblogic.i18n.logging.NonCatalogLogger"/>
+                    <javaclass references="weblogic.logging.{*}"/>
+                    <javaclass references="weblogic.i18n.logging.{*}"/>
                 </or>
             </when>
             <perform>
-                <hint title="Use of WebLogic specific logging classes" effort="1" severity="mandatory">
+                <hint title="WebLogic proprietary logging classes" effort="1" severity="mandatory">
                     <message>
-                        NonCatalogLogger is a logger for logging messages to the WebLogic log. This should be replaced
-                        with SLF4J, Log4J, or Java Logging.
+                      <![CDATA[
+                      Oracle WebLogic logging classes should be replaced with SLF4J, Log4J, or Java Logging.
+
+                      Please refer to the [JBoss EAP migration guide](https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Migration_Guide/chap-Migrate_Your_Application.html#sect-Logging_Changes) for more information on this.
+                      ]]>
                     </message>
-                    <link href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Migration_Guide/chap-Migrate_Your_Application.html#sect-Logging_Changes" title="JBoss Logging Migration Information"/>
+                    <link href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Migration_Guide/chap-Migrate_Your_Application.html#sect-Logging_Changes" title="JBoss EAP 6 - Logging changes"/>
                     <tag>logging</tag>
                     <tag>weblogic</tag>
                 </hint>
