@@ -7,7 +7,7 @@
             <rule id="weblogic-01000-test">
                 <when>
                     <not>
-                        <classification-exists classification="WebLogic Scheduled Job" />
+                        <classification-exists classification="WebLogic scheduled job" />
                     </not>
                 </when>
                 <perform>
@@ -17,7 +17,7 @@
             <rule id="weblogic-02000-test">
                 <when>
                     <not>
-                        <hint-exists message="Replace with the StringUtils class from Apache Commons." />
+                        <hint-exists message="Replace with the .*StringUtils.*" />
                     </not>
                 </when>
                 <perform>
@@ -89,7 +89,7 @@
             <rule id="weblogic-09000-test">
                 <when>
                     <not>
-                        <hint-exists message=".*This Oracle and WebLogic specific code \(.*OracleThinClob.*\) should be replaced with the use.*" />
+                        <hint-exists message=".*This Oracle and WebLogic proprietary code \(.*OracleThinClob.*" />
                     </not>
                 </when>
                 <perform>
@@ -126,17 +126,7 @@
                     <fail message="Hint for WebLogic JDBC Fast Connection Failover not found" />
                 </perform>
             </rule>
-            <rule id="weblogic-13000-test-1">
-                <when>
-                    <not>
-                        <classification-exists classification="WebLogic Side-By-Side Redeployment" />
-                    </not>
-                </when>
-                <perform>
-                    <fail message="WebLogic Side-By-Side Redeployment classification not found!" />
-                </perform>
-            </rule>
-            <rule id="weblogic-13000-test-2">
+            <rule id="weblogic-13000-test">
                 <when>
                     <not>
                         <hint-exists message="Oracle WebLogic Server includes a proprietary side-by-side production redeployment feature*" />
@@ -160,7 +150,7 @@
             <rule id="weblogic-16000-test">
                 <when>
                     <not>
-                        <hint-exists message=".*`WLInitialContextFactory` is an implementation of `InitialContextFactory`.*" />
+                        <hint-exists message=".*weblogic\.jndi\.WLInitialContextFactory.*" />
                     </not>
                 </when>
                 <perform>
@@ -170,7 +160,7 @@
             <rule id="weblogic-17000-test">
                 <when>
                     <not>
-                        <hint-exists message=".*`t3://` URLs are used to configure a JNDI InitialContext within WebLogic.*" />
+                        <hint-exists message="Weblogic’s implementation of the RMI specification uses a proprietary protocol known as T3\. T3S.*" />
                     </not>
                 </when>
                 <perform>

@@ -4,9 +4,7 @@
 
     <metadata>
         <description>
-            This ruleset provides analysis of WebLogic proprietary XML descriptors and specific application parameters
-            which needs to be
-            replaced by some alternative configuration when migrating to JBoss EAP 6+.
+            This ruleset provides analysis of WebLogic proprietary XML descriptors and specific application parameters which needs to be replaced by some alternative configuration when migrating to JBoss EAP 6+.
         </description>
         <dependencies>
             <addon id="org.jboss.windup.rules,windup-rules-javaee,2.3.0.Final" />
@@ -25,19 +23,16 @@
                 <xmlfile matches="/*[local-name()='weblogic-application']" />
             </when>
             <perform>
-                <classification title="WebLogic EAR Application Descriptor" severity="mandatory" effort="1">
+                <classification title="WebLogic EAR application descriptor (weblogic-application.xml)" severity="mandatory" effort="1">
                     <description>
-                        The weblogic-application.xml deployment descriptor file is used to describe Oracle WebLogic Server EAR archives
+                      The `weblogic-application.xml` deployment descriptor file is used to describe Oracle WebLogic Server EAR archives. Oracle WebLogic Server EAR configures some application settings through the `application-param` element.
+                      These settings could be replaced with `context-param` elements in Java EE Servlet `web.xml` descriptor as described in [this article](https://access.redhat.com/articles/1328043).
                     </description>
-                    <link href="https://access.redhat.com/articles/1328043" title="Migrate the Oracle WebLogic Server weblogic-application.xml Descriptor File Configurations to JBoss EAP 6" />
-                </classification>
-                <hint title="weblogic-application.xml Elements mapping" effort="0">
-                    <message>Oracle WebLogic Server EAR configures some application settings through the `application-param` element. These settings
-                        could be replaced with `context-param` elements in Java EE Servlet `web.xml` descriptor.
-                    </message>
+                    <link href="https://access.redhat.com/articles/1326803" title="Migrate Oracle WebLogic configuration files to JBoss EAP 6" />
+                    <link href="https://access.redhat.com/articles/1328043" title="Migrate Oracle WebLogic server descriptors (weblogic-application.xml) to JBoss EAP 6" />
                     <tag>webservice</tag>
                     <tag>weblogic</tag>
-                </hint>
+                </classification>
             </perform>
         </rule>
         <rule id="weblogic-xml-descriptor-02000">
@@ -45,7 +40,7 @@
                 <xmlfile matches="/*[local-name()='weblogic-rdbms-jar']" />
             </when>
             <perform>
-                <classification title="WebLogic Entity EJB Configuration" severity="mandatory" effort="3">
+                <classification title="WebLogic Entity EJB configuration" severity="mandatory" effort="3">
                     <description>WebLogic Entity EJB Configuration are used for RDBMS based persistence services.</description>
                     <link href="https://access.redhat.com/articles/1326803" title="Migrate Oracle WebLogic Server Configuration Files and Descriptors to JBoss EAP 6" />
                     <tag>database</tag>
@@ -60,17 +55,13 @@
                 <xmlfile matches="//*[local-name()='delay-updates-until-end-of-tx']/text()" />
             </when>
             <perform>
-                <hint title="WebLogic `delay-updates-until-end-of-tx` configuration element" severity="optional" effort="1">
+                <hint title="WebLogic `delay-updates-until-end-of-tx` configuration element" severity="mandatory" effort="1">
                     <message>
-                        The WebLogic &amp;lt;delay-updates-until-end-of-tx&amp;lt; configuration element, which defaults to `true`,
-                        is used for performance reasons to delay updates to the persistent store of all beans
-                        until the end of the transaction. When set to `false`, updates are sent to the
-                        database after each method invocation, but are not committed until the end of the transaction.
-                        This allows other processes to access the
-                        persisted data while the transaction is waiting to be completed.
-                        In JBoss EAP 6, you can achieve the same
-                        behavior by specifying
-                        the &amp;lt;sync-on-commit-only&amp;gt; in jbosscmp-jdbc.xml file.
+                      <![CDATA[
+                      The WebLogic `&amp;lt;delay-updates-until-end-of-tx&amp;lt;` configuration element, which defaults to `true`, is used for performance reasons to delay updates to the persistent store of all beans until the end of the transaction. When set to `false`, updates are sent to the database after each method invocation, but are not committed until the end of the transaction. This allows other processes to access the persisted data while the transaction is waiting to be completed.
+
+                      In JBoss EAP 6, you can achieve the same behavior by specifying the `&amp;lt;sync-on-commit-only&amp;gt;` in the jbosscmp-jdbc.xml file.
+                      ]]>
                     </message>
                     <link href="https://access.redhat.com/articles/1326823"
                         title="Map delay-updates-until-end-of-tx element from weblogic-ejb-jar.xml Elements to the JBoss Enterprise Application Platform Equivalent" />
@@ -87,7 +78,7 @@
             </when>
             <perform>
                 <classification title="WebLogic EJB XML" severity="mandatory" effort="3">
-                    <link href="https://access.redhat.com/articles/1326823" title="Map weblogic-ejb-jar.xml Elements to the jboss-ejb3.xml Descriptor" />
+                    <link href="https://access.redhat.com/articles/1326823" title="Map weblogic-ejb-jar.xml Elements to the jboss-ejb3.xml descriptor" />
                     <tag>ejb</tag>
                     <tag>weblogic</tag>
                 </classification>
@@ -101,7 +92,7 @@
             </when>
             <perform>
                 <classification title="WebLogic EJB XML" severity="mandatory" effort="3">
-                    <link href="https://access.redhat.com/articles/1326823" title="Map weblogic-ejb-jar.xml Elements to the jboss-ejb3.xml Descriptor" />
+                    <link href="https://access.redhat.com/articles/1326823" title="Map weblogic-ejb-jar.xml Elements to the jboss-ejb3.xml descriptor" />
                     <tag>ejb</tag>
                     <tag>configuration</tag>
                     <tag>weblogic</tag>
@@ -116,7 +107,7 @@
             </when>
             <perform>
                 <classification title="WebLogic EJB XML" severity="mandatory" effort="3">
-                    <link href="https://access.redhat.com/articles/1326823" title="Map weblogic-ejb-jar.xml Elements to the jboss-ejb3.xml Descriptor" />
+                    <link href="https://access.redhat.com/articles/1326823" title="Map weblogic-ejb-jar.xml Elements to the jboss-ejb3.xml descriptor" />
                     <tag>ejb</tag>
                     <tag>configuration</tag>
                     <tag>weblogic</tag>
@@ -130,17 +121,16 @@
                  </xmlfile>
             </when>
             <perform>
-               <hint title="WebLogic Stateful Session Bean" severity="mandatory" effort="1">
-                  <message>Replace WebLogic proprietary configuration by Java EE 6 annotation @AccessTimeout.
+               <hint title="WebLogic Stateful Session Bean (SFSB)" severity="mandatory" effort="1">
+                  <message>Replace WebLogic proprietary configuration by Java EE 6 annotation `@AccessTimeout`.
                   The equivalent usage is `@AccessTimeout(value= -1)`</message>
-                  
                   <link href="http://docs.oracle.com/javaee/6/api/javax/ejb/AccessTimeout.html" title="Java EE 6 annotation @AccessTimeout" />
                   <tag>ejb</tag>
                   <tag>configuration</tag>
                   <tag>weblogic</tag>
                </hint>
             </perform>
-        </rule>        
+        </rule>
         <!-- TODO WINDUP-641 -->
         <rule id="weblogic-xml-descriptor-07000">
             <when>
@@ -149,7 +139,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <classification title="WebLogic SOAP Client Mapping" severity="mandatory" effort="5">
+                <classification title="WebLogic SOAP client mapping" severity="mandatory" effort="5">
                     <tag>soap</tag>
                     <tag>weblogic</tag>
                 </classification>
@@ -176,7 +166,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <classification title="WebLogic Webservice Policy" severity="mandatory" effort="5">
+                <classification title="WebLogic web service policy" severity="mandatory" effort="5">
                     <tag>webservice</tag>
                     <tag>weblogic</tag>
                 </classification>
@@ -195,15 +185,14 @@
             </when>
             <perform>
                 <iteration over="webservices">
-                    <classification title="WebLogic Webservice Descriptor" effort="3" severity="mandatory">
+                    <classification title="WebLogic web service descriptor" effort="3" severity="mandatory">
                         <tag>webservice</tag>
                         <tag>weblogic</tag>
                     </classification>
                 </iteration>
                 <iteration over="webservices-types">
                     <hint title="Webservice Type" severity="optional" effort="3">
-                        <message>WebLogic webservices can be migrated to `jboss-webservices.xml` descriptor or to a Java EE standard Annotation based
-                            configuration. Reference the JBoss EAP 6 product documentation for more information.
+                        <message>WebLogic webservices can be migrated to `jboss-webservices.xml` descriptor or to a Java EE standard Annotation based configuration. Reference the JBoss EAP 6 product documentation for more information.
                         </message>
                         <link
                             href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Development_Guide/chap-JAX-RS_Web_Services.html"
@@ -221,7 +210,7 @@
                 <xmlfile matches="/*[local-name()='weblogic-jms']" />
             </when>
             <perform>
-                <classification title="WebLogic JMS Descriptor" severity="mandatory" effort="3">
+                <classification title="WebLogic JMS descriptor" severity="mandatory" effort="3">
                     <link
                         href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#sect-Configuration1"
                         title="EAP 6 JMS Server configuration" />
@@ -240,9 +229,14 @@
                 </xmlfile>
             </when>
             <perform>
-                <classification title="WebLogic Web Application Descriptor" severity="mandatory" effort="3">
-                    <link href="https://access.redhat.com/articles/1326803" title="Migrate Oracle WebLogic Server Configuration Files and Descriptors to the JBoss EAP 6 Equivalent" />
-                    <link href="https://access.redhat.com/articles/1327803" title="Map weblogic.xml Configurations to JBoss" />
+                <classification title="WebLogic web application descriptor (weblogic.xml)" severity="mandatory" effort="3">
+                    <description>
+                      The Oracle WebLogic Server deployment descriptor file (`weblogic.xml`) provides functionality that is not included in the standard Java EE specification. While there is no direct mapping of these descriptor elements, many of these features may be configured in the [application deployment or JBoss server configuration files](https://access.redhat.com/articles/1327803).
+
+                      For more information on how to configure JBoss EAP, please refer to the [Administration and Configuration Guide for JBoss Enterprise Application Platform 6](https://access.redhat.com/site/documentation/JBoss_Enterprise_Application_Platform/)
+                    </description>
+                    <link href="https://access.redhat.com/articles/1326803" title="Migrate Oracle WebLogic configuration files to JBoss EAP 6" />
+                    <link href="https://access.redhat.com/articles/1327803" title="Map weblogic.xml configurations to JBoss" />
                     <tag>web-app</tag>
                     <tag>weblogic</tag>
                 </classification>
@@ -254,7 +248,7 @@
                 <xmlfile public-id="BEA.+RMI Runtime DTD 1.." />
             </when>
             <perform>
-                <classification title="WebLogic RMI XML Version 1.x" severity="mandatory" effort="0">
+                <classification title="WebLogic RMI XML version 1.x" severity="mandatory" effort="0">
                     <tag>weblogic</tag>
                 </classification>
             </perform>
@@ -266,7 +260,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <classification title="WebLogic Webservice Type Mapping" severity="mandatory" effort="0">
+                <classification title="WebLogic web service type mapping" severity="mandatory" effort="0">
                     <tag>webservice</tag>
                     <tag>weblogic</tag>
                 </classification>
@@ -279,7 +273,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <classification title="WebLogic Services Configuration" severity="mandatory" effort="0">
+                <classification title="WebLogic services configuration" severity="mandatory" effort="0">
                     <description>WebLogic specific configuration of web services runtime parameters</description>
                     <tag>webservice</tag>
                     <tag>configuration</tag>
@@ -294,7 +288,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <classification title="WebLogic-specific Webservice Ant Tasks" severity="optional" effort="13">
+                <classification title="WebLogic specific webservice ant tasks" severity="optional" effort="13">
                     <tag>webservice</tag>
                     <tag>weblogic</tag>
                 </classification>
@@ -307,10 +301,9 @@
                 </xmlfile>
             </when>
             <perform>
-                <classification title="WebLogic Annotation Manifest" effort="7" severity="mandatory">
+                <classification title="WebLogic annotation manifest" effort="7" severity="mandatory">
                     <description>
-                        In this file, the value set for a property by a metada annotation
-                        can be overriden. (It does not override the values set by a setter method.)
+                        In this file, the value set for a property by a metada annotation can be overriden. (It does not override the values set by a setter method.)
                     </description>
                     <tag>configuration</tag>
                     <tag>weblogic</tag>
@@ -324,12 +317,11 @@
                 </xmlfile>
             </when>
             <perform>
-                <classification title="plan.xml deployment descriptor file" effort="3" severity="mandatory">
+                <classification title="WebLogic plan.xml deployment descriptor" effort="3" severity="mandatory">
                     <description>
-                        WebLogic `plan.xml` deployment descriptor file provides a way
-                        to target the application deployment for a specific environment.
+                        WebLogic `plan.xml` deployment descriptor file provides a way to target the application deployment for a specific environment.
                     </description>
-        		    <link href="https://access.redhat.com/articles/1329173" title="Replace the WebLogic plan.xml Deployment Descriptor Configuration" />
+        		        <link href="https://access.redhat.com/articles/1329173" title="Replace the WebLogic plan.xml deployment descriptor configuration" />
                     <tag>configuration</tag>
                     <tag>weblogic</tag>
                 </classification>

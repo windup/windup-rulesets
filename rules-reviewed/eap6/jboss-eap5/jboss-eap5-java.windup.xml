@@ -8,8 +8,7 @@
 
     <metadata>
         <description>
-            This ruleset provides analysis of JBoss EAP 5 .java files that may require individual attention
-            when migrating to JBoss EAP 6+.
+            This ruleset provides analysis of JBoss EAP 5 .java files that may require individual attention when migrating to JBoss EAP 6+.
         </description>
         <dependencies>
             <addon id="org.jboss.windup.rules,windup-rules-javaee,2.3.0.Final"/>
@@ -44,10 +43,15 @@
                 </javaclass>
             </when>
             <perform>
-                <hint title="javax.jms.QueueConnectionFactory" effort="1" severity="mandatory">
-                    <message>`QueueConnectionFactory` was used to obtain connection to JMS queues.
-                        Replace the lookup string `QueueConnectionFactory` with `ConnectionFactory`.
+                <hint title="javax.jms.QueueConnectionFactory" effort="1" severity="optional">
+                    <message>
+                      <![CDATA[
+                      `QueueConnectionFactory` was used to obtain connection to JMS queues.
+
+                      Replace the lookup string `QueueConnectionFactory` with `ConnectionFactory`.
+                      ]]>
                     </message>
+                    <link title="JBoss EAP 6 - Messaging Configuration" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Administration_and_Configuration_Guide/sect-Configuration1.html#Configure_the_JMS_Server1"/>
                     <tag>jms</tag>
                 </hint>
             </perform>
