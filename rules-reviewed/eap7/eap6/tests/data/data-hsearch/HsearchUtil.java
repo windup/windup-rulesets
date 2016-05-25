@@ -127,7 +127,12 @@ public class HsearchUtil {
         BuildContext context = (BuildContext) searchIntegrator;
         context.getIndexingStrategy();
         
-        System.out.println(IndexWriterSetting.TERM_INDEX_INTERVAL + " test");
+        HsearchUtil.setIndexWriterConfig(IndexWriterSetting.TERM_INDEX_INTERVAL);
+    }
+    
+    private static void setIndexWriterConfig(IndexWriterSetting setting)
+    {
+        //testing method
     }
     
     private void callConstructors(){
