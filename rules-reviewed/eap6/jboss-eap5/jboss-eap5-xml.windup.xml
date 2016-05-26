@@ -42,20 +42,7 @@
                 </classification>
             </perform>
         </rule>
-        <rule id="jboss-eap5-xml-02000">
-            <when>
-                <xmlfile public-id=".*JBoss.+DTD Java EE.+5.*"/>
-            </when>
-            <perform>
-                <classification title="JBoss 5.x EAR Descriptor" effort="5">
-                    <description>
-                        A JBoss specific EAR descriptor allows extensions to Java EE EAR archives configuration.
-                    </description>
-                    <link title="JBoss DTD's" href="http://www.jboss.org/j2ee/dtd/"/>
-                    <tag>jboss-eap5</tag>
-                </classification>
-            </perform>
-        </rule>
+        <!-- Rule jboss-eap5-xml-02000 will need to be deduplicated, see jboss-eap5-xml-08000 below and WINDUPRULE-164. -->
         <rule id="jboss-eap5-xml-03000">
             <when>
                 <xmlfile matches="/classloading"/>
@@ -139,12 +126,28 @@
         </rule>
 
 
+        <!-- The following 2 rules need to be deduplicated - see WINDUPRULE-164.
+             But currently we have no means for that. See WINDUP-1051 and WINDUP-1050. -->
+        <rule id="jboss-eap5-xml-02000">
+            <when>
+                <xmlfile public-id=".*JBoss.+DTD Java EE.+5.*"/>
+            </when>
+            <perform>
+                <classification title="JBoss 5.x EAR descriptor" effort="5" preventDuplication="title, any-tag">
+                    <description>
+                        A JBoss specific EAR descriptor allows extensions to Java EE EAR archives configuration.
+                    </description>
+                    <link title="JBoss DTD's" href="http://www.jboss.org/j2ee/dtd/"/>
+                    <tag>jboss-eap5</tag>
+                </classification>
+            </perform>
+        </rule>
         <rule id="jboss-eap5-xml-08000">
             <when>
                 <xmlfile matches="//*[local-name()='jboss-app']" in="jboss-app.xml"/>
             </when>
             <perform>
-                <classification title="JBoss EAR Configuration" effort="1">
+                <classification title="JBoss EAR descriptor" effort="1">
                     <description>
                         The `jboss-app.xml` file configures a Java EE application deployments specifically for JBoss EAP.
                     </description>
@@ -156,6 +159,7 @@
                 </classification>
             </perform>
         </rule>
+
         <rule id="jboss-eap5-xml-09000">
             <when>
                 <xmlfile matches="//*[local-name()='jboss-web']" in="jboss-web.xml"/>
