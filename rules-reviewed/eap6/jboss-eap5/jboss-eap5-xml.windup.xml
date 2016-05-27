@@ -133,7 +133,7 @@
                 <xmlfile public-id=".*JBoss.+DTD Java EE.+5.*"/>
             </when>
             <perform>
-                <classification title="JBoss 5.x EAR descriptor" effort="5" preventDuplication="title, any-tag">
+                <classification title="JBoss 5.x EAR descriptor" effort="5">
                     <description>
                         A JBoss specific EAR descriptor allows extensions to Java EE EAR archives configuration.
                     </description>
@@ -147,16 +147,26 @@
                 <xmlfile matches="//*[local-name()='jboss-app']" in="jboss-app.xml"/>
             </when>
             <perform>
-                <classification title="JBoss EAR descriptor" effort="1">
-                    <description>
-                        The `jboss-app.xml` file configures a Java EE application deployments specifically for JBoss EAP.
-                    </description>
-                    <!--<link href="" title=""> TODO: ESSC-25 -->
-                    <tag>configuration</tag>
-                    <tag>deployment</tag>
-                    <tag>descriptor</tag>
-                    <tag>jboss-eap5</tag>
-                </classification>
+                <iteration>
+                    <xslt title="JBoss application descriptor - JBoss 5 (Windup-generated)" template="resources/jboss-app-to-jboss5.xsl" extension="-jboss5.xml"/>
+                </iteration>
+                <iteration>
+                    <when>
+                        <not>
+                            <xmlfile public-id=".*JBoss.+DTD Java EE.+5.*"/>
+                        </not>
+                    </when>
+                    <classification title="JBoss EAR descriptor" effort="1">
+                        <description>
+                            The `jboss-app.xml` file configures a Java EE application deployments specifically for JBoss EAP.
+                        </description>
+                        <!--<link href="" title=""> TODO: ESSC-25 -->
+                        <tag>configuration</tag>
+                        <tag>deployment</tag>
+                        <tag>descriptor</tag>
+                        <tag>jboss-eap5</tag>
+                    </classification>
+                </iteration>
             </perform>
         </rule>
 
@@ -327,27 +337,6 @@
                     <tag>webservice</tag>
                     <tag>jboss-eap5</tag>
                 </classification>
-            </perform>
-        </rule>
-        <rule id="jboss-eap5-xml-19000">
-            <when>
-                <xmlfile as="jboss-app" matches="/jboss-app"/>
-                <xmlfile as="jboss-app-no-DTD" matches="/jboss-app" public-id=""/>
-            </when>
-            <perform>
-                <iteration over="jboss-app">
-                    <classification title="JBoss application descriptor" effort="5">
-                        <tag>jboss-eap5</tag>
-                    </classification>
-                </iteration>
-                <iteration over="jboss-app-no-DTD">
-                    <classification title="JBoss application descriptor with missing DTD" effort="5">
-                        <tag>jboss-eap5</tag>
-                    </classification>
-                </iteration>
-                <iteration over="jboss-app-no-DTD">
-                    <xslt title="JBoss application descriptor - JBoss 5 (Windup-generated)" template="resources/jboss-app-to-jboss5.xsl" extension="-jboss5.xml"/>
-                </iteration>
             </perform>
         </rule>
 
