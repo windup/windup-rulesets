@@ -88,7 +88,12 @@ public class HsearchUtil {
 
     public void main(String[] args) {
         
-        FullTextSession fullTextSession = Search.getFullTextSession( s );
+        Session session = sessionFactory.openSession();
+        FullTextSession fullTextSession = Search.getFullTextSession( session );
+        
+        FullTextQuery fullTextQuery = fullTextSession.createFullTextQuery( luceneQuery );
+        fullTextQuery.setSort(new Sort(new SortField("title", SortField.STRING)));
+        
         SearchFactoryImplementor searchFactory = (SearchFactoryImplementor) fullTextSession.getSearchFactory();
         
         final QueryBuilder b = fullTextSession.getSearchFactory().buildQueryBuilder().forEntity( Book.class ).get();
@@ -104,11 +109,10 @@ public class HsearchUtil {
         
         b.keyword().fuzzy().withThreshold(0.7f);
         
-        FuzzyContext fuzzyContext = b. keyword().fuzzy();
+        FuzzyContext fuzzyContext = b.keyword().fuzzy();
         fuzzyContext.withThreshold(0.7f);
         
-        FullTextQuery fullTextQuery = fullTextSession.createFullTextQuery( luceneQuery );;
-        fulltextQuery.setSort(new Sort(new SortField("title", SortField.STRING)));
+        
         List result = fullTextQuery.list();
         
         DirectoryHelper.getVerifiedIndexDir("indexname",new Properties(), true);
