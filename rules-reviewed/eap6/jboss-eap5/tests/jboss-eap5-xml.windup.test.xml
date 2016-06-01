@@ -15,16 +15,6 @@
                    <fail message="Classification not found: JBoss Cache"/>
                </perform>
            </rule>
-           <rule id="jboss-eap5-xml-02000-test-c1">
-               <when>
-                   <not>
-                       <classification-exists classification="JBoss 5.x EAR Descriptor"/>
-                   </not>
-               </when>
-               <perform>
-                   <fail message="Classification not found: JBoss 5.x EAR Descriptor"/>
-               </perform>
-           </rule>
            <rule id="jboss-eap5-xml-03000-test-c1">
                <when>
                    <not>
@@ -76,14 +66,32 @@
                    <fail message="Classification not found: JBoss Seam Page"/>
                </perform>
            </rule>
-           <rule id="jboss-eap5-xml-08000-test-c1">
+
+           <rule id="jboss-eap5-xml-02000-test-c1">
                <when>
                    <not>
-                       <classification-exists classification="JBoss EAR Configuration"/>
+                        <iterable-filter size="1">
+                            <classification-exists classification="JBoss 5.x EAR descriptor"/>
+                        </iterable-filter>
                    </not>
                </when>
                <perform>
-                   <fail message="Classification not found: JBoss EAR Configuration"/>
+                   <fail message="Classification not found: JBoss 5.x EAR descriptor"/>
+               </perform>
+           </rule>
+           <rule id="jboss-eap5-xml-08000-test-c1">
+               <when>
+                   <not>
+                        <classification-exists classification="JBoss EAR descriptor"/>
+                        <!--
+                        <iterable-filter size="1">
+                            <classification-exists classification="JBoss EAR descriptor"/>
+                        </iterable-filter>
+                        -->
+                   </not>
+               </when>
+               <perform>
+                   <fail message="Classification not found: JBoss EAR descriptor"/>
                </perform>
            </rule>
            <rule id="jboss-eap5-xml-09000-test-c1">

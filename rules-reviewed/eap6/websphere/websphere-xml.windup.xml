@@ -137,6 +137,8 @@
                 </hint>
             </perform>
         </rule>
+        <!-- First, adds hints to ibm-web-bnd.xm(l|i)'s with /webappbnd:WebAppBinding
+             Then it adds a classification to ibm-web-bnd.xm(l|i)'s which didn't get a hint. -->
         <rule id="websphere-xml-06000">
             <when>
                 <file filename="ibm-web-bnd.{file_ext}" as="1"/>
@@ -145,17 +147,8 @@
                 </xmlfile>
             </when>
             <perform>
-                <iteration over="1">
-                    <classification title="WebSphere Web Application Binding" effort="0">
-                        <description>WebSphere 6 web application binding configuration file.</description>
-                        <link title="WebAppBinding javadoc" href="http://rjweb002.royalsun.com.br/configDocs/webappbnd/WebAppBinding.html"/>
-                        <tag>ejb</tag>
-                        <tag>websphere</tag>
-                        <tag>application-bindings</tag>
-                    </classification>
-                </iteration>
                 <iteration over="2">
-                    <hint title="WebSphere Web Application Bindings" effort="5">
+                    <hint title="WebSphere web application binding" effort="5">
                         <message>
                           <![CDATA[
                           This file configures the specific WebSphere Web application bindings.
@@ -163,9 +156,23 @@
                           Configure EAP 6 Web subsystem accordingly using the CLI interface or web console.
                           ]]>
                         </message>
-                        <link title="Configure the EAP6 Web Subsystem" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#chap-Web_Subsystem"/>
+                        <link title="Configure the EAP 6 Web Subsystem" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#chap-Web_Subsystem"/>
                         <link href="http://docs.jboss.org/jbossweb/7.0.x/" title="JBoss Web configuration"/>
                     </hint>
+                </iteration>
+                <iteration over="1">
+                    <when>
+                        <not>
+                            <has-hint />
+                        </not>
+                    </when>
+                    <classification title="WebSphere web application binding descriptor" effort="0">
+                        <description>WebSphere 6 web application binding configuration file.</description>
+                        <link title="WebAppBinding javadoc" href="http://rjweb002.royalsun.com.br/configDocs/webappbnd/WebAppBinding.html"/>
+                        <tag>ejb</tag>
+                        <tag>websphere</tag>
+                        <tag>application-bindings</tag>
+                    </classification>
                 </iteration>
             </perform>
             <where param="file_ext">
