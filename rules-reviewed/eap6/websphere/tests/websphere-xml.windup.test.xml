@@ -94,14 +94,18 @@
                     <fail message="hint for ext:web-bnd was not detected" />
                 </perform>
             </rule>
+            <!-- Removed "duplication" temporarily, see WINDUPRULE-164 and WINDUP-1041
+            -->
             <rule id="websphere-xml-06000-test">
                 <when>
                     <not>
-                        <classification-exists classification="WebSphere Web Application Binding" />
+                        <iterable-filter size="1">
+                            <classification-exists classification="WebSphere web application binding descriptor" />
+                        </iterable-filter>
                     </not>
                 </when>
                 <perform>
-                    <fail message="WebSphere WebAppBinding was not detected" />
+                    <fail message="Classification not found: 'WebSphere web application binding descriptor'" />
                 </perform>
             </rule>
             <rule id="websphere-xml-06000-hint-test">
