@@ -96,11 +96,6 @@
                 </xmlfile>
             </when>
             <perform>
-                <classification title="WebSphere proprietary JSP engine configuration" effort="0">
-                    <description>WebSphere proprietary JSP engine configuration</description>
-                    <tag>jsp</tag>
-                    <tag>websphere</tag>
-                </classification>
                 <hint title="WebSphere proprietary JSP engine configuration" severity="mandatory" effort="3">
                     <message>
                       <![CDATA[
@@ -113,18 +108,15 @@
                 </hint>
             </perform>
         </rule>
-        <rule id="websphere-xml-05000">
+
+        <!-- First, adds hints to ibm-web-bnd.xml -->
+        <rule id="websphere-xml-06000">
             <when>
                 <xmlfile matches="/ext:web-bnd">
                     <namespace prefix="ext" uri="http://websphere.ibm.com/xml/ns/javaee"/>
                 </xmlfile>
             </when>
             <perform>
-                <classification title="WebSphere proprietary binding configuration" effort="0">
-                    <description>WebSphere proprietary binding configuration.</description>
-                    <tag>configuration</tag>
-                    <tag>websphere</tag>
-                </classification>
                 <hint title="WebSphere proprietary binding configuration" severity="mandatory" effort="3">
                     <message>
                       <![CDATA[
@@ -137,40 +129,34 @@
                 </hint>
             </perform>
         </rule>
-        <rule id="websphere-xml-06000">
+
+        <!-- First, adds hints to ibm-web-bnd.xmi -->
+        <rule id="websphere-xml-06100">
             <when>
-                <file filename="ibm-web-bnd.{file_ext}" as="1"/>
-                <xmlfile from="1" matches="/webappbnd:WebAppBinding" as="2">
+                <xmlfile matches="/webappbnd:WebAppBinding">
                     <namespace prefix="webappbnd" uri="webappbnd.xmi"/>
                 </xmlfile>
             </when>
             <perform>
-                <iteration over="1">
-                    <classification title="WebSphere Web Application Binding" effort="0">
-                        <description>WebSphere 6 web application binding configuration file.</description>
-                        <link title="WebAppBinding javadoc" href="http://rjweb002.royalsun.com.br/configDocs/webappbnd/WebAppBinding.html"/>
-                        <tag>ejb</tag>
-                        <tag>websphere</tag>
-                        <tag>application-bindings</tag>
-                    </classification>
-                </iteration>
-                <iteration over="2">
-                    <hint title="WebSphere Web Application Bindings" effort="5">
-                        <message>
-                          <![CDATA[
-                          This file configures the specific WebSphere Web application bindings.
+                <classification title="WebSphere Web Application Binding" effort="0">
+                    <description>WebSphere 6 web application binding configuration file.</description>
+                    <link title="WebAppBinding javadoc" href="http://rjweb002.royalsun.com.br/configDocs/webappbnd/WebAppBinding.html"/>
+                    <tag>ejb</tag>
+                    <tag>websphere</tag>
+                    <tag>application-bindings</tag>
+                </classification>
+                <hint title="WebSphere web application binding" effort="3">
+                    <message>
+                      <![CDATA[
+                      This file configures the specific WebSphere Web application bindings.
 
-                          Configure EAP 6 Web subsystem accordingly using the CLI interface or web console.
-                          ]]>
-                        </message>
-                        <link title="Configure the EAP6 Web Subsystem" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#chap-Web_Subsystem"/>
-                        <link href="http://docs.jboss.org/jbossweb/7.0.x/" title="JBoss Web configuration"/>
-                    </hint>
-                </iteration>
+                      Configure EAP 6 Web subsystem accordingly using the CLI interface or web console.
+                      ]]>
+                    </message>
+                    <link title="Configure the EAP 6 Web Subsystem" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#chap-Web_Subsystem"/>
+                    <link href="http://docs.jboss.org/jbossweb/7.0.x/" title="JBoss Web configuration"/>
+                </hint>
             </perform>
-            <where param="file_ext">
-               <matches pattern="xml|xmi" />
-            </where>
         </rule>
 
         <rule id="websphere-xml-07000">

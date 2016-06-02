@@ -72,7 +72,7 @@ import org.ocpsoft.rewrite.param.ParameterValueStore;
 @RunWith(Arquillian.class)
 public class WindupRulesTest
 {
-    private static Logger LOG = Logger.getLogger(WindupRulesTest.class);
+    private static final Logger LOG = Logger.getLogger(WindupRulesTest.class);
 
     private static final String RUN_TEST_MATCHING = "runTestsMatching";
     private static final String RUN_TEST_ID_MATCHING = "runTestIdMatching";
@@ -135,8 +135,8 @@ public class WindupRulesTest
             for (Map.Entry<String, Exception> entry : errors.entrySet())
             {
                 String message = getExceptionMessage(entry.getValue());
-                result.append("Error with test: " + entry.getKey()).append("\n");
-                result.append("\tCause: ").append(message).append("\n");
+                result.append("\n\tError with test: " + entry.getKey());
+                result.append("\n\tCause: ").append(message).append("\n");
             }
             System.out.println("Failed tests:\n");
             System.out.println(result.toString());
@@ -165,6 +165,12 @@ public class WindupRulesTest
             {
                 return;
             }
+
+            LOG.info("\n==============================================================================================="
+                   + "\n Running test ruleset: " + ruleTestFile.getPath()
+                   + "\n==============================================================================================="
+                   + "\n");
+
             try
             {
                 Map<String, Exception> exceptions;
