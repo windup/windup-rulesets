@@ -54,16 +54,6 @@
                     <fail message="Hint for WebSphere WebAppExtension was not detected" />
                 </perform>
             </rule>
-            <rule id="websphere-xml-04000-test">
-                <when>
-                    <not>
-                        <classification-exists classification="WebSphere proprietary JSP engine configuration" />
-                    </not>
-                </when>
-                <perform>
-                    <fail message="websphere ext:web-ext was not detected" />
-                </perform>
-            </rule>
             <rule id="websphere-xml-04000-hint-test">
                <when>
                   <not>
@@ -74,17 +64,7 @@
                   <fail message="Hint for IBM Websphere ext:web-ext was not detected" />
                </perform>
             </rule>
-            <rule id="websphere-xml-05000-test">
-                <when>
-                    <not>
-                        <classification-exists classification="WebSphere proprietary binding configuration" />
-                    </not>
-                </when>
-                <perform>
-                    <fail message="ext:web-bnd was not detected" />
-                </perform>
-            </rule>
-            <rule id="websphere-xml-05000-hint-test">
+            <rule id="websphere-xml-06000-hint-test">
                 <when>
                     <not>
                         <hint-exists message=".*This file contains WebSphere proprietary binding configuration.*" />
@@ -94,21 +74,7 @@
                     <fail message="hint for ext:web-bnd was not detected" />
                 </perform>
             </rule>
-            <!-- Removed "duplication" temporarily, see WINDUPRULE-164 and WINDUP-1041
-            -->
-            <rule id="websphere-xml-06000-test">
-                <when>
-                    <not>
-                        <iterable-filter size="1">
-                            <classification-exists classification="WebSphere web application binding descriptor" />
-                        </iterable-filter>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="Classification not found: 'WebSphere web application binding descriptor'" />
-                </perform>
-            </rule>
-            <rule id="websphere-xml-06000-hint-test">
+            <rule id="websphere-xml-06100-hint-test">
                 <when>
                     <not>
                         <hint-exists message="This file configures the specific WebSphere Web application bindings.*" />
