@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="environment-dependent-calls"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <metadata>
         <description>
             This ruleset provides generic rules that should match when migrating from different server
@@ -23,17 +23,17 @@
                 </javaclass>
             </when>
             <perform>
-                 <hint title="Dynamic class instantiation" effort="1" severity="mandatory">
-                     <message>
+                <hint title="Dynamic class instantiation" effort="1" severity="mandatory">
+                    <message>
                        <![CDATA[
                        The class is dynamically loaded within application. During the migration, multiple classes that are provided on classpath by a different server may not be present anymore.
 
                        Please review the class-loading mechanisms and ensure that the dynamically loaded class is available in JBoss EAP.
                        ]]>
-                     </message>
-                     <link title="Classloading in JBoss EAP 6" href="https://access.redhat.com/solutions/361343" />
-                     <tag>classloader</tag>
-                 </hint>
+                    </message>
+                    <link title="Classloading in JBoss EAP 6" href="https://access.redhat.com/solutions/361343" />
+                    <tag>classloader</tag>
+                </hint>
             </perform>
         </rule>
         <rule id="environment-dependent-calls-02000">
@@ -78,7 +78,7 @@
             <perform>
                 <iteration>
                     <hint title="Proprietary InitialContext initialization" effort="1" severity="mandatory">
-                    <message>
+                        <message>
                       <![CDATA[
                       In JBoss EAP, the `InitialContext` should be instantiated with no arguments. Once an instance is constructed, look up the service using portable JNDI lookup syntax. Ensure also that in case system properties for `InitialContext` are provided, they do not need to be changed for the JBoss.
 
@@ -87,9 +87,9 @@
                       Service service = (Service) context.lookup( "java:app/service/" + ServiceImpl.class.getSimpleName() );
                       ```
                       ]]>
-                    </message>
-                    <link href="https://access.redhat.com/articles/1496973" title="Migrate Applications From Other Platforms to Use Portable JNDI Syntax in Red Hat JBoss Enterprise Application Platform" />
-                    <tag>jndi</tag>
+                        </message>
+                        <link href="https://access.redhat.com/articles/1496973" title="Migrate Applications From Other Platforms to Use Portable JNDI Syntax in Red Hat JBoss Enterprise Application Platform" />
+                        <tag>jndi</tag>
                     </hint>
                 </iteration>
             </perform>
@@ -114,7 +114,7 @@
             </perform>
         </rule>
         <rule id="environment-dependent-calls-04000">
- 		<!--could also check JMXConnectorFactory.PROTOCOL_PROVIDER_PACKAGES in the provided hash map-->
+            <!--could also check JMXConnectorFactory.PROTOCOL_PROVIDER_PACKAGES in the provided hash map-->
             <when>
                 <javaclass references="javax.management.{suffix}{*}" as="default">
                     <location>CONSTRUCTOR_CALL</location>
@@ -146,14 +146,14 @@
             <perform>
                 <iteration>
                     <hint title="JMX connection" effort="1" severity="mandatory">
-                       <message>
+                        <message>
                           <![CDATA[
                           After migration, JMX connection String or parameters may be different than the one provided by previous server.
                           As an example, `javax.management.remote.JMXConnectorFactory.PROTOCOL_PROVIDER_PACKAGES` will change.
                           Ensure that any of the parameters does not need to change for JBoss EAP.
                           ]]>
-                       </message>
-                       <tag>jmx</tag>
+                        </message>
+                        <tag>jmx</tag>
                     </hint>
                 </iteration>
             </perform>

@@ -596,39 +596,38 @@
 
                             For example:
 
-                            ```xml
-                            <service category="routerToFile" name="FileRouterListener" description="Static route file destination">
-                                <actions mep="OneWay">
-                                    <action name="notificationAction" class="org.jboss.soa.esb.actions.Notifier">
-                                        <property name="okMethod" value="notifyOK"/>
-                                        <property name="notification-details">
-                                            <NotificationList type="ok">
-                                                <target class="NotifyFiles">
-                                                    <file append="false" URI="/tmp/HelloWorldFileNotifierTest.log"/>
-                                                </target>
-                                            </NotificationList>
-                                        </property>
-                                    </action>
-                                </actions>
-                            </service>
-                            ```
-
+```xml
+<service category="routerToFile" name="FileRouterListener" description="Static route file destination">
+    <actions mep="OneWay">
+        <action name="notificationAction" class="org.jboss.soa.esb.actions.Notifier">
+            <property name="okMethod" value="notifyOK"/>
+            <property name="notification-details">
+                <NotificationList type="ok">
+                    <target class="NotifyFiles">
+                        <file append="false" URI="/tmp/HelloWorldFileNotifierTest.log"/>
+                    </target>
+                </NotificationList>
+            </property>
+        </action>
+    </actions>
+</service>
+```
 
                             Could be translated to:
 
-                            ```xml
-                            <sca:reference name="HelloWorld" multiplicity="0..1" promote="MyComponent/HelloWorld">
-                                <camel:binding.file>
-                                    <camel:directory>/tmp</camel:directory>
-                                    <camel:fileName>HelloWorldFileNotifierTest.log</camel:fileName>
-                                </camel:binding.file>
-                            </sca:reference>
-                            <sca:component name="MyComponent">
-                                <sca:reference name="HelloWorld">
-                                    <sca:interface.wsdl interface="HelloWorld.wsdl#wsdl.porttype(HelloWorld)"/>
-                                </sca:reference>
-                            </sca:component>
-                            ```
+```xml
+<sca:reference name="HelloWorld" multiplicity="0..1" promote="MyComponent/HelloWorld">
+    <camel:binding.file>
+        <camel:directory>/tmp</camel:directory>
+        <camel:fileName>HelloWorldFileNotifierTest.log</camel:fileName>
+    </camel:binding.file>
+</sca:reference>
+<sca:component name="MyComponent">
+    <sca:reference name="HelloWorld">
+        <sca:interface.wsdl interface="HelloWorld.wsdl#wsdl.porttype(HelloWorld)"/>
+    </sca:reference>
+</sca:component>
+```
                         ]]>
                     </message>
                     <tag>jboss-esb</tag>

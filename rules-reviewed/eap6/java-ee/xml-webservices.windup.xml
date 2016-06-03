@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset"
-   id="xml-webservices" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+         id="xml-webservices" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <metadata>
         <description>
             This ruleset provides informative, not actionable rules. It identifies some Apache Axis, XFire or Apache CXF configuration for Web Services.
@@ -14,7 +14,7 @@
         <targetTechnology id="eap" versionRange="[6,)" />
         <tag>reviewed-2015-08-03</tag>
     </metadata>
-    
+
     <rules>
         <rule id="xml-webservices-01000">
             <when>
@@ -88,7 +88,7 @@
             </perform>
         </rule>
         <rule id="xml-webservices-06000">
-             <when>
+            <when>
                 <xmlfile as="webservices" matches="/*[local-name()='webservices']" >
                     <namespace prefix="j2e" uri="http://java.sun.com/xml/ns/j2ee"/>
                     <namespace prefix="jcp" uri="http://xmlns.jcp.org/xml/ns/javaee"/>
@@ -101,17 +101,17 @@
                 </xmlfile>
             </when>
             <perform>
-                 <iteration over="webservices">
+                <iteration over="webservices">
                     <classification title="Java Webservice Configuration" effort="0" severity="optional">
                         <tag>webservice</tag>
                     </classification>
-                 </iteration>
-                 <iteration over="handler-classes">
+                </iteration>
+                <iteration over="handler-classes">
                     <hint title="Use of Web Service Handler2" effort="0" severity="optional">
                         <message>EAP 6 developer documentation describes JAX-WS Web Services Common API.</message>
                         <link href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Development_Guide/sect-JAX-WS_Development_Reference.html#JAX-WS_Common_API_Reference" title="JAX-WS Web Services Common API">JAX-WS Web Services Common API</link>
                     </hint>
-                 </iteration>
+                </iteration>
             </perform>
         </rule>
         <rule id="xml-webservices-06001">
@@ -128,17 +128,17 @@
                 </xmlfile>
             </when>
             <perform>
-                 <iteration over="webservices">
+                <iteration over="webservices">
                     <classification title="Java Webservice Configuration" effort="0" severity="optional">
                         <tag>webservice</tag>
                     </classification>
-                 </iteration>
-                 <iteration over="endpoints">
+                </iteration>
+                <iteration over="endpoints">
                     <hint title="Use of Web Service Handler2" effort="0" severity="optional">
                         <message>EAP 6 developer documentation about JAX-WS Web Services Endpoints</message>
                         <link href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Development_Guide/sect-JAX-WS_Web_Service_Endpoints.html" title="About JAX-WS Web Services Endpoints">About JAX-WS Web Service Endpoints</link>
                     </hint>
-                 </iteration>
+                </iteration>
             </perform>
         </rule>
         <rule id="xml-webservices-07000">

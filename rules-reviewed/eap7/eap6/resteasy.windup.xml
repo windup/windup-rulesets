@@ -23,7 +23,7 @@
             <perform>
                 <hint title="RESTEasy 3 Cache Client package change" effort="1" severity="mandatory">
                     <message>Caching in the RESTEasy client framework in resteasy-jaxrs is replaced by caching in the JAX-RS 2.0 compliant resteasy-client module.
-                    Use `org.jboss.resteasy.client.jaxrs.cache` package instead of `org.jboss.resteasy.client.cache`. 
+                    Use `org.jboss.resteasy.client.jaxrs.cache` package instead of `org.jboss.resteasy.client.cache`.
                     </message>
                     <link title="RESTEasy Client Application Changes"
                         href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/chapter-4-application-changes" />
@@ -43,26 +43,25 @@
                 <hint title="Deprecated class ClientRequest in RESTEasy 3" effort="1" severity="optional">
                     <message><![CDATA[
                     Replace class `org.jboss.resteasy.client.ClientRequest` with `org.jboss.resteasy.client.jaxrs.ResteasyClient`.
-                    
+
                     The following is an example of how to send a link header with the RESTEasy client in EAP 6 with RESTEasy 2.3.x.
-                    
-                    ```java
-                    ClientRequest request = new ClientRequest(generateURL("/linkheader/str"));
-                    request.addLink("previous chapter", "previous", "http://example.com/TheBook/chapter2", null);
-                    ClientResponse response = request.post();
-                    LinkHeader header = response.getLinkHeader();
-                    ```
-                    
+
+```java
+ClientRequest request = new ClientRequest(generateURL("/linkheader/str"));
+request.addLink("previous chapter", "previous", "http://example.com/TheBook/chapter2", null);
+ClientResponse response = request.post();
+LinkHeader header = response.getLinkHeader();
+```
+
                     The following is an example of how to accomplish the same task with the RESTEasy client in RESTEasy 3.
-                    
-                    ```java
-                    ResteasyClient client = new ResteasyClientBuilder().build();
-                    Response response = client.target(generateURL("/linkheader/str")).request()
-                        .header("Link", "<http://example.com/TheBook/chapter2>; rel="previous";
-                    title="previous chapter">").post(Entity.text(new String()));
-                    javax.ws.rs.core.Link link = response.getLink("previous");
-                    ```
-                    
+
+```java
+ResteasyClient client = new ResteasyClientBuilder().build();
+Response response = client.target(generateURL("/linkheader/str")).request()
+    .header("Link", "<http://example.com/TheBook/chapter2>; rel="previous";
+title="previous chapter">").post(Entity.text(new String()));
+javax.ws.rs.core.Link link = response.getLink("previous");
+```
                     ]]></message>
                     <link title="RESTEasy Client Application Changes"
                         href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/chapter-4-application-changes" />
@@ -107,7 +106,7 @@
                 <hint title="Deprecated class EntityTypeFactory in RESTEasy 3" effort="1" severity="optional">
                     <message><![CDATA[
                     There is no direct replacement for `org.jboss.resteasy.client.EntityTypeFactory` class.
-                    
+
                     `org.jboss.resteasy.client.ClientResponse<T>` is a generic type in the RESTEasy client framework,
                     but `org.jboss.resteasy.client.jaxrs.internal.ClientResponse` in the resteasy-client module is not, so
                     `EntityTypeFactory` is no longer useful.
@@ -150,7 +149,7 @@
             </when>
             <perform>
                 <hint title="Deprecated exception ClientResponseFailure in RESTEasy 3" effort="1" severity="optional">
-                    <message>Replace the `org.jboss.resteasy.client.ClientResponseFailure` with `javax.ws.rs.client.ResponseProcessingException` 
+                    <message>Replace the `org.jboss.resteasy.client.ClientResponseFailure` with `javax.ws.rs.client.ResponseProcessingException`
                     or with `javax.ws.rs.client.ProcessingException` or with `javax.ws.rs.client.WebApplicationException` class.</message>
                     <link title="RESTEasy Client Application Changes"
                         href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/chapter-4-application-changes" />
@@ -200,7 +199,7 @@
                     <tag>resteasy</tag>
                 </hint>
             </perform>
-        </rule>     
+        </rule>
         <rule id="resteasy-eap6-000012">
             <when>
                 <javaclass references="org.jboss.resteasy.spi.interception.MessageBodyReaderInterceptor" />
@@ -286,7 +285,7 @@
                     <tag>resteasy</tag>
                 </hint>
             </perform>
-        </rule>        
+        </rule>
         <rule id="resteasy-eap6-000019">
             <when>
                 <javaclass references="org.jboss.resteasy.spi.interception.AcceptedByMethod" />
@@ -315,7 +314,7 @@
                     <tag>resteasy</tag>
                 </hint>
             </perform>
-        </rule>        
+        </rule>
         <rule id="resteasy-eap6-000021">
             <when>
                 <javaclass references="org.jboss.resteasy.spi.Link" />
@@ -436,7 +435,7 @@
                     <tag>resteasy</tag>
                 </hint>
             </perform>
-        </rule>        
+        </rule>
         <!-- Exceptions -->
         <rule id="resteasy-eap6-000101">
             <when>
@@ -697,8 +696,11 @@
             </when>
             <perform>
                 <hint title="Deprecated method ResteasyHttpServletResponseWrapper#setStatus in RESTEasy 3" effort="1" severity="optional">
-                    <message>As of version 2.1, due to ambiguous meaning of the message parameter. To set a status code use `setStatus(int)` instead, 
-                    to send an error with a description use `sendError(int, String)`. Sets the status code and message for this response.</message>
+                    <message>
+                        Deprecated as of version 2.1, due to ambiguous meaning of the message parameter.
+                        To set a status code use `setStatus(int)`.
+                        To send an error with a description, use `sendError(int, String)`.
+                    </message>
                     <link title="RESTEasy SPI Application Changes"
                         href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_resteasy_deprecated_classes" />
                     <link title="RESTEasy javadoc ResteasyHttpServletResponseWrapper.html#setStatus" href="https://docs.jboss.org/resteasy/docs/3.0.16.Final/javadocs/org/jboss/resteasy/core/ResteasyHttpServletResponseWrapper.html#setStatus(int,%20java.lang.String)" />
