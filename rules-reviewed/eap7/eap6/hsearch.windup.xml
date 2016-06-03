@@ -259,8 +259,10 @@
             </when>
             <perform>
                 <hint title="Deprecated class org.hibernate.search.filter.StandardFilterKey in Hibernate Search 5" effort="1" severity="optional">
-                    <message>Custom filter keys `StandardFilterKey` are deprecated and are scheduled for removal in Hibernate Search 6.
-                    As of Hibernate Search 5.1, keys for caching Lucene filters are calculated automatically based on the given filter parameters.</message>
+                    <message>
+                        Custom filter keys `StandardFilterKey` are deprecated and are scheduled for removal in Hibernate Search 6.
+                        As of Hibernate Search 5.1, keys for caching Lucene filters are calculated automatically based on the given filter parameters.
+                    </message>
                     <link
                         href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_hibernate_search_changes"
                         title="Changes in Hibernate Search 5.x" />
@@ -278,7 +280,10 @@
             </when>
             <perform>
                 <hint title="Deprecated enum FieldCacheType in Hibernate Search 5" effort="1" severity="optional">
-                    <message>Remove the `@FieldCacheType` annotation. No alternative replacement necessary as the Field Cache in Apache Lucene feature does no longer exist.</message>
+                    <message>
+                        Remove the `@FieldCacheType` annotation. No alternative replacement necessary
+                        as the Field Cache in Apache Lucene feature does no longer exist.
+                    </message>
                     <link
                         href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_hibernate_search_changes"
                         title="Changes in Hibernate Search 5.x" />
@@ -592,9 +597,12 @@
             <perform>
                 <hint title="Changes in indexing numeric values for Hibernate Search 5" effort="1" severity="mandatory">
                     <message>Numbers and dates now indexed as numeric fields by default.
-Properties of type `Date`, `Calendar` as well as `int`, `long`, `float`, `double` and their corresponding wrappers, are no longer indexed as strings. Instead, they are now indexed using Lucene’s appropriate numeric encoding.
+                        Properties of type `Date`, `Calendar` as well as `int`, `long`, `float`, `double`
+                        and their corresponding wrappers, are no longer indexed as strings.
+                        Instead, they are now indexed using Lucene’s appropriate numeric encoding.
 
-The `id` fields are an exception to this rule: even when these are represented by a numeric type, they will still be indexed as a string keyword by default..</message>
+                        The `id` fields are an exception to this rule: even when these are represented by a numeric type,
+                        they will still be indexed as a string keyword by default..</message>
                     <link
                         href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_miscellaneous_hibernate_search_changes"
                         title="Miscellaneous Changes in Hibernate Search 5.x" />
@@ -655,7 +663,6 @@ The following is an example of how you set it in JBoss EAP 7.
 ```java
 fulltextQuery.setSort(new Sort(new SortField("title", SortField.Type.STRING)))
 ```
-
                      </message>
                     <link href="http://hibernate.org/search/documentation/migrate/5.5/#sorting-options" title="Hibernate Search 5.4 to 5.5 migration" />
                     <link
@@ -936,16 +943,16 @@ fulltextQuery.setSort(new Sort(new SortField("title", SortField.Type.STRING)))
                 </hint>
             </perform>
         </rule>
-<!--     o.a.l.analysis.KeywordAnalyzer -> o.a.l.analysis.core.KeywordAnalyzer -->
-<!--     o.a.l.analysis.KeywordTokenizer -> o.a.l.analysis.core.KeywordTokenizer -->
-<!--     o.a.l.analysis.LetterTokenizer -> o.a.l.analysis.core.LetterTokenizer -->
-<!--     o.a.l.analysis.LowerCaseFilter -> o.a.l.analysis.core.LowerCaseFilter -->
-<!--     o.a.l.analysis.LowerCaseTokenizer -> o.a.l.analysis.core.LowerCaseTokenizer -->
-<!--     o.a.l.analysis.SimpleAnalyzer -> o.a.l.analysis.core.SimpleAnalyzer -->
-<!--     o.a.l.analysis.StopAnalyzer -> o.a.l.analysis.core.StopAnalyzer -->
-<!--     o.a.l.analysis.StopFilter -> o.a.l.analysis.core.StopFilter -->
-<!--     o.a.l.analysis.WhitespaceAnalyzer -> o.a.l.analysis.core.WhitespaceAnalyzer -->
-<!--     o.a.l.analysis.WhitespaceTokenizer -> o.a.l.analysis.core.WhitespaceTokenizer -->
+        <!--     o.a.l.analysis.KeywordAnalyzer -> o.a.l.analysis.core.KeywordAnalyzer -->
+        <!--     o.a.l.analysis.KeywordTokenizer -> o.a.l.analysis.core.KeywordTokenizer -->
+        <!--     o.a.l.analysis.LetterTokenizer -> o.a.l.analysis.core.LetterTokenizer -->
+        <!--     o.a.l.analysis.LowerCaseFilter -> o.a.l.analysis.core.LowerCaseFilter -->
+        <!--     o.a.l.analysis.LowerCaseTokenizer -> o.a.l.analysis.core.LowerCaseTokenizer -->
+        <!--     o.a.l.analysis.SimpleAnalyzer -> o.a.l.analysis.core.SimpleAnalyzer -->
+        <!--     o.a.l.analysis.StopAnalyzer -> o.a.l.analysis.core.StopAnalyzer -->
+        <!--     o.a.l.analysis.StopFilter -> o.a.l.analysis.core.StopFilter -->
+        <!--     o.a.l.analysis.WhitespaceAnalyzer -> o.a.l.analysis.core.WhitespaceAnalyzer -->
+        <!--     o.a.l.analysis.WhitespaceTokenizer -> o.a.l.analysis.core.WhitespaceTokenizer -->
         <rule id="hsearch-00227">
             <when>
                 <javaclass references="org.apache.lucene.analysis.{type}" />
@@ -967,7 +974,7 @@ fulltextQuery.setSort(new Sort(new SortField("title", SortField.Type.STRING)))
                 <matches pattern="(KeywordAnalyzer|KeywordTokenizer|LetterTokenizer|LowerCaseFilter|LowerCaseTokenizer|SimpleAnalyzer|StopAnalyzer|StopFilter|WhitespaceAnalyzer|WhitespaceTokenizer)" />
             </where>
         </rule>
-<!--     o.a.l.analysis.PorterStemFilter -> o.a.l.analysis.en.PorterStemFilter -->
+        <!--     o.a.l.analysis.PorterStemFilter -> o.a.l.analysis.en.PorterStemFilter -->
         <rule id="hsearch-00228">
             <when>
                 <javaclass references="org.apache.lucene.analysis.PorterStemFilter" />
@@ -986,11 +993,11 @@ fulltextQuery.setSort(new Sort(new SortField("title", SortField.Type.STRING)))
                 </hint>
             </perform>
         </rule>
-<!--     o.a.l.analysis.ASCIIFoldingFilter -> o.a.l.analysis.miscellaneous.ASCIIFoldingFilter -->
-<!--     o.a.l.analysis.ISOLatin1AccentFilter -> o.a.l.analysis.miscellaneous.ISOLatin1AccentFilter -->
-<!--     o.a.l.analysis.KeywordMarkerFilter -> o.a.l.analysis.miscellaneous.KeywordMarkerFilter -->
-<!--     o.a.l.analysis.LengthFilter -> o.a.l.analysis.miscellaneous.LengthFilter -->
-<!--     o.a.l.analysis.PerFieldAnalyzerWrapper -> o.a.l.analysis.miscellaneous.PerFieldAnalyzerWrapper -->
+        <!--     o.a.l.analysis.ASCIIFoldingFilter -> o.a.l.analysis.miscellaneous.ASCIIFoldingFilter -->
+        <!--     o.a.l.analysis.ISOLatin1AccentFilter -> o.a.l.analysis.miscellaneous.ISOLatin1AccentFilter -->
+        <!--     o.a.l.analysis.KeywordMarkerFilter -> o.a.l.analysis.miscellaneous.KeywordMarkerFilter -->
+        <!--     o.a.l.analysis.LengthFilter -> o.a.l.analysis.miscellaneous.LengthFilter -->
+        <!--     o.a.l.analysis.PerFieldAnalyzerWrapper -> o.a.l.analysis.miscellaneous.PerFieldAnalyzerWrapper -->
         <rule id="hsearch-00229">
             <when>
                 <javaclass references="org.apache.lucene.analysis.{type}" />
@@ -1012,7 +1019,7 @@ fulltextQuery.setSort(new Sort(new SortField("title", SortField.Type.STRING)))
                 <matches pattern="(ASCIIFoldingFilter|ISOLatin1AccentFilter|KeywordMarkerFilter|LengthFilter|PerFieldAnalyzerWrapper)" />
             </where>
         </rule>
-<!--     o.a.l.analysis.TeeSinkTokenFilter -> o.a.l.analysis.sinks.TeeSinkTokenFilter -->
+        <!--     o.a.l.analysis.TeeSinkTokenFilter -> o.a.l.analysis.sinks.TeeSinkTokenFilter -->
         <rule id="hsearch-00230">
             <when>
                 <javaclass references="org.apache.lucene.analysis.TeeSinkTokenFilter" />
@@ -1031,10 +1038,10 @@ fulltextQuery.setSort(new Sort(new SortField("title", SortField.Type.STRING)))
                 </hint>
             </perform>
         </rule>
-<!--     o.a.l.analysis.CharFilter -> o.a.l.analysis.charfilter.CharFilter -->
-<!--     o.a.l.analysis.BaseCharFilter -> o.a.l.analysis.charfilter.BaseCharFilter -->
-<!--     o.a.l.analysis.MappingCharFilter -> o.a.l.analysis.charfilter.MappingCharFilter -->
-<!--     o.a.l.analysis.NormalizeCharMap -> o.a.l.analysis.charfilter.NormalizeCharMap -->
+        <!--     o.a.l.analysis.CharFilter -> o.a.l.analysis.charfilter.CharFilter -->
+        <!--     o.a.l.analysis.BaseCharFilter -> o.a.l.analysis.charfilter.BaseCharFilter -->
+        <!--     o.a.l.analysis.MappingCharFilter -> o.a.l.analysis.charfilter.MappingCharFilter -->
+        <!--     o.a.l.analysis.NormalizeCharMap -> o.a.l.analysis.charfilter.NormalizeCharMap -->
         <rule id="hsearch-00231">
             <when>
                 <javaclass references="org.apache.lucene.analysis.{type}" />
@@ -1056,11 +1063,11 @@ fulltextQuery.setSort(new Sort(new SortField("title", SortField.Type.STRING)))
                 <matches pattern="(CharFilter|BaseCharFilter|MappingCharFilter|NormalizeCharMap)" />
             </where>
         </rule>
-<!--     o.a.l.analysis.CharArraySet -> o.a.l.analysis.util.CharArraySet -->
-<!--     o.a.l.analysis.CharArrayMap -> o.a.l.analysis.util.CharArrayMap -->
-<!--     o.a.l.analysis.StopwordAnalyzerBase -> o.a.l.analysis.util.StopwordAnalyzerBase -->
-<!--     o.a.l.analysis.WordListLoader -> o.a.l.analysis.util.WordListLoader -->
-<!--     o.a.l.analysis.CharTokenizer -> o.a.l.analysis.util.CharTokenizer -->
+        <!--     o.a.l.analysis.CharArraySet -> o.a.l.analysis.util.CharArraySet -->
+        <!--     o.a.l.analysis.CharArrayMap -> o.a.l.analysis.util.CharArrayMap -->
+        <!--     o.a.l.analysis.StopwordAnalyzerBase -> o.a.l.analysis.util.StopwordAnalyzerBase -->
+        <!--     o.a.l.analysis.WordListLoader -> o.a.l.analysis.util.WordListLoader -->
+        <!--     o.a.l.analysis.CharTokenizer -> o.a.l.analysis.util.CharTokenizer -->
         <rule id="hsearch-00232">
             <when>
                 <javaclass references="org.apache.lucene.analysis.{type}" />
@@ -1082,7 +1089,7 @@ fulltextQuery.setSort(new Sort(new SortField("title", SortField.Type.STRING)))
                 <matches pattern="(CharArraySet|CharArrayMap|StopwordAnalyzerBase|WordlistLoader|CharTokenizer)" />
             </where>
         </rule>
-<!--     o.a.l.analysis.ReusableAnalyzerBase -> o.a.l.analysis.Analyzer -->
+        <!--     o.a.l.analysis.ReusableAnalyzerBase -> o.a.l.analysis.Analyzer -->
         <rule id="hsearch-00233">
             <when>
                 <javaclass references="org.apache.lucene.analysis.ReusableAnalyzerBase" />
@@ -1101,7 +1108,7 @@ fulltextQuery.setSort(new Sort(new SortField("title", SortField.Type.STRING)))
                 </hint>
             </perform>
         </rule>
-<!--     o.a.l.util.CharacterUtils -> o.a.l.analysis.util.CharacterUtils -->
+        <!--     o.a.l.util.CharacterUtils -> o.a.l.analysis.util.CharacterUtils -->
         <rule id="hsearch-00234">
             <when>
                 <javaclass references="org.apache.lucene.util.CharacterUtils" />
@@ -1120,10 +1127,10 @@ fulltextQuery.setSort(new Sort(new SortField("title", SortField.Type.STRING)))
                 </hint>
             </perform>
         </rule>
-<!--         LUCENE-2883: ValueSource changes -->
-<!-- Lucene's o.a.l.search.function ValueSource based functionality, was consolidated into lucene/queries along with Solr's similar functionality. The following classes were moved: -->
-<!--     o.a.l.search.function.CustomScoreQuery -> o.a.l.queries.CustomScoreQuery -->
-<!--     o.a.l.search.function.CustomScoreProvider -> o.a.l.queries.CustomScoreProvider -->
+        <!--         LUCENE-2883: ValueSource changes -->
+        <!-- Lucene's o.a.l.search.function ValueSource based functionality, was consolidated into lucene/queries along with Solr's similar functionality. The following classes were moved: -->
+        <!--     o.a.l.search.function.CustomScoreQuery -> o.a.l.queries.CustomScoreQuery -->
+        <!--     o.a.l.search.function.CustomScoreProvider -> o.a.l.queries.CustomScoreProvider -->
         <rule id="hsearch-00235">
             <when>
                 <javaclass references="org.apache.lucene.search.function.{type}" />
@@ -1145,7 +1152,7 @@ fulltextQuery.setSort(new Sort(new SortField("title", SortField.Type.STRING)))
                 <matches pattern="(CustomScoreQuery|CustomScoreProvider)" />
             </where>
         </rule>
-<!--     o.a.l.search.function.NumericIndexDocValueSource -> o.a.l.queries.function.valuesource.NumericIndexDocValueSource -->
+        <!--     o.a.l.search.function.NumericIndexDocValueSource -> o.a.l.queries.function.valuesource.NumericIndexDocValueSource -->
         <rule id="hsearch-00236">
             <when>
                 <javaclass references="org.apache.lucene.search.function.NumericIndexDocValueSource" />
@@ -1164,11 +1171,11 @@ fulltextQuery.setSort(new Sort(new SortField("title", SortField.Type.STRING)))
                 </hint>
             </perform>
         </rule>
-<!-- The following lists the replacement classes for those removed: -->
-<!--     o.a.l.search.function.DocValues -> o.a.l.queries.function.DocValues -->
-<!--     o.a.l.search.function.FieldScoreQuery ->o.a.l.queries.function.FunctionQuery -->
-<!--     o.a.l.search.function.ValueSource -> o.a.l.queries.function.ValueSource -->
-<!--     o.a.l.search.function.ValueSourceQuery -> o.a.l.queries.function.FunctionQuery -->
+        <!-- The following lists the replacement classes for those removed: -->
+        <!--     o.a.l.search.function.DocValues -> o.a.l.queries.function.DocValues -->
+        <!--     o.a.l.search.function.FieldScoreQuery ->o.a.l.queries.function.FunctionQuery -->
+        <!--     o.a.l.search.function.ValueSource -> o.a.l.queries.function.ValueSource -->
+        <!--     o.a.l.search.function.ValueSourceQuery -> o.a.l.queries.function.FunctionQuery -->
         <rule id="hsearch-00237">
             <when>
                 <javaclass references="org.apache.lucene.search.function.{type}" />
@@ -1190,13 +1197,13 @@ fulltextQuery.setSort(new Sort(new SortField("title", SortField.Type.STRING)))
                 <matches pattern="(DocValues|FieldScoreQuery|ValueSource|ValueSourceQuery)" />
             </where>
         </rule>
-<!--     o.a.l.search.function.ByteFieldSource -> o.a.l.queries.function.valuesource.ByteFieldSource -->
-<!--     o.a.l.search.function.FieldCacheSource -> o.a.l.queries.function.valuesource.FieldCacheSource -->
-<!--     o.a.l.search.function.FloatFieldSource -> o.a.l.queries.function.valuesource.FloatFieldSource -->
-<!--     o.a.l.search.function.IntFieldSource -> o.a.l.queries.function.valuesource.IntFieldSource -->
-<!--     o.a.l.search.function.OrdFieldSource -> o.a.l.queries.function.valuesource.OrdFieldSource -->
-<!--     o.a.l.search.function.ReverseOrdFieldSource -> o.a.l.queries.function.valuesource.ReverseOrdFieldSource -->
-<!--     o.a.l.search.function.ShortFieldSource -> o.a.l.queries.function.valuesource.ShortFieldSource -->
+        <!--     o.a.l.search.function.ByteFieldSource -> o.a.l.queries.function.valuesource.ByteFieldSource -->
+        <!--     o.a.l.search.function.FieldCacheSource -> o.a.l.queries.function.valuesource.FieldCacheSource -->
+        <!--     o.a.l.search.function.FloatFieldSource -> o.a.l.queries.function.valuesource.FloatFieldSource -->
+        <!--     o.a.l.search.function.IntFieldSource -> o.a.l.queries.function.valuesource.IntFieldSource -->
+        <!--     o.a.l.search.function.OrdFieldSource -> o.a.l.queries.function.valuesource.OrdFieldSource -->
+        <!--     o.a.l.search.function.ReverseOrdFieldSource -> o.a.l.queries.function.valuesource.ReverseOrdFieldSource -->
+        <!--     o.a.l.search.function.ShortFieldSource -> o.a.l.queries.function.valuesource.ShortFieldSource -->
          <rule id="hsearch-00238">
             <when>
                 <javaclass references="org.apache.lucene.search.function.{type}" />
@@ -1218,10 +1225,10 @@ fulltextQuery.setSort(new Sort(new SortField("title", SortField.Type.STRING)))
                 <matches pattern="(ByteFieldSource|FieldCacheSource|FloatFieldSource|IntFieldSource|OrdFieldSource|ReverseOrdFieldSource|ShortFieldSource)" />
             </where>
         </rule>
-<!-- Solr utilities classes, for example TokenizerFactory or TokenFilterFactory, were moved into Apache Lucene.
- For this reason we could remove the dependency to Apache Solr. Good news is a simplified dependency graph!
- The bad news, if you depend on some of these utilities or custom analyzers, you’ll need to find the new (package) name -->
-         <rule id="hsearch-00239">
+        <!-- Solr utilities classes, for example TokenizerFactory or TokenFilterFactory, were moved into Apache Lucene.
+         For this reason we could remove the dependency to Apache Solr. Good news is a simplified dependency graph!
+         The bad news, if you depend on some of these utilities or custom analyzers, you’ll need to find the new (package) name -->
+        <rule id="hsearch-00239">
             <when>
                 <javaclass references="org.apache.solr.analysis.{type}" />
             </when>
@@ -1257,6 +1264,6 @@ fulltextQuery.setSort(new Sort(new SortField("title", SortField.Type.STRING)))
                     <tag>hibernate-search</tag>
                 </hint>
             </perform>
-        </rule>        
+        </rule>
     </rules>
 </ruleset>

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="hibernate-xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
 
     <metadata>
         <description>
@@ -34,18 +34,20 @@
                 </iteration>
             </perform>
         </rule>
-	<rule id="hibernate-xml-02000">
+        <rule id="hibernate-xml-02000">
             <when>
-               <xmlfile as="1" matches="/hibernate-configuration" />
-               <xmlfile as="2" matches="//property[@name='hibernate.jdbc.use_streams_for_binary']" from="1" />
+                <xmlfile as="1" matches="/hibernate-configuration" />
+                <xmlfile as="2" matches="//property[@name='hibernate.jdbc.use_streams_for_binary']" from="1" />
             </when>
             <perform>
                 <iteration over="2">
                     <hint title="hibernate.jdbc.use_streams_for_binary must be set according to the provider" effort="1" severity="mandatory">
-                         <message><![CDATA[
-                        If you are using Oracle and using the ```materialized_clob``` or ```materialized_blob``` properties, this global environment variable must be set to true. 
-			If you are using PostgreSQL and using the CLOB or BLOB properties, this global environment variable  must be set to false. 
-                    ]]></message>
+                        <message><![CDATA[
+                            If you are using Oracle and using the ```materialized_clob``` or ```materialized_blob``` properties,
+                            this global environment variable must be set to true.
+                            If you are using PostgreSQL and using the CLOB or BLOB properties, this global environment variable\
+                            must be set to false.
+                        ]]></message>
                         <link href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6/html/Migration_Guide/Migrate_Your_Hibernate_3.5.x_Application_to_Hibernate_4.x.html" title="Hibernate 3.5 to 4 - properties" />
                         <tag>hibernate</tag>
                         <tag>configuration</tag>
@@ -56,17 +58,19 @@
         <rule id="hibernate-xml-03000">
             <when>
                 <or>
-                   <filecontent filename="hibernate-configuration.xml" pattern="org.hibernate.connection"/>
+                    <filecontent filename="hibernate-configuration.xml" pattern="org.hibernate.connection"/>
                 </or>
             </when>
             <perform>
-                 <hint title="Hibernate: Removed package org.hibernate.connection" effort="1" severity="mandatory">
-                     <message>From Hibernate 4.0 there were moved classes from package org.hibernate.connection to package org.hibernate.service.jdbc.connections.internal.
-                     You should change your Hibernate setup to replace references to the old package names.
-                     </message>
-                     <tag>hibernate</tag>
-                     <tag>configuration</tag>
-                 </hint>
+                <hint title="Hibernate: Removed package org.hibernate.connection" effort="1" severity="mandatory">
+                    <message>
+                        In Hibernate 4.0, some classes were moved from the `org.hibernate.connection` package
+                        to the `org.hibernate.service.jdbc.connections.internal` package.
+                        You should change your Hibernate setup to replace references to the old package names.
+                    </message>
+                    <tag>hibernate</tag>
+                    <tag>configuration</tag>
+                </hint>
             </perform>
         </rule>
         <rule id="hibernate-xml-04000">
@@ -74,13 +78,13 @@
                 <xmlfile  system-id="http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd" />
             </when>
             <perform>
-                 <classification title="Hibernate: Deprecated dtd configuration namespace" severity="mandatory" effort="1" >
+                <classification title="Hibernate: Deprecated dtd configuration namespace" severity="mandatory" effort="1" >
                     <description> Hibernate 4.0 uses http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd instead.
-                     </description>
-                     <link href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6/html/Migration_Guide/Migrate_Your_Hibernate_3.5.x_Application_to_Hibernate_4.x.html" title="Hibernate 3.5 to 4 - DTD" />
-                     <tag>hibernate</tag>
-                     <tag>configuration</tag>
-                 </classification>
+                    </description>
+                    <link href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6/html/Migration_Guide/Migrate_Your_Hibernate_3.5.x_Application_to_Hibernate_4.x.html" title="Hibernate 3.5 to 4 - DTD" />
+                    <tag>hibernate</tag>
+                    <tag>configuration</tag>
+                </classification>
             </perform>
         </rule>
         <rule id="hibernate-xml-05000">
@@ -88,13 +92,13 @@
                 <xmlfile system-id="http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" />
             </when>
             <perform>
-                 <classification title="Hibernate: Deprecated dtd mapping namespace" severity="mandatory" effort="1" >
+                <classification title="Hibernate: Deprecated dtd mapping namespace" severity="mandatory" effort="1" >
                     <description> Hibernate 4.0 uses http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd instead.
-                     </description>
-                     <link href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6/html/Migration_Guide/Migrate_Your_Hibernate_3.5.x_Application_to_Hibernate_4.x.html" title="Hibernate 3.5 to 4 - DTD" />
-                     <tag>hibernate</tag>
-                     <tag>configuration</tag>
-                 </classification>
+                    </description>
+                    <link href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6/html/Migration_Guide/Migrate_Your_Hibernate_3.5.x_Application_to_Hibernate_4.x.html" title="Hibernate 3.5 to 4 - DTD" />
+                    <tag>hibernate</tag>
+                    <tag>configuration</tag>
+                </classification>
             </perform>
         </rule>
     </rules>

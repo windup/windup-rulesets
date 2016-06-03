@@ -1,42 +1,42 @@
 <?xml version="1.0"?>
 <ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="jrun-catchall" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
-   <metadata>
-      <description>
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
             This ruleset provides analysis of JRun proprietary xml files that may require individual
             attention when migrating to JBoss EAP 6+.
         </description>
-      <dependencies>
-         <addon id="org.jboss.windup.rules,windup-rules-xml,2.3.0.Final" />
-      </dependencies>
-      <sourceTechnology id="jrun" />
-      <targetTechnology id="eap" versionRange="[6,)" />
-      <tag>reviewed-2015-08-04</tag>
-      <tag>web-app</tag>
-      <tag>jrun</tag>
-   </metadata>
-   <rules>
-      <rule id="jrun-catchall-00000">
-         <when>
-            <javaclass references="jrun.{*}" />
-         </when>
-         <perform>
-            <classification title="JRun" effort="0" severity="potential">
-               <tag>catchall</tag>
-               <tag>jrun</tag>
-            </classification>
-         </perform>
-      </rule>
-      <rule id="jrun-catchall-00001">
-         <when>
-            <javaclass references="jrunx.{*}" />
-         </when>
-         <perform>
-            <classification title="JRunX" effort="0" severity="potential">
-               <tag>catchall</tag>
-               <tag>jrun</tag>
-            </classification>
-         </perform>
-      </rule>
-   </rules>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-xml,2.3.0.Final" />
+        </dependencies>
+        <sourceTechnology id="jrun" />
+        <targetTechnology id="eap" versionRange="[6,)" />
+        <tag>reviewed-2015-08-04</tag>
+        <tag>web-app</tag>
+        <tag>jrun</tag>
+    </metadata>
+    <rules>
+        <rule id="jrun-catchall-00000">
+            <when>
+                <javaclass references="jrun.{*}" />
+            </when>
+            <perform>
+                <classification title="JRun" effort="0" severity="potential">
+                    <tag>catchall</tag>
+                    <tag>jrun</tag>
+                </classification>
+            </perform>
+        </rule>
+        <rule id="jrun-catchall-00001">
+            <when>
+                <javaclass references="jrunx.{*}" />
+            </when>
+            <perform>
+                <classification title="JRunX" effort="0" severity="potential">
+                    <tag>catchall</tag>
+                    <tag>jrun</tag>
+                </classification>
+            </perform>
+        </rule>
+    </rules>
 </ruleset>
