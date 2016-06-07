@@ -319,6 +319,7 @@ public class WindupRulesTest
         windupConfiguration.setOutputDirectory(output.toPath());
         windupConfiguration.addDefaultUserRulesDirectory(baseRuleDirectory.toPath());
         windupConfiguration.setOptionValue(SourceModeOption.NAME, sourceMode);
+        windupConfiguration.setOffline(true);
         if (StringUtils.isNotBlank(source))
             windupConfiguration.setOptionValue(SourceOption.NAME, Collections.singletonList(source));
 

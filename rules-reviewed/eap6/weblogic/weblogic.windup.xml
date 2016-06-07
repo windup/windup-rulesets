@@ -325,11 +325,8 @@
 
         <rule id="weblogic-017000">
             <when>
-              <or>
                 <!-- https://issues.jboss.org/browse/WINDUP-615 -->
-                <filecontent filename="{*}.{ext}" pattern="t3://" />
-                <filecontent filename="{*}.{ext}" pattern="t3s://" />
-              </or>
+                <filecontent filename="{*}.{ext}" pattern="{t3url}" />
             </when>
             <perform>
                 <hint title="WebLogic proprietary T3 JNDI binding" effort="3" severity="mandatory">
@@ -350,6 +347,9 @@
             </perform>
             <where param="ext">
                 <matches pattern="(java|properties|xml)" />
+            </where>
+            <where param="t3url">
+                <matches pattern="t3s?://" />
             </where>
         </rule>
     </rules>
