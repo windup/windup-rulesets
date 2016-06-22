@@ -55,9 +55,7 @@
         </rule>
         <rule id="weblogic-services-03000">
             <when>
-                <or>
-                    <javaclass references="weblogic.{logger}{*}"/>
-                </or>
+               <javaclass references="weblogic.{logger}{*}"/>
             </when>
             <perform>
                 <hint title="WebLogic proprietary logging classes" effort="1" severity="mandatory">
@@ -74,6 +72,7 @@
                 </hint>
             </perform>
             <where param="logger">
+               <!--This excludes classes starting with N like i18n.logging.NonCatalogLogger-->
                 <matches pattern="(i18n.)?logging.[^N]"/>
             </where>
         </rule>
