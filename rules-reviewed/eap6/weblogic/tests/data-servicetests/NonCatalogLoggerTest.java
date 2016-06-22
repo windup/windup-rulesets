@@ -4,6 +4,8 @@
 //
 
 import weblogic.i18n.logging.NonCatalogLogger;
+import weblogic.logging.ConsoleHandler;
+import weblogic.i18n.logging.Loggable;
 
 class NonCatalogLoggerTest
 {
