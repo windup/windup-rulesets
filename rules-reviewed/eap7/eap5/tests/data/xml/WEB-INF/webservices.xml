@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<j2e:webservices version="1.1" 
+             xmlns:j2e="http://java.sun.com/xml/ns/j2ee" 
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <j2e:webservice-description>
+        <j2e:webservice-description-name>HelloService</j2e:webservice-description-name>
+        <j2e:wsdl-file>WEB-INF/wsdl/HelloService.wsdl</j2e:wsdl-file>
+        <j2e:jaxrpc-mapping-file>WEB-INF/jaxrpc-mapping.xml</j2e:jaxrpc-mapping-file>
+        <j2e:port-component>
+            <j2e:port-component-name>HelloPort</j2e:port-component-name>
+            <j2e:wsdl-port>impl:HelloPort</j2e:wsdl-port>
+            <j2e:service-endpoint-interface>org.jboss.ws.hello.Hello</j2e:service-endpoint-interface>
+            <j2e:service-impl-bean>
+                <j2e:servlet-link>HelloWorldWS</j2e:servlet-link>
+            </j2e:service-impl-bean>
+        </j2e:port-component>
+        <j2e:handler>
+            <j2e:handler-class>org.jboss.HelloWorldHandler</j2e:handler-class>
+        </j2e:handler>
+    </j2e:webservice-description>
+</j2e:webservices>
