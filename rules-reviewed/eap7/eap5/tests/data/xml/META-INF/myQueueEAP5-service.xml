@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Based upon ${JBOSS_HOME}/docs/examples/varia/deployment-service/templates/jms-queue/vm/jms-queue.xml -->
+<server>
+    <loader-repository>jboss.messaging:loader=ScopedLoaderRepository
+        <loader-repository-config>java2ParentDelegation=false</loader-repository-config>
+    </loader-repository>
+
+    <mbean
+        code="org.jboss.jms.server.destination.QueueService"
+        name="jboss.messaging.destination:name=MessageHubQueue,service=Queue"
+        xmbean-dd="xmdesc/Queue-xmbean.xml">
+        <attribute name="JNDIName">rbs.envoy.MessageHubQueue</attribute>
+    </mbean>
+    <mbean
+        code="org.jboss.jms.server.destination.TopicService"
+        name="jboss.messaging.destination:name=AdminTopic,service=Topic"
+        xmbean-dd="xmdesc/Queue-xmbean.xml">
+        <attribute name="JNDIName">rbs.administration.AdminTopic</attribute>
+    </mbean>
+</server>
