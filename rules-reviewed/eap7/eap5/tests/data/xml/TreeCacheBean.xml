@@ -1,0 +1,47 @@
+<server>
+
+    <!-- ==================================================================== -->
+    <!-- Defines TreeCache configuration                                      -->
+    <!-- ==================================================================== -->
+
+    <mbean code="org.jboss.cache.TreeCache" name="jboss.cache:service=TreeCache">
+
+        <!-- New 1.3.x cache loader config block -->
+        <attribute name="CacheLoaderConfiguration">
+            <config>
+                <!-- if passivation is true, only the first cache loader is used; the rest are ignored -->
+                <passivation>false</passivation>
+                <!-- comma delimited FQNs to preload -->
+                <preload>/</preload>
+                <!-- are the cache loaders shared in a cluster? -->
+                <shared>false</shared>
+
+                <!-- we can now have multiple cache loaders, which get chained -->
+                <!-- the 'cacheloader' element may be repeated -->
+                <cacheloader>
+                    <class>org.jboss.cache.loader.JDBCCacheLoader</class>
+                    <!-- same as the old CacheLoaderConfig attribute -->
+                    <properties>
+                        cache.jdbc.driver=com.mysql.jdbc.Driver
+                        cache.jdbc.url=jdbc:mysql://localhost:3306/jbossdb
+                        cache.jdbc.user=root
+                        cache.jdbc.password=
+                    </properties>
+                    <!-- whether the cache loader writes are asynchronous -->
+                    <async>false</async>
+                    <!-- only one cache loader in the chain may set fetchPersistentState to true.
+                        An exception is thrown if more than one cache loader sets this to true. -->
+                    <fetchPersistentState>true</fetchPersistentState>
+                    <!-- determines whether this cache loader ignores writes - defaults to false. -->
+                    <ignoreModifications>false</ignoreModifications>
+                    <!-- if set to true, purges the contents of this cache loader when the cache starts up.
+                    Defaults to false.  -->
+                    <purgeOnStartup>false</purgeOnStartup>
+                </cacheloader>
+
+            </config>
+        </attribute>
+
+    </mbean>
+
+</server>

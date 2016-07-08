@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruletest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:wu="http://windup.jboss.org/schema/jboss-ruleset"
+    xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="jboss-eap5-7-java-test"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/java/</testDataPath>
+    <rulePath>../jboss-eap5-7-java.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="jboss-eap5-7-java-01000-test-c1">
+                <when>
+                    <not>
+                        <classification-exists classification="JBoss EAP 5 JMX ManagementBean" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Classification not found: JBoss EAP 5 JMX ManagementBean" />
+                </perform>
+            </rule>
+            <rule id="jboss-eap5-7-java-02000-test-h1">
+                <when>
+                    <not>
+                        <hint-exists message="`QueueConnectionFactory`" />
+                    </not>
+                </when>
+                <perform>
+                    <fail
+                        message="Hint not found: `QueueConnectionFactory` was used to obtain connection to JMS queues. Replace the lookup string `QueueConnectionFactory` with `ConnectionFactory`." />
+                </perform>
+            </rule>
+            <rule id="jboss-eap5-7-java-03000-test-h1">
+                <when>
+                    <not>
+                        <hint-exists message="The `@Service` annotation" />
+                    </not>
+                </when>
+                <perform>
+                    <fail
+                        message="Hint not found: The `@Service` annotation is one of JBoss EJB 3.0 extensions which creates a singleton EJB. Use the new `org.jboss.ejb3.annotation.Service` instead." />
+                </perform>
+            </rule>
+            <rule id="jboss-eap5-7-java-05000-test-h1">
+                <when>
+                    <not>
+                        <hint-exists message="The `@Management` annotation" />
+                    </not>
+                </when>
+                <perform>
+                    <fail
+                        message="Hint not found: The `@Management` annotation is one of JBoss EJB 3.0 extensions which wraps the the bean as an MBean and install it in the JBoss MBean Server. Use the new `org.jboss.ejb3.annotation.Management` instead." />
+                </perform>
+            </rule>
+            <rule id="jboss-eap5-7-java-06000-test-h1">
+                <when>
+                    <not>
+                        <hint-exists message="The `@LocalBinding` annotation" />
+                    </not>
+                </when>
+                <perform>
+                    <fail
+                        message="Hint not found: The `@LocalBinding` annotation is one of JBoss EJB 3.0 extensions which specifies the local jndi binding for an EJB local interface. Migrate to `org.jboss.ejb3.annotation.LocalBinding`." />
+                </perform>
+            </rule>
+            <rule id="jboss-eap5-7-java-07000-test-h1">
+                <when>
+                    <not>
+                        <hint-exists message="The `@Depends` annotation" />
+                    </not>
+                </when>
+                <perform>
+                    <fail
+                        message="Hint not found: The `@Depends` annotation is one of JBoss EJB 3.0 extensions which specifies a deployment dependency for a bean. Validate that a JBoss EAP 6 Dependency exists." />
+                </perform>
+            </rule>
+            <rule id="jboss-eap5-7-java-08000-test">
+                <when>
+                    <not>
+                        <hint-exists message="This entity needs to be migrated using JPA persistence.xml or using JPA annotations." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="CMP Java entity hint not found!" />
+                </perform>
+            </rule>
+            <rule id="jboss-eap5-7-java-09000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="Apache CFX integration with JBoss" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Apache CXF integration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="jboss-eap5-7-java-10000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="Manifest.mf - specifies application dependencies" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Manifest.MF not found!" />
+                </perform>
+            </rule>
+            <rule id="jboss-eap5-7-java-10100-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <to-file-model>
+                                <classification-exists classification="JBoss Web Valve" />
+                            </to-file-model>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="org.apache.catalina.Valve interface implementation or ValveBase extension not detected!" />
+                </perform>
+            </rule>
+            <rule id="jboss-eap5-7-java-10200-test">
+                <when>
+                    <not>
+                        <hint-exists message="This class is using JSR 88 specific classes." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint with the class using JSR 88 specific packages not found!" />
+                </perform>
+            </rule>
+            <rule id="jboss-eap5-7-java-10300-test">
+                <when>
+                    <not>
+                        <hint-exists message="EAP 7 includes a new API for building Singleton services," />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="EAP specific singleton service not found!" />
+                </perform>
+            </rule>
+            <rule id="jboss-eap5-7-java-10400-test">
+                <when>
+                    <not>
+                        <hint-exists message="The .*@Clustered.* annotation is ignored in EAP 7 and is not useful." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="@Clustered annotation not found!" />
+                </perform>
+            </rule>
+            <rule id="jboss-eap5-7-java-10500-test">
+                <when>
+                    <not>
+                        <classification-exists classification="HornetQ was removed in EAP 7" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="The classification aboutg hornetq is not found!" />
+                </perform>
+            </rule>
+            <rule id="jboss-eap5-7-java-10600-test">
+                <when>
+                    <not>
+                        <hint-exists message="JBoss Logging annotations in package `org.jboss.logging` are deprecated" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="The hint about deprecated JBoss Logging annotations not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
