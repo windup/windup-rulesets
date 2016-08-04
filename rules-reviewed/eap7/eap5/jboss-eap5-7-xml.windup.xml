@@ -32,6 +32,7 @@
                         JBoss Cache was renamed and reimplemented in Infinispan project see its TreeCache API which is a distributed tree-like structure that is replicated across several members.
                     </description>
                     <link title="Infinispan documentation" href="http://infinispan.org/docs/8.1.x/user_guide/user_guide.html#_tree_api_module"/>
+                    <link title="Replace JBoss Cache with Infinispan" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Migration_Guide/index.html#sect-Cache_Changes"/>
                     <tag>cache</tag>
                     <tag>distributed</tag>
                     <tag>cluster</tag>
@@ -46,9 +47,11 @@
             <perform>
                 <classification title="JBoss 5.x EAR descriptor" effort="5">
                     <description>
-                        A JBoss specific EAR descriptor allows extensions to Java EE EAR archives configuration.
+                        A JBoss specific EAR descriptor (`jboss-app.xml`) allows extensions to Java EE EAR archives configuration.
+                        You should use now standard `application.xml` descriptor.
                     </description>
                     <link title="JBoss DTD's" href="http://www.jboss.org/j2ee/dtd/"/>
+                    <link title="Java EE 7 application descriptor" href="http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/javaee/application_7.xsd"/>
                     <tag>jboss-eap5</tag>
                 </classification>
             </perform>
@@ -97,6 +100,7 @@
                 <classification title="JBoss Seam Components" effort="5">
                     <description>You should migrate from Seam 2 Framework to Context Dependency Injection technology.</description>
                     <link title="Context and dependency injection - CDI" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0/development-guide/chapter-8-contexts-and-dependency-injection-cdi"/>
+                    <link title="Migration from Seam 2 to Java EE and alternatives" href="https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Web_Framework_Kit/2.7/html/Seam_Guide/ch36.html"/>
                     <tag>seam2</tag>
                     <tag>jboss-eap5</tag>
                 </classification>
@@ -141,6 +145,7 @@
                         The `jboss-web.xml` file configures a Java EE web application specifically for JBoss EAP.
                         It is an extension to standard `web.xml`.
                     </description>
+                    <link title="jboss-web.xml Configuration Reference" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Development_Guide/chap-Configuration_References.html#jboss-webxml_Configuration_Reference"/>
                     <tag>web</tag>
                     <tag>configuration</tag>
                     <tag>deployment</tag>
@@ -156,7 +161,8 @@
             <perform>
                 <classification title="JBoss 5 classloader configuration (jboss-classloading.xml)" effort="0" severity="optional">
                     <description>The `jboss-classloading.xml` file allows customization of classloading in JBoss EAP 5.</description>
-                    <link title="JBoss EAP 6 Class Loading and Modules" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/5/html/Microcontainer_User_Guide/sect-JBoss_Microcontainer_User_Guide-The_ClassLoading_Layer-ClassLoading.html"/>
+                    <link title="JBoss EAP 5 Class Loading and Modules" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/5/html/Microcontainer_User_Guide/sect-JBoss_Microcontainer_User_Guide-The_ClassLoading_Layer-ClassLoading.html"/>
+                    <link title="JBoss EAP 7 Class Loading and Modules" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0/paged/development-guide/chapter-3-class-loading-and-modules"/>
                     <tag>classloading</tag>
                 </classification>
                 <hint title="JBoss 5 classloader configuration (jboss-classloading.xml)" effort="0" severity="optional">
@@ -166,7 +172,7 @@
                         Learn how to divide your application's dependencies into modules
                         and what dependencies and APIs are available automatically.
                     </message>
-                    <link title="JBoss EAP 6 Class Loading and Modules" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Development_Guide/chap-Class_Loading_and_Modules.html"/>
+                    <link title="JBoss EAP 7 Class Loading and Modules" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0/paged/development-guide/chapter-3-class-loading-and-modules"/>
                     <tag>classloading</tag>
                     <tag>jboss-eap5</tag>
                 </hint>
@@ -199,6 +205,7 @@
                         Replace it with `jboss-ejb3.xml`.
                     </description>
                     <link title="jboss.xml Deployment Descriptor" href="http://docs.jboss.org/ejb3/app-server/tutorial/jboss_deployment_descriptor/jboss_dd.html"/>
+                    <link title="jboss-ejb3.xml Deployment Descriptor" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Development_Guide/sect-Reference2.html#jboss-ejb3xml_Deployment_Descriptor_Reference"/>
                     <tag>descriptor</tag>
                     <tag>jboss-eap5</tag>
                 </classification>
@@ -212,9 +219,11 @@
                 <hint title="JBoss EAP security-domain configuration - java:/jaas/" effort="3" severity="mandatory">
                     <message>
                         `java:/jaas/` is a JBoss EAP `security-domain` URI.
-                        Remove the `java:/jaas/` prefix for `security-domain` elements in AS 7 / EAP 6.
+                        Remove the `java:/jaas/` prefix for `security-domain` elements in EAP 7/6.
                     </message>
                     <link title="Java Authentication and Authorization Service (JAAS) Reference Guide" href="http://docs.oracle.com/javase/7/docs/technotes/guides/security/jaas/JAASRefGuide.html"/>
+                    <link title="Java Authorization Contract for Containers (JACC)" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0/paged/development-guide/chapter-16-java-authorization-contract-for-containers-jacc"/>
+                    <link title="Java Authentication SPI for Containers (JASPI)" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0/paged/development-guide/chapter-17-java-authentication-spi-for-containers-jaspi"/>
                     <tag>security</tag>
                     <tag>jaas</tag>
                     <tag>jboss-eap5</tag>
@@ -232,11 +241,11 @@
                 </classification>
                 <hint title="JBoss security configuration descriptor (prior to AS 7 / EAP 6)" effort="5" severity="mandatory">
                     <message>
-                        When migrating to JBoss AS 7 or JBoss EAP 6+,
+                        When migrating to JBoss EAP 6+,
                         the `login-config.xml` descriptor is no longer supported.
                         Security is now configured in the `security-domain` element inside the server configuration.
                     </message>
-                    <link title="JBoss EAP 6.4 - How To Configure Server Security" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-6.4/red-hat-jboss-enterprise-application-platform-64-how-to-configure-server-security"/>
+                    <link title="JBoss EAP 7 - How To Configure Server Security" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0/how-to-configure-server-security/how-to-configure-server-security"/>
                     <tag>security</tag>
                     <tag>jboss-eap5</tag>
                 </hint>
@@ -253,7 +262,7 @@
                     <description>
                         A JBoss specific EJB 3 configuration allows extensions of Java EE EJB 3.
                     </description>
-                    <link title="jboss-ejb3.xml Deployment Descriptor Reference" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6/html/Development_Guide/jboss-ejb3xml_Deployment_Descriptor_Reference.html"/>
+                    <link title="jboss-ejb3.xml Deployment Descriptor Reference" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Development_Guide/sect-Reference2.html#jboss-ejb3xml_Deployment_Descriptor_Reference"/>
                     <tag>jboss-eap5</tag>
                 </classification>
             </perform>
@@ -275,7 +284,7 @@
                         is in the `META-INF/` directory. For POJO and EJB webservice endpoints bundled in WAR file,
                         the expected location of the `jboss-webservices.xml` file is in the `WEB-INF/` directory.
                     </description>
-                    <link title="JBoss web-services deployment descriptor (jboss-webservices.xml)" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.3/html/Migration_Guide/sect-Web_Services_Changes.html"/>
+                    <link title="JBoss web-services changes" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0/paged/migration-guide/chapter-5-application-migration-changes#migrate_web_service_application_changes"/>
                     <tag>jboss-ws</tag>
                     <tag>descriptor</tag>
                     <tag>webservice</tag>
