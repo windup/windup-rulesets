@@ -14,7 +14,7 @@
         <sourceTechnology id="eap" versionRange="[6,7)" />
         <targetTechnology id="hibernate5" versionRange="[5,)" />
         <targetTechnology id="eap" versionRange="[7,)" />
-        <tag>reviewed-2016-02-29</tag>
+        <tag>reviewed-2016-08-10</tag>
     </metadata>
 
     <rules>
@@ -31,7 +31,7 @@
                         Next the contract in `hibernate.transaction.coordinator_class` property should refer to `org.hibernate.resource.transaction.TransactionCoordinatorBuilder` 
                         instead of to `org.hibernate.engine.transaction.spi.TransactionFactory`
                         </message>
-                    <link href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#transactions"
+                    <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migration_hibernate_orm_changes_transactions"
                         title="Hibernate 5 redesigned Transactions SPI" />
                     <link href="https://docs.jboss.org/hibernate/orm/5.1/javadocs/index.html?org/hibernate/cfg/AvailableSettings.html#TRANSACTION_COORDINATOR_STRATEGY"
                      title="Hibernate javadoc for org.hibernate.cfg.AvailableSettings.TRANSACTION_COORDINATOR_STRATEGY" />
@@ -52,11 +52,8 @@
                 <hint title="Class org.hibernate.id.{idclass} was removed/deprecated in Hibernate 5" effort="1" severity="mandatory">
                     <message>Use `org.hibernate.id.enhanced.SequenceStyleGenerator` instead.</message>
                     <link
-                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#deprecations"
-                        title="Removed or deprecated types in Hibernate 5" />
-                    <link
-                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
-                        title="Hibernate and JPA migration changes" />
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migration_hibernate_orm_changes_deprecations"
+                        title="Hibernate 5 Removed and deprecated classes" />
                     <tag>hibernate</tag>
                 </hint>
             </perform>
@@ -74,11 +71,8 @@
                <hint title="Identifier generator {generator} was removed/deprecated in Hibernate 5" effort="1" severity="mandatory">
                   <message>Identifier generator {generator} was removed/deprecated in Hibernate 5. You can use `sequence` generator instead.</message>
                     <link
-                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#deprecations"
-                        title="Removed or deprecated types in Hibernate 5" />
-                    <link
-                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
-                        title="Hibernate and JPA migration changes" />
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migration_hibernate_orm_changes_deprecations"
+                        title="Hibernate 5 Removed and deprecated classes" />
                     <tag>hibernate</tag>
                 </hint>
             </perform>
@@ -97,12 +91,8 @@
                 <iteration over="cfg">
                     <hint title="TemporaryTableBulkIdStrategy was replaced in Hibernate 5" effort="1" severity="mandatory">
                         <message>Since Hibernate 5, the `org.hibernate.hql.spi.TemporaryTableBulkIdStrategy` class was replaced by `org.hibernate.hql.spi.id.global.GlobalTemporaryTableBulkIdStrategy` and `org.hibernate.hql.spi.id.local.LocalTemporaryTableBulkIdStrategy`.</message>
-                        <link
-                            href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#deprecations"
-                            title="Removed or deprecated types in Hibernate 5" />
-                        <link
-                            href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
-                            title="Hibernate and JPA migration changes" />
+                        <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migration_hibernate_orm_changes_deprecations"
+                              title="Hibernate 5 Removed and deprecated classes" />
                         <tag>hibernate</tag>
                         <tag>configuration</tag>
                     </hint>
@@ -110,12 +100,8 @@
                 <iteration over="properties">
                     <hint title="TemporaryTableBulkIdStrategy was replaced in Hibernate 5" effort="1" severity="mandatory">
                         <message>Since Hibernate 5, the `org.hibernate.hql.spi.TemporaryTableBulkIdStrategy` class was replaced by `org.hibernate.hql.spi.id.global.GlobalTemporaryTableBulkIdStrategy` and `org.hibernate.hql.spi.id.local.LocalTemporaryTableBulkIdStrategy`.</message>
-                        <link
-                            href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#deprecations"
-                            title="Removed or deprecated types in Hibernate 5" />
-                        <link
-                            href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
-                            title="Hibernate and JPA migration changes" />
+                        <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migration_hibernate_orm_changes_deprecations"
+                            title="Hibernate 5 Removed and deprecated classes" />                        
                         <tag>hibernate</tag>
                         <tag>configuration</tag>
                     </hint>
@@ -134,8 +120,8 @@
                     <hint title="Class PersistentTableBulkIdStrategy was moved in Hibernate 5" effort="1" severity="mandatory">
                         <message>Since Hibernate 5, the `org.hibernate.hql.spi.PersistentTableBulkIdStrategy` class was moved to new package and you should use it as `org.hibernate.hql.spi.id.persistent.PersistentTableBulkIdStrategy`.</message>
                         <link
-                            href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#misc"
-                            title="Hibernate 5 Misc changes" />
+                            href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migration_hibernate_orm_changes_miscellaneous"
+                            title="Other Hibernate ORM 5 changes" />
                         <tag>hibernate</tag>
                         <tag>configuration</tag>
                     </hint>
@@ -144,8 +130,8 @@
                     <hint title="Class PersistentTableBulkIdStrategy was moved in Hibernate 5" effort="1" severity="mandatory">
                         <message>Since Hibernate 5, the `org.hibernate.hql.spi.PersistentTableBulkIdStrategy` class was moved to new package and you should use it as `org.hibernate.hql.spi.id.persistent.PersistentTableBulkIdStrategy`.</message>
                         <link
-                            href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#misc"
-                            title="Hibernate 5 Misc changes" />
+                            href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migration_hibernate_orm_changes_miscellaneous"
+                            title="Other Hibernate ORM 5 changes" />
                         <tag>hibernate</tag>
                         <tag>configuration</tag>
                     </hint>
