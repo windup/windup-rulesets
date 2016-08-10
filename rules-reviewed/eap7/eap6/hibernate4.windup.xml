@@ -517,12 +517,11 @@
             <perform>
                 <hint title="org.hibernate.metamodel.spi.{type} was moved in Hibernate 5" effort="1" severity="mandatory">
                     <message>Use `org.hibernate.boot.model.{type}` instead.</message>
+                    <link title="HIbernate 5 - Other changes to classes/packages"
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migration_hibernate_orm_changes_other_classes" />
                     <link
                         href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#type-handling"
                         title="Changes in Type handling for Hibernate 5" />
-                    <link
-                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
-                        title="Hibernate and JPA migration changes" />
                     <tag>hibernate</tag>
                 </hint>
             </perform>
@@ -543,8 +542,8 @@
                         href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#deprecations"
                         title="Removed or deprecated types in Hibernate 5" />
                     <link
-                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
-                        title="Hibernate and JPA migration changes" />
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migration_hibernate_orm_changes_deprecations"
+                        title="Removed and Deprecated Classes" />
                     <tag>hibernate</tag>
                 </hint>
             </perform>
@@ -557,11 +556,11 @@
                 <hint title="Class org.hibernate.id.{idclass} was removed/deprecated in Hibernate 5" effort="1" severity="mandatory">
                     <message>Use `org.hibernate.id.enhanced.SequenceStyleGenerator` instead.</message>
                     <link
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migration_hibernate_orm_changes_deprecations"
+                        title="Removed and Deprecated Classes" />
+                    <link
                         href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#deprecations"
                         title="Removed or deprecated types in Hibernate 5" />
-                    <link
-                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/chapter-4-application-changes#hibernate_and_jpa_migration_changes"
-                        title="Hibernate and JPA migration changes" />
                     <tag>hibernate</tag>
                 </hint>
             </perform>
@@ -594,8 +593,8 @@
                 <hint title="Class org.hibernate.hql.spi.PersistentTableBulkIdStrategy was moved in Hibernate 5" effort="1" severity="mandatory">
                     <message>Hibernate 5 moved `org.hibernate.hql.spi.PersistentTableBulkIdStrategy` class to new `org.hibernate.hql.spi.id.persistent` package.</message>
                     <link
-                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#misc"
-                        title="Hibernate 5 Misc changes" />
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migration_hibernate_orm_changes_miscellaneous"
+                        title="Other Hibernate ORM 5 changes" />
                     <tag>hibernate</tag>
                 </hint>
             </perform>
@@ -608,8 +607,8 @@
                 <hint title="Class org.hibernate.hql.spi.TemporaryTableBulkIdStrategy was replaced in Hibernate 5" effort="1" severity="mandatory">
                     <message>Hibernate 5 replaced `org.hibernate.hql.spi.TemporaryTableBulkIdStrategy` class with `org.hibernate.hql.spi.id.global.GlobalTemporaryTableBulkIdStrategy` and `org.hibernate.hql.spi.id.local.LocalTemporaryTableBulkIdStrategy`.</message>
                     <link
-                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#misc"
-                        title="Hibernate 5 Misc changes" />
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migration_hibernate_orm_changes_miscellaneous"
+                        title="Other Hibernate ORM 5 changes" />
                     <tag>hibernate</tag>
                 </hint>
             </perform>
@@ -625,6 +624,8 @@
                     <message>Hibernate 5 changed contract `org.hibernate.integrator.spi.Integrator` to account for bootstrap redesign.
                     Check if you implement method `integrate(Configuration configuration, SessionFactoryImplementor sessionFactory, SessionFactoryServiceRegistry serviceRegistry)` which is no longer there.
                     </message>
+                    <link title="HIbernate 5 - Other changes to classes/packages"
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migration_hibernate_orm_changes_other_classes" />
                     <link
                         href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#changedmoved-contracts"
                         title="Hibernate 5 Changed or Moved Contracts" />
@@ -640,6 +641,8 @@
             <perform>
                 <hint title="Class org.hibernate.engine.jdbc.spi.JdbcServices was changed in Hibernate 5" effort="1" severity="optional">
                     <message>Hibernate 5 extracted new interface `org.hibernate.engine.jdbc.env.spi.JdbcEnvironment` from `org.hibernate.engine.jdbc.spi.JdbcServices`.</message>
+                    <link title="HIbernate 5 - Other changes to classes/packages"
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migration_hibernate_orm_changes_other_classes" />                    
                     <link
                         href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#changedmoved-contracts"
                         title="Hibernate 5 Changed or Moved Contracts" />
@@ -659,9 +662,8 @@
             <perform>
                 <hint title="Interface org.hibernate.id.Configurable changed method parameter in configure method in Hibernate 5" effort="1" severity="mandatory">
                     <message>Hibernate 5 changed the signature of `org.hibernate.id.Configurable#configure` method to accept `ServiceRegistry` rather than just `Dialect`</message>
-                    <link
-                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#changedmoved-contracts"
-                        title="Hibernate 5 Changed or Moved Contracts" />
+                    <link title="Hibernate 5 - Other changes to classes/packages"
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migration_hibernate_orm_changes_other_classes" />
                      <link
                         href="https://docs.jboss.org/hibernate/orm/5.0/javadocs/org/hibernate/id/Configurable.html#configure-org.hibernate.type.Type-java.util.Properties-org.hibernate.service.ServiceRegistry-"
                         title="Hibernate 5 Configurable API" />
@@ -679,8 +681,10 @@
                 <hint title="PersistentIdentifierGenerator implementations need to implement ExportableProducer#registerExportables" effort="1" severity="mandatory">
                     <message>Since Hibernate 5, The `org.hibernate.id.PersistentIdentifierGenerator` extends new `org.hibernate.boot.model.relational.ExportableProducer` interface which will affect all `org.hibernate.id.PersistentIdentifierGenerator` implementations.
                     Therefore you need to implement additionally `ExportableProducer#registerExportables(org.hibernate.boot.model.relational.Database database)` method.</message>
+                    <link title="HIbernate 5 - Other changes to classes/packages"
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migration_hibernate_orm_changes_other_classes" />
                     <link
-                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#changedmoved-contracts"
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migration_hibernate_orm_changes_miscellaneous"
                         title="Hibernate 5 Changed or Moved Contracts" />
                      <link
                         href="https://docs.jboss.org/hibernate/orm/5.0/javadocs/org/hibernate/boot/model/relational/ExportableProducer.html#registerExportables-org.hibernate.boot.model.relational.Database-"
@@ -697,8 +701,8 @@
                 <hint title="Class org.hibernate.envers.configuration.AuditConfiguration was removed in Hibernate 5" effort="1" severity="mandatory">
                     <message>Hibernate 5 removed `AuditConfiguration` in preference for new `org.hibernate.envers.boot.internal.EnversService`.</message>
                     <link
-                        href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#changedmoved-contracts"
-                        title="Hibernate 5 Changed or Moved Contracts" />
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migration_hibernate_orm_changes_miscellaneous"
+                        title="Other Hibernate ORM 5 changes" />
                      <link
                         href="https://docs.jboss.org/hibernate/orm/5.0/javadocs/index.html?org/hibernate/envers/boot/internal/EnversService.html"
                         title="Hibernate 5 EnversService API" />
@@ -741,7 +745,7 @@
                         Applications using custom `SqlTypeDescriptor`/`JavaTypeDescriptor` implementations which extends the built-in ones and
                         rely on that behavior should be updated to call `SqlTypeDescriptorRegistry#addDescriptor` or `JavaTypeDescriptorRegistry#addDescriptor` themselves.
                      This warning is important especially for users of Hibernate 4.3.</message>
-                    <link href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#type-handling"
+                    <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migration_hibernate_orm_changes_type_handling"
                         title="Hibernate 5 Type Handling" />
                     <link
                         href="https://docs.jboss.org/hibernate/orm/5.0/javadocs/index.html?org/hibernate/type/descriptor/sql/SqlTypeDescriptorRegistry.html"
