@@ -31,6 +31,7 @@ import org.jboss.windup.config.DefaultEvaluationContext;
 import org.jboss.windup.config.GraphRewrite;
 import org.jboss.windup.config.RuleProvider;
 import org.jboss.windup.config.RuleSubset;
+import org.jboss.windup.config.loader.RuleLoaderContext;
 import org.jboss.windup.config.metadata.RuleMetadataType;
 import org.jboss.windup.config.parser.ParserContext;
 import org.jboss.windup.exec.WindupProcessor;
@@ -195,7 +196,8 @@ public class WindupRulesTest
                         }
                     }
 
-                    Configuration ruleTestConfiguration = parser.getBuilder().getConfiguration(context);
+                    RuleLoaderContext ruleLoaderContext = new RuleLoaderContext();
+                    Configuration ruleTestConfiguration = parser.getBuilder().getConfiguration(ruleLoaderContext);
 
                     String idsToExecute = System.getProperty(RUN_TEST_ID_MATCHING);
                     if(idsToExecute != null) {
