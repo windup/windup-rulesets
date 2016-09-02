@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+<!DOCTYPE xml>
 <ruleset id="jboss-eap5-7-java"
          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -17,7 +18,7 @@
         <tag>jboss-eap5</tag>
         <tag>jms</tag>
         <tag>ejb</tag>
-        <tag>reviewed-2016-07-01</tag>
+        <tag>reviewed-2016-09-02</tag>
     </metadata>
 
     <rules>
@@ -49,8 +50,12 @@
                       Replace the lookup string `QueueConnectionFactory` with `ConnectionFactory`.
                       ]]>
                     </message>
-                    <link title="JBoss EAP 7 - Messaging Configuration" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0/configuring-messaging/chapter-3-basic-configuration"/>
+                    <link title="JBoss EAP 7 - Messaging Configuration" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0/paged/configuring-messaging/chapter-3-basic-configuration#connection_factories"/>
                     <tag>jms</tag>
+                    <quickfix type="REPLACE" name="javax.jms.QueueConnectionFactory replacement">
+                        <replacement>ConnectionFactory</replacement>
+                        <search>QueueConnectionFactory</search>
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
