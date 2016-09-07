@@ -23,12 +23,20 @@
                 </javaclass>
             </when>
             <perform>
-                <classification title="JAX-RPC Generic Handler" effort="0" severity="optional">
-                    <link href="http://docs.oracle.com/cd/E17802_01/webservices/webservices/docs/1.6/api/javax/xml/rpc/handler/GenericHandler.html"
-                        title="Java EE RPC Generic Handler API" />
+                  <hint title="JAX-RPC GenericHandler usage" effort="0" severity="optional">
+                      <message>
+                        <![CDATA[
+                        The "javax.xml.rpc.handler.GenericHandler" class implements the Handler interface.
+                        SOAP Message Handler developers should typically subclass GenericHandler class unless
+                        the Handler class needs another class as a superclass. It is a convenience abstract
+                        class that makes writing Handlers easy. GenericHandler provides default implementations
+                        of the lifecycle methods init and destroy and also different handle methods.
+                        ]]>
+                      </message>
+                      <link title="Java EE RPC Generic Handler API" href="http://docs.oracle.com/cd/E17802_01/webservices/webservices/docs/1.6/api/javax/xml/rpc/handler/GenericHandler.html"/>
                     <tag>jax-rpc</tag>
                     <tag>soap</tag>
-                </classification>
+                  </hint>
             </perform>
         </rule>
     </rules>
