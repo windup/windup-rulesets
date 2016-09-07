@@ -3,7 +3,7 @@
     xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
 
     <testDataPath>data</testDataPath>
-    <rulePath>../</rulePath>
+    <rulePath>../weblogic-xml-descriptors.windup.xml</rulePath>
     <ruleset>
         <rules>
             <rule id="weblogic-xml-descriptors-01000-test">
@@ -78,6 +78,16 @@
                     <fail message="WebLogic SOAP Client classification not found!" />
                 </perform>
             </rule>
+            <rule id="weblogic-xml-descriptors-08000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="WebLogic Java to WSDL Mapping" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebLogic Java to WSDL Mapping classification not found!" />
+                </perform>
+            </rule>            
             <rule id="weblogic-xml-descriptors-09000-test">
                 <when>
                     <not>
