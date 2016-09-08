@@ -38,6 +38,14 @@
                     <tag>hibernate</tag>
                     <tag>configuration</tag>
                     <tag>transaction</tag>
+                    <quickfix name="factory-property-qf" type="REPLACE">
+                        <replacement>hibernate.transaction.coordinator_class</replacement>
+                        <search>hibernate.transaction.factory_class</search>
+                    </quickfix>
+                    <quickfix name="factory-property-value-qf" type="REPLACE">
+                        <replacement>org.hibernate.resource.transaction.TransactionCoordinatorBuilder</replacement>
+                        <search>org.hibernate.engine.transaction.spi.TransactionFactory</search>
+                    </quickfix>
                 </hint>
             </perform>
             <where param="file-ext">
@@ -74,6 +82,18 @@
                         href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migration_hibernate_orm_changes_deprecations"
                         title="Hibernate 5 Removed and deprecated classes" />
                     <tag>hibernate</tag>
+                    <quickfix name="id-qf1" type="REPLACE">
+                        <replacement>sequence</replacement>
+                        <search>seqhilo</search>
+                    </quickfix>
+                    <quickfix name="id-qf2" type="REPLACE">
+                        <replacement>sequence</replacement>
+                        <search>sequence-identity</search>
+                    </quickfix>
+                    <quickfix name="id-qf3" type="REPLACE">
+                        <replacement>sequence</replacement>
+                        <search>hilo</search>
+                    </quickfix>
                 </hint>
             </perform>
             <where param="generator">
@@ -95,6 +115,14 @@
                               title="Hibernate 5 Removed and deprecated classes" />
                         <tag>hibernate</tag>
                         <tag>configuration</tag>
+                        <quickfix name="TemporaryTableBulkIdStrategy-qf1" type="REPLACE">
+                            <replacement>org.hibernate.hql.spi.id.global.GlobalTemporaryTableBulkIdStrategy</replacement>
+                            <search>org.hibernate.hql.spi.TemporaryTableBulkIdStrategy</search>
+                        </quickfix>
+                        <quickfix name="TemporaryTableBulkIdStrategy-qf2" type="REPLACE">
+                            <replacement>org.hibernate.hql.spi.id.local.LocalTemporaryTableBulkIdStrategy</replacement>
+                            <search>org.hibernate.hql.spi.TemporaryTableBulkIdStrategy</search>
+                        </quickfix>
                     </hint>
                 </iteration>
                 <iteration over="properties">
@@ -104,6 +132,14 @@
                             title="Hibernate 5 Removed and deprecated classes" />                        
                         <tag>hibernate</tag>
                         <tag>configuration</tag>
+                        <quickfix name="TemporaryTableBulkIdStrategy-qf1" type="REPLACE">
+                            <replacement>org.hibernate.hql.spi.id.global.GlobalTemporaryTableBulkIdStrategy</replacement>
+                            <search>org.hibernate.hql.spi.TemporaryTableBulkIdStrategy</search>
+                        </quickfix>
+                        <quickfix name="TemporaryTableBulkIdStrategy-qf2" type="REPLACE">
+                            <replacement>org.hibernate.hql.spi.id.local.LocalTemporaryTableBulkIdStrategy</replacement>
+                            <search>org.hibernate.hql.spi.TemporaryTableBulkIdStrategy</search>
+                        </quickfix>
                     </hint>
                 </iteration>
             </perform>
@@ -124,6 +160,10 @@
                             title="Other Hibernate ORM 5 changes" />
                         <tag>hibernate</tag>
                         <tag>configuration</tag>
+                        <quickfix name="PersistentTableBulkIdStrategy-qf1" type="REPLACE">
+                            <replacement>org.hibernate.hql.spi.id.persistent.PersistentTableBulkIdStrategy</replacement>
+                            <search>org.hibernate.hql.spi.PersistentTableBulkIdStrategy</search>
+                        </quickfix>
                     </hint>
                 </iteration>
                 <iteration over="properties">
@@ -134,6 +174,10 @@
                             title="Other Hibernate ORM 5 changes" />
                         <tag>hibernate</tag>
                         <tag>configuration</tag>
+                        <quickfix name="PersistentTableBulkIdStrategy-qf2" type="REPLACE">
+                            <replacement>org.hibernate.hql.spi.id.persistent.PersistentTableBulkIdStrategy</replacement>
+                            <search>org.hibernate.hql.spi.PersistentTableBulkIdStrategy</search>
+                        </quickfix>                        
                     </hint>
                 </iteration>
             </perform>

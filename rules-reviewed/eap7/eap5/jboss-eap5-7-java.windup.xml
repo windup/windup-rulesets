@@ -52,10 +52,6 @@
                     </message>
                     <link title="JBoss EAP 7 - Messaging Configuration" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0/paged/configuring-messaging/chapter-3-basic-configuration#connection_factories"/>
                     <tag>jms</tag>
-                    <quickfix type="REPLACE" name="javax.jms.QueueConnectionFactory replacement">
-                        <replacement>ConnectionFactory</replacement>
-                        <search>QueueConnectionFactory</search>
-                    </quickfix>
                 </hint>
             </perform>
         </rule>
@@ -74,6 +70,10 @@
                     <link title="JBoss EJB 3.0 extensions" href="https://docs.jboss.org/ejb3/docs/reference/build/reference/en/html/jboss_extensions.html"/>
                     <link title="JBoss EJB 3.0 Javadoc" href="https://docs.jboss.org/ejb3/embedded/api/org/jboss/annotation/ejb/package-summary.html"/>
                     <tag>ejb</tag>
+                    <quickfix name="ejbService-qf" type="REPLACE">
+                        <replacement>org.jboss.ejb3.annotation.Service</replacement>
+                        <search>org.jboss.annotation.ejb.Service</search>
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
@@ -94,6 +94,10 @@
                     <link title="JBoss EJB 3.0 Javadoc" href="https://docs.jboss.org/ejb3/embedded/api/org/jboss/annotation/ejb/package-summary.html"/>
                     <tag>ejb</tag>
                     <tag>jmx</tag>
+                    <quickfix name="ejbManagement-qf" type="REPLACE">
+                        <replacement>org.jboss.annotation.ejb.Management</replacement>
+                        <search>org.jboss.ejb3.annotation.Management</search>
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
