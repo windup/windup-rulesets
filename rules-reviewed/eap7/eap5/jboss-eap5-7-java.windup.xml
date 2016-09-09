@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+<!DOCTYPE xml>
 <ruleset id="jboss-eap5-7-java"
          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -17,7 +18,7 @@
         <tag>jboss-eap5</tag>
         <tag>jms</tag>
         <tag>ejb</tag>
-        <tag>reviewed-2016-07-01</tag>
+        <tag>reviewed-2016-09-02</tag>
     </metadata>
 
     <rules>
@@ -49,7 +50,7 @@
                       Replace the lookup string `QueueConnectionFactory` with `ConnectionFactory`.
                       ]]>
                     </message>
-                    <link title="JBoss EAP 7 - Messaging Configuration" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0/configuring-messaging/chapter-3-basic-configuration"/>
+                    <link title="JBoss EAP 7 - Messaging Configuration" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0/paged/configuring-messaging/chapter-3-basic-configuration#connection_factories"/>
                     <tag>jms</tag>
                 </hint>
             </perform>
@@ -69,6 +70,10 @@
                     <link title="JBoss EJB 3.0 extensions" href="https://docs.jboss.org/ejb3/docs/reference/build/reference/en/html/jboss_extensions.html"/>
                     <link title="JBoss EJB 3.0 Javadoc" href="https://docs.jboss.org/ejb3/embedded/api/org/jboss/annotation/ejb/package-summary.html"/>
                     <tag>ejb</tag>
+                    <quickfix name="ejbService-qf" type="REPLACE">
+                        <replacement>org.jboss.ejb3.annotation.Service</replacement>
+                        <search>org.jboss.annotation.ejb.Service</search>
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
@@ -89,6 +94,10 @@
                     <link title="JBoss EJB 3.0 Javadoc" href="https://docs.jboss.org/ejb3/embedded/api/org/jboss/annotation/ejb/package-summary.html"/>
                     <tag>ejb</tag>
                     <tag>jmx</tag>
+                    <quickfix name="ejbManagement-qf" type="REPLACE">
+                        <replacement>org.jboss.annotation.ejb.Management</replacement>
+                        <search>org.jboss.ejb3.annotation.Management</search>
+                    </quickfix>
                 </hint>
             </perform>
         </rule>

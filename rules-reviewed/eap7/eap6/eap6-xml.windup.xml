@@ -68,9 +68,10 @@
             <perform>
                 <iteration>
                     <hint title="Valve is not supported in JBoss EAP 7." effort="1" severity="mandatory">
-                    <message>JBoss Web was replaced by Undertow, which does not contain support for the Valve functionality. It may be needed to migrate to Undertow handlers.</message>
-                    <link title="Valve migration" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_custom_application_valves"/>
-                    <tag>web</tag>
+                        <message>JBoss Web was replaced by Undertow, which does not contain support for the Valve functionality. It may be needed to migrate to Undertow handlers.</message>
+                        <link title="Valve migration" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_custom_application_valves"/>
+                        <tag>web</tag>
+                        <quickfix name="valve-qf" type="DELETE_LINE"/>
                     </hint>
                 </iteration>
             </perform>
@@ -98,10 +99,10 @@
             <perform>
                 <iteration>
                     <hint title="JAX-RPC specific configuration." effort="3" severity="mandatory">
-                    <message>JAX-RPC support was removed in JBoss EAP 7. All the RPC calls will need to be migrated to JAX-WS.</message>
-                    <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_jax_rpc_support_changes" title="JAX-RPC support changes" />
-                    <tag>rpc</tag>
-                    <tag>jax-ws</tag>
+                        <message>JAX-RPC support was removed in JBoss EAP 7. All the RPC calls will need to be migrated to JAX-WS.</message>
+                        <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_jax_rpc_support_changes" title="JAX-RPC support changes" />
+                        <tag>rpc</tag>
+                        <tag>jax-ws</tag>
                     </hint>
                 </iteration>
             </perform>
@@ -111,11 +112,11 @@
                 <file filename="deployment-plan.xml"/>
             </when>
             <perform>
-                    <classification title="JSR-88 deployment plans are no more supported by JBoss EAP7." effort="3" severity="mandatory">
-                        <description>This file should be removed and instead rely on proprietary functionality to automate deployments. Please consult EAP 7 admin documentation to learn about such functionality.</description>
-                        <link title="Migrate Deployment plan configurations" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_deployment_plan_configurations"/>
-                        <tag>configuration</tag>
-                    </classification>
+                <classification title="JSR-88 deployment plans are no more supported by JBoss EAP7." effort="3" severity="mandatory">
+                    <description>This file should be removed and instead rely on proprietary functionality to automate deployments. Please consult EAP 7 admin documentation to learn about such functionality.</description>
+                    <link title="Migrate Deployment plan configurations" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_deployment_plan_configurations"/>
+                    <tag>configuration</tag>
+                </classification>
             </perform>
         </rule>
         <rule id="eap6-xml-05000">
@@ -136,9 +137,11 @@
         </rule>
         <rule id="eap6-xml-06000">
             <when>
-              <or>
-               <xmlfile matches="/*[local-name()='jboss-deployment-structure']/*[local-name()='deployment' or local-name()='sub-deployment' or local-name()='module']/*[local-name()='dependencies']" in="jboss-deployment-structure.xml"/>
-              </or>
+                <or>
+                    <xmlfile
+                        matches="/*[local-name()='jboss-deployment-structure']/*[local-name()='deployment' or local-name()='sub-deployment' or local-name()='module']/*[local-name()='dependencies']"
+                        in="jboss-deployment-structure.xml" />
+                </or>
             </when>
             <perform>
                 <iteration>
@@ -164,6 +167,7 @@
                     <tag>cluster</tag>
                     <tag>ejb</tag>
                     <tag>configuration</tag>
+                    <quickfix name="clustered-el-qf" type="DELETE_LINE" />
                 </hint>
                 </iteration>
             </perform>
@@ -197,6 +201,7 @@
                     <tag>cluster</tag>
                     <tag>web</tag>
                     <tag>configuration</tag>
+                    <quickfix name="replication-mode-qf" type="DELETE_LINE" />
                 </hint>
             </perform>
         </rule>
@@ -213,6 +218,7 @@
                     <tag>cluster</tag>
                     <tag>web</tag>
                     <tag>configuration</tag>
+                    <quickfix name="backups-qf" type="DELETE_LINE" />
                 </hint>
             </perform>
         </rule>
@@ -233,6 +239,7 @@
                     <tag>cluster</tag>
                     <tag>web</tag>
                     <tag>configuration</tag>
+                    <quickfix name="use-jk-qf" type="DELETE_LINE" />
                 </hint>
             </perform>
         </rule>
@@ -254,6 +261,7 @@
                     <tag>cluster</tag>
                     <tag>web</tag>
                     <tag>configuration</tag>
+                    <quickfix name="max-unreplicated-interval-qf" type="DELETE_LINE" />
                 </hint>
             </perform>
         </rule>
@@ -272,6 +280,7 @@
                     <tag>cluster</tag>
                     <tag>web</tag>
                     <tag>configuration</tag>
+                    <quickfix name="snapshot-mode-qf" type="DELETE_LINE" />
                 </hint>
             </perform>
         </rule>
@@ -289,6 +298,7 @@
                     <tag>cluster</tag>
                     <tag>web</tag>
                     <tag>configuration</tag>
+                    <quickfix name="snapshot-interval-qf" type="DELETE_LINE" />
                 </hint>
             </perform>
         </rule>
@@ -309,6 +319,7 @@
                     <tag>cluster</tag>
                     <tag>web</tag>
                     <tag>configuration</tag>
+                    <quickfix name="session-notificatio-policy-qf" type="DELETE_LINE" />
                 </hint>
             </perform>
         </rule>
