@@ -74,44 +74,28 @@
         </rule>
         <rule id="weblogic-xml-descriptor-04000">
             <when>
-                <xmlfile matches="/weblogic-ejb-jar" />
+                <or>
+                    <xmlfile matches="/weblogic-ejb-jar" />
+                    <xmlfile matches="/wl9:weblogic-ejb-jar">
+                        <namespace prefix="wl9" uri="http://www.bea.com/ns/weblogic/90" />
+                    </xmlfile>
+                    <xmlfile matches="/wl10:weblogic-ejb-jar">
+                        <namespace prefix="wl10" uri="http://www.bea.com/ns/weblogic/10.0" />
+                    </xmlfile>
+                    <xmlfile matches="/wls:weblogic-ejb-jar" >
+                        <namespace prefix="wls" uri="http://xmlns.oracle.com/weblogic/weblogic-ejb-jar" />
+                    </xmlfile>
+                </or>
             </when>
             <perform>
-                <classification title="WebLogic EJB XML" severity="mandatory" effort="3">
-                    <link href="https://access.redhat.com/articles/1326823" title="Map weblogic-ejb-jar.xml Elements to the jboss-ejb3.xml descriptor" />
-                    <tag>ejb</tag>
-                    <tag>weblogic</tag>
-                </classification>
-            </perform>
-        </rule>
-        <rule id="weblogic-xml-descriptor-05000">
-            <when>
-                <xmlfile matches="/wl9:weblogic-ejb-jar">
-                    <namespace prefix="wl9" uri="http://www.bea.com/ns/weblogic/90" />
-                </xmlfile>
-            </when>
-            <perform>
-                <classification title="WebLogic EJB XML" severity="mandatory" effort="3">
-                    <link href="https://access.redhat.com/articles/1326823" title="Map weblogic-ejb-jar.xml Elements to the jboss-ejb3.xml descriptor" />
-                    <tag>ejb</tag>
-                    <tag>configuration</tag>
-                    <tag>weblogic</tag>
-                </classification>
-            </perform>
-        </rule>
-        <rule id="weblogic-xml-descriptor-06000">
-            <when>
-                <xmlfile matches="/wl10:weblogic-ejb-jar">
-                    <namespace prefix="wl10" uri="http://www.bea.com/ns/weblogic/10.0" />
-                </xmlfile>
-            </when>
-            <perform>
-                <classification title="WebLogic EJB XML" severity="mandatory" effort="3">
-                    <link href="https://access.redhat.com/articles/1326823" title="Map weblogic-ejb-jar.xml Elements to the jboss-ejb3.xml descriptor" />
+                <classification title="WebLogic EJB XML" severity="mandatory" effort="0" />
+                <hint title="WebLogic EJB XML (weblogic-ejb-jar.xml)" severity="mandatory" effort="3">
+                    <message>The elements of proprietary `weblogic-ejb-jar.xml` descriptor need to be mapped to the `jboss-ejb3.xml` one according to the attached knowledge article.</message>
+                    <link href="https://access.redhat.com/articles/1326823" title="Migrate the weblogic-ejb-jar.xml" />
                     <tag>ejb</tag>
                     <tag>configuration</tag>
                     <tag>weblogic</tag>
-                </classification>
+                </hint>
             </perform>
         </rule>
         <rule id="weblogic-xml-descriptor-06001">

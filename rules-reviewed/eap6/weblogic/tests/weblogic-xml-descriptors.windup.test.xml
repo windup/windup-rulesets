@@ -38,34 +38,24 @@
                     <fail message="WebLogic EJB parameter delay-updates-until-end-of-tx not found!" />
                 </perform>
             </rule>
+            <rule id="weblogic-xml-descriptors-04000-cl-test">
+                <when>
+                    <not>
+                        <classification-exists classification="WebLogic EJB XML" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebLogic EJB XML descriptor was not found!" />
+                </perform>
+            </rule>
             <rule id="weblogic-xml-descriptors-04000-test">
                 <when>
                     <not>
-                        <classification-exists classification="WebLogic EJB XML" />
+                        <hint-exists message="The elements of proprietary .*weblogic-ejb-jar.xml.*" />
                     </not>
                 </when>
                 <perform>
-                    <fail message="WebLogic EJB XML descriptor was not found!" />
-                </perform>
-            </rule>
-            <rule id="weblogic-xml-descriptors-05000-test">
-                <when>
-                    <not>
-                        <classification-exists classification="WebLogic EJB XML" />
-                    </not>
-                </when>
-                <perform>
-                    <fail message="WebLogic EJB XML descriptor was not found!" />
-                </perform>
-            </rule>
-            <rule id="weblogic-xml-descriptors-06000-test">
-                <when>
-                    <not>
-                        <classification-exists classification="WebLogic EJB XML" />
-                    </not>
-                </when>
-                <perform>
-                    <fail message="WebLogic EJB XML not found!" />
+                    <fail message="WebLogic EJB XML descriptor hint was not found!" />
                 </perform>
             </rule>
             <rule id="weblogic-xml-descriptors-06001-test">
