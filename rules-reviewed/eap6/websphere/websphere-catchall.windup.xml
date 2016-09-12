@@ -19,7 +19,7 @@
     <rules>
         <rule id="websphere-catchall-db2-00000">
             <when>
-                <javaclass references="{package}.{type}" />
+                <javaclass references="com.ibm.db2.jcc.{type}" />
             </when>
             <perform>
                 <iteration>
@@ -29,18 +29,15 @@
                         </not>
                     </when>
                     <perform>
-                        <hint title="IBM DB2 driver type reference" effort="1" severity="mandatory">
+                        <hint title="IBM DB2 driver type reference" effort="1" severity="potential">
                             <message>
-                                This is a reference to the IBM DB2 driver type (`{package}.{type}`). It probably does not need to be migrated. However the IBM DB2 driver should be configured properly.
+                                This is a reference to the IBM DB2 driver type (`com.ibm.db2.jcc.{type}`). It probably does not need to be migrated. However the IBM DB2 driver should be configured properly.
                             </message>
                             <link href="https://access.redhat.com/solutions/93693" title="Configure datasource settings in EAP 6" />
                         </hint>
                     </perform>
                 </iteration>
             </perform>
-            <where param="package">
-                <matches pattern="com\.ibm\.db2\.jcc(\..*)?" />
-            </where>
             <where param="type">
                 <matches pattern="[^.]+" />
             </where>

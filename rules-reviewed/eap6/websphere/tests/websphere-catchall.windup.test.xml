@@ -24,6 +24,16 @@
                     <fail message="IBM ILog catchall hint was not found!" />
                 </perform>
             </rule>
+            <rule id="websphere-catchall-db2-00000-test">
+                <when>
+                    <not>
+                        <hint-exists message="This is a reference to the IBM DB2 driver type.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebSphere catchall hint for DB2 was not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
