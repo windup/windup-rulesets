@@ -17,6 +17,34 @@
         <tag>reviewed-2015-06-17</tag>
     </metadata>
     <rules>
+        <rule id="websphere-catchall-db2-00000">
+            <when>
+                <javaclass references="{package}.{type}" />
+            </when>
+            <perform>
+                <iteration>
+                    <when>
+                        <not>
+                            <has-hint />
+                        </not>
+                    </when>
+                    <perform>
+                        <hint title="IBM DB2 driver type reference" effort="1" severity="mandatory">
+                            <message>
+                                This is a reference to the IBM DB2 driver type (`{package}.{type}`). It probably does not need to be migrated. However the IBM DB2 driver should be configured properly.
+                            </message>
+                            <link href="https://access.redhat.com/solutions/93693" title="Configure datasource settings in EAP 6" />
+                        </hint>
+                    </perform>
+                </iteration>
+            </perform>
+            <where param="package">
+                <matches pattern="com\.ibm\.db2\.jcc(\..*)?" />
+            </where>
+            <where param="type">
+                <matches pattern="[^.]+" />
+            </where>
+        </rule>
         <rule id="websphere-catchall-00000">
             <when>
                 <javaclass references="{package}.{type}" />
@@ -29,9 +57,9 @@
                         </not>
                     </when>
                     <perform>
-                        <hint title="IBM proprietary type reference" effort="0" severity="potential">
+                        <hint title="IBM proprietary type reference" effort="1" severity="potential">
                             <message>
-                                This is an IBM proprietary type ({package}.{type}) and needs to be migrated to a compatible API. There is currently no detailed
+                                This is an IBM proprietary type (`{package}.{type}`) and needs to be migrated to a compatible API. There is currently no detailed
                                 information about this type.
                             </message>
                             <tag>catchall</tag>
@@ -58,9 +86,9 @@
                         </not>
                     </when>
                     <perform>
-                        <hint title="IBM ILog proprietary type reference" effort="0" severity="potential">
+                        <hint title="IBM ILog proprietary type reference" effort="1" severity="potential">
                             <message>
-                                This is an IBM ILog proprietary type (ilog.{subpackage}.{type}) and needs to be migrated to a compatible API. There is currently no detailed
+                                This is an IBM ILog proprietary type (`ilog.{subpackage}.{type}`) and needs to be migrated to a compatible API. There is currently no detailed
                                 information about this type.
                             </message>
                             <tag>catchall</tag>
