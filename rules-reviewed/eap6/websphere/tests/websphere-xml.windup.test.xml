@@ -64,20 +64,20 @@
                   <fail message="Hint for IBM Websphere ext:web-ext was not detected" />
                </perform>
             </rule>
-            <rule id="websphere-xml-06000-hint-test">
+            <rule id="websphere-xml-06000-cl-test">
                 <when>
                     <not>
-                        <hint-exists message=".*This file contains WebSphere proprietary binding configuration.*" />
+                        <classification-exists classification="WebSphere proprietary configuration" />
                     </not>
                 </when>
                 <perform>
-                    <fail message="hint for ext:web-bnd was not detected" />
+                    <fail message="Classification for WebSphere binding config was not detected!" />
                 </perform>
             </rule>
-            <rule id="websphere-xml-06100-hint-test">
+            <rule id="websphere-xml-06000-hint-test">
                 <when>
                     <not>
-                        <hint-exists message="This file configures the specific WebSphere Web application bindings.*" />
+                        <hint-exists message="This file contains WebSphere proprietary binding configuration.*" />
                     </not>
                 </when>
                 <perform>
