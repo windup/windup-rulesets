@@ -8,9 +8,7 @@
     <xsl:strip-space elements="windup:message windup:javaclass windup:xmlfile windup:file windup:filecontent" />
 
     <xsl:template match="/">
-        <ROOT>
-            <xsl:apply-templates select="//windup:rule"/>
-        </ROOT>
+        <xsl:apply-templates select="//windup:rule"/>
     </xsl:template>
 
     <xsl:template match="windup:rule">
