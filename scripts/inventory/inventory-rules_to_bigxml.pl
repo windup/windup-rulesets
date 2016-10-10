@@ -9,13 +9,13 @@ use warnings;
 
 my @xmlRules = `find rules-reviewed/ -name "*.windup.xml"`;
 
-unlink('all_rules.xml');
+unlink('inventory_all_rules.xml');
 
-`echo '<root>' > all_rules.xml`;
+`echo '<root>' > inventory_all_rules.xml`;
 
 for my $xmlRule (@xmlRules) {
 	chomp $xmlRule;
-	print `xsltproc --timing scripts/inventory/rules_to_bigxml-inventory.xslt $xmlRule >> all_rules.xml\n`;
+	print `xsltproc --timing scripts/inventory/inventory-rules_to_bigxml.xslt $xmlRule >> inventory_all_rules.xml\n`;
 }
 
-`echo '</root>' >> all_rules.xml`;
+`echo '</root>' >> inventory_all_rules.xml`;
