@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 # This script creates a rules report XML file.
 # Run it from the root of the windup-rulesets directory:
-#     scripts/rules_to_bigxml.pl
+#     scripts/inventory/inventory-rules_to_bigxml.pl
 #
 
 use strict;

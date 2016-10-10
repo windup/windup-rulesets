@@ -41,7 +41,7 @@ rules.rule.each { rule ->
 
 // make the header
 List header = new ArrayList();
-header.addAll("Rule ID", "Condition Type", "Condition xml");
+header.addAll("Rule ID", "Quickfix", "Condition Type", "Condition xml");
 
 for (int i = 0; i < maxLocationCount; i++)
     header.add("Location");
@@ -59,6 +59,8 @@ for (rule in rules.rule) {
     List columns = new ArrayList();
 
     columns.add(rule.column.find { it.@name == "id" }.toString());
+    columns.add(rule.column.find { it.@name == "quickfix" }.toString());
+    
     // type of condition
     columns.add(rule.column.find { it.@name == "condition" }.toString());
 

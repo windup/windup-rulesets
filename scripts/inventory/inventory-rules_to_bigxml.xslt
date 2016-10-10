@@ -69,6 +69,9 @@
     <column name="hint-message">
         <xsl:value-of select="./windup:message" />
     </column>
+    <xsl:if test="count(//windup:quickfix)>0">
+      <column name="quickfix"> <xsl:value-of select="./windup:quickfix/@type"/></column>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="windup:classification">
@@ -76,7 +79,8 @@
         <xsl:value-of select="@title" />
     </column>
   </xsl:template>
-<!-- operators in when -->
+
+  <!-- operators in when -->
   <xsl:template match="windup:or|windup:and|windup:not">
     <xsl:apply-templates />
   </xsl:template>
