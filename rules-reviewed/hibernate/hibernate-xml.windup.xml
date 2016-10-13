@@ -55,17 +55,19 @@
         </rule>
         <rule id="hibernate-xml-03000">
             <when>
-                <or>
-                   <filecontent filename="hibernate-configuration.xml" pattern="org.hibernate.connection"/>
-                </or>
+               <filecontent filename="hibernate-configuration.xml" pattern="org.hibernate.connection"/>
             </when>
             <perform>
                  <hint title="Hibernate: Removed package org.hibernate.connection" effort="1" severity="mandatory">
-                     <message>From Hibernate 4.0 there were moved classes from package org.hibernate.connection to package org.hibernate.service.jdbc.connections.internal.
+                     <message>From Hibernate 4.0 there were moved classes from package `org.hibernate.connection` to package `org.hibernate.service.jdbc.connections.internal`.
                      You should change your Hibernate setup to replace references to the old package names.
                      </message>
                      <tag>hibernate</tag>
                      <tag>configuration</tag>
+                     <quickfix name="hibernate-connection" type="REPLACE">
+                        <replacement>org.hibernate.service.jdbc.connections.internal.</replacement>
+                        <search>org.hibernate.connection.</search>
+                     </quickfix>
                  </hint>
             </perform>
         </rule>
