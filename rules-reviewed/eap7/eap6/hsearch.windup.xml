@@ -304,6 +304,9 @@
                     <link href="https://docs.jboss.org/hibernate/search/5.5/api/org/hibernate/search/annotations/CacheFromIndex.html"
                         title="hibernate Search javadoc for @CacheFromIndex" />
                     <tag>hibernate-search</tag>
+                    <quickfix name="CacheFromIndex" type="DELETE_LINE">
+                        <search>@CacheFromIndex</search>                        
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
@@ -324,6 +327,9 @@
                     <link href="https://docs.jboss.org/hibernate/search/5.5/api/index.html?org/hibernate/search/annotations/Key.html"
                         title="Hibernate Search javadoc for @Key" />
                     <tag>hibernate-search</tag>
+                    <quickfix name="Key" type="DELETE_LINE">
+                        <search>@Key</search>                        
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
@@ -355,9 +361,6 @@
                     <location>ANNOTATION</location>
                     <annotation-literal name="spatialMode" pattern="SpatialMode.GRID"/>
                 </javaclass>
-                <!-- https://issues.jboss.org/browse/WINDUP-974 -->
-                <!-- This doesn't find annotation with enum element specified -->
-<!--                 <javaclass references="org.hibernate.search.annotations.SpatialMode.GRID" />                 -->
             </when>
             <perform>
                 <hint title="Renamed SpatialMode.GRID to HASH in Hibernate Search 5" effort="1" severity="mandatory">
@@ -366,6 +369,10 @@
                         href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_miscellaneous_hibernate_search_changes"
                         title="Miscelanous Changes in Hibernate Search 5.x" />
                     <tag>hibernate-search</tag>
+                    <quickfix name="SpatialGridRename" type="REPLACE">
+                        <replacement>SpatialMode.HASH</replacement>
+                        <search>SpatialMode.GRID</search>                        
+                    </quickfix>
                 </hint>
             </perform>
         </rule>

@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-<!DOCTYPE xml>
 <ruleset id="jboss-eap5-7-java"
          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -105,6 +104,7 @@
             <when>
                 <javaclass references="org.jboss.annotation.ejb.LocalBinding">
                     <location>ANNOTATION</location>
+                    <location>IMPORT</location>
                 </javaclass>
             </when>
             <perform>
@@ -114,10 +114,16 @@
                         which specifies the local jndi binding for an EJB local interface.
                         Use `@EJB(lookup="your_jndi")` instead.
                     </message>
-                    <link title="JBoss EJB 3.0 extensions" href="https://docs.jboss.org/ejb3/docs/reference/build/reference/en/html/jboss_extensions.html"/>
                     <link title="JBoss EJB 3.0 Javadoc" href="https://docs.jboss.org/ejb3/embedded/api/org/jboss/annotation/ejb/package-summary.html"/>
                     <link title="EJB annotation with lookup" href="https://docs.oracle.com/javaee/7/api/javax/ejb/EJB.html#lookup--"/>
                     <tag>ejb</tag>
+                    <quickfix name="LocalBinding1" type="DELETE_LINE">
+                        <search>org.jboss.annotation.ejb.LocalBinding</search>
+                    </quickfix>
+                    <quickfix name="LocalBinding2" type="REPLACE">
+                        <replacement>@LocalBinding(jndiBinding=</replacement>
+                        <search>@EJB(lookup=</search>
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
@@ -250,6 +256,7 @@
             <when>
                 <javaclass references="org.jboss.ejb3.annotation.Clustered">
                     <location>ANNOTATION</location>
+                    <location>IMPORT</location>
                 </javaclass>
             </when>
             <perform>
@@ -260,6 +267,12 @@
                     <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_stateful_session_ejb_clustering_changes" title="Stateful Session EJB Clustering Changes" />
                     <tag>cluster</tag>
                     <tag>ejb</tag>
+                    <quickfix name="Clustered" type="DELETE_LINE">
+                        <search>@Clustered</search>
+                    </quickfix>
+                    <quickfix name="ClusteredImport" type="DELETE_LINE">
+                        <search>org.jboss.ejb3.annotation.Clustered</search>
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
