@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<ruletest id="local-storage-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data</testDataPath>
+    <rulePath>../local-storage.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="local-storage-test-00001">
+                <when>
+                    <not>
+                        <iterable-filter size="14">
+                            <hint-exists message="Java applications often make use of local storage,.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hints Java APIs for local storage was not found!" />
+                </perform>
+            </rule>
+            <rule id="local-storage-test-00002">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="Cloud environment .*should not.*" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="java.net.URL/URI local file paths was not found!" />
+                </perform>
+            </rule>
+            <rule id="local-storage-test-00003">
+                <when>
+                    <not>
+                        <iterable-filter size="12">
+                            <hint-exists message="Applications often make use of local storage,.*" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Possible local absolute file path hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

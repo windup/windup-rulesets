@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<ruleset id="java-rmi" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This is a ruleset for Java Remote Method Invocation specific rules while migrating to Cloud environment.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,2.7.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,2.7.0.Final" />
+        </dependencies>
+        <sourceTechnology id="java" />
+        <sourceTechnology id="rmi" />
+        <targetTechnology id="openshift" />
+        <tag>reviewed-2016-10-20</tag>
+    </metadata>
+    <rules>
+        <rule id="java-rmi-00000">
+            <when>
+                <javaclass references="java.rmi.{*}" />
+            </when>
+            <perform>
+                <classification title="Java Remote Method Invocation API usage" effort="3" severity="optional">
+                    <description>Using Java RMI in your code creates a number of problems, particularly in openshift environment, like poor maintainability, poor performance, poor scalability.</description>
+<!--                     <link href="" title=""></link> -->
+                    <tag>rmi</tag>
+                </classification>
+            </perform>
+        </rule>
+        <rule id="java-rmi-00001">
+            <when>
+                <javaclass references="java.rmi.Remote">
+                    <location>INHERITANCE</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Java RMI class" effort="1" severity="mandatory">
+                    <message>One of the most common issues in Openshift environment is tightly coupled applications. Tight coupling is best understood as the dependency of one module on the internal APIs of another module, and is often manifested as Remote Method Invocation (RMI) in the offending code. Using Java RMI in your code creates a number of problems, particularly in cloud environments:
+
+1. Bad maintainability – a change in one module leads to following changes in other modules
+2. Bad performance – Java RMI is often executed over the network, and the less network performance or reliability, the worse the application performs
+3. Poor scalability – applications built with RMI are often stateful and require the application to maintain a knowledge of all the RMI endpoints
+
+While poor maintainability can be a problem in any project, the poor performance and scalability deserve special consideration in the cloud environment. Unlike a data center environment, cloud networking is often less predictable and reliable, due to the constant flux of machines, applications, and virtual networks. Therefore, RMI that may have performed well in the data center, on dedicated machines or carefully controlled virtual infrastructure, is now a weak point in the system. Scalability is also an issue with tightly coupled applications running in the cloud. Since most cloud architectures are built to allow automatic deployment and scaling, it’s much more complicated to maintain the “state” knowledge necessary to handle RMI correctly.
+
+The solution is to eliminate the tight coupling in cloud applications, instead adopting loose coupling through technology such as RESTful interfaces, stable APIs, and/or message queuing – all technologies that the cloud platforms themselves depend on.
+                    </message>
+                    <tag>rmi</tag>
+                    <tag>openshift</tag>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

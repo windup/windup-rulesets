@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<ruletest id="java-rmi-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data</testDataPath>
+    <rulePath>../java-rmi.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="java-rmi-test-00000">
+                <when>
+                    <not>
+                        <classification-exists classification="Java Remote Method Invocation API usage"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Java RMI classification was not found!" />
+                </perform>
+            </rule>
+            <rule id="java-rmi-test-00001">
+                <when>
+                    <not>
+                        <hint-exists message=".*Using Java RMI in your code creates a number of problems.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Java RMI API hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
