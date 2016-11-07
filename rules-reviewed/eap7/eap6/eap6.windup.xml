@@ -27,7 +27,7 @@
             </when>
             <perform>
                 <iteration>
-                    <hint title="Entity EJB" effort="5" severity="mandatory">
+                    <hint title="Entity EJB" effort="5" categoryID="mandatory">
                         <message>Entity beans are no longer supported in JBoss EAP 7. User is requested to use JPA entities that fully replaced the functionality provided by Entity beans.
                         This entity needs to be migrated using JPA persistence.xml or using JPA annotations.</message>
                         <link title="Migrate Entity Beans to JPA" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_entity_beans_to_jpa" />
@@ -43,7 +43,7 @@
             </when>
             <perform>
                 <iteration>
-                    <classification title="Apache CFX integration with JBoss " effort="3" severity="mandatory">
+                    <classification title="Apache CFX integration with JBoss " effort="3" categoryID="mandatory">
                         <description>Migrate all functionality specified in such XML descriptor. It is mostly already supported by the JAX-WS specification, included in Java EE 7. For specific functionality consult the Apache CFX documentation link provided.</description>
                         <link title="Apache CXF Spring Web Services Changes" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_apache_cxf_spring_web_services_changes" />
                         <tag>webservices</tag>
@@ -60,7 +60,7 @@
             </when>
             <perform>
                 <iteration>
-                    <classification title="Manifest.mf - specifies application dependencies" effort="1" severity="mandatory">
+                    <classification title="Manifest.mf - specifies application dependencies" effort="1" categoryID="mandatory">
                         <description>Verify in advance that all the modules this application depends on still exist.</description>
                         <tag>configuration</tag>
                     </classification>
@@ -80,7 +80,7 @@
             </when>
             <perform>
                 <iteration>
-                    <classification title="JBoss Web Valve" effort="1" severity="mandatory">
+                    <classification title="JBoss Web Valve" effort="1" categoryID="mandatory">
                       <description>JBoss Web was replaced by Undertow, which does not contain support for the Valve functionality. It may be needed to migrate to Undertow handlers.</description>
                       <link title="Migrate JBoss Web Valves" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_jboss_web_valves" />
                       <tag>web</tag>
@@ -99,7 +99,7 @@
             </when>
             <perform>
                 <iteration>
-                    <hint title="JSR 88 deployment plan not supported" effort="1" severity="mandatory">
+                    <hint title="JSR 88 deployment plan not supported" effort="1" categoryID="mandatory">
                       <message>This class is using JSR 88 specific classes. Rely instead on proprietary functionality to automate deployments. Please consult EAP 7 admin documentation to learn about such functionality</message>
                       <link title="Migrate Deployment Plan Configurations" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_deployment_plan_configurations"/>
                       <tag>configuration</tag>
@@ -116,7 +116,7 @@
             </when>
             <perform>
                 <iteration>
-                    <hint title="Outdated HA Singleton" effort="1" severity="mandatory">
+                    <hint title="Outdated HA Singleton" effort="1" categoryID="mandatory">
                       <message>EAP 7 includes a new API for building Singleton services, which significantly simplifies the process, and solves the issues found in the legacy solution.</message>
                       <link title="Migration of HA Singleton" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_clustering_ha_singleton"/>
                       <tag>singleton</tag>
@@ -131,7 +131,7 @@
                 </javaclass>
             </when>
             <perform>
-                <hint title="Stateful Session EJB Clustering changes in EAP 7" effort="1" severity="optional">
+                <hint title="Stateful Session EJB Clustering changes in EAP 7" effort="1" categoryID="optional">
                     <message>
                         The `@Clustered` annotation is ignored in EAP 7 and is not useful. In case the application is started using HA profile, the replication will be done automatically.
                     </message>
@@ -149,7 +149,7 @@
                 <filecontent pattern="remote://{node}:{port}" filename="{*}.{extension}" />
             </when>
             <perform>
-                <hint title="Remote JNDI Provider URL has changed in EAP 7" effort="1" severity="mandatory">
+                <hint title="Remote JNDI Provider URL has changed in EAP 7" effort="1" categoryID="mandatory">
                     <message>
                         Default Remote JNDI Provider URL has changed in EAP 7. External applications using JNDI to lookup remote resources, for instance an EJB or a JMS Queue,
                         may need to change the value for the JNDI InitialContext environment's property named `java.naming.provider.url`.
@@ -191,7 +191,7 @@
                     <filecontent pattern="remote.connection.{*}.port{portnumber}" filename="jboss-ejb-client.properties" />
             </when>
             <perform>
-                <hint title="jboss-ejb-client.properties - Default Remote Connection Port changes" effort="1" severity="mandatory">
+                <hint title="jboss-ejb-client.properties - Default Remote Connection Port changes" effort="1" categoryID="mandatory">
                     <message>
                         The default remote connection port has changed in **jboss-ejb-client.properties** from '4447' to '8080'.
 
@@ -231,7 +231,7 @@
                     <filecontent pattern="remote.connection.{*}.port{portnumber}" filename="{*}.java" />
             </when>
             <perform>
-                <hint title="Java - Default Remote Connection Port has changed in EAP 7" effort="1" severity="mandatory">
+                <hint title="Java - Default Remote Connection Port has changed in EAP 7" effort="1" categoryID="mandatory">
                     <message>
                         The default remote connection port has changed from '4447' to '8080'.
 
@@ -265,7 +265,7 @@
                     <javaclass references="org.hornetq.{*}" />
             </when>
             <perform>
-                <classification title="HornetQ was removed in EAP 7" effort="1" severity="mandatory">
+                <classification title="HornetQ was removed in EAP 7" effort="1" categoryID="mandatory">
                     <description>HornetQ was replaced by ActiveMQ Artemis in EAP 7. You should replace all references to `org.hornetq.*` with JMS API or ActiveMQ Artemis API.</description>
                     <link title="Replace the HornetQ API" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_messaging_application_hornetq_api"></link>
                     <link href="https://activemq.apache.org/artemis/migration.html" title="ActiveMQ Artemis Migration" />
@@ -281,7 +281,7 @@
                 </javaclass>
             </when>
             <perform>
-                <hint title="Deprecated JBoss Logging annotations" effort="1" severity="mandatory">
+                <hint title="Deprecated JBoss Logging annotations" effort="1" categoryID="mandatory">
                     <message>JBoss Logging annotations in package `org.jboss.logging` are deprecated. You should replace them by the corresponding annotations from package `org.jboss.logging.annotations`. Note that using the `org.jboss.logging.annotations` package requires adding a new dependency: `org.jboss.logging:jboss-logging-annotations`.</message>
                     <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_jboss_logging_changes" title="JBoss Logging Changes" />
                     <tag>logging</tag>
@@ -301,7 +301,7 @@
                 </or>
             </when>
             <perform>
-                <hint title="Value of FaceletContext.FACELET_CONTEXT_KEY has changed" effort="1" severity="mandatory">
+                <hint title="Value of FaceletContext.FACELET_CONTEXT_KEY has changed" effort="1" categoryID="mandatory">
                     <message>Value of `FaceletContext.FACELET_CONTEXT_KEY` has changed between JSF 2.1 and 2.2. The variable is a compile-time constant expression, so when the program was originally compiled, the reference to `FACELET_CONTEXT_KEY` was replaced by its value during compilation. The application must be recompiled so that the reference to `FACELET_CONTEXT_KEY` is replaced by its new value.</message>
                     <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#compatibility_issue_between_jsf_2_1_and_jsf_2_2" title="Compatibility Issue Between JSF 2.1 and JSF 2.2"/>
                     <link href="https://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1257" title="JAVASERVERFACES_SPEC_PUBLIC-1257"/>

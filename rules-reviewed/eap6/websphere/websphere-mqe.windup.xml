@@ -23,7 +23,7 @@
                 <javaclass references="{package}.{type}" />
             </when>
             <perform>
-                <classification title="IBM MQe client API" effort="3" severity="mandatory">
+                <classification title="IBM MQe client API" effort="3" categoryID="mandatory">
                     <description>WebSphere MQe client API is used to communicate with the MQ server from client-side applications.
                         For JBoss EAP 6, this needs to be replaced with standard Java EE 6 JMS API, or with HornetQ client API.
                     </description>
@@ -48,7 +48,7 @@
                 </javaclass>
             </when>
             <perform>
-                <hint title="IBM MQe com.ibm.mqe.adapters.MQe{type}Adapter" severity="mandatory" effort="3">
+                <hint title="IBM MQe com.ibm.mqe.adapters.MQe{type}Adapter" categoryID="mandatory" effort="3">
                     <message>
                         IBM MQe {type} adapter provides plug-in communications adapters or data storage adapters for queue managers. These can
                         be deployed to JBoss EAP.
@@ -71,7 +71,7 @@
                 </javaclass>
             </when>
             <perform>
-                <hint title="IBM MQe com.ibm.mqe.administration.MQe{type}AdminMsg" severity="mandatory" effort="3">
+                <hint title="IBM MQe com.ibm.mqe.administration.MQe{type}AdminMsg" categoryID="mandatory" effort="3">
                     <message>IBM MQe {type} administration API provides classes used to administer and monitor a WebSphere MQ Everyplace queue manager. In
                         JBoss EAP 6, the JMS destinations can be configured with the JBoss Admin CLI.
                     </message>
@@ -91,7 +91,7 @@
                 <javaclass references="com.ibm.mqe.jms.MQeJMSAuthenticator" />
             </when>
             <perform>
-                <hint title="IBM MQe com.ibm.mqe.jms.MQeJMSAuthenticator" severity="mandatory" effort="5">
+                <hint title="IBM MQe com.ibm.mqe.jms.MQeJMSAuthenticator" categoryID="mandatory" effort="5">
                     <message>
                         `MQeJMSAuthenticator` is a WebSphere proprietary JMS authentication API.
                         To migrate to JBoss EAP 6, replace with Java EE 6 JAAS for JMS authentication.
@@ -110,7 +110,7 @@
                 <javaclass references="com.ibm.mqe.jms.MQeJMSMsgFieldNames" />
             </when>
             <perform>
-                <hint title="IBM MQe com.ibm.mqe.jms.MQeJMSMsgFieldNames" effort="1" severity="optional">
+                <hint title="IBM MQe com.ibm.mqe.jms.MQeJMSMsgFieldNames" effort="1" categoryID="optional">
                     <message>
                         IBM MQe constants are used to name fields when a JMS message is mapped to an `MQeMsgObject`. These are provided to
                         enable WebSphere MQ Everyplace applications to interpret messages sent by JMS or to construct messages that a JMS application

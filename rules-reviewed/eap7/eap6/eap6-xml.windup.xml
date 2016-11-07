@@ -29,7 +29,7 @@
             </when>
             <perform>
                 <iteration>
-                    <hint title="CMP Entity EJB configuration." effort="3" severity="mandatory">
+                    <hint title="CMP Entity EJB configuration." effort="3" categoryID="mandatory">
                     <message>CMP entity beans are no longer supported in JBoss EAP 7. User is requested to use JPA entities that fully replaced the functionality provided by CMP beans.
                     CMP configuration provided in this ejb-jar.xml should be configured using JPA persistence.xml or using JPA annotations.</message>
                     <link title="CMP Bean migration" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_entity_beans_to_jpa"/>
@@ -49,7 +49,7 @@
             </when>
             <perform>
                 <iteration>
-                    <hint title="BMP Entity EJB configuration." effort="3" severity="mandatory">
+                    <hint title="BMP Entity EJB configuration." effort="3" categoryID="mandatory">
                     <message>BMP entity beans are no longer supported in JBoss EAP 7. User is requested to use JPA entities that fully replaced the functionality provided by BMP beans.
                    BMP configuration provided in this ejb-jar.xml should be configured using JPA persistence.xml or using JPA annotations.</message>
                     <link title="CMP Bean migration" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_entity_beans_to_jpa" />
@@ -67,7 +67,7 @@
             </when>
             <perform>
                 <iteration>
-                    <hint title="Valve is not supported in JBoss EAP 7." effort="1" severity="mandatory">
+                    <hint title="Valve is not supported in JBoss EAP 7." effort="1" categoryID="mandatory">
                         <message>JBoss Web was replaced by Undertow, which does not contain support for the Valve functionality. It may be needed to migrate to Undertow handlers.</message>
                         <link title="Valve migration" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_custom_application_valves"/>
                         <tag>web</tag>
@@ -98,7 +98,7 @@
             </when>
             <perform>
                 <iteration>
-                    <hint title="JAX-RPC specific configuration." effort="3" severity="mandatory">
+                    <hint title="JAX-RPC specific configuration." effort="3" categoryID="mandatory">
                         <message>JAX-RPC support was removed in JBoss EAP 7. All the RPC calls will need to be migrated to JAX-WS.</message>
                         <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_jax_rpc_support_changes" title="JAX-RPC support changes" />
                         <tag>rpc</tag>
@@ -112,7 +112,7 @@
                 <file filename="deployment-plan.xml"/>
             </when>
             <perform>
-                <classification title="JSR-88 deployment plans are no more supported by JBoss EAP7." effort="3" severity="mandatory">
+                <classification title="JSR-88 deployment plans are no more supported by JBoss EAP7." effort="3" categoryID="mandatory">
                     <description>This file should be removed and instead rely on proprietary functionality to automate deployments. Please consult EAP 7 admin documentation to learn about such functionality.</description>
                     <link title="Migrate Deployment plan configurations" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_deployment_plan_configurations"/>
                     <tag>configuration</tag>
@@ -145,7 +145,7 @@
             </when>
             <perform>
                 <iteration>
-                    <classification title="JBoss deployment structure - specifies application dependencies" effort="1" severity="mandatory">
+                    <classification title="JBoss deployment structure - specifies application dependencies" effort="1" categoryID="mandatory">
                         <description>Verify in advance that all the modules this application depends on still exist.</description>
                         <link title="Migrate explicit module dependencies" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_explicit_module_dependencies" />
                         <tag>configuration</tag>
@@ -159,7 +159,7 @@
             </when>
             <perform>
                 <iteration>
-                    <hint title="Stateful Session EJB Clustering configuration changes in EAP 7" effort="1" severity="optional">
+                    <hint title="Stateful Session EJB Clustering configuration changes in EAP 7" effort="1" categoryID="optional">
                     <message>
                         The `clustered` element is ignored in EAP 7 and is not useful. In case the application is started using HA profile, the replication will be done automatically.
                     </message>
@@ -177,7 +177,7 @@
                 <xmlfile matches="/*[local-name()='jboss-web']/*[local-name()='replication-config']/*[local-name()='replication-trigger']" in="jboss-web.xml"/>
             </when>
             <perform>
-                <hint title="Web Session Clustering config replication-trigger changes in EAP 7" effort="1" severity="optional">
+                <hint title="Web Session Clustering config replication-trigger changes in EAP 7" effort="1" categoryID="optional">
                     <message>
                        The EAP 7 Web Session Clustering configuration deprecates `replication-trigger` element in `jboss-web.xml` file descriptor.
                     </message>
@@ -193,7 +193,7 @@
                 <xmlfile matches="/*[local-name()='jboss-web']/*[local-name()='replication-config']/*[local-name()='replication-mode']" in="jboss-web.xml"/>
             </when>
             <perform>
-                <hint title="Web Session Clustering config replication-mode changes in EAP 7" effort="1" severity="optional">
+                <hint title="Web Session Clustering config replication-mode changes in EAP 7" effort="1" categoryID="optional">
                     <message>
                        The EAP 7 Web Session Clustering configuration deprecates element `replication-mode` element without replacement in `jboss-web.xml` file descriptor.
                     </message>
@@ -210,7 +210,7 @@
                 <xmlfile matches="/*[local-name()='jboss-web']/*[local-name()='replication-config']/*[local-name()='backups']" in="jboss-web.xml"/>
             </when>
             <perform>
-                <hint title="Web Session Clustering config backups changes in EAP 7" effort="1" severity="optional">
+                <hint title="Web Session Clustering config backups changes in EAP 7" effort="1" categoryID="optional">
                     <message>
                        The EAP 7 Web Session Clustering configuration deprecates `backups` element without replacement in `jboss-web.xml` file descriptor.
                     </message>
@@ -227,7 +227,7 @@
                 <xmlfile matches="/*[local-name()='jboss-web']/*[local-name()='replication-config']/*[local-name()='use-jk']" in="jboss-web.xml"/>
             </when>
             <perform>
-                <hint title="Web Session Clustering config use-jk changes in EAP 7" effort="1" severity="optional">
+                <hint title="Web Session Clustering config use-jk changes in EAP 7" effort="1" categoryID="optional">
                     <message>
                          The EAP 7 Web Session Clustering configuration deprecates `use-jk` element without replacement in `jboss-web.xml` file descriptor.
 
@@ -248,7 +248,7 @@
                 <xmlfile matches="/*[local-name()='jboss-web']/*[local-name()='replication-config']/*[local-name()='max-unreplicated-interval']" in="jboss-web.xml"/>
             </when>
             <perform>
-                <hint title="Web Session Clustering config max-unreplicated-interval changes in EAP 7" effort="1" severity="optional">
+                <hint title="Web Session Clustering config max-unreplicated-interval changes in EAP 7" effort="1" categoryID="optional">
                     <message>
                        The EAP 7 Web Session Clustering configuration deprecates `max-unreplicated-interval` element in `jboss-web.xml` file descriptor.
                        
@@ -270,7 +270,7 @@
                 <xmlfile matches="/*[local-name()='jboss-web']/*[local-name()='replication-config']/*[local-name()='snapshot-mode']" in="jboss-web.xml"/>
             </when>
             <perform>
-                <hint title="Web Session Clustering config snapshot-mode changes in EAP 7" effort="1" severity="optional">
+                <hint title="Web Session Clustering config snapshot-mode changes in EAP 7" effort="1" categoryID="optional">
                     <message>
                      The EAP 7 Web Session Clustering configuration deprecates `snapshot-mode` element in `jboss-web.xml` file descriptor.
                      
@@ -289,7 +289,7 @@
                 <xmlfile matches="/*[local-name()='jboss-web']/*[local-name()='replication-config']/*[local-name()='snapshot-interval']" in="jboss-web.xml"/>
             </when>
             <perform>
-                <hint title="Web Session Clustering config snapshot-interval changes in EAP 7" effort="1" severity="optional">
+                <hint title="Web Session Clustering config snapshot-interval changes in EAP 7" effort="1" categoryID="optional">
                     <message><![CDATA[
                        The EAP 7 Web Session Clustering configuration removed `snapshot-interval` element from `jboss-web.xml` file descriptor.
                        This option was only relevant for `<snapshot-mode>INTERVAL</snapshot-mode>`. Since `snapshot-mode` is no longer used, this option is no longer used as well.]]>
@@ -307,7 +307,7 @@
                 <xmlfile matches="/*[local-name()='jboss-web']/*[local-name()='replication-config']/*[local-name()='session-notification-policy']" in="jboss-web.xml"/>
             </when>
             <perform>
-                <hint title="Web Session Clustering config session-notification-policy changes in EAP 7" effort="1" severity="optional">
+                <hint title="Web Session Clustering config session-notification-policy changes in EAP 7" effort="1" categoryID="optional">
                     <message>
                        The EAP 7 Web Session Clustering configuration deprecates `session-notification-policy` element in `jboss-web.xml` file descriptor.
                        
@@ -328,7 +328,7 @@
                 <xmlfile matches="/*[local-name()='jboss-web']/*[local-name()='passivation-config']" in="jboss-web.xml"/>
             </when>
             <perform>
-                <hint title="Web Session Clustering config passivation-config changes in EAP 7" effort="1" severity="optional">
+                <hint title="Web Session Clustering config passivation-config changes in EAP 7" effort="1" categoryID="optional">
                     <message>
                        The EAP 7 Web Session Clustering configuration deprecates `passivation-config` element and its sub-elements `use-session-passivation`, `passivation-min-idle-time` and `passivation-max-idle-time` completely in `jboss-web.xml` file descriptor.
                        
@@ -350,7 +350,7 @@
                 <xmlfile matches="/*[local-name()='jboss-web']/*[local-name()='max-active-sessions']" in="jboss-web.xml"/>
             </when>
             <perform>
-                <hint title="Web Session Clustering config max-active-sessions changes in EAP 7" effort="1" severity="optional">
+                <hint title="Web Session Clustering config max-active-sessions changes in EAP 7" effort="1" categoryID="optional">
                     <message>
                        The EAP 7 Web Session Clustering configuration changed `max-active-sessions` element meaning in `jboss-web.xml` file descriptor.
                        

@@ -161,7 +161,8 @@ public class WindupRulesTest
         @Override
         public void visit(File ruleTestFile)
         {
-            final ParserContext parser = new ParserContext(furnace);
+            final RuleLoaderContext ruleLoaderContext = new RuleLoaderContext();
+            final ParserContext parser = new ParserContext(furnace, ruleLoaderContext);
             if (!shouldExecuteTest(ruleTestFile))
             {
                 return;
@@ -196,7 +197,6 @@ public class WindupRulesTest
                         }
                     }
 
-                    RuleLoaderContext ruleLoaderContext = new RuleLoaderContext();
                     Configuration ruleTestConfiguration = parser.getBuilder().getConfiguration(ruleLoaderContext);
 
                     String idsToExecute = System.getProperty(RUN_TEST_ID_MATCHING);

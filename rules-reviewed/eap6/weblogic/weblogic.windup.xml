@@ -23,11 +23,11 @@
                 </javaclass>
             </when>
             <perform>
-                <classification title="WebLogic scheduled job" effort="3" severity="mandatory">
+                <classification title="WebLogic scheduled job" effort="3" categoryID="mandatory">
                     <link href="https://docs.oracle.com/javaee/6/tutorial/doc/bnboy.html" title="EJB Timer Service" />
                     <tag>scheduler</tag>
                 </classification>
-                <hint title="WebLogic Scheduled Job" effort="0" severity="mandatory">
+                <hint title="WebLogic Scheduled Job" effort="0" categoryID="mandatory">
                     <message>
                       <![CDATA[
                       WebLogic scheduled jobs should be migrated to use the EJB Timer Service.
@@ -47,7 +47,7 @@
                 <javaclass references="weblogic.utils.StringUtils.{*}" />
             </when>
             <perform>
-                <hint title="WebLogic StringUtils usage" effort="1" severity="mandatory">
+                <hint title="WebLogic StringUtils usage" effort="1" categoryID="mandatory">
                     <message>Replace with the `StringUtils` class from Apache Commons.</message>
                     <link href="https://commons.apache.org/proper/commons-lang/" title="Apache Commons Lang" />
                     <tag>weblogic</tag>
@@ -59,7 +59,7 @@
                 <javaclass references="weblogic.apache.xml.{*}" />
             </when>
             <perform>
-                <hint title="WebLogic specific Apache XML package" effort="1" severity="mandatory">
+                <hint title="WebLogic specific Apache XML package" effort="1" categoryID="mandatory">
                     <message>
                         Code using this package should be replaced with code using the org.apache.xml package from [Apache Xerces](http://xerces.apache.org/).
                     </message>
@@ -72,7 +72,7 @@
                 <javaclass references="weblogic.transaction.{classname}" />
             </when>
             <perform>
-                <hint title="WebLogic TransactionManager usage" effort="1" severity="mandatory">
+                <hint title="WebLogic TransactionManager usage" effort="1" categoryID="mandatory">
                     <message>Replace with the Java EE standard [javax.transaction.TransactionManager](http://docs.oracle.com/javaee/7/api/javax/transaction/TransactionManager.html)</message>
                     <link href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Development_Guide/chap-Java_Transaction_API_JTA.html" title="JBoss EAP 6.4 - Java Transaction API (JTA)" />
                     <link href="http://docs.oracle.com/javaee/7/api/javax/transaction/TransactionManager.html" title="Java Enterprise Edition 7 - TransactionManager" />
@@ -102,7 +102,7 @@
                 </or>
             </when>
             <perform>
-                <hint title="WebLogic TransactionManager usage of resume method" effort="1" severity="mandatory">
+                <hint title="WebLogic TransactionManager usage of resume method" effort="1" categoryID="mandatory">
                     <message>Replace with the Java EE standard method `javax.transaction.TransactionManager.resume(Transaction tx)`.</message>
                     <tag>transactions</tag>
                     <tag>weblogic</tag>
@@ -127,7 +127,7 @@
                 </or>
             </when>
             <perform>
-                <hint title="WebLogic TransactionManager usage of suspend method" effort="1" severity="mandatory">
+                <hint title="WebLogic TransactionManager usage of suspend method" effort="1" categoryID="mandatory">
                     <message>Replace with the Java EE standard `javax.transaction.TransactionManager.suspend()`</message>
                     <tag>transactions</tag>
                     <tag>weblogic</tag>
@@ -141,7 +141,7 @@
                 </javaclass>
             </when>
             <perform>
-                <hint title="WebLogic TxHelper usage" effort="1" severity="mandatory">
+                <hint title="WebLogic TxHelper usage" effort="1" categoryID="mandatory">
                     <message>Remove the `weblogic.transaction.TxHelper` import statement.</message>
                     <tag>transactions</tag>
                     <tag>weblogic</tag>
@@ -185,7 +185,7 @@
                 <javaclass references="weblogic.jdbc.vendor.oracle.OracleThinClob" />
             </when>
             <perform>
-                <hint title="WebLogic proprietary Clob JDBC object (OracleThinClob)" effort="1" severity="mandatory">
+                <hint title="WebLogic proprietary Clob JDBC object (OracleThinClob)" effort="1" categoryID="mandatory">
                     <message>
                         This Oracle and WebLogic proprietary code (`OracleThinClob`) should be replaced with the use of the java.sql.Clob interface.
                     </message>
@@ -201,7 +201,7 @@
                 <javaclass references="weblogic.jdbc.vendor.oracle.OracleThinClob.getCharacterOutputStream()" />
             </when>
             <perform>
-                <hint title="WebLogic JDBC code" effort="1" severity="mandatory">
+                <hint title="WebLogic JDBC code" effort="1" categoryID="mandatory">
                     <message>
                         This code is specific to WebLogic and should be replaced with `java.sql.Clob.setCharacterStream(1)`
                     </message>
@@ -220,7 +220,7 @@
                 </javaclass>
             </when>
             <perform>
-                <hint title="WebLogic proprietary logger (NonCatalogLogger)" effort="1" severity="mandatory">
+                <hint title="WebLogic proprietary logger (NonCatalogLogger)" effort="1" categoryID="mandatory">
                     <message>
                       <![CDATA[
                       The WebLogic `NonCatalogLogger` is not supported on JBoss EAP, and should be migrated to a supported logging framework,
@@ -245,7 +245,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <hint title="WebLogic Oracle FCF JDBC property" effort="1" severity="mandatory">
+                <hint title="WebLogic Oracle FCF JDBC property" effort="1" categoryID="mandatory">
                     <message>
                       <![CDATA[
                       Oracle Fast Connection Failover is specific property supported only by Oracle JDBC driver which provides support for their vendor's special features transparently to the application server in which they are deployed.
@@ -268,7 +268,7 @@
                 <filecontent filename="MANIFEST.MF" pattern="Weblogic-Application-Version:" />
             </when>
             <perform>
-                <hint title="WebLogic side-by-side redeployment configuration" effort="3" severity="mandatory">
+                <hint title="WebLogic side-by-side redeployment configuration" effort="3" categoryID="mandatory">
                     <message>
                       <![CDATA[
                       Oracle WebLogic Server includes a proprietary side-by-side production redeployment feature. For applications that meet certain requirements and restrictions, the new version of the application is deployed while the older version is still running.
@@ -287,7 +287,7 @@
                 <filecontent filename="{*}" pattern="oracle.net.wallet_location" />
             </when>
             <perform>
-                <hint title="WebLogic Oracle Wallet" effort="3" severity="mandatory">
+                <hint title="WebLogic Oracle Wallet" effort="3" categoryID="mandatory">
                     <message>
                       <![CDATA[
                       WebLogic administrators use wallets created by Oracle Wallet Manager to manage public key security credentials on application clients and servers.
@@ -307,7 +307,7 @@
                 <filecontent filename="{*}.{ext}" pattern="weblogic.jndi.WLInitialContextFactory" />
             </when>
             <perform>
-                <hint title="WebLogic InitialContextFactory" effort="3" severity="mandatory">
+                <hint title="WebLogic InitialContextFactory" effort="3" categoryID="mandatory">
                     <message>
                     <![CDATA[
                     `weblogic.jndi.WLInitialContextFactory` is an implementation of `InitialContextFactory` used to get object instances from JNDI.
@@ -332,7 +332,7 @@
                 <filecontent filename="{*}.{ext}" pattern="{t3url}" />
             </when>
             <perform>
-                <hint title="WebLogic proprietary T3 JNDI binding" effort="3" severity="mandatory">
+                <hint title="WebLogic proprietary T3 JNDI binding" effort="3" categoryID="mandatory">
                     <message>
                     <![CDATA[
                     Weblogic’s implementation of the RMI specification uses a proprietary protocol known as T3. T3S is the version of the protocol over SSL.

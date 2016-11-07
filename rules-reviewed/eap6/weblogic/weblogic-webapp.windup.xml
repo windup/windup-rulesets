@@ -27,7 +27,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <hint title="WebLogic Virtual directory mapping" effort="1" severity="mandatory">
+                <hint title="WebLogic Virtual directory mapping" effort="1" categoryID="mandatory">
                     <message>Virtual directories supported in WebLogic are not supported in JBoss EAP.</message>
                     <link href="https://access.redhat.com/articles/1332613" title="Detailed description of how to migrate virtual directories." />
                     <tag>file-system</tag>
@@ -42,7 +42,7 @@
                 </javaclass>
             </when>
             <perform>
-                <hint title="WebLogic proprietary servlet annotations" effort="1" severity="mandatory">
+                <hint title="WebLogic proprietary servlet annotations" effort="1" categoryID="mandatory">
                     <message>
                       <![CDATA[
                       Replace the proprietary WebLogic `@WLServlet` annotation with the Java EE 6 standard `@WebServlet` annotation.
@@ -67,7 +67,7 @@
                 </javaclass>
             </when>
             <perform>
-                <hint title="WebLogic proprietary servlet annotations" effort="1" severity="mandatory">
+                <hint title="WebLogic proprietary servlet annotations" effort="1" categoryID="mandatory">
                     <message>
                       <![CDATA[
                       Replace the proprietary WebLogic `@WLInitParam` annotation with the Java EE 6 standard `@WebInitParam` annotation.
@@ -92,7 +92,7 @@
                 </javaclass>
             </when>
             <perform>
-                <hint title="WebLogic proprietary servlet annotations" effort="3" severity="mandatory">
+                <hint title="WebLogic proprietary servlet annotations" effort="3" categoryID="mandatory">
                     <message>
                       <![CDATA[
                       Replace the proprietary WebLogic `@WLFilter` annotation with the Java EE 6 standard `@WebFilter` annotation.
@@ -119,7 +119,7 @@
                 </javaclass>
             </when>
             <perform>
-                <hint title="WebLogic ApplicationLifecycleEvent" effort="3" severity="mandatory">
+                <hint title="WebLogic ApplicationLifecycleEvent" effort="3" categoryID="mandatory">
                     <message>
                       <![CDATA[
                       WebLogic `ApplicationLifecycleEvent` must be replaced with standard Java EE `ServletContextEvent`. Otherwise, a custom solution using CDI's `ApplicationScoped` beans or EJB's `@Startup` beans is required in order to propagate a custom event object because `ServletContextEvent` types are not extendible in the standard Java EE programming model.
@@ -143,7 +143,7 @@
                 </javaclass>
             </when>
             <perform>
-                <hint title="WebLogic ApplicationLifecycleListener" effort="3" severity="mandatory">
+                <hint title="WebLogic ApplicationLifecycleListener" effort="3" categoryID="mandatory">
                     <message>
                       <![CDATA[
                       WebLogic `ApplicationLifecycleListener` must be replaced with standard Java EE `ServletContextListener` types. Otherwise, a solution using CDI's `ApplicationScoped` beans or EJB's `@Startup` beans is required.
@@ -170,7 +170,7 @@
                         <has-hint />
                     </not>
                 </when>
-                <hint title="WebLogic proprietary security API" effort="3" severity="mandatory">
+                <hint title="WebLogic proprietary security API" effort="3" categoryID="mandatory">
                     <message>The usage of the WebLogic proprietary security API should be replaced by standard Java EE mechanisms or the ones provided by JBoss EAP.</message>
                     <link href="http://docs.oracle.com/cd/E12839_01/apirefs.1111/e13941/weblogic/security/Security.html" title="WebLogic security API documentation" />
                     <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform?category=security&amp;version=6.4" title="EAP security documentation" />
@@ -185,7 +185,7 @@
                 <javaclass references="weblogic.security.Security" />
             </when>
             <perform>
-                <hint title="WebLogic proprietary security reference to weblogic.security.Security" effort="3" severity="mandatory">
+                <hint title="WebLogic proprietary security reference to weblogic.security.Security" effort="3" categoryID="mandatory">
                     <message>Migrate to JBoss EAP 6: `org.jboss.security.SecurityContextAssociation`.</message>
                     <link href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/API_Documentation/files/javadoc/org/jboss/security/SecurityContextAssociation.html" title="Security Context - JBoss EAP 6" />
                     <link href="https://access.redhat.com/solutions/55114" title="Security context retrieval in POJOs" />
@@ -199,7 +199,7 @@
                 <javaclass references="weblogic.servlet.security.ServletAuthentication"/>
             </when>
             <perform>
-                <hint effort="3" severity="mandatory" title="WebLogic proprietary ServletAuthentication annotation">
+                <hint effort="3" categoryID="mandatory" title="WebLogic proprietary ServletAuthentication annotation">
                     <message>
                       <![CDATA[
                       Oracle WebLogic Server provides a proprietary `ServletAuthentication` class to perform programmatic login.
