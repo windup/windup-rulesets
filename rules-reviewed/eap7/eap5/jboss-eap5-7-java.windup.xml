@@ -41,7 +41,7 @@
                 </javaclass>
             </when>
             <perform>
-                <hint title="javax.jms.QueueConnectionFactory" effort="1" categoryID="optional">
+                <hint title="javax.jms.QueueConnectionFactory" effort="1" category-id="optional">
                     <message>
                       <![CDATA[
                       `QueueConnectionFactory` was used to obtain connection to JMS queues.
@@ -61,7 +61,7 @@
                 </javaclass>
             </when>
             <perform>
-                <hint title="org.jboss.annotation.ejb.Service" effort="3" categoryID="mandatory">
+                <hint title="org.jboss.annotation.ejb.Service" effort="3" category-id="mandatory">
                     <message>
                         The `@Service` annotation is one of JBoss EJB 3.0 extensions which creates a singleton EJB.
                         Use the new `org.jboss.ejb3.annotation.Service` instead.
@@ -83,7 +83,7 @@
                 </javaclass>
             </when>
             <perform>
-                <hint title="org.jboss.annotation.ejb.Management" effort="3" categoryID="mandatory">
+                <hint title="org.jboss.annotation.ejb.Management" effort="3" category-id="mandatory">
                     <message>
                         The `@Management` annotation is one of JBoss EJB 3.0 extensions which wraps the the bean
                         as an MBean and install it in the JBoss MBean Server.
@@ -108,7 +108,7 @@
                 </javaclass>
             </when>
             <perform>
-                <hint title="org.jboss.annotation.ejb.LocalBinding" effort="3" categoryID="mandatory">
+                <hint title="org.jboss.annotation.ejb.LocalBinding" effort="3" category-id="mandatory">
                     <message>
                         The `@LocalBinding` annotation is one of JBoss EJB 3.0 extensions
                         which specifies the local jndi binding for an EJB local interface.
@@ -134,7 +134,7 @@
                 </javaclass>
             </when>
             <perform>
-                <hint title="org.jboss.annotation.ejb.Depends" effort="3" categoryID="mandatory">
+                <hint title="org.jboss.annotation.ejb.Depends" effort="3" category-id="mandatory">
                     <message>
                         The `@Depends` annotation is one of JBoss EJB 3.0 extensions
                         which specifies a deployment dependency for a bean.
@@ -155,7 +155,7 @@
             </when>
             <perform>
                 <iteration>
-                    <hint title="Entity EJB" effort="5" categoryID="mandatory">
+                    <hint title="Entity EJB" effort="5" category-id="mandatory">
                         <message>Entity beans are no longer supported in JBoss EAP 7. User is requested to use JPA entities that fully replaced the functionality provided by Entity beans.
                         This entity needs to be migrated using JPA persistence.xml or using JPA annotations.</message>
                         <link title="Migrate Entity Beans to JPA" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_entity_beans_to_jpa" />
@@ -171,7 +171,7 @@
             </when>
             <perform>
                 <iteration>
-                    <classification title="Apache CFX integration with JBoss " effort="3" categoryID="mandatory">
+                    <classification title="Apache CFX integration with JBoss " effort="3" category-id="mandatory">
                         <description>Migrate all functionality specified in such XML descriptor. It is mostly already supported by the JAX-WS specification, included in Java EE 7. For specific functionality consult the Apache CFX documentation link provided.</description>
                         <link title="Apache CXF Spring Web Services Changes" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_apache_cxf_spring_web_services_changes" />
                         <tag>webservices</tag>
@@ -188,7 +188,7 @@
             </when>
             <perform>
                 <iteration>
-                    <classification title="Manifest.mf - specifies application dependencies" effort="1" categoryID="mandatory">
+                    <classification title="Manifest.mf - specifies application dependencies" effort="1" category-id="mandatory">
                         <description>Verify in advance that all the modules this application depends on still exist.</description>
                         <tag>configuration</tag>
                     </classification>
@@ -208,7 +208,7 @@
             </when>
             <perform>
                 <iteration>
-                    <classification title="JBoss Web Valve" effort="1" categoryID="mandatory">
+                    <classification title="JBoss Web Valve" effort="1" category-id="mandatory">
                       <description>JBoss Web was replaced by Undertow, which does not contain support for the Valve functionality. It may be needed to migrate to Undertow handlers.</description>
                       <link title="Migrate JBoss Web Valves" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_jboss_web_valves" />
                       <tag>web</tag>
@@ -227,7 +227,7 @@
             </when>
             <perform>
                 <iteration>
-                    <hint title="JSR 88 deployment plan not supported" effort="1" categoryID="mandatory">
+                    <hint title="JSR 88 deployment plan not supported" effort="1" category-id="mandatory">
                       <message>This class is using JSR 88 specific classes. Rely instead on proprietary functionality to automate deployments. Please consult EAP 7 admin documentation to learn about such functionality</message>
                       <link title="Migrate Deployment Plan Configurations" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_deployment_plan_configurations"/>
                       <tag>configuration</tag>
@@ -244,7 +244,7 @@
             </when>
             <perform>
                 <iteration>
-                    <hint title="Outdated HA Singleton" effort="1" categoryID="mandatory">
+                    <hint title="Outdated HA Singleton" effort="1" category-id="mandatory">
                       <message>EAP 7 includes a new API for building Singleton services, which significantly simplifies the process, and solves the issues found in the legacy solution.</message>
                       <link title="Migration of HA Singleton" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_clustering_ha_singleton"/>
                       <tag>singleton</tag>
@@ -260,7 +260,7 @@
                 </javaclass>
             </when>
             <perform>
-                <hint title="Stateful Session EJB Clustering changes in EAP 7" effort="1" categoryID="optional">
+                <hint title="Stateful Session EJB Clustering changes in EAP 7" effort="1" category-id="optional">
                     <message>
                         The `@Clustered` annotation is ignored in EAP 7 and is not useful. In case the application is started using HA profile, the replication will be done automatically.
                     </message>
@@ -281,7 +281,7 @@
                     <javaclass references="org.hornetq.{*}" />
             </when>
             <perform>
-                <classification title="HornetQ was removed in EAP 7" effort="1" categoryID="mandatory">
+                <classification title="HornetQ was removed in EAP 7" effort="1" category-id="mandatory">
                     <description>HornetQ was replaced by ActiveMQ Artemis in EAP 7. You should replace all references to `org.hornetq.*` with JMS API or ActiveMQ Artemis API.</description>
                     <link title="What's new in JBoss EAP 7" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#whats_new_in_eap"></link>
                     <link href="https://activemq.apache.org/artemis/migration.html" title="ActiveMQ Artemis Migration" />
@@ -297,7 +297,7 @@
                 </javaclass>
             </when>
             <perform>
-                <hint title="Deprecated JBoss Logging annotations" effort="1" categoryID="mandatory">
+                <hint title="Deprecated JBoss Logging annotations" effort="1" category-id="mandatory">
                     <message>JBoss Logging annotations in package `org.jboss.logging` are deprecated. You should replace them by the corresponding annotations from package `org.jboss.logging.annotations`. Note that using the `org.jboss.logging.annotations` package requires adding a new dependency: `org.jboss.logging:jboss-logging-annotations`.</message>
                     <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_jboss_logging_changes" title="JBoss Logging Changes" />
                     <tag>logging</tag>

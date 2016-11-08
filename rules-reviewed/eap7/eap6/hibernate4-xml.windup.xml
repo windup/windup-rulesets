@@ -23,7 +23,7 @@
                 <filecontent pattern="hibernate.transaction.factory_class" filename="hibernate.{file-ext}" />
             </when>
             <perform>
-                <hint title="Hibernate: Deprecated property hibernate.transaction.factory_class" effort="1" categoryID="mandatory">
+                <hint title="Hibernate: Deprecated property hibernate.transaction.factory_class" effort="1" category-id="mandatory">
                     <message>
                         Replace configuration transaction property `hibernate.transaction.factory_class`
                         with `hibernate.transaction.coordinator_class`.
@@ -57,7 +57,7 @@
                 <filecontent filename="{*}.hbm.xml" pattern="org.hibernate.id.{idclass}"/>
             </when>
             <perform>
-                <hint title="Class org.hibernate.id.{idclass} was removed/deprecated in Hibernate 5" effort="1" categoryID="mandatory">
+                <hint title="Class org.hibernate.id.{idclass} was removed/deprecated in Hibernate 5" effort="1" category-id="mandatory">
                     <message>Use `org.hibernate.id.enhanced.SequenceStyleGenerator` instead.</message>
                     <link
                         href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migration_hibernate_orm_changes_deprecations"
@@ -76,7 +76,7 @@
                  in="{*}.hbm.xml"/>
             </when>
             <perform>
-               <hint title="Identifier generator {generator} was removed/deprecated in Hibernate 5" effort="1" categoryID="mandatory">
+               <hint title="Identifier generator {generator} was removed/deprecated in Hibernate 5" effort="1" category-id="mandatory">
                   <message>Identifier generator {generator} was removed/deprecated in Hibernate 5. You can use `sequence` generator instead.</message>
                     <link
                         href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migration_hibernate_orm_changes_deprecations"
@@ -109,7 +109,7 @@
             </when>
             <perform>
                 <iteration over="cfg">
-                    <hint title="TemporaryTableBulkIdStrategy was replaced in Hibernate 5" effort="1" categoryID="mandatory">
+                    <hint title="TemporaryTableBulkIdStrategy was replaced in Hibernate 5" effort="1" category-id="mandatory">
                         <message>Since Hibernate 5, the `org.hibernate.hql.spi.TemporaryTableBulkIdStrategy` class was replaced by `org.hibernate.hql.spi.id.global.GlobalTemporaryTableBulkIdStrategy` and `org.hibernate.hql.spi.id.local.LocalTemporaryTableBulkIdStrategy`.</message>
                         <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migration_hibernate_orm_changes_deprecations"
                               title="Hibernate 5 Removed and deprecated classes" />
@@ -126,7 +126,7 @@
                     </hint>
                 </iteration>
                 <iteration over="properties">
-                    <hint title="TemporaryTableBulkIdStrategy was replaced in Hibernate 5" effort="1" categoryID="mandatory">
+                    <hint title="TemporaryTableBulkIdStrategy was replaced in Hibernate 5" effort="1" category-id="mandatory">
                         <message>Since Hibernate 5, the `org.hibernate.hql.spi.TemporaryTableBulkIdStrategy` class was replaced by `org.hibernate.hql.spi.id.global.GlobalTemporaryTableBulkIdStrategy` and `org.hibernate.hql.spi.id.local.LocalTemporaryTableBulkIdStrategy`.</message>
                         <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migration_hibernate_orm_changes_deprecations"
                             title="Hibernate 5 Removed and deprecated classes" />                        
@@ -153,7 +153,7 @@
             </when>
             <perform>
                 <iteration over="cfg">
-                    <hint title="Class PersistentTableBulkIdStrategy was moved in Hibernate 5" effort="1" categoryID="mandatory">
+                    <hint title="Class PersistentTableBulkIdStrategy was moved in Hibernate 5" effort="1" category-id="mandatory">
                         <message>Since Hibernate 5, the `org.hibernate.hql.spi.PersistentTableBulkIdStrategy` class was moved to new package and you should use it as `org.hibernate.hql.spi.id.persistent.PersistentTableBulkIdStrategy`.</message>
                         <link
                             href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migration_hibernate_orm_changes_miscellaneous"
@@ -167,7 +167,7 @@
                     </hint>
                 </iteration>
                 <iteration over="properties">
-                    <hint title="Class PersistentTableBulkIdStrategy was moved in Hibernate 5" effort="1" categoryID="mandatory">
+                    <hint title="Class PersistentTableBulkIdStrategy was moved in Hibernate 5" effort="1" category-id="mandatory">
                         <message>Since Hibernate 5, the `org.hibernate.hql.spi.PersistentTableBulkIdStrategy` class was moved to new package and you should use it as `org.hibernate.hql.spi.id.persistent.PersistentTableBulkIdStrategy`.</message>
                         <link
                             href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migration_hibernate_orm_changes_miscellaneous"

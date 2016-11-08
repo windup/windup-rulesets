@@ -23,7 +23,7 @@
                 </javaclass>
             </when>
             <perform>
-                 <hint title="Dynamic class instantiation" effort="0" categoryID="optional">
+                 <hint title="Dynamic class instantiation" effort="0" category-id="optional">
                      <message>
                        <![CDATA[
                        The class is dynamically loaded within application. During the migration, multiple classes that are provided on classpath by a different server may not be present anymore.
@@ -44,7 +44,7 @@
             </when>
             <perform>
                 <iteration>
-                    <hint title="Call of JNDI lookup" effort="1" categoryID="mandatory">
+                    <hint title="Call of JNDI lookup" effort="1" category-id="mandatory">
                         <message>
                            <![CDATA[
                            This method lookups an object using a JNDI String. During the migration process, some entity JNDI bindings may change.
@@ -77,7 +77,7 @@
             </when>
             <perform>
                 <iteration>
-                    <hint title="Proprietary InitialContext initialization" effort="1" categoryID="mandatory">
+                    <hint title="Proprietary InitialContext initialization" effort="1" category-id="mandatory">
                     <message>
                       <![CDATA[
                       In JBoss EAP, the `InitialContext` should be instantiated with no arguments. Once an instance is constructed, look up the service using portable JNDI lookup syntax. Ensure also that in case system properties for `InitialContext` are provided, they do not need to be changed for the JBoss.
@@ -100,7 +100,7 @@
             </when>
             <perform>
                 <iteration>
-                    <classification title="JNDI properties file" categoryID="mandatory" effort="1">
+                    <classification title="JNDI properties file" category-id="mandatory" effort="1">
                         <description>
                           <![CDATA[
                           The JNDI automatically reads the application resource files from all components in the applications' classpaths. The JNDI then makes the properties from these files available to the service providers.
@@ -122,7 +122,7 @@
             </when>
             <perform>
                 <iteration>
-                    <hint title="Reference to javax.management.{suffix}" effort="1" categoryID="optional">
+                    <hint title="Reference to javax.management.{suffix}" effort="1" category-id="optional">
                         <message>
                           <![CDATA[
                           After migration, some of the JMX beans provided by the previous server may not be present anymore.
@@ -145,7 +145,7 @@
             </when>
             <perform>
                 <iteration>
-                    <hint title="JMX connection" effort="1" categoryID="mandatory">
+                    <hint title="JMX connection" effort="1" category-id="mandatory">
                        <message>
                           <![CDATA[
                           After migration, JMX connection String or parameters may be different than the one provided by previous server.

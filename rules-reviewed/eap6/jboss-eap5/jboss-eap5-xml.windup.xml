@@ -193,12 +193,12 @@
                 <xmlfile matches="//*[local-name()='classloading']" in="jboss-classloading.xml"/>
             </when>
             <perform>
-                <classification title="JBoss 5 classloader configuration (jboss-classloading.xml)" effort="0" categoryID="optional">
+                <classification title="JBoss 5 classloader configuration (jboss-classloading.xml)" effort="0" category-id="optional">
                     <description>The `jboss-classloading.xml` file allows customization of classloading in JBoss EAP 5.</description>
                     <link title="JBoss EAP 6 Class Loading and Modules" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/5/html/Microcontainer_User_Guide/sect-JBoss_Microcontainer_User_Guide-The_ClassLoading_Layer-ClassLoading.html"/>
                     <tag>classloading</tag>
                 </classification>
-                <hint title="JBoss 5 classloader configuration (jboss-classloading.xml)" effort="0" categoryID="optional">
+                <hint title="JBoss 5 classloader configuration (jboss-classloading.xml)" effort="0" category-id="optional">
                     <message>
                         In JBoss EAP 6, the classloading configuration is not done through `jboss-classloading.xml`.
                         Since EAP 6 it is of modular nature, based on JBoss Modules.
@@ -249,7 +249,7 @@
                 <xmlfile matches="//*[local-name()='jboss']" in="jboss.xml"/>
             </when>
             <perform>
-                <classification title="JBoss EJB XML deployment descriptor prior to EAP 6" effort="0" categoryID="mandatory">
+                <classification title="JBoss EJB XML deployment descriptor prior to EAP 6" effort="0" category-id="mandatory">
                     <description>
                         The `jboss.xml` descriptor in deployments is ignored by JBoss AS 7+ or JBoss EAP 6+.
                         Replace it with `jboss-ejb3.xml`.
@@ -265,7 +265,7 @@
                 <xmlfile matches="//*[local-name()='security-domain' and starts-with(text(), 'java:/jaas/')]"/>
             </when>
             <perform>
-                <hint title="JBoss EAP security-domain configuration - java:/jaas/" effort="3" categoryID="mandatory">
+                <hint title="JBoss EAP security-domain configuration - java:/jaas/" effort="3" category-id="mandatory">
                     <message>
                         `java:/jaas/` is a JBoss EAP `security-domain` URI.
                         Remove the `java:/jaas/` prefix for `security-domain` elements in AS 7 / EAP 6.
@@ -286,7 +286,7 @@
                     <link title="JBoss Login Modules" href="http://docs.jboss.org/jbosssecurity/docs/6.0/security_guide/html/Login_Modules.html"/>
                     <tag>security</tag>
                 </classification>
-                <hint title="JBoss security configuration descriptor (prior to AS 7 / EAP 6)" effort="5" categoryID="mandatory">
+                <hint title="JBoss security configuration descriptor (prior to AS 7 / EAP 6)" effort="5" category-id="mandatory">
                     <message>
                         When migrating to JBoss AS 7 or JBoss EAP 6+,
                         the `login-config.xml` descriptor is no longer supported.
