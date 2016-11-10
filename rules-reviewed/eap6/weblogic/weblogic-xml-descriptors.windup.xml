@@ -23,7 +23,7 @@
                 <xmlfile matches="/*[local-name()='weblogic-application']" />
             </when>
             <perform>
-                <classification title="WebLogic EAR application descriptor (weblogic-application.xml)" severity="mandatory" effort="1">
+                <classification title="WebLogic EAR application descriptor (weblogic-application.xml)" category-id="mandatory" effort="1">
                     <description>
                       The `weblogic-application.xml` deployment descriptor file is used to describe Oracle WebLogic Server EAR archives. Oracle WebLogic Server EAR configures some application settings through the `application-param` element.
                       These settings could be replaced with `context-param` elements in Java EE Servlet `web.xml` descriptor.
@@ -40,7 +40,7 @@
                 <xmlfile matches="/*[local-name()='weblogic-rdbms-jar']" />
             </when>
             <perform>
-                <classification title="WebLogic Entity EJB configuration" severity="mandatory" effort="3">
+                <classification title="WebLogic Entity EJB configuration" category-id="mandatory" effort="3">
                     <description>WebLogic Entity EJB Configuration are used for RDBMS based persistence services.</description>
                     <link href="https://access.redhat.com/articles/1326803" title="Migrate Oracle WebLogic Server Configuration Files and Descriptors to JBoss EAP 6" />
                     <tag>database</tag>
@@ -55,7 +55,7 @@
                 <xmlfile matches="//*[local-name()='delay-updates-until-end-of-tx']/text()" />
             </when>
             <perform>
-                <hint title="WebLogic `delay-updates-until-end-of-tx` configuration element" severity="mandatory" effort="1">
+                <hint title="WebLogic `delay-updates-until-end-of-tx` configuration element" category-id="mandatory" effort="1">
                     <message>
                       <![CDATA[
                       The WebLogic `&amp;lt;delay-updates-until-end-of-tx&amp;lt;` configuration element, which defaults to `true`, is used for performance reasons to delay updates to the persistent store of all beans until the end of the transaction. When set to `false`, updates are sent to the database after each method invocation, but are not committed until the end of the transaction. This allows other processes to access the persisted data while the transaction is waiting to be completed.
@@ -88,8 +88,8 @@
                 </or>
             </when>
             <perform>
-                <classification title="WebLogic EJB XML" severity="mandatory" effort="0" />
-                <hint title="WebLogic EJB XML (weblogic-ejb-jar.xml)" severity="mandatory" effort="3">
+                <classification title="WebLogic EJB XML" category-id="mandatory" effort="0" />
+                <hint title="WebLogic EJB XML (weblogic-ejb-jar.xml)" category-id="mandatory" effort="3">
                     <message>The elements of proprietary `weblogic-ejb-jar.xml` descriptor need to be mapped to the `jboss-ejb3.xml` one according to the attached knowledge article.</message>
                     <link href="https://access.redhat.com/articles/1326823" title="Migrate the weblogic-ejb-jar.xml" />
                     <tag>ejb</tag>
@@ -105,7 +105,7 @@
                  </xmlfile>
             </when>
             <perform>
-               <hint title="WebLogic Stateful Session Bean (SFSB)" severity="mandatory" effort="1">
+               <hint title="WebLogic Stateful Session Bean (SFSB)" category-id="mandatory" effort="1">
                   <message>Replace WebLogic proprietary configuration by Java EE 6 annotation `@AccessTimeout`.
                   The equivalent usage is `@AccessTimeout(value= -1)`</message>
                   <link href="http://docs.oracle.com/javaee/6/api/javax/ejb/AccessTimeout.html" title="Java EE 6 annotation @AccessTimeout" />
@@ -123,7 +123,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <classification title="WebLogic SOAP client mapping" severity="mandatory" effort="5">
+                <classification title="WebLogic SOAP client mapping" category-id="mandatory" effort="5">
                     <tag>soap</tag>
                     <tag>weblogic</tag>
                 </classification>
@@ -136,7 +136,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <classification title="WebLogic Java to WSDL Mapping" severity="mandatory" effort="3">
+                <classification title="WebLogic Java to WSDL Mapping" category-id="mandatory" effort="3">
                     <tag>wsdl</tag>
                     <tag>weblogic</tag>
                 </classification>
@@ -150,7 +150,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <classification title="WebLogic web service policy" severity="mandatory" effort="5">
+                <classification title="WebLogic web service policy" category-id="mandatory" effort="5">
                     <tag>webservice</tag>
                     <tag>weblogic</tag>
                 </classification>
@@ -169,13 +169,13 @@
             </when>
             <perform>
                 <iteration over="webservices">
-                    <classification title="WebLogic web service descriptor" effort="3" severity="mandatory">
+                    <classification title="WebLogic web service descriptor" effort="3" category-id="mandatory">
                         <tag>webservice</tag>
                         <tag>weblogic</tag>
                     </classification>
                 </iteration>
                 <iteration over="webservices-types">
-                    <hint title="Webservice Type" severity="optional" effort="3">
+                    <hint title="Webservice Type" category-id="optional" effort="3">
                         <message>WebLogic webservices can be migrated to `jboss-webservices.xml` descriptor or to a Java EE standard Annotation based configuration. Reference the JBoss EAP 6 product documentation for more information.
                         </message>
                         <link
@@ -194,7 +194,7 @@
                 <xmlfile matches="/*[local-name()='weblogic-jms']" />
             </when>
             <perform>
-                <classification title="WebLogic JMS descriptor" severity="mandatory" effort="3">
+                <classification title="WebLogic JMS descriptor" category-id="mandatory" effort="3">
                     <link
                         href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#sect-Configuration1"
                         title="EAP 6 JMS Server configuration" />
@@ -213,7 +213,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <classification title="WebLogic web application descriptor (weblogic.xml)" severity="mandatory" effort="3">
+                <classification title="WebLogic web application descriptor (weblogic.xml)" category-id="mandatory" effort="3">
                     <description>
                       The Oracle WebLogic Server deployment descriptor file (`weblogic.xml`) provides functionality that is not included in the standard Java EE specification. While there is no direct mapping of these descriptor elements, many of these features may be configured in the application deployment or JBoss server configuration files.
 
@@ -233,7 +233,7 @@
                 <xmlfile public-id="BEA.+RMI Runtime DTD 1.." />
             </when>
             <perform>
-                <classification title="WebLogic RMI XML version 1.x" severity="mandatory" effort="0">
+                <classification title="WebLogic RMI XML version 1.x" category-id="mandatory" effort="0">
                     <tag>weblogic</tag>
                 </classification>
             </perform>
@@ -245,7 +245,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <classification title="WebLogic web service type mapping" severity="mandatory" effort="0">
+                <classification title="WebLogic web service type mapping" category-id="mandatory" effort="0">
                     <tag>webservice</tag>
                     <tag>weblogic</tag>
                 </classification>
@@ -258,7 +258,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <classification title="WebLogic services configuration" severity="mandatory" effort="0">
+                <classification title="WebLogic services configuration" category-id="mandatory" effort="0">
                     <description>WebLogic specific configuration of web services runtime parameters</description>
                     <tag>webservice</tag>
                     <tag>configuration</tag>
@@ -273,7 +273,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <classification title="WebLogic specific webservice ant tasks" severity="optional" effort="13">
+                <classification title="WebLogic specific webservice ant tasks" category-id="optional" effort="13">
                     <tag>webservice</tag>
                     <tag>weblogic</tag>
                 </classification>
@@ -286,7 +286,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <classification title="WebLogic annotation manifest" effort="7" severity="mandatory">
+                <classification title="WebLogic annotation manifest" effort="7" category-id="mandatory">
                     <description>
                         In this file, the value set for a property by a metadata annotation can be overridden. (It does not override the values set by a setter method.)
                     </description>
@@ -302,7 +302,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <classification title="WebLogic plan.xml deployment descriptor" effort="3" severity="mandatory">
+                <classification title="WebLogic plan.xml deployment descriptor" effort="3" category-id="mandatory">
                     <description>
                         WebLogic `plan.xml` deployment descriptor file provides a way to target the application deployment for a specific environment.
                     </description>

@@ -25,7 +25,7 @@
                 </javaclass>
             </when>
             <perform>
-                <hint title="WebLogic Startup Service" effort="3" severity="mandatory">
+                <hint title="WebLogic Startup Service" effort="3" category-id="mandatory">
                     <message>Replace this class with a class using the EJB 3.1 `@Singleton` and `@Startup` annotations.</message>
                     <link href="http://docs.oracle.com/javaee/6/api/javax/ejb/Singleton.html" title="EJB3.1 Singleton Bean"/>
                     <link href="http://docs.oracle.com/javaee/6/api/javax/ejb/Startup.html" title="EJB3.1 Startup Bean"/>
@@ -39,7 +39,7 @@
                 <javaclass references="weblogic.common.T3ServicesDef"/>
             </when>
             <perform>
-                <hint title="WebLogic T3ServicesDef usage" effort="3" severity="mandatory">
+                <hint title="WebLogic T3ServicesDef usage" effort="3" category-id="mandatory">
                     <message>
                       <![CDATA[
                       `T3ServicesDef` provides access to core services of the container, such as Timers and Logging facilities.
@@ -58,7 +58,7 @@
                <javaclass references="weblogic.{logger}{*}"/>
             </when>
             <perform>
-                <hint title="WebLogic proprietary logging classes" effort="1" severity="mandatory">
+                <hint title="WebLogic proprietary logging classes" effort="1" category-id="mandatory">
                     <message>
                       <![CDATA[
                       Oracle WebLogic logging classes should be replaced with SLF4J, Log4J, or Java Logging.
