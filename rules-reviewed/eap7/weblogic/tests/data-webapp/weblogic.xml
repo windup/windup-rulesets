@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wls:weblogic-web-app xmlns:wls="http://xmlns.oracle.com/weblogic/weblogic-web-app" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd http://xmlns.oracle.com/weblogic/weblogic-web-app http://xmlns.oracle.com/weblogic/weblogic-web-app/1.4/weblogic-web-app.xsd">
+    <wls:virtual-directory-mapping>
+         <wls:local-path>H:/Backup/</wls:local-path>
+         <wls:url-pattern>/files/*</wls:url-pattern>
+         <wls:url-pattern>*.txt</wls:url-pattern>
+    </wls:virtual-directory-mapping>
+    <wls:weblogic-version>12.1.1</wls:weblogic-version>
+    <wls:context-root>testJSF2</wls:context-root>
+    <wls:container-descriptor>
+        <wls:prefer-application-packages>
+            <wls:package-name>com.dave.*</wls:package-name>
+        </wls:prefer-application-packages>
+        <wls:prefer-application-resources>
+            <wls:resource-name>com.dave.*</wls:resource-name>
+        </wls:prefer-application-resources>
+    </wls:container-descriptor>
+    <wls:security-role-assignment>
+        <wls:role-name>daverole</wls:role-name>
+        <wls:principal-name>dave</wls:principal-name>
+    </wls:security-role-assignment>
+    <wls:run-as-role-assignment>
+        <wls:role-name>daverole</wls:role-name>
+        <wls:run-as-principal-name>dave</wls:run-as-principal-name>
+    </wls:run-as-role-assignment>
+ 
+</wls:weblogic-web-app>
