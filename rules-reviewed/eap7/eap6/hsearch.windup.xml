@@ -305,7 +305,7 @@
                         title="hibernate Search javadoc for @CacheFromIndex" />
                     <tag>hibernate-search</tag>
                     <quickfix name="CacheFromIndex" type="DELETE_LINE">
-                        <search>@CacheFromIndex</search>                        
+                        <search>@CacheFromIndex</search>
                     </quickfix>
                 </hint>
             </perform>
@@ -328,7 +328,7 @@
                         title="Hibernate Search javadoc for @Key" />
                     <tag>hibernate-search</tag>
                     <quickfix name="Key" type="DELETE_LINE">
-                        <search>@Key</search>                        
+                        <search>@Key</search>
                     </quickfix>
                 </hint>
             </perform>
@@ -371,7 +371,7 @@
                     <tag>hibernate-search</tag>
                     <quickfix name="SpatialGridRename" type="REPLACE">
                         <replacement>SpatialMode.HASH</replacement>
-                        <search>SpatialMode.GRID</search>                        
+                        <search>SpatialMode.GRID</search>
                     </quickfix>
                 </hint>
             </perform>
@@ -530,6 +530,12 @@
                     <tag>hibernate-search</tag>
                 </hint>
             </perform>
+            <where param="wrapper">
+                <matches pattern="(Integer|Long|Float|Double)" />
+            </where>
+            <where param="date">
+                <matches pattern="(Calendar|Date)" />
+            </where>
             <where param="bridge">
                 <matches pattern="(DateBridge|CalendarBridge)"/>
             </where>
@@ -1264,6 +1270,6 @@ fulltextQuery.setSort(new Sort(new SortField("title", SortField.Type.STRING)))
                     <tag>hibernate-search</tag>
                 </hint>
             </perform>
-        </rule>        
+        </rule>
     </rules>
 </ruleset>
