@@ -3,7 +3,7 @@
     xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <metadata>
         <description>
-            This is a ruleset for OpenShift readiness suggestions while migrating to OpenShift environment.
+            This is a ruleset for local storage related suggestions for migrating to OpenShift environments.
         </description>
         <dependencies>
             <addon id="org.jboss.windup.rules,windup-rules-javaee,2.7.0.Final" />
@@ -11,7 +11,7 @@
         </dependencies>
         <targetTechnology id="openshift" />
         <tag>openshift</tag>
-        <tag>reviewed-2016-10-27</tag>
+        <tag>reviewed-2017-01-04</tag>
     </metadata>
     <rules>
         <rule id="local-storage-00001">
@@ -33,12 +33,7 @@
             </when>
             <perform>
                 <hint title="Java APIs for local file system" effort="1" category-id="optional">
-                    <message>Access to local storage on Openshift platform should be minimized and wherever possible replaced by using a **database storage** or by **cloud-native network storage**.
-
-Openshift offer great portability to applications across  deployment environments, but containers are ephemeral by design. So local files are **transient** and could _disappear_ when a server instance or container fails.
-
-An OpenShift migration is the perfect time to **re-evaluate** local file storage strategy.
-It is critical to do an audit and find where your application uses local files, and carefully design how this would work for your application(s) in an OpenShift environment.
+                    <message>Local files in containers are not permanent storage and can disappear when an instance of the application terminates. Avoid accessing local filesystems from applications running in OpenShift environments, and consider using a database or cloud-based storage system instead.
                     </message>
                 </hint>
             </perform>
@@ -54,7 +49,8 @@ It is critical to do an audit and find where your application uses local files, 
             </when>
             <perform>
                 <hint title="Used class java.net.URL/URI with local path" effort="1" category-id="optional">
-                    <message>OpenShift environment **should not** use local storage for persistent data, but instead of that use a **database** or **cloud native network file services**.</message>
+                    <message>Local files in containers are not permanent storage and can disappear when an instance of the application terminates. Avoid accessing local filesystems from applications running in OpenShift environments, and consider using a database or cloud-based storage system instead.
+                    </message>
                 </hint>
             </perform>
             <where param="class">
@@ -67,9 +63,7 @@ It is critical to do an audit and find where your application uses local files, 
             </when>
             <perform>
                 <hint title="Detected local file system paths" effort="1" category-id="potential">
-                    <message>Paths to local file(s) are sometimes used for **temporary files** or **caching**, but frequently for **persistent** data as well.
-                        File local storage is **transient** and could _disappear_ when the server instance is stopped/replaced/restarted. 
-                    No matter what you decide to use, it is critical to do an inventory and locate all possible local files storage accesses, and think about what you need to change in design in your application for Openshift environment.
+                    <message>Local files in containers are not permanent storage and can disappear when an instance of the application terminates. Avoid accessing local filesystems from applications running in OpenShift environments, and consider using a database or cloud-based storage system instead.
                     </message>
                 </hint>
             </perform>
