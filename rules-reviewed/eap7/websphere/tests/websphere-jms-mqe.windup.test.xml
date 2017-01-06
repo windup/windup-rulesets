@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+    <testDataPath>samples/websphere-mqe</testDataPath>
+    <rulePath>../websphere-jms.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="websphere-jms-eap7-01000-test-1">
+                <when>
+                    <not>
+                        <hint-exists message="IBM MQeQueueConnectionFactory.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found for MQeQueueConnectionFactory.*" />
+                </perform>
+            </rule>
+            <rule id="websphere-jms-eap7-01000-test-2">
+                <when>
+                    <not>
+                        <hint-exists message="IBM MQeXAQueueConnectionFactory.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found for MQeXAQueueConnectionFactory.*" />
+                </perform>
+            </rule>
+            <rule id="websphere-jms-eap7-01000-test-3">
+                <when>
+                    <not>
+                        <hint-exists message="IBM MQeTopicConnectionFactory.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found for MQeTopicConnectionFactory.*" />
+                </perform>
+            </rule>
+            <rule id="websphere-jms-eap7-01000-test-4">
+                <when>
+                    <not>
+                        <hint-exists message="IBM MQeXATopicConnectionFactory.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found for MQeXATopicConnectionFactory.*" />
+                </perform>
+            </rule>
+            <rule id="websphere-jms-eap7-01000-test-4">
+                <when>
+                    <not>
+                        <hint-exists message="MQeDestination.* `javax.jms.Destination`.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found for MQeDestination.*." />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

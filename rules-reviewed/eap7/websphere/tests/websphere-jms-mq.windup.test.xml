@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+    <testDataPath>samples/websphere-mq</testDataPath>
+    <rulePath>../websphere-jms.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="websphere-jms-eap7-01000-test-1">
+                <when>
+                    <not>
+                        <hint-exists message="IBM MQQueueConnectionFactory.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found for MQQueueConnectionFactory.*" />
+                </perform>
+            </rule>
+            <rule id="websphere-jms-eap7-01000-test-2">
+                <when>
+                    <not>
+                        <hint-exists message="IBM MQXAQueueConnectionFactory.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found for MQXAQueueConnectionFactory.*" />
+                </perform>
+            </rule>
+            <rule id="websphere-jms-eap7-01000-test-3">
+                <when>
+                    <not>
+                        <hint-exists message="IBM MQTopicConnectionFactory.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found for MQTopicConnectionFactory.*" />
+                </perform>
+            </rule>
+            <rule id="websphere-jms-eap7-01000-test-4">
+                <when>
+                    <not>
+                        <hint-exists message="IBM MQXATopicConnectionFactory.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found for MQXATopicConnectionFactory.*" />
+                </perform>
+            </rule>
+            <rule id="websphere-jms-eap7-01000-test-4">
+                <when>
+                    <not>
+                        <hint-exists message="IBM XAConnectionFactory.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found for XAConnectionFactory.*" />
+                </perform>
+            </rule>
+            <rule id="websphere-jms-eap7-01000-test-5">
+                <when>
+                    <not>
+                        <hint-exists message="MQDestination.* `javax.jms.Destination`.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found for MQDestination.*." />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
