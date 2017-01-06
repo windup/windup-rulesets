@@ -1,0 +1,28 @@
+<jdbc-data-source>
+   <name>myDataSource</name>
+   <jdbc-driver-params>
+      <url>jdbc:oracle:thin:@(DESCRIPTION=
+         (ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)
+         HOST=lcqsol24)(PORT=1521))(ADDRESS=(PROTOCOL=TCP)
+         (HOST=lcqsol25)(PORT=152))(FAILOVER=on)
+         (LOAD_BALANCE=off)
+         )(CONNECT_DATA=(SERVER=DEDICATED)
+         (SERVICE_NAME=snrac)))
+      </url>
+      <driver-name>oracle.jdbc.OracleDriver</driver-name>
+      <property>
+         <name>FastConnectionFailoverEnabled</name>
+         <value>true</value>
+      </property>
+   </jdbc-driver-params>
+   <jdbc-connection-pool-params>
+      <test-connections-on-reserve>true</test-connections-on-reserve>
+      <test-table-name>SQL SELECT 1 FROM DUAL</test-table-name>
+      <profile-type>4</profile-type>
+   </jdbc-connection-pool-params>
+   <jdbc-data-source-params>
+      <jndi-name>oracleRACJndiName</jndi-name>
+      <global-transactions-protocol>OnePhaseCommit
+      </global-transactions-protocol>
+   </jdbc-data-source-params>
+</jdbc-data-source>

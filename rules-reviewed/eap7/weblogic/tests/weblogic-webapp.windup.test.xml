@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<ruletest id="weblogic-webapp-eap7" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <testDataPath>data-webapp</testDataPath>
+    <rulePath>../weblogic-webapp.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="weblogic-webapp-eap7-01000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Virtual directories supported in WebLogic are not supported in JBoss EAP." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Virtual directories migration hint not found!" />
+                </perform>
+            </rule>
+            <rule id="weblogic-webapp-eap7-02000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace the proprietary WebLogic .*@WLServlet.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="@WLServlet Annotation Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="weblogic-webapp-eap7-03000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace the proprietary WebLogic .*@WLInitParam.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="@WLInitParam Annotation Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="weblogic-webapp-eap7-04000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace the proprietary WebLogic .*@WLFilter.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="@WLFilter Annotation Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="weblogic-webapp-eap7-05000-test">
+                <when>
+                    <not>
+                        <hint-exists message="WebLogic .*ApplicationLifecycleEvent.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="ApplicationLifecycleEvent Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="weblogic-webapp-eap7-06000-test">
+                <when>
+                    <not>
+                        <hint-exists message="WebLogic .*ApplicationLifecycleListener.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="ApplicationLifecycleListener Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="weblogic-webapp-eap7-07000-test">
+                <when>
+                    <not>
+                        <hint-exists message="The usage of the WebLogic proprietary security API.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebLogic Security API classification not found!" />
+                </perform>
+            </rule>
+            <rule id="weblogic-webapp-eap7-08000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Migrate to JBoss EAP 7: .*org.jboss.security.SecurityContextAssociation.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebLogic Security API hint not found!" />
+                </perform>
+            </rule>
+            <rule id="weblogic-webapp-eap7-09000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Oracle WebLogic Server provides a proprietary .*ServletAuthentication.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Migrate Oracle WebLogic Server Programmatic Login hint not found!" />
+                </perform>
+            </rule>            
+        </rules>
+    </ruleset>
+</ruletest>

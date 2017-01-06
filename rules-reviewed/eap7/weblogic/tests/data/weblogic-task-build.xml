@@ -1,0 +1,44 @@
+<project name="M2Dservice" default="all" basedir=".">
+
+   <property name="source" value="." />
+   <property name="build" value="${source}/build" />
+   <property name="config" value="${source}/config" />
+   <property name="client" value="${source}/client" />
+   <property name="war_file" value="M2DService.war" />
+   <property name="ear_file" value="M2DService.ear" />
+   <property name="port" value="7001" />
+   <property name="namespace" value="http://service.m2d.saic.com/" />
+   <property name="wls.home.dir" value="/app/maximo5/weblogic/weblogic700" />
+
+
+   <target name="all" depends="ear" />
+
+   <path id="webservice.classpath">
+      <pathelement location="${wls.home.dir}/server/lib/weblogic.jar" />
+      <pathelement location="${wls.home.dir}/server/lib/webservices.jar" />
+      <pathelement location="${wls.home.dir}/server/lib/webserviceclient.jar" />
+   </path>
+
+   <taskdef name="servicegen" classpathref="webservice.classpath"
+      classname="weblogic.ant.taskdefs.webservices.servicegen.ServiceGenTask" />
+
+   <target name="ear">
+      <servicegen classpathref="webservice.classpath"
+         destEar="${build}/${ear_file}" warName="${war_file}">
+         <service javaClassComponents="com.saic.m2d.service.M2DServiceImpl"
+            targetNamespace="${namespace}" serviceName="M2DService"
+            serviceURI="/M2DService" generateTypes="True" expandMethods="True">
+         </service>
+         <classpath>
+            <pathelement path="${source}" />
+            <pathelement path="${build}" />
+            <pathelement path="${java.class.path}" />
+         </classpath>
+      </servicegen>
+   </target>
+
+   <target name="utiljar">
+      <wspackage output="${build}/${ear_file}" warName="${war_file}"
+         overwrite="False" utilJars="/lib/mbo.jar" />
+   </target>
+</project>

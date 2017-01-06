@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="weblogic-eap7-tests">
+    <testDataPath>data</testDataPath>
+    <rulePath>../weblogic.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="weblogic-eap7-01000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="WebLogic scheduled job" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Triggerable not found" />
+                </perform>
+            </rule>
+            <rule id="weblogic-eap7-02000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace with the .*StringUtils.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Commons StringUtils hint not found!" />
+                </perform>
+            </rule>
+            <rule id="weblogic-eap7-03000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Code using this package should be replaced with code using the org.apache.xml package from.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Code using weblogic specific Apache XML Packages not found!" />
+                </perform>
+            </rule>
+            <rule id="weblogic-eap7-04000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace with the Java EE standard .*javax.transaction.TransactionManager.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Code using weblogic specific TransactionManager not found!" />
+                </perform>
+            </rule>
+            <rule id="weblogic-eap7-05000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace with the Java EE standard method .*javax\.transaction\.TransactionManager\.resume\(Transaction tx\).*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Note to replace with standard TransactionManager.resume is missing!" />
+                </perform>
+            </rule>
+            <rule id="weblogic-eap7-06000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace with the Java EE standard .*javax.transaction.TransactionManager.suspend.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Note to replace with standard TransactionManager.suspend is missing!" />
+                </perform>
+            </rule>
+            <rule id="weblogic-eap7-07000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Remove the .*weblogic.transaction.TxHelper.* import statement." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Note to remove .*weblogic.transaction.TxHelper.* import is missing!" />
+                </perform>
+            </rule>
+            <rule id="weblogic-eap7-08000-test">
+                <when>
+                    <not>
+                        <hint-exists
+                            message=".*Look up the Java Enterprise Edition .*javax.transaction.TransactionManager.* in JBoss EAP using the following code.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Note describing how to lookup a transaction manager is missing!" />
+                </perform>
+            </rule>
+
+            <rule id="weblogic-eap7-09000-test">
+                <when>
+                    <not>
+                        <hint-exists message=".*This Oracle and WebLogic proprietary code \(.*OracleThinClob.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Note about proprietary OracleThinClob is missing!" />
+                </perform>
+            </rule>
+            <rule id="weblogic-eap7-10000-test">
+                <when>
+                    <not>
+                        <hint-exists message=".*This code is specific to WebLogic and should be replaced with .*java.sql.Clob.setCharacterStream\(1\).*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Note about proprietary OracleThinClob.getCharacterOutputStream()!" />
+                </perform>
+            </rule>
+            <rule id="weblogic-eap7-11000-test">
+                <when>
+                    <not>
+                        <hint-exists message="The WebLogic .*NonCatalogLogger.* is not supported.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint for WebLogic NonCatalogLogger not found" />
+                </perform>
+            </rule>
+            <rule id="weblogic-eap7-12000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Oracle Fast Connection Failover.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint for WebLogic JDBC Fast Connection Failover not found" />
+                </perform>
+            </rule>
+            <rule id="weblogic-eap7-13000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Oracle WebLogic Server includes a proprietary side-by-side production redeployment feature*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebLogic Side-By-Side Redeployment classification not found!" />
+                </perform>
+            </rule>
+            <rule id="weblogic-eap7-15000-test">
+                <when>
+                    <not>
+                        <hint-exists message=".*Oracle Wallet Manager.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebLogic Oracle Wallet Manager hint not found!" />
+                </perform>
+            </rule>
+
+            <rule id="weblogic-eap7-16000-test">
+                <when>
+                    <not>
+                        <hint-exists message=".*weblogic\.jndi\.WLInitialContextFactory.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebLogic Initial Context hint not found!" />
+                </perform>
+            </rule>
+            <rule id="weblogic-eap7-17000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Weblogic’s implementation of the RMI specification uses a proprietary protocol known as T3\. T3S.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebLogic Context URL hint not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

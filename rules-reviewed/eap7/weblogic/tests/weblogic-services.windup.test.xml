@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="weblogic-services-eap7-tests">
+    <testDataPath>data-servicetests</testDataPath>
+    <rulePath>../weblogic-services.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="weblogic-services-eap7-01000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace this class with a class using the EJB 3.2 .*@Singleton.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Class that implements T3StartupDef not found!"/>
+                </perform>
+            </rule>
+            <rule id="weblogic-services-eap7-02000-test">
+                <when>
+                    <not>
+                        <hint-exists message=".*T3ServicesDef.* provides access to core services of the container.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="T3ServicesDef hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="weblogic-services-eap7-03000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="Oracle WebLogic logging classes should be replaced with SLF4J.*" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Oracle WebLogic logging hint not found!"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
