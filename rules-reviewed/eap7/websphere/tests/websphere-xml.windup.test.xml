@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+    <testDataPath>data</testDataPath>
+    <rulePath>../</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="eap7-websphere-xml-01000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="IBM Process Server Rules 6.0" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebSphere RuleSet was not detected" />
+                </perform>
+            </rule>
+            <rule id="eap7-websphere-xml-02000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="WebSphere EAR Application Binding" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebSphere ApplicationBinding was not detected" />
+                </perform>
+            </rule>
+            <rule id="eap7-websphere-xml-02000-hint-test">
+                <when>
+                    <not>
+                        <hint-exists message="This file contains a specific IBM WebSphere Application binding configuration.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint for WebSphere ApplicationBinding was not detected!" />
+                </perform>
+            </rule>
+            <rule id="eap7-websphere-xml-03000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="WebSphere proprietary JSP engine configuration" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebSphere WebAppExtension was not detected" />
+                </perform>
+            </rule>
+            <rule id="eap7-websphere-xml-03000-hint-test">
+                <when>
+                    <not>
+                        <hint-exists message="This file contains WebSphere specific web application bindings.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint for WebSphere WebAppExtension was not detected" />
+                </perform>
+            </rule>
+            <rule id="eap7-websphere-xml-04000-hint-test">
+               <when>
+                  <not>
+                     <hint-exists message="This file contains WebSphere proprietary JSP engine configuration.*" />
+                  </not>
+               </when>
+               <perform>
+                  <fail message="Hint for IBM Websphere ext:web-ext was not detected" />
+               </perform>
+            </rule>
+            <rule id="eap7-websphere-xml-06000-cl-test">
+                <when>
+                    <not>
+                        <classification-exists classification="WebSphere proprietary configuration" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Classification for WebSphere binding config was not detected!" />
+                </perform>
+            </rule>
+            <rule id="eap7-websphere-xml-06000-hint-test">
+                <when>
+                    <not>
+                        <hint-exists message="This file contains WebSphere proprietary binding configuration.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint for WebSphere WebAppBinding was not detected!" />
+                </perform>
+            </rule>
+            <rule id="eap7-websphere-xml-07000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="WebSphere ETools WSClient Extension" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebSphere WsClientExtension was not detected" />
+                </perform>
+            </rule>
+            <rule id="eap7-websphere-xml-08000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="WebSphere ETools WSClient Binding" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebSphere ClientBinding was not detected" />
+                </perform>
+            </rule>
+            <rule id="eap7-websphere-xml-09000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="WebSphere deployment descriptor" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebSphere Deployment was not detected" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

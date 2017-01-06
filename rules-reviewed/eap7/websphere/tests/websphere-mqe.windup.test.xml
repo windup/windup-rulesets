@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+    <testDataPath>samples/websphere-mqe</testDataPath>
+    <rulePath>../websphere-mqe.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="websphere-mqe-eap7-00000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="IBM MQe" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Classification not found: IBM MQe" />
+                </perform>
+            </rule>
+            <rule id="websphere-mqe-eap7-01000-test">
+                <when>
+                    <not>
+                        <hint-exists message="IBM MQe DiskFields" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found for com.ibm.mqe.adapters.MQeDiskFieldsAdapter" />
+                </perform>
+            </rule>
+            <rule id="websphere-mqe-eap7-02000-test">
+                <when>
+                    <not>
+                        <hint-exists message="IBM MQe Queue administration API" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found for com.ibm.mqe.administration.MQeQueueAdminMsg" />
+                </perform>
+            </rule>
+            <rule id="websphere-mqe-eap7-03000-test">
+                <when>
+                    <not>
+                        <hint-exists message="`MQeJMSAuthenticator` is a WebSphere proprietary.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found for `MQeJMSAuthenticator`." />
+                </perform>
+            </rule>
+            <rule id="websphere-mqe-eap7-04000-test">
+                <when>
+                    <not>
+                        <hint-exists message="IBM MQe constants are used.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found for IBM MQe constants: com.ibm.mqe.jms.MQeJMSMsgFieldNames." />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

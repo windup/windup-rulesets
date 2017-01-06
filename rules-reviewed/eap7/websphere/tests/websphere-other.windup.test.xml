@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<ruletest  id="websphere-other-eap7" xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+    <testDataPath>samples/other</testDataPath>
+    <rulePath>../websphere-other.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="websphere-other-eap7-01000-test">
+                <when>
+                    <not>
+                        <hint-exists message="WebSphere Asynchronous Work is a Work Manager"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found for com.ibm.websphere.asynchbeans.Work"/>
+                </perform>
+            </rule>
+            <rule id="websphere-other-eap7-02000-test">
+                <when>
+                    <not>
+                        <hint-exists message="WebSphere Startup Service serves"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint not found: for websphere startup service"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

@@ -1,19 +1,19 @@
 <?xml version="1.0"?>
-<ruleset id="websphere-xml" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<ruleset id="eap7-websphere-xml" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <metadata>
         <description>
-            This ruleset provides analysis of WebSphere proprietary xml files and constructs that may require individual attention when migrating to JBoss EAP 6.x.
+            This ruleset provides analysis of WebSphere proprietary xml files and constructs that may require individual attention when migrating to JBoss EAP 7777777+.
         </description>
         <dependencies>
             <addon id="org.jboss.windup.rules,windup-rules-xml,2.7.0.Final"/>
         </dependencies>
         <sourceTechnology id="websphere"/>
-        <targetTechnology id="eap" versionRange="[6,8)"/>
-        <tag>reviewed-2017-01-06</tag>
+        <targetTechnology id="eap" versionRange="[7,8)"/>
+        <tag>reviewed-2016-11-14</tag>
     </metadata>
     <rules>
-        <rule id="websphere-xml-01000">
+        <rule id="eap7-websphere-xml-01000">
             <when>
                 <xmlfile matches="/rl:RuleSet">
                     <namespace prefix="rl" uri="http://www.ibm.com/xmlns/prod/websphere/wbi/br/6.0.0"/>
@@ -29,7 +29,7 @@
                 <xslt title="Drools (Windup-Generated)" template="transformations/xslt/websphere-psrules-to-drools.xsl" extension="-drools-example.drl"/>
             </perform>
         </rule>
-        <rule id="websphere-xml-02000">
+        <rule id="eap7-websphere-xml-02000">
             <when>
                 <xmlfile matches="/applicationbnd:ApplicationBinding">
                     <namespace prefix="applicationbnd" uri="applicationbnd.xmi" />
@@ -38,8 +38,8 @@
             <perform>
                 <classification title="WebSphere EAR Application Binding" effort="3">
                     <description>This WebSphere application binding is an IBM proprietary method for binding user roles for authorization and needs to be migrated to JAAS or KeyCloak.</description>
-                    <link title="Enabling Role-Based Access Control in JBoss EAP 6"
-                          href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Security_Guide/Enabling_Role-Based_Access_Control.html"/>
+                    <link title="Enabling Role-Based Access Control in JBoss EAP 7"
+                          href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0/single/how-to-configure-server-security/#enabling_role_based_access_control"/>
                     <tag>security</tag>
                     <tag>websphere</tag>
                 </classification>
@@ -48,14 +48,14 @@
                       <![CDATA[
                       This file contains a specific IBM WebSphere Application binding configuration.
 
-                      To migrate to EAP 6.x, configure EAP 6.x accordingly using the CLI interface or web console.
+                      To migrate to EAP 7+, configure EAP 7+ accordingly using the CLI interface or web console.
                       ]]>
                     </message>
                     <link title="Migrate IBM WebSphere Application Server Web Application Extension or Binding Files" href="https://access.redhat.com/articles/1330673"/>
                 </hint>
             </perform>
         </rule>
-        <rule id="websphere-xml-03000">
+        <rule id="eap7-websphere-xml-03000">
             <when>
                 <file filename="ibm-web-ext.{file_ext}" as="1" />
                 <xmlfile from="1" matches="/webappext:WebAppExtension" as="2">
@@ -77,10 +77,10 @@
                           <![CDATA[
                           This file contains WebSphere specific web application bindings. This would derive from J2EE web application.
 
-                          To migrate to EAP 6.x, configure EAP 6.x accordingly using the CLI interface or web console.
+                          To migrate to EAP 7+, configure EAP 7+ accordingly using the CLI interface or web console.
                           ]]>
                         </message>
-                        <link title="JSP engine configuration migration to EAP 6" href="https://access.redhat.com/articles/1330673#jspattributes"/>
+                        <link title="Migrate IBM WebSphere Application Server Web Application Extension or Binding Files" href="https://access.redhat.com/articles/1330673#jspattributes"/>
                     </hint>
                 </iteration>
             </perform>
@@ -89,7 +89,7 @@
             </where>
         </rule>
 
-        <rule id="websphere-xml-04000">
+        <rule id="eap7-websphere-xml-04000">
             <when>
                 <xmlfile matches="/ext:web-ext">
                     <namespace prefix="ext" uri="http://websphere.ibm.com/xml/ns/javaee"/>
@@ -101,16 +101,16 @@
                       <![CDATA[
                       This file contains WebSphere proprietary JSP engine configuration.
 
-                      To migrate to EAP 6.x, configure EAP 6.x accordingly using the CLI interface or web console.
+                      To migrate to EAP 6+, configure EAP 6+ accordingly using the CLI interface or web console.
                       ]]>
                       </message>
-                    <link title="JSP engine configuration migration to EAP 6" href="https://access.redhat.com/articles/1330673"/>
+                    <link title="Migrate IBM WebSphere Application Server Web Application Extension or Binding Files" href="https://access.redhat.com/articles/1330673"/>
                 </hint>
             </perform>
         </rule>
 
         <!-- First, adds hints to ibm-web-bnd.xml -->
-        <rule id="websphere-xml-06000">
+        <rule id="eap7-websphere-xml-06000">
             <when>
                 <or>
                     <xmlfile matches="/ext:web-bnd">
@@ -130,18 +130,19 @@
                       <![CDATA[
                       This file contains WebSphere proprietary binding configuration.
 
-                      To migrate to EAP 6.x, configure EAP 6.x accordingly using the CLI interface or web console.
+                      To migrate to EAP 7+, configure EAP 7+ accordingly using the CLI interface or web console.
                       ]]>
                     </message>
                     <link title="WebAppBinding javadoc" href="http://rjweb002.royalsun.com.br/configDocs/webappbnd/WebAppBinding.html"/>
-                    <link title="Configure the EAP 6 Web Subsystem" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Administration_and_Configuration_Guide/index.html#chap-Web_Subsystem"/>
+                    <link title="Configure the EAP 7 Web Server (Undertow)" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0/single/configuration-guide/#configuring_the_web_server_undertow"/>
                     <link href="http://docs.jboss.org/jbossweb/7.0.x/" title="JBoss Web configuration"/>
+                    <link href="http://undertow.io/undertow-docs/undertow-docs-1.3.0/index.html" title="Undertow documentation"/>
                     <link title="Migrate IBM WebSphere Application Server Web Application Extension or Binding Files" href="https://access.redhat.com/articles/1330673"/>
                 </hint>
             </perform>
         </rule>
 
-        <rule id="websphere-xml-07000">
+        <rule id="eap7-websphere-xml-07000">
             <when>
                 <xmlfile matches="/com.ibm.etools.webservice.wscext:WsClientExtension">
                     <namespace prefix="com.ibm.etools.webservice.wscext" uri="http://www.ibm.com/websphere/appserver/schemas/5.0.2/wscext.xmi"/>
@@ -156,7 +157,7 @@
                 </classification>
             </perform>
         </rule>
-        <rule id="websphere-xml-08000">
+        <rule id="eap7-websphere-xml-08000">
             <when>
                 <xmlfile matches="/com.ibm.etools.webservice.wscbnd:ClientBinding">
                     <namespace prefix="com.ibm.etools.webservice.wscbnd" uri="http://www.ibm.com/websphere/appserver/schemas/5.0.2/wscbnd.xmi"/>
@@ -171,7 +172,7 @@
                 </classification>
             </perform>
         </rule>
-        <rule id="websphere-xml-09000">
+        <rule id="eap7-websphere-xml-09000">
             <when>
                 <xmlfile matches="/appdeployment:Deployment">
                     <namespace prefix="appdeployment" uri="http://www.ibm.com/websphere/appserver/schemas/5.0/appdeployment.xmi"/>
