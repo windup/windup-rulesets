@@ -5,6 +5,7 @@
     <metadata>
         <description>
             This ruleset provides references within WebLogic classes implying the class should not be scanned by windup.
+            For example, an internal EJB generator API implies the class is used during build time.
         </description>
         <dependencies>
             <addon id="org.jboss.windup.rules,windup-rules-java,2.7.0.Final" />
@@ -13,18 +14,23 @@
         <targetTechnology id="eap" versionRange="[6,8)" />
     </metadata>
     <rules>
-         <javaclass-ignore reference-prefix="weblogic.ejb.container.interfaces.WLEnterpriseBean" />
-         <javaclass-ignore reference-prefix="weblogic.ejb.container.internal" />
-         <javaclass-ignore reference-prefix="weblogic.ejb.container.persistence.spi.EloWrapper"/>
-         <javaclass-ignore reference-prefix="weblogic.ejb20.interfaces"/>
-         <javaclass-ignore reference-prefix="weblogic.ejb20.internal"/>
-         <javaclass-ignore reference-prefix="weblogic.ejbgen"/>
-         <javaclass-ignore reference-prefix="weblogic.ejb20.persistence.spi.CMPBean"/>
-         <javaclass-ignore reference-prefix="weblogic.ejb20.persistence.spi.EoWrapper"/>
-         <javaclass-ignore reference-prefix="weblogic.wsee.tools.clientgen"/>
-         <javaclass-ignore reference-prefix="weblogic.rmi.internal"/>
-         <javaclass-ignore reference-prefix="weblogic.utils.PlatformConstants"/>
-         <javaclass-ignore reference-prefix="weblogic.webservice.core.rpc"/>
-         <javaclass-ignore reference-prefix="oracle.jbo"/>
+        <!--
+           These interfaces are build-time libraries and internal IBM server libraries.
+           I'm removing them as per Marc's PR:
+           https://github.com/windup/windup-rulesets/pull/188/files#diff-f3c2a0531ab6b5fdf73a9a810a715a39
+        <javaclass-ignore reference-prefix="weblogic.ejb.container.interfaces.WLEnterpriseBean" />
+        <javaclass-ignore reference-prefix="weblogic.ejb.container.internal" />
+        <javaclass-ignore reference-prefix="weblogic.ejb.container.persistence.spi.EloWrapper"/>
+        <javaclass-ignore reference-prefix="weblogic.ejb20.interfaces"/>
+        <javaclass-ignore reference-prefix="weblogic.ejb20.internal"/>
+        <javaclass-ignore reference-prefix="weblogic.ejbgen"/>
+        <javaclass-ignore reference-prefix="weblogic.ejb20.persistence.spi.CMPBean"/>
+        <javaclass-ignore reference-prefix="weblogic.ejb20.persistence.spi.EoWrapper"/>
+        <javaclass-ignore reference-prefix="weblogic.wsee.tools.clientgen"/>
+        <javaclass-ignore reference-prefix="weblogic.rmi.internal"/>
+        <javaclass-ignore reference-prefix="weblogic.utils.PlatformConstants"/>
+        <javaclass-ignore reference-prefix="weblogic.webservice.core.rpc"/>
+        <javaclass-ignore reference-prefix="oracle.jbo"/>
+        -->
     </rules>
 </ruleset>
