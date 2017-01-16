@@ -22,7 +22,7 @@
             <javaclass references="org.hibernate.annotations.Type" matchesSource="{*}text{*}" />
          </when>
          <perform>
-            <hint title="@Type(type=text) is deprecated in Hibernate 4" effort="1" category-id="mandatory">
+            <hint title="Hibernate 4 - Deprecated @Type(type=text)" effort="1" category-id="optional">
                <message>
                          In versions of Hibernate prior to 3.5, text type was mapped to JDBC CLOB. A new Hibernate type, materialized_clob, was added in Hibernate 4 to map Java String properties to JDBC CLOB. Therefore, Hibernate 4 text LOB type definitions should be defined using `@Lob`, instead.
                      </message>
@@ -40,7 +40,7 @@
             </javaclass>
          </when>
          <perform>
-            <hint title="Hibernate 4 projection return types" effort="1" category-id="optional">
+            <hint title="Hibernate 4 - Changed 'Projections' return types" effort="1" category-id="optional">
                <message>
                          The return types of the numeric aggregate criteria projections has changed to Long in hibernate 4. This change may introduce conflicts in the code.
                      </message>
@@ -61,9 +61,7 @@
             </javaclass>
          </when>
          <perform>
-            <hint
-               title="The initial naming strategy was changed from DefaultNamingStrategy to EJB3NamingStrategy in Hibernate 4"
-               effort="1" category-id="optional">
+            <hint title="Hibernate 4 - Changed naming strategy from 'DefaultNamingStrategy' to 'EJB3NamingStrategy'" effort="1" category-id="optional">
                <message>
                          The initial/default naming strategy in Hibernate 4 was changed from DefaultNamingStrategy to EJB3NamingStrategy. This can result in naming mismatches. If you rely on the naming strategy, call Configuration#setNamingStrategy.
                      </message>
@@ -79,7 +77,7 @@
             <javaclass references="org.hibernate.classic.{*}" />
          </when>
          <perform>
-            <hint title="The removed classes in org.hibernate.classic package" effort="1" category-id="mandatory">
+            <hint title="Hibernate 4 - Removed classes in 'org.hibernate.classic'" effort="1" category-id="optional">
                <message>The deprecated classes in org.hibernate.classic package was removed in Hibernate 4.</message>
                <link href="https://developer.jboss.org/wiki/HibernateCoreMigrationGuide40" title="Migration to Hibernate 4.0" />
                <tag>hibernate</tag>
@@ -91,7 +89,7 @@
             <javaclass references="org.hibernate.dialect.resolver.DialectResolver" />
          </when>
          <perform>
-            <hint title="Replace class org.hibernate.dialect.resolver.DialectResolver" effort="1" category-id="mandatory">
+            <hint title="Hibernate 4 - Replaced DialectResolver" effort="1" category-id="optional">
                <message>Replace org.hibernate.dialect.resolver.DialectResolver with org.hibernate.service.jdbc.dialect.spi.DialectResolver.</message>
                <tag>hibernate</tag>
             </hint>
@@ -106,9 +104,9 @@
             </or>
          </when>
          <perform>
-            <hint title="Replace class org.hibernate.jdbc.BatcherFactory and its implementations" effort="1" category-id="mandatory">
+            <hint title="Hibernate 4 - Replaced BatcherFactory" effort="1" category-id="optional">
                <message>Replace org.hibernate.jdbc.BatcherFactory by org.hibernate.engine.jdbc.batch.spi.BatchBuilder.
-                  Their default implementations are in org.hibernate.engine.jdbc.batch.internal. 
+                  Their default implementations are in org.hibernate.engine.jdbc.batch.internal.
                   You can override the default BatchBuilder by defining the  "hibernate.jdbc.batch.builder" property as the name of a BatchBuilder implementation
                    or by providing a BatchBuilder in a custom ServiceRegistry.
                   </message>
@@ -126,9 +124,9 @@
             </or>
          </when>
          <perform>
-            <hint title="Replace class org.hibernate.jdbc.Batcher and its implementations" effort="1" category-id="mandatory">
+            <hint title="Hibernate 4 - Replaced JDBC Batcher" effort="1" category-id="optional">
                <message>Replace org.hibernate.jdbc.Batcher by org.hibernate.engine.jdbc.batch.spi.Batch.
-                  Their default implementations are in org.hibernate.engine.jdbc.batch.internal. 
+                  Their default implementations are in org.hibernate.engine.jdbc.batch.internal.
                   </message>
                <tag>hibernate</tag>
             </hint>
@@ -139,7 +137,7 @@
             <javaclass references="org.hibernate.engine.SessionImplementor" />
          </when>
          <perform>
-            <hint title="Replace class org.hibernate.engine.SessionImplementor" effort="1" category-id="mandatory">
+            <hint title="Hibernate 4 - SessionImplementor replacement" effort="1" category-id="optional">
                <message>Replace org.hibernate.engine.SessionImplementor with org.hibernate.engine.spi.SessionImplementor
                </message>
                <tag>hibernate</tag>
@@ -151,7 +149,7 @@
             <javaclass references="org.hibernate.connection.{classname}" />
          </when>
          <perform>
-            <hint title="Replace class org.hibernate.connection.{classname}" effort="1" category-id="mandatory">
+            <hint title="Hibernate 4 - Renamed package 'org.hibernate.connection'" effort="1" category-id="optional">
                <message>The classes in org.hibernate.connection package was moved to org.hibernate.service.jdbc.connections.internal in Hibernate 4</message>
                <tag>hibernate</tag>
             </hint>
@@ -165,7 +163,7 @@
             <javaclass references="org.hibernate.collection.PersistentBag" />
          </when>
          <perform>
-            <hint title="Replace class org.hibernate.collection.PersistentBag" effort="1" category-id="mandatory">
+            <hint title="Hibernate 4 - Replace org.hibernate.collection.PersistentBag" effort="1" category-id="optional">
                <message>The class org.hibernate.collection.PersistentBag was moved to org.hibernate.collection.internal.PersistentBag in Hibernate 4</message>
                <tag>hibernate</tag>
             </hint>
@@ -176,8 +174,8 @@
             <javaclass references="net.sf.hibernate.{classname}" />
          </when>
          <perform>
-            <classification title="Hibernate 2.x" category-id="mandatory" />
-            <hint effort="1" category-id="mandatory" title="Hibernate type reference net.sf.hibernate.{classname}">
+            <classification title="Hibernate 2.x - Renamed package 'net.sf.hibernate'" category-id="optional" />
+            <hint effort="1" category-id="optional" title="Hibernate type reference net.sf.hibernate.{classname}">
                <message>
                   This is an old Hibernate package name from version 2.x and needs to be migrated to a compatible API to Hibernate 4.x/5.x,
                   where package name is org.hibernate.
