@@ -32,13 +32,23 @@
             <rule id="local-storage-test-00003">
                 <when>
                     <not>
-                        <iterable-filter size="12">
+                        <iterable-filter size="11">
                             <hint-exists message="Detected local file system path in the file.*" />
                         </iterable-filter>
                     </not>
                 </when>
                 <perform>
                     <fail message="Local absolute file path hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="local-storage-test-00004">
+                <when>
+                    <not>
+                        <hint-exists message="Detected URL with local file system path.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="URL with local absolute file path hint was not found!" />
                 </perform>
             </rule>
         </rules>

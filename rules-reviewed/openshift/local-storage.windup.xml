@@ -63,7 +63,7 @@
         </rule>
         <rule id="local-storage-00003">
             <when>
-                <filecontent pattern="{path}" filename="{*}"/>
+                <filecontent pattern="{path1}" filename="{*}"/>
             </when>
             <perform>
                 <hint title="Detected local file system paths" effort="1" category-id="potential">
@@ -73,9 +73,26 @@
                     </message>
                 </hint>
             </perform>
-            <where param="path">
-                <!--this regex tries to find all unix like absolute paths-->
-                <matches pattern="[^/](\/[\w^ ]+)+\/?" />
+            <where param="path1">
+                <!-- absolute paths on linux and windows -->
+                <matches pattern="(([a-zA-Z]):)?(?&lt;![\&lt;\\\/\d\w])([\\\/]\w+)+(\.\w+)?" />
+            </where>
+        </rule>
+        <rule id="local-storage-00004">
+            <when>
+                <filecontent pattern="{path2}" filename="{*}"/>
+            </when>
+            <perform>
+                <hint title="Detected URL with local file system path" effort="1" category-id="potential">
+                    <message>Detected URL with local file system path.
+                    
+                    Local files in containers are not permanent storage and can disappear when an instance of the application terminates. Avoid accessing local filesystems from applications running in OpenShift environments, and consider using a database or cloud-based storage system instead.
+                    </message>
+                </hint>
+            </perform>
+            <where param="path2">
+                <!-- URL with local path -->
+                <matches pattern="file://" />
             </where>
         </rule>
     </rules>
