@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ruletest id="java-mail-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data</testDataPath>
+    <rulePath>../mail.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="mail-test-00000">
+                <when>
+                    <not>
+                        <iterable-filter size="7">
+  	                      <hint-exists message="Better avoid to connect to an SMTP server*" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="JavaMail hint was not found" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

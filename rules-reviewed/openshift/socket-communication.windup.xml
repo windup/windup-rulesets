@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<ruleset id="socket-communication"
+    xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This is a ruleset for detecting usage of socket communication (both client and server socket usage) when migrating an application to a cloud environment.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final"/>
+        </dependencies>
+        <sourceTechnology id="java"/>
+        <sourceTechnology id="java-ee"/>
+        <targetTechnology id="cloud-readiness"/>
+        <tag>socket</tag>
+    </metadata>
+    <rules>
+        <rule id="socket-communication-00000">
+            <when>
+               <javaclass references="java.net.{socketclass}{*}" />
+            </when>
+            <perform>
+              <iteration>
+                <hint title="Java APIs (java.net) for socket communication are used" effort="3" category-id="cloud-optional">
+                    <message>
+                      Java APIs for socket communication are used in the file.  
+                      Recommendation: avoid direct use of client sockets. Consider using Java EE standard communication features, especially loosely coupled protocols (JAX-WS, JAX-RS) instead.  
+                      In an OpenShift environment, it is required to use Http(s)-based communication.  
+                    </message>
+                    <tag>socket</tag>
+                </hint>
+              </iteration>
+            </perform>
+            <where param="socketclass">
+                <matches pattern="(Socket|MulticastSocket|DatagramSocket|InetSocketAddress)"/>
+            </where>
+        </rule>
+        <rule id="socket-communication-00001">
+            <when>
+                <javaclass references="java.nio.channels.{niochannelclass}{*}" />
+            </when>
+            <perform>
+              <iteration>
+                <hint title="Java APIs (java.nio.channels) for socket communication are used" effort="3" category-id="cloud-optional">
+                  <message>
+                    Java APIs for socket communication are used in the file.  
+                    Recommendation: avoid direct use of client sockets. Consider using Java EE standard communication features, especially loosely coupled protocols (JAX-WS, JAX-RS) instead.  
+                    In an OpenShift environment, it is required to use Http(s)-based communication.  
+                  </message>
+                  <tag>socket</tag>
+                </hint>
+              </iteration>
+            </perform>
+            <where param="niochannelclass">
+              <matches pattern="(NetworkChannel|MulticastChannel|DatagramChannel|AsynchronousSocketChannel|SocketChannel)"/>
+            </where>
+        </rule>
+        <rule id="socket-communication-00002">
+            <when>
+                <or>
+                  <javaclass references="java.net.ServerSocket{*}">
+                      <location>CONSTRUCTOR_CALL</location>
+                      <location>IMPORT</location>
+                      <location>INHERITANCE</location>
+                      <location>METHOD_CALL</location>
+                      <location>VARIABLE_DECLARATION</location>
+                  </javaclass>
+                    <javaclass references="java.nio.channels.AsynchronousServerSocketChannel{*}">
+                        <location>CONSTRUCTOR_CALL</location>
+                        <location>IMPORT</location>
+                        <location>VARIABLE_DECLARATION</location>
+                    </javaclass>
+                    <javaclass references="java.nio.channels.ServerSocketChannel{*}">
+                        <location>CONSTRUCTOR_CALL</location>
+                        <location>IMPORT</location>
+                        <location>VARIABLE_DECLARATION</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="Java APIs for server sockets are used" effort="3" category-id="cloud-mandatory">
+                    <message>Java APIs creating server socket communication are used in the file.  
+                      ServerSockets not allowed in Java EE. Consider using Java EE standard communication features, especially loosely coupled protocols (JAW-WS, JAX-RS) instead.  
+                      In an OpenShift environment, no custom server communication other than application server-provided communication must be used.  
+                    </message>
+                    <tag>socket</tag>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

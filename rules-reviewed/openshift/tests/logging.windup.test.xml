@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<ruletest id="logging-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data</testDataPath>
+    <rulePath>../logging.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="logging-test-00001">
+                <when>
+                    <not>
+                        <iterable-filter size="18">
+  	                      <hint-exists message="Log4j FileAppender usage detected*" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Log4j usage was not found" />
+                </perform>
+            </rule>
+            <rule id="logging-test-00002">
+                <when>
+                    <not>
+                        <iterable-filter size="4">
+  	                      <hint-exists message="Log4j FileHandler usage detected*" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="java.util.logging.FileHandler usage was not found" />
+                </perform>
+            </rule>
+            <rule id="logging-test-00003">
+                <when>
+                    <not>
+                        <iterable-filter size="4">
+  	                      <hint-exists message="Socket communication is not suitable in a cloud environment which does not provide fixed communication target hosts.*" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="java.util.logging.SocketHandler usage was not found" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>    
+</ruletest>

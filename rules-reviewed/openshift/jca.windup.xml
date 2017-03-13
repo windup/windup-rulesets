@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<ruleset id="jca"
+    xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This is a ruleset for detecting embedded custom JCA resource adapters usage when migrating an application to a cloud environment.
+        </description>
+        <dependencies>
+          <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final"/>
+          <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final"/>
+        </dependencies>
+        <sourceTechnology id="java"/>
+        <sourceTechnology id="java-ee"/>
+        <targetTechnology id="cloud-readiness"/>
+        <tag>jca</tag>
+    </metadata>
+    <rules>
+
+        <rule id="jca-00000">
+            <when>
+              <file filename="ra.xml"></file>
+            </when>
+            <perform>
+              <hint title="Application code contains embedded resource adapter" effort="1" category-id="cloud-optional">
+                  <message>
+                    The application contains an embedded resource adapter (file 'ra.xml').  
+                    Check the purpose of this adapter and whether it fits to an application usage in a cloud environment.  
+                </message>
+                <tag>jca</tag>
+              </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
