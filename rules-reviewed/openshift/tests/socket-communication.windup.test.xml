@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<ruletest id="socket-communication-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data</testDataPath>
+    <rulePath>../socket-communication.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="socket-communication-test-00000">
+                <when>
+                    <not>
+                        <iterable-filter size="50">
+  	                      <hint-exists message="Java APIs for socket communication are used in the file.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Java APIs for socket communication hint was not found" />
+                </perform>
+            </rule>
+            <rule id="socket-communication-test-00001">
+                <when>
+                    <not>
+                        <iterable-filter size="9">
+  	                      <hint-exists message="Java APIs creating server socket communication are used in the file.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Java APIs creating server socket communication hint was not found" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

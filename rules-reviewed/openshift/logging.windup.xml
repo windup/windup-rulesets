@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<ruleset id="logging"
+    xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This is a ruleset for logging-related topics when migrating and application to OpenShift environments.
+        </description>
+        <dependencies>
+          <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final"/>
+          <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final"/>
+        </dependencies>
+        <sourceTechnology id="java"/>
+        <sourceTechnology id="java-ee"/>
+        <targetTechnology id="openshift"/>
+        <targetTechnology id="cloud-readiness"/>
+        <tag>logging</tag>
+    </metadata>
+    <rules>
+        <rule id="logging-0000">
+            <when>
+                <javaclass references="org.apache.{*}log4j.{*}FileAppender{*}">
+                  <location>CONSTRUCTOR_CALL</location>
+                  <location>IMPORT</location>
+                  <location>INHERITANCE</location>
+                  <location>VARIABLE_DECLARATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <iteration>
+                    <hint title="Java Logging: Log4j configuration file" effort="3" category-id="openshift-optional">
+                        <message>
+                                Log4j FileAppender usage detected in Java code.  
+                                Application logs not logged to standard output will not be automatically collected by OpenShift.  
+                                It is critical to collect application logs, because when the pod dies those logs become unavailable (and when a pod dies is when you want to see what was going on in the logs).
+                        </message>
+                        <link href="https://access.redhat.com/documentation/en/openshift-container-platform/3.4/paged/installation-and-configuration/chapter-28-aggregating-container-logs" title="Aggregating container logs"/>
+                        <tag>logging</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="logging-0001">
+            <when>
+                <filecontent filename="log4j.{extension}" pattern="{appenderpattern}"/>
+            </when>
+            <perform>
+                <iteration>
+                    <hint title="Java Logging: Log4j configuration file" effort="3" category-id="openshift-optional">
+                        <message>
+                                Log4j FileAppender usage detected in a configuration file.  
+                                Application logs not logged to standard output will not be automatically collected by OpenShift.  
+                                It is critical to collect application logs, because when the pod dies those logs become unavailable (and when a pod dies is when you want to see what was going on in the logs).
+                        </message>
+                        <link href="https://access.redhat.com/documentation/en/openshift-container-platform/3.4/paged/installation-and-configuration/chapter-28-aggregating-container-logs" title="Aggregating container logs"/>
+                        <tag>logging</tag>
+                    </hint>
+                </iteration>
+            </perform>
+            <where param="appenderpattern">
+              <matches pattern="((Daily)?Rolling)?FileAppender"/>
+            </where>
+            <where param="extension">
+              <matches pattern="(xml|properties)"/>
+            </where>
+        </rule>
+        <rule id="logging-0002">
+          <when>
+              <javaclass references="java.util.logging.FileHandler{*}">
+                <location>CONSTRUCTOR_CALL</location>
+                <location>IMPORT</location>
+                <location>INHERITANCE</location>
+                <location>VARIABLE_DECLARATION</location>
+              </javaclass>
+          </when>
+            <perform>
+                <iteration>
+                    <hint title="Java Logging: File Handler" effort="3" category-id="openshift-optional">
+                        <message>
+                                Log4j FileHandler usage detected.
+                                Application logs not logged to standard output will not be automatically collected by OpenShift.  
+                                It is critical to collect application logs, because when the pod dies those logs become unavailable (and when a pod dies is when you want to see what was going on in the logs).
+                        </message>
+                        <link href="https://access.redhat.com/documentation/en/openshift-container-platform/3.4/paged/installation-and-configuration/chapter-28-aggregating-container-logs" title="Aggregating container logs"/>
+                        <tag>logging</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="logging-0003">
+          <when>
+              <javaclass references="java.util.logging.SocketHandler{*}">
+                <location>CONSTRUCTOR_CALL</location>
+                <location>IMPORT</location>
+                <location>INHERITANCE</location>
+                <location>VARIABLE_DECLARATION</location>
+              </javaclass>
+          </when>
+            <perform>
+                <iteration>
+                    <hint title="Java Logging: Socket Handler" effort="3" category-id="openshift-optional">
+                        <message>
+                                Socket communication is not suitable in a cloud environment which does not provide fixed communication target hosts.  
+                                Application logs not logged to standard output will not be automatically collected by OpenShift.  
+                                It is critical to collect application logs, because when the pod dies those logs become unavailable (and when a pod dies is when you want to see what was going on in the logs).
+                        </message>
+                        <link href="https://access.redhat.com/documentation/en/openshift-container-platform/3.4/paged/installation-and-configuration/chapter-28-aggregating-container-logs" title="Aggregating container logs"/>
+                        <tag>logging</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
