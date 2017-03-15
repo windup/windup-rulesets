@@ -23,11 +23,9 @@
             </when>
             <perform>
               <iteration>
-                <hint title="Java APIs (java.net) for socket communication are used" effort="3" category-id="cloud-optional">
+                <hint title="Java APIs (java.net) for socket communication" effort="3" category-id="cloud-optional">
                     <message>
-                      Java APIs for socket communication are used in the file.  
-                      Recommendation: avoid direct use of client sockets. Consider using Java EE standard communication features, especially loosely coupled protocols (JAX-WS, JAX-RS) instead.  
-                      In an OpenShift environment, it is required to use Http(s)-based communication.  
+                      Avoid direct use of client sockets. Consider using Java EE standard communication features, especially loosely coupled protocols (JAX-WS, JAX-RS) instead.  
                     </message>
                     <tag>socket</tag>
                 </hint>
@@ -43,11 +41,9 @@
             </when>
             <perform>
               <iteration>
-                <hint title="Java APIs (java.nio.channels) for socket communication are used" effort="3" category-id="cloud-optional">
+                <hint title="Java APIs (java.nio.channels) for socket communication" effort="3" category-id="cloud-optional">
                   <message>
-                    Java APIs for socket communication are used in the file.  
-                    Recommendation: avoid direct use of client sockets. Consider using Java EE standard communication features, especially loosely coupled protocols (JAX-WS, JAX-RS) instead.  
-                    In an OpenShift environment, it is required to use Http(s)-based communication.  
+                      Avoid direct use of client sockets. Consider using Java EE standard communication features, especially loosely coupled protocols (JAX-WS, JAX-RS) instead.
                   </message>
                   <tag>socket</tag>
                 </hint>
@@ -80,10 +76,9 @@
                 </or>
             </when>
             <perform>
-                <hint title="Java APIs for server sockets are used" effort="3" category-id="cloud-mandatory">
-                    <message>Java APIs creating server socket communication are used in the file.  
-                      ServerSockets not allowed in Java EE. Consider using Java EE standard communication features, especially loosely coupled protocols (JAW-WS, JAX-RS) instead.  
-                      In an OpenShift environment, no custom server communication other than application server-provided communication must be used.  
+                <hint title="Java APIs for server sockets" effort="3" category-id="cloud-mandatory">
+                    <message>
+                      ServerSockets are not allowed in Java EE. Consider using Java EE standard communication features, especially loosely coupled protocols (JAW-WS, JAX-RS) instead.  
                     </message>
                     <tag>socket</tag>
                 </hint>
