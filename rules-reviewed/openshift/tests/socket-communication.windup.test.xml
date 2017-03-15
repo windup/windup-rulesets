@@ -9,7 +9,7 @@
                 <when>
                     <not>
                         <iterable-filter size="50">
-  	                      <hint-exists message="Java APIs for socket communication are used in the file.*"/>
+  	                      <hint-exists message=".*Avoid direct use of client sockets.*"/>
                         </iterable-filter>
                     </not>
                 </when>
@@ -17,11 +17,11 @@
                     <fail message="Java APIs for socket communication hint was not found" />
                 </perform>
             </rule>
-            <rule id="socket-communication-test-00001">
+            <rule id="socket-communication-test-00002">
                 <when>
                     <not>
                         <iterable-filter size="9">
-  	                      <hint-exists message="Java APIs creating server socket communication are used in the file.*"/>
+  	                      <hint-exists message="ServerSockets are not allowed in Java EE.*"/>
                         </iterable-filter>
                     </not>
                 </when>

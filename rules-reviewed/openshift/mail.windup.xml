@@ -14,6 +14,7 @@
         <sourceTechnology id="java"/>
         <sourceTechnology id="java-ee"/>
         <targetTechnology id="cloud-readiness"/>
+        <targetTechnology id="openshift"/>
         <tag>mail</tag>
     </metadata>
     <rules>
@@ -29,8 +30,8 @@
             <perform>
               <hint title="JavaMail: direct access of an SMTP server" effort="3" category-id="cloud-optional">
                   <message>
-                    Better avoid to connect to an SMTP server `host:port` to send an mail represents a direct connection with poor results in terms of load balancing and availability.  
-                    Evaluate to switch to a dedicated service for mail delivery called through a messaging system or RESTful API.
+                    Some cloud environments restrict output traffic on the standard SMTP ports. If large scale email processing is required, it may be better to externalize
+                    this to a REST-based email service.
                 </message>
                 <tag>mail</tag>
               </hint>

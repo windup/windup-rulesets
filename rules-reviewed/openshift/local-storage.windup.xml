@@ -10,6 +10,8 @@
             <addon id="org.jboss.windup.rules,windup-rules-java,2.7.0.Final" />
         </dependencies>
         <targetTechnology id="cloud-readiness" />
+        <targetTechnology id="openshift" />
+        <tag>cloud-readiness</tag>
         <tag>openshift</tag>
         <tag>reviewed-2017-01-04</tag>
     </metadata>
@@ -35,8 +37,7 @@
                 <hint title="Java APIs for local file system" effort="1" category-id="openshift-potential">
                     <message>
                     Java APIs for local file system identified in the file.  
-                    Local files in containers are not permanent storage and can disappear when an instance of the application terminates.  
-                    Avoid accessing local filesystems from applications running in OpenShift environments, and consider using a database or cloud-based storage system instead.
+                    Local files in containers are not necessarily permanent storage and may disappear when an instance of the application terminates.  
                     </message>
                     <link href="https://docs.openshift.com/container-platform/3.4/architecture/additional_concepts/storage.html" title="OpenShift with persistent storage (Concepts)"></link>
                 </hint>
@@ -55,8 +56,7 @@
                 <hint title="Used class java.net.URL/URI with local path" effort="1" category-id="openshift-potential">
                     <message>
                     Java API for java.net.URL/URI with local path identified in the file.  
-                    Local files in containers are not permanent storage and can disappear when an instance of the application terminates.  
-                    Avoid accessing local filesystems from applications running in OpenShift environments, and consider using a database or cloud-based storage system instead.
+                    Local files in containers are not necessarily permanent storage and may disappear when an instance of the application terminates.  
                     </message>
                     <link href="https://docs.openshift.com/container-platform/3.4/architecture/additional_concepts/storage.html" title="OpenShift with persistent storage (Concepts)"></link>
                 </hint>
@@ -73,8 +73,7 @@
                 <hint title="Detected local file system paths" effort="1" category-id="openshift-potential">
                     <message>
                     Detected local file system path in the file.  
-                    Local files in containers are not permanent storage and can disappear when an instance of the application terminates.  
-                    Avoid accessing local filesystems from applications running in OpenShift environments, and consider using a database or cloud-based storage system instead.
+                    Local files in containers are not necessarily permanent storage and may disappear when an instance of the application terminates.
                     </message>
                     <link href="https://docs.openshift.com/container-platform/3.4/architecture/additional_concepts/storage.html" title="OpenShift with persistent storage (Concepts)"></link>
                 </hint>
@@ -92,8 +91,7 @@
                 <hint title="Detected URL with local file system path" effort="1" category-id="openshift-potential">
                     <message>
                     Detected URL with local file system path.  
-                    Local files in containers are not permanent storage and can disappear when an instance of the application terminates.  
-                    Avoid accessing local filesystems from applications running in OpenShift environments, and consider using a database or cloud-based storage system instead.
+                    Local files in containers are not necessarily permanent storage and may disappear when an instance of the application terminates.
                     </message>
                     <link href="https://docs.openshift.com/container-platform/3.4/architecture/additional_concepts/storage.html" title="OpenShift with persistent storage (Concepts)"></link>
                 </hint>
@@ -123,9 +121,7 @@
                 <hint title="Java APIs for local file system (java.nio classes)" effort="3" category-id="openshift-optional">
                     <message>
                         Java APIs for local file system identified in the file.  
-                        Local files in containers are not permanent storage and can disappear when an instance of the application terminates.  
-                        Avoid accessing local filesystems from applications running in OpenShift environments.  
-                        Consider using a database or an object storage system instead or the recommended practice to have a persistent storage.
+                        Local files in containers are not necessarily permanent storage and may disappear when an instance of the application terminates.
                     </message>
                     <link href="https://docs.openshift.com/container-platform/3.4/architecture/additional_concepts/storage.html" title="OpenShift with persistent storage (Concepts)"></link>
                     <link href="https://docs.openshift.com/container-platform/3.4/install_config/persistent_storage/index.html" title="OpenShift with persistent storage (Configure)"></link>
