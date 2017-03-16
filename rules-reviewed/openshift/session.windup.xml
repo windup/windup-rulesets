@@ -20,12 +20,9 @@
     <rules>
         <rule id="session-00000">
             <when>
-                <and>
-                    <file filename="web.xml"/>
-                    <not>
-                        <filecontent filename="web.xml" pattern="distributable" />
-                    </not>
-                </and>
+              <xmlfile matches="/w:web-app[count(w:distributable) = 1]">
+                  <namespace prefix="w" uri="http://java.sun.com/xml/ns/javaee"/>
+              </xmlfile>
             </when>
             <perform>
                 <hint title="HTTP Session replication" effort="5" category-id="openshift-mandatory">
