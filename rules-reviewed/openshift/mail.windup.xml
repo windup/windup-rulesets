@@ -20,19 +20,24 @@
     <rules>
         <rule id="mail-00000">
             <when>
-                    <javaclass references="javax.mail.{*}">
-                        <location>CONSTRUCTOR_CALL</location>
-                        <location>IMPORT</location>
-                        <location>INHERITANCE</location>
-                        <location>VARIABLE_DECLARATION</location>
-                    </javaclass>
+              <or>
+                <javaclass references="javax.mail.{*}" />
+                <javaclass references="com.sun.mail.{*}" />
+                <javaclass references="org.simplejavamail.{*}" />
+                <javaclass references="org.apache.commons.mail.{*}" />
+              </or>
             </when>
             <perform>
-              <hint title="JavaMail: direct access of an SMTP server" effort="3" category-id="cloud-optional">
+              <hint title="Java Mail API" effort="3" category-id="cloud-optional">
                   <message>
-                    Some cloud environments restrict output traffic on the standard SMTP ports. If large scale email processing is required, it may be better to externalize
-                    this to a REST-based email service.
+                    In a cloud environment, a mail system is considered a backing service.
+                    Any backing service has to be configured so that any change in configuration do not imply a change in code.
+                    For a mail service, verify that the outbound mail connection is defined properly using environment variables or config maps.
                 </message>
+                <link href="https://12factor.net/backing-services" title="Twelve-factor app - Backing services"/>
+                <link href="https://12factor.net/config" title="Twelve-factor app - Config"/>
+                <link href="https://access.redhat.com/documentation/en/openshift-container-platform/3.4/paged/developer-guide/chapter-30-managing-environment-variables" title="OpenShift - Managing Environment Variables"/>
+                <link href="https://access.redhat.com/documentation/en/openshift-container-platform/3.4/paged/developer-guide/chapter-18-configmaps" title="OpenShift - ConfigMaps"/>
                 <tag>mail</tag>
               </hint>
             </perform>

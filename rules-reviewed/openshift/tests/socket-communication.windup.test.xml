@@ -8,25 +8,13 @@
             <rule id="socket-communication-test-00000">
                 <when>
                     <not>
-                        <iterable-filter size="50">
-  	                      <hint-exists message=".*Avoid direct use of client sockets.*"/>
+                        <iterable-filter size="63">
+  	                      <hint-exists message="Direct communication through sockets and channels is an anti-pattern in cloud environment*"/>
                         </iterable-filter>
                     </not>
                 </when>
                 <perform>
-                    <fail message="Java APIs for socket communication hint was not found" />
-                </perform>
-            </rule>
-            <rule id="socket-communication-test-00002">
-                <when>
-                    <not>
-                        <iterable-filter size="9">
-  	                      <hint-exists message="ServerSockets are not allowed in Java EE.*"/>
-                        </iterable-filter>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="Java APIs creating server socket communication hint was not found" />
+                    <fail message="Direct communication hint was not found" />
                 </perform>
             </rule>
         </rules>
