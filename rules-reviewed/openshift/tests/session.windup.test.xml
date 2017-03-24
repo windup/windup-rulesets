@@ -9,7 +9,7 @@
                 <when>
                     <not>
                         <iterable-filter size="1">
-  	                      <hint-exists message="The `web.xml` deployment descriptor for a Web application*"/>
+  	                      <hint-exists message="Session replication ensures that client sessions are not disrupted by failovers of nodes in a cluster*"/>
                         </iterable-filter>
                     </not>
                 </when>
@@ -21,12 +21,12 @@
                 <when>
                     <not>
                         <iterable-filter size="2">
-  	                      <hint-exists message="Detect storage of custom data in Http session by*"/>
+                          <hint-exists message="The servlet container uses HttpSession to create a session between an HTTP client and an HTTP server*"/>
                         </iterable-filter>
                     </not>
                 </when>
                 <perform>
-                    <fail message="Http session usage hint was not found" />
+                    <fail message="HttpSession for storing user data hint was not found" />
                 </perform>
             </rule>
         </rules>

@@ -23,10 +23,12 @@
             </when>
             <perform>
               <iteration>
-                <hint title="Java APIs (java.net) for socket communication" effort="3" category-id="cloud-optional">
+                <hint title="Socket communication" effort="5" category-id="cloud-optional">
                     <message>
-                      Avoid direct use of client sockets. Consider using Java EE standard communication features, especially loosely coupled protocols (JAX-WS, JAX-RS) instead.  
+                      Direct communication through sockets and channels is an anti-pattern in cloud environment because it isn't a reliable and scalable way of interact with other systems.  
+                      Java EE standard and loosely coupled protocols like JMS, JAX-RS and JAX-WS are recommended for backing services interactions.  
                     </message>
+                    <link href="https://12factor.net/backing-services" title="Twelve-factor app - Backing services"/>
                     <tag>socket</tag>
                 </hint>
               </iteration>
@@ -41,10 +43,12 @@
             </when>
             <perform>
               <iteration>
-                <hint title="Java APIs (java.nio.channels) for socket communication" effort="3" category-id="cloud-optional">
-                  <message>
-                      Avoid direct use of client sockets. Consider using Java EE standard communication features, especially loosely coupled protocols (JAX-WS, JAX-RS) instead.
-                  </message>
+                <hint title="Channel communication" effort="5" category-id="cloud-optional">
+                    <message>
+                      Direct communication through sockets and channels is an anti-pattern in cloud environment because it isn't a reliable and scalable way of interact with other systems.  
+                      Java EE standard and loosely coupled protocols like JMS, JAX-RS and JAX-WS are recommended for backing services interactions.  
+                    </message>
+                    <link href="https://12factor.net/backing-services" title="Twelve-factor app - Backing services"/>
                   <tag>socket</tag>
                 </hint>
               </iteration>
@@ -56,30 +60,18 @@
         <rule id="socket-communication-00002">
             <when>
                 <or>
-                  <javaclass references="java.net.ServerSocket{*}">
-                      <location>CONSTRUCTOR_CALL</location>
-                      <location>IMPORT</location>
-                      <location>INHERITANCE</location>
-                      <location>METHOD_CALL</location>
-                      <location>VARIABLE_DECLARATION</location>
-                  </javaclass>
-                    <javaclass references="java.nio.channels.AsynchronousServerSocketChannel{*}">
-                        <location>CONSTRUCTOR_CALL</location>
-                        <location>IMPORT</location>
-                        <location>VARIABLE_DECLARATION</location>
-                    </javaclass>
-                    <javaclass references="java.nio.channels.ServerSocketChannel{*}">
-                        <location>CONSTRUCTOR_CALL</location>
-                        <location>IMPORT</location>
-                        <location>VARIABLE_DECLARATION</location>
-                    </javaclass>
+                  <javaclass references="java.net.ServerSocket{*}"/>
+                  <javaclass references="java.nio.channels.AsynchronousServerSocketChannel{*}"/>
+                  <javaclass references="java.nio.channels.ServerSocketChannel{*}"/>
                 </or>
             </when>
             <perform>
-                <hint title="Java APIs for server sockets" effort="3" category-id="cloud-mandatory">
+                <hint title="Server sockets communication" effort="5" category-id="cloud-optional">
                     <message>
-                      ServerSockets are not allowed in Java EE. Consider using Java EE standard communication features, especially loosely coupled protocols (JAW-WS, JAX-RS) instead.  
+                      Direct communication through sockets and channels is an anti-pattern in cloud environment because it isn't a reliable and scalable way of interact with other systems.  
+                      Java EE standard and loosely coupled protocols like JMS, JAX-RS and JAX-WS are recommended for backing services interactions.  
                     </message>
+                    <link href="https://12factor.net/backing-services" title="Twelve-factor app - Backing services"/>
                     <tag>socket</tag>
                 </hint>
             </perform>

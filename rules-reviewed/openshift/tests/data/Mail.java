@@ -4,6 +4,9 @@ import javax.mail.MimeMessage;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.MessagingException;
+import com.sun.mail.smtp.SMTPMessage;
+import org.simplejavamail.email.Email;
+import org.apache.commons.mail.Email;
 
 public class Mail {
 	

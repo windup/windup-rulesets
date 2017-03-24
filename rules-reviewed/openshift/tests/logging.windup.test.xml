@@ -5,31 +5,19 @@
     <rulePath>../logging.windup.xml</rulePath>
     <ruleset>
         <rules>
+            <rule id="logging-test-00000">
+                <when>
+                    <not>
+                        <iterable-filter size="25">
+  	                      <hint-exists message="The application logs to a file on a local storage*" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Log to file usage was not found" />
+                </perform>
+            </rule>
             <rule id="logging-test-00001">
-                <when>
-                    <not>
-                        <iterable-filter size="18">
-  	                      <hint-exists message="Log4j FileAppender usage detected*" />
-                        </iterable-filter>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="Log4j usage was not found" />
-                </perform>
-            </rule>
-            <rule id="logging-test-00002">
-                <when>
-                    <not>
-                        <iterable-filter size="4">
-  	                      <hint-exists message="Log4j FileHandler usage detected*" />
-                        </iterable-filter>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="java.util.logging.FileHandler usage was not found" />
-                </perform>
-            </rule>
-            <rule id="logging-test-00003">
                 <when>
                     <not>
                         <iterable-filter size="4">
