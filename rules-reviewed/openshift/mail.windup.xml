@@ -30,9 +30,8 @@
             <perform>
               <hint title="Java Mail API" effort="3" category-id="cloud-optional">
                   <message>
-                    In a cloud environment, a mail system is considered a backing service.
-                    Any backing service has to be configured so that any change in configuration do not imply a change in code.
-                    For a mail service, verify that the outbound mail connection is defined properly using environment variables or config maps.
+                    In a cloud environment, mail systems should be considered as backing services.  
+                    Ensure that the configuration of the underlying outbound mail connection is not environment-specific (e.g. no static IP, URL, property, credential, certificate...). In OpenShift, environment variables or config map could be used for this purpose.  
                 </message>
                 <link href="https://12factor.net/backing-services" title="Twelve-factor app - Backing services"/>
                 <link href="https://12factor.net/config" title="Twelve-factor app - Config"/>

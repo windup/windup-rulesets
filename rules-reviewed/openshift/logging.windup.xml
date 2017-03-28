@@ -32,13 +32,15 @@
             </when>
             <perform>
                 <iteration>
-                    <hint title="Logging to a file" effort="3" category-id="cloud-mandatory">
+                    <hint title="Logging to a file system" effort="3" category-id="cloud-mandatory">
                         <message>
-                                The application logs to a file on a local storage.  
-                                In a cloud environment this is not safe because, inside a running container, an application can never assume that anything stored on disk will be permanently available because a restart (triggered by code deploy, config change, or the execution environment relocating the process to a different physical location) will usually wipe out all local (e.g., memory and filesystem) state.  
-                                So it is critical to be able to collect application's logs because when the pod dies those logs become unavailable.  
-                                
-                                Better approach is logging to stdout and use a centralized log collector to analyze logs (see references in below links)
+                        Logging to individual files should be avoided in a cloud environment, as locally written log files may be lost on instance termination or restart.  
+                        
+                        Review the file-based logging and considered the following options:
+                        
+                        * usage of a centralized log management system
+                        * log to standard output (console) and let the cloud platform handle the output
+                        * usage of shared storage for log files
                         </message>
                         <link href="https://12factor.net/logs" title="Twelve-factor app - Logs"/>
                         <link href="https://access.redhat.com/documentation/en/openshift-container-platform/3.4/paged/installation-and-configuration/chapter-28-aggregating-container-logs" title="Aggregating container logs"/>
@@ -59,11 +61,15 @@
           </when>
             <perform>
                 <iteration>
-                    <hint title="Java Logging to Socket Handler" effort="3" category-id="cloud-mandatory">
+                    <hint title="Logging to Socket Handler" effort="3" category-id="cloud-mandatory">
                         <message>
-                                Socket communication is not suitable in a cloud environment which does not provide fixed communication target hosts.  
+                        Socket communication is not suitable in a cloud environment which does not provide fixed communication target hosts.  
 
-                                Better approach is logging to stdout and use a centralized log collector to analyze logs (see references in below links)
+                        Review the socket-based logging and considered the following options:
+                        
+                        * usage of a centralized log management system
+                        * log to standard output (console) and let the cloud platform handle the output
+                        * usage of shared storage for log files
                         </message>
                         <link href="https://12factor.net/logs" title="Twelve-factor app - Logs"/>
                         <link href="https://access.redhat.com/documentation/en/openshift-container-platform/3.4/paged/installation-and-configuration/chapter-28-aggregating-container-logs" title="OpenShift - Aggregating container logs"/>
