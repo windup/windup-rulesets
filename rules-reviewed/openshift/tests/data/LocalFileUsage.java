@@ -20,6 +20,8 @@ import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import java.net.URL;
+
 public class LocalFileUsage {
 
     final static String filename = "C:/some.tmp";
@@ -58,6 +60,10 @@ public class LocalFileUsage {
 	    p.endsWith("foo");
 	    FileStore fs = Files.getFileStore(p);
 	    fs.isReadOnly();
+	    
+	    // the next 2 lines test that rule 'local-storage-00002' is only fired from the 2nd line
+	    URL url1 = new URL("url");
+	    URL url2 = new URL("file://");
 	} catch (Exception e) {
 	    e.printStackTrace();
 	}

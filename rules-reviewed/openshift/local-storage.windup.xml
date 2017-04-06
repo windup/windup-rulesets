@@ -70,7 +70,7 @@
         </rule>
         <rule id="local-storage-00002">
             <when>
-                <javaclass references="java.net.{class}{*file*}">
+                <javaclass references="java.net.{class}({*})" matchesSource="{*}file{*}">
                     <location>CONSTRUCTOR_CALL</location>
                 </javaclass>
             </when>
@@ -109,7 +109,7 @@
         </rule>
         <rule id="local-storage-00003">
             <when>
-                <filecontent pattern="{path1}" filename="{*}"/>
+                <filecontent pattern="{path1}" filename="{*}.{extensions}"/>
             </when>
             <perform>
                 <hint title="Local file system path" effort="1" category-id="cloud-mandatory">
@@ -144,10 +144,13 @@
                 <!-- absolute paths on windows -->
                 <matches pattern="(([a-zA-Z]):)(?&lt;![\&lt;\\\/\d\w])([\\\/]\w+)+(\.\w+)?" />
             </where>
+            <where param="extensions">
+                <matches pattern="(java|properties|jsp|jspf|tag|xml|txt|js)" />
+            </where>
         </rule>
         <rule id="local-storage-00004">
             <when>
-                <filecontent pattern="{path2}" filename="{*}"/>
+                <filecontent pattern="{path2}" filename="{*}.{extensions}" />
             </when>
             <perform>
                 <hint title="URL with local file system path" effort="1" category-id="cloud-mandatory">
@@ -181,6 +184,9 @@
             <where param="path2">
                 <!-- URL with local path -->
                 <matches pattern="file://" />
+            </where>
+            <where param="extensions">
+                <matches pattern="(java|properties|jsp|jspf|tag|xml|txt|js)" />
             </where>
         </rule>
         <rule id="local-storage-00005">
