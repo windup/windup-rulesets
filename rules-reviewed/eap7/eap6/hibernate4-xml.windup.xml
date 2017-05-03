@@ -14,7 +14,6 @@
         <sourceTechnology id="eap" versionRange="[6,7)" />
         <targetTechnology id="hibernate5" versionRange="[5,)" />
         <targetTechnology id="eap" versionRange="[7,)" />
-        <tag>reviewed-2016-08-10</tag>
     </metadata>
 
     <rules>
@@ -27,8 +26,8 @@
                     <message>
                         Replace configuration transaction property `hibernate.transaction.factory_class`
                         with `hibernate.transaction.coordinator_class`.
-                            
-                        Next the contract in `hibernate.transaction.coordinator_class` property should refer to `org.hibernate.resource.transaction.TransactionCoordinatorBuilder` 
+
+                        Next the contract in `hibernate.transaction.coordinator_class` property should refer to `org.hibernate.resource.transaction.TransactionCoordinatorBuilder`
                         instead of to `org.hibernate.engine.transaction.spi.TransactionFactory`
                         </message>
                     <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migration_hibernate_orm_changes_transactions"
@@ -71,7 +70,7 @@
         </rule>
         <rule id="hibernate4-xml-00003">
             <when>
-                <xmlfile 
+                <xmlfile
                    matches="//generator/@class[windup:matches(self::node(), '{generator}')]"
                  in="{*}.hbm.xml"/>
             </when>
@@ -129,7 +128,7 @@
                     <hint title="TemporaryTableBulkIdStrategy was replaced in Hibernate 5" effort="1" category-id="mandatory">
                         <message>Since Hibernate 5, the `org.hibernate.hql.spi.TemporaryTableBulkIdStrategy` class was replaced by `org.hibernate.hql.spi.id.global.GlobalTemporaryTableBulkIdStrategy` and `org.hibernate.hql.spi.id.local.LocalTemporaryTableBulkIdStrategy`.</message>
                         <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migration_hibernate_orm_changes_deprecations"
-                            title="Hibernate 5 Removed and deprecated classes" />                        
+                            title="Hibernate 5 Removed and deprecated classes" />
                         <tag>hibernate</tag>
                         <tag>configuration</tag>
                         <quickfix name="TemporaryTableBulkIdStrategy-qf1" type="REPLACE">
@@ -177,7 +176,7 @@
                         <quickfix name="PersistentTableBulkIdStrategy-qf2" type="REPLACE">
                             <replacement>org.hibernate.hql.spi.id.persistent.PersistentTableBulkIdStrategy</replacement>
                             <search>org.hibernate.hql.spi.PersistentTableBulkIdStrategy</search>
-                        </quickfix>                        
+                        </quickfix>
                     </hint>
                 </iteration>
             </perform>

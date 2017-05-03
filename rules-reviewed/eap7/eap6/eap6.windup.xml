@@ -14,7 +14,6 @@
         </dependencies>
         <sourceTechnology id="eap" versionRange="[6,7)" />
         <targetTechnology id="eap" versionRange="[7,)" />
-        <tag>reviewed-2016-05-02</tag>
     </metadata>
 
     <rules>
@@ -154,16 +153,16 @@
                         Default Remote JNDI Provider URL has changed in EAP 7. External applications using JNDI to lookup remote resources, for instance an EJB or a JMS Queue,
                         may need to change the value for the JNDI InitialContext environment's property named `java.naming.provider.url`.
                         The default URL scheme is now **http-remoting** instead of **remote**, and the default URL port is now **8080** instead of **4447**.
-                        
+
                         As an example, consider the application server host is localhost, then clients previously accessing EAP 6 would use
-                         
+
                         ```
                         java.naming.factory.initial=org.jboss.naming.remote.client.InitialContextFactory
                         java.naming.provider.url=remote://localhost:4447
                         ```
-                        
+
                         while clients now accessing EAP 7 should use instead
-                        
+
                         ```
                         java.naming.factory.initial=org.jboss.naming.remote.client.InitialContextFactory
                         java.naming.provider.url=http-remoting://localhost:8080
@@ -196,7 +195,7 @@
                         The default remote connection port has changed in **jboss-ejb-client.properties** from '4447' to '8080'.
 
                         In EAP 6, the jboss-ejb-client.properties file looked similar to the following:
-                        
+
                         ```
                         remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED=false
                         remote.connections=default
@@ -204,9 +203,9 @@
                         remote.connection.default.port=4447
                         remote.connection.default.connect.options.org.xnio.Options.SASL_POLICY_NOANONYMOUS=false
                         ```
-                        
+
                         In EAP 7, the properties file looks like this:
-                        
+
                         ```
                         remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED=false
                         remote.connections=default
@@ -214,7 +213,7 @@
                         remote.connection.default.port=8080
                         remote.connection.default.connect.options.org.xnio.Options.SASL_POLICY_NOANONYMOUS=false
                         ```
-                        
+
                     </message>
                     <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#update_the_default_remote_connection_port" title="Remote JNDI URL in EAP 7" />
                     <tag>jndi</tag>
@@ -236,19 +235,19 @@
                         The default remote connection port has changed from '4447' to '8080'.
 
                         In EAP 6, Remote EJB client Java code looks like the following:
-                        
+
                         ```java
                         Properties properties = new Properties();
                         properties.put("remote.connection.default.port", "4447");
                         ```
-                        
+
                         In EAP 7, the Java client code looks like this:
-                        
+
                         ```java
                         Properties properties = new Properties();
                         properties.put("remote.connection.default.port", "8080");
                         ```
-                        
+
                     </message>
                     <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#update_the_default_remote_connection_port" title="Remote JNDI URL in EAP 7" />
                     <tag>jndi</tag>
