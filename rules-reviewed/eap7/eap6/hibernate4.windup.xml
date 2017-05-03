@@ -13,7 +13,6 @@
         <sourceTechnology id="eap" versionRange="[6,7)" />
         <targetTechnology id="hibernate5" versionRange="[5,)" />
         <targetTechnology id="eap" versionRange="[7,8)" />
-        <tag>reviewed-2016-03-08</tag>
     </metadata>
     <rules>
         <rule id="hibernate4-00001">
@@ -381,14 +380,14 @@
             <perform>
                 <hint title="Method org.hibernate.cfg.Configuration.setNamingStrategy is deprecated in Hibernate 5" effort="1" category-id="optional">
                     <message>
-                        Historically Hibernate provided just a singular contract for applying a "naming strategy". 
+                        Historically Hibernate provided just a singular contract for applying a "naming strategy".
                         Starting in 5.0 this has been split into 2 distinct contracts:
-                         
-                        * ImplicitNamingStrategy - is used whenever a table or column is not explicitly named to determine the name to use. 
+
+                        * ImplicitNamingStrategy - is used whenever a table or column is not explicitly named to determine the name to use.
                         * PhysicalNamingStrategy - is used to convert a "logical name" (either implicit or explicit) name of a table or column into a physical name (e.g. following corporate naming guidelines)
-                        
-                        Use methods `org.hibernate.boot.MetadataBuilder#setImplicitNamingStrategy(ImplicitNamingStrategy implicitNamingStrategy)` or 
-                        `org.hibernate.boot.MetadataBuilder#setPhysicalNamingStrategy(PhysicalNamingStrategy physicalNamingStrategy)` 
+
+                        Use methods `org.hibernate.boot.MetadataBuilder#setImplicitNamingStrategy(ImplicitNamingStrategy implicitNamingStrategy)` or
+                        `org.hibernate.boot.MetadataBuilder#setPhysicalNamingStrategy(PhysicalNamingStrategy physicalNamingStrategy)`
                         instead of `public Configuration setNamingStrategy(NamingStrategy namingStrategy)()`
                     </message>
                     <link
@@ -642,7 +641,7 @@
                 <hint title="Class org.hibernate.engine.jdbc.spi.JdbcServices was changed in Hibernate 5" effort="1" category-id="optional">
                     <message>Hibernate 5 extracted new interface `org.hibernate.engine.jdbc.env.spi.JdbcEnvironment` from `org.hibernate.engine.jdbc.spi.JdbcServices`.</message>
                     <link title="Hibernate 5 - Other changes to classes/packages"
-                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migration_hibernate_orm_changes_other_classes" />                    
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migration_hibernate_orm_changes_other_classes" />
                     <link
                         href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#changedmoved-contracts"
                         title="Hibernate 5 Changed or Moved Contracts" />
