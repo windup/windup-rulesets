@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<ruleset id="jboss-eap5-7-xml"
+         xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+<!--
+    Covers changes common to
+    * EAP 5 to EAP 6 upgrade and
+    * EAP 5 to EAP 7 upgrade.
+-->
+
+    <metadata>
+        <description>
+            This ruleset provides analysis of configuration XML files in both JBoss EAP 5 and JBoss EAP 6
+            that may require individual attention when migrating to JBoss EAP 7+.
+            The purpose of this ruleset common to those two major JBoss EAP versions is to avoid duplication of rules
+            in rulesets dedicated to either version.
+            Mainly deals with datasources, JBoss Web and EJB configuration.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,2.6.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-java,2.6.0.Final"/>
+        </dependencies>
+        <sourceTechnology id="eap" versionRange="[5,7)"/>
+        <targetTechnology id="eap" versionRange="[7,)"/>
+        <tag>jboss-eap5</tag>
+        <tag>jboss-eap6</tag>
+        <tag>ejb</tag>
+    </metadata>
+
+    <rules>
+
+        <rule id="jboss-eap5,6-7-xml-37000">
+            <when>
+               <xmlfile matches="/*[local-name()='ejb-jar']/*[local-name()='assembly-descriptor']/*[local-name()='clustering']/*[local-name()='clustered']" in="jboss-ejb3.xml"/>
+            </when>
+            <perform>
+                <iteration>
+                    <hint title="Stateful Session EJB Clustering configuration changes in EAP 7" effort="1" category-id="optional">
+                    <message>
+                        The `clustered` element is ignored in EAP 7 and is not useful. In case the application is started using HA profile, the replication will be done automatically.
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_stateful_session_ejb_clustering_changes" title="Clustered annotation in EAP 7" />
+                    <tag>cluster</tag>
+                    <tag>ejb</tag>
+                    <tag>configuration</tag>
+                </hint>
+                </iteration>
+            </perform>
+        </rule>
+
+    </rules>
+</ruleset>

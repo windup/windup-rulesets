@@ -152,25 +152,7 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="eap6-xml-07000">
-            <when>
-               <xmlfile matches="/*[local-name()='ejb-jar']/*[local-name()='assembly-descriptor']/*[local-name()='clustering']/*[local-name()='clustered']" in="jboss-ejb3.xml"/>
-            </when>
-            <perform>
-                <iteration>
-                    <hint title="Stateful Session EJB Clustering configuration changes in EAP 7" effort="1" category-id="optional">
-                    <message>
-                        The `clustered` element is ignored in EAP 7 and is not useful. In case the application is started using HA profile, the replication will be done automatically.
-                    </message>
-                    <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_stateful_session_ejb_clustering_changes" title="Clustered annotation in EAP 7" />
-                    <tag>cluster</tag>
-                    <tag>ejb</tag>
-                    <tag>configuration</tag>
-                    <quickfix name="clustered-el-qf" type="DELETE_LINE" />
-                </hint>
-                </iteration>
-            </perform>
-        </rule>
+        <!-- Rule eap6-xml-07000 moved to common EAP 5 and 6 source platform ruleset (in eap5to6). -->
         <rule id="eap6-xml-08000">
             <when>
                 <xmlfile matches="/*[local-name()='jboss-web']/*[local-name()='replication-config']/*[local-name()='replication-trigger']" in="jboss-web.xml"/>
