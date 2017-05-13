@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="jboss-eap5and6to7-xml-test" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data</testDataPath>
+    <ruleset>
+        <rules>
+            <rule id="jboss-eap5and6to7-xml-37000-test">
+                <when>
+                    <not>
+                        <hint-exists message="The .*clustered.* element is ignored in EAP 7 and is not useful."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Clustering element hint in jboss-ejb3.xml not found!"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
