@@ -13,7 +13,6 @@
         <sourceTechnology id="eap" versionRange="[6,7)" />
         <targetTechnology id="hibernate5" versionRange="[5,)" />
         <targetTechnology id="eap" versionRange="[7,8)" />
-        <tag>reviewed-2016-03-08</tag>
     </metadata>
     <rules>
         <rule id="hibernate4-00001">
@@ -242,8 +241,7 @@
                 </javaclass>
             </when>
             <perform>
-                <hint title="Hibernate 5 - Deprecated method org.hibernate.cfg.Configuration.addDirectory()" effort="1"
-                    category-id="optional">
+                <hint title="Hibernate 5 - Deprecated method org.hibernate.cfg.Configuration.addDirectory()" effort="1" category-id="optional">
                     <message>Use `org.hibernate.boot.MetadataSources#addDirectory` instead.</message>
                     <link
                         href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#re-purposing-of-configuration"
@@ -263,8 +261,7 @@
                 </javaclass>
             </when>
             <perform>
-                <hint title="Hibernate 5 - Deprecated method org.hibernate.cfg.Configuration.registerTypeContributor()"
-                    effort="1" category-id="optional">
+                <hint title="Hibernate 5 - Deprecated method org.hibernate.cfg.Configuration.registerTypeContributor()" effort="1" category-id="optional">
                     <message>Use `org.hibernate.boot.MetadataBuilder#applyTypes` instead.</message>
                     <link
                         href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#re-purposing-of-configuration"
@@ -284,8 +281,7 @@
                 </javaclass>
             </when>
             <perform>
-                <hint title="Hibernate 5 - Deprecated method org.hibernate.cfg.Configuration.registerTypeOverride()"
-                    effort="1" category-id="optional">
+                <hint title="Hibernate 5 - Deprecated method org.hibernate.cfg.Configuration.registerTypeOverride()" effort="1" category-id="optional">
                     <message>Use `org.hibernate.boot.MetadataBuilder#applyBasicType` instead.</message>
                     <link
                         href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#re-purposing-of-configuration"
@@ -305,8 +301,7 @@
                 </javaclass>
             </when>
             <perform>
-                <hint title="Hibernate 5 - Deprecated method org.hibernate.cfg.Configuration.setProperty()" effort="1"
-                    category-id="optional">
+                <hint title="Hibernate 5 - Deprecated method org.hibernate.cfg.Configuration.setProperty()" effort="1" category-id="optional">
                     <message>Use `org.hibernate.boot.registry.StandardServiceRegistryBuilder#applySetting` instead.</message>
                     <link
                         href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#re-purposing-of-configuration"
@@ -326,8 +321,7 @@
                 </javaclass>
             </when>
             <perform>
-                <hint title="Hibernate 5 - Deprecated method org.hibernate.cfg.Configuration.setProperties()" effort="1"
-                    category-id="optional">
+                <hint title="Hibernate 5 - Deprecated method org.hibernate.cfg.Configuration.setProperties()" effort="1" category-id="optional">
                     <message>There is no direct replacement.</message>
                     <link
                         href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#re-purposing-of-configuration"
@@ -369,14 +363,14 @@
             <perform>
                 <hint title="Hibernate 5 - Deprecated method org.hibernate.cfg.Configuration.setNamingStrategy()" effort="1" category-id="optional">
                     <message>
-                        Historically Hibernate provided just a singular contract for applying a "naming strategy". 
+                        Historically Hibernate provided just a singular contract for applying a "naming strategy".
                         Starting in 5.0 this has been split into 2 distinct contracts:
-                         
-                        * ImplicitNamingStrategy - is used whenever a table or column is not explicitly named to determine the name to use. 
+
+                        * ImplicitNamingStrategy - is used whenever a table or column is not explicitly named to determine the name to use.
                         * PhysicalNamingStrategy - is used to convert a "logical name" (either implicit or explicit) name of a table or column into a physical name (e.g. following corporate naming guidelines)
-                        
-                        Use methods `org.hibernate.boot.MetadataBuilder#setImplicitNamingStrategy(ImplicitNamingStrategy implicitNamingStrategy)` or 
-                        `org.hibernate.boot.MetadataBuilder#setPhysicalNamingStrategy(PhysicalNamingStrategy physicalNamingStrategy)` 
+
+                        Use methods `org.hibernate.boot.MetadataBuilder#setImplicitNamingStrategy(ImplicitNamingStrategy implicitNamingStrategy)` or
+                        `org.hibernate.boot.MetadataBuilder#setPhysicalNamingStrategy(PhysicalNamingStrategy physicalNamingStrategy)`
                         instead of `public Configuration setNamingStrategy(NamingStrategy namingStrategy)()`
                     </message>
                     <link
@@ -607,7 +601,7 @@
                     <message>Hibernate 5 changed contract `org.hibernate.integrator.spi.Integrator` to account for bootstrap redesign.
                     Check if you implement method `integrate(Configuration configuration, SessionFactoryImplementor sessionFactory, SessionFactoryServiceRegistry serviceRegistry)` which is no longer there.
                     </message>
-                    <link title="HIbernate 5 - Other changes to classes/packages"
+                    <link title="Hibernate 5 - Other changes to classes/packages"
                         href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migration_hibernate_orm_changes_other_classes" />
                     <link
                         href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#changedmoved-contracts"
@@ -624,8 +618,8 @@
             <perform>
                 <hint title="Hibernate 5 - Changed class org.hibernate.engine.jdbc.spi.JdbcServices" effort="1" category-id="optional">
                     <message>Hibernate 5 extracted new interface `org.hibernate.engine.jdbc.env.spi.JdbcEnvironment` from `org.hibernate.engine.jdbc.spi.JdbcServices`.</message>
-                    <link title="HIbernate 5 - Other changes to classes/packages"
-                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migration_hibernate_orm_changes_other_classes" />                    
+                    <link title="Hibernate 5 - Other changes to classes/packages"
+                        href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migration_hibernate_orm_changes_other_classes" />
                     <link
                         href="https://github.com/hibernate/hibernate-orm/blob/5.0/migration-guide.adoc#changedmoved-contracts"
                         title="Hibernate 5 Changed or Moved Contracts" />

@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<ruleset id="java-rpc" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset focuses on Java Remote Procedure Call (RPC) aspects relevant while migrating to a cloud environment.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="java" />
+        <sourceTechnology id="rpc" />
+        <targetTechnology id="cloud-readiness" />
+        <tag>rpc</tag>
+    </metadata>
+    <rules>
+        <rule id="java-rpc-00000">
+            <when>
+                <or>
+                    <javaclass references="javax.xml.rpc{*}" as="default"/>
+                    <javaclass references="org.apache.xmlrpc{*}" as="default"/>
+                    <javaclass references="redstone.xmlrpc{*}" as="default"/>
+                </or>
+            </when>
+            <perform>
+               <hint title="Java API for XML-based RPC (JAX-RPC)" effort="5" category-id="cloud-optional">
+                   <message>
+                       The Java API for XML-based RPC (JAX-RPC, JSR 101) is an API for building and consuming Web services and clients that used remote procedure calls (RPC) and XML.  
+                       JAX-RPC has several limitations (no support for web service annotations, injection, handlers for its endpoints). JAX-WS superseded it in Java EE 5.  
+                       
+                       The use of JAX-RPC denotes a tightly coupling that is better avoid in a cloud environment.  
+                       
+                       Possible alternatives are to switch to...
+                       
+                       * another HTTP-based protocol or API (JAX-WS, REST)
+                       * message-based communication (JMS) for asynchronous use cases
+                       
+                       In combination with load balancing, both options ensure scalability and high availability.
+                   </message>
+                   <link href="https://access.redhat.com/solutions/153433" title="Is JAX-RPC supported in EAP 6?"/>
+                   <link href="https://access.redhat.com/solutions/364354" title="Should I use JAX-RPC in EAP 6?"/>
+                   <tag>rpc</tag>
+               </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

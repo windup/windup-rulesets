@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ruletest id="socket-communication-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data</testDataPath>
+    <rulePath>../socket-communication.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="socket-communication-test-00000">
+                <when>
+                    <not>
+                        <iterable-filter size="63">
+  	                      <hint-exists message="Direct communication through sockets and channels is an anti-pattern in cloud environment*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Direct communication hint was not found" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

@@ -3,16 +3,19 @@
     xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <metadata>
         <description>
-            This is a ruleset for local storage related suggestions for migrating to OpenShift environments.
+            This is a ruleset for local storage related suggestions for migrating to cloud environments.
         </description>
         <dependencies>
-            <addon id="org.jboss.windup.rules,windup-rules-javaee,2.7.0.Final" />
-            <addon id="org.jboss.windup.rules,windup-rules-java,2.7.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
         </dependencies>
+        <targetTechnology id="cloud-readiness" />
         <targetTechnology id="openshift" />
-        <tag>openshift</tag>
-        <tag>reviewed-2017-01-04</tag>
     </metadata>
+     <!--
+       This rules could be merged together but they need to be separated due to issue WINDUP-1324 [https://issues.jboss.org/projects/WINDUP/issues/WINDUP-1324]
+       This is also the reason why many messages are pretty similar.
+     -->
     <rules>
         <rule id="local-storage-00001">
             <when>
@@ -32,11 +35,32 @@
                 </or>
             </when>
             <perform>
-                <hint title="Java APIs for local file system" effort="1" category-id="optional">
-                    <message>Java APIs for local file system identified in the file.
-                    
-                    Local files in containers are not permanent storage and can disappear when an instance of the application terminates. Avoid accessing local filesystems from applications running in OpenShift environments, and consider using a database or cloud-based storage system instead.
+                <hint title="Local file system access" effort="1" category-id="cloud-mandatory">
+                    <message>
+                    Accessing a file on a local storage in a cloud environment is not safe because, inside a running container, an application can never assume that anything stored on disk will be permanently available because a restart (triggered by code deploy, config change, or the execution environment relocating the process to a different physical location) will usually wipe out all local (e.g., memory and filesystem) state.
+
+                    There are different ways to improve the application based on what the file is used for:
+
+                    * logging: log to stdout [1] and use a centralized log collector to analyze logs [2]
+                    * caching: use a cache backing service accessed [3] via a URL or other locator/credentials stored in the config (see below)
+                    * config: store configurations in environment variables because they are easy to change between deploys without changing any code [4][5][6]
+                    * storing data: use a database backing service [3] in case of relational data or a persistent storage system [7][8][9][10]
+                    * temporary data: file system of a running container should be used to storing files only as a brief, single-transaction cache (e.g. downloading a large file, operating on it, and storing the results of the operation in the database)
+
+                    References:
+
+                    1. [Twelve-factor app - Logs](https://12factor.net/logs)
+                    2. [OpenShift - Aggregating container logs](https://access.redhat.com/documentation/en/openshift-container-platform/3.4/paged/installation-and-configuration/chapter-28-aggregating-container-logs)
+                    3. [Twelve-factor app - Backing services](https://12factor.net/backing-services)
+                    4. [Twelve-factor app - Config](https://12factor.net/config)
+                    5. [OpenShift - Managing Environment Variables](https://access.redhat.com/documentation/en/openshift-container-platform/3.4/paged/developer-guide/chapter-30-managing-environment-variables)
+                    6. [OpenShift - ConfigMaps](https://access.redhat.com/documentation/en/openshift-container-platform/3.4/paged/developer-guide/chapter-18-configmaps)
+                    7. [OpenShift - Persistent storage (Concepts)](https://docs.openshift.com/container-platform/3.4/architecture/additional_concepts/storage.html)
+                    8. [OpenShift - Configure persistent storage](https://docs.openshift.com/container-platform/3.4/install_config/persistent_storage/index.html)
+                    9. [OpenShift - Blog post about persistent storage](https://blog.openshift.com/experimenting-with-persistent-volumes/)
+                    10. [OpenShift - Object Storage](https://blog.openshift.com/openshift-applications-using-object-storage/)
                     </message>
+                    <tag>storage</tag>
                 </hint>
             </perform>
             <where param="ioclass">
@@ -45,16 +69,37 @@
         </rule>
         <rule id="local-storage-00002">
             <when>
-                <javaclass references="java.net.{class}{*file*}">
+                <javaclass references="java.net.{class}({*})" matchesSource="{*}file{*}">
                     <location>CONSTRUCTOR_CALL</location>
                 </javaclass>
             </when>
             <perform>
-                <hint title="Used class java.net.URL/URI with local path" effort="1" category-id="optional">
-                    <message>Java API for java.net.URL/URI with local path identified in the file.
-                    
-                    Local files in containers are not permanent storage and can disappear when an instance of the application terminates. Avoid accessing local filesystems from applications running in OpenShift environments, and consider using a database or cloud-based storage system instead.
+                <hint title="URL/URI with 'file' scheme" effort="1" category-id="cloud-mandatory">
+                    <message>
+                    Accessing a file on a local storage in a cloud environment is not safe because, inside a running container, an application can never assume that anything stored on disk will be permanently available because a restart (triggered by code deploy, config change, or the execution environment relocating the process to a different physical location) will usually wipe out all local (e.g., memory and filesystem) state.
+
+                    There are different ways to improve the application based on what the file is used for:
+
+                    * logging: log to stdout [1] and use a centralized log collector to analyze logs [2]
+                    * caching: use a cache backing service accessed [3] via a URL or other locator/credentials stored in the config (see below)
+                    * config: store configurations in environment variables because they are easy to change between deploys without changing any code [4][5][6]
+                    * storing data: use a database backing service [3] in case of relational data or a persistent storage system [7][8][9][10]
+                    * temporary data: file system of a running container should be used to storing files only as a brief, single-transaction cache (e.g. downloading a large file, operating on it, and storing the results of the operation in the database)
+
+                    References:
+
+                    1. [Twelve-factor app - Logs](https://12factor.net/logs)
+                    2. [OpenShift - Aggregating container logs](https://access.redhat.com/documentation/en/openshift-container-platform/3.4/paged/installation-and-configuration/chapter-28-aggregating-container-logs)
+                    3. [Twelve-factor app - Backing services](https://12factor.net/backing-services)
+                    4. [Twelve-factor app - Config](https://12factor.net/config)
+                    5. [OpenShift - Managing Environment Variables](https://access.redhat.com/documentation/en/openshift-container-platform/3.4/paged/developer-guide/chapter-30-managing-environment-variables)
+                    6. [OpenShift - ConfigMaps](https://access.redhat.com/documentation/en/openshift-container-platform/3.4/paged/developer-guide/chapter-18-configmaps)
+                    7. [OpenShift - Persistent storage (Concepts)](https://docs.openshift.com/container-platform/3.4/architecture/additional_concepts/storage.html)
+                    8. [OpenShift - Configure persistent storage](https://docs.openshift.com/container-platform/3.4/install_config/persistent_storage/index.html)
+                    9. [OpenShift - Blog post about persistent storage](https://blog.openshift.com/experimenting-with-persistent-volumes/)
+                    10. [OpenShift - Object Storage](https://blog.openshift.com/openshift-applications-using-object-storage/)
                     </message>
+                    <tag>storage</tag>
                 </hint>
             </perform>
             <where param="class">
@@ -63,20 +108,132 @@
         </rule>
         <rule id="local-storage-00003">
             <when>
-                <filecontent pattern="{path}" filename="{*}"/>
+                <filecontent pattern="{path1}" filename="{*}.{extensions}"/>
             </when>
             <perform>
-                <hint title="Detected local file system paths" effort="1" category-id="potential">
-                    <message>Detected local file system path in the file.
-                    
-                    Local files in containers are not permanent storage and can disappear when an instance of the application terminates. Avoid accessing local filesystems from applications running in OpenShift environments, and consider using a database or cloud-based storage system instead.
+                <hint title="Local file system path" effort="1" category-id="cloud-mandatory">
+                    <message>
+                    Accessing a file on a local storage in a cloud environment is not safe because, inside a running container, an application can never assume that anything stored on disk will be permanently available because a restart (triggered by code deploy, config change, or the execution environment relocating the process to a different physical location) will usually wipe out all local (e.g., memory and filesystem) state.
+
+                    There are different ways to improve the application based on what the file is used for:
+
+                    * logging: log to stdout [1] and use a centralized log collector to analyze logs [2]
+                    * caching: use a cache backing service accessed [3] via a URL or other locator/credentials stored in the config (see below)
+                    * config: store configurations in environment variables because they are easy to change between deploys without changing any code [4][5][6]
+                    * storing data: use a database backing service [3] in case of relational data or a persistent storage system [7][8][9][10]
+                    * temporary data: file system of a running container should be used to storing files only as a brief, single-transaction cache (e.g. downloading a large file, operating on it, and storing the results of the operation in the database)
+
+                    References:
+
+                    1. [Twelve-factor app - Logs](https://12factor.net/logs)
+                    2. [OpenShift - Aggregating container logs](https://access.redhat.com/documentation/en/openshift-container-platform/3.4/paged/installation-and-configuration/chapter-28-aggregating-container-logs)
+                    3. [Twelve-factor app - Backing services](https://12factor.net/backing-services)
+                    4. [Twelve-factor app - Config](https://12factor.net/config)
+                    5. [OpenShift - Managing Environment Variables](https://access.redhat.com/documentation/en/openshift-container-platform/3.4/paged/developer-guide/chapter-30-managing-environment-variables)
+                    6. [OpenShift - ConfigMaps](https://access.redhat.com/documentation/en/openshift-container-platform/3.4/paged/developer-guide/chapter-18-configmaps)
+                    7. [OpenShift - Persistent storage (Concepts)](https://docs.openshift.com/container-platform/3.4/architecture/additional_concepts/storage.html)
+                    8. [OpenShift - Configure persistent storage](https://docs.openshift.com/container-platform/3.4/install_config/persistent_storage/index.html)
+                    9. [OpenShift - Blog post about persistent storage](https://blog.openshift.com/experimenting-with-persistent-volumes/)
+                    10. [OpenShift - Object Storage](https://blog.openshift.com/openshift-applications-using-object-storage/)
                     </message>
+                    <tag>storage</tag>
                 </hint>
             </perform>
-            <where param="path">
-                <!--this regex tries to find all unix like absolute paths-->
-                <matches pattern="[^/](\/[\w^ ]+)+\/?" />
+            <where param="path1">
+                <!-- absolute paths on windows -->
+                <matches pattern="(([a-zA-Z]):)(?&lt;![\&lt;\\\/\d\w])([\\\/]\w+)+(\.\w+)?" />
             </where>
+            <where param="extensions">
+                <matches pattern="(java|properties|jsp|jspf|tag|xml|txt|js)" />
+            </where>
+        </rule>
+        <rule id="local-storage-00004">
+            <when>
+                <filecontent pattern="{path2}" filename="{*}.{extensions}" />
+            </when>
+            <perform>
+                <hint title="URL with local file system path" effort="1" category-id="cloud-mandatory">
+                    <message>
+                    Accessing a file on a local storage in a cloud environment is not safe because, inside a running container, an application can never assume that anything stored on disk will be permanently available because a restart (triggered by code deploy, config change, or the execution environment relocating the process to a different physical location) will usually wipe out all local (e.g., memory and filesystem) state.
+
+                    There are different ways to improve the application based on what the file is used for:
+
+                    * logging: log to stdout [1] and use a centralized log collector to analyze logs [2]
+                    * caching: use a cache backing service accessed [3] via a URL or other locator/credentials stored in the config (see below)
+                    * config: store configurations in environment variables because they are easy to change between deploys without changing any code [4][5][6]
+                    * storing data: use a database backing service [3] in case of relational data or a persistent storage system [7][8][9][10]
+                    * temporary data: file system of a running container should be used to storing files only as a brief, single-transaction cache (e.g. downloading a large file, operating on it, and storing the results of the operation in the database)
+
+                    References:
+
+                    1. [Twelve-factor app - Logs](https://12factor.net/logs)
+                    2. [OpenShift - Aggregating container logs](https://access.redhat.com/documentation/en/openshift-container-platform/3.4/paged/installation-and-configuration/chapter-28-aggregating-container-logs)
+                    3. [Twelve-factor app - Backing services](https://12factor.net/backing-services)
+                    4. [Twelve-factor app - Config](https://12factor.net/config)
+                    5. [OpenShift - Managing Environment Variables](https://access.redhat.com/documentation/en/openshift-container-platform/3.4/paged/developer-guide/chapter-30-managing-environment-variables)
+                    6. [OpenShift - ConfigMaps](https://access.redhat.com/documentation/en/openshift-container-platform/3.4/paged/developer-guide/chapter-18-configmaps)
+                    7. [OpenShift - Persistent storage (Concepts)](https://docs.openshift.com/container-platform/3.4/architecture/additional_concepts/storage.html)
+                    8. [OpenShift - Configure persistent storage](https://docs.openshift.com/container-platform/3.4/install_config/persistent_storage/index.html)
+                    9. [OpenShift - Blog post about persistent storage](https://blog.openshift.com/experimenting-with-persistent-volumes/)
+                    10. [OpenShift - Object Storage](https://blog.openshift.com/openshift-applications-using-object-storage/)
+                    </message>
+                    <tag>storage</tag>
+                </hint>
+            </perform>
+            <where param="path2">
+                <!-- URL with local path -->
+                <matches pattern="file://" />
+            </where>
+            <where param="extensions">
+                <matches pattern="(java|properties|jsp|jspf|tag|xml|txt|js)" />
+            </where>
+        </rule>
+        <rule id="local-storage-00005">
+            <when>
+              <or>
+                  <javaclass references="java.nio.channels.AsynchronousFileChannel{*}" />
+                  <javaclass references="java.nio.channels.FileChannel{*}" />
+                  <javaclass references="java.nio.channels.FileLock{*}" />
+                  <javaclass references="java.nio.file.DirectoryStream{*}" />
+                  <javaclass references="java.nio.file.Files{*}" />
+                  <javaclass references="java.nio.file.FileStore{*}" />
+                  <javaclass references="java.nio.file.FileSystem{*}" />
+                  <javaclass references="java.nio.file.FileSystems{*}" />
+                  <javaclass references="java.nio.file.Path{*}" />
+                  <javaclass references="java.nio.file.Paths{*}" />
+              </or>
+            </when>
+            <perform>
+              <iteration>
+                <hint title="Java APIs for local file system (java.nio classes)" effort="3" category-id="cloud-mandatory">
+                    <message>
+                    Accessing a file on a local storage in a cloud environment is not safe because, inside a running container, an application can never assume that anything stored on disk will be permanently available because a restart (triggered by code deploy, config change, or the execution environment relocating the process to a different physical location) will usually wipe out all local (e.g., memory and filesystem) state.
+
+                    There are different ways to improve the application based on what the file is used for:
+
+                    * logging: log to stdout [1] and use a centralized log collector to analyze logs [2]
+                    * caching: use a cache backing service accessed [3] via a URL or other locator/credentials stored in the config (see below)
+                    * config: store configurations in environment variables because they are easy to change between deploys without changing any code [4][5][6]
+                    * storing data: use a database backing service [3] in case of relational data or a persistent storage system [7][8][9][10]
+                    * temporary data: file system of a running container should be used to storing files only as a brief, single-transaction cache (e.g. downloading a large file, operating on it, and storing the results of the operation in the database)
+
+                    References:
+
+                    1. [Twelve-factor app - Logs](https://12factor.net/logs)
+                    2. [OpenShift - Aggregating container logs](https://access.redhat.com/documentation/en/openshift-container-platform/3.4/paged/installation-and-configuration/chapter-28-aggregating-container-logs)
+                    3. [Twelve-factor app - Backing services](https://12factor.net/backing-services)
+                    4. [Twelve-factor app - Config](https://12factor.net/config)
+                    5. [OpenShift - Managing Environment Variables](https://access.redhat.com/documentation/en/openshift-container-platform/3.4/paged/developer-guide/chapter-30-managing-environment-variables)
+                    6. [OpenShift - ConfigMaps](https://access.redhat.com/documentation/en/openshift-container-platform/3.4/paged/developer-guide/chapter-18-configmaps)
+                    7. [OpenShift - Persistent storage (Concepts)](https://docs.openshift.com/container-platform/3.4/architecture/additional_concepts/storage.html)
+                    8. [OpenShift - Configure persistent storage](https://docs.openshift.com/container-platform/3.4/install_config/persistent_storage/index.html)
+                    9. [OpenShift - Blog post about persistent storage](https://blog.openshift.com/experimenting-with-persistent-volumes/)
+                    10. [OpenShift - Object Storage](https://blog.openshift.com/openshift-applications-using-object-storage/)
+                    </message>
+                    <tag>storage</tag>
+                </hint>
+              </iteration>
+            </perform>
         </rule>
     </rules>
 </ruleset>

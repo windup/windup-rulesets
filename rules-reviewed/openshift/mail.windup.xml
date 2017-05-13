@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<ruleset id="mail"
+    xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This is a ruleset for detecting Mail API usage when migrating an application to a cloud environment.
+        </description>
+        <dependencies>
+          <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final"/>
+          <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final"/>
+        </dependencies>
+        <sourceTechnology id="java"/>
+        <sourceTechnology id="java-ee"/>
+        <targetTechnology id="cloud-readiness"/>
+        <targetTechnology id="openshift"/>
+        <tag>mail</tag>
+    </metadata>
+    <rules>
+        <rule id="mail-00000">
+            <when>
+              <or>
+                <javaclass references="javax.mail.{*}" />
+                <javaclass references="com.sun.mail.{*}" />
+                <javaclass references="org.simplejavamail.{*}" />
+                <javaclass references="org.apache.commons.mail.{*}" />
+              </or>
+            </when>
+            <perform>
+              <hint title="Java Mail API" effort="3" category-id="cloud-optional">
+                  <message>
+                    In a cloud environment, mail systems should be considered as backing services.  
+                    Ensure that the configuration of the underlying outbound mail connection is not environment-specific (e.g. no static IP, URL, property, credential, certificate...). In OpenShift, environment variables or config map could be used for this purpose.  
+                </message>
+                <link href="https://12factor.net/backing-services" title="Twelve-factor app - Backing services"/>
+                <link href="https://12factor.net/config" title="Twelve-factor app - Config"/>
+                <link href="https://access.redhat.com/documentation/en/openshift-container-platform/3.4/paged/developer-guide/chapter-30-managing-environment-variables" title="OpenShift - Managing Environment Variables"/>
+                <link href="https://access.redhat.com/documentation/en/openshift-container-platform/3.4/paged/developer-guide/chapter-18-configmaps" title="OpenShift - ConfigMaps"/>
+                <tag>mail</tag>
+              </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

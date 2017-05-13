@@ -8,37 +8,13 @@
             <rule id="local-storage-test-00001">
                 <when>
                     <not>
-                        <iterable-filter size="14">
-                            <hint-exists message="Java APIs for local file system identified in the file.*" />
+                        <iterable-filter size="57">
+                            <hint-exists message="Accessing a file on a local storage in a cloud environment is not safe because*" />
                         </iterable-filter>
                     </not>
                 </when>
                 <perform>
-                    <fail message="Hints Java APIs for local storage was not found!" />
-                </perform>
-            </rule>
-            <rule id="local-storage-test-00002">
-                <when>
-                    <not>
-                        <iterable-filter size="2">
-                            <hint-exists message="Java API for java.net.URL/URI with local path identified in the file.*" />
-                        </iterable-filter>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="java.net.URL/URI local file paths was not found!" />
-                </perform>
-            </rule>
-            <rule id="local-storage-test-00003">
-                <when>
-                    <not>
-                        <iterable-filter size="12">
-                            <hint-exists message="Detected local file system path in the file.*" />
-                        </iterable-filter>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="Local absolute file path hint was not found!" />
+                    <fail message="Hints about 'Accessing a file on a local storage in a cloud environment' for local storage was not found" />
                 </perform>
             </rule>
         </rules>
