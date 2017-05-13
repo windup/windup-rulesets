@@ -3,14 +3,13 @@
     xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <metadata>
         <description>
-            This ruleset provides analysis of WebSphere proprietary xml files and constructs that may require individual attention when migrating to JBoss EAP 7777777+.
+            This ruleset provides analysis of WebSphere proprietary xml files and constructs that may require individual attention when migrating to JBoss EAP 7+.
         </description>
         <dependencies>
             <addon id="org.jboss.windup.rules,windup-rules-xml,2.7.0.Final"/>
         </dependencies>
         <sourceTechnology id="websphere"/>
         <targetTechnology id="eap" versionRange="[7,8)"/>
-        <tag>reviewed-2016-11-14</tag>
     </metadata>
     <rules>
         <rule id="eap7-websphere-xml-01000">
@@ -36,7 +35,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <classification title="WebSphere EAR Application Binding" effort="3">
+                <classification title="WebSphere EAR Application Binding" category-id="mandatory" effort="3">
                     <description>This WebSphere application binding is an IBM proprietary method for binding user roles for authorization and needs to be migrated to JAAS or KeyCloak.</description>
                     <link title="Enabling Role-Based Access Control in JBoss EAP 7"
                           href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0/single/how-to-configure-server-security/#enabling_role_based_access_control"/>
@@ -64,7 +63,7 @@
             </when>
             <perform>
                 <iteration over="1">
-                    <classification title="WebSphere proprietary JSP engine configuration" effort="3">
+                    <classification title="WebSphere proprietary JSP engine configuration" category-id="mandatory" effort="3">
                         <description>WebSphere (Java EE version prior to version 5) proprietary JSP engine configuration</description>
                         <link title="WebAppExtension javadoc" href="http://www-01.ibm.com/support/knowledgecenter/SS7JFU_6.1.0/com.ibm.websphere.javadoc.doc/configdoc/webappext/WebAppExtension.html"/>
                         <tag>jsp</tag>
@@ -122,7 +121,7 @@
                 </or>
             </when>
             <perform>
-                <classification title="WebSphere proprietary configuration" effort="0">
+                <classification title="WebSphere proprietary configuration" category-id="mandatory" effort="0">
                     <description>WebSphere web application binding configuration file.</description>
                 </classification>
                 <hint title="WebSphere web application binding" category-id="mandatory" effort="3">
@@ -149,7 +148,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <classification title="WebSphere ETools WSClient Extension" effort="3">
+                <classification title="WebSphere ETools WSClient Extension" category-id="mandatory" effort="3">
                     <description>Client IBM-specific deployment descriptor extension that needs to be migrated to JBoss WS.</description>
                     <link href="https://docs.jboss.org/author/display/JBWS/Predefined+client+and+endpoint+configurations" title="JBoss WS configuration"/>
                     <tag>webservice</tag>
@@ -164,7 +163,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <classification title="WebSphere ETools WSClient Binding" effort="3">
+                <classification title="WebSphere ETools WSClient Binding" category-id="mandatory" effort="3">
                     <description>Client IBM-specific deployment descriptor binding that needs to be migrated to JBoss WS.</description>
                     <link href="https://docs.jboss.org/author/display/JBWS/Web+Services+Introduction" title="JBoss WS configuration"/>
                     <tag>webservice</tag>
@@ -179,8 +178,14 @@
                 </xmlfile>
             </when>
             <perform>
-                <classification title="WebSphere deployment descriptor" effort="0">
-                    <description>This file is an auto-generated WebSphere proprietary deployment descriptor.</description>
+                <classification title="WebSphere deployment descriptor" category-id="mandatory" effort="1">
+                    <description>
+                        This file is an IBM WebSphere proprietary deployment descriptor that is typically generated when development of the EAR was done using IBM products.
+                        The XML schema documentation can be found within the WebSphere Application Server 7.0 directory under `/web/configDocs/packages/appdeployment/Deployment.html`.
+                        It should be safe to delete this file, unless it was created manually.
+                    </description>
+                    <link href="https://www.ibm.com/support/knowledgecenter/SSAW57_7.0.0/com.ibm.websphere.nd.doc/info/ae/ae/rcfg_rconfdoc_descriptions.html" title="IBM WebSphere configuration document descriptions"/>
+                    <link href="https://www.ibm.com/support/knowledgecenter/SSAW57_7.0.0/com.ibm.websphere.nd.doc/info/ae/ae/ccfg_confdoc.html" title="IBM WebSphere configuration documents"/>
                     <tag>websphere</tag>
                 </classification>
             </perform>

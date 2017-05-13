@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<ruletest id="session-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data</testDataPath>
+    <rulePath>../session.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="session-test-00000">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+  	                      <hint-exists message="Session replication ensures that client sessions are not disrupted by failovers of nodes in a cluster*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="'distributable' tag hint was not found" />
+                </perform>
+            </rule>
+            <rule id="session-test-00001">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                          <hint-exists message="The servlet container uses HttpSession to create a session between an HTTP client and an HTTP server*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="HttpSession for storing user data hint was not found" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

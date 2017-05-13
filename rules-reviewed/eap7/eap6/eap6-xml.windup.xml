@@ -13,7 +13,6 @@
         </dependencies>
         <sourceTechnology id="eap" versionRange="[6,7)" />
         <targetTechnology id="eap" versionRange="[7,)" />
-        <tag>reviewed-2016-05-02</tag>
     </metadata>
 
 
@@ -49,7 +48,7 @@
             </when>
             <perform>
                 <iteration>
-                    <hint title="BMP Entity EJB configuration." effort="3" category-id="mandatory">
+                    <hint title="BMP Entity EJB configuration" effort="3" category-id="mandatory">
                     <message>BMP entity beans are no longer supported in JBoss EAP 7. User is requested to use JPA entities that fully replaced the functionality provided by BMP beans.
                    BMP configuration provided in this ejb-jar.xml should be configured using JPA persistence.xml or using JPA annotations.</message>
                     <link title="CMP Bean migration" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_entity_beans_to_jpa" />
@@ -67,7 +66,7 @@
             </when>
             <perform>
                 <iteration>
-                    <hint title="Valve is not supported in JBoss EAP 7." effort="1" category-id="mandatory">
+                    <hint title="Valve is not supported in JBoss EAP 7" effort="1" category-id="mandatory">
                         <message>JBoss Web was replaced by Undertow, which does not contain support for the Valve functionality. It may be needed to migrate to Undertow handlers.</message>
                         <link title="Valve migration" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_custom_application_valves"/>
                         <tag>web</tag>
@@ -98,7 +97,7 @@
             </when>
             <perform>
                 <iteration>
-                    <hint title="JAX-RPC specific configuration." effort="3" category-id="mandatory">
+                    <hint title="JAX-RPC specific configuration" effort="3" category-id="mandatory">
                         <message>JAX-RPC support was removed in JBoss EAP 7. All the RPC calls will need to be migrated to JAX-WS.</message>
                         <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_jax_rpc_support_changes" title="JAX-RPC support changes" />
                         <tag>rpc</tag>
@@ -251,9 +250,9 @@
                 <hint title="Web Session Clustering config max-unreplicated-interval changes in EAP 7" effort="1" category-id="optional">
                     <message>
                        The EAP 7 Web Session Clustering configuration deprecates `max-unreplicated-interval` element in `jboss-web.xml` file descriptor.
-                       
+
                        Previously, this configuration option was an optimization that would prevent the replication of a session’s timestamp if no session attribute was changed. While this sounds nice, in practice it doesn't prevent any RPCs, since session access requires cache transaction RPCs regardless of whether any session attributes changed.
-                        
+
                        In the new implementation, the timestamp of a session is replicated on every request.
                        This prevents stale session metadata following failover.
                     </message>
@@ -273,7 +272,7 @@
                 <hint title="Web Session Clustering config snapshot-mode changes in EAP 7" effort="1" category-id="optional">
                     <message>
                      The EAP 7 Web Session Clustering configuration deprecates `snapshot-mode` element in `jboss-web.xml` file descriptor.
-                     
+
                      Previously, one could configure `snapshot-mode` as INSTANT or INTERVAL. Infinispan’s replication queue renders this configuration option obsolete.
                     </message>
                     <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_web_session_clustering_changes" title="Web Session Clustering config migration changes in EAP 7" />
@@ -310,9 +309,9 @@
                 <hint title="Web Session Clustering config session-notification-policy changes in EAP 7" effort="1" category-id="optional">
                     <message>
                        The EAP 7 Web Session Clustering configuration deprecates `session-notification-policy` element in `jboss-web.xml` file descriptor.
-                       
+
                        Previously `session-notification-policy` element defined a policy for triggering session events.
-                       
+
                        In the new implementation, this behaviour is specification driven and not configurable.
                     </message>
                     <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_web_session_clustering_changes" title="Web Session Clustering config migration changes in EAP 7" />
@@ -331,11 +330,11 @@
                 <hint title="Web Session Clustering config passivation-config changes in EAP 7" effort="1" category-id="optional">
                     <message>
                        The EAP 7 Web Session Clustering configuration deprecates `passivation-config` element and its sub-elements `use-session-passivation`, `passivation-min-idle-time` and `passivation-max-idle-time` completely in `jboss-web.xml` file descriptor.
-                       
+
                        * `use-session-passivation` enabled the passivation, but now passivation is enabled by specifying a non-negative value for `max-active-sessions` element.
-                       
+
                        * `passivation-min-idle-time` is not supported and the new implementation avoids waiting some time before the passivation.
-                       
+
                        * `passivation-max-idle-time` is not supported and the new implementation supports only lazy passivation. Sessions are only passivated when necessary to comply with `max-active-sessions`.
                     </message>
                     <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_web_session_clustering_changes" title="Web Session Clustering config migration changes in EAP 7" />
@@ -353,7 +352,7 @@
                 <hint title="Web Session Clustering config max-active-sessions changes in EAP 7" effort="1" category-id="optional">
                     <message>
                        The EAP 7 Web Session Clustering configuration changed `max-active-sessions` element meaning in `jboss-web.xml` file descriptor.
-                       
+
                        Previously, session creation would fail if an additional session would cause the number of active sessions to exceed the value specified by `&lt;max-active-sessions/&gt;`.
 
                        In the new implementation, `&lt;max-active-sessions/&gt;` is used to enable session passivation. If session creation would cause the number of active sessions to exceed `&lt;max-active-sessions/&gt;`,

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ruletest id="jca-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data</testDataPath>
+    <rulePath>../jca.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="jca-test-00001">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+  	                      <hint-exists message="An embedded resource adapter descriptor \(\'ra.xml\'\) has been found*" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="JCA (ra.xml) usage was not found" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

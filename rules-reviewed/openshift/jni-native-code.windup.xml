@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<ruleset id="jni-native-code"
+    xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset detects Java Native Interface (JNI) and Java Native Access (JNA) code usage while migrating to a cloud environment.
+        </description>
+        <dependencies>
+          <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final"/>
+          <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final"/>
+        </dependencies>
+        <targetTechnology id="cloud-readiness"/>
+        <tag>jni</tag>
+    </metadata>
+    <rules>
+        <rule id="jni-native-code-00000">
+            <when>
+                <or>
+                  <javaclass references="java.lang.System.{systemNativeMethods}({*})">
+                      <location>METHOD_CALL</location>
+                  </javaclass>
+                  <javaclass references="java.lang.Runtime.load({*})">
+                      <location>METHOD_CALL</location>
+                  </javaclass>
+                  <javaclass references="java.lang.Runtime.loadLibrary({*})">
+                      <location>METHOD_CALL</location>
+                  </javaclass>
+                  <javaclass references="com.sun.jna.{*}">
+                      <location>CONSTRUCTOR_CALL</location>
+                      <location>IMPORT</location>
+                      <location>INHERITANCE</location>
+                      <location>METHOD_CALL</location>
+                      <location>VARIABLE_DECLARATION</location>
+                  </javaclass>
+                </or>
+            </when>
+            <perform>
+              <hint title="Java native libraries (JNI, JNA)" effort="7" category-id="cloud-mandatory">
+                  <message>
+                    The Java native libraries (JNI, JNA) enables Java code to call and be called by operating system native applications and libraries written in other programming languages (e.g. C, C++).  
+                    Review the purpose and check the compatibility of this native code usage. If the native code cannot be run in the cloud/container environment, a migration strategy in this regard should be defined.  
+                    
+                    The following options are relevant in this regard:  
+                    * reuse and embed the native library/application to the cloud environment (e.g. in a JBoss module)
+                    * contact the vendor/provider of the native library/application
+                    * replace/remove/rewrite the used native library/application by a cloud-compatible equivalent
+                    
+                    Also be evaluate whether to move native libraries to a JBoss EAP Module
+                </message>
+                <link href="https://access.redhat.com/solutions/229443" title="How to load native libraries and access them via JNI in EAP (with or without a module)"/>
+                <link href="https://access.redhat.com/solutions/1444643" title="Is it supported to compile the JNI code as 32-bit shared libraries and use it in 64-bit compiled Java code ?"/>
+                <tag>jni</tag>
+              </hint>
+            </perform>
+            <where param="systemNativeMethods">
+              <matches pattern="(load|loadLibrary|mapLibraryName)"/>
+            </where>
+        </rule>
+  </rules>
+</ruleset>

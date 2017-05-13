@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ruletest id="java-rpc-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data</testDataPath>
+    <rulePath>../java-rpc.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="java-rpc-test-00000">
+                <when>
+                    <not>
+                        <iterable-filter size="15">
+  	                      <hint-exists message="The Java API for XML-based RPC \(JAX-RPC, JSR 101\) is an API for building and consuming Web services and clients that used remote procedure calls \(RPC\) and XML*" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="JAX-RPC hint was not found" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
