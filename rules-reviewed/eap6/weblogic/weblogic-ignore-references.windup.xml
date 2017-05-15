@@ -14,6 +14,9 @@
         <targetTechnology id="eap" versionRange="[6,8)" />
     </metadata>
     <rules>
+        <!-- The presence of these packages means the class was generated. -->
+        <javaclass-ignore reference-prefix="weblogic.ejbgen"/>
+        <javaclass-ignore reference-prefix="weblogic.wsee.tools.clientgen"/>
         <!--
            These interfaces are build-time libraries and internal IBM server libraries.
            I'm removing them as per Marc's PR:
@@ -23,10 +26,8 @@
         <javaclass-ignore reference-prefix="weblogic.ejb.container.persistence.spi.EloWrapper"/>
         <javaclass-ignore reference-prefix="weblogic.ejb20.interfaces"/>
         <javaclass-ignore reference-prefix="weblogic.ejb20.internal"/>
-        <javaclass-ignore reference-prefix="weblogic.ejbgen"/>
         <javaclass-ignore reference-prefix="weblogic.ejb20.persistence.spi.CMPBean"/>
         <javaclass-ignore reference-prefix="weblogic.ejb20.persistence.spi.EoWrapper"/>
-        <javaclass-ignore reference-prefix="weblogic.wsee.tools.clientgen"/>
         <javaclass-ignore reference-prefix="weblogic.rmi.internal"/>
         <javaclass-ignore reference-prefix="weblogic.utils.PlatformConstants"/>
         <javaclass-ignore reference-prefix="weblogic.webservice.core.rpc"/>
