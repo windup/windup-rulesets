@@ -113,7 +113,7 @@
             </perform>
         </rule>
         <rule id="environment-dependent-calls-04000">
- 		<!--could also check JMXConnectorFactory.PROTOCOL_PROVIDER_PACKAGES in the provided hash map-->
+        <!--could also check JMXConnectorFactory.PROTOCOL_PROVIDER_PACKAGES in the provided hash map-->
             <when>
                 <javaclass references="javax.management.{suffix}{*}" as="default">
                     <location>CONSTRUCTOR_CALL</location>
@@ -121,7 +121,7 @@
             </when>
             <perform>
                 <iteration>
-                    <hint title="Reference to javax.management.{suffix}" effort="1" category-id="optional">
+                    <hint title="Reference to javax.management.{suffix}" effort="1" category-id="mandatory">
                         <message>
                           <![CDATA[
                           After migration, some of the JMX beans provided by the previous server may not be present anymore.
