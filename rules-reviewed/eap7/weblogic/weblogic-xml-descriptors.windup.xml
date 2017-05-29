@@ -55,12 +55,12 @@
                 <xmlfile matches="//*[local-name()='delay-updates-until-end-of-tx']/text()" />
             </when>
             <perform>
-                <hint title="WebLogic `delay-updates-until-end-of-tx` configuration element" category-id="mandatory" effort="1">
+                <hint title="WebLogic EJB XML (weblogic-ejb-jar.xml) delay-updates-until-end-of-tx" category-id="mandatory" effort="1">
                     <message>
                       <![CDATA[
-                      The WebLogic `&amp;lt;delay-updates-until-end-of-tx&amp;lt;` configuration element, which defaults to `true`, is used for performance reasons to delay updates to the persistent store of all beans until the end of the transaction. When set to `false`, updates are sent to the database after each method invocation, but are not committed until the end of the transaction. This allows other processes to access the persisted data while the transaction is waiting to be completed.
+                      The WebLogic `<delay-updates-until-end-of-tx>` configuration element, which defaults to `true`, is used for performance reasons to delay updates to the persistent store of all beans until the end of the transaction. When set to `false`, updates are sent to the database after each method invocation, but are not committed until the end of the transaction. This allows other processes to access the persisted data while the transaction is waiting to be completed.
 
-                      In JBoss EAP 6+, you can achieve the same behavior by specifying the `&amp;lt;sync-on-commit-only&amp;gt;` in the jbosscmp-jdbc.xml file.
+                      In JBoss EAP 6+, you can achieve the same behavior by specifying the `<sync-on-commit-only>` in the jbosscmp-jdbc.xml file.
                       ]]>
                     </message>
                     <link href="https://access.redhat.com/articles/1326823"
