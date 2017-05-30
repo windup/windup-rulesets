@@ -43,9 +43,9 @@
                 <matches pattern="[^.]+" />
             </where>
         </rule>
-        <rule id="weblogic-catchall-02000">
+        <rule id="weblogic-catchall-06000">
             <when>
-                <javaclass references="com.oracle{subpackage}.{type}" />
+                <javaclass references="oracle.sql.{remainder}" />
             </when>
             <perform>
                 <iteration>
@@ -55,20 +55,21 @@
                         </not>
                     </when>
                     <perform>
-                        <hint title="Proprietary type reference found" effort="0" category-id="potential">
+                        <hint title="Oracle proprietary SQL type reference" effort="0" category-id="potential">
                             <message>
-                                This is an Oracle proprietary type (`com.oracle{subpackage}.{type}`) and needs to be migrated to a compatible API. There is currently no detailed information about this type.
+                              <![CDATA[
+                              This is an Oracle proprietary SQL type (`oracle.sql.{remainder}`).
+
+                              In most of the cases, it does not need to be migrated to a compatible API.
+                              ]]>
                             </message>
                             <tag>catchall</tag>
                         </hint>
                     </perform>
                 </iteration>
             </perform>
-            <where param="subpackage">
-                <matches pattern="(\..*)?" />
-            </where>
-            <where param="type">
-                <matches pattern="[^.]+" />
+            <where param="remainder">
+                <matches pattern=".*"/>
             </where>
         </rule>
         <rule id="weblogic-catchall-03000">
@@ -160,9 +161,9 @@
                 <matches pattern=".*"/>
             </where>
         </rule>
-        <rule id="weblogic-catchall-06000">
+        <rule id="weblogic-catchall-02000">
             <when>
-                <javaclass references="oracle.sql.{remainder}" />
+                   <javaclass references="{com}oracle{subpackage}.{type}" />
             </when>
             <perform>
                 <iteration>
@@ -172,21 +173,23 @@
                         </not>
                     </when>
                     <perform>
-                        <hint title="Oracle proprietary SQL type reference" effort="0" category-id="potential">
+                        <hint title="Oracle proprietary type reference" effort="0" category-id="potential">
                             <message>
-                              <![CDATA[
-                              This is an Oracle proprietary SQL type (`oracle.sql.{remainder}`).
-
-                              In most of the cases, it does not need to be migrated to a compatible API.
-                              ]]>
+                                This is an Oracle proprietary type (`{com}oracle{subpackage}.{type}`) and needs to be migrated to a compatible API. There is currently no detailed information about this type.
                             </message>
                             <tag>catchall</tag>
                         </hint>
                     </perform>
                 </iteration>
             </perform>
-            <where param="remainder">
-                <matches pattern=".*"/>
+            <where param="com">
+                <matches pattern="(com\.)?"/>
+            </where>
+            <where param="subpackage">
+                <matches pattern="(\..*)?" />
+            </where>
+            <where param="type">
+                <matches pattern="[^.]+" />
             </where>
         </rule>
         <rule id="weblogic-catchall-06500">
@@ -207,33 +210,6 @@
                               This is an Oracle proprietary JDBC type (`oracle.sql.{remainder}`).
 
                               It should be replaced by standard Java EE JCA, datasource and JDBC types.
-                              ]]>
-                            </message>
-                            <tag>catchall</tag>
-                        </hint>
-                    </perform>
-                </iteration>
-            </perform>
-            <where param="remainder">
-                <matches pattern=".*"/>
-            </where>
-        </rule>
-        <rule id="weblogic-catchall-07000">
-            <when>
-                <javaclass references="oracle.{remainder}" />
-            </when>
-            <perform>
-                <iteration>
-                    <when>
-                        <not>
-                            <has-hint />
-                        </not>
-                    </when>
-                    <perform>
-                        <hint title="Oracle proprietary type reference" effort="0" category-id="potential">
-                            <message>
-                              <![CDATA[
-                              This is an Oracle proprietary type (`oracle.{remainder}`) and needs to be migrated to a compatible API. There is currently no detailed information about this type.
                               ]]>
                             </message>
                             <tag>catchall</tag>
