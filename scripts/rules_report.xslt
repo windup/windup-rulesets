@@ -13,19 +13,20 @@
     </xsl:template>
 
     <xsl:template match="windup:ruleset">
+        <div class="spacer" style="padding-bottom: 10px;"></div>
         <table border="1">
             <thead>
                 <tr>
-                    <th colspan="9" style="background-color: green">
+                    <th colspan="3" style="background-color: green">
                         <xsl:value-of select="$filename"/>
                     </th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td colspan="9">
+                    <td colspan="3">
                         Source Technologies:
-                        <xsl:for-each select="sourceTechnology">
+                        <xsl:for-each select="windup:metadata/windup:sourceTechnology">
                             <xsl:value-of select="@id"/>
                             <xsl:value-of select="' '"/>
                             <xsl:value-of select="@versionRange"/>
@@ -33,9 +34,9 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="9">
+                    <td colspan="3">
                         Target Technologies:
-                        <xsl:for-each select="sourceTechnology">
+                        <xsl:for-each select="windup:metadata/windup:targetTechnology">
                             <xsl:value-of select="@id"/>
                             <xsl:value-of select="' '"/>
                             <xsl:value-of select="@versionRange"/>
@@ -43,7 +44,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="9">
+                    <td colspan="3">
                         <xsl:value-of select="windup:description"/>
                     </td>
                 </tr>
@@ -63,31 +64,8 @@
 
             <td>
                 <xsl:for-each select=".//windup:hint">
-                    <xsl:for-each select=".//windup:link">
-                        <div>
-                            <xsl:value-of select="@href"/>
-                        </div>
-                    </xsl:for-each>
-                </xsl:for-each>
-            </td>
-
-            <td>
-                <xsl:for-each select=".//windup:classification">
-                    <xsl:for-each select=".//windup:link">
-                        <div>
-                            <xsl:value-of select="@href"/>
-                        </div>
-                    </xsl:for-each>
-                </xsl:for-each>
-            </td>
-
-            <td>
-                <xsl:for-each select=".//windup:hint">
                     <div>
                         <xsl:value-of select="@title"/>
-                    </div>
-                    <div>
-                        <xsl:value-of select="windup:message"/>
                     </div>
                 </xsl:for-each>
             </td>
@@ -96,9 +74,6 @@
                 <xsl:for-each select=".//windup:classification">
                     <div>
                         <xsl:value-of select="@title"/>
-                    </div>
-                    <div>
-                        <xsl:value-of select="windup:description"/>
                     </div>
                 </xsl:for-each>
             </td>

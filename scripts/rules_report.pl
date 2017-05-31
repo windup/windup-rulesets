@@ -18,7 +18,7 @@ unlink('scripts/output-data/all_rules.html');
 for my $xmlRule (@xmlRules) {
 	chomp $xmlRule;
     my $filename = fileparse($xmlRule);
-	print `xsltproc --timing --stringparam filename $filename scripts/rules_report.xslt $xmlRule >> scripts/output-data/all_rules.html\n`;
+	print `xsltproc --timing --stringparam filename $xmlRule scripts/rules_report.xslt $xmlRule >> scripts/output-data/all_rules.html\n`;
 }
 
 `echo '</body></html>' >> scripts/output-data/all_rules.html`;
