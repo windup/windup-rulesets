@@ -1,0 +1,32 @@
+<!DOCTYPE jboss-web PUBLIC
+        "-//JBoss//DTD Web Application 5.0//EN"
+        "http://www.jboss.org/j2ee/dtd/jboss-web_5_0.dtd">
+<jboss-web>
+    <loader-repository>
+        com.example:loader=globalsight.ear
+        <loader-repository-config>java2ParentDelegation=false</loader-repository-config>
+    </loader-repository>
+
+    <security-domain>java:/jaas/jboss-secure</security-domain>
+    <context-root>/</context-root>
+    <replication-config>
+        <cache-name>test</cache-name>
+        <replication-trigger>SET_AND_NON_PRIMITIVE_GET</replication-trigger>
+        <replication-granularity>SESSION</replication-granularity>
+        <replication-field-batch-mode>true</replication-field-batch-mode>
+        <replication-mode>SYNCHRONOUS</replication-mode> 
+        <backups>2</backups>
+        <use-jk>false</use-jk>
+        <max-unreplicated-interval>30</max-unreplicated-interval>
+        <snapshot-mode>INSTANT</snapshot-mode>
+        <snapshot-interval>1000</snapshot-interval>
+        <session-notification-policy>org.jboss.web.tomcat.service.session.notification.IgnoreUndeployLegacyClusteredSessionNotificationPolicy</session-notification-policy>
+    </replication-config>
+    <max-active-sessions>25</max-active-sessions>
+    <passivation-config>
+      <use-session-passivation>true</use-session-passivation>
+      <passivation-min-idle-time>120</passivation-min-idle-time>
+      <passivation-max-idle-time>600</passivation-max-idle-time>
+   </passivation-config>
+   <valve></valve>
+</jboss-web>

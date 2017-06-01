@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jboss PUBLIC "-//JBoss//DTD JBOSS 2.4//EN" "http://www.jboss.org/j2ee/dtd/jboss_2_4.dtd">
+<jboss xmlns="http://www.jboss.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss_5_1.xsd" version="5.1">
+
+    <security-domain>java:/jaas/customAdmin</security-domain>
+
+    <enterprise-beans>
+        <session>
+            <ejb-name>ShoppingCart</ejb-name>
+            <jndi-name>ShoppingCart</jndi-name>
+            <clustered>true</clustered>
+            <cluster-config>
+                <partition-name>DefaultPartition</partition-name>
+                <load-balance-policy>
+                    org.jboss.ha.framework.interfaces.RandomRobin
+                </load-balance-policy>
+            </cluster-config>
+            <security-domain>tutorial-test</security-domain>
+        </session>
+        <session>
+            <ejb-name>StatelessTest</ejb-name>
+            <jndi-name>StatelessTest</jndi-name>
+        </session>
+        <session>
+            <ejb-name>CustomConfigBean</ejb-name>
+            <pool-config>
+                <pool-value>StrictMaxPool</pool-value>
+                <pool-max-size>10</pool-max-size>
+                <pool-timeout>30002</pool-timeout>
+            </pool-config>
+        </session>
+    </enterprise-beans>
+
+    <assembly-descriptor>
+        <security-role>
+            <role-name>customUser</role-name>
+            <principal-name>customUser</principal-name>
+        </security-role>
+        <security-role>
+            <role-name>customAdmin</role-name>
+            <principal-name>customAdmin</principal-name>
+        </security-role>
+    </assembly-descriptor>
+
+</jboss>
