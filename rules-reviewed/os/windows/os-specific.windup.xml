@@ -11,7 +11,7 @@
         </dependencies>
         <!-- version ranges applied to from and to technologies -->
         <sourceTechnology id="windows" />
-        <targetTechnology id="linux" />
+        <targetTechnology id="cloud-readiness" />
     </metadata>
     <rules>
         <rule id="os-specific-00001">
@@ -19,16 +19,16 @@
                 <filecontent filename="{*}.{extensions}" pattern="{pattern}" />
             </when>
             <perform>
-                <hint title="Windows file system path" effort="1" category-id="mandatory">
-                    <message>This file system path is Windows platform dependent. It needs to be replaced with a Linux-style path.</message>
-                    <tag>os-windows</tag>
+                <hint title="Windows file system path" effort="1" category-id="cloud-mandatory">
+                    <message>This file system path is Microsoft Windows platform dependent. It needs to be replaced with a Linux-style path.</message>
+                    <tag>ms-windows</tag>
                 </hint>
             </perform>
             <where param="extensions">
-                <matches pattern="(java|properties|jsp|jspf|tag|xml|txt|js)" />
+                <matches pattern="(java|properties|jsp|jspf|tag|xml|txt)" />
             </where>
             <where param="pattern">
-                <matches pattern="(([A-Z|a-z]:[\\][^/]?)|(\\\\[^\\]+\\))" />
+                <matches pattern="[A-z]:([\\][^\n\t]+)+|(\\\\([^\\\,\n\t]+)\\\S+)+" />
             </where>
         </rule>
     </rules>
