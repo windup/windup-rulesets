@@ -53,14 +53,16 @@
                 </iteration>
             </perform>
         </rule>
-        <rule id="eap6-03000">
+        <rule id="jboss-eap5-7-java-10000">
             <when>
                 <filecontent filename="MANIFEST.MF" pattern="Dependencies:" />
             </when>
             <perform>
                 <iteration>
-                    <classification title="Manifest.mf - specifies application dependencies" effort="1" category-id="mandatory">
+                    <classification title="Dependency entries in MANIFEST.MF" effort="1" category-id="mandatory">
                         <description>Verify in advance that all the modules this application depends on still exist.</description>
+                        <link title="EAP 7 Implicit Module Dependencies" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html/development_guide/class_loading_and_modules#implicit_module_dependencies"/>
+                        <link title="EAP 7 Included Modules" href="https://access.redhat.com/articles/2158031"/>
                         <tag>configuration</tag>
                     </classification>
                 </iteration>
