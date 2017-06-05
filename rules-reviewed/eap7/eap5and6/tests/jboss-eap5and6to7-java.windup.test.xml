@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="jboss-eap5and6to7-java-test" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data</testDataPath>
+    <ruleset>
+        <rules>
+            <rule id="jboss-eap5and6to7-java-01000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="Dependency entries in MANIFEST.MF" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Manifest.MF not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
