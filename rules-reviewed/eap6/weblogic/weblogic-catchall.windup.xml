@@ -15,9 +15,28 @@
         <phase>PostMigrationRulesPhase</phase>
     </metadata>
     <rules>
+        <rule id="weblogic-catchall-hackrule">
+            <!--
+                HACK - This rule exists only to insure that the prefilter knows
+                about these patterns. weblogic-catchall-01000 uses a very broad
+                regex that is incompatible with the prefilter. Without this
+                stub rule, the prefilter would not fire.
+            -->
+
+            <when>
+                <and>
+                    <javaclass references="com.weblogic.{*}"/>
+                    <javaclass references="com.bea.{*}"/>
+                    <javaclass references="bea.{*}"/>
+                    <javaclass references="weblogic.{*}"/>
+                </and>
+            </when>
+            <perform>
+            </perform>
+        </rule>
         <rule id="weblogic-catchall-01000">
             <when>
-                <javaclass references="com.bea{subpackage}.{type}" />
+                <javaclass references="{prefix}{remainder}" />
             </when>
             <perform>
                 <iteration>
@@ -27,20 +46,20 @@
                         </not>
                     </when>
                     <perform>
-                        <hint title="BEA WebLogic type reference" effort="0" category-id="potential">
+                        <hint title="WebLogic proprietary type reference" effort="0" category-id="potential">
                             <message>
-                                This is an BEA WebLogic proprietary type (`com.bea{subpackage}.{type}`) and needs to be migrated to a compatible API. There is currently no detailed information about this type.
+                                This is a WebLogic proprietary type (`{prefix}{remainder}`) and needs to be migrated to a compatible API. There is currently no detailed information about this type.
                             </message>
                             <tag>catchall</tag>
                         </hint>
                     </perform>
                 </iteration>
             </perform>
-            <where param="subpackage">
-                <matches pattern="(\..*)?" />
+            <where param="prefix">
+                <matches pattern="(com\.weblogic[^.]*\.)|(com\.bea[^.]*\.)|(bea\.)|(weblogic\.)"/>
             </where>
-            <where param="type">
-                <matches pattern="[^.]+" />
+            <where param="remainder">
+                <matches pattern=".*"/>
             </where>
         </rule>
         <rule id="weblogic-catchall-02000">
@@ -84,7 +103,7 @@
                         </not>
                     </when>
                     <perform>
-                        <hint title="Proprietary type reference" effort="0" category-id="potential" >
+                        <hint title="Tangosol Proprietary type reference" effort="0" category-id="potential" >
                             <message>
                                 This is an Oracle proprietary type (`com.tangosol{subpackage}.{type}`) and needs to be migrated to a compatible API. There is currently no detailed information about this type.
                             </message>
@@ -98,67 +117,6 @@
             </where>
             <where param="type">
                 <matches pattern="[^.]+" />
-            </where>
-        </rule>
-        <rule id="weblogic-catchall-04000">
-            <when>
-                <javaclass references="com.weblogic{subpackage}.{type}" />
-            </when>
-            <perform>
-                <iteration>
-                    <when>
-                        <not>
-                            <has-hint />
-                        </not>
-                    </when>
-                    <perform>
-                        <hint title="BEA WebLogic proprietary type reference" effort="0" category-id="potential">
-                            <message>
-                              <![CDATA[
-                              This is an BEA WebLogic proprietary type (`com.weblogic{subpackage}.{type}`) and needs to be migrated to a compatible API. There is currently no detailed information about this type.
-
-                              Please review each item and make sure that no reference to Oracle WebLogic classes is remaining.
-                              ]]>
-                            </message>
-                            <tag>catchall</tag>
-                        </hint>
-                    </perform>
-                </iteration>
-            </perform>
-            <where param="subpackage">
-                <matches pattern="(\..*)?" />
-            </where>
-            <where param="type">
-                <matches pattern="[^.]+" />
-            </where>
-        </rule>
-        <rule id="weblogic-catchall-05000">
-            <when>
-                <javaclass references="bea.{remainder}" />
-            </when>
-            <perform>
-                <iteration>
-                    <when>
-                        <not>
-                            <has-hint />
-                        </not>
-                    </when>
-                    <perform>
-                        <hint title="BEA WebLogic proprietary type reference" effort="0" category-id="potential">
-                            <message>
-                              <![CDATA[
-                              This is an BEA WebLogic proprietary type (`bea.{remainder}`) and needs to be migrated to a compatible API. There is currently no detailed information about this type.
-
-                              Please review each item and make sure that no reference to BEA WebLogic classes is remaining.
-                              ]]>
-                            </message>
-                            <tag>catchall</tag>
-                        </hint>
-                    </perform>
-                </iteration>
-            </perform>
-            <where param="remainder">
-                <matches pattern=".*"/>
             </where>
         </rule>
         <rule id="weblogic-catchall-06000">
@@ -210,36 +168,6 @@
                               This is an Oracle proprietary JDBC type (`oracle.sql.{remainder}`).
 
                               It should be replaced by standard Java EE JCA, datasource and JDBC types.
-                              ]]>
-                            </message>
-                            <tag>catchall</tag>
-                        </hint>
-                    </perform>
-                </iteration>
-            </perform>
-            <where param="remainder">
-                <matches pattern=".*"/>
-            </where>
-        </rule>
-        <rule id="weblogic-catchall-08000">
-            <when>
-                <javaclass references="weblogic.{remainder}" />
-            </when>
-            <perform>
-                <iteration>
-                    <when>
-                        <not>
-                            <has-hint />
-                        </not>
-                    </when>
-                    <perform>
-                        <hint title="BEA WebLogic proprietary type reference" effort="1" category-id="potential">
-                            <message>
-                              <![CDATA[
-                              This is an BEA WebLogic proprietary type (`weblogic.{remainder}`) and needs to be migrated to a compatible API. There is currently no detailed
-                              information about this type.
-
-                              Please review each item and make sure that no reference to Oracle WebLogic classes is remaining.
                               ]]>
                             </message>
                             <tag>catchall</tag>
