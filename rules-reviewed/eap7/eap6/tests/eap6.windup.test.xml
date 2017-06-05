@@ -4,70 +4,6 @@
     <testDataPath>data</testDataPath>
     <ruleset>
         <rules>
-            <rule id="eap6-01000-test">
-                <when>
-                    <not>
-                        <hint-exists message="This entity needs to be migrated using JPA persistence.xml or using JPA annotations."/>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="CMP Java entity hint not found!"/>
-                </perform>
-            </rule>
-            <rule id="eap6-02000-test">
-                <when>
-                    <not>
-                        <classification-exists classification="Apache CFX integration with JBoss"/>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="Apache CXF integration hint not found!"/>
-                </perform>
-            </rule>
-            <rule id="eap6-04000-test">
-                <when>
-                    <not>
-                      <iterable-filter size="2">
-                       <to-file-model>
-                         <classification-exists classification="JBoss Web Valve"/>
-                       </to-file-model>
-                      </iterable-filter>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="org.apache.catalina.Valve interface implementation or ValveBase extension not detected!"/>
-                </perform>
-            </rule>
-            <rule id="eap6-05000-test">
-                <when>
-                    <not>
-                         <hint-exists message="This class is using JSR 88 specific classes."/>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="Hint with the class using JSR 88 specific packages not found!"/>
-                </perform>
-            </rule>
-            <rule id="eap6-06000-test">
-                <when>
-                    <not>
-                         <hint-exists message="EAP 7 includes a new API for building Singleton services,"/>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="EAP specific singleton service not found!"/>
-                </perform>
-            </rule>
-            <rule id="eap6-07000-test">
-                <when>
-                    <not>
-                         <hint-exists message="The .*@Clustered.* annotation is ignored in EAP 7 and is not useful."/>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="@Clustered annotation not found!"/>
-                </perform>
-            </rule>
             <rule id="eap6-08000-test">
                 <when>
                     <not>
@@ -104,16 +40,6 @@
                 </when>
                 <perform>
                     <fail message="The default remote connection port hint in java not found or there are more/less than expected!"/>
-                </perform>
-            </rule>
-            <rule id="eap6-09000-test">
-             <when>
-                    <not>
-                        <classification-exists classification="HornetQ was removed in EAP 7"/>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="The classification aboutg hornetq is not found!"/>
                 </perform>
             </rule>
             <rule id="eap6-10000-test">
