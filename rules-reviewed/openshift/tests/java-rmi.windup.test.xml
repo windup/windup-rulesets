@@ -8,21 +8,21 @@
             <rule id="java-rmi-test-00000">
                 <when>
                     <not>
-                        <classification-exists classification="Java Remote Method Invocation \(RMI\)"/>
+                        <hint-exists message="The use of Java RMI denotes a tight coupling that is better avoid in a cloud environment.*" />
                     </not>
                 </when>
                 <perform>
-                    <fail message="Java RMI classification was not found!" />
+                    <fail message="Java RMI API hint was not found!" />
                 </perform>
             </rule>
             <rule id="java-rmi-test-00001">
                 <when>
                     <not>
-                        <hint-exists message="Java RMI should be avoided in OpenShift environments.*" />
+                        <classification-exists classification="Java Remote Method Invocation \(RMI\)"/>
                     </not>
                 </when>
                 <perform>
-                    <fail message="Java RMI API hint was not found!" />
+                    <fail message="Java RMI classification was not found!" />
                 </perform>
             </rule>
         </rules>
