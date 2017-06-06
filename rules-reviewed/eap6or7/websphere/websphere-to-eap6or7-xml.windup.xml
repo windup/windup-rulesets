@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<ruleset id="websphere-to-eap6or7"
+         xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+<!--
+    Covers changes common to
+    * Websphere to EAP 6 migration and
+    * Websphere to EAP 7 migration.
+-->
+
+    <metadata>
+        <description>
+            This ruleset provides analysis of configuration XML files in IBM WebSphere
+            that may require individual attention when migrating to JBoss EAP 6 or 7.
+            The purpose of this ruleset common to those two major JBoss EAP versions is to avoid duplication of rules
+            in rulesets dedicated to either version.
+
+            This ruleset provides analysis of WebSphere proprietary xml files and constructs
+            that may require individual attention when migrating to JBoss EAP 6 or 7.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,2.6.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-java,2.6.0.Final"/>
+        </dependencies>
+        <sourceTechnology id="websphere"/>
+        <targetTechnology id="eap" versionRange="[6,8)"/>
+        <tag>websphere</tag>
+    </metadata>
+
+    <rules>
+
+        <rule id="websphere-to-eap6or7-xml-01000">
+            <when>
+                <xmlfile matches="/rl:RuleSet">
+                    <namespace prefix="rl" uri="http://www.ibm.com/xmlns/prod/websphere/wbi/br/6.0.0"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <classification title="IBM Process Server Rules 6.0" effort="3">
+                    <description>WBI is a WebSphere proprietary business integration solution. This needs to be migrated to JBoss Drools or JBPM/BRMS.</description>
+                    <tag>ibm-wbi</tag>
+                    <tag>rules</tag>
+                    <tag>websphere</tag>
+                </classification>
+                <xslt title="Drools (Windup-Generated)" template="transformations/xslt/websphere-psrules-to-drools.xsl" extension="-drools-example.drl"/>
+            </perform>
+        </rule>
+
+    </rules>
+</ruleset>

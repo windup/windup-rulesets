@@ -3,7 +3,8 @@
     xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <metadata>
         <description>
-            This ruleset provides analysis of WebSphere proprietary xml files and constructs that may require individual attention when migrating to JBoss EAP 7+.
+            This ruleset provides analysis of WebSphere proprietary xml files and constructs
+            that may require individual attention when migrating to JBoss EAP 7+.
         </description>
         <dependencies>
             <addon id="org.jboss.windup.rules,windup-rules-xml,2.7.0.Final"/>
@@ -12,22 +13,7 @@
         <targetTechnology id="eap" versionRange="[7,8)"/>
     </metadata>
     <rules>
-        <rule id="eap7-websphere-xml-01000">
-            <when>
-                <xmlfile matches="/rl:RuleSet">
-                    <namespace prefix="rl" uri="http://www.ibm.com/xmlns/prod/websphere/wbi/br/6.0.0"/>
-                </xmlfile>
-            </when>
-            <perform>
-                <classification title="IBM Process Server Rules 6.0" effort="3">
-                    <description>WBI is a WebSphere proprietary business integration solution. This needs to be migrated to JBoss Drools or JBPM/BRMS.</description>
-                    <tag>ibm-wbi</tag>
-                    <tag>rules</tag>
-                    <tag>websphere</tag>
-                </classification>
-                <xslt title="Drools (Windup-Generated)" template="transformations/xslt/websphere-psrules-to-drools.xsl" extension="-drools-example.drl"/>
-            </perform>
-        </rule>
+        <!-- eap7-websphere-xml-01000 deduplicated to websphere-to-eap6or7-xml-01000 -->
         <rule id="eap7-websphere-xml-02000">
             <when>
                 <xmlfile matches="/applicationbnd:ApplicationBinding">
