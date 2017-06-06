@@ -16,40 +16,52 @@
     <rules>
         <rule id="java-rmi-00000">
             <when>
-                <javaclass references="java.rmi.{*}" />
-            </when>
-            <perform>
-                <classification title="Java Remote Method Invocation (RMI)" effort="3" category-id="cloud-mandatory">
-                    <description>Java RMI should be avoided in OpenShift environments, as it tends to lead to tightly-coupled stateful applications with scalability problems. Consider replacing it with a solution using RESTful APIs or message queues.
-                    </description>
-<!--                     <link href="" title=""></link> -->
-                    <tag>rmi</tag>
-                </classification>
-            </perform>
-        </rule>
-        <rule id="java-rmi-00001">
-            <when>
                 <javaclass references="java.rmi.Remote">
                     <location>INHERITANCE</location>
                 </javaclass>
             </when>
             <perform>
-                <hint title="Java RMI class" effort="1" category-id="cloud-mandatory">
+                <hint title="Interface for remote calling - Java RMI" effort="1" category-id="cloud-mandatory">
                     <message><![CDATA[
-                    RESTful services are applicable for `lightweight` communication, but depending on what RMI calls are to be replaced, neither RESTful nor messaging might be the right architectural approach:
+                    The use of Java RMI denotes a tight coupling that is better avoid in a cloud environment.
 
-   * messaging overall is bound to
-       - asynchronicity ... not always applicable (or we do not want the overhead of a synchronous wrapper on asynchronous transport)
-       - messaging in a cloud environment may have some challenges as well, if you do not yet have the messaging infrastructure
-   * for `complex` operations you may want to have WebServices
-       - as RESTful will not be able to (easily) handle complex parameter objects or error handling 
-        -> even a microservice may want to return in error/failure case a suitable and typed error reply (SOAP fault does it, RESTful service is limited to much weaker capabilities)
+                    Java EE standard and loosely coupled protocols are recommended for backing services interactions.
+
+                    Some examples are:
+                    
+                    * message-based communication (JMS) for asynchronous use cases
+                    * HTTP-based protocol or API (JAX-RS and JAX-WS) for synchronous use cases
+                    
+                    In combination with load balancing, both options ensure scalability and high availability.
                     ]]>
                     </message>
+                    <link href="https://12factor.net/backing-services" title="Twelve-factor app - Backing services"/>
                     <tag>rmi</tag>
-                    <tag>openshift</tag>
+                    <tag>cloud</tag>
                 </hint>
             </perform>
         </rule>
+        <rule id="java-rmi-00001">
+            <when>
+                <javaclass references="java.rmi.{*}" />
+            </when>
+            <perform>
+                <iteration>
+                    <when>
+                        <not>
+                            <hint-exists message="Interface for remote calling - Java RMI"/>
+                        </not>
+                    </when>
+                    <perform>
+                        <classification title="Java Remote Method Invocation (RMI) reference" effort="3" category-id="cloud-mandatory">
+                            <description>Java RMI should be avoided in cloud environments, as it tends to lead to tightly-coupled stateful applications with scalability problems. Consider replacing it with a solution using RESTful APIs or message queues.
+                            </description>
+                            <tag>rmi</tag>
+                        </classification>
+                    </perform>
+                </iteration>
+            </perform>
+        </rule>
+
     </rules>
 </ruleset>
