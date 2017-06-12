@@ -54,6 +54,9 @@
                 </hint>
             </perform>
         </rule>
+
+
+        <!-- The following 2 rules were merged into websphere-xml-03500
         <rule id="eap7-websphere-xml-03000">
             <when>
                 <file filename="ibm-web-ext.{file_ext}" as="1" />
@@ -107,8 +110,39 @@
                 </hint>
             </perform>
         </rule>
+        -->
 
-        <!-- First, adds hints to ibm-web-bnd.xml -->
+        <rule id="websphere-xml-03500">
+            <when>
+                <or>
+                    <and>
+                        <file filename="ibm-web-ext.{file_ext}"/>
+                        <xmlfile matches="/webappext:WebAppExtension">
+                            <namespace prefix="webappext" uri="webappext.xmi"/>
+                        </xmlfile>
+                    </and>
+                    <xmlfile matches="/ext:web-ext">
+                        <namespace prefix="ext" uri="http://websphere.ibm.com/xml/ns/javaee"/>
+                    </xmlfile>
+                </or>
+            </when>
+            <perform>
+                <hint title="WebSphere proprietary JSP engine configuration" category-id="mandatory" effort="1">
+                    <message>
+                        <![CDATA[
+                        This file contains WebSphere proprietary JSP engine configuration.
+
+                        To migrate to EAP 6.x, configure EAP 6.x accordingly using the CLI interface or web console.
+                        ]]>
+                    </message>
+                    <link title="JSP engine configuration migration to EAP 6" href="https://access.redhat.com/articles/1330673#jspattributes"/>
+                </hint>
+            </perform>
+            <where param="file_ext">
+                <matches pattern="xml|xmi"/>
+            </where>
+        </rule>
+
         <rule id="eap7-websphere-xml-06000">
             <when>
                 <or>
