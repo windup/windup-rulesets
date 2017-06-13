@@ -113,27 +113,39 @@
 
         <rule id="websphere-xml-03500">
             <when>
+                <!--
+                   (jsight - 2017/06/13) A few notes on the rule structure
+
+                    This rule searches for files with the name "ibm-web-ext.{xml|xmi}" and the root
+                    element "WebAppExtension". It also searches for files of any name that have the
+                    root element "web-ext". In either case, it attaches a hint.
+
+                    The conditions are structured to insure that we only receive one hint per file
+                    and they are combined by the "or" condition. Tests cover both scenarios.
+                -->
                 <or>
-                    <file filename="ibm-web-ext.{file_ext}"/>
-                    <xmlfile matches="/webappext:WebAppExtension">
+                    <file filename="ibm-web-ext.{file_ext}" as="files"/>
+                    <xmlfile from="files" matches="/webappext:WebAppExtension" as="default">
                         <namespace prefix="webappext" uri="webappext.xmi"/>
                     </xmlfile>
-                    <xmlfile matches="/ext:web-ext">
+                    <xmlfile matches="/ext:web-ext" as="default">
                         <namespace prefix="ext" uri="http://websphere.ibm.com/xml/ns/javaee"/>
                     </xmlfile>
                 </or>
             </when>
             <perform>
-                <hint title="WebSphere proprietary JSP engine configuration" category-id="mandatory" effort="1">
-                    <message>
-                        <![CDATA[
-                        This file contains WebSphere proprietary JSP engine configuration.
+                <iteration over="default">
+                    <hint title="WebSphere proprietary JSP engine configuration" category-id="mandatory" effort="1">
+                        <message>
+                            <![CDATA[
+                            This file contains WebSphere proprietary JSP engine configuration.
 
-                        To migrate to EAP 6.x, configure EAP 6.x accordingly using the CLI interface or web console.
-                        ]]>
-                    </message>
-                    <link title="JSP engine configuration migration to EAP 6" href="https://access.redhat.com/articles/1330673#jspattributes"/>
-                </hint>
+                            To migrate to EAP 6.x, configure EAP 6.x accordingly using the CLI interface or web console.
+                            ]]>
+                        </message>
+                        <link title="JSP engine configuration migration to EAP 6" href="https://access.redhat.com/articles/1330673#jspattributes"/>
+                    </hint>
+                </iteration>
             </perform>
             <where param="file_ext">
                 <matches pattern="xml|xmi"/>

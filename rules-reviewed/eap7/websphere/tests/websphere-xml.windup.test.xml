@@ -2,6 +2,7 @@
 <ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset">
     <testDataPath>data</testDataPath>
     <rulePath>../</rulePath>
+    <target>eap:7</target>
     <ruleset>
         <rules>
             <rule id="eap7-websphere-xml-01000-test">
@@ -41,7 +42,17 @@
                   </not>
                </when>
                <perform>
-                  <fail message="Hint for IBM Websphere ext:web-ext was not detected" />
+                  <fail message="Hint for IBM Websphere webappext:WebAppExtension was not detected" />
+               </perform>
+            </rule>
+            <rule id="eap7-websphere-xml-03500-hint-test-websphere-web-ext.xml">
+               <when>
+                  <not>
+                     <hint-exists in="websphere-web-ext.xml" message="This file contains WebSphere proprietary JSP engine configuration.*" />
+                  </not>
+               </when>
+               <perform>
+                  <fail message="Hint for IBM Websphere websphere-web-ext.xml was not detected" />
                </perform>
             </rule>
             <rule id="eap7-websphere-xml-06000-hint-test">
