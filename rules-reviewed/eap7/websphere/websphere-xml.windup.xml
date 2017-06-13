@@ -54,6 +54,9 @@
                 </hint>
             </perform>
         </rule>
+
+
+        <!-- The following 2 rules were merged into websphere-xml-03500
         <rule id="eap7-websphere-xml-03000">
             <when>
                 <file filename="ibm-web-ext.{file_ext}" as="1" />
@@ -71,7 +74,7 @@
                     </classification>
                 </iteration>
                 <iteration over="2">
-                    <hint title="WebSphere proprietary JSP engine configuration" category-id="mandatory" effort="1">
+                    <hint title="WebSphere proprietary JSP web application bindings" category-id="mandatory" effort="1">
                         <message>
                           <![CDATA[
                           This file contains WebSphere specific web application bindings. This would derive from J2EE web application.
@@ -107,8 +110,49 @@
                 </hint>
             </perform>
         </rule>
+        -->
 
-        <!-- First, adds hints to ibm-web-bnd.xml -->
+        <rule id="eap7-websphere-xml-03500">
+            <when>
+                <!--
+                   (jsight - 2017/06/13) A few notes on the rule structure
+
+                    This rule searches for files with the name "ibm-web-ext.{xml|xmi}" and the root
+                    element "WebAppExtension". It also searches for files of any name that have the
+                    root element "web-ext". In either case, it attaches a hint.
+
+                    The conditions are structured to insure that we only receive one hint per file
+                    and they are combined by the "or" condition. Tests cover both scenarios.
+                -->
+                <or>
+                    <file filename="ibm-web-ext.{file_ext}" as="files"/>
+                    <xmlfile from="files" matches="/webappext:WebAppExtension" as="default">
+                        <namespace prefix="webappext" uri="webappext.xmi"/>
+                    </xmlfile>
+                    <xmlfile matches="/ext:web-ext" as="default">
+                        <namespace prefix="ext" uri="http://websphere.ibm.com/xml/ns/javaee"/>
+                    </xmlfile>
+                </or>
+            </when>
+            <perform>
+                <iteration over="default">
+                    <hint title="WebSphere proprietary JSP engine configuration" category-id="mandatory" effort="1">
+                        <message>
+                            <![CDATA[
+                            This file contains WebSphere proprietary JSP engine configuration.
+
+                            To migrate to EAP 6 and later, configure it accordingly using the CLI interface or the web console.
+                            ]]>
+                        </message>
+                        <link title="JSP engine configuration migration to EAP 6" href="https://access.redhat.com/articles/1330673#jspattributes"/>
+                    </hint>
+                </iteration>
+            </perform>
+            <where param="file_ext">
+                <matches pattern="xml|xmi"/>
+            </where>
+        </rule>
+
         <rule id="eap7-websphere-xml-06000">
             <when>
                 <or>
@@ -148,9 +192,9 @@
                 <classification title="WebSphere ETools WSClient Extension" category-id="mandatory" effort="3">
                     <description>
                     <![CDATA[
-                    Client IBM specific deployment descriptor extension that needs to be migrated to JBossWS.  
-                    JBossWS implements the latest JAX-WS specification, which users can reference for any vendor-agnostic web service usage need.  
-                    You can migrate deployment descriptors following the links below.  
+                    Client IBM specific deployment descriptor extension that needs to be migrated to JBossWS.
+                    JBossWS implements the latest JAX-WS specification, which users can reference for any vendor-agnostic web service usage need.
+                    You can migrate deployment descriptors following the links below.
                     ]]>
                     </description>
                     <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html/developing_web_services_applications/developing_jax_ws_web_services" title="Developing JAX-WS Web Services"/>
@@ -170,9 +214,9 @@
                 <classification title="WebSphere ETools WSClient Binding" category-id="mandatory" effort="3">
                     <description>
                     <![CDATA[
-                    Client IBM specific deployment descriptor binding that needs to be migrated to JBossWS.  
-                    JBossWS implements the latest JAX-WS specification, which users can reference for any vendor-agnostic web service usage need.  
-                    You can get more information about developing web services in the links below.  
+                    Client IBM specific deployment descriptor binding that needs to be migrated to JBossWS.
+                    JBossWS implements the latest JAX-WS specification, which users can reference for any vendor-agnostic web service usage need.
+                    You can get more information about developing web services in the links below.
                     ]]>
                     </description>
                     <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html/developing_web_services_applications/developing_jax_ws_web_services" title="Developing JAX-WS Web Services"/>
