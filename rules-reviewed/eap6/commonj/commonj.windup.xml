@@ -1,129 +1,129 @@
 <?xml version="1.0"?>
-<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="commonj" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
-   <metadata>
-      <description>
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="commonj"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
             This ruleset provides rules that match when Commonj APIs are used when migrating
             to JBoss EAP 6+.
         </description>
-      <dependencies>
-         <addon id="org.jboss.windup.rules,windup-rules-javaee,2.4.0.Final" />
-         <addon id="org.jboss.windup.rules,windup-rules-java,2.4.0.Final" />
-      </dependencies>
-      <sourceTechnology id="weblogic" />
-      <sourceTechnology id="websphere" />
-      <targetTechnology id="eap" versionRange="[6,7)" />
-      <targetTechnology id="java-ee" versionRange="[6,)" />
-   </metadata>
-   <rules>
-      <rule id="commonj-01000">
-         <when>
-            <javaclass references="commonj.timers.{*}">
-                <location>IMPORT</location>
-            </javaclass>
-         </when>
-         <perform>
-            <classification title="Commonj Timer Manager API" effort="0">
-               <link href="https://access.redhat.com/solutions/199183" title="Replacement for JSR-236 (Timer Manager) and JSR-237 (Work Manager) in JBoss EAP" />
-               <tag>commonj</tag>
-            </classification>
-         </perform>
-      </rule>
-      <rule id="commonj-02000">
-         <when>
-            <javaclass references="commonj.timers.TimerManager">
-            </javaclass>
-         </when>
-         <perform>
-            <hint title="Migrate commonj.timers.TimerManager to Java EE TimerService API" category-id="mandatory" effort="7">
-               <message>Commonj Timer Manager API is similar to the EJB 3.1 java.ejb.Timer Service.
-                 In Java EE 6, the Timer Service was updated to allow cron like configuration of scheduling which is similar to Quartz's timer configurations.
-               </message>
-               <link title="Java EE 6 Tutorial - Using the Timer Service" href="http://docs.oracle.com/javaee/6/tutorial/doc/bnboy.html" />
-               <link title="Java EE 6 TimerService API" href="http://docs.oracle.com/javaee/6/api/javax/ejb/TimerService.html" />
-               <tag>commonj</tag>
-            </hint>
-         </perform>
-      </rule>
-      <rule id="commonj-03000">
-         <when>
-            <javaclass references="commonj.timers.Timer">
-            </javaclass>
-         </when>
-         <perform>
-            <iteration>
-               <hint title="Migrate commonj.timers.Timer to Java EE javax.ejb.Timer" category-id="mandatory" effort="7">
-                  <message>
-                           Commonj Timer Interface is similar to the EJB 3.1 javax.ejb.Timer Interface.
-                  </message>
-                  <link title="Java EE 6 Tutorial - Using the Timer Service" href="http://docs.oracle.com/javaee/6/tutorial/doc/bnboy.html" />
-                  <link title="Java EE 6 TimerService API" href="http://docs.oracle.com/javaee/6/api/javax/ejb/Timer.html" />
-                  <tag>commonj</tag>
-               </hint>
-            </iteration>
-         </perform>
-      </rule>
-      <rule id="commonj-04000">
-         <when>
-            <javaclass references="commonj.work.{*}">
-            </javaclass>
-         </when>
-         <perform>
-            <classification title="Commonj WorkManager API" effort="0">
-               <link href="https://access.redhat.com/solutions/199183" title="Replacement for JSR-236 (Timer Manager) and JSR-237 (Work Manager) in JBoss EAP" />
-               <link href="http://docs.oracle.com/javaee/6/api/index.html?javax/resource/spi/work/package-summary.html"
-                  title="Java EE 6 documentation for javax.resource.spi.work package" />
-               <link title="IronJacamar javax.resource.spi.work.* API"
-                  href="http://www.ironjacamar.org/doc/api/spec/1.7/index.html?javax/resource/spi/work/package-summary.html" />
-               <tag>commonj</tag>
-            </classification>
-         </perform>
-      </rule>
-      <rule id="commonj-05000">
-         <when>
-            <javaclass references="commonj.work.WorkManager">
-            </javaclass>
-         </when>
-         <perform>
-            <hint title="Replace CommonJ WorkManager with a JCA Resource Adapter" effort="7" category-id="mandatory">
-               <message>The CommonJ WorkManager can be replaced with a JCA Resource Adapter.</message>
-               <link title="Ironjacamar WorkManager SPI" href="http://www.ironjacamar.org/doc/api/spec/1.7/index.html?javax/resource/spi/work/WorkManager.html"/>
-               <tag>commonj</tag>
-            </hint>
-         </perform>
-      </rule>
-      <rule id="commonj-06000">
-         <when>
-            <javaclass references="commonj.work.Work{part}">
-            </javaclass>
-         </when>
-         <perform>
-            <hint title="Commonj WorkManager API" effort="3" category-id="mandatory">
-               <message>Replace commonj.work.Work{part} with javax.resource.spi.work.Work{part}.</message>
-               <tag>commonj</tag>
-            </hint>
-         </perform>
-         <where param="part">
-            <matches pattern="(Event|Item|Listener)?" />
-         </where>
-      </rule>
-      <rule id="commonj-07000">
-         <when>
-            <javaclass references="commonj.work.Work{subpart}Exception">
-                <location>THROW_STATEMENT</location>
-                <location>THROWS_METHOD_DECLARATION</location>
-                <location>CATCH_EXCEPTION_STATEMENT</location>
-            </javaclass>
-         </when>
-         <perform>
-            <hint title="CommonJ WorkManager API Exception" effort="1" category-id="mandatory">
-               <message>Replace CommonJ Work related Exception with a javax.resource.spi.work.Work{subpart}Exception subclass.</message>
-               <tag>commonj</tag>
-            </hint>
-         </perform>
-         <where param="subpart">
-            <matches pattern="(Completed|Rejected)?" />
-         </where>
-      </rule>
-   </rules>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,2.4.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-java,2.4.0.Final"/>
+        </dependencies>
+        <sourceTechnology id="weblogic"/>
+        <sourceTechnology id="websphere"/>
+        <targetTechnology id="eap" versionRange="[6,7)"/>
+        <targetTechnology id="java-ee" versionRange="[6,)"/>
+    </metadata>
+    <rules>
+        <rule id="commonj-01000">
+            <when>
+                <javaclass references="commonj.timers.{*}">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <classification issue-display-mode="all" title="Commonj Timer Manager API" effort="0">
+                    <link href="https://access.redhat.com/solutions/199183" title="Replacement for JSR-236 (Timer Manager) and JSR-237 (Work Manager) in JBoss EAP"/>
+                    <tag>commonj</tag>
+                </classification>
+            </perform>
+        </rule>
+        <rule id="commonj-02000">
+            <when>
+                <javaclass references="commonj.timers.TimerManager">
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Migrate commonj.timers.TimerManager to Java EE TimerService API" category-id="mandatory" effort="7">
+                    <message>Commonj Timer Manager API is similar to the EJB 3.1 java.ejb.Timer Service.
+                        In Java EE 6, the Timer Service was updated to allow cron like configuration of scheduling which is similar to Quartz's timer configurations.
+                    </message>
+                    <link title="Java EE 6 Tutorial - Using the Timer Service" href="http://docs.oracle.com/javaee/6/tutorial/doc/bnboy.html"/>
+                    <link title="Java EE 6 TimerService API" href="http://docs.oracle.com/javaee/6/api/javax/ejb/TimerService.html"/>
+                    <tag>commonj</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="commonj-03000">
+            <when>
+                <javaclass references="commonj.timers.Timer">
+                </javaclass>
+            </when>
+            <perform>
+                <iteration>
+                    <hint title="Migrate commonj.timers.Timer to Java EE javax.ejb.Timer" category-id="mandatory" effort="7">
+                        <message>
+                            Commonj Timer Interface is similar to the EJB 3.1 javax.ejb.Timer Interface.
+                        </message>
+                        <link title="Java EE 6 Tutorial - Using the Timer Service" href="http://docs.oracle.com/javaee/6/tutorial/doc/bnboy.html"/>
+                        <link title="Java EE 6 TimerService API" href="http://docs.oracle.com/javaee/6/api/javax/ejb/Timer.html"/>
+                        <tag>commonj</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="commonj-04000">
+            <when>
+                <javaclass references="commonj.work.{*}">
+                </javaclass>
+            </when>
+            <perform>
+                <classification issue-display-mode="all" title="Commonj WorkManager API" effort="0">
+                    <link href="https://access.redhat.com/solutions/199183" title="Replacement for JSR-236 (Timer Manager) and JSR-237 (Work Manager) in JBoss EAP"/>
+                    <link href="http://docs.oracle.com/javaee/6/api/index.html?javax/resource/spi/work/package-summary.html"
+                          title="Java EE 6 documentation for javax.resource.spi.work package"/>
+                    <link title="IronJacamar javax.resource.spi.work.* API"
+                          href="http://www.ironjacamar.org/doc/api/spec/1.7/index.html?javax/resource/spi/work/package-summary.html"/>
+                    <tag>commonj</tag>
+                </classification>
+            </perform>
+        </rule>
+        <rule id="commonj-05000">
+            <when>
+                <javaclass references="commonj.work.WorkManager">
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Replace CommonJ WorkManager with a JCA Resource Adapter" effort="7" category-id="mandatory">
+                    <message>The CommonJ WorkManager can be replaced with a JCA Resource Adapter.</message>
+                    <link title="Ironjacamar WorkManager SPI" href="http://www.ironjacamar.org/doc/api/spec/1.7/index.html?javax/resource/spi/work/WorkManager.html"/>
+                    <tag>commonj</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="commonj-06000">
+            <when>
+                <javaclass references="commonj.work.Work{part}">
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Commonj WorkManager API" effort="3" category-id="mandatory">
+                    <message>Replace commonj.work.Work{part} with javax.resource.spi.work.Work{part}.</message>
+                    <tag>commonj</tag>
+                </hint>
+            </perform>
+            <where param="part">
+                <matches pattern="(Event|Item|Listener)?"/>
+            </where>
+        </rule>
+        <rule id="commonj-07000">
+            <when>
+                <javaclass references="commonj.work.Work{subpart}Exception">
+                    <location>THROW_STATEMENT</location>
+                    <location>THROWS_METHOD_DECLARATION</location>
+                    <location>CATCH_EXCEPTION_STATEMENT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="CommonJ WorkManager API Exception" effort="1" category-id="mandatory">
+                    <message>Replace CommonJ Work related Exception with a javax.resource.spi.work.Work{subpart}Exception subclass.</message>
+                    <tag>commonj</tag>
+                </hint>
+            </perform>
+            <where param="subpart">
+                <matches pattern="(Completed|Rejected)?"/>
+            </where>
+        </rule>
+    </rules>
 </ruleset>
