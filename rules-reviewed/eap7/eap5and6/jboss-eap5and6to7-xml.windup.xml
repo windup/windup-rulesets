@@ -58,7 +58,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <classification title="JBoss Seam Components" effort="5">
+                <classification issue-display-mode="all" title="JBoss Seam Components" effort="5">
                     <description>You should migrate from Seam 2 Framework to Context Dependency Injection technology.</description>
                     <link title="Context and dependency injection - CDI" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0/development-guide/chapter-8-contexts-and-dependency-injection-cdi"/>
                     <link title="Migration from Seam 2 to Java EE and alternatives" href="https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Web_Framework_Kit/2.7/html/Seam_Guide/ch36.html"/>
@@ -74,7 +74,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <classification title="JBoss Seam Pages" effort="5">
+                <classification issue-display-mode="all" title="JBoss Seam Pages" effort="5">
                     <description>You should migrate from Seam 2 Framework to Context Dependency Injection technology.
                         The most features from `pages.xml` file where it is specified a page flow and other configuration of the Seam Framework is achievable through JSF Flow.
                     </description>
@@ -90,7 +90,7 @@
                 <xmlfile matches="/page" in="{*}.page.xml"/>
             </when>
             <perform>
-                <classification title="JBoss Seam Page" effort="3">
+                <classification issue-display-mode="all" title="JBoss Seam Page" effort="3">
                     <tag>seam</tag>
                     <tag>jboss-eap5</tag>
                 </classification>
@@ -102,7 +102,7 @@
                 <xmlfile matches="//*[local-name()='jboss-web']" in="jboss-web.xml"/>
             </when>
             <perform>
-                <classification title="JBoss web application descriptor (jboss-web.xml)" effort="1">
+                <classification issue-display-mode="detail-only" title="JBoss web application descriptor (jboss-web.xml)" effort="1">
                     <description>
                         The `jboss-web.xml` file configures a Java EE web application specifically for JBoss EAP.
                         It is an extension to standard `web.xml`.
@@ -122,11 +122,11 @@
                 <xmlfile matches="//*[local-name()='jbosscmp-jdbc']" in="jbosscmp-jdbc.xml"/>
             </when>
             <perform>
-                <classification title="JBoss EJB 2 CMP Deployment descriptor (jbosscmp-jdbc.xml)" effort="5" category-id="mandatory">
+                <classification issue-display-mode="all" title="JBoss EJB 2 CMP Deployment descriptor (jbosscmp-jdbc.xml)" effort="5" category-id="mandatory">
                     <description>
                         The `jbosscmp-jdbc.xml` is a deployment decriptor controlling the Container Managed Persistence (CMP).
-                        
-                        Support for EJB Entity Beans is optional in Java EE 7 and they are not supported in JBoss EAP 7.  
+
+                        Support for EJB Entity Beans is optional in Java EE 7 and they are not supported in JBoss EAP 7.
                         This means CMP entity beans must be rewritten to use Java Persistence API (JPA) entities.
                     </description>
                     <link title="JBoss EAP 4: The jbosscmp-jdbc Structure" href="https://docs.jboss.org/jbossas/docs/Server_Configuration_Guide/4/html/The_CMP_Engine-The_jbosscmp_jdbc_Structure.html"/>
@@ -145,7 +145,7 @@
                 <xmlfile matches="//*[local-name()='ejb-jar']" in="jboss-ejb3.xml"/>
             </when>
             <perform>
-                <classification title="JBoss EJB 3 deployment descriptor (jboss-ejb3.xml)" effort="5">
+                <classification issue-display-mode="all" title="JBoss EJB 3 deployment descriptor (jboss-ejb3.xml)" effort="5">
                     <description>
                         A JBoss specific EJB 3 configuration allows extensions of Java EE EJB 3.
                     </description>
@@ -160,7 +160,7 @@
                 <xmlfile matches="//*[local-name()='webservices']" in="jboss-webservices.xml"/>
             </when>
             <perform>
-                <classification title="JBoss web-services deployment descriptor (jboss-webservices.xml)" effort="5">
+                <classification issue-display-mode="all" title="JBoss web-services deployment descriptor (jboss-webservices.xml)" effort="5">
                     <description>
                         JBossWS 4.0 introduces a new deployment descriptor to configure web services.
                         The `jboss-webservices.xml` file provides additional information for the given deployment
@@ -270,7 +270,7 @@
                 <file filename="deployment-plan.xml"/>
             </when>
             <perform>
-                    <classification title="JSR-88 deployment plans are no more supported by JBoss EAP7." effort="3" category-id="mandatory">
+                    <classification issue-display-mode="all" title="JSR-88 deployment plans are no more supported by JBoss EAP7." effort="3" category-id="mandatory">
                         <description>This file should be removed and instead rely on proprietary functionality to automate deployments. Please consult EAP 7 admin documentation to learn about such functionality.</description>
                         <link title="Migrate Deployment plan configurations" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-7.0/migration-guide/#migrate_deployment_plan_configurations"/>
                         <tag>configuration</tag>

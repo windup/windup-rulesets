@@ -26,7 +26,7 @@
                 <xmlfile matches="//mbean[@code='org.jboss.cache.TreeCache']"/>
             </when>
             <perform>
-                <classification title="JBoss Cache" effort="3" category-id="mandatory">
+                <classification issue-display-mode="all" title="JBoss Cache" effort="3" category-id="mandatory">
                     <description>
                         JBoss Cache was renamed and reimplemented in Infinispan project see its TreeCache API which is a distributed tree-like structure that is replicated across several members.
                     </description>
@@ -44,7 +44,7 @@
                 <xmlfile public-id=".*JBoss.+DTD Java EE.+5.*"/>
             </when>
             <perform>
-                <classification title="JBoss 5.x EAR descriptor (jboss-app.xml)" effort="5">
+                <classification issue-display-mode="all" title="JBoss 5.x EAR descriptor (jboss-app.xml)" effort="5">
                     <description>
                         A JBoss specific EAR descriptor (`jboss-app.xml`) allows extensions to Java EE EAR archives configuration.
                         You should use now standard `application.xml` descriptor.
@@ -60,7 +60,7 @@
                 <xmlfile matches="/classloading"/>
             </when>
             <perform>
-                <classification title="JBoss Classloading configuration, typically in jboss-classloading.xml." effort="1">
+                <classification issue-display-mode="all" title="JBoss Classloading configuration, typically in jboss-classloading.xml." effort="1">
                     <description>
                         JBoss EAP 7 enhances advanced classloading configuration through jboss-deployment-structure.xml.
                     </description>
@@ -77,7 +77,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <classification title="JBoss EAP 5 Classloading Configuration" effort="5">
+                <classification issue-display-mode="all" title="JBoss EAP 5 Classloading Configuration" effort="5">
                     <description>
                         JBoss EAP 7 enhances advanced classloading configuration through jboss-deployment-structure.xml.
                     </description>
@@ -93,7 +93,7 @@
                 <xmlfile matches="//*[local-name()='classloading']" in="jboss-classloading.xml"/>
             </when>
             <perform>
-                <classification title="JBoss 5 classloader configuration (jboss-classloading.xml)" effort="0" category-id="optional">
+                <classification issue-display-mode="detail-only" title="JBoss 5 classloader configuration (jboss-classloading.xml)" effort="0" category-id="optional">
                     <description>The `jboss-classloading.xml` file allows customization of classloading in JBoss EAP 5.</description>
                     <link title="JBoss EAP 5 Class Loading and Modules" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/5/html/Microcontainer_User_Guide/sect-JBoss_Microcontainer_User_Guide-The_ClassLoading_Layer-ClassLoading.html"/>
                     <link title="JBoss EAP 7 Class Loading and Modules" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0/paged/development-guide/chapter-3-class-loading-and-modules"/>
@@ -118,7 +118,7 @@
                 <xmlfile matches="//*[local-name()='jboss']" in="jboss.xml"/>
             </when>
             <perform>
-                <classification title="JBoss legacy EJB XML (jboss.xml)" effort="0" category-id="mandatory">
+                <classification issue-display-mode="all" title="JBoss legacy EJB XML (jboss.xml)" effort="0" category-id="mandatory">
                     <description>
                         The `jboss.xml` descriptor in deployments is ignored by JBoss AS 7+ or JBoss EAP 6+.
                         Replace it with `jboss-ejb3.xml`.
@@ -154,7 +154,7 @@
                 <xmlfile matches="//*[local-name()='policy']" in="login-config.xml"/>
             </when>
             <perform>
-                <classification title="JBoss security configuration descriptor (prior to AS 7 / EAP 6)" effort="0">
+                <classification issue-display-mode="detail-only" title="JBoss security configuration descriptor (prior to AS 7 / EAP 6)" effort="0">
                     <link title="JBoss Login Modules" href="http://docs.jboss.org/jbosssecurity/docs/6.0/security_guide/html/Login_Modules.html"/>
                     <tag>security</tag>
                 </classification>
