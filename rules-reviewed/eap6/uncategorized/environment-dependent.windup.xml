@@ -122,7 +122,7 @@
             </when>
             <perform>
                 <iteration>
-                    <hint title="Reference to javax.management.{suffix}" effort="1" category-id="mandatory">
+                    <hint title="JMX MBean object name (javax.management.{suffix})" effort="1" category-id="mandatory">
                         <message>
                           <![CDATA[
                           After migration, some of the JMX beans provided by the previous server may not be present anymore.
@@ -134,7 +134,31 @@
                 </iteration>
             </perform>
             <where param="suffix">
-                <matches pattern="(ObjectName)|(remote.JMXServiceURL)" />
+                <matches pattern="(ObjectName)" />
+            </where>
+        </rule>
+        <rule id="environment-dependent-calls-04001">
+            <!--could also check JMXConnectorFactory.PROTOCOL_PROVIDER_PACKAGES in the provided hash map-->
+            <when>
+                <javaclass references="javax.management.{suffix}{*}" as="default">
+                    <location>CONSTRUCTOR_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <iteration>
+                    <hint title="JMX API connector server address (javax.management.{suffix})" effort="1" category-id="mandatory">
+                        <message>
+                            <![CDATA[
+                          After migration, some of the JMX beans provided by the previous server may not be present anymore.
+                          Ensure that the `javax.management.{suffix}` does not need to change for JBoss.
+                          ]]>
+                        </message>
+                        <tag>jmx</tag>
+                    </hint>
+                </iteration>
+            </perform>
+            <where param="suffix">
+                <matches pattern="(remote.JMXServiceURL)" />
             </where>
         </rule>
         <rule id="environment-dependent-calls-05000">
