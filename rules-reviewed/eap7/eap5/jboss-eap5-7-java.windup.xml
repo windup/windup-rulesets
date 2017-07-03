@@ -58,20 +58,25 @@
         <rule id="jboss-eap5-7-java-03000">
             <when>
                 <javaclass references="org.jboss.annotation.ejb.Service">
-                    <location>IMPORT</location>
+                    <location>ANNOTATION</location>
                 </javaclass>
             </when>
             <perform>
-                <hint title="org.jboss.annotation.ejb.Service" effort="3" category-id="mandatory">
+                <hint title="JBoss EJB @Service annotation" effort="3" category-id="mandatory">
                     <message>
-                        The `@Service` annotation is one of JBoss EJB 3.0 extensions which creates a singleton EJB.
-                        Use the new `org.jboss.ejb3.annotation.Service` instead.
+                        The purpose of `@Service` annotation was to achieve @Singleton like behavior. 
+                        It was deprecated with the release of JBoss AS 6 and removed from JBoss EAP 6.
+                        
+                        Use the Java EE 6 `javax.ejb.Singleton` annotation instead.
                     </message>
                     <link title="JBoss EJB 3.0 extensions" href="https://docs.jboss.org/ejb3/docs/reference/build/reference/en/html/jboss_extensions.html"/>
                     <link title="JBoss EJB 3.0 Javadoc" href="https://docs.jboss.org/ejb3/embedded/api/org/jboss/annotation/ejb/package-summary.html"/>
+                    <link href="http://docs.oracle.com/javaee/7/api/javax/ejb/Singleton.html" title="Java EE API for @Singleton"></link>
+                    <link href="https://access.redhat.com/solutions/199863" title="How to expose a JavaEE 6 Singleton as a MBean in JMX in JBoss EAP"/>
+                    <link href="https://access.redhat.com/solutions/196713" title="How to use @Service and @Management annotations in JBoss EAP"/>
                     <tag>ejb</tag>
                     <quickfix name="ejbService-qf" type="REPLACE">
-                        <replacement>org.jboss.ejb3.annotation.Service</replacement>
+                        <replacement>javax.ejb.Singleton</replacement>
                         <search>org.jboss.annotation.ejb.Service</search>
                     </quickfix>
                 </hint>
