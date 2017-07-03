@@ -20,18 +20,6 @@
     </metadata>
 
     <rules>
-        <rule id="jboss-eap5-7-java-01000">
-            <when>
-                <javaclass references="org.jboss.ejb3.annotation.Management">
-                    <location>ANNOTATION</location>
-                </javaclass>
-            </when>
-            <perform>
-                <classification issue-display-mode="all" title="JBoss EAP 5 JMX ManagementBean" effort="3">
-                    <tag>jmx</tag>
-                </classification>
-            </perform>
-        </rule>
         <rule id="jboss-eap5-7-java-02000">
             <when>
                 <javaclass references="javax.jms.QueueConnectionFactory">
@@ -71,7 +59,7 @@
                     <link title="JBoss EJB 3.0 Javadoc" href="https://docs.jboss.org/ejb3/embedded/api/org/jboss/annotation/ejb/package-summary.html"/>
                     <tag>ejb</tag>
                     <quickfix name="ejbService-qf" type="REPLACE">
-                        <replacement>org.jboss.ejb3.annotation.Service</replacement>
+                        <replacement>javax.ejb.Singleton</replacement>
                         <search>org.jboss.annotation.ejb.Service</search>
                     </quickfix>
                 </hint>
@@ -79,23 +67,36 @@
         </rule>
         <rule id="jboss-eap5-7-java-05000">
             <when>
-                <javaclass references="org.jboss.annotation.ejb.Management">
-                    <location>IMPORT</location>
-                </javaclass>
+                <or>
+                    <javaclass references="org.jboss.annotation.ejb.Management">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                    <javaclass references="org.jboss.ejb3.annotation.Management">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                </or>
             </when>
             <perform>
-                <hint title="org.jboss.annotation.ejb.Management" effort="3" category-id="mandatory">
+                <hint title="JBoss EJB @Management annotation" effort="3" category-id="mandatory">
                     <message>
-                        The `@Management` annotation is one of JBoss EJB 3.0 extensions which wraps the the bean
-                        as an MBean and install it in the JBoss MBean Server.
-                        Use the new `org.jboss.ejb3.annotation.Management` instead.
+                        The `@Management` annotation is one of JBoss EJB 3.0 extension which wraps the bean
+                        as an MBean and registers it in the JBoss MBean Server automatically.
+                        JBoss EAP 6+ no longer supports the @Management annotations. 
+                        
+                        The Solution is to create a simple MBean using the Java EE 6 `@Singleton` and `@Startup` to register itself in JMX Server.
+                        
+                        Create your `@Singleton` MBean implementation which implements your service interface. Use `@PostConstruct` to have your Singleton register itself in the JMX MBean Server and then use `@PreDestroy` to unregister your MBean from the JMX Server. 
                     </message>
                     <link title="JBoss EJB 3.0 extensions" href="https://docs.jboss.org/ejb3/docs/reference/build/reference/en/html/jboss_extensions.html"/>
                     <link title="JBoss EJB 3.0 Javadoc" href="https://docs.jboss.org/ejb3/embedded/api/org/jboss/annotation/ejb/package-summary.html"/>
+                    <link href="https://access.redhat.com/solutions/199863" title="How to expose a JavaEE 6 Singleton as a MBean in JMX in JBoss EAP"/>
+                    <link href="https://developer.jboss.org/thread/176310" title="Community thread about migrating JMX MBean"/>
+                    <link href="http://docs.oracle.com/javaee/7/api/javax/ejb/Startup.html" title="Java API - Annotation Type Startup"></link>
                     <tag>ejb</tag>
                     <tag>jmx</tag>
+                    <tag>singleton</tag>
                     <quickfix name="ejbManagement-qf" type="REPLACE">
-                        <replacement>org.jboss.annotation.ejb.Management</replacement>
+                        <replacement>javax.ejb.Startup</replacement>
                         <search>org.jboss.ejb3.annotation.Management</search>
                     </quickfix>
                 </hint>

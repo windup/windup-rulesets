@@ -6,16 +6,6 @@
     <rulePath>../jboss-eap5-7-java.windup.xml</rulePath>
     <ruleset>
         <rules>
-            <rule id="jboss-eap5-7-java-01000-test-c1">
-                <when>
-                    <not>
-                        <classification-exists classification="JBoss EAP 5 JMX ManagementBean" />
-                    </not>
-                </when>
-                <perform>
-                    <fail message="Classification not found: JBoss EAP 5 JMX ManagementBean" />
-                </perform>
-            </rule>
             <rule id="jboss-eap5-7-java-02000-test-h1">
                 <when>
                     <not>
@@ -41,7 +31,9 @@
             <rule id="jboss-eap5-7-java-05000-test-h1">
                 <when>
                     <not>
-                        <hint-exists message="The `@Management` annotation" />
+                        <iterable-filter size="2">
+                            <hint-exists message="The `@Management` annotation" />
+                        </iterable-filter>
                     </not>
                 </when>
                 <perform>
