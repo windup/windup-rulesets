@@ -17,13 +17,43 @@
     </metadata>
 
     <rules>
-        <rule id="seam-ui-00000">
+        <rule id="seam-ui-jsf-00001">
             <when>
-                <xmlfile matches="//*[namespace-uri()='http://jboss.com/products/seam/taglib'] | //*[namespace-uri()='http://jboss.org/schema/seam/taglib']">
+                <xmlfile matches="//*[namespace-uri()='http://jboss.com/products/seam/taglib']">
                 </xmlfile>
             </when>
             <perform>
-                <classification issue-display-mode="all" title="JSF Seam Template" effort="0" category-id="mandatory">
+                <classification issue-display-mode="all" title="Seam 2.x Tag library" effort="1" category-id="mandatory">
+                    <description>JSF template includes Seam 2.x Tag library reference, review the usage of Seam UI tags and try to replace them with suggestions for concrete Seam UI tags.
+                        Seam 2.2.x and earlier is not supported on EAP 6+ as was supported on the original JBoss EAP 5. Even some parts of Seam can work on JBoss EAP 6 as Red Hat JBoss Web Framework Kit reached end of life
+                        it is recommended to migrate all Seam UI controls to JSF UI controls.
+                        Start with removing tag library reference or read how to configure JSF 1.2 for JBoss EAP 6.
+                    </description>
+                    <link href="https://access.redhat.com/solutions/84873" title="Why Seam is not included in JBoss EAP 6"/>
+                    <link href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html-single/Migration_Guide/index.html#sect-JSF_changes" title="Enable Applications To Use Older Versions of JSF"/>
+                    <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate-eap5-component-upgrade-reference" 
+                          title="JBoss EAP 5 Component Upgrade Reference"/>
+                    <tag>seam</tag>
+                    <tag>jsf</tag>
+                </classification>
+            </perform>
+        </rule>
+        <rule id="seam-ui-jsf-00002">
+            <when>
+                <xmlfile matches="//*[namespace-uri()='http://jboss.org/schema/seam/taglib']">
+                </xmlfile>
+            </when>
+            <perform>
+                <classification issue-display-mode="all" title="Seam 2.3 Tag library" effort="1" category-id="mandatory">
+                    <description>JSF template includes Seam 2.3 Tag library reference, review the usage of Seam UI controls and try to replace them with suggestions for concrete Seam UI control.
+                        For EAP 7 you need to migrate all Seam UI tags to JSF 2.2 UI tags.
+                        Seam 2.3 was supported only on JBoss EAP 6 and JBoss EAP 7, which now includes JSF 2.2 and Hibernate 5, does not support Seam 2.3 due to end of life of Red Hat JBoss Web Framework Kit. 
+                        It is recommended that you rewrite your Seam components using Weld CDI beans and replace Seam UI tags with JSF 2.2 UI tags.
+                        Start with removing tag library reference.
+                    </description>
+                    <link href="https://access.redhat.com/solutions/84873" title="Why Seam is not included in JBoss EAP 6"/>
+                    <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate-eap5-component-upgrade-reference" 
+                          title="JBoss EAP 5 Component Upgrade Reference"/>
                     <tag>seam</tag>
                     <tag>jsf</tag>
                 </classification>
@@ -31,10 +61,14 @@
         </rule>
         <rule id="seam-ui-jsf-00001">
             <when>
-                <xmlfile matches="//s:button">
-                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
-                    <namespace prefix="seam" uri="http://jboss.org/schema/seam/taglib" />
-                </xmlfile>
+                <or>
+                    <xmlfile matches="//s:button">
+                        <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                    </xmlfile>
+                    <xmlfile matches="//s:button">
+                        <namespace prefix="s" uri="http://jboss.org/schema/seam/taglib" />
+                    </xmlfile>
+                </or>
             </when>
             <perform>
                 <hint title="Seam 2 UI control s:button" effort="1" category-id="mandatory">
@@ -55,10 +89,14 @@
         </rule>
         <rule id="seam-ui-jsf-01000">
             <when>
-                <xmlfile matches="//s:link">
-                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
-                    <namespace prefix="seam" uri="http://jboss.org/schema/seam/taglib" />
-                </xmlfile>
+                <or>
+                    <xmlfile matches="//s:link">
+                        <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                    </xmlfile>
+                    <xmlfile matches="//s:link">
+                        <namespace prefix="s" uri="http://jboss.org/schema/seam/taglib" />
+                    </xmlfile>
+                </or>
             </when>
             <perform>
                 <hint title="Seam 2 UI control s:link" effort="1" category-id="mandatory">
@@ -79,10 +117,14 @@
         </rule>
         <rule id="seam-ui-jsf-01001">
             <when>
-                <xmlfile matches="//s:conversationId">
-                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
-                    <namespace prefix="seam" uri="http://jboss.org/schema/seam/taglib" />
-                </xmlfile>
+                <or>
+                    <xmlfile matches="//s:conversationId">
+                        <namespace prefix="s" uri="http://jboss.com/products/seam/taglib"/>
+                    </xmlfile>
+                    <xmlfile matches="//s:conversationId">
+                        <namespace prefix="s" uri="http://jboss.org/schema/seam/taglib"/>
+                    </xmlfile>
+                </or>
             </when>
             <perform>
                 <hint title="Seam 2 UI control s:conversationId" effort="3" category-id="mandatory">
@@ -98,10 +140,14 @@
         </rule>
         <rule id="seam-ui-jsf-01002">
             <when>
-                <xmlfile matches="//s:conversationPropagation">
-                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
-                    <namespace prefix="seam" uri="http://jboss.org/schema/seam/taglib" />
-                </xmlfile>
+                <or>
+                    <xmlfile matches="//s:conversationPropagation">
+                        <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                    </xmlfile>
+                    <xmlfile matches="//s:conversationPropagation">
+                        <namespace prefix="s" uri="http://jboss.org/schema/seam/taglib" />
+                    </xmlfile>
+                </or>
             </when>
             <perform>
                 <hint title="Seam 2 UI control s:conversationPropagation" effort="3" category-id="mandatory">
@@ -117,10 +163,14 @@
         </rule>
         <rule id="seam-ui-jsf-01003">
             <when>
-                <xmlfile matches="//s:taskId">
-                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib"/>
-                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib"/>
-                </xmlfile>
+                <or>
+                    <xmlfile matches="//s:taskId">
+                        <namespace prefix="s" uri="http://jboss.com/products/seam/taglib"/>
+                    </xmlfile>
+                    <xmlfile matches="//s:taskId">
+                        <namespace prefix="s" uri="http://jboss.org/schema/seam/taglib" />
+                    </xmlfile>
+                </or>
             </when>
             <perform>
                 <hint title="Seam 2 UI control s:taskId" effort="3" category-id="mandatory">
@@ -136,10 +186,14 @@
         </rule>
         <rule id="seam-ui-jsf-01004">
             <when>
-                <xmlfile matches="//s:defaultAction">
-                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
-                    <namespace prefix="seam" uri="http://jboss.org/schema/seam/taglib" />
-                </xmlfile>
+                <or>
+                    <xmlfile matches="//s:defaultAction">
+                        <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                    </xmlfile>
+                    <xmlfile matches="//s:defaultAction">
+                        <namespace prefix="s" uri="http://jboss.org/schema/seam/taglib" />
+                    </xmlfile>
+                </or>
             </when>
             <perform>
                 <hint title="Seam 2 UI control s:defaultAction" effort="3" category-id="mandatory">
@@ -155,10 +209,14 @@
         </rule>
         <rule id="seam-ui-jsf-01005">
             <when>
-                <xmlfile matches="//s:convertDateTime">
-                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
-                    <namespace prefix="seam" uri="http://jboss.org/schema/seam/taglib" />
-                </xmlfile>
+                <or>
+                    <xmlfile matches="//s:convertDateTime">
+                        <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                    </xmlfile>
+                    <xmlfile matches="//s:convertDateTime">
+                        <namespace prefix="s" uri="http://jboss.org/schema/seam/taglib" />
+                    </xmlfile>
+                </or>
             </when>
             <perform>
                 <hint title="Seam 2 UI control s:convertDateTime" effort="1" category-id="mandatory">
@@ -176,10 +234,14 @@
         </rule>
         <rule id="seam-ui-jsf-01006">
             <when>
-                <xmlfile matches="//s:convertEntity">
-                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
-                    <namespace prefix="seam" uri="http://jboss.org/schema/seam/taglib" />
-                </xmlfile>
+                <or>
+                    <xmlfile matches="//s:convertEntity">
+                        <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                    </xmlfile>
+                    <xmlfile matches="//s:convertEntity">
+                        <namespace prefix="s" uri="http://jboss.org/schema/seam/taglib" />
+                    </xmlfile>
+                </or>
             </when>
             <perform>
                 <hint title="Seam 2 UI control s:convertEntity" effort="1" category-id="mandatory">
@@ -195,10 +257,14 @@
         </rule>
         <rule id="seam-ui-jsf-01007">
             <when>
-                <xmlfile matches="//s:enumItem">
-                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
-                    <namespace prefix="seam" uri="http://jboss.org/schema/seam/taglib" />
-                </xmlfile>
+                <or>
+                    <xmlfile matches="//s:enumItem">
+                        <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                    </xmlfile>
+                    <xmlfile matches="//s:enumItem">
+                        <namespace prefix="s" uri="http://jboss.org/schema/seam/taglib" />
+                    </xmlfile>
+                </or>
             </when>
             <perform>
                 <hint title="Seam 2 UI control s:enumItem" effort="3" category-id="mandatory">
@@ -214,10 +280,14 @@
         </rule>
         <rule id="seam-ui-jsf-01008">
             <when>
-                <xmlfile matches="//s:token">
-                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
-                    <namespace prefix="seam" uri="http://jboss.org/schema/seam/taglib" />
-                </xmlfile>
+                <or>
+                    <xmlfile matches="//s:token">
+                        <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                    </xmlfile>
+                    <xmlfile matches="//s:token">
+                        <namespace prefix="s" uri="http://jboss.org/schema/seam/taglib" />
+                    </xmlfile>
+                </or>
             </when>
             <perform>
                 <hint title="Seam 2 UI control s:token" effort="3" category-id="mandatory">
@@ -233,10 +303,14 @@
         </rule>
         <rule id="seam-ui-jsf-01009">
             <when>
-                <xmlfile matches="//s:formattedText">
-                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
-                    <namespace prefix="seam" uri="http://jboss.org/schema/seam/taglib" />
-                </xmlfile>
+                <or>
+                    <xmlfile matches="//s:formattedText">
+                        <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                    </xmlfile>
+                    <xmlfile matches="//s:formattedText">
+                        <namespace prefix="s" uri="http://jboss.org/schema/seam/taglib" />
+                    </xmlfile>
+                </or>
             </when>
             <perform>
                 <hint title="Seam 2 UI control s:formattedText" effort="3" category-id="mandatory">
@@ -252,10 +326,14 @@
         </rule>
         <rule id="seam-ui-jsf-01010">
             <when>
-                <xmlfile matches="//s:cache">
-                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
-                    <namespace prefix="seam" uri="http://jboss.org/schema/seam/taglib" />
-                </xmlfile>
+                <or>
+                    <xmlfile matches="//s:cache">
+                        <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                    </xmlfile>
+                    <xmlfile matches="//s:cache">
+                        <namespace prefix="s" uri="http://jboss.org/schema/seam/taglib" />
+                    </xmlfile>
+                </or>
             </when>
             <perform>
                 <hint title="Seam 2 UI control s:cache" effort="3" category-id="mandatory">
@@ -271,10 +349,14 @@
         </rule>
         <rule id="seam-ui-jsf-01011">
             <when>
-                <xmlfile matches="//s:resource">
-                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
-                    <namespace prefix="seam" uri="http://jboss.org/schema/seam/taglib" />
-                </xmlfile>
+                <or>
+                    <xmlfile matches="//s:resource">
+                        <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                    </xmlfile>
+                    <xmlfile matches="//s:resource">
+                        <namespace prefix="s" uri="http://jboss.org/schema/seam/taglib" />
+                    </xmlfile>
+                </or>
             </when>
             <perform>
                 <hint title="Seam 2 UI control s:resource" effort="3" category-id="mandatory">
@@ -290,10 +372,14 @@
         </rule>
         <rule id="seam-ui-jsf-01012">
             <when>
-                <xmlfile matches="//s:download">
-                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
-                    <namespace prefix="seam" uri="http://jboss.org/schema/seam/taglib" />
-                </xmlfile>
+                <or>
+                    <xmlfile matches="//s:download">
+                        <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                    </xmlfile>
+                    <xmlfile matches="//s:download">
+                        <namespace prefix="s" uri="http://jboss.org/schema/seam/taglib" />
+                    </xmlfile>
+                </or>
             </when>
             <perform>
                 <hint title="Seam 2 UI control s:download" effort="3" category-id="mandatory">
@@ -309,10 +395,14 @@
         </rule>
         <rule id="seam-ui-jsf-01013">
             <when>
-                <xmlfile matches="//s:remote">
-                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
-                    <namespace prefix="seam" uri="http://jboss.org/schema/seam/taglib" />
-                </xmlfile>
+                <or>
+                    <xmlfile matches="//s:remote">
+                        <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                    </xmlfile>
+                    <xmlfile matches="//s:remote">
+                        <namespace prefix="s" uri="http://jboss.org/schema/seam/taglib" />
+                    </xmlfile>
+                </or>
             </when>
             <perform>
                 <hint title="Seam 2 UI control s:remote" effort="3" category-id="mandatory">
@@ -328,10 +418,14 @@
         </rule>
         <rule id="seam-ui-jsf-01014">
             <when>
-                <xmlfile matches="//s:selectItems">
-                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
-                    <namespace prefix="seam" uri="http://jboss.org/schema/seam/taglib" />
-                </xmlfile>
+                <or>
+                    <xmlfile matches="//s:selectItems">
+                        <namespace prefix="s" uri="http://jboss.org/schema/seam/taglib" />
+                    </xmlfile>
+                    <xmlfile matches="//s:selectItems">
+                        <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                    </xmlfile>
+                </or>
             </when>
             <perform>
                 <hint title="Seam 2 UI control s:selectItems" effort="1" category-id="mandatory">
@@ -347,10 +441,14 @@
         </rule>
         <rule id="seam-ui-jsf-01015">
             <when>
-                <xmlfile matches="//s:validate">
-                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
-                    <namespace prefix="seam" uri="http://jboss.org/schema/seam/taglib" />
-                </xmlfile>
+                <or>
+                    <xmlfile matches="//s:validate">
+                        <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                    </xmlfile>
+                    <xmlfile matches="//s:validate">
+                        <namespace prefix="s" uri="http://jboss.org/schema/seam/taglib" />
+                    </xmlfile>
+                </or>
             </when>
             <perform>
                 <hint title="Seam 2 UI control s:validate" effort="1" category-id="mandatory">
@@ -366,10 +464,14 @@
         </rule>
         <rule id="seam-ui-jsf-01016">
             <when>
-                <xmlfile matches="//s:fragment">
-                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
-                    <namespace prefix="seam" uri="http://jboss.org/schema/seam/taglib" />
-                </xmlfile>
+                <or>
+                    <xmlfile matches="//s:fragment">
+                        <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                    </xmlfile>
+                    <xmlfile matches="//s:fragment">
+                        <namespace prefix="s" uri="http://jboss.org/schema/seam/taglib" />
+                    </xmlfile>
+                </or>
             </when>
             <perform>
                 <hint title="Seam 2 UI control s:fragment" effort="1" category-id="mandatory">
@@ -385,10 +487,14 @@
         </rule>
         <rule id="seam-ui-jsf-01017">
             <when>
-                <xmlfile matches="//s:convertEnum">
-                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
-                    <namespace prefix="seam" uri="http://jboss.org/schema/seam/taglib" />
-                </xmlfile>
+                <or>
+                    <xmlfile matches="//s:convertEnum">
+                        <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                    </xmlfile>
+                    <xmlfile matches="//s:convertEnum">
+                        <namespace prefix="s" uri="http://jboss.org/schema/seam/taglib" />
+                    </xmlfile>
+                </or>
             </when>
             <perform>
                 <hint title="Seam 2 UI control s:convertEnum" effort="3" category-id="mandatory">
@@ -406,10 +512,14 @@
         </rule>
         <rule id="seam-ui-jsf-01018">
             <when>
-                <xmlfile matches="//s:convertAtomicBoolean">
-                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
-                    <namespace prefix="seam" uri="http://jboss.org/schema/seam/taglib" />
-                </xmlfile>
+                <or>
+                    <xmlfile matches="//s:convertAtomicBoolean">
+                        <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                    </xmlfile>
+                    <xmlfile matches="//s:convertAtomicBoolean">
+                        <namespace prefix="s" uri="http://jboss.org/schema/seam/taglib" />
+                    </xmlfile>
+                </or>
             </when>
             <perform>
                 <hint title="Seam 2 UI control s:convertAtomicBoolean" effort="3" category-id="mandatory">
@@ -427,10 +537,14 @@
         </rule>
         <rule id="seam-ui-jsf-01019">
             <when>
-                <xmlfile matches="//s:convertAtomicInteger">
-                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
-                    <namespace prefix="seam" uri="http://jboss.org/schema/seam/taglib" />
-                </xmlfile>
+                <or>
+                    <xmlfile matches="//s:convertAtomicInteger">
+                        <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                    </xmlfile>
+                    <xmlfile matches="//s:convertAtomicInteger">
+                        <namespace prefix="s" uri="http://jboss.org/schema/seam/taglib" />
+                    </xmlfile>
+                </or>
             </when>
             <perform>
                 <hint title="Seam 2 UI control s:convertAtomicInteger" effort="3" category-id="mandatory">
@@ -448,10 +562,14 @@
         </rule>
         <rule id="seam-ui-jsf-01020">
             <when>
-                <xmlfile matches="//s:convertAtomicLong">
-                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
-                    <namespace prefix="seam" uri="http://jboss.org/schema/seam/taglib" />
-                </xmlfile>
+                <or>
+                    <xmlfile matches="//s:convertAtomicLong">
+                        <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                    </xmlfile>
+                    <xmlfile matches="//s:convertAtomicLong">
+                        <namespace prefix="s" uri="http://jboss.org/schema/seam/taglib" />
+                    </xmlfile>
+                </or>
             </when>
             <perform>
                 <hint title="Seam 2 UI control s:convertAtomicLong" effort="3" category-id="mandatory">
@@ -469,10 +587,14 @@
         </rule>
         <rule id="seam-ui-jsf-01021">
             <when>
-                <xmlfile matches="//s:validateEquality">
-                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
-                    <namespace prefix="seam" uri="http://jboss.org/schema/seam/taglib" />
-                </xmlfile>
+                <or>
+                    <xmlfile matches="//s:validateEquality">
+                        <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                    </xmlfile>
+                    <xmlfile matches="//s:validateEquality">
+                        <namespace prefix="s" uri="http://jboss.org/schema/seam/taglib" />
+                    </xmlfile>
+                </or>
             </when>
             <perform>
                 <hint title="Seam 2 UI control s:validateEquality" effort="1" category-id="mandatory">
@@ -495,10 +617,14 @@
         </rule>
         <rule id="seam-ui-jsf-01022">
             <when>
-                <xmlfile matches="//s:validateAll">
-                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
-                    <namespace prefix="seam" uri="http://jboss.org/schema/seam/taglib" />
-                </xmlfile>
+                <or>
+                    <xmlfile matches="//s:validateAll">
+                        <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                    </xmlfile>
+                    <xmlfile matches="//s:validateAll">
+                        <namespace prefix="s" uri="http://jboss.org/schema/seam/taglib" />
+                    </xmlfile>
+                </or>
             </when>
             <perform>
                 <hint title="Seam 2 UI control s:validateAll" effort="1" category-id="mandatory">
@@ -514,10 +640,14 @@
         </rule>
         <rule id="seam-ui-jsf-01023">
             <when>
-                <xmlfile matches="//s:decorate">
-                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
-                    <namespace prefix="seam" uri="http://jboss.org/schema/seam/taglib" />
-                </xmlfile>
+                <or>
+                    <xmlfile matches="//s:decorate">
+                        <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                    </xmlfile>
+                    <xmlfile matches="//s:decorate">
+                        <namespace prefix="s" uri="http://jboss.org/schema/seam/taglib" />
+                    </xmlfile>
+                </or>
             </when>
             <perform>
                 <hint title="Seam 2 UI control s:decorate" effort="3" category-id="mandatory">
@@ -534,10 +664,14 @@
         </rule>
         <rule id="seam-ui-jsf-01024">
             <when>
-                <xmlfile matches="//s:div">
-                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
-                    <namespace prefix="seam" uri="http://jboss.org/schema/seam/taglib" />
-                </xmlfile>
+                <or>
+                    <xmlfile matches="//s:div">
+                        <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                    </xmlfile>
+                    <xmlfile matches="//s:div">
+                        <namespace prefix="s" uri="http://jboss.org/schema/seam/taglib" />
+                    </xmlfile>
+                </or>
             </when>
             <perform>
                 <hint title="Seam 2 UI control s:div" effort="1" category-id="mandatory">
@@ -553,10 +687,14 @@
         </rule>
         <rule id="seam-ui-jsf-01025">
             <when>
-                <xmlfile matches="//s:span">
-                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
-                    <namespace prefix="seam" uri="http://jboss.org/schema/seam/taglib" />
-                </xmlfile>
+                <or>
+                    <xmlfile matches="//s:span">
+                        <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                    </xmlfile>
+                    <xmlfile matches="//s:span">
+                        <namespace prefix="s" uri="http://jboss.org/schema/seam/taglib" />
+                    </xmlfile>
+                </or>
             </when>
             <perform>
                 <hint title="Seam 2 UI control s:span" effort="1" category-id="mandatory">
@@ -572,10 +710,14 @@
         </rule>
         <rule id="seam-ui-jsf-01026">
             <when>
-                <xmlfile matches="//s:label">
-                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
-                    <namespace prefix="seam" uri="http://jboss.org/schema/seam/taglib" />
-                </xmlfile>
+                <or>
+                    <xmlfile matches="//s:label">
+                        <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                    </xmlfile>
+                    <xmlfile matches="//s:label">
+                        <namespace prefix="s" uri="http://jboss.org/schema/seam/taglib" />
+                    </xmlfile>
+                </or>
             </when>
             <perform>
                 <hint title="Seam 2 UI control s:label" effort="1" category-id="mandatory">
@@ -591,11 +733,15 @@
         </rule>
         <rule id="seam-ui-jsf-01027">
             <when>
-                <xmlfile matches="//s:message">
-                <!-- why is not namespace taken into account ?  wsdl:message is caught too -->
-                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
-                    <namespace prefix="seam" uri="http://jboss.org/schema/seam/taglib" />
-                </xmlfile>
+                <or>
+                    <xmlfile matches="//s:message">
+                        <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                    </xmlfile>
+                    <xmlfile matches="//s:message">
+                    <!-- why is not namespace taken into account ?  wsdl:message is caught too -->
+                        <namespace prefix="s" uri="http://jboss.org/schema/seam/taglib" />
+                    </xmlfile>
+                </or>
             </when>
             <perform>
                 <hint title="Seam 2 UI control s:message" effort="1" category-id="mandatory">
@@ -611,10 +757,14 @@
         </rule>
         <rule id="seam-ui-jsf-01028">
             <when>
-                <xmlfile matches="//s:fileUpload">
-                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
-                    <namespace prefix="seam" uri="http://jboss.org/schema/seam/taglib" />
-                </xmlfile>
+                <or>
+                    <xmlfile matches="//s:fileUpload">
+                        <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                    </xmlfile>
+                    <xmlfile matches="//s:fileUpload">
+                        <namespace prefix="s" uri="http://jboss.org/schema/seam/taglib" />
+                    </xmlfile>
+                </or>
             </when>
             <perform>
                 <hint title="Seam 2 UI control s:fileUpload" effort="1" category-id="mandatory">
@@ -630,10 +780,14 @@
         </rule>
         <rule id="seam-ui-jsf-01029">
             <when>
-                <xmlfile matches="//s:graphicImage">
-                    <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
-                    <namespace prefix="seam" uri="http://jboss.org/schema/seam/taglib" />
-                </xmlfile>
+                <or>
+                    <xmlfile matches="//s:graphicImage">
+                        <namespace prefix="s" uri="http://jboss.com/products/seam/taglib" />
+                    </xmlfile>
+                    <xmlfile matches="//s:graphicImage">
+                        <namespace prefix="s" uri="http://jboss.org/schema/seam/taglib" />
+                    </xmlfile>
+                </or>
             </when>
             <perform>
                 <hint title="Seam 2 UI control s:graphicImage" effort="1" category-id="mandatory">
