@@ -81,7 +81,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <classification issue-display-mode="all" title="JBoss Seam Components" effort="5">
+                <classification issue-display-mode="all" title="JBoss Seam Components (components.xml)" effort="5">
                     <description>
                         Allows to configure a Seam component using XML: to isolate deployment-specific information from
                         the Java code, to enable the creation of re-usable frameworks, to configure Seam's built-in functionality, etc.
@@ -174,11 +174,12 @@
                 <xmlfile matches="//*[local-name()='jboss-web']" in="jboss-web.xml"/>
             </when>
             <perform>
-                <classification issue-display-mode="all" title="JBoss web application descriptor (jboss-web.xml)" effort="1">
+                <classification issue-display-mode="detail-only" title="JBoss web application descriptor (jboss-web.xml)" effort="1">
                     <description>
                         The `jboss-web.xml` file configures a Java EE web application specifically for JBoss EAP.
                         It is an extension to standard `web.xml`.
                     </description>
+                    <link title="jboss-web.xml Configuration Reference" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Development_Guide/chap-Configuration_References.html#jboss-webxml_Configuration_Reference"/>
                     <tag>web</tag>
                     <tag>configuration</tag>
                     <tag>deployment</tag>
@@ -232,11 +233,12 @@
                 <xmlfile matches="//*[local-name()='jbosscmp-jdbc']" in="jbosscmp-jdbc.xml"/>
             </when>
             <perform>
-                <classification issue-display-mode="all" title="JBoss EJB 2 CMP Deployment descriptor (jbosscmp-jdbc.xml)" effort="5">
+                <classification issue-display-mode="all" title="JBoss EJB 2 CMP Deployment descriptor (jbosscmp-jdbc.xml)" effort="5" category-id="mandatory">
                     <description>
-                        The `jbosscmp-jdbc.xml` is a deployment decriptor controlling the Container Managed Persistence.
+                        The `jbosscmp-jdbc.xml` is a deployment decriptor controlling the Container Managed Persistence (CMP).
                     </description>
                     <link title="JBoss EAP 4: The jbosscmp-jdbc Structure" href="https://docs.jboss.org/jbossas/docs/Server_Configuration_Guide/4/html/The_CMP_Engine-The_jbosscmp_jdbc_Structure.html"/>
+                    <link title="Migrate Entity Beans to JPA" href="https://access.qa.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_entity_beans_to_jpa"/>
                     <tag>jdbc</tag>
                     <tag>ejb2</tag>
                     <tag>jboss-eap5</tag>
