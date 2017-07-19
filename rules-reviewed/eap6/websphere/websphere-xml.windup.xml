@@ -135,12 +135,12 @@
             </when>
             <perform>
                 <iteration over="default">
-                    <hint title="WebSphere proprietary JSP engine configuration" category-id="mandatory" effort="1">
+                    <hint title="WebSphere JSP engine configuration (ibm-web-ext)" category-id="mandatory" effort="1">
                         <message>
                             <![CDATA[
                             This file contains WebSphere proprietary JSP engine configuration.
 
-                            To migrate to EAP 6.x, configure EAP 6.x accordingly using the CLI interface or web console.
+                            To migrate to EAP 6, configure it accordingly using the CLI or the web console.
                             ]]>
                         </message>
                         <link title="JSP engine configuration migration to EAP 6" href="https://access.redhat.com/articles/1330673#jspattributes"/>
@@ -165,12 +165,7 @@
                 </or>
             </when>
             <perform>
-                <!-- @Maarc sees this as duplication, suggests removal.
-                <classification issue-display-mode="detail-only" title="WebSphere proprietary configuration" category-id="mandatory" effort="0">
-                    <description>WebSphere web application binding configuration file.</description>
-                </classification>
-                -->
-                <hint title="WebSphere web application binding" category-id="mandatory" effort="3">
+                <hint title="WebSphere web application binding (ibm-web-bnd)" category-id="mandatory" effort="3">
                     <message>
                       <![CDATA[
                       This file contains WebSphere proprietary binding configuration.
@@ -193,7 +188,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <classification issue-display-mode="all" title="WebSphere ETools WSClient Extension" category-id="mandatory" effort="3">
+                <classification issue-display-mode="all" title="WebSphere web service client extension descriptor (ibm-webservicesclient-ext)" category-id="mandatory" effort="3">
                     <description>
                     <![CDATA[
                     Client IBM specific deployment descriptor extension that needs to be migrated to JBossWS.
@@ -215,7 +210,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <classification issue-display-mode="all" title="WebSphere ETools WSClient Binding" category-id="mandatory" effort="3">
+                <classification issue-display-mode="all" title="WebSphere web service client binding descriptor (ibm-webservicesclient-bnd)" category-id="mandatory" effort="3">
                     <description>
                     <![CDATA[
                     Client IBM specific deployment descriptor binding that needs to be migrated to JBossWS.
@@ -237,7 +232,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <classification issue-display-mode="all" title="WebSphere deployment descriptor" category-id="mandatory" effort="1">
+                <classification issue-display-mode="all" title="WebSphere deployment descriptor (deployment.xml)" category-id="mandatory" effort="1">
                     <description>
                         This file is an IBM WebSphere proprietary deployment descriptor that is typically generated when development of the EAR was done using IBM products.
                         The XML schema documentation can be found within the WebSphere Application Server 7.0 directory under `/web/configDocs/packages/appdeployment/Deployment.html`.
