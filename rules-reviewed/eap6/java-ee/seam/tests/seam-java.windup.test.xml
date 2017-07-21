@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="hsearch"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/src/</testDataPath>
+    <ruleset>
+        <rules>
+            <rule id="seam-java-00000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="Seam API"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="seam-java-00000 hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="seam-java-00010-test">
+                <when>
+                    <not>
+                        <hint-exists message="You can use Java EE .*javax.enterprise.context.Conversation"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="seam-java-00010 hint not found!"/>
+                </perform>
+            </rule>
+<!--             <rule id="seam-java-00020-test"> -->
+<!--                 <when> -->
+<!--                     <not> -->
+<!--                         <hint-exists message="Seam 2 provides a fixed set of contexts. CDI provides a similar set of contexts."/> -->
+<!--                     </not> -->
+<!--                 </when> -->
+<!--                 <perform> -->
+<!--                     <fail message="seam-java-00020 hint not found!"/> -->
+<!--                 </perform> -->
+<!--             </rule> -->
+            <rule id="seam-java-00030-test">
+                <when>
+                    <not>
+                        <hint-exists message="There is no direct replacement for this Seam API. The .*org.jboss.seam.Seam.*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="seam-java-00030 hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="seam-java-00040-test">
+                <when>
+                    <not>
+                        <hint-exists message="CDI supports static injection in comparison to Seam 2 dynamic injection. So you don't need to have .*@Named.*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="seam-java-00040 hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="seam-java-00050-test">
+                <when>
+                    <not>
+                        <hint-exists message="Convert to a valid CDI scope. CDI scopes has its own annotation.*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="seam-java-00050 hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="seam-java-00060-test">
+                <when>
+                    <not>
+                        <hint-exists message="Convert Seam annotation .*@In.*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="seam-java-00060 hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="seam-java-00060-test">
+                <when>
+                    <not>
+                        <hint-exists message="Remove this Seam annotation .*@AutoCreate.*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="seam-java-00061 hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="seam-java-00070-test">
+                <when>
+                    <not>
+                        <hint-exists message="CDI does not support bijection and does a static injection in comparison to Seam 2, where it is performed dynamically.*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="seam-java-00070 hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="seam-java-00071-test">
+                <when>
+                    <not>
+                        <hint-exists message="Seam Factory annotation was used for binding non Seam component methods into Seam context life cycle.*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="seam-java-00071 hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="seam-java-00080-test">
+                <when>
+                    <not>
+                        <hint-exists message="Java EE uses for such use case .*@javax.ejb.Singleton.*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="seam-java-00080 hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="seam-java-00090-test">
+                <when>
+                    <not>
+                        <hint-exists message="Seam 2 provided along to standard Java EE .*javax.annotation.PostConstruct.* also Seam specific annotation .*@Create.*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="seam-java-00090 hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="seam-java-00091-test">
+                <when>
+                    <not>
+                        <hint-exists message="Seam 2 provided along to standard Java EE .*javax.annotation.PreDestroy.* also Seam specific annotation .*@Destroy.*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="seam-java-00091 hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="seam-java-00100-test">
+                <when>
+                    <not>
+                        <hint-exists message="There is no direct replacement, but it can be implemented with CDI Conversation support."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="seam-java-00100 hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="seam-java-00110-test">
+                <when>
+                    <not>
+                        <hint-exists message=".*If you need to keep programmatic lookup use .*javax.enterprise.inject.Instance.*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="seam-java-00110 hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="seam-java-00120-test">
+                <when>
+                    <not>
+                        <hint-exists message="Refactor to have annotated error handler which redirect to a viewID page for displaying error page."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="seam-java-00120 hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="seam-java-00130-test">
+                <when>
+                    <not>
+                        <hint-exists message=".*@Install.*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="seam-java-00130 hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="seam-java-00140-test">
+                <when>
+                    <not>
+                        <hint-exists message="Rework code with a default Java Servlet .*javax.servlet.Filter.*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="seam-java-00140 hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="seam-java-00150-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace this Seam annotation with default Java Servlet .*javax.servlet.Filter`.*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="seam-java-00150 hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="seam-java-00160-test">
+                <when>
+                    <not>
+                        <hint-exists message="Rework using CDI's injected concrete context."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="seam-java-00160 hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="seam-java-00170-test">
+                <when>
+                    <not>
+                        <classification-exists classification="Seam integration with jBPM"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="seam-java-00170 hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="seam-java-00180-test">
+                <when>
+                    <not>
+                        <hint-exists message="Rework with CDI conversation context .*javax.enterprise.context.Conversation.*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="seam-java-00180 hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="seam-java-00190-test">
+                <when>
+                    <not>
+                        <hint-exists message="Rework with .*javax.enterprise.context.Conversation.begin.*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="seam-java-00190 hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="seam-java-00200-test">
+                <when>
+                    <not>
+                        <hint-exists message="Rework with .*javax.enterprise.context.Conversation.end().*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="seam-java-00200 hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="seam-java-00210-test">
+                <when>
+                    <not>
+                        <hint-exists
+                            message=".*@RequestParameter.*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="seam-java-00210 hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="seam-java-00220-test">
+                <when>
+                    <not>
+                        <hint-exists
+                            message="Seam 2 provides a built-in logger implementation.*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="seam-java-00220 hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="seam-java-00230-test">
+                <when>
+                    <not>
+                        <hint-exists
+                            message="In Java EE, the Expression Language Specification has evolved and allows parameters to be passed to EL method expressions.*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="seam-java-00230 hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="seam-java-00240-test">
+                <when>
+                    <not>
+                        <hint-exists message="Both Seam 2 and CDI beans may produce and consume events in order to communicate with other beans. Unlike method invocation, events allow for decoupled architecture with no compile-time dependency.*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="seam-java-00240 hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="seam-java-00250-test">
+                <when>
+                    <not>
+                        <hint-exists message="In the Java EE, the concept of interceptors was extracted into a separate specification. As a result, not only EJBs but any CDI managed beans can benefit from this facility.*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="seam-java-00250 hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="seam-java-00260-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace with Java EE annotation .*@javax.ejb.Asynchronous.*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="seam-java-00260 hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="seam-java-00270-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace with Java EE annotation .*@javax.transaction.Transactional.*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="seam-java-00270 hint not found!"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
