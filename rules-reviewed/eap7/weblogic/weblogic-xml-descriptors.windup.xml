@@ -88,9 +88,6 @@
                 </or>
             </when>
             <perform>
-                <!--
-                <classification issue-display-mode="detail-only" title="WebLogic EJB XML" category-id="mandatory" effort="0" />
-                -->
                 <hint title="WebLogic EJB XML (weblogic-ejb-jar.xml)" category-id="mandatory" effort="3">
                     <message>The elements of proprietary `weblogic-ejb-jar.xml` descriptor need to be mapped to the `jboss-ejb3.xml` one according to the attached knowledge article.</message>
                     <link href="https://access.redhat.com/articles/1326823" title="Migrate the weblogic-ejb-jar.xml" />
@@ -108,9 +105,8 @@
             </when>
             <perform>
                <hint title="WebLogic Stateful Session Bean (SFSB)" category-id="mandatory" effort="1">
-                   <message>Replace WebLogic proprietary configuration by Java EE annotation `@AccessTimeout`.
+                  <message>Replace WebLogic proprietary configuration by Java EE annotation `@AccessTimeout`.
                   The equivalent usage is `@AccessTimeout(value= -1)`</message>
-                  <link href="http://docs.oracle.com/javaee/6/api/javax/ejb/AccessTimeout.html" title="Java EE 6 annotation @AccessTimeout" />
                   <link href="http://docs.oracle.com/javaee/7/api/javax/ejb/AccessTimeout.html" title="Java EE 7 annotation @AccessTimeout" />
                   <tag>ejb</tag>
                   <tag>configuration</tag>
