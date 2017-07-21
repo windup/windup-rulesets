@@ -56,22 +56,24 @@
                 </classification>
             </perform>
         </rule>
-        <rule id="jboss-eap5-xml-04000">
-            <when>
-                <xmlfile matches="/jbc:classloading">
-                    <namespace prefix="jbc" uri="urn:jboss:classloading:1.0"/>
-                </xmlfile>
-            </when>
-            <perform>
-                <classification issue-display-mode="all" title="JBoss EAP 5 Classloading Configuration" effort="5">
-                    <description>
-                        JBoss EAP 5 allows detailed classloading configuration.
-                    </description>
-                    <link title="JBoss EAP 5 Classloading documentation" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/5/html/Microcontainer_User_Guide/sect-JBoss_Microcontainer_User_Guide-The_ClassLoading_Layer-ClassLoading.html"/>
-                    <tag>jboss-eap5</tag>
-                </classification>
-            </perform>
-        </rule>
+        
+        <!-- merged into jboss-eap5-xml-10000 -->
+<!--         <rule id="jboss-eap5-xml-04000"> -->
+<!--             <when> -->
+<!--                 <xmlfile matches="/jbc:classloading"> -->
+<!--                     <namespace prefix="jbc" uri="urn:jboss:classloading:1.0"/> -->
+<!--                 </xmlfile> -->
+<!--             </when> -->
+<!--             <perform> -->
+<!--                 <classification issue-display-mode="all" title="JBoss EAP 5 Classloading Configuration" effort="5"> -->
+<!--                     <description> -->
+<!--                         JBoss EAP 5 allows detailed classloading configuration. -->
+<!--                     </description> -->
+<!--                     <link title="JBoss EAP 5 Classloading documentation" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/5/html/Microcontainer_User_Guide/sect-JBoss_Microcontainer_User_Guide-The_ClassLoading_Layer-ClassLoading.html"/> -->
+<!--                     <tag>jboss-eap5</tag> -->
+<!--                 </classification> -->
+<!--             </perform> -->
+<!--         </rule> -->
 
         <!-- Seam -->
         <rule id="jboss-eap5-xml-05000">
@@ -193,12 +195,7 @@
                 <xmlfile matches="//*[local-name()='classloading']" in="jboss-classloading.xml"/>
             </when>
             <perform>
-                <classification issue-display-mode="detail-only" title="JBoss 5 classloader configuration (jboss-classloading.xml)" effort="0" category-id="optional">
-                    <description>The `jboss-classloading.xml` file allows customization of classloading in JBoss EAP 5.</description>
-                    <link title="JBoss EAP 6 Class Loading and Modules" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/5/html/Microcontainer_User_Guide/sect-JBoss_Microcontainer_User_Guide-The_ClassLoading_Layer-ClassLoading.html"/>
-                    <tag>classloading</tag>
-                </classification>
-                <hint title="JBoss 5 classloader configuration (jboss-classloading.xml)" effort="0" category-id="optional">
+                <hint title="JBoss 5 classloader configuration (jboss-classloading.xml)" effort="5" category-id="optional">
                     <message>
                         In JBoss EAP 6, the classloading configuration is not done through `jboss-classloading.xml`.
                         Since EAP 6 it is of modular nature, based on JBoss Modules.
@@ -206,6 +203,7 @@
                         and what dependencies and APIs are available automatically.
                     </message>
                     <link title="JBoss EAP 6 Class Loading and Modules" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Development_Guide/chap-Class_Loading_and_Modules.html"/>
+                    <link title="JBoss EAP 6 Class Loading and Modules" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/5/html/Microcontainer_User_Guide/sect-JBoss_Microcontainer_User_Guide-The_ClassLoading_Layer-ClassLoading.html"/>
                     <tag>classloading</tag>
                     <tag>jboss-eap5</tag>
                 </hint>
@@ -286,11 +284,9 @@
                     <link title="JBoss Login Modules" href="http://docs.jboss.org/jbosssecurity/docs/6.0/security_guide/html/Login_Modules.html"/>
                     <tag>security</tag>
                 </classification>
-                <hint title="JBoss security configuration descriptor (prior to AS 7 / EAP 6)" effort="5" category-id="mandatory">
-                    <message>
-                        When migrating to JBoss AS 7 or JBoss EAP 6+,
-                        the `login-config.xml` descriptor is no longer supported.
-                        Security is now configured in the `security-domain` element inside the server configuration.
+                <hint title="JBoss security configuration descriptor (login-config.xml)" effort="5" category-id="mandatory">
+                    <message>Before JBoss EAP 6, authentication security domains and login modules could be configured in a `login-config.xml` file.
+                    JBoss EAP 6+ does not support the `login-config.xml` descriptor. Security is now configured inside the server configuration. Please refer to the corresponding server security guide.
                     </message>
                     <link title="JBoss EAP 6.4 - How To Configure Server Security" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-6.4/red-hat-jboss-enterprise-application-platform-64-how-to-configure-server-security"/>
                     <tag>security</tag>

@@ -25,16 +25,17 @@
                    <fail message="Classification not found: JBoss Classloading configuration, typically in jboss-classloading.xml."/>
                </perform>
            </rule>
-           <rule id="jboss-eap5-xml-04000-test-c1">
-               <when>
-                   <not>
-                       <classification-exists classification="JBoss EAP 5 Classloading Configuration"/>
-                   </not>
-               </when>
-               <perform>
-                   <fail message="Classification not found: JBoss EAP 5 Classloading Configuration"/>
-               </perform>
-           </rule>
+           <!-- merged with jboss-eap5-xml-10000 -->
+<!--            <rule id="jboss-eap5-xml-04000-test-c1"> -->
+<!--                <when> -->
+<!--                    <not> -->
+<!--                        <classification-exists classification="JBoss EAP 5 Classloading Configuration"/> -->
+<!--                    </not> -->
+<!--                </when> -->
+<!--                <perform> -->
+<!--                    <fail message="Classification not found: JBoss EAP 5 Classloading Configuration"/> -->
+<!--                </perform> -->
+<!--            </rule> -->
            <!-- Seam -->
            <rule id="jboss-eap5-xml-05000-test-c1">
                <when>
@@ -104,16 +105,14 @@
                    <fail message="Classification not found: JBoss web application descriptor (jboss-web.xml)"/>
                </perform>
            </rule>
-           <rule id="jboss-eap5-xml-10000-test-c1">
+           <rule id="jboss-eap5-xml-10000-test">
                <when>
                    <not>
-                       <classification-exists classification="JBoss 5 Classloader Configuration"/>
+                       <hint-exists message="In JBoss EAP 6, the classloading configuration is not done through.*"/>
                    </not>
                </when>
                <perform>
-                   <!-- Let's move this rule to eap6 when we have it.
-                   <fail message="Classification not found: JBoss 5 Classloader Configuration"/>
-                   -->
+                   <fail message="Hint not found: JBoss 5 Classloader Configuration"/>
                </perform>
            </rule>
            <rule id="jboss-eap5-xml-11000-test-c1">
@@ -169,7 +168,7 @@
            <rule id="jboss-eap5-xml-16000-test-h1">
                <when>
                    <not>
-                       <hint-exists message="login-config.xml"/>
+                       <hint-exists message="Before JBoss EAP 6, authentication security domains and login modules could be configured in a .*"/>
                    </not>
                </when>
                <perform>
