@@ -21,30 +21,49 @@
             <when>
               <or>
                 <filecontent filename="log4j.{extension}" pattern="{appenderpattern}"/>
-                <javaclass references="org.apache.{*}log4j.{*}FileAppender{*}" />
-                <javaclass references="java.util.logging.FileHandler{*}"/>
-                <javaclass references="ch.qos.logback.core.FileAppender"/>
-                <javaclass references="org.pmw.tinylog.writers.FileWriter"/>
-                <javaclass references="org.slf4j.{*}"/>
-                <javaclass references="org.apache.commons.logging.{*}"/>
+                <javaclass references="org.apache.{*}log4j.{*}FileAppender{*}">
+                    <location>IMPORT</location>
+                </javaclass>
+                <javaclass references="java.util.logging.FileHandler{*}">
+                    <location>IMPORT</location>
+                </javaclass>
+                <javaclass references="ch.qos.logback.core.FileAppender">
+                    <location>IMPORT</location>
+                </javaclass>
+                <javaclass references="org.pmw.tinylog.writers.FileWriter">
+                    <location>IMPORT</location>
+                </javaclass>
+                <javaclass references="org.slf4j.{*}">
+                    <location>IMPORT</location>
+                </javaclass>
+                <javaclass references="org.apache.commons.logging.{*}">
+                    <location>IMPORT</location>
+                </javaclass>
               </or>
             </when>
             <perform>
                 <iteration>
-                    <hint title="Logging to file system" effort="3" category-id="cloud-mandatory">
-                        <message>
-                        Logging to individual files should be avoided in a cloud environment, as locally written log files may be lost on instance termination or restart.  
-                        
-                        Review the file-based logging and considered the following options:
-                        
-                        * usage of a centralized log management system
-                        * log to standard output (console) and let the cloud platform handle the output
-                        * usage of shared storage for log files
-                        </message>
-                        <link href="https://12factor.net/logs" title="Twelve-factor app - Logs"/>
-                        <link href="https://access.redhat.com/documentation/en/openshift-container-platform/3.4/paged/installation-and-configuration/chapter-28-aggregating-container-logs" title="Aggregating container logs"/>
-                        <tag>logging</tag>
-                    </hint>
+                    <when>
+                        <not>
+                            <has-hint />
+                        </not>
+                    </when>
+                    <perform>
+                        <hint title="Logging to file system" effort="1" category-id="cloud-mandatory">
+                            <message>
+                            Logging to individual files should be avoided in a cloud environment, as locally written log files may be lost on instance termination or restart.
+
+                            Review the file-based logging and considered the following options:
+
+                            * usage of a centralized log management system
+                            * log to standard output (console) and let the cloud platform handle the output
+                            * usage of shared storage for log files
+                            </message>
+                            <link href="https://12factor.net/logs" title="Twelve-factor app - Logs"/>
+                            <link href="https://access.redhat.com/documentation/en/openshift-container-platform/3.4/paged/installation-and-configuration/chapter-28-aggregating-container-logs" title="Aggregating container logs"/>
+                            <tag>logging</tag>
+                        </hint>
+                    </perform>
                 </iteration>
             </perform>
             <where param="appenderpattern">
@@ -62,10 +81,10 @@
                 <iteration>
                     <hint title="Logging to Socket Handler" effort="3" category-id="cloud-mandatory">
                         <message>
-                        Socket communication is not suitable in a cloud environment which does not provide fixed communication target hosts.  
+                        Socket communication is not suitable in a cloud environment which does not provide fixed communication target hosts.
 
                         Review the socket-based logging and considered the following options:
-                        
+
                         * usage of a centralized log management system
                         * log to standard output (console) and let the cloud platform handle the output
                         * usage of shared storage for log files

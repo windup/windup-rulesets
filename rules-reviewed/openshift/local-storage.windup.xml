@@ -30,11 +30,11 @@
                     </javaclass>
                     <javaclass references="java.nio.file.Paths.get({*})">
                         <location>METHOD_CALL</location>
-                    </javaclass>
+                    </javaclass> 
                 </or>
             </when>
             <perform>
-                <hint title="Local file system access" effort="1" category-id="cloud-mandatory">
+                <hint title="File system - Java IO" effort="1" category-id="cloud-mandatory">
                     <message>
                     Accessing a file on a local storage in a cloud environment is not safe because, inside a running container, an application can never assume that anything stored on disk will be permanently available because a restart (triggered by code deploy, config change, or the execution environment relocating the process to a different physical location) will usually wipe out all local (e.g., memory and filesystem) state.
 
@@ -73,7 +73,7 @@
                 </javaclass>
             </when>
             <perform>
-                <hint title="URL/URI with 'file' scheme" effort="1" category-id="cloud-mandatory">
+                <hint title="File system - java.net.URL/URI" effort="1" category-id="cloud-mandatory">
                     <message>
                     Accessing a file on a local storage in a cloud environment is not safe because, inside a running container, an application can never assume that anything stored on disk will be permanently available because a restart (triggered by code deploy, config change, or the execution environment relocating the process to a different physical location) will usually wipe out all local (e.g., memory and filesystem) state.
 
@@ -107,10 +107,10 @@
         </rule>
         <rule id="local-storage-00003">
             <when>
-                <filecontent pattern="{path1}" filename="{*}.{extensions}"/>
+                <filecontent pattern="{path1}" filename="{*}{extensions}"/>
             </when>
             <perform>
-                <hint title="Local file system path" effort="1" category-id="cloud-mandatory">
+                <hint title="File system - File path URL" effort="1" category-id="cloud-mandatory">
                     <message>
                     Accessing a file on a local storage in a cloud environment is not safe because, inside a running container, an application can never assume that anything stored on disk will be permanently available because a restart (triggered by code deploy, config change, or the execution environment relocating the process to a different physical location) will usually wipe out all local (e.g., memory and filesystem) state.
 
@@ -140,10 +140,11 @@
             </perform>
             <where param="path1">
                 <!-- absolute paths on windows -->
+                <!-- UPDATE TO REMOVE PATTERNS STARTING WITH java: AND classpath: -->
                 <matches pattern="(([a-zA-Z]):)(?&lt;![\&lt;\\\/\d\w])([\\\/]\w+)+(\.\w+)?" />
             </where>
             <where param="extensions">
-                <matches pattern="(java|properties|jsp|jspf|tag|xml|txt)" />
+                <matches pattern="(\\.java|\\.properties|\\.jsp|\\.jspf|\\.tag|[^pom]\\.xml|\\.txt)" />
             </where>
         </rule>
         <rule id="local-storage-00004">
@@ -151,7 +152,7 @@
                 <filecontent pattern="{path2}" filename="{*}.{extensions}" />
             </when>
             <perform>
-                <hint title="URL with local file system path" effort="1" category-id="cloud-mandatory">
+                <hint title="File system - 'file://' scheme" effort="1" category-id="cloud-mandatory">
                     <message>
                     Accessing a file on a local storage in a cloud environment is not safe because, inside a running container, an application can never assume that anything stored on disk will be permanently available because a restart (triggered by code deploy, config change, or the execution environment relocating the process to a different physical location) will usually wipe out all local (e.g., memory and filesystem) state.
 
@@ -184,27 +185,29 @@
                 <matches pattern="file://" />
             </where>
             <where param="extensions">
-                <matches pattern="(java|properties|jsp|jspf|tag|xml|txt|js)" />
+                <matches pattern="(\\.java|\\.properties|\\.jsp|\\.jspf|\\.tag|[^pom]\\.xml|\\.txt)" />
             </where>
         </rule>
         <rule id="local-storage-00005">
             <when>
-              <or>
-                  <javaclass references="java.nio.channels.AsynchronousFileChannel{*}" />
-                  <javaclass references="java.nio.channels.FileChannel{*}" />
-                  <javaclass references="java.nio.channels.FileLock{*}" />
-                  <javaclass references="java.nio.file.DirectoryStream{*}" />
-                  <javaclass references="java.nio.file.Files{*}" />
-                  <javaclass references="java.nio.file.FileStore{*}" />
-                  <javaclass references="java.nio.file.FileSystem{*}" />
-                  <javaclass references="java.nio.file.FileSystems{*}" />
-                  <javaclass references="java.nio.file.Path{*}" />
-                  <javaclass references="java.nio.file.Paths{*}" />
-              </or>
+                <or>
+                    <javaclass references="java.nio.channels.AsynchronousFileChannel{*}">
+                        <location>IMPORT</location>
+                    </javaclass>
+                    <javaclass references="java.nio.channels.FileChannel{*}">
+                        <location>IMPORT</location>
+                    </javaclass>
+                    <javaclass references="java.nio.channels.FileLock{*}">
+                        <location>IMPORT</location>
+                    </javaclass>
+                    <javaclass references="java.nio.file.{*}">
+                        <location>IMPORT</location>
+                    </javaclass>
+                </or>
             </when>
             <perform>
               <iteration>
-                <hint title="Java APIs for local file system (java.nio classes)" effort="3" category-id="cloud-mandatory">
+                <hint title="File system - Java NIO" effort="1" category-id="cloud-mandatory">
                     <message>
                     Accessing a file on a local storage in a cloud environment is not safe because, inside a running container, an application can never assume that anything stored on disk will be permanently available because a restart (triggered by code deploy, config change, or the execution environment relocating the process to a different physical location) will usually wipe out all local (e.g., memory and filesystem) state.
 
