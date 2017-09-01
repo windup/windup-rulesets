@@ -64,6 +64,9 @@ public class LocalFileUsage {
 	    // the next 2 lines test that rule 'local-storage-00002' is only fired from the 2nd line
 	    URL url1 = new URL("url");
 	    URL url2 = new URL("file://");
+	    new File("D:/file.ext");
+		doStuff(null, "c:\foo");
+		String[] paths = new String[]{"C:/s","D:/e","E:/f"};
 	} catch (Exception e) {
 	    e.printStackTrace();
 	}
