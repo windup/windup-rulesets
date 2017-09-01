@@ -65,6 +65,8 @@ public class LocalFileUsage {
 	    URL url1 = new URL("url");
 	    URL url2 = new URL("file://");
 	    new File("D:/file.ext");
+		doStuff(null, "c:\foo");
+		String[] paths = new String[]{"C:/s","D:/e","E:/f"};
 	} catch (Exception e) {
 	    e.printStackTrace();
 	}
