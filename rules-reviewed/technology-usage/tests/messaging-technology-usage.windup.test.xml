@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+    <testDataPath>samples/messaging/</testDataPath>
+    <rulePath>../messaging-technology-usage.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="technology-usage-messaging-01000-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="JMS Queue" number-found="1">
+                            <tag name="Connect"/>
+                            <tag name="Messaging"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="JMS Queue Technology Statistic Not Found" />
+                </perform>
+            </rule>
+            <rule id="technology-usage-messaging-01100-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="JMS Topic" number-found="1">
+                            <tag name="Connect"/>
+                            <tag name="Messaging"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="JMS Topic Technology Statistic Not Found" />
+                </perform>
+            </rule>
+            <rule id="technology-usage-messaging-01200-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="JMS Connection Factory" number-found="2">
+                            <tag name="Connect"/>
+                            <tag name="Messaging"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="JMS Connection Factory Technology Statistic Not Found" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
