@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!DOCTYPE ejb-jar PUBLIC '-//Sun Microsystems, Inc.//DTD Enterprise JavaBeans 2.0//EN' 'http://java.sun.com/dtd/ejb-jar_2_0.dtd'>
+<ejb-jar>
+    <enterprise-beans>
+        <session>
+            <ejb-name>testObject</ejb-name>
+            <home>testObjectHome</home>
+            <remote>TestObject</remote>
+            <ejb-class>TestObjectBean</ejb-class>
+            <session-type>Stateless</session-type>
+            <transaction-type>Container</transaction-type>
+        </session>
+        <entity>
+            <display-name>Gangster Entity Bean</display-name>
+            <ejb-name>GangsterEJB</ejb-name>
+            <local-home>org.jboss.cmp2.crimeportal.GangsterHome</local-home>
+            <local>org.jboss.cmp2.crimeportal.Gangster</local>
+
+            <ejb-class>org.jboss.cmp2.crimeportal.GangsterBean</ejb-class>
+            <persistence-type>Container</persistence-type>
+            <prim-key-class>java.lang.Integer</prim-key-class>
+            <reentrant>False</reentrant>
+            <cmp-version>2.x</cmp-version>
+            <abstract-schema-name>gangster</abstract-schema-name>
+
+            <cmp-field>
+                <field-name>gangsterId</field-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>name</field-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>nickName</field-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>badness</field-name>
+            </cmp-field>
+            <cmp-field>
+                <field-name>contactInfo</field-name>
+            </cmp-field>
+            <primkey-field>gangsterId</primkey-field>
+        </entity>
+    </enterprise-beans>
+    <assembly-descriptor>
+        <container-transaction>
+            <method>
+                <ejb-name>testObject</ejb-name>
+                <method-name>*</method-name>
+            </method>
+            <trans-attribute>Required</trans-attribute>
+        </container-transaction>
+    </assembly-descriptor>
+</ejb-jar>
