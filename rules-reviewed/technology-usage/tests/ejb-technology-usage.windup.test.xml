@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<ruletest id="technology-usage-ejb-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+    <testDataPath>data/ejb/</testDataPath>
+    <rulePath>../ejb-technology-usage.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="technology-usage-ejb-01000-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="Stateless (SLSB)" number-found="2">
+                            <tag name="Connect"/>
+                            <tag name="Bean"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Stateless (SLSB) Technology Statistic Not Found" />
+                </perform>
+            </rule>
+            <rule id="technology-usage-ejb-01100-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="Stateful (SFSB)" number-found="2">
+                            <tag name="Connect"/>
+                            <tag name="Bean"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Stateful (SFSB) Technology Statistic Not Found" />
+                </perform>
+            </rule>
+            <rule id="technology-usage-ejb-01200-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="Message (MDB)" number-found="2">
+                            <tag name="Connect"/>
+                            <tag name="Bean"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Message (MDB) Technology Statistic Not Found" />
+                </perform>
+            </rule>
+            <rule id="technology-usage-ejb-01300-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="Entity Bean" number-found="1">
+                            <tag name="Connect"/>
+                            <tag name="Bean"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Entity Bean Technology Statistic Not Found" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
