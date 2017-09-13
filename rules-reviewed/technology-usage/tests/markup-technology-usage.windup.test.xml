@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<ruletest id="technology-usage-markup-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+    <testDataPath>data/markup/</testDataPath>
+    <rulePath>../markup-technology-usage.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="technology-usage-markup-01000-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="HTML" number-found="1">
+                            <tag name="View"/>
+                            <tag name="Embedded"/>
+                            <tag name="Markup"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="HTML Technology Statistic Not Found" />
+                </perform>
+            </rule>
+            <rule id="technology-usage-markup-01100-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="CSS" number-found="1">
+                            <tag name="View"/>
+                            <tag name="Embedded"/>
+                            <tag name="Markup"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="CSS Technology Statistic Not Found" />
+                </perform>
+            </rule>
+            <rule id="technology-usage-markup-01200-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="JS" number-found="1">
+                            <tag name="View"/>
+                            <tag name="Embedded"/>
+                            <tag name="Markup"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="JS Technology Statistic Not Found" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
