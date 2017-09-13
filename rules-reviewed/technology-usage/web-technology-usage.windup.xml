@@ -49,5 +49,48 @@
                 </technology-identified>
             </perform>
         </rule>
+        <rule id="technology-usage-web-01300">
+            <when>
+                <javaclass references="javax.websocket.server.ServerEndpoint">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <technology-identified name="WebSocket">
+                    <tag name="View"/>
+                    <tag name="Web"/>
+                    <tag name="Java EE"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-web-01400">
+            <when>
+                <javaclass references="java.applet.Applet">
+                    <location>INHERITANCE</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Applet!">
+                    <message>Applet is here</message>
+                </hint>
+                <technology-identified name="Applet">
+                    <tag name="View"/>
+                    <tag name="Rich"/>
+                    <tag name="Java EE"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-web-01500">
+            <when>
+                <file filename="{*}.jnlp" />
+            </when>
+            <perform>
+                <technology-identified name="JNLP">
+                    <tag name="View"/>
+                    <tag name="Rich"/>
+                    <tag name="Java EE"/>
+                </technology-identified>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
