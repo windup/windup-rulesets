@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<ruletest id="technology-usage-mvc-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+    <testDataPath>data/mvc/</testDataPath>
+    <rulePath>../mvc-technology-usage.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="technology-usage-mvc-01000-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="Wicket" number-found="1">
+                            <tag name="View"/>
+                            <tag name="Embedded"/>
+                            <tag name="MVC"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Wicket Technology Statistic Not Found" />
+                </perform>
+            </rule>
+            <rule id="technology-usage-mvc-01100-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="Struts" number-found="1">
+                            <tag name="View"/>
+                            <tag name="Embedded"/>
+                            <tag name="MVC"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Struts Technology Statistic Not Found" />
+                </perform>
+            </rule>
+            <rule id="technology-usage-mvc-01200-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="Spring-MVC" number-found="1">
+                            <tag name="View"/>
+                            <tag name="Embedded"/>
+                            <tag name="MVC"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Spring-MVC Technology Statistic Not Found" />
+                </perform>
+            </rule>
+            <rule id="technology-usage-mvc-01300-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="GWT" number-found="1">
+                            <tag name="View"/>
+                            <tag name="Embedded"/>
+                            <tag name="MVC"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="GWT Statistic Not Found" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
