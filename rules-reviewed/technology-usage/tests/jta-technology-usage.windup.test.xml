@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ruletest id="technology-usage-jta-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+    <testDataPath>data/jta</testDataPath>
+    <rulePath>../jta-technology-usage.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="technology-usage-jta-00010-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="JTA" number-found="2">
+                            <tag name="Connect"/>
+                            <tag name="Transaction"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="JTA Technology Statistic Not Found" />
+                </perform>
+            </rule>
+         </rules>
+    </ruleset>
+</ruletest>
