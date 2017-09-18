@@ -1,0 +1,65 @@
+<?xml version="1.0" ?>
+<ruletest id="technology-usage-database-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+    <testDataPath>data/database/</testDataPath>
+    <rulePath>../database-technology-usage.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="technology-usage-database-01000-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="JDBC datasources" number-found="1">
+                            <tag name="Store"/>
+                            <tag name="Database"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="JDBC datasources Technology Statistic Not Found" />
+                </perform>
+            </rule>
+            <rule id="technology-usage-database-01100-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="JPA entities" number-found="1">
+                            <tag name="Store"/>
+                            <tag name="Persistence"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="JPA entities Technology Statistic Not Found" />
+                </perform>
+            </rule>
+            <rule id="technology-usage-database-01200-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="JPA named queries" number-found="1">
+                            <tag name="Store"/>
+                            <tag name="Persistence"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="JPA named queries Technology Statistic Not Found" />
+                </perform>
+            </rule>
+            <rule id="technology-usage-database-01300-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="Persistence units" number-found="1">
+                            <tag name="Store"/>
+                            <tag name="Persistence"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Persistence units Technology Statistic Not Found" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
