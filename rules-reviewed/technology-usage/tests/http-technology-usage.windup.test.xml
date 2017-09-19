@@ -7,7 +7,11 @@
             <rule id="technology-usage-http-01000-test">
                 <when>
                     <not>
-                        <technology-statistics-exists name="JaxRSWebServiceModel" number-found="1">
+                        <!--
+                            JAX-RS counts each method annotated with @Path as JaxRSWebServiceModel.
+                            Also class annotated with @Path is counted as additional model.
+                        -->
+                        <technology-statistics-exists name="JAX-RS" number-found="5">
                             <tag name="Connect"/>
                             <tag name="HTTP"/>
                             <tag name="Java EE"/>
@@ -15,13 +19,13 @@
                     </not>
                 </when>
                 <perform>
-                    <fail message="JaxRSWebServiceModel Technology Statistic Not Found" />
+                    <fail message="JAX-RS Technology Statistic Not Found" />
                 </perform>
             </rule>
             <rule id="technology-usage-http-01100-test">
                 <when>
                     <not>
-                        <technology-statistics-exists name="JaxWSWebServiceModel" number-found="1">
+                        <technology-statistics-exists name="JAX-WS" number-found="1">
                             <tag name="Connect"/>
                             <tag name="HTTP"/>
                             <tag name="Java EE"/>
@@ -29,7 +33,7 @@
                     </not>
                 </when>
                 <perform>
-                    <fail message="JaxWSWebServiceModel Technology Statistic Not Found" />
+                    <fail message="JAX-WS Technology Statistic Not Found" />
                 </perform>
             </rule>
         </rules>
