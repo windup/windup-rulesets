@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<ruletest id="mvc-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+    <testDataPath>data/mvc/</testDataPath>
+    <rulePath>../mvc.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="mvc-01000-test">
+                <when>
+                    <not>
+                        <classification-exists classification="Embedded library - Apache Wicket" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Wicket Classification Not Found" />
+                </perform>
+            </rule>
+            <rule id="mvc-01001-test">
+                <when>
+                    <not>
+                        <technology-tag-exists technology-tag="Apache Wicket \(embedded\)"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Wicket Technology Tag Not Found" />
+                </perform>
+            </rule>
+            <rule id="mvc-01100-test">
+                <when>
+                    <not>
+                        <classification-exists classification="Embedded library - Apache Struts" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Struts Classification Not Found" />
+                </perform>
+            </rule>
+            <rule id="mvc-01101-test">
+                <when>
+                    <not>
+                        <technology-tag-exists technology-tag="Apache Struts \(embedded\)"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Struts Technology Tag Not Found" />
+                </perform>
+            </rule>
+            <rule id="mvc-01200-test">
+                <when>
+                    <not>
+                        <classification-exists classification="Embedded library - Spring MVC" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Spring MVC Classification Not Found" />
+                </perform>
+            </rule>
+            <rule id="mvc-01201-test">
+                <when>
+                    <not>
+                        <technology-tag-exists technology-tag="Spring MVC \(embedded\)"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Spring MVC Technology Tag Not Found" />
+                </perform>
+            </rule>
+            <rule id="mvc-01300-test">
+                <when>
+                    <not>
+                        <classification-exists classification="Embedded library - GWT" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="GWT Classification Not Found" />
+                </perform>
+            </rule>
+            <rule id="mvc-01301-test">
+                <when>
+                    <not>
+                        <technology-tag-exists technology-tag="GWT \(embedded\)"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="GWT Technology Tag Not Found" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
