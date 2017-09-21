@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<ruletest id="technology-usage-web-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+    <testDataPath>data/web/</testDataPath>
+    <rulePath>../web-technology-usage.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="technology-usage-web-01000-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="JSF Page" number-found="2">
+                            <tag name="View"/>
+                            <tag name="Web"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="JSF Page Technology Statistic Not Found" />
+                </perform>
+            </rule>
+            <rule id="technology-usage-web-01100-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="JSP Page" number-found="1">
+                            <tag name="View"/>
+                            <tag name="Web"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="JSP Page Technology Statistic Not Found" />
+                </perform>
+            </rule>
+            <rule id="technology-usage-web-01200-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="Web XML File" number-found="1">
+                            <tag name="View"/>
+                            <tag name="Web"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Web.xml Technology Statistic Not Found" />
+                </perform>
+            </rule>
+            <rule id="technology-usage-web-01300-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="WebSocket" number-found="1">
+                            <tag name="View"/>
+                            <tag name="Web"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebSocket Technology Statistic Not Found" />
+                </perform>
+            </rule>
+            <rule id="technology-usage-web-01400-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="Applet" number-found="2">
+                            <tag name="View"/>
+                            <tag name="Rich"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Applet Technology Statistic Not Found" />
+                </perform>
+            </rule>
+            <rule id="technology-usage-web-01500-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="JNLP" number-found="1">
+                            <tag name="View"/>
+                            <tag name="Rich"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="JNLP Technology Statistic Not Found" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
