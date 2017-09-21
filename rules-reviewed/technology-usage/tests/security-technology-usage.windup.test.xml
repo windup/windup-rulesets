@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ruletest id="technology-usage-security-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+    <testDataPath>data/security/</testDataPath>
+    <rulePath>../security-technology-usage.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="technology-usage-security-01000-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="Security Realm" number-found="4">
+                            <tag name="Sustain"/>
+                            <tag name="Security"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="'Security Realm' Technology Statistic Not Found" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
