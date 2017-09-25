@@ -1,0 +1,21 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!-- Datasource Name -->
+        <property name="connection.datasource">ExampleDS</property>
+        <!-- SQL dialect -->
+        <property name="dialect">org.hibernate.dialect.H2Dialect</property>
+        <!-- Enable Hibernate's automatic session context management -->
+        <property name="current_session_context_class">thread</property>
+        <!-- Disable the second-level cache -->
+        <property name="cache.region.factory_class">org.hibernate.cache.NoCacheProvider</property>
+        <!-- Echo all executed SQL to stdout -->
+        <property name="show_sql">true</property>
+        <!-- Update the database schema on startup -->
+        <property name="hbm2ddl.auto">update</property>
+        <property name="transaction.jta.platform">com.atomikos.icatch.jta.hibernate4.AtomikosPlatform</property>
+        <mapping resource="org/hibernate/tutorial/domain/Event.hbm.xml"/>
+    </session-factory>
+</hibernate-configuration>
