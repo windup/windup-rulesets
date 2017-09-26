@@ -24,6 +24,20 @@
                 </technology-identified>
             </perform>
         </rule>
+        <rule id="technology-usage-database-01001">
+            <when>
+                <graph-query discriminator="DataSourceModel">
+                    <property name="isXA">true</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="JDBC XA datasources">
+                    <tag name="Store"/>
+                    <tag name="Database"/>
+                    <tag name="Java EE"/>
+                </technology-identified>
+            </perform>
+        </rule>
         <rule id="technology-usage-database-01100">
             <when>
                 <graph-query discriminator="JPAEntityModel" />
