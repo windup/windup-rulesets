@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<ruletest id="clustering-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+    <testDataPath>data/clustering</testDataPath>
+    <rulePath>../clustering.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="clustering-test-00000">
+                <when>
+                    <not>
+                        <technology-tag-exists technology-tag="Clustering Web Session"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="'distributable' Technology Tag Not Found" />
+                </perform>
+            </rule>
+            <rule id="clustering-test-00001">
+                <when>
+                    <not>
+                        <technology-tag-exists technology-tag="Clusteing EJB"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="'Clustered' Technology Tag Not Found" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

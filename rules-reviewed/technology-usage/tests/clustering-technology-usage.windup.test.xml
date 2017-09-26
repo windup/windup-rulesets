@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<ruletest id="technology-usage-clustering-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+    <testDataPath>data/clustering/</testDataPath>
+    <rulePath>../clustering.windup.xml</rulePath>
+    <rulePath>../clustering-technology-usage.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="technology-usage-clustering-01000-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="Web Session" number-found="1">
+                            <tag name="Sustain"/>
+                            <tag name="Java EE"/>
+                            <tag name="Clustering"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Web Session Technology Statistic Not Found" />
+                </perform>
+            </rule>
+            <rule id="technology-usage-clustering-01000-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="EJB" number-found="1">
+                            <tag name="Sustain"/>
+                            <tag name="Java EE"/>
+                            <tag name="Clustering"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="EJB Technology Statistic Not Found" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
