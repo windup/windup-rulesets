@@ -18,6 +18,20 @@
                     <fail message="JDBC datasources Technology Statistic Not Found" />
                 </perform>
             </rule>
+            <rule id="technology-usage-database-01001-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="JDBC XA datasources" number-found="1">
+                            <tag name="Store"/>
+                            <tag name="Database"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="JDBC datasources XA Technology Statistic Not Found" />
+                </perform>
+            </rule>
             <rule id="technology-usage-database-01100-test">
                 <when>
                     <not>
