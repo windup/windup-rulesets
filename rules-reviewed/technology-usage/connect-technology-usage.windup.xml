@@ -37,17 +37,32 @@
                     <javaclass references="java.lang.Runtime.loadLibrary({*})">
                         <location>METHOD_CALL</location>
                     </javaclass>
-                    <javaclass references="com.sun.jna.{*}">
-                        <location>CONSTRUCTOR_CALL</location>
-                        <location>IMPORT</location>
-                        <location>INHERITANCE</location>
-                        <location>METHOD_CALL</location>
-                        <location>VARIABLE_DECLARATION</location>
-                    </javaclass>
                 </or>
             </when>
             <perform>
                 <technology-identified name="JNI">
+                    <tag name="Connect"/>
+                    <tag name="Other"/>
+                    <tag name="Java EE"/>
+                </technology-identified>
+            </perform>
+            <where param="systemNativeMethods">
+                <matches pattern="(load|loadLibrary|mapLibraryName)"/>
+            </where>
+        </rule>
+
+        <rule id="technology-usage-connect-01101">
+            <when>
+                <javaclass references="com.sun.jna.{*}">
+                    <location>CONSTRUCTOR_CALL</location>
+                    <location>IMPORT</location>
+                    <location>INHERITANCE</location>
+                    <location>METHOD_CALL</location>
+                    <location>VARIABLE_DECLARATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <technology-identified name="JNA">
                     <tag name="Connect"/>
                     <tag name="Other"/>
                     <tag name="Java EE"/>
