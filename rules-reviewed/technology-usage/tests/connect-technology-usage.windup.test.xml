@@ -1,0 +1,79 @@
+<?xml version="1.0" ?>
+<ruletest id="technology-usage-connect-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+    <testDataPath>data/connect/</testDataPath>
+    <rulePath>../connect-technology-usage.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="technology-usage-connect-01000-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="RMI" number-found="1">
+                            <tag name="Connect"/>
+                            <tag name="Other"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="RMI Technology Statistic Not Found" />
+                </perform>
+            </rule>
+            <rule id="technology-usage-connect-01100-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="JNI" number-found="5">
+                            <tag name="Connect"/>
+                            <tag name="Other"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="JNI Technology Statistic Not Found" />
+                </perform>
+            </rule>
+            <rule id="technology-usage-connect-01101-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="JNA" number-found="7">
+                            <tag name="Connect"/>
+                            <tag name="Other"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="JNA Technology Statistic Not Found" />
+                </perform>
+            </rule>
+            <rule id="technology-usage-connect-01200-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="Mail" number-found="17">
+                            <tag name="Connect"/>
+                            <tag name="Other"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Mail Technology Statistic Not Found" />
+                </perform>
+            </rule>
+            <rule id="technology-usage-connect-01300-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="JCA" number-found="17">
+                            <tag name="Connect"/>
+                            <tag name="Other"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="JCA Technology Statistic Not Found" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
