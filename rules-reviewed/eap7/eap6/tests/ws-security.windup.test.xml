@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="ws-security-test" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/data-ws-security/</testDataPath>
+    <rulePath>../ws-security.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+           <rule id="ws-security-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The `org.apache.ws.security.WSPasswordCallback` class has moved to package `org.apache.wss4j.common.ext`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="The hint about changed value of WSPasswordCallback's package changed not found!"/>
+                </perform>
+            </rule>
+           <rule id="ws-security-00001-test">
+                <when>
+                    <not>
+                        <iterable-filter size="8">
+                            <hint-exists message="Most of the SAML bean objects from the `org.apache.ws.security.saml.ext` package have been moved to the `org.apache.wss4j.common.saml` package"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="The hint about changed value of SAML bean objects' package changed not found!"/>
+                </perform>
+            </rule>
+           <rule id="ws-security-00002-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The `org.apache.ws.security.saml.ext.AssertionWrapper` class have been renamed and moved to the `org.apache.wss4j.common.saml.SamlAssertionWrapper` class"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="The hint about renamed and moved AssertionWrapper class not found!"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
