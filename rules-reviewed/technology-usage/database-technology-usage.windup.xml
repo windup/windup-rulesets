@@ -14,7 +14,9 @@
     <rules>
         <rule id="technology-usage-database-01000">
             <when>
-                <graph-query discriminator="JdbcDatasourceModel"  />
+                <graph-query discriminator="DataSourceModel">
+                    <property name="isXA" type="BOOLEAN">false</property>
+                </graph-query>
             </when>
             <perform>
                 <technology-identified name="JDBC datasources">
@@ -27,7 +29,7 @@
         <rule id="technology-usage-database-01001">
             <when>
                 <graph-query discriminator="DataSourceModel">
-                    <property name="isXA">true</property>
+                    <property name="isXA" type="BOOLEAN">true</property>
                 </graph-query>
             </when>
             <perform>
