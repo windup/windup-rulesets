@@ -285,7 +285,7 @@
         </rule>
         <rule id="weblogic-15000">
             <when>
-                <filecontent filename="{*}" pattern="oracle.net.wallet_location" />
+                <filecontent filename="{*}.{extension}" pattern="oracle.net.wallet_location" />
             </when>
             <perform>
                 <hint title="WebLogic Oracle Wallet" effort="3" category-id="mandatory">
@@ -300,6 +300,9 @@
                     <tag>weblogic</tag>
                 </hint>
             </perform>
+            <where param="extension">
+                <matches pattern="(java|properties|xml)"/>
+            </where>
         </rule>
 
         <rule id="weblogic-016000">
