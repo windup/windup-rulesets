@@ -156,5 +156,27 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="eap6-12000">
+            <when>
+                <filecontent pattern="org.jboss.security.ignoreHttpsHost" filename="{*}.{extension}"/>
+            </when>
+            <perform>
+                <hint title="HTTPS URL hostname check against a service’s Common Name (CN) changed" effort="1" category-id="mandatory">
+                    <message>In EAP 6, you could disable the HTTPS URL hostname check against a service’s Common Name (CN) given in its certificate by setting the system property `org.jboss.security.ignoreHttpsHost` to `true`. This system property name has been replaced with `cxf.tls-client.disableCNCheck` in EAP 7. 
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#changes_to_set_cookie_behavior"
+                        title="IgnoreHttpsHost CN Check Change"/>
+                    <tag>certificate</tag>
+                    <tag>https</tag>
+                    <quickfix name="ignoreHttpsCheck" type="REPLACE">
+                        <replacement>cxf.tls-client.disableCNCheck</replacement>
+                        <search>org.jboss.security.ignoreHttpsHost</search>
+                    </quickfix>
+                </hint>
+            </perform>
+            <where param="extension">
+                <matches pattern="(java|properties|xml|cmd|sh|bat)"/>
+            </where>
+        </rule>
     </rules>
 </ruleset>
