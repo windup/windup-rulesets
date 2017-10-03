@@ -52,6 +52,16 @@
                     <fail message="The hint about changed value of FaceletContext.FACELET_CONTEXT_KEY not found!"/>
                 </perform>
             </rule>
+            <rule id="eap6-12000-test">
+                <when>
+                    <not>
+                         <hint-exists message="In EAP 6, you could disable the HTTPS URL hostname check against.*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="The hint about changed system property org.jboss.security.ignoreHttpsHost not found!"/>
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
