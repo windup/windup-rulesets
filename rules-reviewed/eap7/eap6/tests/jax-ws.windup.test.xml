@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="jax-ws-test" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/data-jax-ws/</testDataPath>
+    <rulePath>../jax-ws.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="jax-ws-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Containers must use JAX-WS 2.2 style constructors"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="The hint about changed value of WebServiceRef not found!"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
