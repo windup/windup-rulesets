@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="jax-ws"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <metadata>
+        <description>
+            This ruleset provides analysis of applications that use JAX-WS and may require
+            individual attention when migrating to JBoss EAP 7+.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="eap" versionRange="[6,7)" />
+        <targetTechnology id="eap" versionRange="[7,)" />
+    </metadata>
+
+    <rules>
+        <rule id="jax-ws-00000">
+            <when>
+                <and>
+                    <javaclass references="javax.xml.ws.Service" as="default">
+                        <location>INHERITANCE</location>
+                    </javaclass>
+                    <not>
+                        <javaclass from="default" references="{*}(java.net.URL, javax.xml.namespace.QName, javax.xml.ws.WebServiceFeature)"/>
+                    </not>
+                </and>
+            </when>
+            <perform>
+                <hint title="JAX-WS 2.2 Requirements for WebServiceRef" effort="1" category-id="optional">
+                    <message>
+                        Containers must use JAX-WS 2.2 style constructors, using the WebServiceFeature class, to build clients that are injected into web service references.
+                        This means that user provided service classes injected by the container must implement JAX-WS 2.2 or later.
+                        The application must be changed to reference to the new package.
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_jax_ws_2_2_requirements_for_webserviceref" title="JAX-WS 2.2 Requirements for WebServiceRef"/>
+                    <tag>jax-ws</tag>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
