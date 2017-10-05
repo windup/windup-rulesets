@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          id="hibernate50-51-DB2Dialect-test" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/data-hibernate50-51/DB2Dialect/</testDataPath>
+    <rulePath>../hibernate50-51.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="hibernate50-51-00000-DB2Dialect-test">
+                <when>
+                    <hint-exists message="Previous versions of Hibernate have mapped `byte\[\]` and `Byte\[\]`" />
+                </when>
+                <perform>
+                    <fail message="Hint for mapped byte[] and Byte[] has NOT to be found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
