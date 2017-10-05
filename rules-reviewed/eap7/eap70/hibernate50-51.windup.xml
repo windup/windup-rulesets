@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="hibernate50-51"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of applications that use Hibernate 5.0 and may require
+            individual attention when migrating to Hibernate 5.1.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="hibernate" versionRange="(,5.0]" />
+        <sourceTechnology id="eap" versionRange="(,7.0]" />
+        <targetTechnology id="hibernate" versionRange="[5.1,)" />
+        <targetTechnology id="eap" versionRange="[7.1,)" />
+    </metadata>
+
+    <rules>
+        <rule id="hibernate50-51-00000">
+            <when>
+                <filecontent filename="{*}.{extension}" pattern="org.hibernate.dialect.Oracle12cDialect" as="config_files"/>
+                <javaclass references="javax.persistence.Entity" as="java_entities">
+                    <location>ANNOTATION</location>
+                </javaclass>
+                 <javaclass references="java.lang.Byte[]" from="java_entities" as="mappings">
+                    <location>RETURN_TYPE</location>
+                </javaclass>
+                <javaclass references="byte[]" from="java_entities" as="mappings2">
+                    <location>RETURN_TYPE</location>
+                </javaclass>
+            </when>
+            <perform>
+                <iteration over="mappings">
+                    <hint title="Hibernate 5.1  - Oracle12cDialect maps byte[] and Byte[] to BLOB" effort="1" category-id="mandatory">
+                        <message>
+                            Previous versions of Hibernate have mapped `byte[]` and `Byte[]` to Oracle’s `LONG RAW` data type (via the JDBC `LONGVARBINARY` type). Oracle have deprecated the `LONG RAW` data type for many releases - possibly as far back as 8i.
+
+                            Therefore it was decided to start having Hibernate map `byte[]` and `Byte[]` to `BLOB` for Oracle.
+
+                            However, in the interest of backwards compatibility and not breaking existing applications it was also decided to limit this change to just the `Oracle12cDialect`. So starting in 5.1 applications using `Oracle12cDialect` and implicitly mapping `byte[]` and `Byte[]` values will start seeing those handled as `BLOB` data rather than `LONG RAW` data.
+                            For existing applications that want to continue to use `Oracle12cDialect` and still continue to implicitly map `byte[]` and `Byte[]` attributes to `LONG RAW`, there is a new configuration setting you can use to enable that: `hibernate.dialect.oracle.prefer_longvarbinary`, which is `false `by default (map to `BLOB`).
+                        </message>
+                        <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.1.beta/html-single/migration_guide/application_migration_changes#oracle_byte_array_mapping_changes" title="Oracle Byte Array Mapping Changes"/>
+                        <tag>Hibernate</tag>
+                    </hint>
+                </iteration>
+                <iteration over="mappings2">
+                    <hint title="Hibernate 5.1  - Oracle12cDialect maps byte[] and Byte[] to BLOB" effort="1" category-id="mandatory">
+                        <message>
+                            Previous versions of Hibernate have mapped `byte[]` and `Byte[]` to Oracle’s `LONG RAW` data type (via the JDBC `LONGVARBINARY` type). Oracle have deprecated the `LONG RAW` data type for many releases - possibly as far back as 8i.
+
+                            Therefore it was decided to start having Hibernate map `byte[]` and `Byte[]` to `BLOB` for Oracle.
+
+                            However, in the interest of backwards compatibility and not breaking existing applications it was also decided to limit this change to just the `Oracle12cDialect`. So starting in 5.1 applications using `Oracle12cDialect` and implicitly mapping `byte[]` and `Byte[]` values will start seeing those handled as `BLOB` data rather than `LONG RAW` data.
+                            For existing applications that want to continue to use `Oracle12cDialect` and still continue to implicitly map `byte[]` and `Byte[]` attributes to `LONG RAW`, there is a new configuration setting you can use to enable that: `hibernate.dialect.oracle.prefer_longvarbinary`, which is `false `by default (map to `BLOB`).
+                        </message>
+                        <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.1.beta/html-single/migration_guide/application_migration_changes#oracle_byte_array_mapping_changes" title="Oracle Byte Array Mapping Changes"/>
+                        <tag>Hibernate</tag>
+                    </hint>
+                </iteration>
+            </perform>
+            <where param="extension">
+                <matches pattern="(java|properties|xml)"/>
+            </where>
+        </rule>
+        <rule id="hibernate50-51-00100">
+            <when>
+                <javaclass references="javax.persistence.Embeddable">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Hibernate 5.1  - @Embeddable changes interpretation" effort="1" category-id="optional">
+                    <message>
+                        Previous releases of Hibernate interpreted all null column values for an `@Embeddable` to mean the `@Embeddable` itself should be null.
+
+                        In this release, applications can dictate that Hibernate should instead use an empty `@Embeddable` instance by specifying the `hibernate.create_empty_composites.enabled` opt-in setting.
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.1.beta/html-single/migration_guide/application_migration_changes#hibernate_5_1_features" title="Hibernate ORM 5.1 Features"/>
+                    <tag>Hibernate</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate50-51-00200">
+            <when>
+                <or>
+                    <javaclass references="org.hibernate.tool.hbm2ddl.{hbm2ddl_classes}" >
+                        <location>IMPORT</location>
+                    </javaclass>
+                    <javaclass references="org.hibernate.tool.schema.spi.SchemaManagementTool" >
+                        <location>IMPORT</location>
+                    </javaclass>
+                    <javaclass references="org.hibernate.tool.schema.internal.HibernateSchemaManagementTool" >
+                        <location>IMPORT</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="Hibernate 5.1  - Changes to schema management tooling" effort="1" category-id="mandatory">
+                    <message>
+                        The changes mainly focused on:
+
+                        *  Unifying handling of hbm2ddl.auto and Hibernate’s JPA schema-generation support.
+                        *  Removing JDBC concerns from the SPI to facilitate true replacement (for OGM)
+
+                        These changes are a migration concern since the application is directly using some of the changed classes.
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.1.beta/html-single/migration_guide/application_migration_changes#schema_management_tooling_changes" title="Schema Management Tooling Changes"/>
+                    <tag>Hibernate</tag>
+                </hint>
+            </perform>
+            <where param="hbm2ddl_classes">
+                <matches pattern="(SchemaExport|SchemaUpdate|SchemaValidator)" />
+            </where>
+        </rule>
+    </rules>
+</ruleset>
