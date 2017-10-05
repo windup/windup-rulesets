@@ -744,5 +744,52 @@
                     pattern="(BigIntTypeDescriptor|BinaryTypeDescriptor|BitTypeDescriptor|BlobTypeDescriptor|BooleanTypeDescriptor|CharTypeDescriptor|ClobTypeDescriptor|DateTypeDescriptor|DecimalTypeDescriptor|DoubleTypeDescriptor|FloatTypeDescriptor|IntegerTypeDescriptor|LongNVarcharTypeDescriptor|LongVarbinaryTypeDescriptor|LongVarcharTypeDescriptor|NCharTypeDescriptor|NClobTypeDescriptor|NumericTypeDescriptor|NVarcharTypeDescriptor|RealTypeDescriptor|SmallIntTypeDescriptor|SqlTypeDescriptorRegistry.ObjectSqlTypeDescriptor|TimestampTypeDescriptor|TimeTypeDescriptor|TinyIntTypeDescriptor|VarbinaryTypeDescriptor|VarcharTypeDescriptor)" />
             </where>
         </rule>
+        <rule id="hibernate4-00039">
+            <when>
+                <filecontent filename="{*}.{extension}" pattern="org.hibernate.dialect.Oracle12cDialect" as="config_files"/>
+                <javaclass references="javax.persistence.Entity" as="java_entities">
+                    <location>ANNOTATION</location>
+                </javaclass>
+                <javaclass references="java.lang.Byte[]" from="java_entities" as="mappings">
+                    <location>RETURN_TYPE</location>
+                </javaclass>
+                <javaclass references="byte[]" from="java_entities" as="mappings2">
+                    <location>RETURN_TYPE</location>
+                </javaclass>
+            </when>
+            <perform>
+                <iteration over="mappings">
+                    <hint title="Hibernate 5  - Oracle12cDialect maps byte[] and Byte[] to BLOB" effort="1" category-id="mandatory">
+                        <message>
+                            Previous versions of Hibernate have mapped `byte[]` and `Byte[]` to Oracle’s `LONG RAW` data type (via the JDBC `LONGVARBINARY` type). Oracle have deprecated the `LONG RAW` data type for many releases - possibly as far back as 8i.
+
+                            Therefore it was decided to start having Hibernate map `byte[]` and `Byte[]` to `BLOB` for Oracle.
+
+                            However, in the interest of backwards compatibility and not breaking existing applications it was also decided to limit this change to just the `Oracle12cDialect`. So starting in 5.1 applications using `Oracle12cDialect` and implicitly mapping `byte[]` and `Byte[]` values will start seeing those handled as `BLOB` data rather than `LONG RAW` data.
+                            For existing applications that want to continue to use `Oracle12cDialect` and still continue to implicitly map `byte[]` and `Byte[]` attributes to `LONG RAW`, there is a new configuration setting you can use to enable that: `hibernate.dialect.oracle.prefer_longvarbinary`, which is `false `by default (map to `BLOB`).
+                        </message>
+                        <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.1.beta/html-single/migration_guide/application_migration_changes#oracle_byte_array_mapping_changes" title="Oracle Byte Array Mapping Changes"/>
+                        <tag>Hibernate</tag>
+                    </hint>
+                </iteration>
+                <iteration over="mappings2">
+                    <hint title="Hibernate 5  - Oracle12cDialect maps byte[] and Byte[] to BLOB" effort="1" category-id="mandatory">
+                        <message>
+                            Previous versions of Hibernate have mapped `byte[]` and `Byte[]` to Oracle’s `LONG RAW` data type (via the JDBC `LONGVARBINARY` type). Oracle have deprecated the `LONG RAW` data type for many releases - possibly as far back as 8i.
+
+                            Therefore it was decided to start having Hibernate map `byte[]` and `Byte[]` to `BLOB` for Oracle.
+
+                            However, in the interest of backwards compatibility and not breaking existing applications it was also decided to limit this change to just the `Oracle12cDialect`. So starting in 5.1 applications using `Oracle12cDialect` and implicitly mapping `byte[]` and `Byte[]` values will start seeing those handled as `BLOB` data rather than `LONG RAW` data.
+                            For existing applications that want to continue to use `Oracle12cDialect` and still continue to implicitly map `byte[]` and `Byte[]` attributes to `LONG RAW`, there is a new configuration setting you can use to enable that: `hibernate.dialect.oracle.prefer_longvarbinary`, which is `false `by default (map to `BLOB`).
+                        </message>
+                        <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.1.beta/html-single/migration_guide/application_migration_changes#oracle_byte_array_mapping_changes" title="Oracle Byte Array Mapping Changes"/>
+                        <tag>Hibernate</tag>
+                    </hint>
+                </iteration>
+            </perform>
+            <where param="extension">
+                <matches pattern="(java|properties|xml)"/>
+            </where>
+        </rule>
     </rules>
 </ruleset>
