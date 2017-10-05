@@ -424,6 +424,18 @@
                         message="Hint for built-in implementations of org.hibernate.type.descriptor.sql.SqlTypeDescriptor not found!" />
                 </perform>
             </rule>
+            <rule id="hibernate4-00039-test">
+                <when>
+                    <not>
+                        <iterable-filter size="4">
+                            <hint-exists message="Previous versions of Hibernate have mapped `byte\[\]` and `Byte\[\]`" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint for mapped byte[] and Byte[] was not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>

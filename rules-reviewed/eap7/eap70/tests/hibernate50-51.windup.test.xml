@@ -2,23 +2,11 @@
 <ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset"
           id="hibernate50-51-test" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
-    <testDataPath>data/data-hibernate50-51/Oracle12cDialect/</testDataPath>
+    <testDataPath>data/data-hibernate50-51/</testDataPath>
     <rulePath>../hibernate50-51.windup.xml</rulePath>
     <ruleset>
         <rules>
             <rule id="hibernate50-51-00000-test">
-                <when>
-                    <not>
-                        <iterable-filter size="4">
-                            <hint-exists message="Previous versions of Hibernate have mapped `byte\[\]` and `Byte\[\]`" />
-                        </iterable-filter>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="Hint for mapped byte[] and Byte[] was not found!" />
-                </perform>
-            </rule>
-            <rule id="hibernate50-51-00100-test">
                 <when>
                     <not>
                         <iterable-filter size="1">
@@ -30,7 +18,7 @@
                     <fail message="Hint for @Embeddable was not found!" />
                 </perform>
             </rule>
-            <rule id="hibernate50-51-00200-test">
+            <rule id="hibernate50-51-00100-test">
                 <when>
                     <not>
                         <iterable-filter size="5">
