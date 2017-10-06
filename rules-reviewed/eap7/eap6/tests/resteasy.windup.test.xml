@@ -481,6 +481,16 @@
                     <fail message="Resteasy Yaml test failed, there are not found 3 hints!" />
                 </perform>
             </rule>
+            <rule id="resteasy-eap6-000141-test">
+                <when>
+                    <not>
+                        <hint-exists message="Deserializing Java objects from untrusted sources is not safe.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Resteasy Serializable Provider test failed, hint is not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>

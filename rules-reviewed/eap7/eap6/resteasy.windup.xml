@@ -757,10 +757,41 @@
                             If you would like to use YAML Resteasy Provider even it is not recommended, 
                             you need to add the SnakeYAML library (Maven dependency) into your application and enable it by creating file `META-INF/services/javax.ws.rs.ext.Providers` with line `org.jboss.resteasy.plugins.providers.YamlProvider` in that file.
                             </message>
-                            <link title="RESTEasy Client Application Changes"
-                                href="https://doc-stage.usersys.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/developing_web_services_applications/#jaxrs_yaml_provider" />
+                            <link title="RESTEasy YAML Provider Setting Changes"
+                                href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.1.beta/html-single/migration_guide/#migrate_resteasy_yaml_provider_setting_changes"/>
+                            <link title="RESTEasy YAML Provider"
+                                href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/developing_web_services_applications/#jaxrs_yaml_provider"/>
                             <tag>resteasy</tag>
                             <tag>yaml</tag>
+                        </hint>
+                    </perform>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="resteasy-eap6-000141">
+            <when>
+                <javaclass references="javax.ws.rs.Produces">
+                    <location>ANNOTATION</location>
+                    <annotation-literal name="value" pattern="application/x-java-serialized-object"/>
+                </javaclass>
+            </when>
+            <perform>
+                <iteration>
+                    <when>
+                        <not>
+                            <file-exists filename="javax.ws.rs.ext.Providers"/>
+                        </not>
+                    </when> 
+                    <perform>
+                        <hint title="Resteasy SerializableProvider is disabled by default" effort="1" category-id="mandatory">
+                            <message>Deserializing Java objects from untrusted sources is not safe. For this reason, 
+                            the org.jboss.resteasy.plugins.providers.SerializableProvider class is disabled by default, and it is not recommended to use this provider. 
+                            If you need to enable it even against the recommendation, create or update file `META-INF/services/javax.ws.rs.ext.Providers` with adding line with `org.jboss.resteasy.plugins.providers.SerializableProvider` string.
+                            </message>
+                            <link title="RESTEasy SerializableProvider"
+                                href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.1.beta/html-single/migration_guide/#migrate_resteasy_serializableprovider"/>
+                            <link href="http://docs.jboss.org/resteasy/docs/3.1.2.Final/javadocs/org/jboss/resteasy/plugins/providers/SerializableProvider.html" title="SerializableProvider Java API documentation"/>
+                            <tag>resteasy</tag>
                         </hint>
                     </perform>
                 </iteration>

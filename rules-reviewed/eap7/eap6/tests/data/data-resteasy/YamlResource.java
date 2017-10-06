@@ -23,5 +23,11 @@ public class YamlResource {
   public MyObject getMyObject2() {
     return createMyObject();
   }
-...
+
+  
+  @GET
+  @Produces("application/x-java-serialized-object")
+  public MyObject getMyObject4() {
+    return createMyObject();
+  }
 }
