@@ -737,6 +737,35 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="resteasy-eap6-000140">
+            <when>
+                <javaclass references="javax.ws.rs.Produces">
+                    <location>ANNOTATION</location>
+                    <annotation-literal name="value" pattern="{*}yaml"/>
+                </javaclass>
+            </when>
+            <perform>
+                <iteration>
+                    <when>
+                        <not>
+                            <file-exists filename="javax.ws.rs.ext.Providers"/>
+                        </not>
+                    </when> 
+                    <perform>
+                        <hint title="Resteasy Yaml Provider is deprecated and disabled by default" effort="3" category-id="mandatory">
+                            <message>The resteasy-yaml-provider module is not supported. 
+                            If you would like to use YAML Resteasy Provider even it is not recommended, 
+                            you need to add the SnakeYAML library (Maven dependency) into your application and enable it by creating file `META-INF/services/javax.ws.rs.ext.Providers` with line `org.jboss.resteasy.plugins.providers.YamlProvider` in that file.
+                            </message>
+                            <link title="RESTEasy Client Application Changes"
+                                href="https://doc-stage.usersys.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/developing_web_services_applications/#jaxrs_yaml_provider" />
+                            <tag>resteasy</tag>
+                            <tag>yaml</tag>
+                        </hint>
+                    </perform>
+                </iteration>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
 
