@@ -797,6 +797,33 @@
                 </iteration>
             </perform>
         </rule>
+        <rule id="resteasy-eap6-000142">
+            <when>
+                <or>
+                    <javaclass references="javax.ws.rs.Produces">
+                        <location>ANNOTATION</location>
+                        <annotation-literal name="value" pattern="application/xml{*}"/>
+                    </javaclass>
+                    <javaclass references="javax.ws.rs.Produces">
+                        <location>ANNOTATION</location>
+                        <annotation-literal name="value" pattern="text/{*}"/>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="RESTEasy Text default charset response changed" effort="1" category-id="optional">
+                    <message>Resteasy should use UTF-8 as the character set for text media types.
+                    The `resteasy.add.charset` parameter is set to `true` by default. You can set the `resteasy.add.charset` parameter to false in web.xml `context-param` element.
+                    If you do not want RESTEasy to add `charset=UTF-8` to the returned content-type header when the resource method returns a `text/*` or `application/xml*` media type without an explicit charset. 
+                    </message>
+                    <link title="RESTEasy Default Charset UTF-8 in Content-Type Header"
+                        href="https://doc-stage.usersys.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.1/html-single/migration_guide/#migrate_resteasy_default_charset_utf8_in_content_type_header"/>
+                        <link href="http://docs.jboss.org/resteasy/docs/3.1.4.Final/userguide/html_single/index.html#Text_media_types" title="RESTEasy Text media types and character sets"/>
+                    <tag>resteasy</tag>
+                    <tag>charset</tag>
+                </hint>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
 

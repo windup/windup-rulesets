@@ -491,6 +491,18 @@
                     <fail message="Resteasy Serializable Provider test failed, hint is not found!" />
                 </perform>
             </rule>
+            <rule id="resteasy-eap6-000142-test">
+                <when>
+                    <not>
+                        <iterable-filter size="4">
+                            <hint-exists message="Resteasy should use UTF-8 as the character set for text media types.*" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Resteasy default charset test failed, hint is not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>

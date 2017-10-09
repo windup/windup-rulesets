@@ -24,10 +24,22 @@ public class YamlResource {
     return createMyObject();
   }
 
-  
+
   @GET
   @Produces("application/x-java-serialized-object")
   public MyObject getMyObject4() {
     return createMyObject();
+  }
+
+  @GET
+  @Produces("text/plain")
+  public String getResult() {
+      return "";
+  }
+
+  @GET
+  @Produces("application/xml")
+  public String getResult() {
+      return "";
   }
 }
