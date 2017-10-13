@@ -469,6 +469,40 @@
                     <fail message="OAuthValidator#validateMessage hint not found!" />
                 </perform>
             </rule>
+            <rule id="resteasy-eap6-000140-test">
+                <when>
+                    <not>
+                        <iterable-filter size="3">
+                            <hint-exists message="The resteasy-yaml-provider module.*" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Resteasy Yaml test failed, there are not found 3 hints!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000141-test">
+                <when>
+                    <not>
+                        <hint-exists message="Deserializing Java objects from untrusted sources is not safe.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Resteasy Serializable Provider test failed, hint is not found!" />
+                </perform>
+            </rule>
+            <rule id="resteasy-eap6-000142-test">
+                <when>
+                    <not>
+                        <iterable-filter size="4">
+                            <hint-exists message="RESTEasy fixes the issue when it doesn't set/add correctly character set meta data.*" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Resteasy default charset test failed, hint is not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
