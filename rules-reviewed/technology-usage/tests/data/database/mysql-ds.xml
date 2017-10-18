@@ -1,0 +1,34 @@
+<datasources xmlns="http://www.jboss.org/ironjacamar/schema">
+    <datasource jndi-name="java:jboss/datasources/ExampleDS" pool-name="ExampleDS">
+        <connection-url>jdbc:h2:mem:test;DB_CLOSE_DELAY=-1</connection-url>
+        <driver>h2</driver>
+        <pool>
+            <min-pool-size>10</min-pool-size>
+            <max-pool-size>20</max-pool-size>
+            <prefill>true</prefill>
+        </pool>
+        <security>
+            <user-name>sa</user-name>
+            <password>sa</password>
+        </security>
+    </datasource>
+    <xa-datasource jndi-name="java:jboss/datasources/ExampleXADS" pool-name="ExampleXADS">
+        <driver>h2</driver>
+        <xa-datasource-property name="URL">jdbc:h2:mem:test</xa-datasource-property>
+        <xa-pool>
+            <min-pool-size>10</min-pool-size>
+            <max-pool-size>20</max-pool-size>
+            <prefill>true</prefill>
+        </xa-pool>
+        <security>
+            <user-name>sa</user-name>
+            <password>sa</password>
+        </security>
+    </xa-datasource>
+    <drivers>
+        <driver name="h2" module="com.h2database.h2">
+            <xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
+        </driver>
+    </drivers>
+</datasources>
+
