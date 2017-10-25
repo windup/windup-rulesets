@@ -70,9 +70,9 @@
                 <javaclass references="{package}.JmsMsg{type}" />
             </when>
             <perform>
-                <hint title="IBM JMS message JmsMsg{type}" effort="1" category-id="mandatory">
+                <hint title="IBM JMS topic/queue message" effort="1" category-id="mandatory">
                     <message>
-                        IBM JMS message {type}s are used for sending/reading messages to/from a topic or queue. This reference should be
+                        IBM JMS message `{package}.JmsMsg{type}` are used for sending/reading messages to/from a topic or queue. This reference should be
                         replaced with the Java EE standard API `javax.jms.Message{type}`.
                     </message>
                     <link href="https://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html" title="Java EE JMS Documentation" />
@@ -117,9 +117,9 @@
                         </not>
                     </when>
                     <perform>
-                        <hint title="IBM JMS {type} message" effort="1" category-id="mandatory">
+                        <hint title="IBM JMS destination message" effort="1" category-id="mandatory">
                             <message>
-                                JMS {type} messages represent the actual data passed through JMS destinations. This reference should be
+                                JMS `{package}.{prefix}{type}Message` messages represent the actual data passed through JMS destinations. This reference should be
                                 replaced with the Java EE standard API `javax.jms.{type}Message`.
                             </message>
                             <link href="https://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html#bnces" title="Java EE 6 JMS Tutorial - Message API" />
@@ -152,9 +152,9 @@
                         </not>
                     </when>
                     <perform>
-                        <hint title="IBM proprietary interface {prefix}{type}" effort="1" category-id="mandatory">
+                        <hint title="IBM JMS interface" effort="1" category-id="mandatory">
                             <message>
-                                {prefix}{type} is an IBM proprietary interface and needs to be migrated to the Java EE standard API `javax.jms.{type}`.
+                                {package}.{prefix}{type} is an IBM proprietary interface and needs to be migrated to the Java EE standard API `javax.jms.{type}`.
                             </message>
                             <link href="https://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html" title="Java EE JMS Documentation" />
                             <tag>jms</tag>
