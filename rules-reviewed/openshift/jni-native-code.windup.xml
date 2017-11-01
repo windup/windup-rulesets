@@ -18,7 +18,13 @@
         <rule id="jni-native-code-00000">
             <when>
                 <or>
-                  <javaclass references="java.lang.System.{systemNativeMethods}({*})">
+                  <javaclass references="java.lang.System.load({*})">
+                      <location>METHOD_CALL</location>
+                  </javaclass>
+                  <javaclass references="java.lang.System.loadLibrary({*})">
+                      <location>METHOD_CALL</location>
+                  </javaclass>
+                  <javaclass references="java.lang.System.mapLibraryName({*})">
                       <location>METHOD_CALL</location>
                   </javaclass>
                   <javaclass references="java.lang.Runtime.load({*})">
@@ -55,9 +61,6 @@
                 <tag>jni</tag>
               </hint>
             </perform>
-            <where param="systemNativeMethods">
-              <matches pattern="(load|loadLibrary|mapLibraryName)"/>
-            </where>
         </rule>
   </rules>
 </ruleset>
