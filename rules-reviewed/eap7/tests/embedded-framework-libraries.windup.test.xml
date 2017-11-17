@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<ruletest id="embedded-framework-libraries-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/embedded-framework-libraries</testDataPath>
+    <rulePath>../embedded-framework-libraries.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="embedded-framework-libraries-test-01000">
+                <when>
+                    <not>
+                        <classification-exists classification="Embedded library - Drools"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Drools classification not found!" />
+                </perform>
+            </rule>
+            <rule id="embedded-framework-libraries-test-02000">
+                <when>
+                    <not>
+                        <classification-exists classification="Embedded library - Apache Camel"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Apache Camel classification not found!" />
+                </perform>
+            </rule>
+            <rule id="embedded-framework-libraries-test-03000">
+                <when>
+                    <not>
+                        <classification-exists classification="Hibernate embedded library"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hibernate embedded library classification not found!" />
+                </perform>
+            </rule>
+            <rule id="embedded-framework-libraries-test-04000">
+                <when>
+                    <not>
+                        <classification-exists classification="Embedded library - JDBC"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Embedded library - JDBC classification not found!" />
+                </perform>
+            </rule>
+            <rule id="embedded-framework-libraries-test-05000">
+                <when>
+                    <not>
+                        <classification-exists classification="JSF embedded library"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="JSF embedded library Classification not found!" />
+                </perform>
+            </rule>
+            <rule id="embedded-framework-libraries-test-06000">
+                <when>
+                    <not>
+                        <classification-exists classification="Seam 2 embedded library"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Seam 2 embedded library classification not found!" />
+                </perform>
+            </rule>
+            <rule id="embedded-framework-libraries-test-07000">
+                <when>
+                    <not>
+                        <classification-exists classification="Embedded library - Teiid"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Embedded library - Teiid classification not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
