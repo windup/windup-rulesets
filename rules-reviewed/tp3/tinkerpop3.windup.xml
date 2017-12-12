@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="tinkerpop-2-to-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <metadata>
+        <description>
+            Rules to help when migrating from Tinkerpop 2 to Tinkerpop 3
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,2.7.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,2.7.0.Final" />
+        </dependencies>
+        <sourceTechnology id="tinkerpop" versionRange="[2,3)" />
+        <targetTechnology id="tinkerpop" versionRange="[3,4)" />
+        <tag>tinkerpop</tag>
+        <tag>tinkerpop2</tag>
+        <tag>tinkerpop3</tag>
+    </metadata>
+    <rules>
+        <rule id="tinkerpop2-01000">
+            <when>
+                <javaclass references="com.tinkerpop.{*}">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Import of com.tinkerpop api" effort="1" category-id="tinkerpop">
+                    <message>
+                      <![CDATA[
+                      This should be replaced with a similar import from `org.apache.tinkerpop`
+                      ]]>
+                    </message>
+                    <tag>tinkerpop</tag>
+                    <tag>tinkerpop3</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="tinkerpop2-02000">
+            <when>
+                <javaclass references="com.thinkaurelius.titan.core.TitanTransaction">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Usage of TitanTransaction API" effort="3" category-id="tinkerpop">
+                    <message>
+                      <![CDATA[
+                      This should be replaced with calls to the standard graph transaction API.
+                      ]]>
+                    </message>
+                    <tag>tinkerpop</tag>
+                    <tag>tinkerpop3</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="tinkerpop2-03000">
+            <when>
+                <javaclass references="com.tinkerpop.blueprints.Element.getProperty({*})">
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Usage of Property API" effort="1" category-id="tinkerpop">
+                    <message>
+                      <![CDATA[
+                      getProperty() has been replaced with property().
+                      ]]>
+                    </message>
+                    <tag>tinkerpop</tag>
+                    <tag>tinkerpop3</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="tinkerpop2-04000">
+            <when>
+                <javaclass references="com.tinkerpop.gremlin.java.GremlinPipeline{*}">
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="GremlinPipeline has been replaced by a new traversal API" effort="3" category-id="tinkerpop">
+                    <message>
+                      <![CDATA[
+                      The new traversal API should be used for these queries
+                      ]]>
+                    </message>
+                    <tag>tinkerpop</tag>
+                    <tag>tinkerpop3</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="tinkerpop2-05000">
+            <when>
+                <javaclass references="com.tinkerpop.frames.annotations.gremlin.GremlinGroovy">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="GremlinGroovy may contain incompatible queries" effort="8" category-id="tinkerpop">
+                    <message>
+                      <![CDATA[
+                      These queries may need to be adjusted for the new platform
+                      ]]>
+                    </message>
+                    <tag>tinkerpop</tag>
+                    <tag>tinkerpop3</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="tinkerpop2-07000">
+            <when>
+                <javaclass references="com.thinkaurelius.titan.core.attribute.Text">
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Text based searches may need adjustments to support other storage backends" effort="3" category-id="tinkerpop">
+                    <message>
+                      <![CDATA[
+                      Titan retains these, but many other storage backends will behave differently.
+                      ]]>
+                    </message>
+                    <tag>tinkerpop</tag>
+                    <tag>tinkerpop3</tag>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
