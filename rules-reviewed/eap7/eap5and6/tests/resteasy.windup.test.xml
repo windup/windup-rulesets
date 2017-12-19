@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="resteasy-eap5and6to7-test" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/data-resteasy</testDataPath>
+    <ruleset>
+        <rules>
+            <rule id="resteasy-eap5and6to7-000018-test">
+                <when>
+                    <not>
+                        <hint-exists message="Use .*org.jboss.resteasy.plugins.cache.server.InfinispanCache.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="SimpleServerCache hint not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
