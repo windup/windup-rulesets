@@ -306,9 +306,9 @@ public class WindupRulesTest
 
     private void runWindup(GraphContext context, File baseRuleDirectory, final List<Path> rulePaths, File input, File output, boolean sourceMode, String source, String target) throws IOException
     {
-        ProjectModel pm = context.getFramed().addVertex(null, ProjectModel.class);
+        ProjectModel pm = context.getFramed().addFramedVertex(ProjectModel.class);
         pm.setName("Project: " + input.getAbsolutePath());
-        FileModel inputPath = context.getFramed().addVertex(null, FileModel.class);
+        FileModel inputPath = context.getFramed().addFramedVertex(FileModel.class);
         inputPath.setFilePath(input.getCanonicalPath());
 
         FileUtils.deleteDirectory(output);
