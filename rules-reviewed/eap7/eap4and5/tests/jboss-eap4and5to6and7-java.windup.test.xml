@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="jboss-eap4and5to6and7-java-test" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/java</testDataPath>
+    <ruleset>
+        <rules>
+            <rule id="jboss-eap4and5to6and7-java-01000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Annotation `org.jboss.security.annotation.SecurityDomain` should be replaced by `org.jboss.ejb3.annotation.SecurityDomain`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Replace org.jboss.security.annotation.SecurityDomain annotation hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="jboss-eap4and5to6and7-java-02000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="In JBoss EAP 4 and 5 a lot of the mbean-related components were JBoss specific"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Replace org.jboss.mx.util.MBeanProxyExt class hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="jboss-eap4and5to6and7-java-03000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="JMX \/ MBeans is still fully supported as it is in the JDK specification"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Replace ServiceMBean and ServiceMBeanSupport hint not found!"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

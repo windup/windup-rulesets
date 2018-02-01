@@ -1,0 +1,111 @@
+<server>
+    <mbean code="com.jboss.examples.mbean.JBossServiceExample" name="com.jboss.examples.mbean:service=JBossServiceExample"/>
+
+    <mbean code="org.jboss.system.BarrierController"
+           name="jboss:service=BarrierController">
+
+        <!-- Whether to have the Barrier initially started or not -->
+        <attribute name="BarrierEnabledOnStartup">false</attribute>
+
+        <!-- Whether to subscribe for notifications after startup -->
+        <attribute name="DynamicSubscriptions">true</attribute>
+
+        <!-- Dependent services will depend on this mbean -->
+        <attribute name="BarrierObjectName">jboss:name=TomcatConnector,type=Barrier</attribute>
+
+        <!-- The notification subscription handback that starts the barrier -->
+        <attribute name="StartBarrierHandback">start</attribute>
+
+        <!-- The notification subscription handback that stops the barrier -->
+        <attribute name="StopBarrierHandback">stop</attribute>
+
+        <!-- The notifications to subscribe for, along with their handbacks -->
+        <attribute name="SubscriptionList">
+            <subscription-list>
+                <mbean name="jboss.web:service=WebServer" handback="start">
+                    <filter factory="NotificationFilterSupportFactory">
+                        <enable type="jboss.tomcat.connectors.started"/>
+                    </filter>
+                </mbean>
+                <mbean name="jboss.system:type=Server" handback="stop">
+                    <filter factory="NotificationFilterSupportFactory">
+                        <enable type="org.jboss.system.server.stopped"/>
+                    </filter>
+                </mbean>
+            </subscription-list>
+        </attribute>
+    </mbean>
+
+    <mbean code="org.jboss.remoting.transport.Connector"
+           name="jboss.remoting:type=Connector,name=DefaultEjb3Connector,handler=ejb3">
+        <depends>jboss.aop:service=AspectDeployer</depends>
+        <attribute name="Configuration">
+            <config>
+                <invoker transport="socket">
+                    <attribute name="numAcceptThreads">1</attribute>
+                    <attribute name="maxPoolSize">300</attribute>
+                    <attribute name="clientMaxPoolSize" isParam="true">50</attribute>
+                    <attribute name="timeout" isParam="true">60000</attribute>
+                    <attribute name="serverBindAddress">${jboss.bind.address}</attribute>
+                    <attribute name="serverBindPort">3873</attribute>
+                    <attribute name="backlog">200</attribute>
+                    <attribute name="invokerDestructionDelay" isParam="true">5000</attribute>
+                    <attribute name="marshaller" isParam="true">org.jboss.remoting.marshal.compress.CompressingMarshaller</attribute>
+                    <attribute name="unmarshaller" isParam="true">org.jboss.remoting.marshal.compress.CompressingUnMarshaller</attribute>
+                </invoker>
+                <handlers>
+                    <handler subsystem="AOP">org.jboss.aspects.remoting.AOPRemotingInvocationHandler</handler>
+                </handlers>
+            </config>
+        </attribute>
+    </mbean>
+
+    <mbean code="org.jboss.naming.NamingAlias" name="com.example:service=NamingAlias,name=Test">
+        <attribute name="FromName">/FromExample</attribute>
+        <attribute name="ToName">ToExample</attribute>
+    </mbean>
+
+    <!-- ==================================================================== -->
+    <!-- Security                                                             -->
+    <!-- ==================================================================== -->
+
+    <!-- JAAS security manager and realm mapping -->
+    <mbean code="org.jboss.security.plugins.JaasSecurityManagerService" name="jboss.security:service=JaasSecurityManager">
+        <!-- A flag which indicates whether the SecurityAssociation server mode
+        is set on service creation. This is true by default since the
+        SecurityAssociation should be thread local for multi-threaded server
+        operation.-->
+        <attribute name="ServerMode">true</attribute>
+
+        <attribute name="SecurityManagerClassName">org.jboss.security.plugins.JaasSecurityManager</attribute>
+
+        <attribute name="DefaultUnauthenticatedPrincipal">anonymous</attribute>
+
+        <!-- DefaultCacheTimeout: Specifies the default timed cache policy timeout
+        in seconds.
+        If you want to disable caching of security credentials, set this to 0 to
+        force authentication to occur every time. This has no affect if the
+        AuthenticationCacheJndiName has been changed from the default value.-->
+
+        <attribute name="DefaultCacheTimeout">1800</attribute>
+
+        <!-- DefaultCacheResolution: Specifies the default timed cache policy
+        resolution in seconds. This controls the interval at which the cache
+        current timestamp is updated and should be less than the DefaultCacheTimeout
+        in order for the timeout to be meaningful. This has no affect if the
+        AuthenticationCacheJndiName has been changed from the default value.-->
+
+        <attribute name="DefaultCacheResolution">60</attribute>
+
+        <!-- DeepCopySubjectMode: This set the copy mode of subjects done by the
+        security managers to be deep copies that makes copies of the subject
+        principals and credentials if they are cloneable. It should be set to
+        true if subject include mutable content that can be corrupted when
+        multiple threads have the same identity and cache flushes/logout clearing
+        the subject in one thread results in subject references affecting other
+        threads.-->
+
+        <attribute name="DeepCopySubjectMode">false</attribute>
+
+    </mbean>
+</server>

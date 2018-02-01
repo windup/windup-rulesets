@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="jboss-eap4and5to6and7-xml-test" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/xml</testDataPath>
+    <ruleset>
+        <rules>
+            <rule id="jboss-eap4and5to6and7-xml-01000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="MBeans were part of the core architecture in previous versions of Red Hat JBoss Enterprise Application Platform"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Replace service-style deployments hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="jboss-eap4and5to6and7-xml-02000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`BarrierController` service is no longer available in JBoss EAP 6"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Replace BarrierController service hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="jboss-eap4and5to6and7-xml-03000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`CompressingMarshaller` marshaller is no longer available in JBoss EAP 6"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Replace CompressingMarshaller marshaller hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="jboss-eap4and5to6and7-xml-04000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="In JBoss EAP 6\+, Security is configured in the"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Replace Login Module definition hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="jboss-eap4and5to6and7-xml-05000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="The `class-loading` and `loader-repository` configuration in `jboss.xml`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Remove class-loading definition hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="jboss-eap4and5to6and7-xml-06000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="JBoss EAP 6 supports deploying SAR files, however JBoss EAP 5 and 6 do not share a lot of the internals"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Create org.jboss.naming.NamingAlias class hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="jboss-eap4and5to6and7-xml-07000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="In JBoss EAP 6 and 7 you can set the JAAS cache timeout, changing the `cache-type` to `infinispan` which uses Infinispan cache which has an expiration capability"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Set authentication cache timeout hint not found!"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
