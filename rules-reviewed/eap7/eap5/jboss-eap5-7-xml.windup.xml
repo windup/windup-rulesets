@@ -55,54 +55,24 @@
                 </classification>
             </perform>
         </rule>
-        <rule id="jboss-eap5-7-xml-03000">
-            <when>
-                <xmlfile matches="/classloading"/>
-            </when>
-            <perform>
-                <classification issue-display-mode="all" title="JBoss Classloading configuration, typically in jboss-classloading.xml." effort="1">
-                    <description>
-                        JBoss EAP 7 enhances advanced classloading configuration through jboss-deployment-structure.xml.
-                    </description>
-                    <link title="JBoss EAP 7 Classloading" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0/development-guide/chapter-3-class-loading-and-modules"/>
-                    <tag>jboss-eap5</tag>
-                    <tag>classloading</tag>
-                </classification>
-            </perform>
-        </rule>
-        <rule id="jboss-eap5-7-xml-04000">
-            <when>
+
+        <rule id="jboss-eap5-7-xml-10000">
+           <when>
                 <xmlfile matches="/jbc:classloading">
                     <namespace prefix="jbc" uri="urn:jboss:classloading:1.0"/>
                 </xmlfile>
             </when>
             <perform>
-                <classification issue-display-mode="all" title="JBoss EAP 5 Classloading Configuration" effort="5">
-                    <description>
-                        JBoss EAP 7 enhances advanced classloading configuration through jboss-deployment-structure.xml.
-                    </description>
-                    <link title="JBoss EAP 7 Classloading" href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0/development-guide/chapter-3-class-loading-and-modules"/>
-                    <tag>jboss-eap5</tag>
-                    <tag>classloading</tag>
-                </classification>
-            </perform>
-        </rule>
-
-        <rule id="jboss-eap5-7-xml-10000">
-            <when>
-                <xmlfile matches="//*[local-name()='classloading']" in="jboss-classloading.xml"/>
-            </when>
-            <perform>
-                <classification issue-display-mode="detail-only" title="JBoss 5 classloader configuration (jboss-classloading.xml)" effort="0" category-id="optional">
+                <classification issue-display-mode="detail-only" title="JBoss EAP 5 classloader configuration (jboss-classloading.xml)" effort="0" category-id="mandatory">
                     <description>The `jboss-classloading.xml` file allows customization of classloading in JBoss EAP 5.</description>
                     <link title="JBoss EAP 5 Class Loading and Modules" href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/5/html/Microcontainer_User_Guide/sect-JBoss_Microcontainer_User_Guide-The_ClassLoading_Layer-ClassLoading.html"/>
                     <link title="JBoss EAP 7 Class Loading and Modules" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/development_guide/#class_loading_and_modules"/>
                     <tag>classloading</tag>
                 </classification>
-                <hint title="JBoss 5 classloader configuration (jboss-classloading.xml)" effort="0" category-id="optional">
+                <hint title="JBoss 5 classloader configuration (jboss-classloading.xml)" effort="5" category-id="mandatory">
                     <message>
-                        In JBoss EAP 6, the classloading configuration is not done through `jboss-classloading.xml`.
-                        Since EAP 6 it is of modular nature, based on JBoss Modules.
+                        In JBoss EAP 6+, the classloading configuration is not done through `jboss-classloading.xml`.
+                        Since EAP 6 is of modular nature, based on JBoss Modules.
                         Learn how to divide your application's dependencies into modules
                         and what dependencies and APIs are available automatically.
                     </message>
