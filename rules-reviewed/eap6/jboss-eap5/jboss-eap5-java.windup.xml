@@ -58,49 +58,51 @@
         </rule>
         <rule id="jboss-eap5-java-04000">
             <when>
-                <javaclass references="org.jboss.annotation.ejb.Service">
+                <javaclass references="org.jboss{package}.Service">
                     <location>IMPORT</location>
                 </javaclass>
             </when>
             <perform>
-                <hint title="org.jboss.annotation.ejb.Service" effort="3" category-id="mandatory">
+                <hint title="org.jboss{package}.Service" effort="3" category-id="mandatory">
                     <message>
                         The `@Service` annotation is one of JBoss EJB 3.0 extensions which creates a singleton EJB.
-                        Use the new `org.jboss.ejb3.annotation.Service` instead.
+                        To achieve the singleton nature of the `@Service` annotation, use the EJB3.1 spec `@Singleton` bean
                     </message>
+                    <link title="How to use @Service and @Management annotations in JBoss EAP 6?" href="https://access.redhat.com/solutions/196713"/>
+                    <link title="JBoss EAP 6 - Development Guide" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/development_guide/#Implement_an_HA_Singleton"/>
                     <link title="JBoss EJB 3.0 extensions" href="https://docs.jboss.org/ejb3/docs/reference/build/reference/en/html/jboss_extensions.html"/>
                     <link title="JBoss EJB 3.0 Javadoc" href="https://docs.jboss.org/ejb3/embedded/api/org/jboss/annotation/ejb/package-summary.html"/>
                     <tag>ejb</tag>
-                    <quickfix name="ejbService" type="REPLACE">
-                        <replacement>org.jboss.ejb3.annotation.Service</replacement>
-                        <search>org.jboss.annotation.ejb.Service</search>
-                    </quickfix>
                 </hint>
             </perform>
+            <where param="package">
+                <matches pattern="(\.ejb3)?\.annotation(\.ejb)?" />
+            </where>
         </rule>
         <rule id="jboss-eap5-java-05000">
             <when>
-                <javaclass references="org.jboss.annotation.ejb.Management">
+                <javaclass references="org.jboss{package}.Management">
                     <location>IMPORT</location>
                 </javaclass>
             </when>
             <perform>
-                <hint title="org.jboss.annotation.ejb.Management" effort="3" category-id="mandatory">
+                <hint title="org.jboss{package}.Management" effort="3" category-id="mandatory">
                     <message>
                         The `@Management` annotation is one of JBoss EJB 3.0 extensions which wraps the the bean
                         as an MBean and install it in the JBoss MBean Server.
-                        Use the new `org.jboss.ejb3.annotation.Management` instead.
+                        To achieve the singleton nature of the `@Service` and `@Management` annotations, use the EJB3.1 spec `@Singleton` bean.
                     </message>
+                    <link title="How to use @Service and @Management annotations in JBoss EAP 6?" href="https://access.redhat.com/solutions/196713"/>
+                    <link title="JBoss EAP 6 - Development Guide" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/development_guide/#Implement_an_HA_Singleton"/>
                     <link title="JBoss EJB 3.0 extensions" href="https://docs.jboss.org/ejb3/docs/reference/build/reference/en/html/jboss_extensions.html"/>
                     <link title="JBoss EJB 3.0 Javadoc" href="https://docs.jboss.org/ejb3/embedded/api/org/jboss/annotation/ejb/package-summary.html"/>
                     <tag>ejb</tag>
                     <tag>jmx</tag>
-                    <quickfix name="ejbMnagement" type="REPLACE">
-                        <replacement>org.jboss.ejb3.annotation.Management</replacement>
-                        <search>org.jboss.annotation.ejb.Management</search>
-                    </quickfix>
                 </hint>
             </perform>
+            <where param="package">
+                <matches pattern="(\.ejb3)?\.annotation(\.ejb)?" />
+            </where>
         </rule>
         <rule id="jboss-eap5-java-06000">
             <when>
