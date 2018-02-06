@@ -98,13 +98,9 @@
                 </hint>
             </perform>
         </rule>
-<!--
         <rule id="jboss-eap4and5to6and7-xml-05000">
             <when>
-                <or>
-                    <xmlfile matches="//class-loading/loader-repository" in="jboss-{type}.xml"/>
-                    <xmlfile matches="//class-loading/loader-repository" in="jboss.xml"/>
-                </or>
+                    <xmlfile matches="//class-loading/loader-repository" in="jboss{type}.xml"/>
             </when>
             <perform>
                 <hint issue-display-mode="all" title="Remove class-loading definition" effort="3" category-id="mandatory">
@@ -122,52 +118,8 @@
                 </hint>
             </perform>
             <where param="type">
-                <matches pattern="(web|service)" />
+                <matches pattern="(-web|-service)?" />
             </where>
-        </rule>
--->
-        <rule id="jboss-eap4and5to6and7-xml-05001">
-            <when>
-                <xmlfile matches="//class-loading/loader-repository" in="jboss-{type}.xml"/>
-            </when>
-            <perform>
-                <hint issue-display-mode="all" title="Remove class-loading definition" effort="3" category-id="mandatory">
-                    <message>
-                        <![CDATA[
-                        The `class-loading` and `loader-repository` configuration in `jboss.xml`, `jboss-web.xml` and `jboss-service.xml` were JBoss EAP 4.x & 5.x configuration options for specifying classloader isolation on a deployment.  
-                        In JBoss EAP 6+, it uses JBoss Modules for its classloader implementation so all deployments are isolated in their own classloader / JBoss Module and the `loader-repository` is no longer valid.  
-                        The `jboss-deployment-structure.xml` can be used to specify classloader / module dependencies if needed.
-                        ]]>
-                    </message>
-                    <link title="JBoss EAP 6 - Migration Guide" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/migration_guide/#sect-Configuration_File_Changes"/>
-                    <link title="Unexpected element 'class-loading' in jboss-web.xml when migrating to JBoss EAP 6" href="https://access.redhat.com/solutions/1162713"/>
-                    <link title="JBoss EAP 6 - jboss-deployment-structure.xml" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/development_guide/#jboss-deployment-structurexml"/>
-                    <link title="JBoss EAP 7 - jboss-deployment-structure.xml" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.1/html-single/development_guide/#jboss_deployment_structure_xml"/>
-                </hint>
-            </perform>
-            <where param="type">
-                <matches pattern="(web|service)" />
-            </where>
-        </rule>
-        <rule id="jboss-eap4and5to6and7-xml-05002">
-            <when>
-                <xmlfile matches="//class-loading/loader-repository" in="jboss.xml"/>
-            </when>
-            <perform>
-                <hint issue-display-mode="all" title="Remove class-loading definition" effort="3" category-id="mandatory">
-                    <message>
-                        <![CDATA[
-                        The `class-loading` and `loader-repository` configuration in `jboss.xml`, `jboss-web.xml` and `jboss-service.xml` were JBoss EAP 4.x & 5.x configuration options for specifying classloader isolation on a deployment.  
-                        In JBoss EAP 6+, it uses JBoss Modules for its classloader implementation so all deployments are isolated in their own classloader / JBoss Module and the `loader-repository` is no longer valid.  
-                        The `jboss-deployment-structure.xml` can be used to specify classloader / module dependencies if needed.
-                        ]]>
-                    </message>
-                    <link title="JBoss EAP 6 - Migration Guide" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/migration_guide/#sect-Configuration_File_Changes"/>
-                    <link title="Unexpected element 'class-loading' in jboss-web.xml when migrating to JBoss EAP 6" href="https://access.redhat.com/solutions/1162713"/>
-                    <link title="JBoss EAP 6 - jboss-deployment-structure.xml" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/development_guide/#jboss-deployment-structurexml"/>
-                    <link title="JBoss EAP 7 - jboss-deployment-structure.xml" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.1/html-single/development_guide/#jboss_deployment_structure_xml"/>
-                </hint>
-            </perform>
         </rule>
         <rule id="jboss-eap4and5to6and7-xml-06000">
             <when>
