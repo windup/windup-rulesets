@@ -126,15 +126,13 @@
                 <xmlfile matches="//*[local-name()='policy']" in="login-config.xml"/>
             </when>
             <perform>
-                <classification issue-display-mode="detail-only" title="JBoss security configuration descriptor (prior to AS 7 / EAP 6)" effort="0">
-                    <link title="JBoss EAP 5 - Login Modules" href="https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform/5/html-single/security_guide/#idm139921681412720"/>
-                    <tag>security</tag>
-                </classification>
+                <classification issue-display-mode="detail-only" title="JBoss security configuration descriptor (login-config.xml)" effort="0" />
                 <hint title="JBoss security configuration descriptor (login-config.xml)" effort="5" category-id="mandatory">
                     <message>Before JBoss EAP 6, authentication security domains and login modules could be configured in a `login-config.xml` file.
                     JBoss EAP 6+ does not support the `login-config.xml` descriptor. Security is now configured inside the server configuration. Please refer to the corresponding server security guide.
                     </message>
                     <link title="JBoss EAP 7 - How To Configure Server Security" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.1/html-single/how_to_configure_server_security/"/>
+                    <link title="JBoss Login Modules" href="http://docs.jboss.org/jbosssecurity/docs/6.0/security_guide/html/Login_Modules.html"/>
                     <tag>security</tag>
                     <tag>jboss-eap5</tag>
                 </hint>
