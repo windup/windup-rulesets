@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deployment>
+    <bean name="JBMConnector" class="org.jboss.remoting.transport.Connector">
+        <annotation>@org.jboss.aop.microcontainer.aspects.jmx.JMX
+            (name="jboss.messaging:service=Connector,transport=bisocket",
+            exposedInterface=org.jboss.remoting.transport.ConnectorMBean.class,
+            registerDirectly=true)
+        </annotation>
+        <property name="serverConfiguration"><inject bean="JBMConfiguration"/></property>
+    </bean>
+    <!-- Remoting server configuration -->
+    <bean name="JBMConfiguration" class="org.jboss.remoting.ServerConfiguration">
+        <constructor>
+            <parameter>bisocket</parameter>
+        </constructor>
+        <!-- Parameters visible to both client and server -->
+        <property name="invokerLocatorParameters">
+            <map keyClass="java.lang.String" valueClass="java.lang.String">
+                <entry>
+                    <key>serverBindAddress</key>
+                    <value>
+                        <value-factory bean="ServiceBindingManager" method="getStringBinding">
+                            <parameter>JBMConnector</parameter>
+                            <parameter>${host}</parameter>
+                        </value-factory>
+                    </value>
+                </entry>
+                <entry>
+                    <key>serverBindPort</key>
+                    <value>
+                        <value-factory bean="ServiceBindingManager" method="getStringBinding">
+                            <parameter>JBMConnector</parameter>
+                            <parameter>${port}</parameter>
+                        </value-factory>
+                    </value>
+                </entry>
+                <entry>
+                    <key>marshaller</key>
+                    <value>org.jboss.remoting.marshal.compress.CompressingMarshaller</value>
+                </entry>
+                <entry>
+                    <key>unmarshaller</key>
+                    <value>org.jboss.remoting.marshal.compress.CompressingUnMarshaller</value>
+                </entry>
+            </map>
+        </property>
+        <!-- Parameters visible only to server -->
+        <property name="serverParameters">
+            <map keyClass="java.lang.String" valueClass="java.lang.String">
+                <entry><key>callbackTimeout</key> <value>10000</value></entry>
+            </map>
+        </property>
+    </bean>
+</deployment>
