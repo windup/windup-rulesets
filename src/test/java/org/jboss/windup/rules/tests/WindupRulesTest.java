@@ -177,7 +177,7 @@ public class WindupRulesTest
             {
                 Map<String, Exception> exceptions;
                 Path outputPath = getDefaultPath();
-                try (GraphContext context = factory.create(outputPath))
+                try (GraphContext context = factory.create(outputPath, true))
                 {
                     // load the ruletest file
                     RuleTest ruleTest = parser.processDocument(ruleTestFile.toURI());
