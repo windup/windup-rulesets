@@ -178,6 +178,16 @@
                     <fail message="WebLogic plan.xml deployment descriptor not detected"/>
                 </perform>
             </rule>
+            <rule id="weblogic-xml-descriptors-19000-test">
+                <when>
+                    <not>
+                        <hint-exists message=".*trans-timeout-seconds.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebLogic EJB parameter trans-timeout-seconds not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
