@@ -315,5 +315,27 @@
                 </classification>
             </perform>
         </rule>
+        <rule id="weblogic-xml-descriptor-19000">
+            <when>
+                <xmlfile matches="//*[local-name()='trans-timeout-seconds']/text()" />
+            </when>
+            <perform>
+                <hint title="WebLogic EJB XML (weblogic-ejb-jar.xml) trans-timeout-seconds" category-id="mandatory" effort="3">
+                    <message>
+                        <![CDATA[
+                      The WebLogic `<trans-timeout-seconds>` configuration element sets the maximum duration for an EJB's container-initiated transactions, in seconds, after which the transaction is rolled back.  
+
+                      In JBoss EAP 6+, you can achieve the same behavior by using the `TransactionTimeout` annotation.
+                      ]]>
+                    </message>
+                    <link href="https://docs.oracle.com/middleware/1221/wls/WLMDB/summary.htm#r35c1-t4" title="WebLogic Server Deployment Elements" />
+                    <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/administration_and_configuration_guide/#Session_Bean_Transaction_Timeout" title="JBoss EAP 6 - Session Bean Transaction Timeout" />
+                    <link href="https://access.redhat.com/solutions/90553" title="How to set EJB transaction timeout in JBoss EAP 6" />
+                    <tag>ejb</tag>
+                    <tag>database</tag>
+                    <tag>weblogic</tag>
+                </hint>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
