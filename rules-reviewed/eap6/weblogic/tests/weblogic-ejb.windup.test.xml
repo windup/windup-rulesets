@@ -25,6 +25,26 @@
                     <fail message="WebLogic proprietary timeout for transactions annotation not found." />
                 </perform>
             </rule>
+            <rule id="weblogic-ejb-03000-test">
+                <when>
+                    <not>
+                        <hint-exists message="This application contains WebLogic proprietary `weblogic.ejbgen.MessageDriven` annotation" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebLogic proprietary MessageDriven annotation hint not found." />
+                </perform>
+            </rule>
+            <rule id="weblogic-ejb-04000-test">
+                <when>
+                    <not>
+                        <hint-exists message="This class extends `weblogic.ejb." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="WebLogic proprietary EJB Bean hint not found." />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
