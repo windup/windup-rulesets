@@ -54,6 +54,16 @@
                     <fail message="weblogic.wsee.context.ContextNotFoundException hint not detected!"/>
                 </perform>
             </rule>
+            <rule id="weblogic-webservices-07000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace WebLogic proprietary web-service annotation `@Transactional` by the standard Java EE annotation `@TransactionAttribute`*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Annotation @Transactional hint not detected!"/>
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>

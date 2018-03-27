@@ -159,6 +159,25 @@
                 </hint>
             </perform>
         </rule>
-
+        <rule id="weblogic-webservices-07000">
+            <when>
+                <javaclass references="weblogic.jws.Transactional" >
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="WebLogic proprietary web service annotation @Transactional" effort="3" category-id="mandatory">
+                    <message>
+                        <![CDATA[
+                      Replace WebLogic proprietary web-service annotation `@Transactional` by the standard Java EE annotation `@TransactionAttribute`.
+                      ]]>
+                    </message>
+                    <link href="https://docs.oracle.com/middleware/11119/wls/WSREF/annotations.htm#i1058163" title="WebLogic-specific Annotations - Transactional"/>
+                    <link href="https://access.redhat.com/webassets/avalon/d/JBoss_Enterprise_Application_Platform-6-API_Documentation-en-US/files/javadoc/javax/ejb/TransactionAttribute.html" title="JBoss EAP 6 - API TransactionAttribute"/>
+                    <tag>webservice</tag>
+                    <tag>weblogic</tag>
+                </hint>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
