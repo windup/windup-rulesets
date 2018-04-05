@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="hsearch-debug" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/data-hsearch</testDataPath>
+    <rulePath>../hsearch-debug.windup.xml</rulePath>
+    <target>eap7</target>
+    <ruleset>
+        <rules>
+            <rule id="hsearch-00116-test-debug">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="Numbers and dates are now indexed as numeric fields by default.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="hsearch-00116 hint not found!"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

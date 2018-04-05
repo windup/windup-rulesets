@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="hsearch-debug" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis for migration from Hibernate Search 4.x to Hibernate Search 5.x.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,2.4.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,2.4.0.Final" />
+        </dependencies>
+        <sourceTechnology id="hibernate-search" versionRange="[4,5)" />
+        <sourceTechnology id="eap" versionRange="[6,7)" />
+        <targetTechnology id="hibernate-search" versionRange="[5,)" />
+        <targetTechnology id="eap" versionRange="[7,8)" />
+    </metadata>
+    <rules>
+        <rule id="hsearch-00116-debug">
+            <when>
+                <or>
+                    <javaclass references="org.hibernate.search.annotations.Field">
+                        <location>ANNOTATION</location>
+                        <annotation-literal name="index" pattern="Index.YES"/>
+                        <annotation-type pattern="org.hibernate.search.annotations.NumericFields"/>
+                    </javaclass>
+                    <javaclass references="org.hibernate.search.annotations.Field">
+                        <location>ANNOTATION</location>
+                        <annotation-literal name="index" pattern="Index.YES"/>
+                        <annotation-type pattern="org.hibernate.search.annotations.NumericField"/>
+                    </javaclass>
+                    <javaclass references="org.hibernate.search.annotations.{bridge}">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                    <javaclass references="java.util.{date}">
+                        <annotation-type pattern="org.hibernate.search.annotations.Field" />
+                        <annotation-type pattern="org.hibernate.search.annotations.Fields"/>
+                    </javaclass>
+                    <javaclass references="java.lang.{wrapper}">
+                        <annotation-type pattern="org.hibernate.search.annotations.Field" />
+                        <annotation-type pattern="org.hibernate.search.annotations.Fields"/>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Changes in indexing numeric and date values" effort="1" category-id="optional">
+                    <message><![CDATA[
+            Numbers and dates are now indexed as numeric fields by default. Properties of type int, long, float, double, and their
+            corresponding wrapper classes are no longer indexed as strings. Instead, they are now indexed using Lucene’s appropriate numeric
+            encoding. The id fields are an exception to this rule. Even when they are represented by a numeric type, they are still indexed as
+            a string keyword by default. The use of `@NumericField` is now obsolete unless you want to specify a custom precision for the numeric
+            encoding. You can keep the old string-based index format by explicitly specifying a string encoding field bridge. In the case of
+            integers, this is the `org.hibernate.search.bridge.builtin.IntegerBridge`. Check the `org.hibernate.search.bridge.builtin` package for
+            other publicly available field bridges.
+
+            Date and Calendar are no longer indexed as strings. Instead, instances are encoded as long values representing the number
+            of milliseconds since January 1, 1970, 00:00:00 GMT. You can switch the indexing format by using the new EncodingType enum. For example:
+
+            ```java
+            @DateBridge(encoding=EncodingType.STRING)
+            @CalendarBridge(encoding=EncodingType.STRING)
+            ```
+
+            The encoding change for numbers and dates is important and can have a big impact on application behavior. If you have
+            a query that targets a field that was previously string-encoded, but is now encoded numerically, you must update the query. Numeric
+             fields must be searched with a NumericRangeQuery. You must also make sure that all fields targeted by faceting are string encoded.
+            If you use the Search query DSL, the correct query should be created automatically for you.
+            ]]></message>
+                    <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/single/migration_guide/#migrate_hibernate_search_number_and_date_index_formatting_changes"
+                          title="Number and Date Index Formatting Changes in Hibernate Search 5.x" />
+                    <link href="http://hibernate.org/search/documentation/migrate/5.0/#number-and-date-index-format" title="Number and date index format" />
+                    <link href="http://docs.jboss.org/hibernate/search/5.5/api/org/hibernate/search/bridge/builtin/package-summary.html" title="Javadoc API for org.hibernate.search.bridge.builtin package" />
+                    <link href="http://docs.jboss.org/hibernate/search/5.5/api/org/hibernate/search/bridge/builtin/IntegerBridge.html" title="Javadoc API for IntegerBridge" />
+                    <tag>hibernate-search</tag>
+                </hint>
+            </perform>
+            <where param="wrapper">
+                <matches pattern="(Integer|Long|Float|Double)" />
+            </where>
+            <where param="date">
+                <matches pattern="(Calendar|Date)" />
+            </where>
+            <where param="bridge">
+                <matches pattern="(DateBridge|CalendarBridge)"/>
+            </where>
+        </rule>
+    </rules>
+</ruleset>
