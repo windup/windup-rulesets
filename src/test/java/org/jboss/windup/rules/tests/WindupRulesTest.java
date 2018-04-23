@@ -114,7 +114,7 @@ public class WindupRulesTest
         final List<String> successes = new ArrayList<>();
         final Map<String, Exception> errors = new LinkedHashMap<>();
 
-        FileSuffixPredicate predicate = new FileSuffixPredicate("\\.windup\\.test\\.xml");
+        FileSuffixPredicate predicate = new FileSuffixPredicate("\\.(windup|rhamt)\\.test\\.xml");
         final File directory = new File("rules");
         final File rulesReviewed = new File("rules-reviewed");
         Visitor<File> mainVisitor = new RuleTestVisitor(successes, errors, directory);
