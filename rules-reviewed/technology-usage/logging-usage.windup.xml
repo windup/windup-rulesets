@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="logging-usage"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of logging libraries.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+    </metadata>
+    <rules>
+        <rule id="logging-usage-00010">
+            <when>
+                <file filename="{*}log4j{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Apache Log4J" category-id="optional" effort="0">
+                    <description>The application embeds an Apache Log4J library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Apache Log4J (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="logging-usage-00020">
+            <when>
+                <file filename="{*}commons-logging{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Apache Commons Logging" category-id="optional" effort="0">
+                    <description>The application embeds an Apache Commons Logging library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Apache Commons Logging (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="logging-usage-00030">
+            <when>
+                <file filename="{*}slf4j{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - SLF4J" category-id="optional" effort="0">
+                    <description>The application embeds a Simple Logging Facade for Java (SLJ4J) library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">SLF4J (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="logging-usage-00040">
+            <when>
+                <file filename="{*}tinylog{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - tinylog" category-id="optional" effort="0">
+                    <description>The application embeds a tinylog library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">tinylog (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="logging-usage-00050">
+            <when>
+                <file filename="{*}logback{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Logback" category-id="optional" effort="0">
+                    <description>The application embeds a Logback library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Logback (embedded)</technology-tag>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
