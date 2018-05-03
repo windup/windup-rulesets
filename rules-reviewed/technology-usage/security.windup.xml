@@ -259,5 +259,17 @@
             </perform>
         </rule>
 
+        <rule id="security-03100">
+            <when>
+                <file filename="{*}oauth{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - OAUTH" category-id="optional" effort="0">
+                    <description>The application embeds an OAUTH library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">OAUTH (embedded)</technology-tag>
+            </perform>
+        </rule>
+
     </rules>
 </ruleset>
