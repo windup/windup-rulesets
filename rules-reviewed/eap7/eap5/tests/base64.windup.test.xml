@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ruletest id="base64-tests" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <testDataPath>data</testDataPath>
+    <rulePath>../base64.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="base64-01000-test">
+                <when>
+                    <not>
+                        <hint-exists message="This API is not considered a public API for EAP. For JDK 8., the recommended solution is to migrate to" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="org.jboss.util.Base64 hint not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
