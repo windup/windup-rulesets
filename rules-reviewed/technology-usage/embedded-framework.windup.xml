@@ -111,21 +111,9 @@
                 <technology-tag level="INFORMATIONAL">EclipseLink (embedded)</technology-tag>
             </perform>
         </rule>
-
-        <rule id="embedded-framework-01900">
-            <when>
-                <file filename="{*}junit{*}.jar"/>
-            </when>
-            <perform>
-                <classification title="Embedded framework - JUnit" category-id="optional" effort="0">
-                    <description>The application embeds the JUnit framework.</description>
-                </classification>
-                <technology-tag level="INFORMATIONAL">JUnit (embedded)</technology-tag>
-            </perform>
-        </rule>
         <rule id="embedded-framework-02000">
             <when>
-                <file filename="spring-batch{*}.jar"/>
+                <file filename="spring-batch{pattern}.jar"/>
             </when>
             <perform>
                 <classification title="Embedded framework - Spring Batch" category-id="optional" effort="0">
@@ -133,10 +121,13 @@
                 </classification>
                 <technology-tag level="INFORMATIONAL">Spring Batch (embedded)</technology-tag>
             </perform>
+            <where param="pattern">
+                <matches pattern="^(?!.*-test).*"/>
+            </where>
         </rule>
         <rule id="embedded-framework-02100">
             <when>
-                <file filename="spring{*}.jar"/>
+                <file filename="spring{pattern}.jar"/>
             </when>
             <perform>
                 <classification title="Embedded framework - Spring" category-id="optional" effort="0">
@@ -144,6 +135,12 @@
                 </classification>
                 <technology-tag level="INFORMATIONAL">Spring (embedded)</technology-tag>
             </perform>
+            <where param="pattern">
+                <matches pattern="^(?!.*-test).*"/>
+            </where>
+            <!--<where param="spring-core-pattern">
+                <matches pattern="^(?!.*-(test|batch|integration|boot|data|security|mvc)).*"/>
+            </where> -->
         </rule>
         <rule id="embedded-framework-02200">
             <when>
@@ -266,28 +263,61 @@
                 <technology-tag level="INFORMATIONAL">AOP Alliance (embedded)</technology-tag>
             </perform>
         </rule>
-        <rule id="embedded-framework-04800">
-            <when>
-                <file filename="{*}easymock{*}.jar"/>
-            </when>
-            <perform>
-                <classification title="Embedded framework - EasyMock" category-id="optional" effort="0">
-                    <description>The application embeds the EasyMock library.</description>
-                </classification>
-                <technology-tag level="INFORMATIONAL">EasyMock (embedded)</technology-tag>
-            </perform>
-        </rule>
         <rule id="embedded-framework-04900">
             <when>
-                <file filename="{*}powermock{*}.jar"/>
+                <file filename="spring-integration{pattern}.jar"/>
             </when>
             <perform>
-                <classification title="Embedded framework - PowerMock" category-id="optional" effort="0">
-                    <description>The application embeds the PowerMock library.</description>
+                <classification title="Embedded framework - Spring Integration" category-id="optional" effort="0">
+                    <description>The application embeds the Spring Integration framework.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">PowerMock (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">Spring Integration (embedded)</technology-tag>
             </perform>
+            <where param="pattern">
+                <matches pattern="^(?!.*-test).*"/>
+            </where>
         </rule>
-
+        <rule id="embedded-framework-05000">
+            <when>
+                <file filename="spring-boot{pattern}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Spring Boot" category-id="optional" effort="0">
+                    <description>The application embeds the Spring Boot framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Spring Boot (embedded)</technology-tag>
+            </perform>
+            <where param="pattern">
+                <matches pattern="^(?!.*-test).*"/>
+            </where>
+        </rule>
+        <rule id="embedded-framework-05100">
+            <when>
+                <file filename="spring-data{pattern}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Spring Data" category-id="optional" effort="0">
+                    <description>The application embeds the Spring Data framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Spring Data (embedded)</technology-tag>
+            </perform>
+            <where param="pattern">
+                <matches pattern="^(?!.*-test).*"/>
+            </where>
+        </rule>
+        <rule id="embedded-framework-05200">
+            <when>
+                <file filename="spring-security{pattern}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Spring Security" category-id="optional" effort="0">
+                    <description>The application embeds the Spring Security framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Spring Security (embedded)</technology-tag>
+            </perform>
+            <where param="pattern">
+                <matches pattern="^(?!.*-test).*"/>
+            </where>
+        </rule>
     </rules>
 </ruleset>
