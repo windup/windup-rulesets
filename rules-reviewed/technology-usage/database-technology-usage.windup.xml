@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
-<ruleset id="technology-usage-database" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+<ruleset id="technology-usage-database" 
+    xmlns="http://windup.jboss.org/schema/jboss-ruleset" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <metadata>
         <description>
             This ruleset provides statistical summaries of the database items that were found during the analysis.
@@ -240,6 +241,34 @@
                 <technology-identified name="MongoDB Client">
                     <tag name="Store"/>
                     <tag name="Database Driver"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="ttechnology-usage-database-02600">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Spring Data (embedded)</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Spring Data">
+                    <tag name="Store"/>
+                    <tag name="Embedded"/>
+                    <tag name="Object Mapping"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-database-02700">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Morphia</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Morphia">
+                    <tag name="Store"/>
+                    <tag name="Object Mapping"/>
                     <tag name="Embedded"/>
                 </technology-identified>
             </perform>

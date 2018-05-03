@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="database"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+<ruleset 
+    xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="database" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <metadata>
         <description>
             This ruleset provides analysis of connectivity related libraries.
@@ -12,7 +12,6 @@
         </dependencies>
     </metadata>
     <rules>
-
         <rule id="database-01400">
             <when>
                 <file filename="{*}hsqldb{*}.jar"/>
@@ -168,6 +167,33 @@
                     <description>The application embeds a MongoDB client.</description>
                 </classification>
                 <technology-tag level="INFORMATIONAL">MongoDB Client</technology-tag>
+            </perform>
+        </rule>
+        <rule id="database-02600">
+            <when>
+                <and>
+                    <file filename="spring-data{*}.jar"/>
+                    <not>
+                        <file filename="spring-data{*}test{*}.jar"/>
+                    </not>
+                </and>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Spring Data" category-id="optional" effort="0">
+                    <description>The application embeds the Spring Data framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Spring Data (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="database-02700">
+            <when>
+                <file filename="{*}morphia{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Morphia" category-id="optional" effort="0">
+                    <description>The application embeds Morphia.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Morphia</technology-tag>
             </perform>
         </rule>
     </rules>
