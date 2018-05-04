@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="embedded-framework"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+<ruleset 
+    xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="embedded-framework" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <metadata>
         <description>
             This ruleset provides analysis of embedded frameworks.
@@ -111,38 +111,20 @@
                 <technology-tag level="INFORMATIONAL">EclipseLink (embedded)</technology-tag>
             </perform>
         </rule>
-
-        <rule id="embedded-framework-01900">
-            <when>
-                <file filename="{*}junit{*}.jar"/>
-            </when>
-            <perform>
-                <classification title="Embedded framework - JUnit" category-id="optional" effort="0">
-                    <description>The application embeds the JUnit framework.</description>
-                </classification>
-                <technology-tag level="INFORMATIONAL">JUnit (embedded)</technology-tag>
-            </perform>
-        </rule>
         <rule id="embedded-framework-02000">
             <when>
-                <file filename="spring-batch{*}.jar"/>
+                <and>
+                    <file filename="spring-batch{*}.jar"/>
+                    <not>
+                        <file filename="spring-batch{*}test{*}.jar"/>
+                    </not>
+                </and>
             </when>
             <perform>
                 <classification title="Embedded framework - Spring Batch" category-id="optional" effort="0">
                     <description>The application embeds the Spring Batch framework.</description>
                 </classification>
                 <technology-tag level="INFORMATIONAL">Spring Batch (embedded)</technology-tag>
-            </perform>
-        </rule>
-        <rule id="embedded-framework-02100">
-            <when>
-                <file filename="spring{*}.jar"/>
-            </when>
-            <perform>
-                <classification title="Embedded framework - Spring" category-id="optional" effort="0">
-                    <description>The application embeds the Spring framework.</description>
-                </classification>
-                <technology-tag level="INFORMATIONAL">Spring (embedded)</technology-tag>
             </perform>
         </rule>
         <rule id="embedded-framework-02200">
@@ -224,7 +206,12 @@
         </rule>
         <rule id="embedded-framework-03200">
             <when>
-                <file filename="{*}blaze{*}.jar"/>
+                <and>
+                    <file filename="blaze{*}.jar"/>
+                    <not>
+                        <file filename="{*}blazeds{*}.jar"/>
+                    </not>
+                </and>
             </when>
             <perform>
                 <classification title="Embedded framework - Blaze" category-id="optional" effort="0">
@@ -266,28 +253,91 @@
                 <technology-tag level="INFORMATIONAL">AOP Alliance (embedded)</technology-tag>
             </perform>
         </rule>
-        <rule id="embedded-framework-04800">
-            <when>
-                <file filename="{*}easymock{*}.jar"/>
-            </when>
-            <perform>
-                <classification title="Embedded framework - EasyMock" category-id="optional" effort="0">
-                    <description>The application embeds the EasyMock library.</description>
-                </classification>
-                <technology-tag level="INFORMATIONAL">EasyMock (embedded)</technology-tag>
-            </perform>
-        </rule>
         <rule id="embedded-framework-04900">
             <when>
-                <file filename="{*}powermock{*}.jar"/>
+                <and>
+                    <file filename="spring-integration{*}.jar"/>
+                    <not>
+                        <file filename="spring-integration{*}test{*}.jar"/>
+                    </not>
+                </and>
             </when>
             <perform>
-                <classification title="Embedded framework - PowerMock" category-id="optional" effort="0">
-                    <description>The application embeds the PowerMock library.</description>
+                <classification title="Embedded framework - Spring Integration" category-id="optional" effort="0">
+                    <description>The application embeds the Spring Integration framework.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">PowerMock (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">Spring Integration (embedded)</technology-tag>
             </perform>
         </rule>
-
+        <rule id="embedded-framework-05000">
+            <when>
+                <and>
+                    <file filename="spring-boot{*}.jar"/>
+                    <not>
+                        <file filename="spring-boot{*}test{*}.jar"/>
+                    </not>
+                </and>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Spring Boot" category-id="optional" effort="0">
+                    <description>The application embeds the Spring Boot framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Spring Boot (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-02100">
+            <when>
+                <file filename="spring{*}.jar"/>
+            </when>
+            <perform>
+                <iteration>
+                    <when>
+                        <not>
+                            <has-classification title="Spring {pattern} (embedded)"/>
+                        </not>pattern
+                    </when>
+                    <classification title="Embedded framework - Spring" category-id="optional" effort="0">
+                        <description>The application embeds the Spring framework.</description>
+                    </classification>
+                    <technology-tag level="INFORMATIONAL">Spring (embedded)</technology-tag>
+                </iteration>
+            </perform>
+            <where param="pattern">
+                <matches pattern="(Integration|Data|Security|MVC|Batch|Boot|Test)"/>
+            </where>
+        </rule>
+        <rule id="embedded-framework-05100">
+            <when>
+                <file filename="{*}ikasan{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Ikasan" category-id="optional" effort="0">
+                    <description>The application embeds a Ikasan.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Ikasan (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-05200">
+            <when>
+                <file filename="{*}snmp4j{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - SNMP4J" category-id="optional" effort="0">
+                    <description>The application embeds SNMP4J.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">SNMP4J (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-05300">
+            <when>
+                <file filename="{*}http-client{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - HTTP Client" category-id="optional" effort="0">
+                    <description>The application embeds a HTTP client.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">HTTP Client (embedded)</technology-tag>
+            </perform>
+        </rule>
     </rules>
 </ruleset>

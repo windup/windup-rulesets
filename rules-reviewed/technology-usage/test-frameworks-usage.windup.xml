@@ -1,0 +1,423 @@
+<?xml version="1.0"?>
+<ruleset 
+    xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="test-frameworks-usage" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of test frameworks and libraries.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+    </metadata>
+    <rules>
+        <rule id="test-frameworks-sauge-00010">
+            <when>
+                <file filename="{*}easymock{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - EasyMock" category-id="optional" effort="0">
+                    <description>The application embeds the EasyMock library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">EasyMock (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="test-frameworks-sauge-00020">
+            <when>
+                <file filename="{*}powermock{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - PowerMock" category-id="optional" effort="0">
+                    <description>The application embeds the PowerMock library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">PowerMock (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="test-frameworks-sauge-00030">
+            <when>
+                <file filename="{*}mockito{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Mockito" category-id="optional" effort="0">
+                    <description>The application embeds the Mockito library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Mockito (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="test-frameworks-sauge-00040">
+            <when>
+                <file filename="{*}testng{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - TestNG" category-id="optional" effort="0">
+                    <description>The application embeds the TestNG library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">TestNG (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="test-frameworks-sauge-00050">
+            <when>
+                <file filename="{*}hamcrest{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Hamcrest" category-id="optional" effort="0">
+                    <description>The application embeds the Hamcrest library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Hamcrest (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="test-frameworks-sauge-00060">
+            <when>
+                <file filename="spring{*}test{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Spring Test" category-id="optional" effort="0">
+                    <description>The application embeds a Spring Test framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Spring Test (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="test-frameworks-sauge-00070">
+            <when>
+                <file filename="spock{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Spock" category-id="optional" effort="0">
+                    <description>The application embeds the Spock framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Spock (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="test-frameworks-sauge-00080">
+            <when>
+                <file filename="xmlunit{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - XMLUnit" category-id="optional" effort="0">
+                    <description>The application embeds the XMLUnit framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">XMLUnit (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="test-frameworks-sauge-00090">
+            <when>
+                <file filename="akka-testkit{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Akka Testkit" category-id="optional" effort="0">
+                    <description>The application embeds the Akka Testkit library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Akka Testkit (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="test-frameworks-sauge-00100">
+            <when>
+                <file filename="rest-assured{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - REST Assured" category-id="optional" effort="0">
+                    <description>The application embeds the REST Assured library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">REST Assured (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="test-frameworks-sauge-00110">
+            <when>
+                <file filename="dbunit{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - DbUnit" category-id="optional" effort="0">
+                    <description>The application embeds the DbUnit library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">DbUnit (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="test-frameworks-sauge-00120">
+            <when>
+                <file filename="mule-test{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Mule Functional Test Framework (TCK)" category-id="optional" effort="0">
+                    <description>The application embeds the Mule Functional Test Framework (TCK).</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Mule Functional Test Framework (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="test-frameworks-sauge-00130">
+            <when>
+                <file filename="guava-testlib{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Guava Testing Library" category-id="optional" effort="0">
+                    <description>The application embeds the Guava Testing Library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Guava Testing (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="test-frameworks-sauge-00140">
+            <when>
+                <file filename="randomizedtesting-runner{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - RandomizedTesting Randomized Runner" category-id="optional" effort="0">
+                    <description>The application embeds the RandomizedTesting Randomized Runner library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">RandomizedTesting Runner (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="test-frameworks-sauge-00150">
+            <when>
+                <file filename="httpunit{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - HttpUnit" category-id="optional" effort="0">
+                    <description>The application embeds the HttpUnit library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">HttpUnit (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="test-frameworks-sauge-00160">
+            <when>
+                <file filename="jcunit{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - JCUnit" category-id="optional" effort="0">
+                    <description>The application embeds the JCunit library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">JCunit (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="test-frameworks-sauge-00170">
+            <when>
+                <file filename="jpa-matchers{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - JPA Matchers" category-id="optional" effort="0">
+                    <description>The application embeds the JPA Matchers library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">JPA Matchers (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="test-frameworks-sauge-00180">
+            <when>
+                <file filename="multithreadedtc{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - MultithreadedTC" category-id="optional" effort="0">
+                    <description>The application embeds the MultithreadedTC library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">MultithreadedTC (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="test-frameworks-sauge-00190">
+            <when>
+                <file filename="specsy{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Specsy" category-id="optional" effort="0">
+                    <description>The application embeds the Specsy framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Specsy (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="test-frameworks-sauge-00200">
+            <when>
+                <file filename="jfunk{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - JFunk" category-id="optional" effort="0">
+                    <description>The application embeds the JFunk framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">JFunk (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="test-frameworks-sauge-00210">
+            <when>
+                <file filename="restito{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Restito" category-id="optional" effort="0">
+                    <description>The application embeds the Restito framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Restito (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="test-frameworks-sauge-00220">
+            <when>
+                <file filename="test-interface{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Test Interface" category-id="optional" effort="0">
+                    <description>The application embeds the Test Interface library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Test Interface (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="test-frameworks-sauge-00230">
+            <when>
+                <file filename="play-test{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Play Test" category-id="optional" effort="0">
+                    <description>The application embeds the Play Test framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Play Test (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="test-frameworks-sauge-00240">
+            <when>
+                <file filename="{*}arquillian{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Arquillian" category-id="optional" effort="0">
+                    <description>The application embeds the Arquillian framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Arquillian (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="test-frameworks-sauge-00560">
+            <when>
+                <file filename="{*}cactus{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Cactus" category-id="optional" effort="0">
+                    <description>The application embeds the Cactus framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Cactus (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="test-frameworks-sauge-00260">
+            <when>
+                <file filename="{*}concordion{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Concordion" category-id="optional" effort="0">
+                    <description>The application embeds the Concordion framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Concordion (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="test-frameworks-sauge-00270">
+            <when>
+                <file filename="{*}cucumber{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Cucumber" category-id="optional" effort="0">
+                    <description>The application embeds the Cucumber framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Cucumber (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="test-frameworks-sauge-00280">
+            <when>
+                <file filename="{*}etlunit{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - EtlUnit" category-id="optional" effort="0">
+                    <description>The application embeds the EtlUnit framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">EtlUnit (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="test-frameworks-sauge-00290">
+            <when>
+                <file filename="{*}havarunner{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - HavaRunner" category-id="optional" effort="0">
+                    <description>The application embeds the HavaRunner framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">HavaRunner (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="test-frameworks-sauge-00300">
+            <when>
+                <file filename="{*}jbehave{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - JBehave" category-id="optional" effort="0">
+                    <description>The application embeds the JBehave framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">JBehave (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="test-frameworks-sauge-00310">
+            <when>
+                <file filename="{*}jmock-{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - JMock" category-id="optional" effort="0">
+                    <description>The application embeds the JMock framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">JMock (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="test-frameworks-sauge-00320">
+            <when>
+                <file filename="{*}jmockit{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - JMockit" category-id="optional" effort="0">
+                    <description>The application embeds the JMockit framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">JMockit (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="test-frameworks-sauge-00330">
+            <when>
+                <file filename="{*}jukito{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Jukito" category-id="optional" effort="0">
+                    <description>The application embeds the Jukito framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Jukito (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="test-frameworks-sauge-00340">
+            <when>
+                <file filename="{*}needle{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Needle" category-id="optional" effort="0">
+                    <description>The application embeds the Needle framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Needle (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="test-frameworks-sauge-00350">
+            <when>
+                <file filename="{*}openpojo{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - OpenPojo" category-id="optional" effort="0">
+                    <description>The application embeds the OpenPojo framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">OpenPojo (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="test-frameworks-sauge-00360">
+            <when>
+                <file filename="{*}unitils{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Unitils" category-id="optional" effort="0">
+                    <description>The application embeds the Unitils library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Unitils (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="test-frameworks-sauge-00370">
+            <when>
+                <file filename="{*}junit{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - JUnit" category-id="optional" effort="0">
+                    <description>The application embeds the JUnit framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">JUnit (embedded)</technology-tag>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
