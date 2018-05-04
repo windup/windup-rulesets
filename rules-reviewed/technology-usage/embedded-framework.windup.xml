@@ -253,7 +253,7 @@
                 <technology-tag level="INFORMATIONAL">AOP Alliance (embedded)</technology-tag>
             </perform>
         </rule>
-        <rule id="embedded-framework-04900">
+        <rule id="embedded-framework-04800">
             <when>
                 <and>
                     <file filename="spring-integration{*}.jar"/>
@@ -269,7 +269,40 @@
                 <technology-tag level="INFORMATIONAL">Spring Integration (embedded)</technology-tag>
             </perform>
         </rule>
+        <rule id="embedded-framework-04900">
+            <when>
+                <file filename="{*}ikasan{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Ikasan" category-id="optional" effort="0">
+                    <description>The application embeds a Ikasan.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Ikasan (embedded)</technology-tag>
+            </perform>
+        </rule>
         <rule id="embedded-framework-05000">
+            <when>
+                <file filename="{*}snmp4j{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - SNMP4J" category-id="optional" effort="0">
+                    <description>The application embeds SNMP4J.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">SNMP4J (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-05100">
+            <when>
+                <file filename="{*}http-client{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - HTTP Client" category-id="optional" effort="0">
+                    <description>The application embeds a HTTP client.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">HTTP Client (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-05200">
             <when>
                 <and>
                     <file filename="spring-boot{*}.jar"/>
@@ -305,39 +338,6 @@
             <where param="pattern">
                 <matches pattern="(Integration|Data|Security|MVC|Batch|Boot|Test)"/>
             </where>
-        </rule>
-        <rule id="embedded-framework-05100">
-            <when>
-                <file filename="{*}ikasan{*}.jar"/>
-            </when>
-            <perform>
-                <classification title="Embedded framework - Ikasan" category-id="optional" effort="0">
-                    <description>The application embeds a Ikasan.</description>
-                </classification>
-                <technology-tag level="INFORMATIONAL">Ikasan (embedded)</technology-tag>
-            </perform>
-        </rule>
-        <rule id="embedded-framework-05200">
-            <when>
-                <file filename="{*}snmp4j{*}.jar"/>
-            </when>
-            <perform>
-                <classification title="Embedded framework - SNMP4J" category-id="optional" effort="0">
-                    <description>The application embeds SNMP4J.</description>
-                </classification>
-                <technology-tag level="INFORMATIONAL">SNMP4J (embedded)</technology-tag>
-            </perform>
-        </rule>
-        <rule id="embedded-framework-05300">
-            <when>
-                <file filename="{*}http-client{*}.jar"/>
-            </when>
-            <perform>
-                <classification title="Embedded framework - HTTP Client" category-id="optional" effort="0">
-                    <description>The application embeds a HTTP client.</description>
-                </classification>
-                <technology-tag level="INFORMATIONAL">HTTP Client (embedded)</technology-tag>
-            </perform>
         </rule>
     </rules>
 </ruleset>
