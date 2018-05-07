@@ -146,5 +146,201 @@
                 </hint>
             </perform>
         </rule>
+
+        <rule id="jboss-eap5-java-08000">
+            <when>
+                <javaclass references="org.jboss.wsf.spi.annotation.{*}" />
+            </when>
+            <perform>
+                <hint title="org.jboss.wsf.spi.annotation has been moved to org.jboss.ws.api.annotation" effort="1" category-id="mandatory">
+                    <message>
+                        This package has been relocated to `org.jboss.ws.api.annotation` as specified in the
+                        migration guide.
+                    </message>
+                    <link title="EAP 6 Migration Guide" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/migration_guide/#sect-Web_Services_Changes"/>
+                    <tag>jbossws</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-eap5-java-08100">
+            <when>
+                <javaclass references="org.jboss.wsf.spi.binding.{*}"/>
+            </when>
+            <perform>
+                <hint title="org.jboss.wsf.spi.binding has been moved to org.jboss.ws.api.binding" effort="1" category-id="mandatory">
+                    <message>
+                        This package has been relocated to `org.jboss.ws.api.binding` as specified in the
+                        migration guide.
+                    </message>
+                    <link title="EAP 6 Migration Guide" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/migration_guide/#sect-Web_Services_Changes"/>
+                    <tag>jbossws</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-eap5-java-08200">
+            <when>
+                <javaclass references="org.jboss.wsf.spi.management.recording.{*}" />
+            </when>
+            <perform>
+                <hint title="org.jboss.wsf.spi.management.recording has been moved to org.jboss.ws.api.monitoring" effort="1" category-id="mandatory">
+                    <message>
+                        This package has been relocated to `org.jboss.ws.api.monitoring` as specified in the
+                        migration guide.
+                    </message>
+                    <link title="EAP 6 Migration Guide" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/migration_guide/#sect-Web_Services_Changes"/>
+                    <tag>jbossws</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-eap5-java-08300">
+            <when>
+                <javaclass references="org.jboss.wsf.spi.tools.ant.{*}" />
+            </when>
+            <perform>
+                <hint title="org.jboss.wsf.spi.tools.ant has been moved to org.jboss.ws.tools.ant" effort="1" category-id="mandatory">
+                    <message>
+                        This package has been relocated to `org.jboss.ws.tools.ant` as specified in the
+                        migration guide.
+                    </message>
+                    <link title="EAP 6 Migration Guide" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/migration_guide/#sect-Web_Services_Changes"/>
+                    <tag>jbossws</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-eap5-java-08400">
+            <when>
+                <javaclass references="org.jboss.wsf.spi.tools.cmd.{*}" />
+            </when>
+            <perform>
+                <hint title="org.jboss.wsf.spi.tools.cmd has been moved to org.jboss.ws.tools.cmd" effort="1" category-id="mandatory">
+                    <message>
+                        This package has been relocated to `org.jboss.ws.tools.cmd` as specified in the
+                        migration guide.
+                    </message>
+                    <link title="EAP 6 Migration Guide" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/migration_guide/#sect-Web_Services_Changes"/>
+                    <tag>jbossws</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-eap5-java-08500">
+            <when>
+                <javaclass references="org.jboss.wsf.spi.tools.{*}" />
+            </when>
+            <perform>
+                <iteration>
+                    <when>
+                        <not>
+                            <has-hint />
+                        </not>
+                    </when>
+                    <hint title="org.jboss.wsf.spi.tools has been moved to org.jboss.ws.api.tools" effort="1" category-id="mandatory">
+                        <message>
+                            This package has been relocated to `org.jboss.ws.api.tools` as specified in the
+                            migration guide.
+                        </message>
+                        <link title="EAP 6 Migration Guide" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/migration_guide/#sect-Web_Services_Changes"/>
+                        <tag>jbossws</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="jboss-eap5-java-08600">
+            <when>
+                <javaclass references="org.jboss.wsf.spi.util.ServiceLoader" />
+            </when>
+            <perform>
+                <hint title="org.jboss.wsf.spi.util.ServiceLoader has been moved to org.jboss.ws.api.util.ServiceLoader" effort="1" category-id="mandatory">
+                    <message>
+                        This class has been relocated to `org.jboss.ws.api.util.ServiceLoader` as specified in the
+                        migration guide.
+                    </message>
+                    <link title="EAP 6 Migration Guide" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/migration_guide/#sect-Web_Services_Changes"/>
+                    <tag>jbossws</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-eap5-java-08700">
+            <when>
+                <javaclass references="org.jboss.wsf.common.handler.{*}" />
+            </when>
+            <perform>
+                <hint title="org.jboss.wsf.common.handler has been moved to org.jboss.ws.api.handler" effort="1" category-id="mandatory">
+                    <message>
+                        This package has been relocated to `org.jboss.ws.api.handler` as specified in the
+                        migration guide.
+                    </message>
+                    <link title="EAP 6 Migration Guide" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/migration_guide/#sect-Web_Services_Changes"/>
+                    <tag>jbossws</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-eap5-java-08800">
+            <when>
+                <javaclass references="org.jboss.wsf.common.addressing.{*}" />
+            </when>
+            <perform>
+                <hint title="org.jboss.wsf.common.addressing has been moved to org.jboss.ws.api.addressing" effort="1" category-id="mandatory">
+                    <message>
+                        This package has been relocated to `org.jboss.ws.api.addressing` as specified in the
+                        migration guide.
+                    </message>
+                    <link title="EAP 6 Migration Guide" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/migration_guide/#sect-Web_Services_Changes"/>
+                    <tag>jbossws</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-eap5-java-08900">
+            <when>
+                <javaclass references="org.jboss.wsf.common.DOMUtils" />
+            </when>
+            <perform>
+                <hint title="org.jboss.wsf.common.DOMUtils has been moved to org.jboss.ws.api.util.DOMUtils" effort="1" category-id="mandatory">
+                    <message>
+                        This class has been relocated to `org.jboss.ws.api.util.DOMUtils` as specified in the
+                        migration guide.
+                    </message>
+                    <link title="EAP 6 Migration Guide" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/migration_guide/#sect-Web_Services_Changes"/>
+                    <tag>jbossws</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-eap5-java-09000">
+            <when>
+                <javaclass references="org.jboss.wsf.common.{*}" />
+            </when>
+            <perform>
+                <iteration>
+                    <when>
+                        <not>
+                            <has-hint />
+                        </not>
+                    </when>
+                    <hint title="org.jboss.wsf.common has been moved to org.jboss.ws.common" effort="1" category-id="mandatory">
+                        <message>
+                            This package has been relocated to `org.jboss.ws.common` as specified in the
+                            migration guide.
+                        </message>
+                        <link title="EAP 6 Migration Guide" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/migration_guide/#sect-Web_Services_Changes"/>
+                        <tag>jbossws</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+
+        <rule id="jboss-eap5-java-09100">
+            <when>
+                <javaclass references="org.jboss.ws.annotation.EndpointConfig" />
+            </when>
+            <perform>
+                <hint title="org.jboss.ws.annotation.EndpointConfig has been moved to org.jboss.ws.api.annotation.EndpointConfig" effort="1" category-id="mandatory">
+                    <message>
+                        This class has been relocated to `org.jboss.ws.api.annotation.EndpointConfig` as specified in the
+                        migration guide.
+                    </message>
+                    <link title="EAP 6 Migration Guide" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/migration_guide/#sect-Web_Services_Changes"/>
+                    <tag>jbossws</tag>
+                </hint>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
