@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+    <testDataPath>data</testDataPath>
+    <rulePath>../java-glassfish.windup.groovy</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="java-glassfish-groovy-01000">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="In GlassFish, it is not always required to implement a MessageListener interface.*" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="GlassFish related MessageListener warning not detected!"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
