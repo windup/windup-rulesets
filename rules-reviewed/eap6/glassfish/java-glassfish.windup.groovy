@@ -1,5 +1,6 @@
 import org.jboss.windup.config.GraphRewrite;
 import org.jboss.windup.config.parameters.ParameterizedIterationOperation;
+import org.jboss.windup.config.metadata.TechnologyReference;
 import org.ocpsoft.rewrite.context.EvaluationContext;
 import org.ocpsoft.rewrite.param.ParameterStore;
 
@@ -11,7 +12,9 @@ import org.jboss.windup.reporting.config.Link
 import org.jboss.windup.rules.apps.java.condition.JavaClass
 
 ruleSet("java-glassfish-groovy")
-    .addRule()
+.addSourceTechnology(new TechnologyReference("glassfish", null))
+.addTargetTechnology(new TechnologyReference("eap", "[6,)"))
+.addRule()
     .when(
         JavaClass.references("javax.ejb.MessageDriven").at(TypeReferenceLocation.ANNOTATION)
     )
