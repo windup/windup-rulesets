@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<ruleset id="technology-usage-logging" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides statistical summaries of the logging items that were found during the analysis.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <phase>PostMigrationRulesPhase</phase>
+    </metadata>
+    <rules>
+        <rule id="technology-usage-logging-00010">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Apache Log4J (embedded)</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Apache Log4J">
+                    <tag name="Sustain"/>
+                    <tag name="Embedded"/>
+                    <tag name="Logging"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-logging-00020">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Apache Commons Logging (embedded)</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Apache Commons Logging">
+                    <tag name="Sustain"/>
+                    <tag name="Embedded"/>
+                    <tag name="Logging"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-logging-00030">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">SLF4J (embedded)</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="SLF4J">
+                    <tag name="Sustain"/>
+                    <tag name="Embedded"/>
+                    <tag name="Logging"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-logging-00040">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">tinylog (embedded)</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="tinylog">
+                    <tag name="Sustain"/>
+                    <tag name="Embedded"/>
+                    <tag name="Logging"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-logging-00050">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Logback (embedded)</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Logback">
+                    <tag name="Sustain"/>
+                    <tag name="Embedded"/>
+                    <tag name="Logging"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-logging-00060">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Logging to file system</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="File system logging">
+                    <tag name="Sustain"/>
+                    <tag name="Java EE"/>
+                    <tag name="Logging"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-logging-00070">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Logging to Socket Handler</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Socket handler logging">
+                    <tag name="Sustain"/>
+                    <tag name="Java EE"/>
+                    <tag name="Logging"/>
+                </technology-identified>
+            </perform>
+        </rule>
+
+    </rules>
+</ruleset>
