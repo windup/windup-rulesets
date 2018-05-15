@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<ruleset
+    xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="integration"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of 3rd party embedded frameworks.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+    </metadata>
+    <rules>
+      <rule id="integration-00001">
+          <when>
+              <graph-query discriminator="JarArchiveModel">
+                  <property name="fileName" searchType="regex">.*camel.*\.jar$</property>
+              </graph-query>
+          </when>
+          <perform>
+              <classification title="Embedded library - Apache Camel" category-id="optional" effort="0">
+                  <description>
+                      The application embedds an Apache Camel library.
+                  </description>
+              </classification>
+              <technology-tag level="INFORMATIONAL">Apache Camel (embedded)</technology-tag>
+          </perform>
+      </rule>
+      <rule id="integration-00002">
+          <when>
+              <graph-query discriminator="JarArchiveModel">
+                  <property name="fileName" searchType="regex">.*teiid.*\.jar$</property>
+              </graph-query>
+          </when>
+          <perform>
+              <classification title="Embedded library - Teiid" category-id="optional" effort="0">
+                  <description>
+                      The application embedds a Teiid library.
+                  </description>
+              </classification>
+              <technology-tag level="INFORMATIONAL">Teiid (embedded)</technology-tag>
+          </perform>
+      </rule>
+      <rule id="integration-00003">
+          <when>
+              <and>
+                  <file filename="spring-integration{*}.jar"/>
+                  <not>
+                      <file filename="spring-integration{*}test{*}.jar"/>
+                  </not>
+              </and>
+          </when>
+          <perform>
+              <classification title="Embedded framework - Spring Integration" category-id="optional" effort="0">
+                  <description>The application embeds the Spring Integration framework.</description>
+              </classification>
+              <technology-tag level="INFORMATIONAL">Spring Integration (embedded)</technology-tag>
+          </perform>
+      </rule>
+      <rule id="integration-00004">
+          <when>
+              <file filename="{*}ikasan{*}.jar"/>
+          </when>
+          <perform>
+              <classification title="Embedded framework - Ikasan" category-id="optional" effort="0">
+                  <description>The application embeds an Ikasan library.</description>
+              </classification>
+              <technology-tag level="INFORMATIONAL">Ikasan (embedded)</technology-tag>
+          </perform>
+      </rule>
+    </rules>
+</ruleset>
