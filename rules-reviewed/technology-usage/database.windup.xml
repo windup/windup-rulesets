@@ -207,5 +207,38 @@
                 <technology-tag level="INFORMATIONAL">LevelDB Client</technology-tag>
             </perform>
         </rule>
+        <rule id="database-02900">
+            <when>
+                <file filename="{*}hbase{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded Apache HBase Client" category-id="optional" effort="0">
+                    <description>The application embeds an Apache HBase client.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Apache HBase Client</technology-tag>
+            </perform>
+        </rule>
+        <rule id="database-03000">
+            <when>
+                <file filename="{*}cassandra{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded Cassandra Client" category-id="optional" effort="0">
+                    <description>The application embeds a Cassandra client.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Cassandra Client</technology-tag>
+            </perform>
+        </rule>
+        <rule id="database-03100">
+            <when>
+                <file filename="{*}accumulo{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded Apache Accumulo Client" category-id="optional" effort="0">
+                    <description>The application embeds an Apache Accumulo client.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Apache Accumulo Client</technology-tag>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
