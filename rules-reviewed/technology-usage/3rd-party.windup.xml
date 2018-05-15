@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<ruleset
+    xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="3rd-party"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of 3rd party embedded frameworks.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+    </metadata>
+    <rules>
+        <rule id="3rd-party-00001">
+            <when>
+                <file filename="{*}liferay{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Liferay" category-id="optional" effort="0">
+                    <description>The application embeds the Liferay framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Liferay (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="3rd-party-00002">
+            <when>
+                <file filename="{*}frm{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Oracle Forms" category-id="optional" effort="0">
+                    <description>The application embeds the Oracle Forms framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Oracle Forms (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="3rd-party-00003">
+            <when>
+                <and>
+                    <file filename="spring-boot{*}.jar"/>
+                    <not>
+                        <file filename="spring-boot{*}test{*}.jar"/>
+                    </not>
+                </and>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Spring Boot" category-id="optional" effort="0">
+                    <description>The application embeds the Spring Boot framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Spring Boot (embedded)</technology-tag>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
