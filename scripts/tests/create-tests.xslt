@@ -7,12 +7,13 @@
 <xsl:param name="testDataPath" />
 <xsl:param name="testFileStub"/>
 <xsl:param name="outputDirectory"/>
+<xsl:variable name="rulesetId" select="/windup:ruleset/@id"/>
 
 <xsl:output method="xml" indent="yes"/>
 
 
 <xsl:template match="/" name="main">
-    <ruletest id="hibernate4-xml-test" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    <ruletest id="{$rulesetId}-test" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
 
         <xsl:if test="string-length($testFileStub) > 0">
@@ -20,7 +21,7 @@
         </xsl:if>
 
         <testDataPath>
-            <xsl:value-of select="$outputDirectory"/>
+            <xsl:value-of select="concat('data/', $rulesetId)"/>
         </testDataPath>
         <ruleset>
             <rules>
@@ -75,12 +76,18 @@
     <xsl:param name="fileElement"/>
     <xsl:variable name="filename" select="./@filename"/>
     <xsl:variable name="filenameGenerated" select="replace($filename, '\{\*\}', '')"/>
-    <xsl:value-of select="concat('cp ', $testFileStub, ' ', $outputDirectory, '/', $filenameGenerated)"/><xsl:text>
+    <xsl:value-of select="concat('cp ', $testFileStub, ' ', $outputDirectory, '/data/', $rulesetId, '/', $filenameGenerated)"/><xsl:text>
 </xsl:text>
 </xsl:template>
 
 <xsl:template name="generate-test-files">
+<xsl:text disable-output-escaping="yes">
+        &lt;!--
+</xsl:text>
     <file-copy-commands>
+<xsl:text>
+</xsl:text>
+<xsl:value-of select="concat('mkdir -p ', $outputDirectory, '/data/', $rulesetId)"/>
 <xsl:text>
 </xsl:text>
 <xsl:for-each select="//windup:when//windup:file">
@@ -89,6 +96,9 @@
 </xsl:call-template>
 </xsl:for-each>
     </file-copy-commands>
+    <xsl:text disable-output-escaping="yes">
+        --&gt;
+    </xsl:text>
 </xsl:template>
 
 
