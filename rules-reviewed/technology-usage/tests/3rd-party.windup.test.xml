@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ruletest id="technology-usage-clustering-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+    <testDataPath>data/3rd-party/</testDataPath>
+    <rulePath>../3rd-party.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="3rd-party-00003-test">
+                <when>
+                    <not>
+                        <classification-exists classification="Embedded framework - Spring Boot" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Spring Boot Framework Not Found" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

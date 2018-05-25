@@ -38,16 +38,22 @@
             <when>
                 <and>
                     <file filename="spring-boot{*}.jar"/>
-                    <not>
-                        <file filename="spring-boot{*}test{*}.jar"/>
-                    </not>
                 </and>
             </when>
             <perform>
-                <classification title="Embedded framework - Spring Boot" category-id="optional" effort="0">
-                    <description>The application embeds the Spring Boot framework.</description>
-                </classification>
-                <technology-tag level="INFORMATIONAL">Spring Boot (embedded)</technology-tag>
+                <iteration>
+                    <when>
+                        <not>
+                            <file filename="spring-boot{*}test{*}.jar"/>
+                        </not>
+                    </when>
+                    <perform>
+                        <classification title="Embedded framework - Spring Boot" category-id="optional" effort="0">
+                            <description>The application embeds the Spring Boot framework.</description>
+                        </classification>
+                        <technology-tag level="INFORMATIONAL">Spring Boot (embedded)</technology-tag>
+                    </perform>
+                </iteration>
             </perform>
         </rule>
         <rule id="3rd-party-00004">
