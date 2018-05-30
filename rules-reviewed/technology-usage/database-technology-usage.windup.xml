@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<ruleset id="technology-usage-database" 
-    xmlns="http://windup.jboss.org/schema/jboss-ruleset" 
+<ruleset id="technology-usage-database"
+    xmlns="http://windup.jboss.org/schema/jboss-ruleset"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <metadata>
         <description>
@@ -276,7 +276,7 @@
         <rule id="technology-usage-database-02800">
             <when>
                 <graph-query discriminator="TechnologyTagModel">
-                    <property name="name">LevelDB</property>
+                    <property name="name">LevelDB Client</property>
                 </graph-query>
             </when>
             <perform>
@@ -295,20 +295,6 @@
             </when>
             <perform>
                 <technology-identified name="Apache HBase Client">
-                    <tag name="Store"/>
-                    <tag name="Database Driver"/>
-                    <tag name="Embedded"/>
-                </technology-identified>
-            </perform>
-        </rule>
-        <rule id="technology-usage-database-03000">
-            <when>
-                <graph-query discriminator="TechnologyTagModel">
-                    <property name="name">Cassandra Client</property>
-                </graph-query>
-            </when>
-            <perform>
-                <technology-identified name="Cassandra Client">
                     <tag name="Store"/>
                     <tag name="Database Driver"/>
                     <tag name="Embedded"/>
