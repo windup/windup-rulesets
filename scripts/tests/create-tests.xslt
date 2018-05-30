@@ -37,6 +37,9 @@
                                         <xsl:when test="local-name(.) = 'technology-tag'">
                                             <xsl:apply-templates select="."/>
                                         </xsl:when>
+                                        <xsl:when test="local-name(.) = 'technology-identified'">
+                                            <xsl:apply-templates select="."/>
+                                        </xsl:when>
                                         <xsl:otherwise>
                                             <fail name="Tag not recognized: {local-name(.)}"/>
                                         </xsl:otherwise>
@@ -59,6 +62,16 @@
     <xsl:param name="text"/>
     <xsl:value-of select="replace($text, '([(.*)])', '\\$1')"/>
 </xsl:function>
+
+<xsl:template match="windup:technology-identified">
+    <xsl:variable name="textOriginal" select="./@name"/>
+    <xsl:variable name="text" select="windupfunctions:escapeForRegex($textOriginal)"/>
+    <technology-statistics-exists name="{$text}" number-found="1">
+        <xsl:for-each select="./windup:tag">
+            <tag name="{./@name}"/>
+        </xsl:for-each>
+    </technology-statistics-exists>
+</xsl:template>
 
 <xsl:template match="windup:technology-tag">
     <xsl:variable name="textOriginal" select="./text()"/>
