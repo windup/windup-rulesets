@@ -44,18 +44,22 @@
       </rule>
       <rule id="integration-00003">
           <when>
-              <and>
-                  <file filename="spring-integration{*}.jar"/>
-                  <not>
-                      <file filename="spring-integration{*}test{*}.jar"/>
-                  </not>
-              </and>
+              <file filename="spring-integration{*}.jar"/>
           </when>
           <perform>
-              <classification title="Embedded framework - Spring Integration" category-id="optional" effort="0">
-                  <description>The application embeds the Spring Integration framework.</description>
-              </classification>
-              <technology-tag level="INFORMATIONAL">Spring Integration (embedded)</technology-tag>
+              <iteration>
+                  <when>
+                      <not>
+                          <file filename="spring-integration{*}test{*}.jar"/>
+                      </not>
+                  </when>
+                  <perform>
+                      <classification title="Embedded framework - Spring Integration" category-id="optional" effort="0">
+                          <description>The application embeds the Spring Integration framework.</description>
+                      </classification>
+                      <technology-tag level="INFORMATIONAL">Spring Integration (embedded)</technology-tag>
+                  </perform>
+              </iteration>
           </perform>
       </rule>
       <rule id="integration-00004">
