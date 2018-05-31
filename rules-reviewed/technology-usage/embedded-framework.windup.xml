@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<ruleset 
-    xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="embedded-framework" 
+<ruleset
+    xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="embedded-framework"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <metadata>
         <description>
@@ -113,18 +113,22 @@
         </rule>
         <rule id="embedded-framework-02000">
             <when>
-                <and>
-                    <file filename="spring-batch{*}.jar"/>
-                    <not>
-                        <file filename="spring-batch{*}test{*}.jar"/>
-                    </not>
-                </and>
+                <file filename="spring-batch{*}.jar"/>
             </when>
             <perform>
-                <classification title="Embedded framework - Spring Batch" category-id="optional" effort="0">
-                    <description>The application embeds the Spring Batch framework.</description>
-                </classification>
-                <technology-tag level="INFORMATIONAL">Spring Batch (embedded)</technology-tag>
+                <iteration>
+                    <when>
+                        <not>
+                            <file filename="spring-batch{*}test{*}.jar"/>
+                        </not>
+                    </when>
+                    <perform>
+                        <classification title="Embedded framework - Spring Batch" category-id="optional" effort="0">
+                            <description>The application embeds the Spring Batch framework.</description>
+                        </classification>
+                        <technology-tag level="INFORMATIONAL">Spring Batch (embedded)</technology-tag>
+                    </perform>
+                </iteration>
             </perform>
         </rule>
         <rule id="embedded-framework-02200">
@@ -184,18 +188,22 @@
         </rule>
         <rule id="embedded-framework-03200">
             <when>
-                <and>
-                    <file filename="blaze{*}.jar"/>
-                    <not>
-                        <file filename="{*}blazeds{*}.jar"/>
-                    </not>
-                </and>
+                <file filename="blaze{*}.jar"/>
             </when>
             <perform>
-                <classification title="Embedded framework - Blaze" category-id="optional" effort="0">
-                    <description>The application embeds the Blaze framework.</description>
-                </classification>
-                <technology-tag level="INFORMATIONAL">Blaze (embedded)</technology-tag>
+                <iteration>
+                    <when>
+                        <not>
+                            <file filename="{*}blazeds{*}.jar"/>
+                        </not>
+                    </when>
+                    <perform>
+                        <classification title="Embedded framework - Blaze" category-id="optional" effort="0">
+                            <description>The application embeds the Blaze framework.</description>
+                        </classification>
+                        <technology-tag level="INFORMATIONAL">Blaze (embedded)</technology-tag>
+                    </perform>
+                </iteration>
             </perform>
         </rule>
         <rule id="embedded-framework-03300">
@@ -253,7 +261,7 @@
                 <technology-tag level="INFORMATIONAL">HTTP Client (embedded)</technology-tag>
             </perform>
         </rule>
-        <rule id="embedded-framework-02100">
+        <rule id="embedded-framework-05200">
             <when>
                 <file filename="spring{*}.jar"/>
             </when>
