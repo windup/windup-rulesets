@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruletest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:windupfunctions="windupcustomfunctions"
+          xmlns:windup="http://windup.jboss.org/schema/jboss-ruleset"
+          id="technology-usage-logging-test"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <testDataPath>data/logging-usage</testDataPath>
+    <rulePath>../../openshift/logging.windup.xml</rulePath>
+    <rulePath>../logging-usage.windup.xml</rulePath>
+    <rulePath>../logging-technology-usage.windup.xml</rulePath>
+   <ruleset>
+      <rules>
+         <rule id="technology-usage-logging-00010-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Log4J" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Embedded"/>
+                     <tag name="Logging"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-logging-00010"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-logging-00020-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Commons Logging" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Embedded"/>
+                     <tag name="Logging"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-logging-00020"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-logging-00030-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="SLF4J" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Embedded"/>
+                     <tag name="Logging"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-logging-00030"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-logging-00040-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="tinylog" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Embedded"/>
+                     <tag name="Logging"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-logging-00040"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-logging-00050-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Logback" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Embedded"/>
+                     <tag name="Logging"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-logging-00050"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-logging-00060-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="File system logging" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Java EE"/>
+                     <tag name="Logging"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-logging-00060"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-logging-00070-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Socket handler logging" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Java EE"/>
+                     <tag name="Logging"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-logging-00070"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-logging-00080-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="JBoss logging" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Embedded"/>
+                     <tag name="Logging"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-logging-00080"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-logging-00090-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Monolog" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Embedded"/>
+                     <tag name="Logging"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-logging-00090"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-logging-000100-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Jcabi Log" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Embedded"/>
+                     <tag name="Logging"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-logging-000100"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-logging-000110-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="NLOG4J" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Embedded"/>
+                     <tag name="Logging"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-logging-000110"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-logging-000120-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Log4s" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Embedded"/>
+                     <tag name="Logging"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-logging-000120"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-logging-000130-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Kotlin Logging" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Embedded"/>
+                     <tag name="Logging"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-logging-000130"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-logging-000140-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Airlift Log Manager" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Embedded"/>
+                     <tag name="Logging"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-logging-000140"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-logging-000150-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="MinLog" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Embedded"/>
+                     <tag name="Logging"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-logging-000150"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-logging-000160-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Logging Utils" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Embedded"/>
+                     <tag name="Logging"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-logging-000160"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-logging-000170-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="OCPsoft Logging Utils" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Embedded"/>
+                     <tag name="Logging"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-logging-000170"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-logging-000180-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Scribe" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Embedded"/>
+                     <tag name="Logging"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-logging-000180"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-logging-000190-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="GFC Logging" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Embedded"/>
+                     <tag name="Logging"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-logging-000190"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-logging-000200-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Blitz4j" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Embedded"/>
+                     <tag name="Logging"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-logging-000200"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-logging-000210-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Avalon Logkit" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Embedded"/>
+                     <tag name="Logging"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-logging-000210"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-logging-000220-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="KLogger" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Embedded"/>
+                     <tag name="Logging"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-logging-000220"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-logging-000230-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Lumberjack" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Embedded"/>
+                     <tag name="Logging"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-logging-000230"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-logging-000240-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Log.io" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Embedded"/>
+                     <tag name="Logging"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-logging-000240"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-logging-000250-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="OPS4J Pax Logging Service" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Embedded"/>
+                     <tag name="Logging"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-logging-000250"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-logging-000260-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="OW2 Log Util" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Embedded"/>
+                     <tag name="Logging"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-logging-000260"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-logging-000270-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Twitter Util Logging" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Embedded"/>
+                     <tag name="Logging"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-logging-000270"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-logging-000280-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Composite Logging JCL" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Embedded"/>
+                     <tag name="Logging"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-logging-000280"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-logging-000290-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Apache Flume" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Embedded"/>
+                     <tag name="Logging"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-logging-000290"/>
+            </perform>
+         </rule>
+      </rules>
+   </ruleset>
+</ruletest>

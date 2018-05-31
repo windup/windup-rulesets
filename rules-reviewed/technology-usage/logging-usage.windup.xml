@@ -157,18 +157,22 @@
         </rule>
         <rule id="logging-usage-00160">
             <when>
-                <and>
-                    <file filename="logging{*}.jar"/>
-                    <not>
-                        <file filename="logging-{*}.jar"/>
-                    </not>
-                </and>
+                <file filename="logging{*}.jar"/>
             </when>
             <perform>
-                <classification title="Embedded library - Logging Utils" category-id="optional" effort="0">
-                    <description>The application embeds a Common Java Logging Utils library.</description>
-                </classification>
-                <technology-tag level="INFORMATIONAL">Logging Utils (embedded)</technology-tag>
+                <iteration>
+                    <when>
+                        <not>
+                            <file filename="logging-{*}.jar"/>
+                        </not>
+                    </when>
+                    <perform>
+                        <classification title="Embedded library - Logging Utils" category-id="optional" effort="0">
+                            <description>The application embeds a Common Java Logging Utils library.</description>
+                        </classification>
+                        <technology-tag level="INFORMATIONAL">Logging Utils (embedded)</technology-tag>
+                    </perform>
+                </iteration>
             </perform>
         </rule>
         <rule id="logging-usage-00170">
@@ -272,18 +276,22 @@
         </rule>
         <rule id="logging-usage-00260">
             <when>
-                <and>
-                    <file filename="util-log{*}.jar"/>
-                    <not>
-                        <file filename="util-logging{*}.jar"/>
-                    </not>
-                </and>
+                <file filename="util-log{*}.jar"/>
             </when>
             <perform>
-                <classification title="Embedded library - OW2 Log Util" category-id="optional" effort="0">
-                    <description>The application embeds an OW2 Log Util library.</description>
-                </classification>
-                <technology-tag level="INFORMATIONAL">OW2 Log Util (embedded)</technology-tag>
+                <iteration>
+                    <when>
+                        <not>
+                            <file filename="util-logging{*}.jar"/>
+                        </not>
+                    </when>
+                    <perform>
+                        <classification title="Embedded library - OW2 Log Util" category-id="optional" effort="0">
+                            <description>The application embeds an OW2 Log Util library.</description>
+                        </classification>
+                        <technology-tag level="INFORMATIONAL">OW2 Log Util (embedded)</technology-tag>
+                    </perform>
+                </iteration>
             </perform>
         </rule>
         <rule id="logging-usage-00270">
