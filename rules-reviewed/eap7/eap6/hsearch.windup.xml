@@ -482,9 +482,6 @@
                         <annotation-literal name="index" pattern="Index.YES"/>
                         <annotation-type pattern="org.hibernate.search.annotations.NumericField"/>
                     </javaclass>
-                    <javaclass references="org.hibernate.search.annotations.{bridge}">
-                        <location>ANNOTATION</location>
-                    </javaclass>
                     <javaclass references="java.util.{date}">
                         <annotation-type pattern="org.hibernate.search.annotations.Field" />
                         <annotation-type pattern="org.hibernate.search.annotations.Fields"/>
@@ -532,9 +529,6 @@
             </where>
             <where param="date">
                 <matches pattern="(Calendar|Date)" />
-            </where>
-            <where param="bridge">
-                <matches pattern="(DateBridge|CalendarBridge)"/>
             </where>
         </rule>
         <!-- When using @Field(indexNullAs=) to encode a null marker value in the index, -->
