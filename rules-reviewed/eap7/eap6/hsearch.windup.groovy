@@ -29,23 +29,22 @@ ruleSet("hsearch-groovy")
         new ParameterizedIterationOperation<JavaAnnotationTypeReferenceModel> () {
             Hint hint = Hint
                     .titled("Hibernate Search 5 - Changes in indexing date values")
-                    .withText(HintHandler.trimLeadingAndTrailingSpaces(
-                    "Date and Calendar values are no longer indexed as strings. Instead, instances are encoded as long values representing the number\n" +
-                    "of milliseconds since January 1, 1970, 00:00:00 GMT. You can switch the indexing format by using the new EncodingType enum. For example:\n" +
-                    "\n" +
-                    "```java\n" +
-                    "@DateBridge(encoding=EncodingType.STRING)\n" +
-                    "@CalendarBridge(encoding=EncodingType.STRING)\n" +
-                    "```\n" +
-                    "\n" +
-                    "The encoding change for dates is important and can have a big impact on application behavior. If you have\n" +
-                    "a query that targets a field that was previously string-encoded, but is now encoded numerically, you must update the query. \n" +
-                    "You must also make sure that all fields targeted by faceting are string encoded.\n" +
-                    "If you use the Search query DSL, the correct query should be created automatically for you.\n"))
+                    .withText(
+                    """Date and Calendar values are no longer indexed as strings. Instead, instances are encoded as long values representing the number
+of milliseconds since January 1, 1970, 00:00:00 GMT. You can switch the indexing format by using the new EncodingType enum. For example:
+
+```java
+@DateBridge(encoding=EncodingType.STRING)
+@CalendarBridge(encoding=EncodingType.STRING)
+```
+
+The encoding change for dates is important and can have a big impact on application behavior. If you have
+a query that targets a field that was previously string-encoded, but is now encoded numerically, you must update the query.
+You must also make sure that all fields targeted by faceting are string encoded.
+If you use the Search query DSL, the correct query should be created automatically for you.""")
                     .with(Link.to("Number and Date Index Formatting Changes in Hibernate Search 5.x", "https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/single/migration_guide/#migrate_hibernate_search_number_and_date_index_formatting_changes"))
                     .with(Link.to("Number and date index format", "http://hibernate.org/search/documentation/migrate/5.0/#number-and-date-index-format"))
                     .with(Link.to("Javadoc API for org.hibernate.search.bridge.builtin package", "http://docs.jboss.org/hibernate/search/5.5/api/org/hibernate/search/bridge/builtin/package-summary.html"))
-                    .with(Link.to("Javadoc API for IntegerBridge", "http://docs.jboss.org/hibernate/search/5.5/api/org/hibernate/search/bridge/builtin/IntegerBridge.html"))
                     .withTags(new HashSet<>(Arrays.asList("hibernate-search")))
                     .withEffort(1);
 
