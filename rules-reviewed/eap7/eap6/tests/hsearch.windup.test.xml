@@ -271,7 +271,7 @@
             <rule id="hsearch-00116-test">
                 <when>
                     <not>
-                        <iterable-filter size="2">
+                        <iterable-filter size="1">
                             <hint-exists message="Numbers and dates are now indexed as numeric fields by default.*"/>
                         </iterable-filter>
                     </not>
@@ -609,7 +609,19 @@
                 <perform>
                     <fail message="hsearch-00240 hint not found!" />
                 </perform>
-            </rule>            
+            </rule>
+            <rule id="hsearch-groovy-01000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="Date and Calendar values are no longer indexed as strings*" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="hsearch-groovy-01000 hint was not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>

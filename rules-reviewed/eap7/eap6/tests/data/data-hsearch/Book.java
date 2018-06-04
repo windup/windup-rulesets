@@ -16,6 +16,7 @@ import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.DateBridge;
 import org.hibernate.search.annotations.CalendarBridge;
 import org.hibernate.search.annotations.DocumentId;
+import org.hibernate.search.annotations.EncodingType;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
@@ -144,6 +145,30 @@ public class Book
     
     @CalendarBridge(resolution = Resolution.DAY)
     public Calendar getCalendarPublication() 
+    {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(this.publicationDate);
+        return cal;
+    }
+
+    @CalendarBridge(resolution = Resolution.DAY, encoding = EncodingType.NUMERIC)
+    public Calendar getEncodedCalendarPublication()
+    {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(this.publicationDate);
+        return cal;
+    }
+
+    @DateBridge(encoding = EncodingType.STRING, resolution = Resolution.MILLISECOND)
+    public Calendar getEncodedDatePublication()
+    {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(this.publicationDate);
+        return cal;
+    }
+
+    @DateBridge(resolution = Resolution.MILLISECOND)
+    public Calendar getDatePublication()
     {
         Calendar cal = Calendar.getInstance();
         cal.setTime(this.publicationDate);
