@@ -46,7 +46,7 @@ If you use the Search query DSL, the correct query should be created automatical
                     .with(Link.to("Number and date index format", "http://hibernate.org/search/documentation/migrate/5.0/#number-and-date-index-format"))
                     .with(Link.to("Javadoc API for org.hibernate.search.bridge.builtin package", "http://docs.jboss.org/hibernate/search/5.5/api/org/hibernate/search/bridge/builtin/package-summary.html"))
                     .withTags(new HashSet<>(Arrays.asList("hibernate-search")))
-                    .withEffort(1);
+                    .withEffort(0);
 
             public Set<String> getRequiredParameterNames() {
                 return hint.getRequiredParameterNames();
@@ -64,7 +64,7 @@ If you use the Search query DSL, the correct query should be created automatical
                     }
                 if (!hasEncodingElement) {
                     IssueCategoryRegistry issueCategoryRegistry = IssueCategoryRegistry.instance(context)
-                    IssueCategory issueCategory = issueCategoryRegistry.getByID("optional")
+                    IssueCategory issueCategory = issueCategoryRegistry.getByID("potential")
                     hint.withIssueCategory(issueCategory).perform(event, context)
                 }
             }
