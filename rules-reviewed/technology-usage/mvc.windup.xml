@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <metadata>
         <description>
-            This ruleset provides analysis of JSF libraries.
+            This ruleset provides analysis of MVC libraries.
         </description>
         <dependencies>
             <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
@@ -54,6 +54,529 @@
                     <description>The application embeds a GWT library.</description>
                 </classification>
                 <technology-tag level="INFORMATIONAL">GWT (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-01400">
+            <when>
+                <file filename="{*}myfaces{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - MyFaces" category-id="optional" effort="0">
+                    <description>The application embeds a MyFaces library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">MyFaces (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-01500">
+            <when>
+                <file filename="{*}richfaces{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - RichFaces" category-id="optional" effort="0">
+                    <description>The application embeds a RichFaces library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">RichFaces (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-01600">
+            <when>
+                <file filename="{*}jsf{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - JSF" category-id="optional" effort="0">
+                    <description>The application embeds a JSF library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">JSF (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-01700">
+            <when>
+                <file filename="{*}tapestry{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Apache Tapestry" category-id="optional" effort="0">
+                    <description>The application embeds an Apache Tapestry library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Apache Tapestry (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-01800">
+            <when>
+                <file filename="{*}stripes{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Stripes" category-id="optional" effort="0">
+                    <description>The application embeds a Stripes library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Stripes (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-01900">
+            <when>
+                <file filename="{*}spark{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Spark" category-id="optional" effort="0">
+                    <description>The application embeds a Spark library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Spark (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-02000">
+            <when>
+                <file filename="{*}vaadin{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Vaadin" category-id="optional" effort="0">
+                    <description>The application embeds a Vaadin library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Vaadin (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-02100">
+            <when>
+                <file filename="{*}grails{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Grails" category-id="optional" effort="0">
+                    <description>The application embeds a Grails library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Grails (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-02200">
+            <when>
+                <file filename="{*}play{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Play" category-id="optional" effort="0">
+                    <description>The application embeds a Play library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Play (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-02300">
+            <when>
+                <or>
+                    <file filename="adf-settings.xml"/>
+                    <file filename="adfc-config.xml"/>
+                </or>
+            </when>
+            <perform>
+                <classification title="Embedded library - Oracle ADF" category-id="optional" effort="0">
+                    <description>The application embeds an Oracle ADF library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Oracle ADF (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-02400">
+            <when>
+                <file filename="{*}primefaces{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - PrimeFaces" category-id="optional" effort="0">
+                    <description>The application embeds a PrimeFaces library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">PrimeFaces (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-02500">
+            <when>
+                <file filename="{*}jslt{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - JSTL" category-id="optional" effort="0">
+                    <description>The application embeds a JSTL library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">JSTL (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-02600">
+            <when>
+                <file filename="{*}openfaces{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - OpenFaces" category-id="optional" effort="0">
+                    <description>The application embeds an OpenFaces library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">OpenFaces (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-02700">
+            <when>
+                <file filename="{*}jfreechart{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - JFreeChart" category-id="optional" effort="0">
+                    <description>The application embeds a JFreeChart library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">JFreeChart (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-02800">
+            <when>
+                <file filename="{*}bootsfaces{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - BootsFaces" category-id="optional" effort="0">
+                    <description>The application embeds a BootsFaces library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">BootsFaces (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-02900">
+            <when>
+                <file filename="{*}icefaces{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - ICEfaces" category-id="optional" effort="0">
+                    <description>The application embeds an ICEfaces library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">ICEfaces (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-03000">
+            <when>
+                <file filename="{*}babbageFaces{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - BabbageFaces" category-id="optional" effort="0">
+                    <description>The application embeds a BabbageFaces library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">BabbageFaces (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-03100">
+            <when>
+                <file filename="{*}portlet{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Portlet" category-id="optional" effort="0">
+                    <description>The application embeds a Portlet library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Portlet (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-03200">
+            <when>
+                <file filename="{*}angularFaces{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - AngularFaces" category-id="optional" effort="0">
+                    <description>The application embeds an AngularFaces library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">AngularFaces (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-03300">
+            <when>
+                <file filename="{*}liferay-faces{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - LiferayFaces" category-id="optional" effort="0">
+                    <description>The application embeds a LiferayFaces library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">LiferayFaces (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-03400">
+            <when>
+                <file filename="{*}liferay{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Liferay" category-id="optional" effort="0">
+                    <description>The application embeds a Liferay library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Liferay (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-03500">
+            <!-- Check! -->
+            <when>
+                <file filename="{*}butterfaces{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - ButterFaces" category-id="optional" effort="0">
+                    <description>The application embeds a Larmic ButterFaces library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">ButterFaces (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-03600">
+            <when>
+                <file filename="{*}highfaces{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - HighFaces" category-id="optional" effort="0">
+                    <description>The application embeds a HighFaces library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">HighFaces (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-03700">
+            <when>
+                <file filename="{*}tiefaces{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - TieFaces" category-id="optional" effort="0">
+                    <description>The application embeds a TieFaces library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">TieFaces (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-03800">
+            <when>
+                <file filename="{*}omnifaces{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - OmniFaces" category-id="optional" effort="0">
+                    <description>The application embeds an OmniFaces library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">OmniFaces (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-03900">
+            <when>
+                <file filename="{*}uberfire{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - UberFire" category-id="optional" effort="0">
+                    <description>The application embeds an UberFire library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">UberFire (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <!-- Template engines (not really MVC) -->
+        <rule id="mvc-04000">
+            <when>
+                <file filename="{*}velocity{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Apache Velocity" category-id="optional" effort="0">
+                    <description>The application embeds an Apache Velocity library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Velocity (embedded)</technology-tag>
+            </perform>
+        </rule>
+
+        <rule id="mvc-04100">
+            <when>
+                <file filename="{*}thymeleaf{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Thymeleaf" category-id="optional" effort="0">
+                    <description>The application embeds a Thymeleaf library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Thymeleaf (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-04200">
+            <when>
+                <file filename="{*}freemarker{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Apache FreeMarker" category-id="optional" effort="0">
+                    <description>The application embeds an Apache FreeMarker library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">FreeMarker (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-04300">
+            <when>
+                <file filename="{*}stringtemplate{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - ANTLR StringTemplate" category-id="optional" effort="0">
+                    <description>The application embeds an ANTLR StringTemplate library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">ANTLR StringTemplate (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-04400">
+            <when>
+                <file filename="{*}handlebars{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Handlebars" category-id="optional" effort="0">
+                    <description>The application embeds a Handlebars library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Handlebars (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-04500">
+            <when>
+                <file filename="{*}jmustache{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - JMustache" category-id="optional" effort="0">
+                    <description>The application embeds a JMustache library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">JMustache (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-04600">
+            <when>
+                <file filename="jamon-{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Jamon" category-id="optional" effort="0">
+                    <description>The application embeds a Jamon library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Jamon (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-04700">
+            <when>
+                <file filename="{*}twirl{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Twirl" category-id="optional" effort="0">
+                    <description>The application embeds a Twirl library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Twirl (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-04800">
+            <when>
+                <file filename="{*}scalate{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Scalate" category-id="optional" effort="0">
+                    <description>The application embeds a Scalate library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Scalate (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-04900">
+            <when>
+                <file filename="{*}rythm-engine{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Rythm Template Engine" category-id="optional" effort="0">
+                    <description>The application embeds a Rythm Template Engine library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Rythm Template Engine (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-05000">
+            <when>
+                <file filename="{*}trimou-core{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Trimou" category-id="optional" effort="0">
+                    <description>The application embeds a Trimou library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Trimou (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-05100">
+            <when>
+                <file filename="{*}velocity{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Jetbrick Template" category-id="optional" effort="0">
+                    <description>The application embeds a Jetbrick Template library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Jetbrick Template (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-05200">
+            <when>
+                <file filename="{*}chunk-templates{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Chunk Templates" category-id="optional" effort="0">
+                    <description>The application embeds a Chunk Templates library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Chunk Templates (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-05300">
+            <when>
+                <file filename="{*}jsilver{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - JSilver" category-id="optional" effort="0">
+                    <description>The application embeds a JSilver library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">JSilver (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-05400">
+            <when>
+                <file filename="{*}watertemplate-engine{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Water Template Engine" category-id="optional" effort="0">
+                    <description>The application embeds a Water Template Engine library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Water Template Engine (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-05500">
+            <when>
+                <file filename="{*}ickenham{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Ickenham" category-id="optional" effort="0">
+                    <description>The application embeds an Ickenham library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Ickenham (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-05600">
+            <when>
+                <file filename="{*}mixer{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Mixer" category-id="optional" effort="0">
+                    <description>The application embeds a Mixer library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Mixer (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-05700">
+            <when>
+                <file filename="{*}webmacro{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Webmacro" category-id="optional" effort="0">
+                    <description>The application embeds a Webmacro library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Webmacro (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-05800">
+            <when>
+                <file filename="{*}dvsl{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - DVSL" category-id="optional" effort="0">
+                    <description>The application embeds a DVSL library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">DVSL (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-05900">
+            <when>
+                <file filename="{*}snippetory{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Snippetory Template Engine" category-id="optional" effort="0">
+                    <description>The application embeds a Snippetory Template Engine library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Snippetory Template Engine (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-06000">
+            <when>
+                <file filename="{*}anakia{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Anakia" category-id="optional" effort="0">
+                    <description>The application embeds an Anakia library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Anakia (embedded)</technology-tag>
             </perform>
         </rule>
     </rules>

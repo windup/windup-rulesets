@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
-<ruleset id="technology-usage-security" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+<ruleset id="technology-usage-logging" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <metadata>
         <description>
-            This ruleset provides statistical summaries of the security related items in the input application (eg, security realms).
+            This ruleset provides statistical summaries of the logging items that were found during the analysis.
         </description>
         <dependencies>
             <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
@@ -12,373 +12,409 @@
         <phase>PostMigrationRulesPhase</phase>
     </metadata>
     <rules>
-        <rule id="technology-usage-security-01000">
+        <rule id="technology-usage-logging-00010">
             <when>
-                <or>
-                    <xmlfile matches="//*[local-name() = 'login-config']/*[local-name() = 'realm-name']"
-                            in="web.xml"/>
-                    <xmlfile matches="//*[local-name() = 'login-config']/*[local-name() = 'realm']"
-                            in="{*}ejb-jar.xml"/>
-                    <javaclass references="javax.annotation.security.{*}">
-                        <location>ANNOTATION</location>
-                    </javaclass>
-                </or>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Apache Log4J (embedded)</property>
+                </graph-query>
             </when>
             <perform>
-                <technology-identified name="Security Realm">
+                <technology-identified name="Log4J">
                     <tag name="Sustain"/>
-                    <tag name="Security"/>
+                    <tag name="Embedded"/>
+                    <tag name="Logging"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-logging-00020">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Apache Commons Logging (embedded)</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Commons Logging">
+                    <tag name="Sustain"/>
+                    <tag name="Embedded"/>
+                    <tag name="Logging"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-logging-00030">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">SLF4J (embedded)</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="SLF4J">
+                    <tag name="Sustain"/>
+                    <tag name="Embedded"/>
+                    <tag name="Logging"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-logging-00040">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">tinylog (embedded)</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="tinylog">
+                    <tag name="Sustain"/>
+                    <tag name="Embedded"/>
+                    <tag name="Logging"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-logging-00050">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Logback (embedded)</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Logback">
+                    <tag name="Sustain"/>
+                    <tag name="Embedded"/>
+                    <tag name="Logging"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-logging-00060">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Logging to file system</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="File system logging">
+                    <tag name="Sustain"/>
                     <tag name="Java EE"/>
+                    <tag name="Logging"/>
                 </technology-identified>
             </perform>
         </rule>
-        <rule id="technology-usage-security-01100">
+        <rule id="technology-usage-logging-00070">
             <when>
                 <graph-query discriminator="TechnologyTagModel">
-                    <property name="name">Spring Security (embedded)</property>
+                    <property name="name">Logging to Socket Handler</property>
                 </graph-query>
             </when>
             <perform>
-                <technology-identified name="Spring Security">
+                <technology-identified name="Socket handler logging">
                     <tag name="Sustain"/>
-                    <tag name="Security"/>
-                    <tag name="Embedded"/>
+                    <tag name="Java EE"/>
+                    <tag name="Logging"/>
                 </technology-identified>
             </perform>
         </rule>
-        <rule id="technology-usage-security-01200">
+        <rule id="technology-usage-logging-00080">
             <when>
                 <graph-query discriminator="TechnologyTagModel">
-                    <property name="name">Apache Shiro (embedded)</property>
+                    <property name="name">JBoss logging (embedded)</property>
                 </graph-query>
             </when>
             <perform>
-                <technology-identified name="Shiro">
+                <technology-identified name="JBoss logging">
                     <tag name="Sustain"/>
-                    <tag name="Security"/>
                     <tag name="Embedded"/>
+                    <tag name="Logging"/>
                 </technology-identified>
             </perform>
         </rule>
-        <rule id="technology-usage-security-01300">
+        <rule id="technology-usage-logging-00090">
             <when>
                 <graph-query discriminator="TechnologyTagModel">
-                    <property name="name">Hdiv (embedded)</property>
+                    <property name="name">Monolog (embedded)</property>
                 </graph-query>
             </when>
             <perform>
-                <technology-identified name="Hdiv">
+                <technology-identified name="Monolog">
                     <tag name="Sustain"/>
-                    <tag name="Security"/>
                     <tag name="Embedded"/>
+                    <tag name="Logging"/>
                 </technology-identified>
             </perform>
         </rule>
-        <rule id="technology-usage-security-01400">
+        <rule id="technology-usage-logging-000100">
             <when>
                 <graph-query discriminator="TechnologyTagModel">
-                    <property name="name">OACC (embedded)</property>
+                    <property name="name">Jcabi Log (embedded)</property>
                 </graph-query>
             </when>
             <perform>
-                <technology-identified name="OACC">
+                <technology-identified name="Jcabi Log">
                     <tag name="Sustain"/>
-                    <tag name="Security"/>
                     <tag name="Embedded"/>
+                    <tag name="Logging"/>
                 </technology-identified>
             </perform>
         </rule>
-        <rule id="technology-usage-security-01500">
+        <rule id="technology-usage-logging-000110">
             <when>
                 <graph-query discriminator="TechnologyTagModel">
-                    <property name="name">PicketLink (embedded)</property>
+                    <property name="name">NLOG4J (embedded)</property>
                 </graph-query>
             </when>
             <perform>
-                <technology-identified name="PicketLink">
+                <technology-identified name="NLOG4J">
                     <tag name="Sustain"/>
-                    <tag name="Security"/>
                     <tag name="Embedded"/>
+                    <tag name="Logging"/>
                 </technology-identified>
             </perform>
         </rule>
-        <rule id="technology-usage-security-01600">
+        <rule id="technology-usage-logging-000120">
             <when>
                 <graph-query discriminator="TechnologyTagModel">
-                    <property name="name">PicketBox (embedded)</property>
+                    <property name="name">Log4s (embedded)</property>
                 </graph-query>
             </when>
             <perform>
-                <technology-identified name="PicketBox">
+                <technology-identified name="Log4s">
                     <tag name="Sustain"/>
-                    <tag name="Security"/>
                     <tag name="Embedded"/>
+                    <tag name="Logging"/>
                 </technology-identified>
             </perform>
         </rule>
-        <rule id="technology-usage-security-01700">
+        <rule id="technology-usage-logging-000130">
             <when>
                 <graph-query discriminator="TechnologyTagModel">
-                    <property name="name">Keyczar (embedded)</property>
+                    <property name="name">Kotlin Logging (embedded)</property>
                 </graph-query>
             </when>
             <perform>
-                <technology-identified name="Keyczar">
+                <technology-identified name="Kotlin Logging">
                     <tag name="Sustain"/>
-                    <tag name="Security"/>
                     <tag name="Embedded"/>
+                    <tag name="Logging"/>
                 </technology-identified>
             </perform>
         </rule>
-        <rule id="technology-usage-security-01800">
+        <rule id="technology-usage-logging-000140">
             <when>
                 <graph-query discriminator="TechnologyTagModel">
-                    <property name="name">XACML (embedded)</property>
+                    <property name="name">Airlift Log Manager (embedded)</property>
                 </graph-query>
             </when>
             <perform>
-                <technology-identified name="XACML">
+                <technology-identified name="Airlift Log Manager">
                     <tag name="Sustain"/>
-                    <tag name="Security"/>
                     <tag name="Embedded"/>
+                    <tag name="Logging"/>
                 </technology-identified>
             </perform>
         </rule>
-        <rule id="technology-usage-security-01900">
+        <rule id="technology-usage-logging-000150">
             <when>
                 <graph-query discriminator="TechnologyTagModel">
-                    <property name="name">SAML (embedded)</property>
+                    <property name="name">MinLog (embedded)</property>
                 </graph-query>
             </when>
             <perform>
-                <technology-identified name="SAML">
+                <technology-identified name="MinLog">
                     <tag name="Sustain"/>
-                    <tag name="Security"/>
                     <tag name="Embedded"/>
+                    <tag name="Logging"/>
                 </technology-identified>
             </perform>
         </rule>
-        <rule id="technology-usage-security-02000">
+        <rule id="technology-usage-logging-000160">
             <when>
                 <graph-query discriminator="TechnologyTagModel">
-                    <property name="name">Bouncy Castle (embedded)</property>
+                    <property name="name">Logging Utils (embedded)</property>
                 </graph-query>
             </when>
             <perform>
-                <technology-identified name="Bouncy Castle">
+                <technology-identified name="Logging Utils">
                     <tag name="Sustain"/>
-                    <tag name="Security"/>
                     <tag name="Embedded"/>
+                    <tag name="Logging"/>
                 </technology-identified>
             </perform>
         </rule>
-        <rule id="technology-usage-security-02100">
+        <rule id="technology-usage-logging-000170">
             <when>
                 <graph-query discriminator="TechnologyTagModel">
-                    <property name="name">Jasypt (embedded)</property>
+                    <property name="name">OCPsoft Logging Utils (embedded)</property>
                 </graph-query>
             </when>
             <perform>
-                <technology-identified name="Jasypt">
+                <technology-identified name="OCPsoft Logging Utils">
                     <tag name="Sustain"/>
-                    <tag name="Security"/>
                     <tag name="Embedded"/>
+                    <tag name="Logging"/>
                 </technology-identified>
             </perform>
         </rule>
-        <rule id="technology-usage-security-02200">
+        <rule id="technology-usage-logging-000180">
             <when>
                 <graph-query discriminator="TechnologyTagModel">
-                    <property name="name">Apache Santuario (embedded)</property>
+                    <property name="name">Scribe (embedded)</property>
                 </graph-query>
             </when>
             <perform>
-                <technology-identified name="Santuario">
+                <technology-identified name="Scribe">
                     <tag name="Sustain"/>
-                    <tag name="Security"/>
                     <tag name="Embedded"/>
+                    <tag name="Logging"/>
                 </technology-identified>
             </perform>
         </rule>
-        <rule id="technology-usage-security-02300">
+        <rule id="technology-usage-logging-000190">
             <when>
                 <graph-query discriminator="TechnologyTagModel">
-                    <property name="name">SSL (embedded)</property>
+                    <property name="name">GFC Logging (embedded)</property>
                 </graph-query>
             </when>
             <perform>
-                <technology-identified name="SSL">
+                <technology-identified name="GFC Logging">
                     <tag name="Sustain"/>
-                    <tag name="Security"/>
                     <tag name="Embedded"/>
+                    <tag name="Logging"/>
                 </technology-identified>
             </perform>
         </rule>
-        <rule id="technology-usage-security-02400">
+        <rule id="technology-usage-logging-000200">
             <when>
                 <graph-query discriminator="TechnologyTagModel">
-                    <property name="name">Vlad (embedded)</property>
+                    <property name="name">Blitz4j (embedded)</property>
                 </graph-query>
             </when>
             <perform>
-                <technology-identified name="Vlad">
+                <technology-identified name="Blitz4j">
                     <tag name="Sustain"/>
-                    <tag name="Security"/>
                     <tag name="Embedded"/>
+                    <tag name="Logging"/>
                 </technology-identified>
             </perform>
         </rule>
-        <rule id="technology-usage-security-02500">
+        <rule id="technology-usage-logging-000210">
             <when>
                 <graph-query discriminator="TechnologyTagModel">
-                    <property name="name">Apache Commons Validator (embedded)</property>
+                    <property name="name">Avalon Logkit (embedded)</property>
                 </graph-query>
             </when>
             <perform>
-                <technology-identified name="Apache Commons Validator">
+                <technology-identified name="Avalon Logkit">
                     <tag name="Sustain"/>
-                    <tag name="Security"/>
                     <tag name="Embedded"/>
+                    <tag name="Logging"/>
                 </technology-identified>
             </perform>
         </rule>
-        <rule id="technology-usage-security-02600">
+        <rule id="technology-usage-logging-000220">
             <when>
                 <graph-query discriminator="TechnologyTagModel">
-                    <property name="name">OWASP ESAPI (embedded)</property>
+                    <property name="name">KLogger (embedded)</property>
                 </graph-query>
             </when>
             <perform>
-                <technology-identified name="OWASP ESAPI">
+                <technology-identified name="KLogger">
                     <tag name="Sustain"/>
-                    <tag name="Security"/>
                     <tag name="Embedded"/>
+                    <tag name="Logging"/>
                 </technology-identified>
             </perform>
         </rule>
-        <rule id="technology-usage-security-02700">
+        <rule id="technology-usage-logging-000230">
             <when>
                 <graph-query discriminator="TechnologyTagModel">
-                    <property name="name">WSS4J (embedded)</property>
+                    <property name="name">Lumberjack (embedded)</property>
                 </graph-query>
             </when>
             <perform>
-                <technology-identified name="WSS4J">
+                <technology-identified name="Lumberjack">
                     <tag name="Sustain"/>
-                    <tag name="Security"/>
                     <tag name="Embedded"/>
+                    <tag name="Logging"/>
                 </technology-identified>
             </perform>
         </rule>
-        <rule id="technology-usage-security-02800">
+        <rule id="technology-usage-logging-000240">
             <when>
                 <graph-query discriminator="TechnologyTagModel">
-                    <property name="name">OpenSAML (embedded)</property>
+                    <property name="name">Log.io (embedded)</property>
                 </graph-query>
             </when>
             <perform>
-                <technology-identified name="OpenSAML">
+                <technology-identified name="Log.io">
                     <tag name="Sustain"/>
-                    <tag name="Security"/>
                     <tag name="Embedded"/>
+                    <tag name="Logging"/>
                 </technology-identified>
             </perform>
         </rule>
-        <rule id="technology-usage-security-02900">
+        <rule id="technology-usage-logging-000250">
             <when>
                 <graph-query discriminator="TechnologyTagModel">
-                    <property name="name">OTR4J (embedded)</property>
+                    <property name="name">OPS4J Pax Logging Service (embedded)</property>
                 </graph-query>
             </when>
             <perform>
-                <technology-identified name="OTR4J">
+                <technology-identified name="OPS4J Pax Logging Service">
                     <tag name="Sustain"/>
-                    <tag name="Security"/>
                     <tag name="Embedded"/>
+                    <tag name="Logging"/>
                 </technology-identified>
             </perform>
         </rule>
-        <rule id="technology-usage-security-03000">
+        <rule id="technology-usage-logging-000260">
             <when>
                 <graph-query discriminator="TechnologyTagModel">
-                    <property name="name">OWASP CSRF Guard (embedded)</property>
+                    <property name="name">OW2 Log Util (embedded)</property>
                 </graph-query>
             </when>
             <perform>
-                <technology-identified name="OWASP CSRF Guard">
+                <technology-identified name="OW2 Log Util">
                     <tag name="Sustain"/>
-                    <tag name="Security"/>
                     <tag name="Embedded"/>
+                    <tag name="Logging"/>
                 </technology-identified>
             </perform>
         </rule>
-        <rule id="technology-usage-security-03100">
+        <rule id="technology-usage-logging-000270">
             <when>
                 <graph-query discriminator="TechnologyTagModel">
-                    <property name="name">OAUTH (embedded)</property>
+                    <property name="name">Twitter Util Logging (embedded)</property>
                 </graph-query>
             </when>
             <perform>
-                <technology-identified name="OAUTH">
+                <technology-identified name="Twitter Util Logging">
                     <tag name="Sustain"/>
-                    <tag name="Security"/>
                     <tag name="Embedded"/>
+                    <tag name="Logging"/>
                 </technology-identified>
             </perform>
         </rule>
-        <rule id="technology-usage-security-03200">
+        <rule id="technology-usage-logging-000280">
             <when>
                 <graph-query discriminator="TechnologyTagModel">
-                    <property name="name">Acegi Security (embedded)</property>
+                    <property name="name">Composite Logging JCL (embedded)</property>
                 </graph-query>
             </when>
             <perform>
-                <technology-identified name="Acegi Security">
+                <technology-identified name="Composite Logging JCL">
                     <tag name="Sustain"/>
-                    <tag name="Security"/>
                     <tag name="Embedded"/>
+                    <tag name="Logging"/>
                 </technology-identified>
             </perform>
         </rule>
-        <rule id="technology-usage-security-03300">
+        <rule id="technology-usage-logging-000290">
             <when>
                 <graph-query discriminator="TechnologyTagModel">
-                    <property name="name">JSecurity (embedded)</property>
+                    <property name="name">Apache Flume (embedded)</property>
                 </graph-query>
             </when>
             <perform>
-                <technology-identified name="JSecurity">
+                <technology-identified name="Apache Flume">
                     <tag name="Sustain"/>
-                    <tag name="Security"/>
                     <tag name="Embedded"/>
-                </technology-identified>
-            </perform>
-        </rule>
-        <rule id="technology-usage-security-03400">
-            <when>
-                <graph-query discriminator="TechnologyTagModel">
-                    <property name="name">AcrIS Security (embedded)</property>
-                </graph-query>
-            </when>
-            <perform>
-                <technology-identified name="AcrIS Security">
-                    <tag name="Sustain"/>
-                    <tag name="Security"/>
-                    <tag name="Embedded"/>
-                </technology-identified>
-            </perform>
-        </rule>
-        <rule id="technology-usage-security-03500">
-            <when>
-                <graph-query discriminator="TechnologyTagModel">
-                    <property name="name">Trunk JGuard (embedded)</property>
-                </graph-query>
-            </when>
-            <perform>
-                <technology-identified name="Trunk JGuard">
-                    <tag name="Sustain"/>
-                    <tag name="Security"/>
-                    <tag name="Embedded"/>
+                    <tag name="Logging"/>
                 </technology-identified>
             </perform>
         </rule>

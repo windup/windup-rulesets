@@ -1,0 +1,298 @@
+<?xml version="1.0"?>
+<ruleset 
+    xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="security" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of Java security libraries.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+    </metadata>
+    <rules>
+        <rule id="security-01100">
+            <when>
+                <file filename="{*}spring-security{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Spring Security" category-id="optional" effort="0">
+                    <description>The application embeds a Spring Security library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Spring Security (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="security-01200">
+            <when>
+                <file filename="{*}shiro{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Apache Shiro" category-id="optional" effort="0">
+                    <description>The application embeds an Apache Shiro library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Apache Shiro (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="security-01300">
+            <when>
+                <file filename="{*}hdiv{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Hdiv" category-id="optional" effort="0">
+                    <description>The application embeds an Hdiv library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Hdiv (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="security-01400">
+            <when>
+                <file filename="{*}acciente-oacc{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - OACC" category-id="optional" effort="0">
+                    <description>The application embeds an OACC library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">OACC (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="security-01500">
+            <when>
+                <file filename="{*}picketlink{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - PicketLink" category-id="optional" effort="0">
+                    <description>The application embeds a PicketLink library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">PicketLink (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="security-01600">
+            <when>
+                <file filename="{*}picketbox{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - PicketBox" category-id="optional" effort="0">
+                    <description>The application embeds a PicketBox library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">PicketBox (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="security-01700">
+            <when>
+                <file filename="{*}keyczar{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Keyczar" category-id="optional" effort="0">
+                    <description>The application embeds a Keyczar library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Keyczar (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="security-01800">
+            <when>
+                <file filename="{*}xacml{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - XACML" category-id="optional" effort="0">
+                    <description>The application embeds an XACML library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">XACML (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="security-01900">
+            <when>
+                <file filename="{*}saml{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - SAML" category-id="optional" effort="0">
+                    <description>The application embeds a SAML library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">SAML (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="security-02000">
+            <when>
+                <or>
+                    <file filename="{*}lcrypto{*}.jar"/>
+                    <file filename="{*}bcprov{*}.jar"/>
+                    <file filename="{*}bcpg{*}.jar"/>
+                    <file filename="{*}bcmail{*}.jar"/>
+                    <file filename="{*}bcpkix{*}.jar"/>
+                    <file filename="{*}bctls{*}.jar"/>
+                </or>
+            </when>
+            <perform>
+                <classification title="Embedded library - Bouncy Castle" category-id="optional" effort="0">
+                    <description>The application embeds a Bouncy Castle library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Bouncy Castle (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="security-02100">
+            <when>
+                <file filename="{*}jasypt{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Jasypt" category-id="optional" effort="0">
+                    <description>The application embeds a Jasypt library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Jasypt (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="security-02200">
+            <when>
+                <file filename="{*}xmlsec{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Apache Santuario" category-id="optional" effort="0">
+                    <description>The application embeds a Apache Santuario library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Apache Santuario (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="security-02300">
+            <when>
+                <file filename="{*}ssl{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - SSL" category-id="optional" effort="0">
+                    <description>The application embeds an SSL library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">SSL (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="security-02400">
+            <when>
+                <file filename="vlad{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Vlad" category-id="optional" effort="0">
+                    <description>The application embeds a Vlad library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Vlad (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="security-02500">
+            <when>
+                <file filename="commons-validator{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Apache Commons Validator" category-id="optional" effort="0">
+                    <description>The application embeds an Apache Commons Validator library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Apache Commons Validator (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="security-02600">
+            <when>
+                <file filename="{*}esapi{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - OWASP ESAPI" category-id="optional" effort="0">
+                    <description>The application embeds an OWASP ESAPI library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">OWASP ESAPI (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="security-02700">
+            <when>
+                <file filename="{*}wss4j{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - WSS4J" category-id="optional" effort="0">
+                    <description>The application embeds a WSS4J library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">WSS4J (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="security-02800">
+            <when>
+                <file filename="{*}opensaml{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - OpenSAML" category-id="optional" effort="0">
+                    <description>The application embeds an OpenSAML library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">OpenSAML (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="security-02900">
+            <when>
+                <file filename="{*}otr4j{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - OTR4J" category-id="optional" effort="0">
+                    <description>The application embeds an OTR4J library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">OTR4J (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="security-03000">
+            <when>
+                <file filename="{*}csrfguard{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - OWASP CSRF Guard" category-id="optional" effort="0">
+                    <description>The application embeds an OWASP CSRF Guard library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">OWASP CSRF Guard (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="security-03100">
+            <when>
+                <file filename="{*}oauth{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - OAUTH" category-id="optional" effort="0">
+                    <description>The application embeds an OAUTH library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">OAUTH (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="security-03200">
+            <when>
+                <file filename="{*}acegi-security{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Acegi Security" category-id="optional" effort="0">
+                    <description>The application embeds an Acegi Security library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Acegi Security (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="security-03300">
+            <when>
+                <file filename="{*}jsecurity{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - JSecurity" category-id="optional" effort="0">
+                    <description>The application embeds a JSecurity library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">JSecurity (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="security-03400">
+            <when>
+                <file filename="{*}acris-security{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - AcrIS Security" category-id="optional" effort="0">
+                    <description>The application embeds an AcrIS Security library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">AcrIS Security (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="security-03500">
+            <when>
+                <file filename="{*}jguard{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Trunk JGuard" category-id="optional" effort="0">
+                    <description>The application embeds a Trunk JGuard library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Trunk JGuard (embedded)</technology-tag>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

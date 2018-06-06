@@ -1,0 +1,265 @@
+<?xml version="1.0"?>
+<ruleset 
+    xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="jta" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of Java Transaction libraries.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+    </metadata>
+    <rules>
+        <rule id="jta-00020">
+            <when>
+                <file filename="mycontainer-jta{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Mycontainer JTA" category-id="optional" effort="0">
+                    <description>The application embeds a Mycontainer JTA library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Mycontainer JTA (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="jta-00030">
+            <when>
+                <file filename="geronimo-jta{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Geronimo JTA" category-id="optional" effort="0">
+                    <description>The application embeds a Geronimo JTA library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Geronimo JTA (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="jta-00040">
+            <when>
+                <file filename="ow2-jta{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - OW2 JTA" category-id="optional" effort="0">
+                    <description>The application embeds an OW2 JTA library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">OW2 JTA (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="jta-00050">
+            <when>
+                <file filename="evo-jta{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Evo JTA" category-id="optional" effort="0">
+                    <description>The application embeds an Evo JTA library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Evo JTA (embedded)</technology-tag>
+            </perform>
+        </rule>
+
+        <rule id="jta-00060">
+            <when>
+                <file filename="akka-jta{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - AKKA JTA" category-id="optional" effort="0">
+                    <description>The application embeds an AKKA JTA library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">AKKA JTA (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="jta-00070">
+            <when>
+                <file filename="kumuluzee-jta{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - KumuluzEE JTA" category-id="optional" effort="0">
+                    <description>The application embeds a KumuluzEE JTA library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">KumuluzEE JTA (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="jta-00080">
+            <when>
+                <file filename="ignite-jta{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Ignite JTA" category-id="optional" effort="0">
+                    <description>The application embeds an Ignite JTA library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Ignite JTA (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="jta-00090">
+            <when>
+                <file filename="nuxeo-runtime-jtajca{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Nuxeo JTA/JCA" category-id="optional" effort="0">
+                    <description>The application embeds a Nuxeo JTA/JCA library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Nuxeo JTA/JCA (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="jta-00100">
+            <when>
+                <file filename="org.everit.transaction.propagator.jta{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Everit JTA" category-id="optional" effort="0">
+                    <description>The application embeds an Everit JTA library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Everit JTA (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="jta-00110">
+            <when>
+                <file filename="demoiselle-jta{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Demoiselle JTA" category-id="optional" effort="0">
+                    <description>The application embeds a Demoiselle JTA library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Demoiselle JTA (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="jta-00120">
+            <when>
+                <file filename="meecrowave-jta{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Apache Meecrowave JTA" category-id="optional" effort="0">
+                    <description>The application embeds an Apache Meecrowave JTA library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Apache Meecrowave JTA (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="jta-00130">
+            <when>
+                <file filename="sirona-jta{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Apache Sirona JTA" category-id="optional" effort="0">
+                    <description>The application embeds an Apache Sirona JTA library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Apache Sirona JTA (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="jta-00140">
+            <when>
+                <file filename="lift-jta{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Lift JTA" category-id="optional" effort="0">
+                    <description>The application embeds a Lift JTA library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Lift JTA (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="jta-00150">
+            <when>
+                <file filename="wf-core-jta{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - WF Core JTA" category-id="optional" effort="0">
+                    <description>The application embeds a WF Core JTA library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">WF Core JTA (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="jta-00160">
+            <when>
+                <or>
+                    <file filename="jta{*}.jar" />
+                    <file filename="javax-jta{*}.jar" />
+                </or>
+            </when>
+            <perform>
+                <classification title="Embedded library - Java Transaction API (JTA)" category-id="optional" effort="0">
+                    <description>The application embeds a Java Transaction API library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Java Transaction API (embedded)</technology-tag>
+            </perform>
+        </rule>
+
+        <rule id="jta-00170">
+            <when>
+                <or>
+                    <file filename="jboss{*}jta{*}.jar" />
+                    <file filename="jboss{*}jts{*}.jar" />
+                    <file filename="jbossxts{*}.jar" />
+                    <file filename="jbossts{*}.jar" />
+                    <file filename="arquillian-transaction-jta{*}.jar" />
+                    <file filename="weld-jta{*}.jar" />
+                    <file filename="wildfly{*}jta{*}.jar" />
+                    <file filename="transactions{*}.jar" />
+                </or>
+            </when>
+            <perform>
+                <classification title="Embedded library - JBoss Transactions" category-id="optional" effort="0">
+                    <description>The application embeds a JBoss Transactions library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">JBoss Transactions (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="jta-00180">
+            <when>
+                <or>
+                    <file filename="glassfish-jta{*}.jar" />
+                    <file filename="osgi-jta{*}.jar" />
+                    <file filename="jta-l10n{*}.jar" />
+                </or>
+            </when>
+            <perform>
+                <classification title="Embedded library - GlassFish JTA" category-id="optional" effort="0">
+                    <description>The application embeds a GlassFish JTA library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">GlassFish JTA (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="jta-00190">
+            <when>
+                <or>
+                    <file filename="transactions-jta{*}.jar" />
+                    <file filename="ks-jta{*}.jar" />
+                    <file filename="evo-jta-atomikos{*}.jar" />
+                </or>
+            </when>
+            <perform>
+                <classification title="Embedded library - Atomikos JTA" category-id="optional" effort="0">
+                    <description>The application embeds an Atomikos JTA library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Atomikos JTA (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="jta-00200">
+            <when>
+                <or>
+                    <file filename="{*}narayana{*}.jar" />
+                    <file filename="{*}arjuna{*}.jar" />
+                    <file filename="tomcat-jta{*}.jar" />
+                </or>
+            </when>
+            <perform>
+                <classification title="Embedded library - Narayana Arjuna" category-id="optional" effort="0">
+                    <description>The application embeds a Narayana Arjuna library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Narayana Arjuna (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="jta-00210">
+            <when>
+                <or>
+                    <file filename="spring-{*}jta{*}.jar" />
+                    <file filename="insight-plugin-jta{*}.jar" />
+                </or>
+            </when>
+            <perform>
+                <classification title="Embedded library - Spring Transactions" category-id="optional" effort="0">
+                    <description>The application embeds a Spring Transactions library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Spring Transactions (embedded)</technology-tag>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
