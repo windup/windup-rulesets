@@ -1,336 +1,942 @@
-<?xml version="1.0"?>
-<ruletest id="technology-usage-embedded-framework-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset">
-    <testDataPath>data/embedded-framework/</testDataPath>
-    <rulePath>../embedded-framework.windup.xml</rulePath>
-    <rulePath>../embedded-framework-technology-usage.windup.xml</rulePath>
-    <rulePath>../../openshift/embedded-cache-libraries.windup.xml</rulePath>
-    <rulePath>../../eap7/embedded-framework-libraries.windup.xml</rulePath>
-    <ruleset>
-        <rules>
-            <rule id="technology-usage-embedded-framework-01000-test">
-                <when>
-                    <not>
-                        <technology-statistics-exists name="Axis">
-                            <tag name="Connect"/>
-                            <tag name="Embedded"/>
-                            <tag name="Web Service"/>
-                        </technology-statistics-exists>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="Axis Technology Statistic Not Found" />
-                </perform>
-            </rule>
-            <rule id="technology-usage-embedded-framework-01010-test">
-                <when>
-                    <not>
-                        <technology-statistics-exists name="Axis2">
-                            <tag name="Connect"/>
-                            <tag name="Embedded"/>
-                            <tag name="Web Service"/>
-                        </technology-statistics-exists>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="Axis2 Technology Statistic Not Found" />
-                </perform>
-            </rule>
-            <rule id="technology-usage-embedded-framework-01100-test">
-                <when>
-                    <not>
-                        <technology-statistics-exists name="CXF">
-                            <tag name="Connect"/>
-                            <tag name="Embedded"/>
-                            <tag name="Web Service"/>
-                        </technology-statistics-exists>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="CXF Technology Statistic Not Found" />
-                </perform>
-            </rule>
-            <rule id="technology-usage-embedded-framework-01200-test">
-                <when>
-                    <not>
-                        <technology-statistics-exists name="XFire">
-                            <tag name="Connect"/>
-                            <tag name="Embedded"/>
-                            <tag name="Web Service"/>
-                        </technology-statistics-exists>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="XFire Technology Statistic Not Found" />
-                </perform>
-            </rule>
-            <rule id="technology-usage-embedded-framework-01300-test">
-                <when>
-                    <not>
-                        <technology-statistics-exists name="Jersey">
-                            <tag name="Connect"/>
-                            <tag name="Embedded"/>
-                            <tag name="REST"/>
-                        </technology-statistics-exists>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="Jersey Technology Statistic Not Found" />
-                </perform>
-            </rule>
-            <rule id="technology-usage-embedded-framework-01400-test">
-                <when>
-                    <not>
-                        <technology-statistics-exists name="Unirest">
-                            <tag name="Connect"/>
-                            <tag name="Embedded"/>
-                            <tag name="REST"/>
-                        </technology-statistics-exists>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="Unirest Technology Statistic Not Found" />
-                </perform>
-            </rule>
-            <rule id="technology-usage-embedded-framework-01500-test">
-                <when>
-                    <not>
-                        <technology-statistics-exists name="Hibernate">
-                            <tag name="Store"/>
-                            <tag name="Embedded"/>
-                            <tag name="Object Mapping"/>
-                        </technology-statistics-exists>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="Hibernate Technology Statistic Not Found" />
-                </perform>
-            </rule>
-            <rule id="technology-usage-embedded-framework-01600-test">
-                <when>
-                    <not>
-                        <technology-statistics-exists name="Hibernate OGM">
-                            <tag name="Store"/>
-                            <tag name="Embedded"/>
-                            <tag name="Object Mapping"/>
-                        </technology-statistics-exists>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="Hibernate OGM Technology Statistic Not Found" />
-                </perform>
-            </rule>
-            <rule id="technology-usage-embedded-framework-01700-test">
-                <when>
-                    <not>
-                        <technology-statistics-exists name="EclipseLink">
-                            <tag name="Store"/>
-                            <tag name="Embedded"/>
-                            <tag name="Object Mapping"/>
-                        </technology-statistics-exists>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="EclipseLink Technology Statistic Not Found" />
-                </perform>
-            </rule>
-            <rule id="technology-usage-embedded-framework-01800-test">
-                <when>
-                    <not>
-                        <technology-statistics-exists name="ESAPI">
-                            <tag name="Sustain"/>
-                            <tag name="Embedded"/>
-                            <tag name="Security"/>
-                        </technology-statistics-exists>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="ESAPI Technology Statistic Not Found" />
-                </perform>
-            </rule>
-            <rule id="technology-usage-embedded-framework-01900-test">
-                <when>
-                    <not>
-                        <technology-statistics-exists name="JUnit">
-                            <tag name="Sustain"/>
-                            <tag name="Embedded"/>
-                            <tag name="Test"/>
-                        </technology-statistics-exists>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="JUnit Technology Statistic Not Found" />
-                </perform>
-            </rule>
-            <rule id="technology-usage-embedded-framework-02000-test">
-                <when>
-                    <not>
-                        <technology-statistics-exists name="Spring Batch">
-                            <tag name="Execute"/>
-                            <tag name="Embedded"/>
-                            <tag name="Processing"/>
-                        </technology-statistics-exists>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="Spring Batch Technology Statistic Not Found" />
-                </perform>
-            </rule>
-            <rule id="technology-usage-embedded-framework-02100-test">
-                <when>
-                    <not>
-                        <technology-statistics-exists name="Spring">
-                            <tag name="Execute"/>
-                            <tag name="Embedded"/>
-                            <tag name="Inversion of Control"/>
-                        </technology-statistics-exists>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="Spring Technology Statistic Not Found" />
-                </perform>
-            </rule>
-            <rule id="technology-usage-embedded-framework-02200-test">
-                <when>
-                    <not>
-                        <technology-statistics-exists name="AspectJ">
-                            <tag name="Execute"/>
-                            <tag name="Embedded"/>
-                            <tag name="Inversion of Control"/>
-                        </technology-statistics-exists>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="AspectJ Technology Statistic Not Found" />
-                </perform>
-            </rule>
-            <rule id="technology-usage-embedded-framework-02300-test">
-                <when>
-                    <not>
-                        <technology-statistics-exists name="JBPM">
-                            <tag name="Execute"/>
-                            <tag name="Embedded"/>
-                            <tag name="Rules and Processes"/>
-                        </technology-statistics-exists>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="JBPM Technology Statistic Not Found" />
-                </perform>
-            </rule>
-            <rule id="technology-usage-embedded-framework-02400-test">
-                <when>
-                    <not>
-                        <technology-statistics-exists name="iLog">
-                            <tag name="Execute"/>
-                            <tag name="Embedded"/>
-                            <tag name="Rules and Processes"/>
-                        </technology-statistics-exists>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="iLog Technology Statistic Not Found" />
-                </perform>
-            </rule>
-            <rule id="technology-usage-embedded-framework-02500-test">
-                <when>
-                    <not>
-                        <technology-statistics-exists name="Liferay">
-                            <tag name="Execute"/>
-                            <tag name="Embedded"/>
-                            <tag name="3rd party"/>
-                        </technology-statistics-exists>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="Liferay Technology Statistic Not Found" />
-                </perform>
-            </rule>
-            <rule id="technology-usage-embedded-framework-02600-test">
-                <when>
-                    <not>
-                        <technology-statistics-exists name="Oracle Forms">
-                            <tag name="Execute"/>
-                            <tag name="Embedded"/>
-                            <tag name="3rd party"/>
-                        </technology-statistics-exists>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="Oracle Forms Technology Statistic Not Found" />
-                </perform>
-            </rule>
+<?xml version="1.0" encoding="UTF-8"?>
+<ruletest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:windupfunctions="windupcustomfunctions"
+          xmlns:windup="http://windup.jboss.org/schema/jboss-ruleset"
+          id="technology-usage-embedded-framework-test"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
 
-            <!-- From Java Discover rules-->
-            <rule id="embedded-framework-embedded-framework-02700-test">
-                <when>
-                    <not>
-                        <technology-statistics-exists name="ehcache">
-                            <tag name="Store"/>
-                            <tag name="Embedded"/>
-                            <tag name="Caching"/>
-                        </technology-statistics-exists>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="ehcache Technology Statistic Not Found" />
-                </perform>
-            </rule>
-            <rule id="embedded-framework-embedded-framework-02800-test">
-                <when>
-                    <not>
-                        <technology-statistics-exists name="infinispan">
-                            <tag name="Store"/>
-                            <tag name="Embedded"/>
-                            <tag name="Caching"/>
-                        </technology-statistics-exists>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="infinispan Technology Statistic Not Found" />
-                </perform>
-            </rule>
-            <rule id="embedded-framework-embedded-framework-02900-test">
-                <when>
-                    <not>
-                        <technology-statistics-exists name="Drools">
-                            <tag name="Execute"/>
-                            <tag name="Embedded"/>
-                            <tag name="Rules and Processes"/>
-                        </technology-statistics-exists>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="Drools Technology Statistic Not Found" />
-                </perform>
-            </rule>
-            <rule id="embedded-framework-embedded-framework-03000-test">
-                <when>
-                    <not>
-                        <technology-statistics-exists name="Camel">
-                            <tag name="Execute"/>
-                            <tag name="Embedded"/>
-                            <tag name="Integration"/>
-                        </technology-statistics-exists>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="Camel Technology Statistic Not Found" />
-                </perform>
-            </rule>
-            <rule id="embedded-framework-embedded-framework-03100-test">
-                <when>
-                    <not>
-                        <technology-statistics-exists name="Teiid">
-                            <tag name="Execute"/>
-                            <tag name="Embedded"/>
-                            <tag name="Integration"/>
-                        </technology-statistics-exists>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="Teiid Technology Statistic Not Found" />
-                </perform>
-            </rule>
-        </rules>
-    </ruleset>
+      <testDataPath>data/embedded-framework/</testDataPath>
+      <rulePath>../../openshift/embedded-cache-libraries.windup.xml</rulePath>
+      <rulePath>../../eap7/embedded-framework-libraries.windup.xml</rulePath>
+      <rulePath>../embedded-framework.windup.xml</rulePath>
+      <rulePath>../embedded-framework-technology-usage.windup.xml</rulePath>
+   <ruleset>
+      <rules>
+         <rule id="technology-usage-embedded-framework-01000-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Axis" number-found="1">
+                     <tag name="Connect"/>
+                     <tag name="Embedded"/>
+                     <tag name="Web Service"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-01000"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-01010-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Axis2" number-found="1">
+                     <tag name="Connect"/>
+                     <tag name="Embedded"/>
+                     <tag name="Web Service"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-01010"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-01100-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="CXF" number-found="1">
+                     <tag name="Connect"/>
+                     <tag name="Embedded"/>
+                     <tag name="Web Service"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-01100"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-01200-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="XFire" number-found="1">
+                     <tag name="Connect"/>
+                     <tag name="Embedded"/>
+                     <tag name="Web Service"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-01200"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-01300-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Jersey" number-found="1">
+                     <tag name="Connect"/>
+                     <tag name="Embedded"/>
+                     <tag name="REST"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-01300"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-01400-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Unirest" number-found="1">
+                     <tag name="Connect"/>
+                     <tag name="Embedded"/>
+                     <tag name="REST"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-01400"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-01500-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Hibernate" number-found="1">
+                     <tag name="Store"/>
+                     <tag name="Embedded"/>
+                     <tag name="Object Mapping"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-01500"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-01600-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Hibernate OGM" number-found="1">
+                     <tag name="Store"/>
+                     <tag name="Embedded"/>
+                     <tag name="Object Mapping"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-01600"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-01700-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="EclipseLink" number-found="1">
+                     <tag name="Store"/>
+                     <tag name="Embedded"/>
+                     <tag name="Object Mapping"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-01700"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-02000-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Spring Batch" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Processing"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-02000"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-02100-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Spring" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Inversion of Control"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-02100"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-02200-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="AspectJ" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Inversion of Control"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-02200"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-02300-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="JBPM" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Rules and Processes"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-02300"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-02400-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="iLog" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Rules and Processes"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-02400"/>
+            </perform>
+         </rule>
+         <rule id="embedded-framework-embedded-framework-02700-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="ehcache" number-found="1">
+                     <tag name="Store"/>
+                     <tag name="Embedded"/>
+                     <tag name="Caching"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule embedded-framework-embedded-framework-02700"/>
+            </perform>
+         </rule>
+         <rule id="embedded-framework-embedded-framework-02800-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="infinispan" number-found="1">
+                     <tag name="Store"/>
+                     <tag name="Embedded"/>
+                     <tag name="Caching"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule embedded-framework-embedded-framework-02800"/>
+            </perform>
+         </rule>
+         <rule id="embedded-framework-embedded-framework-02900-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Drools" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Rules and Processes"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule embedded-framework-embedded-framework-02900"/>
+            </perform>
+         </rule>
+         <rule id="embedded-framework-embedded-framework-03000-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Camunda" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Rules and Processes"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule embedded-framework-embedded-framework-03000"/>
+            </perform>
+         </rule>
+         <rule id="embedded-framework-embedded-framework-03100-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Pega" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Rules and Processes"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule embedded-framework-embedded-framework-03100"/>
+            </perform>
+         </rule>
+         <rule id="embedded-framework-embedded-framework-03200-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Blaze" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Rules and Processes"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule embedded-framework-embedded-framework-03200"/>
+            </perform>
+         </rule>
+         <rule id="embedded-framework-embedded-framework-03300-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="MRules" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Rules and Processes"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule embedded-framework-embedded-framework-03300"/>
+            </perform>
+         </rule>
+         <rule id="embedded-framework-embedded-framework-03400-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Easy Rules" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Rules and Processes"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule embedded-framework-embedded-framework-03400"/>
+            </perform>
+         </rule>
+         <rule id="embedded-framework-embedded-framework-03500-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Coherence" number-found="1">
+                     <tag name="Store"/>
+                     <tag name="Embedded"/>
+                     <tag name="Caching"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule embedded-framework-embedded-framework-03500"/>
+            </perform>
+         </rule>
+         <rule id="embedded-framework-embedded-framework-03600-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Apache Commons JCS" number-found="1">
+                     <tag name="Store"/>
+                     <tag name="Embedded"/>
+                     <tag name="Caching"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule embedded-framework-embedded-framework-03600"/>
+            </perform>
+         </rule>
+         <rule id="embedded-framework-embedded-framework-03700-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Dynacache" number-found="1">
+                     <tag name="Store"/>
+                     <tag name="Embedded"/>
+                     <tag name="Caching"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule embedded-framework-embedded-framework-03700"/>
+            </perform>
+         </rule>
+         <rule id="embedded-framework-embedded-framework-03800-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Cache API" number-found="1">
+                     <tag name="Store"/>
+                     <tag name="Embedded"/>
+                     <tag name="Caching"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule embedded-framework-embedded-framework-03800"/>
+            </perform>
+         </rule>
+         <rule id="embedded-framework-embedded-framework-03900-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Hazelcast" number-found="1">
+                     <tag name="Store"/>
+                     <tag name="Embedded"/>
+                     <tag name="Caching"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule embedded-framework-embedded-framework-03900"/>
+            </perform>
+         </rule>
+         <rule id="embedded-framework-embedded-framework-04000-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Apache Ignite" number-found="1">
+                     <tag name="Store"/>
+                     <tag name="Embedded"/>
+                     <tag name="Caching"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule embedded-framework-embedded-framework-04000"/>
+            </perform>
+         </rule>
+         <rule id="embedded-framework-embedded-framework-04100-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="JBoss Cache" number-found="1">
+                     <tag name="Store"/>
+                     <tag name="Embedded"/>
+                     <tag name="Caching"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule embedded-framework-embedded-framework-04100"/>
+            </perform>
+         </rule>
+         <rule id="embedded-framework-embedded-framework-04200-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="JCache" number-found="1">
+                     <tag name="Store"/>
+                     <tag name="Embedded"/>
+                     <tag name="Caching"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule embedded-framework-embedded-framework-04200"/>
+            </perform>
+         </rule>
+         <rule id="embedded-framework-embedded-framework-04300-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Memcached" number-found="1">
+                     <tag name="Store"/>
+                     <tag name="Embedded"/>
+                     <tag name="Caching"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule embedded-framework-embedded-framework-04300"/>
+            </perform>
+         </rule>
+         <rule id="embedded-framework-embedded-framework-04400-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Oscache" number-found="1">
+                     <tag name="Store"/>
+                     <tag name="Embedded"/>
+                     <tag name="Caching"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule embedded-framework-embedded-framework-04400"/>
+            </perform>
+         </rule>
+         <rule id="embedded-framework-embedded-framework-04500-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="ShiftOne" number-found="1">
+                     <tag name="Store"/>
+                     <tag name="Embedded"/>
+                     <tag name="Caching"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule embedded-framework-embedded-framework-04500"/>
+            </perform>
+         </rule>
+         <rule id="embedded-framework-embedded-framework-04600-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="SwarmCache" number-found="1">
+                     <tag name="Store"/>
+                     <tag name="Embedded"/>
+                     <tag name="Caching"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule embedded-framework-embedded-framework-04600"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-04700-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="AOP Alliance" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Inversion of Control"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-04700"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-05000-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="SNMP4J" number-found="1">
+                     <tag name="Connect"/>
+                     <tag name="Embedded"/>
+                     <tag name="Other"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-05000"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-05100-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="HTTP Client" number-found="1">
+                     <tag name="Connect"/>
+                     <tag name="Embedded"/>
+                     <tag name="Other"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-05100"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-05300-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Javax Inject" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Inversion of Control"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-05300"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-05400-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Google Guice" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Inversion of Control"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-05400"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-05500-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="CDI" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Inversion of Control"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-05500"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-05600-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Plexus Container" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Inversion of Control"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-05600"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-05700-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Weld" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Inversion of Control"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-05700"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-05800-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Dagger" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Inversion of Control"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-05800"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-05900-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="GIN" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Inversion of Control"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-05900"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-06000-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="PicoContainer" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Inversion of Control"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-06000"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-06100-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Scaldi" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Inversion of Control"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-06100"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-06200-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Macros" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Inversion of Control"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-06200"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-06300-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Injekt for Kotlin" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Inversion of Control"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-06300"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-06400-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Kodein" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Inversion of Control"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-06400"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-06500-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Peaberry" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Inversion of Control"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-06500"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-06600-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Sticky Configured" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Inversion of Control"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-06600"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-06700-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Ka DI" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Inversion of Control"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-06700"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-06800-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Polyforms DI" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Inversion of Control"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-06800"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-06900-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="JayWire" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Inversion of Control"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-06900"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-07000-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Silk DI" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Inversion of Control"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-07000"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-07100-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Grapht DI" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Inversion of Control"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-07100"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-07200-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Syringe" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Inversion of Control"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-07200"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-07300-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Cfg Engine" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Inversion of Control"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-07300"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-07400-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="BeanInject" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Inversion of Control"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-07400"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-07500-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Tornado Inject" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Inversion of Control"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-07500"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-07600-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Airframe" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Inversion of Control"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-07600"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-07700-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Winter" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Inversion of Control"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-07700"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-07800-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="KouInject" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Inversion of Control"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-07800"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-07900-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Iroh" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Inversion of Control"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-07900"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-08000-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Micro DI" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Inversion of Control"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-08000"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-08100-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="SubCut" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Inversion of Control"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-08100"/>
+            </perform>
+         </rule>
+      </rules>
+   </ruleset>
 </ruletest>

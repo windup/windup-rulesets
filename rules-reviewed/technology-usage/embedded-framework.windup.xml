@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="embedded-framework"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+<ruleset
+    xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="embedded-framework"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <metadata>
         <description>
             This ruleset provides analysis of embedded frameworks.
@@ -111,48 +111,24 @@
                 <technology-tag level="INFORMATIONAL">EclipseLink (embedded)</technology-tag>
             </perform>
         </rule>
-        <rule id="embedded-framework-01800">
-            <when>
-                <file filename="{*}esapi{*}.jar"/>
-            </when>
-            <perform>
-                <classification title="Embedded framework - ESAPI" category-id="optional" effort="0">
-                    <description>The application embeds the ESAPI framework.</description>
-                </classification>
-                <technology-tag level="INFORMATIONAL">ESAPI (embedded)</technology-tag>
-            </perform>
-        </rule>
-        <rule id="embedded-framework-01900">
-            <when>
-                <file filename="{*}junit{*}.jar"/>
-            </when>
-            <perform>
-                <classification title="Embedded framework - JUnit" category-id="optional" effort="0">
-                    <description>The application embeds the JUnit framework.</description>
-                </classification>
-                <technology-tag level="INFORMATIONAL">JUnit (embedded)</technology-tag>
-            </perform>
-        </rule>
         <rule id="embedded-framework-02000">
             <when>
                 <file filename="spring-batch{*}.jar"/>
             </when>
             <perform>
-                <classification title="Embedded framework - Spring Batch" category-id="optional" effort="0">
-                    <description>The application embeds the Spring Batch framework.</description>
-                </classification>
-                <technology-tag level="INFORMATIONAL">Spring Batch (embedded)</technology-tag>
-            </perform>
-        </rule>
-        <rule id="embedded-framework-02100">
-            <when>
-                <file filename="spring{*}.jar"/>
-            </when>
-            <perform>
-                <classification title="Embedded framework - Spring" category-id="optional" effort="0">
-                    <description>The application embeds the Spring framework.</description>
-                </classification>
-                <technology-tag level="INFORMATIONAL">Spring (embedded)</technology-tag>
+                <iteration>
+                    <when>
+                        <not>
+                            <file filename="spring-batch{*}test{*}.jar"/>
+                        </not>
+                    </when>
+                    <perform>
+                        <classification title="Embedded framework - Spring Batch" category-id="optional" effort="0">
+                            <description>The application embeds the Spring Batch framework.</description>
+                        </classification>
+                        <technology-tag level="INFORMATIONAL">Spring Batch (embedded)</technology-tag>
+                    </perform>
+                </iteration>
             </perform>
         </rule>
         <rule id="embedded-framework-02200">
@@ -188,26 +164,445 @@
                 <technology-tag level="INFORMATIONAL">iLog (embedded)</technology-tag>
             </perform>
         </rule>
-        <rule id="embedded-framework-02500">
+        <rule id="embedded-framework-03000">
             <when>
-                <file filename="{*}liferay{*}.jar"/>
+                <file filename="{*}camunda{*}.jar"/>
             </when>
             <perform>
-                <classification title="Embedded framework - Liferay" category-id="optional" effort="0">
-                    <description>The application embeds the Liferay framework.</description>
+                <classification title="Embedded framework - Camunda" category-id="optional" effort="0">
+                    <description>The application embeds the Camunda framework.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">Liferay (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">Camunda (embedded)</technology-tag>
             </perform>
         </rule>
-        <rule id="embedded-framework-02600">
+        <rule id="embedded-framework-03100">
             <when>
-                <file filename="{*}frm{*}.jar"/>
+                <file filename="{*}pega{*}.jar"/>
             </when>
             <perform>
-                <classification title="Embedded framework - Oracle Forms" category-id="optional" effort="0">
-                    <description>The application embeds the Oracle Forms framework.</description>
+                <classification title="Embedded framework - Pega" category-id="optional" effort="0">
+                    <description>The application embeds the Pega framework.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">Oracle Forms (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">Pega (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-03200">
+            <when>
+                <file filename="blaze{*}.jar"/>
+            </when>
+            <perform>
+                <iteration>
+                    <when>
+                        <not>
+                            <file filename="{*}blazeds{*}.jar"/>
+                        </not>
+                    </when>
+                    <perform>
+                        <classification title="Embedded framework - Blaze" category-id="optional" effort="0">
+                            <description>The application embeds the Blaze framework.</description>
+                        </classification>
+                        <technology-tag level="INFORMATIONAL">Blaze (embedded)</technology-tag>
+                    </perform>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-03300">
+            <when>
+                <file filename="{*}MRules{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - MRules" category-id="optional" effort="0">
+                    <description>The application embeds the MRules framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">MRules (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-03100">
+            <when>
+                <file filename="{*}easy-rules{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Easy Rules" category-id="optional" effort="0">
+                    <description>The application embeds the Easy Rules framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Easy Rules (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-04700">
+            <when>
+                <file filename="{*}aopalliance{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - AOP Alliance" category-id="optional" effort="0">
+                    <description>The application embeds the AOP Alliance library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">AOP Alliance (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-05000">
+            <when>
+                <file filename="{*}snmp4j{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - SNMP4J" category-id="optional" effort="0">
+                    <description>The application embeds SNMP4J.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">SNMP4J (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-05100">
+            <when>
+                <file filename="{*}http-client{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - HTTP Client" category-id="optional" effort="0">
+                    <description>The application embeds a HTTP client.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">HTTP Client (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-05200">
+            <when>
+                <file filename="spring{*}.jar"/>
+            </when>
+            <perform>
+                <iteration>
+                    <when>
+                        <not>
+                            <has-classification title="Spring {pattern} (embedded)"/>
+                        </not>
+                    </when>
+                    <classification title="Embedded framework - Spring" category-id="optional" effort="0">
+                        <description>The application embeds the Spring framework.</description>
+                    </classification>
+                    <technology-tag level="INFORMATIONAL">Spring (embedded)</technology-tag>
+                </iteration>
+            </perform>
+            <where param="pattern">
+                <matches pattern="(Integration|Data|Security|MVC|Batch|Boot|Test)"/>
+            </where>
+        </rule>
+        <rule id="embedded-framework-05300">
+            <when>
+                <or>
+                    <file filename="javax.inject{*}.jar"/>
+                    <file filename="{*}atinject{*}.jar"/>
+                </or>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Javax Inject" category-id="optional" effort="0">
+                    <description>The application embeds a Javax Inject library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Javax Inject (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-05400">
+            <when>
+                <file filename="{*}guice{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Google Guice" category-id="optional" effort="0">
+                    <description>The application embeds a Google Guice library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Google Guice (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-05500">
+            <when>
+                <file filename="{*}cdi{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - CDI" category-id="optional" effort="0">
+                    <description>The application embeds a CDI library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">CDI (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-05600">
+            <when>
+                <file filename="{*}plexus-container{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Plexus Container" category-id="optional" effort="0">
+                    <description>The application embeds a Plexus Container library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Plexus Container (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-05700">
+            <when>
+                <file filename="{*}weld{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Weld" category-id="optional" effort="0">
+                    <description>The application embeds a Weld library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Weld (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-05800">
+            <when>
+                <file filename="dagger{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Dagger" category-id="optional" effort="0">
+                    <description>The application embeds a Dagger library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Dagger (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-05900">
+            <when>
+                <file filename="gin{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - GIN" category-id="optional" effort="0">
+                    <description>The application embeds a GIN (GWT INjection) library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">GIN (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-06000">
+            <when>
+                <file filename="{*}picocontainer{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - PicoContainer" category-id="optional" effort="0">
+                    <description>The application embeds a PicoContainer library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">PicoContainer (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-06100">
+            <when>
+                <file filename="{*}scaldi{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Scaldi" category-id="optional" effort="0">
+                    <description>The application embeds a Scaldi library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Scaldi (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-06200">
+            <when>
+                <file filename="macros{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Macros" category-id="optional" effort="0">
+                    <description>The application embeds a Macros library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Macros (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-06300">
+            <when>
+                <file filename="injekt-core{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Injekt for Kotlin" category-id="optional" effort="0">
+                    <description>The application embeds a Injekt for Kotlin library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Injekt for Kotlin (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-06400">
+            <when>
+                <file filename="kodein{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Kodein" category-id="optional" effort="0">
+                    <description>The application embeds a Kodein library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Kodein (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-06500">
+            <when>
+                <file filename="peaberry{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Peaberry" category-id="optional" effort="0">
+                    <description>The application embeds a Peaberry library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Peaberry (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-06600">
+            <when>
+                <file filename="sticky-configured{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Sticky Configured" category-id="optional" effort="0">
+                    <description>The application embeds a Sticky Configured library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Sticky Configured (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-06700">
+            <when>
+                <file filename="ka-di{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Ka DI" category-id="optional" effort="0">
+                    <description>The application embeds a Ka DI library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Ka DI (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-06800">
+            <when>
+                <file filename="polyforms-di{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Polyforms DI" category-id="optional" effort="0">
+                    <description>The application embeds a Polyforms DI library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Polyforms DI (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-06900">
+            <when>
+                <file filename="jaywire{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - JayWire" category-id="optional" effort="0">
+                    <description>The application embeds a JayWire library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">JayWire (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-07000">
+            <when>
+                <file filename="silk-di{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Silk DI" category-id="optional" effort="0">
+                    <description>The application embeds a Silk DI library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Silk DI (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-07100">
+            <when>
+                <file filename="grapht{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Grapht DI" category-id="optional" effort="0">
+                    <description>The application embeds a Grapht DI library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Grapht DI (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-07200">
+            <when>
+                <file filename="syringe{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Syringe" category-id="optional" effort="0">
+                    <description>The application embeds a Syringe library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Syringe (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-07300">
+            <when>
+                <file filename="cfg-engine{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Cfg Engine" category-id="optional" effort="0">
+                    <description>The application embeds a Cfg Engine library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Cfg Engine (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-07400">
+            <when>
+                <file filename="beaninject{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - BeanInject" category-id="optional" effort="0">
+                    <description>The application embeds a BeanInject library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">BeanInject (embedded)</technology-tag>
+            </perform>
+        </rule>
+
+        <rule id="embedded-framework-07500">
+            <when>
+                <file filename="inject{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Tornado Inject" category-id="optional" effort="0">
+                    <description>The application embeds a Tornado Inject library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Tornado Inject (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-07600">
+            <when>
+                <file filename="airframe{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Airframe" category-id="optional" effort="0">
+                    <description>The application embeds a Airframe library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Airframe (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-07700">
+            <when>
+                <file filename="winter{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Winter" category-id="optional" effort="0">
+                    <description>The application embeds a Winter library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Winter (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-07800">
+            <when>
+                <file filename="kouinject{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - KouInject" category-id="optional" effort="0">
+                    <description>The application embeds a KouInject library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">KouInject (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-07900">
+            <when>
+                <file filename="iroh{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Iroh" category-id="optional" effort="0">
+                    <description>The application embeds an Iroh library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Iroh (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-08000">
+            <when>
+                <file filename="micro-di{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Micro DI" category-id="optional" effort="0">
+                    <description>The application embeds a Micro DI library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Micro DI (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-08100">
+            <when>
+                <file filename="subcut{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - SubCut" category-id="optional" effort="0">
+                    <description>The application embeds a SubCut library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">SubCut (embedded)</technology-tag>
             </perform>
         </rule>
     </rules>

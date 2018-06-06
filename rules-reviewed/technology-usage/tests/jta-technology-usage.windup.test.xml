@@ -1,23 +1,310 @@
-<?xml version="1.0"?>
-<ruletest id="technology-usage-jta-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+<?xml version="1.0" encoding="UTF-8"?>
+<ruletest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:windupfunctions="windupcustomfunctions"
+          xmlns:windup="http://windup.jboss.org/schema/jboss-ruleset"
+          id="technology-usage-jta-test"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
     <testDataPath>data/jta</testDataPath>
+    <rulePath>../jta.windup.xml</rulePath>
     <rulePath>../jta-technology-usage.windup.xml</rulePath>
-    <ruleset>
-        <rules>
-            <rule id="technology-usage-jta-00010-test">
-                <when>
-                    <not>
-                        <technology-statistics-exists name="JTA" number-found="2">
-                            <tag name="Connect"/>
-                            <tag name="Transaction"/>
-                            <tag name="Java EE"/>
-                        </technology-statistics-exists>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="JTA Technology Statistic Not Found" />
-                </perform>
-            </rule>
-         </rules>
-    </ruleset>
+   <ruleset>
+      <rules>
+         <rule id="technology-usage-jta-00010-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="JTA" number-found="2">
+                     <tag name="Sustain"/>
+                     <tag name="Transaction"/>
+                     <tag name="Java EE"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-jta-00010"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-jta-00020-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Mycontainer JTA" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Transaction"/>
+                     <tag name="Embedded"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-jta-00020"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-jta-00030-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Geronimo JTA" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Transaction"/>
+                     <tag name="Embedded"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-jta-00030"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-jta-00040-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="OW2 JTA" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Transaction"/>
+                     <tag name="Embedded"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-jta-00040"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-jta-00050-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Evo JTA" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Transaction"/>
+                     <tag name="Embedded"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-jta-00050"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-jta-00060-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="AKKA JTA" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Transaction"/>
+                     <tag name="Embedded"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-jta-00060"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-jta-00070-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="KumuluzEE JTA" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Transaction"/>
+                     <tag name="Embedded"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-jta-00070"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-jta-00080-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Ignite JTA" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Transaction"/>
+                     <tag name="Embedded"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-jta-00080"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-jta-00090-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Nuxeo JTA/JCA" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Transaction"/>
+                     <tag name="Embedded"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-jta-00090"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-jta-00100-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Everit JTA" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Transaction"/>
+                     <tag name="Embedded"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-jta-00100"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-jta-00110-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Demoiselle JTA" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Transaction"/>
+                     <tag name="Embedded"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-jta-00110"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-jta-00120-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Apache Meecrowave JTA" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Transaction"/>
+                     <tag name="Embedded"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-jta-00120"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-jta-00130-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Apache Sirona JTA" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Transaction"/>
+                     <tag name="Embedded"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-jta-00130"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-jta-00140-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Lift JTA" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Transaction"/>
+                     <tag name="Embedded"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-jta-00140"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-jta-00150-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="WF Core JTA" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Transaction"/>
+                     <tag name="Embedded"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-jta-00150"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-jta-00160-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Java Transaction API" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Transaction"/>
+                     <tag name="Embedded"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-jta-00160"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-jta-00170-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="JBoss Transactions" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Transaction"/>
+                     <tag name="Embedded"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-jta-00170"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-jta-00180-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="GlassFish JTA" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Transaction"/>
+                     <tag name="Embedded"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-jta-00180"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-jta-00190-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Atomikos JTA" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Transaction"/>
+                     <tag name="Embedded"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-jta-00190"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-jta-00200-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Narayana Arjuna" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Transaction"/>
+                     <tag name="Embedded"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-jta-00200"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-jta-00210-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Spring Transactions" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Transaction"/>
+                     <tag name="Embedded"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-jta-00210"/>
+            </perform>
+         </rule>
+      </rules>
+   </ruleset>
 </ruletest>

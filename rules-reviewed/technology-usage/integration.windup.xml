@@ -1,0 +1,198 @@
+<?xml version="1.0"?>
+<ruleset
+    xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="integration"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of 3rd party embedded frameworks.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+    </metadata>
+    <rules>
+      <rule id="integration-00001">
+          <when>
+              <graph-query discriminator="JarArchiveModel">
+                  <property name="fileName" searchType="regex">.*camel.*\.jar$</property>
+              </graph-query>
+          </when>
+          <perform>
+              <classification title="Embedded library - Apache Camel" category-id="optional" effort="0">
+                  <description>
+                      The application embedds an Apache Camel library.
+                  </description>
+              </classification>
+              <technology-tag level="INFORMATIONAL">Apache Camel (embedded)</technology-tag>
+          </perform>
+      </rule>
+      <rule id="integration-00002">
+          <when>
+              <graph-query discriminator="JarArchiveModel">
+                  <property name="fileName" searchType="regex">.*teiid.*\.jar$</property>
+              </graph-query>
+          </when>
+          <perform>
+              <classification title="Embedded library - Teiid" category-id="optional" effort="0">
+                  <description>
+                      The application embedds a Teiid library.
+                  </description>
+              </classification>
+              <technology-tag level="INFORMATIONAL">Teiid (embedded)</technology-tag>
+          </perform>
+      </rule>
+      <rule id="integration-00003">
+          <when>
+              <file filename="spring-integration{*}.jar"/>
+          </when>
+          <perform>
+              <iteration>
+                  <when>
+                      <not>
+                          <file filename="spring-integration{*}test{*}.jar"/>
+                      </not>
+                  </when>
+                  <perform>
+                      <classification title="Embedded framework - Spring Integration" category-id="optional" effort="0">
+                          <description>The application embeds the Spring Integration framework.</description>
+                      </classification>
+                      <technology-tag level="INFORMATIONAL">Spring Integration (embedded)</technology-tag>
+                  </perform>
+              </iteration>
+          </perform>
+      </rule>
+      <rule id="integration-00004">
+          <when>
+              <file filename="{*}ikasan{*}.jar"/>
+          </when>
+          <perform>
+              <classification title="Embedded framework - Ikasan" category-id="optional" effort="0">
+                  <description>The application embeds an Ikasan library.</description>
+              </classification>
+              <technology-tag level="INFORMATIONAL">Ikasan (embedded)</technology-tag>
+          </perform>
+      </rule>
+      <rule id="integration-00005">
+          <when>
+              <file filename="{*}swagger{*}.jar"/>
+          </when>
+          <perform>
+              <classification title="Embedded framework - Swagger" category-id="optional" effort="0">
+                  <description>The application embeds a Swagger library.</description>
+              </classification>
+              <technology-tag level="INFORMATIONAL">Swagger (embedded)</technology-tag>
+          </perform>
+      </rule>
+      <rule id="integration-00006">
+          <when>
+              <file filename="{*}apiman{*}.jar"/>
+          </when>
+          <perform>
+              <classification title="Embedded framework - Apiman" category-id="optional" effort="0">
+                  <description>The application embeds an Apiman library.</description>
+              </classification>
+              <technology-tag level="INFORMATIONAL">Apiman (embedded)</technology-tag>
+          </perform>
+      </rule>
+      <rule id="integration-00007">
+          <when>
+              <file filename="{*}3scale{*}.jar"/>
+          </when>
+          <perform>
+              <classification title="Embedded framework - 3scale" category-id="optional" effort="0">
+                  <description>The application embeds a 3scale library.</description>
+              </classification>
+              <technology-tag level="INFORMATIONAL">3scale (embedded)</technology-tag>
+          </perform>
+      </rule>
+      <rule id="integration-00008">
+          <when>
+              <file filename="{*}istio{*}.jar"/>
+          </when>
+          <perform>
+              <classification title="Embedded framework - Istio" category-id="optional" effort="0">
+                  <description>The application embeds an Istio library.</description>
+              </classification>
+              <technology-tag level="INFORMATIONAL">Istio (embedded)</technology-tag>
+          </perform>
+      </rule>
+      <rule id="integration-00009">
+          <when>
+              <file filename="{*}servicemix{*}.jar"/>
+          </when>
+          <perform>
+              <classification title="Embedded framework - ServiceMix" category-id="optional" effort="0">
+                  <description>The application embeds a ServiceMix library.</description>
+              </classification>
+              <technology-tag level="INFORMATIONAL">ServiceMix (embedded)</technology-tag>
+          </perform>
+      </rule>
+      <rule id="integration-00010">
+          <when>
+              <file filename="{*}mule{*}.jar"/>
+          </when>
+          <perform>
+              <classification title="Embedded framework - Mule" category-id="optional" effort="0">
+                  <description>The application embeds a Mule library.</description>
+              </classification>
+              <technology-tag level="INFORMATIONAL">Mule (embedded)</technology-tag>
+          </perform>
+      </rule>
+      <rule id="integration-00011">
+          <when>
+              <file filename="{*}petals{*}eip{*}.jar"/>
+          </when>
+          <perform>
+              <classification title="Embedded framework - Petals EIP" category-id="optional" effort="0">
+                  <description>The application embeds a Petals EIP library.</description>
+              </classification>
+              <technology-tag level="INFORMATIONAL">Petals EIP (embedded)</technology-tag>
+          </perform>
+      </rule>
+      <rule id="integration-00012">
+          <when>
+              <file filename="{*}switchyard{*}.jar"/>
+          </when>
+          <perform>
+              <classification title="Embedded framework - SwitchYard" category-id="optional" effort="0">
+                  <description>The application embeds a SwitchYard library.</description>
+              </classification>
+              <technology-tag level="INFORMATIONAL">SwitchYard (embedded)</technology-tag>
+          </perform>
+      </rule>
+      <rule id="integration-00013">
+          <when>
+              <file filename="{*}synapse{*}.jar"/>
+          </when>
+          <perform>
+              <classification title="Embedded framework - Apache Synapse" category-id="optional" effort="0">
+                  <description>The application embeds an Apache Synapse library.</description>
+              </classification>
+              <technology-tag level="INFORMATIONAL">Apache Synapse (embedded)</technology-tag>
+          </perform>
+      </rule>
+      <rule id="integration-00014">
+          <when>
+              <file filename="{*}wso2{*}.jar"/>
+          </when>
+          <perform>
+              <classification title="Embedded framework - WSO2" category-id="optional" effort="0">
+                  <description>The application embeds a WSO2 library.</description>
+              </classification>
+              <technology-tag level="INFORMATIONAL">WSO2 (embedded)</technology-tag>
+          </perform>
+      </rule>
+      <rule id="integration-00015">
+          <when>
+              <file filename="{*}talend{*}.jar"/>
+          </when>
+          <perform>
+              <classification title="Embedded framework - Talend ESB" category-id="optional" effort="0">
+                  <description>The application embeds a Talend ESB library.</description>
+              </classification>
+              <technology-tag level="INFORMATIONAL">Talend ESB (embedded)</technology-tag>
+          </perform>
+      </rule>
+    </rules>
+</ruleset>

@@ -1,79 +1,296 @@
-<?xml version="1.0" ?>
-<ruletest id="technology-usage-connect-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset">
-    <testDataPath>data/connect/</testDataPath>
+<?xml version="1.0" encoding="UTF-8"?>
+<ruletest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:windupfunctions="windupcustomfunctions"
+          xmlns:windup="http://windup.jboss.org/schema/jboss-ruleset"
+          id="technology-usage-connect-test"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <testDataPath>data/connect</testDataPath>
+    <rulePath>../connect.windup.xml</rulePath>
     <rulePath>../connect-technology-usage.windup.xml</rulePath>
-    <ruleset>
-        <rules>
-            <rule id="technology-usage-connect-01000-test">
-                <when>
-                    <not>
-                        <technology-statistics-exists name="RMI" number-found="1">
-                            <tag name="Connect"/>
-                            <tag name="Other"/>
-                            <tag name="Java EE"/>
-                        </technology-statistics-exists>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="RMI Technology Statistic Not Found" />
-                </perform>
-            </rule>
-            <rule id="technology-usage-connect-01100-test">
-                <when>
-                    <not>
-                        <technology-statistics-exists name="JNI" number-found="5">
-                            <tag name="Connect"/>
-                            <tag name="Other"/>
-                            <tag name="Java EE"/>
-                        </technology-statistics-exists>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="JNI Technology Statistic Not Found" />
-                </perform>
-            </rule>
-            <rule id="technology-usage-connect-01101-test">
-                <when>
-                    <not>
-                        <technology-statistics-exists name="JNA" number-found="7">
-                            <tag name="Connect"/>
-                            <tag name="Other"/>
-                            <tag name="Java EE"/>
-                        </technology-statistics-exists>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="JNA Technology Statistic Not Found" />
-                </perform>
-            </rule>
-            <rule id="technology-usage-connect-01200-test">
-                <when>
-                    <not>
-                        <technology-statistics-exists name="Mail" number-found="17">
-                            <tag name="Connect"/>
-                            <tag name="Other"/>
-                            <tag name="Java EE"/>
-                        </technology-statistics-exists>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="Mail Technology Statistic Not Found" />
-                </perform>
-            </rule>
-            <rule id="technology-usage-connect-01300-test">
-                <when>
-                    <not>
-                        <technology-statistics-exists name="JCA" number-found="17">
-                            <tag name="Connect"/>
-                            <tag name="Other"/>
-                            <tag name="Java EE"/>
-                        </technology-statistics-exists>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="JCA Technology Statistic Not Found" />
-                </perform>
-            </rule>
-        </rules>
-    </ruleset>
+   <ruleset>
+      <rules>
+         <rule id="technology-usage-connect-01000-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="RMI" number-found="1">
+                     <tag name="Connect"/>
+                     <tag name="Other"/>
+                     <tag name="Java EE"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-connect-01000"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-connect-01100-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="JNI" number-found="5">
+                     <tag name="Connect"/>
+                     <tag name="Other"/>
+                     <tag name="Java EE"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-connect-01100"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-connect-01101-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="JNA" number-found="7">
+                     <tag name="Connect"/>
+                     <tag name="Other"/>
+                     <tag name="Java EE"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-connect-01101"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-connect-01200-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Mail" number-found="17">
+                     <tag name="Connect"/>
+                     <tag name="Other"/>
+                     <tag name="Java EE"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-connect-01200"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-connect-01300-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="JCA" number-found="17">
+                     <tag name="Connect"/>
+                     <tag name="Other"/>
+                     <tag name="Java EE"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-connect-01300"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-connect-01400-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Resource Adapter" number-found="1">
+                     <tag name="Connect"/>
+                     <tag name="Embedded"/>
+                     <tag name="Other"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-connect-01400"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-connect-01500-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="ActiveMQ library" number-found="1">
+                     <tag name="Connect"/>
+                     <tag name="Embedded"/>
+                     <tag name="Other"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-connect-01500"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-connect-01600-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="OpenWS" number-found="1">
+                     <tag name="Connect"/>
+                     <tag name="Embedded"/>
+                     <tag name="Web Service"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-connect-01600"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-connect-01700-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="WSDL" number-found="1">
+                     <tag name="Connect"/>
+                     <tag name="Embedded"/>
+                     <tag name="Web Service"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-connect-01700"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-connect-01800-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="RabbitMQ Client" number-found="1">
+                     <tag name="Connect"/>
+                     <tag name="Embedded"/>
+                     <tag name="Other"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-connect-01800"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-connect-01900-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Spring Messaging Client" number-found="1">
+                     <tag name="Connect"/>
+                     <tag name="Embedded"/>
+                     <tag name="Other"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-connect-01900"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-connect-02000-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Camel Messaging Client" number-found="1">
+                     <tag name="Connect"/>
+                     <tag name="Embedded"/>
+                     <tag name="Other"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-connect-02000"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-connect-02100-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Amazon SQS Client" number-found="1">
+                     <tag name="Connect"/>
+                     <tag name="Embedded"/>
+                     <tag name="Other"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-connect-02100"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-connect-02200-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="HornetQ Client" number-found="1">
+                     <tag name="Connect"/>
+                     <tag name="Embedded"/>
+                     <tag name="Other"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-connect-02200"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-connect-02300-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="AMQP Client" number-found="1">
+                     <tag name="Connect"/>
+                     <tag name="Embedded"/>
+                     <tag name="Other"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-connect-02300"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-connect-02400-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="RocketMQ Client" number-found="1">
+                     <tag name="Connect"/>
+                     <tag name="Embedded"/>
+                     <tag name="Other"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-connect-02400"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-connect-02500-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="0MQ Client" number-found="1">
+                     <tag name="Connect"/>
+                     <tag name="Embedded"/>
+                     <tag name="Other"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-connect-02500"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-connect-02600-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="JBossMQ client" number-found="1">
+                     <tag name="Connect"/>
+                     <tag name="Embedded"/>
+                     <tag name="Other"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-connect-02600"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-connect-02700-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Zbus Client" number-found="1">
+                     <tag name="Connect"/>
+                     <tag name="Embedded"/>
+                     <tag name="Other"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-connect-02700"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-connect-02800-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Qpid Client" number-found="1">
+                     <tag name="Connect"/>
+                     <tag name="Embedded"/>
+                     <tag name="Other"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-connect-02800"/>
+            </perform>
+         </rule>
+      </rules>
+   </ruleset>
 </ruletest>

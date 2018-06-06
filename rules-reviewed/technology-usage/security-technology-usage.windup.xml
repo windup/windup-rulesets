@@ -9,7 +9,6 @@
             <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
             <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
         </dependencies>
-        <targetTechnology id="eap"/>
         <phase>PostMigrationRulesPhase</phase>
     </metadata>
     <rules>
@@ -18,10 +17,8 @@
                 <or>
                     <xmlfile matches="//*[local-name() = 'login-config']/*[local-name() = 'realm-name']"
                             in="web.xml"/>
-
                     <xmlfile matches="//*[local-name() = 'login-config']/*[local-name() = 'realm']"
                             in="{*}ejb-jar.xml"/>
-
                     <javaclass references="javax.annotation.security.{*}">
                         <location>ANNOTATION</location>
                     </javaclass>
@@ -32,6 +29,356 @@
                     <tag name="Sustain"/>
                     <tag name="Security"/>
                     <tag name="Java EE"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-security-01100">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Spring Security (embedded)</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Spring Security">
+                    <tag name="Sustain"/>
+                    <tag name="Security"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-security-01200">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Apache Shiro (embedded)</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Shiro">
+                    <tag name="Sustain"/>
+                    <tag name="Security"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-security-01300">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Hdiv (embedded)</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Hdiv">
+                    <tag name="Sustain"/>
+                    <tag name="Security"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-security-01400">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">OACC (embedded)</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="OACC">
+                    <tag name="Sustain"/>
+                    <tag name="Security"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-security-01500">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">PicketLink (embedded)</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="PicketLink">
+                    <tag name="Sustain"/>
+                    <tag name="Security"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-security-01600">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">PicketBox (embedded)</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="PicketBox">
+                    <tag name="Sustain"/>
+                    <tag name="Security"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-security-01700">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Keyczar (embedded)</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Keyczar">
+                    <tag name="Sustain"/>
+                    <tag name="Security"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-security-01800">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">XACML (embedded)</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="XACML">
+                    <tag name="Sustain"/>
+                    <tag name="Security"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-security-01900">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">SAML (embedded)</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="SAML">
+                    <tag name="Sustain"/>
+                    <tag name="Security"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-security-02000">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Bouncy Castle (embedded)</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Bouncy Castle">
+                    <tag name="Sustain"/>
+                    <tag name="Security"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-security-02100">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Jasypt (embedded)</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Jasypt">
+                    <tag name="Sustain"/>
+                    <tag name="Security"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-security-02200">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Apache Santuario (embedded)</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Santuario">
+                    <tag name="Sustain"/>
+                    <tag name="Security"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-security-02300">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">SSL (embedded)</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="SSL">
+                    <tag name="Sustain"/>
+                    <tag name="Security"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-security-02400">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Vlad (embedded)</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Vlad">
+                    <tag name="Sustain"/>
+                    <tag name="Security"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-security-02500">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Apache Commons Validator (embedded)</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Apache Commons Validator">
+                    <tag name="Sustain"/>
+                    <tag name="Security"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-security-02600">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">OWASP ESAPI (embedded)</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="OWASP ESAPI">
+                    <tag name="Sustain"/>
+                    <tag name="Security"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-security-02700">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">WSS4J (embedded)</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="WSS4J">
+                    <tag name="Sustain"/>
+                    <tag name="Security"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-security-02800">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">OpenSAML (embedded)</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="OpenSAML">
+                    <tag name="Sustain"/>
+                    <tag name="Security"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-security-02900">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">OTR4J (embedded)</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="OTR4J">
+                    <tag name="Sustain"/>
+                    <tag name="Security"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-security-03000">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">OWASP CSRF Guard (embedded)</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="OWASP CSRF Guard">
+                    <tag name="Sustain"/>
+                    <tag name="Security"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-security-03100">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">OAUTH (embedded)</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="OAUTH">
+                    <tag name="Sustain"/>
+                    <tag name="Security"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-security-03200">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Acegi Security (embedded)</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Acegi Security">
+                    <tag name="Sustain"/>
+                    <tag name="Security"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-security-03300">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">JSecurity (embedded)</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="JSecurity">
+                    <tag name="Sustain"/>
+                    <tag name="Security"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-security-03400">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">AcrIS Security (embedded)</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="AcrIS Security">
+                    <tag name="Sustain"/>
+                    <tag name="Security"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-security-03500">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Trunk JGuard (embedded)</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Trunk JGuard">
+                    <tag name="Sustain"/>
+                    <tag name="Security"/>
+                    <tag name="Embedded"/>
                 </technology-identified>
             </perform>
         </rule>

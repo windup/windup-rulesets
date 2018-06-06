@@ -1,0 +1,193 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="connect"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of connectivity related libraries.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+    </metadata>
+    <rules>
+        <rule id="connect-01400">
+            <when>
+                <file filename="{*}.rar"/>
+            </when>
+            <perform>
+                <classification title="Embedded Resource Adapter" category-id="optional" effort="0">
+                    <description>The application embeds a resource adapter.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Resource Adapter (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="connect-01500">
+            <when>
+                <file filename="{*}activemq{*}"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - ActiveMQ" category-id="optional" effort="0">
+                    <description>The application embeds an ActiveMQ client library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">ActiveMQ (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="connect-01600">
+            <when>
+                <file filename="{*}openws{*}"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - OpenWS" category-id="optional" effort="0">
+                    <description>The application embeds an OpenWS library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">OpenWS (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="connect-01700">
+            <when>
+                <file filename="{*}wsdl{*}"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - WSDL" category-id="optional" effort="0">
+                    <description>The application embeds a WSDL library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">WSDL (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="connect-01800">
+            <when>
+                <or>
+                    <file filename="{*}amqp-client{*}"/>
+                    <file filename="{*}rabbitmq{*}"/>
+                    <file filename="{*}spring-rabbit{*}"/>
+                    <file filename="{*}lyra{*}"/>
+                    <file filename="{*}conduit{*}"/>
+                </or>
+            </when>
+            <perform>
+                <classification title="Embedded library - RabbitMQ Client" category-id="optional" effort="0">
+                    <description>The application embeds a RabbitMQ client library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">RabbitMQ Client (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="connect-01900">
+            <when>
+                <or>
+                    <file filename="{*}spring-messaging{*}"/>
+                    <file filename="{*}spring-jms{*}"/>
+                </or>
+            </when>
+            <perform>
+                <classification title="Embedded library - Spring Messaging Client" category-id="optional" effort="0">
+                    <description>The application embeds a Spring Messaging client library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Spring Messaging Client (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="connect-02000">
+            <when>
+                <file filename="{*}camel-jms{*}"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Camel Messaging Client" category-id="optional" effort="0">
+                    <description>The application embeds a Camel Messaging client library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Camel Messaging Client (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="connect-02100">
+            <when>
+                <file filename="{*}aws-java-sdk-sqs{*}"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Amazon SQS Client" category-id="optional" effort="0">
+                    <description>The application embeds a Amazon SQS client library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Amazon SQS Client (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="connect-02200">
+            <when>
+                <file filename="{*}hornetq{*}"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - HornetQ Client" category-id="optional" effort="0">
+                    <description>The application embeds a HornetQ client library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">HornetQ Client (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="connect-02300">
+            <when>
+                <file filename="{*}amqp{*}"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - AMQP Client" category-id="optional" effort="0">
+                    <description>The application embeds an AMQP client library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">AMQP Client (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="connect-02400">
+            <when>
+                <file filename="{*}rocketmq-client{*}"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - RocketMQ Client" category-id="optional" effort="0">
+                    <description>The application embeds a RocketMQ client library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">RocketMQ Client (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="connect-02500">
+            <when>
+                <or>
+                    <file filename="{*}jzmq{*}"/>
+                    <file filename="{*}jeromq{*}"/>
+                </or>
+            </when>
+            <perform>
+                <classification title="Embedded library - 0MQ Client" category-id="optional" effort="0">
+                    <description>The application embeds a 0MQ client library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">0MQ Client (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="connect-02600">
+            <when>
+                <file filename="{*}jbossmq-client{*}"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - JBossMQ Client" category-id="optional" effort="0">
+                    <description>The application embeds a JBossMQ client library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">JBossMQ Client (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="connect-02700">
+            <when>
+                <file filename="{*}zbus-client{*}"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Zbus Client" category-id="optional" effort="0">
+                    <description>The application embeds a Zbus client library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Zbus Client (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="connect-02800">
+            <when>
+                <file filename="{*}qpid{*}"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Qpid Client" category-id="optional" effort="0">
+                    <description>The application embeds a Qpid client library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Qpid Client (embedded)</technology-tag>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

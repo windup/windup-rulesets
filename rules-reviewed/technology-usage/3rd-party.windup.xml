@@ -1,0 +1,234 @@
+<?xml version="1.0"?>
+<ruleset
+    xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="3rd-party"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of 3rd party embedded frameworks.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+    </metadata>
+    <rules>
+        <rule id="3rd-party-01000">
+            <when>
+                <file filename="{*}liferay{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Liferay" category-id="optional" effort="0">
+                    <description>The application embeds the Liferay framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Liferay (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="3rd-party-02000">
+            <when>
+                <file filename="{*}frm{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Oracle Forms" category-id="optional" effort="0">
+                    <description>The application embeds the Oracle Forms framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Oracle Forms (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="3rd-party-03000">
+            <when>
+                <file filename="spring-boot{*}.jar"/>
+            </when>
+            <perform>
+                <iteration>
+                    <when>
+                        <not>
+                            <file filename="spring-boot{*}test{*}.jar"/>
+                        </not>
+                    </when>
+                    <perform>
+                        <classification title="Embedded framework - Spring Boot" category-id="optional" effort="0">
+                            <description>The application embeds the Spring Boot framework.</description>
+                        </classification>
+                        <technology-tag level="INFORMATIONAL">Spring Boot (embedded)</technology-tag>
+                    </perform>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="3rd-party-04000">
+            <when>
+                <file filename="{*}elasticsearch{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Elasticsearch" category-id="optional" effort="0">
+                    <description>The application embeds the Elasticsearch framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Elasticsearch (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="3rd-party-05000">
+            <when>
+                <file filename="{*}logstash{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Logstash" category-id="optional" effort="0">
+                    <description>The application embeds the Logstash framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Logstash (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="3rd-party-06000">
+            <when>
+                <file filename="{*}jetty{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Jetty" category-id="optional" effort="0">
+                    <description>The application embeds the Jetty framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Jetty (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="3rd-party-07000">
+            <when>
+                <file filename="{*}tomcat{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Tomcat" category-id="optional" effort="0">
+                    <description>The application embeds the Tomcat framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Tomcat (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="3rd-party-08000">
+            <when>
+                <file filename="{*}kibana{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Kibana" category-id="optional" effort="0">
+                    <description>The application embeds the Kibana framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Kibana (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="3rd-party-09000">
+            <when>
+                <file filename="{*}karaf{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Apache Karaf" category-id="optional" effort="0">
+                    <description>The application embeds the Apache Karaf framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Apache Karaf (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="3rd-party-10000">
+            <when>
+                <file filename="{*}neo4j{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Neo4j" category-id="optional" effort="0">
+                    <description>The application embeds the Neo4j framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Neo4j (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="3rd-party-11000">
+            <when>
+                <file filename="{*}spark-{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Spark" category-id="optional" effort="0">
+                    <description>The application embeds the Spark framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Spark (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="3rd-party-12000">
+            <when>
+                <file filename="{*}hadoop{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Apache Hadoop" category-id="optional" effort="0">
+                    <description>The application embeds the Apache Hadoop framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Apache Hadoop (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="3rd-party-13000">
+            <when>
+                <file filename="{*}geronimo{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Apache Geronimo" category-id="optional" effort="0">
+                    <description>The application embeds the Apache Geronimo framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Apache Geronimo (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="3rd-party-14000">
+            <when>
+                <file filename="{*}aries{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Apache Aries" category-id="optional" effort="0">
+                    <description>The application embeds the Apache Aries framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Apache Aries (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="3rd-party-15000">
+            <when>
+                <file filename="{*}cloudera{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Cloudera" category-id="optional" effort="0">
+                    <description>The application embeds the Cloudera framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Cloudera (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="3rd-party-16000">
+            <when>
+                <file filename="{*}mapr{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - MapR" category-id="optional" effort="0">
+                    <description>The application embeds the MapR framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">MapR (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="3rd-party-17000">
+            <when>
+                <file filename="{*}tensorflow{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - TensorFlow" category-id="optional" effort="0">
+                    <description>The application embeds the TensorFlow framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">TensorFlow (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="3rd-party-18000">
+            <when>
+                <file filename="{*}weka{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Weka" category-id="optional" effort="0">
+                    <description>The application embeds the Weka framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Weka (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="3rd-party-19000">
+            <when>
+                <file filename="{*}mahout{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Apache Mahout" category-id="optional" effort="0">
+                    <description>The application embeds the Apache Mahout framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Apache Mahout (embedded)</technology-tag>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

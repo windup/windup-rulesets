@@ -1,0 +1,331 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="logging-usage"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of logging libraries.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+    </metadata>
+    <rules>
+        <rule id="logging-usage-00010">
+            <when>
+                <file filename="{*}log4j{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Apache Log4J" category-id="optional" effort="0">
+                    <description>The application embeds an Apache Log4J library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Apache Log4J (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="logging-usage-00020">
+            <when>
+                <file filename="{*}commons-logging{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Apache Commons Logging" category-id="optional" effort="0">
+                    <description>The application embeds an Apache Commons Logging library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Apache Commons Logging (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="logging-usage-00030">
+            <when>
+                <file filename="{*}slf4j{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - SLF4J" category-id="optional" effort="0">
+                    <description>The application embeds a Simple Logging Facade for Java (SLJ4J) library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">SLF4J (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="logging-usage-00040">
+            <when>
+                <file filename="{*}tinylog{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - tinylog" category-id="optional" effort="0">
+                    <description>The application embeds a tinylog library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">tinylog (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="logging-usage-00050">
+            <when>
+                <file filename="{*}logback{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Logback" category-id="optional" effort="0">
+                    <description>The application embeds a Logback library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Logback (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="logging-usage-00080">
+            <when>
+                <file filename="{*}jboss-logging{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - JBoss logging" category-id="optional" effort="0">
+                    <description>The application embeds a JBoss logging library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">JBoss logging (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="logging-usage-00090">
+            <when>
+                <file filename="{*}monolog{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Monolog" category-id="optional" effort="0">
+                    <description>The application embeds a Monolog library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Monolog (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="logging-usage-00100">
+            <when>
+                <file filename="{*}jcabi-log{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Jcabi Log" category-id="optional" effort="0">
+                    <description>The application embeds a Jcabi Log library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Jcabi Log (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="logging-usage-00110">
+            <when>
+                <file filename="{*}nlog4j{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - NLOG4J" category-id="optional" effort="0">
+                    <description>The application embeds a NLOG4J library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">NLOG4J (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="logging-usage-00120">
+            <when>
+                <file filename="log4s{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Log4s" category-id="optional" effort="0">
+                    <description>The application embeds a Log4s library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Log4s (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="logging-usage-00130">
+            <when>
+                <file filename="{*}kotlin-logging{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Kotlin Logging" category-id="optional" effort="0">
+                    <description>The application embeds a Kotlin Logging library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Kotlin Logging (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="logging-usage-00140">
+            <when>
+                <file filename="log-manager{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Airlift Log Manager" category-id="optional" effort="0">
+                    <description>The application embeds an Airlift Log Manager library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Airlift Log Manager (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="logging-usage-00150">
+            <when>
+                <file filename="{*}minilog{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - MinLog" category-id="optional" effort="0">
+                    <description>The application embeds a MinLog library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">MinLog (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="logging-usage-00160">
+            <when>
+                <file filename="logging{*}.jar"/>
+            </when>
+            <perform>
+                <iteration>
+                    <when>
+                        <not>
+                            <file filename="logging-{*}.jar"/>
+                        </not>
+                    </when>
+                    <perform>
+                        <classification title="Embedded library - Logging Utils" category-id="optional" effort="0">
+                            <description>The application embeds a Common Java Logging Utils library.</description>
+                        </classification>
+                        <technology-tag level="INFORMATIONAL">Logging Utils (embedded)</technology-tag>
+                    </perform>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="logging-usage-00170">
+            <when>
+                <file filename="logging-api{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - OCPsoft Logging Utils" category-id="optional" effort="0">
+                    <description>The application embeds an OCPsoft Logging Utils library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">OCPsoft Logging Utils (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="logging-usage-00180">
+            <when>
+                <file filename="{*}scribe{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Scribe" category-id="optional" effort="0">
+                    <description>The application embeds a Scribe library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Scribe (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="logging-usage-00190">
+            <when>
+                <file filename="{*}gfc-logging{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - GFC Logging" category-id="optional" effort="0">
+                    <description>The application embeds a Git Foundation Classes (GFC) Logging library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">GFC Logging (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="logging-usage-00200">
+            <when>
+                <file filename="{*}blitz4j{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Blitz4j" category-id="optional" effort="0">
+                    <description>The application embeds a Blitz4j library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Blitz4j (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="logging-usage-00210">
+            <when>
+                <file filename="{*}avalon-logkit{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Avalon Logkit" category-id="optional" effort="0">
+                    <description>The application embeds an Avalon Logkit library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Avalon Logkit (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="logging-usage-00220">
+            <when>
+                <file filename="{*}klogger{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - KLogger" category-id="optional" effort="0">
+                    <description>The application embeds a KLogger library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">KLogger (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="logging-usage-00230">
+            <when>
+                <file filename="{*}lumberjack{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Lumberjack" category-id="optional" effort="0">
+                    <description>The application embeds a Lumberjack library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Lumberjack (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="logging-usage-00240">
+            <when>
+                <file filename="{*}logio{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Log.io" category-id="optional" effort="0">
+                    <description>The application embeds a Log.io library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Log.io (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="logging-usage-00250">
+            <when>
+                <file filename="{*}pax-logging-service{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - OPS4J Pax Logging Service" category-id="optional" effort="0">
+                    <description>The application embeds an OPS4J Pax Logging Service library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">OPS4J Pax Logging Service (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="logging-usage-00260">
+            <when>
+                <file filename="util-log{*}.jar"/>
+            </when>
+            <perform>
+                <iteration>
+                    <when>
+                        <not>
+                            <file filename="util-logging{*}.jar"/>
+                        </not>
+                    </when>
+                    <perform>
+                        <classification title="Embedded library - OW2 Log Util" category-id="optional" effort="0">
+                            <description>The application embeds an OW2 Log Util library.</description>
+                        </classification>
+                        <technology-tag level="INFORMATIONAL">OW2 Log Util (embedded)</technology-tag>
+                    </perform>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="logging-usage-00270">
+            <when>
+                <file filename="util-logging{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Twitter Util Logging" category-id="optional" effort="0">
+                    <description>The application embeds a Twitter Util Logging library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Twitter Util Logging (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="logging-usage-00280">
+            <when>
+                <file filename="composite-logging-api{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Composite Logging JCL" category-id="optional" effort="0">
+                    <description>The application embeds a Composite Logging JCL library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Composite Logging JCL (embedded)</technology-tag>
+            </perform>
+        </rule>
+        <rule id="logging-usage-00290">
+            <when>
+                <file filename="{*}flume{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - Apache Flume" category-id="optional" effort="0">
+                    <description>The application embeds an Apache Flume library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Apache Flume (embedded)</technology-tag>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
