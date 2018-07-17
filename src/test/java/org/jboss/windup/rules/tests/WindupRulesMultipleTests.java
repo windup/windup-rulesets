@@ -5,11 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Pattern;
 
 import javax.inject.Inject;
@@ -22,14 +18,14 @@ import org.jboss.forge.arquillian.AddonDependencies;
 import org.jboss.forge.arquillian.AddonDependency;
 import org.jboss.forge.arquillian.archive.AddonArchive;
 import org.jboss.forge.furnace.Furnace;
+import org.jboss.forge.furnace.services.Imported;
 import org.jboss.forge.furnace.util.Predicate;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.windup.config.DefaultEvaluationContext;
-import org.jboss.windup.config.GraphRewrite;
-import org.jboss.windup.config.RuleProvider;
-import org.jboss.windup.config.RuleSubset;
+import org.jboss.windup.config.*;
+import org.jboss.windup.config.loader.RuleLoader;
 import org.jboss.windup.config.loader.RuleLoaderContext;
 import org.jboss.windup.config.metadata.RuleMetadataType;
+import org.jboss.windup.config.metadata.RuleProviderRegistry;
 import org.jboss.windup.config.parser.ParserContext;
 import org.jboss.windup.exec.WindupProcessor;
 import org.jboss.windup.exec.configuration.WindupConfiguration;
@@ -39,6 +35,7 @@ import org.jboss.windup.graph.GraphContext;
 import org.jboss.windup.graph.GraphContextFactory;
 import org.jboss.windup.graph.model.ProjectModel;
 import org.jboss.windup.graph.model.resource.FileModel;
+import org.jboss.windup.reporting.ruleexecution.RuleExecutionInformation;
 import org.jboss.windup.rules.apps.java.config.SourceModeOption;
 import org.jboss.windup.util.file.FileSuffixPredicate;
 import org.jboss.windup.util.file.FileVisit;
@@ -54,12 +51,20 @@ import org.ocpsoft.rewrite.context.Context;
 import org.ocpsoft.rewrite.param.DefaultParameterValueStore;
 import org.ocpsoft.rewrite.param.ParameterValueStore;
 
+import org.jboss.windup.reporting.ruleexecution.RuleExecutionResultsListener;
+
 @RunWith(ParameterizedArquillianRunner.class)
 public class WindupRulesMultipleTests {
 
     private static final Logger LOG = Logger.getLogger(WindupRulesMultipleTests.class);
 
     private static String RUN_TEST_MATCHING = "runTestsMatching";
+
+    @Inject
+    private Imported<RuleLifecycleListener> listeners;
+
+    @Inject
+    private RuleLoader ruleLoader;
     
     @Parameterized.Parameters(name = "{index}: Test {0}")
     public static Collection<File[]> data()
@@ -184,25 +189,80 @@ public class WindupRulesMultipleTests {
                     }
                 }
 
+                // run the assertions from the ruletest file
+                GraphRewrite event = new GraphRewrite(context);
+
+
+
+                RuleExecutionResultsListener resultsListener = null;
+
+                for (RuleLifecycleListener listener : this.listeners)
+                {
+                    if (listener instanceof RuleExecutionResultsListener)
+                    {
+                        resultsListener = (RuleExecutionResultsListener)listener;
+                        break;
+                    }
+                }
+
+
+
+                RuleProviderRegistry providerRegistry = ruleLoader.loadConfiguration(ruleLoaderContext);
+                event.getRewriteContext().put(RuleProviderRegistry.class, providerRegistry);
+                resultsListener.beforeExecution(event);
+                //RuleSubset ruleSubset = RuleSubset.create(ruleTestConfiguration);
+                //ruleSubset.addLifecycleListener(resultsListener);
+
                 // run windup
                 File testDataPath = new File(ruleTestFile.getParentFile(), ruleTest.getTestDataPath());
                 Path reportPath = outputPath.resolve("reports");
                 runWindup(context, directory, rulePaths, testDataPath, reportPath.toFile(), ruleTest.isSourceMode(), ruleTest.getSource(), ruleTest.getTarget());
 
-                // run the assertions from the ruletest file
-                GraphRewrite event = new GraphRewrite(context);
-                RuleSubset ruleSubset = RuleSubset.create(ruleTestConfiguration);
-                ruleSubset.perform(event, createEvalContext(event));
-                exceptions = ruleSubset.getExceptions();
+
+
+
+
+
+
+                //ruleSubset.perform(event, createEvalContext(event));
+                //exceptions = ruleSubset.getExceptions();
+
+                List<RuleExecutionInformation> masterExecList = new ArrayList<RuleExecutionInformation>();
+                List<RuleProvider> providers =providerRegistry.getProviders();
+                //List<AbstractRuleProvider> providers = parser.getRuleProviders();
+
+
+                for (RuleProvider provider:providers) {
+                    if(provider instanceof AbstractRuleProvider) {
+                        AbstractRuleProvider abstractProvider = null;
+                        abstractProvider = (AbstractRuleProvider) provider;
+                        List<RuleExecutionInformation> execInfoList = resultsListener.getRuleExecutionInformation(abstractProvider);
+                        masterExecList.addAll(execInfoList);
+                    }
+                }
+
+                for (RuleExecutionInformation execInfo: masterExecList)
+                {
+                    if (execInfo.isFailed())
+                    {
+                        Assert.fail(execInfo.getRule().getId() + ": " + execInfo.getFailureCause().toString());
+                    }
+                    else
+                    {
+                        Assert.fail(execInfo.getRule().getId());
+                    }
+
+                }
+
             }
-            if (exceptions != null && exceptions.isEmpty())
+   /*         if (exceptions != null && exceptions.isEmpty())
             {
                 //successes.add(ruleTestFile.toString());
             } else
             {
                 // here are added all failed tests instead of failed test files
                 Assert.fail(exceptions.toString());
-            }
+            }*/
         }
         catch (Exception e)
         {
