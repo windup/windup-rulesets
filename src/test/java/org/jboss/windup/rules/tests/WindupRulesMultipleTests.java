@@ -27,6 +27,7 @@ import org.jboss.windup.config.loader.RuleLoaderContext;
 import org.jboss.windup.config.metadata.RuleMetadataType;
 import org.jboss.windup.config.metadata.RuleProviderRegistry;
 import org.jboss.windup.config.parser.ParserContext;
+import org.jboss.windup.config.phase.RulePhase;
 import org.jboss.windup.exec.WindupProcessor;
 import org.jboss.windup.exec.configuration.WindupConfiguration;
 import org.jboss.windup.exec.configuration.options.SourceOption;
@@ -35,7 +36,13 @@ import org.jboss.windup.graph.GraphContext;
 import org.jboss.windup.graph.GraphContextFactory;
 import org.jboss.windup.graph.model.ProjectModel;
 import org.jboss.windup.graph.model.resource.FileModel;
+import org.jboss.windup.reporting.model.rule.ExecutionPhaseModel;
+import org.jboss.windup.reporting.model.rule.RuleExecutionModel;
+import org.jboss.windup.reporting.model.rule.RuleProviderModel;
 import org.jboss.windup.reporting.ruleexecution.RuleExecutionInformation;
+import org.jboss.windup.reporting.service.rule.ExecutionPhaseService;
+import org.jboss.windup.reporting.service.rule.RuleExecutionService;
+import org.jboss.windup.reporting.service.rule.RuleProviderService;
 import org.jboss.windup.rules.apps.java.config.SourceModeOption;
 import org.jboss.windup.util.file.FileSuffixPredicate;
 import org.jboss.windup.util.file.FileVisit;
@@ -65,6 +72,14 @@ public class WindupRulesMultipleTests {
 
     @Inject
     private RuleLoader ruleLoader;
+
+    Map<String, ExecutionPhaseModel> phaseModelMap;
+
+    GraphContext graphContext;
+
+    RuleProviderService ruleProviderService;
+    RuleExecutionService ruleExecutionService;
+    ExecutionPhaseService executionPhaseService;
     
     @Parameterized.Parameters(name = "{index}: Test {0}")
     public static Collection<File[]> data()
@@ -208,10 +223,13 @@ public class WindupRulesMultipleTests {
 
 
                 RuleProviderRegistry providerRegistry = ruleLoader.loadConfiguration(ruleLoaderContext);
+                ruleProviderService = new RuleProviderService(context);
+                ruleExecutionService = new RuleExecutionService(context);
+                executionPhaseService = new ExecutionPhaseService(context);
+                this.phaseModelMap = new HashMap<>();
                 event.getRewriteContext().put(RuleProviderRegistry.class, providerRegistry);
                 resultsListener.beforeExecution(event);
                 //RuleSubset ruleSubset = RuleSubset.create(ruleTestConfiguration);
-                //ruleSubset.addLifecycleListener(resultsListener);
 
                 // run windup
                 File testDataPath = new File(ruleTestFile.getParentFile(), ruleTest.getTestDataPath());
@@ -227,35 +245,45 @@ public class WindupRulesMultipleTests {
                 //ruleSubset.perform(event, createEvalContext(event));
                 //exceptions = ruleSubset.getExceptions();
 
-                List<RuleExecutionInformation> masterExecList = new ArrayList<RuleExecutionInformation>();
+                List<RuleExecutionModel> masterExecList = new ArrayList<>();
                 List<RuleProvider> providers =providerRegistry.getProviders();
-                //List<AbstractRuleProvider> providers = parser.getRuleProviders();
 
 
                 for (RuleProvider provider:providers) {
-                    if(provider instanceof AbstractRuleProvider) {
-                        AbstractRuleProvider abstractProvider = null;
-                        abstractProvider = (AbstractRuleProvider) provider;
-                        List<RuleExecutionInformation> execInfoList = resultsListener.getRuleExecutionInformation(abstractProvider);
-                        masterExecList.addAll(execInfoList);
-                    }
+                        if (provider instanceof RulePhase)
+                        {
+                            this.addPhase(provider.getMetadata().getID());
+                            continue;
+                        }
+
+                        RuleProviderModel ruleProviderModel = this.ruleProviderService.create();
+                        ruleProviderModel.setRuleProviderID(provider.getMetadata().getID());
+
+                        ExecutionPhaseModel executionPhaseModel = this.getPhaseModel(provider);
+                        executionPhaseModel.addRuleProvider(ruleProviderModel);
+                        List<RuleExecutionModel> list = ruleProviderModel.getRules();
+
+                        /*List<RuleExecutionInformation> execInfoList = RuleExecutionResultsListener.instance(event)
+                                .getRuleExecutionInformation((AbstractRuleProvider) provider);*/
+                        //List<RuleExecutionInformation> execInfoList = resultsListener.getRuleExecutionInformation((AbstractRuleProvider)provider);
+                        masterExecList.addAll(list);
+
                 }
 
-                for (RuleExecutionInformation execInfo: masterExecList)
+                for (RuleExecutionModel execInfo: masterExecList)
                 {
-                    if (execInfo.isFailed())
+                    if  (execInfo != null )
                     {
-                        Assert.fail(execInfo.getRule().getId() + ": " + execInfo.getFailureCause().toString());
+                        if (execInfo.getFailed()) {
+                            Assert.fail(execInfo.getRuleId() + ": " + execInfo.getFailureMessage());
+                        } else {
+                            Assert.fail(execInfo.getRuleId());
+                        }
                     }
-                    else
-                    {
-                        Assert.fail(execInfo.getRule().getId());
-                    }
-
                 }
 
             }
-   /*         if (exceptions != null && exceptions.isEmpty())
+      /*      if (exceptions != null && exceptions.isEmpty())
             {
                 //successes.add(ruleTestFile.toString());
             } else
@@ -263,11 +291,16 @@ public class WindupRulesMultipleTests {
                 // here are added all failed tests instead of failed test files
                 Assert.fail(exceptions.toString());
             }*/
+
+
+
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
+
+
     }
 
     private DefaultEvaluationContext createEvalContext(GraphRewrite event)
@@ -328,5 +361,33 @@ public class WindupRulesMultipleTests {
             }
         });
         processor.execute(windupConfiguration);
+    }
+
+    private void addPhase(String name)
+    {
+        if (!this.phaseModelMap.containsKey(name))
+        {
+            ExecutionPhaseModel phaseModel = executionPhaseService.create();
+            phaseModel.setName(name);
+            this.phaseModelMap.put(name, phaseModel);
+        }
+    }
+
+    private ExecutionPhaseModel getPhaseModel(RuleProvider ruleProvider)
+    {
+        Class<? extends RulePhase> phase = ruleProvider.getMetadata().getPhase();
+
+        String name = phase.getSimpleName();
+
+        if (!this.phaseModelMap.containsKey(name))
+        {
+            ExecutionPhaseModel phaseModel = executionPhaseService.create();
+            phaseModel.setName(name);
+            this.phaseModelMap.put(name, phaseModel);
+        }
+
+        ExecutionPhaseModel phaseModel = this.phaseModelMap.get(name);
+
+        return phaseModel;
     }
 }
