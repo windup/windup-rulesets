@@ -249,24 +249,20 @@ public class WindupRulesMultipleTests {
                 List<RuleProvider> providers =providerRegistry.getProviders();
 
 
-                for (RuleProvider provider:providers) {
-                        if (provider instanceof RulePhase)
-                        {
-                            this.addPhase(provider.getMetadata().getID());
-                            continue;
-                        }
 
-                        RuleProviderModel ruleProviderModel = this.ruleProviderService.create();
-                        ruleProviderModel.setRuleProviderID(provider.getMetadata().getID());
+                for (Rule rule : ruleTestConfiguration.getRules()) {
 
-                        ExecutionPhaseModel executionPhaseModel = this.getPhaseModel(provider);
-                        executionPhaseModel.addRuleProvider(ruleProviderModel);
-                        List<RuleExecutionModel> list = ruleProviderModel.getRules();
 
-                        /*List<RuleExecutionInformation> execInfoList = RuleExecutionResultsListener.instance(event)
-                                .getRuleExecutionInformation((AbstractRuleProvider) provider);*/
-                        //List<RuleExecutionInformation> execInfoList = resultsListener.getRuleExecutionInformation((AbstractRuleProvider)provider);
-                        masterExecList.addAll(list);
+
+                    Iterable<RuleExecutionModel> execInfoList = this.ruleExecutionService.findAllByProperty(RuleExecutionModel.RULE_ID,rule.getId());
+
+
+
+                    Iterator execIter = execInfoList.iterator();
+                    while(execIter.hasNext())
+                    {
+                        masterExecList.add((RuleExecutionModel) execIter.next());
+                    }
 
                 }
 
@@ -276,8 +272,19 @@ public class WindupRulesMultipleTests {
                     {
                         if (execInfo.getFailed()) {
                             Assert.fail(execInfo.getRuleId() + ": " + execInfo.getFailureMessage());
-                        } else {
-                            Assert.fail(execInfo.getRuleId());
+                        }
+                        else
+                        {
+                            Assert.assertTrue(execInfo.getRuleId() + ": Ran without failure",true);
+                        }
+
+                        if (!execInfo.getExecuted())
+                        {
+                            Assert.fail(execInfo.getRuleId() + ": " + "Not Executed");
+                        }
+                        else
+                        {
+                            Assert.assertTrue(execInfo.getRuleId() + ": Execucted",true);
                         }
                     }
                 }
@@ -333,6 +340,8 @@ public class WindupRulesMultipleTests {
         windupConfiguration.setOutputDirectory(output.toPath());
         windupConfiguration.addDefaultUserRulesDirectory(baseRuleDirectory.toPath());
         windupConfiguration.setOptionValue(SourceModeOption.NAME, sourceMode);
+        windupConfiguration.setOptionValue(KeepWorkDirsOption.NAME, true);
+
         windupConfiguration.setOnline(false);
         if (StringUtils.isNotBlank(source))
             windupConfiguration.setOptionValue(SourceOption.NAME, Collections.singletonList(source));
