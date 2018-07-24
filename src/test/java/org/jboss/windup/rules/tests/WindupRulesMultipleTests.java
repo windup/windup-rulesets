@@ -80,9 +80,9 @@ public class WindupRulesMultipleTests {
     RuleProviderService ruleProviderService;
     RuleExecutionService ruleExecutionService;
     ExecutionPhaseService executionPhaseService;
-    
+
     @Parameterized.Parameters(name = "{index}: Test {0}")
-    public static Collection<File[]> data()
+    public static Collection<File[]> data(boolean findingTestFiles)
     {
         String testToExecute = System.getProperty(RUN_TEST_MATCHING);
         if (StringUtils.isBlank(testToExecute))
@@ -90,7 +90,15 @@ public class WindupRulesMultipleTests {
             testToExecute = "";
         }
         Pattern testToExecutePattern = Pattern.compile(testToExecute);
-        FileSuffixPredicate predicate = new FileSuffixPredicate("\\.(windup|rhamt)\\.test\\.xml");
+        FileSuffixPredicate predicate = null;
+        if (findingTestFiles)
+        {
+            predicate = new FileSuffixPredicate("\\.(windup|rhamt)\\.test\\.xml");
+        }
+        else
+        {
+            predicate = new FileSuffixPredicate("\\.(windup|rhamt)\\.xml");
+        }
         final File directory = new File("rules");
         final File rulesReviewed = new File("rules-reviewed");
         final List<File[]> rulesetToTest = new ArrayList<>();
@@ -100,6 +108,7 @@ public class WindupRulesMultipleTests {
         FileVisit.visit(rulesReviewed, predicate).stream()
                     .filter(file -> testToExecutePattern.matcher(file.toString()).find())
                     .map(file -> new File[] { file, rulesReviewed }).forEach(files -> rulesetToTest.add(files));
+
         return rulesetToTest;
     }
 
@@ -132,19 +141,23 @@ public class WindupRulesMultipleTests {
     private WindupProcessor processor;
     
     @Inject
+    private RulesPath testRulesPath;
+
+    @Inject
     private RulesPath rulesPath;
     
     @Before
     public void before()
     {
-        rulesPath.setRules(data());
+        testRulesPath.setRules(data(true));
+        rulesPath.setRules(data(false));
     }
 
     @Test
-    public void testRule()
+    public void executeRule()
     {
-        File[] files = rulesPath.getNextRule();
-        LOG.info(String.format("Testing rule %s%n", files[0].getName()));
+        File[] files = testRulesPath.getNextRule();
+        LOG.info(String.format("Testing execution of rule %s%n", files[0].getName()));
         visit(files[0], files[1]);
     }
 
@@ -237,11 +250,6 @@ public class WindupRulesMultipleTests {
                 runWindup(context, directory, rulePaths, testDataPath, reportPath.toFile(), ruleTest.isSourceMode(), ruleTest.getSource(), ruleTest.getTarget());
 
 
-
-
-
-
-
                 //ruleSubset.perform(event, createEvalContext(event));
                 //exceptions = ruleSubset.getExceptions();
 
@@ -249,14 +257,9 @@ public class WindupRulesMultipleTests {
                 List<RuleProvider> providers =providerRegistry.getProviders();
 
 
-
                 for (Rule rule : ruleTestConfiguration.getRules()) {
 
-
-
                     Iterable<RuleExecutionModel> execInfoList = this.ruleExecutionService.findAllByProperty(RuleExecutionModel.RULE_ID,rule.getId());
-
-
 
                     Iterator execIter = execInfoList.iterator();
                     while(execIter.hasNext())
@@ -284,8 +287,9 @@ public class WindupRulesMultipleTests {
                         }
                         else
                         {
-                            Assert.assertTrue(execInfo.getRuleId() + ": Execucted",true);
+                            Assert.assertTrue(execInfo.getRuleId() + ": Executed",true);
                         }
+
                     }
                 }
 
