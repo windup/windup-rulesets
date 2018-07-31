@@ -15,6 +15,7 @@ public class RuleTest
 {
     private String testDataPath;
     private List<String> rulePaths = new ArrayList<>();
+    private List<String> ruleIds = new ArrayList<>();
     private boolean sourceMode = true;
     private String source;
     private String target;
@@ -99,5 +100,21 @@ public class RuleTest
     public void setSourceMode(boolean value)
     {
         sourceMode = value;
+    }
+
+    /**
+     * Contains the ids of the rules that will be executed by this test.
+     */
+    public List<String> getRuleIds()
+    {
+        return Collections.unmodifiableList(ruleIds);
+    }
+
+    /**
+     * Contains the ids of the rules that will be executed by this test.
+     */
+    public void addRuleId(String ruleId)
+    {
+        ruleIds.add(ruleId);
     }
 }

@@ -28,7 +28,7 @@ public class ParameterizedArquillianRunner extends Arquillian {
                     Modifier.isStatic(method.getModifiers()) &&
                     Modifier.isPublic(method.getModifiers()))
             {
-                 result =  (Collection<Object>)method.invoke(testClass, null);
+                 result =  (Collection<Object>)method.invoke(testClass, false);
                  break;
             }
         }

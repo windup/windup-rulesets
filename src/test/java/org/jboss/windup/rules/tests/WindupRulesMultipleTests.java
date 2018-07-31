@@ -141,7 +141,7 @@ public class WindupRulesMultipleTests {
     private WindupProcessor processor;
     
     @Inject
-    private RulesPath testRulesPath;
+    private TestRulesPath testRulesPath;
 
     @Inject
     private RulesPath rulesPath;
@@ -157,8 +157,19 @@ public class WindupRulesMultipleTests {
     public void executeRule()
     {
         File[] files = testRulesPath.getNextRule();
+        Assert.assertTrue("No test file found",files !=null);
+
         LOG.info(String.format("Testing execution of rule %s%n", files[0].getName()));
         visit(files[0], files[1]);
+    }
+
+    @Test
+    public void conventionRule()
+    {
+        testRulesPath.resetIterator();
+        File[] files = rulesPath.getNextRule();
+        LOG.info(String.format("Testing convention of rule %s%n", files[0].getName()));
+        examine(files[0], files[1]);
     }
 
     public void visit(File ruleTestFile, File directory)
@@ -197,17 +208,7 @@ public class WindupRulesMultipleTests {
 
                 Configuration ruleTestConfiguration = parser.getBuilder().getConfiguration(ruleLoaderContext);
 
-/*                String idsToExecute = System.getProperty(RUN_TEST_ID_MATCHING);
-                if(idsToExecute != null) {
-                    ConfigurationBuilder newConfiguration = ConfigurationBuilder.begin();
-                    for (Rule rule : ruleTestConfiguration.getRules())
-                    {
-                        if(rule.getId().matches(idsToExecute)) {
-                            newConfiguration.addRule(rule);
-                        }
-                    }
-                    ruleTestConfiguration = newConfiguration;
-                }*/
+
                 for (Rule rule : ruleTestConfiguration.getRules())
                 {
                     parser.getBuilder().enhanceRuleMetadata(parser.getBuilder(), rule);
@@ -242,7 +243,6 @@ public class WindupRulesMultipleTests {
                 this.phaseModelMap = new HashMap<>();
                 event.getRewriteContext().put(RuleProviderRegistry.class, providerRegistry);
                 resultsListener.beforeExecution(event);
-                //RuleSubset ruleSubset = RuleSubset.create(ruleTestConfiguration);
 
                 // run windup
                 File testDataPath = new File(ruleTestFile.getParentFile(), ruleTest.getTestDataPath());
@@ -250,11 +250,8 @@ public class WindupRulesMultipleTests {
                 runWindup(context, directory, rulePaths, testDataPath, reportPath.toFile(), ruleTest.isSourceMode(), ruleTest.getSource(), ruleTest.getTarget());
 
 
-                //ruleSubset.perform(event, createEvalContext(event));
-                //exceptions = ruleSubset.getExceptions();
 
                 List<RuleExecutionModel> masterExecList = new ArrayList<>();
-                List<RuleProvider> providers =providerRegistry.getProviders();
 
 
                 for (Rule rule : ruleTestConfiguration.getRules()) {
@@ -294,14 +291,7 @@ public class WindupRulesMultipleTests {
                 }
 
             }
-      /*      if (exceptions != null && exceptions.isEmpty())
-            {
-                //successes.add(ruleTestFile.toString());
-            } else
-            {
-                // here are added all failed tests instead of failed test files
-                Assert.fail(exceptions.toString());
-            }*/
+
 
 
 
@@ -309,18 +299,13 @@ public class WindupRulesMultipleTests {
         catch (Exception e)
         {
             e.printStackTrace();
+            Assert.fail("Unexpected error: " + e.getMessage());
         }
 
 
     }
 
-    private DefaultEvaluationContext createEvalContext(GraphRewrite event)
-    {
-        final DefaultEvaluationContext evaluationContext = new DefaultEvaluationContext();
-        final DefaultParameterValueStore values = new DefaultParameterValueStore();
-        evaluationContext.put(ParameterValueStore.class, values);
-        return evaluationContext;
-    }
+
 
     private Path getDefaultPath()
     {
@@ -376,31 +361,40 @@ public class WindupRulesMultipleTests {
         processor.execute(windupConfiguration);
     }
 
-    private void addPhase(String name)
+    public void examine(File ruleFile, File directory)
     {
-        if (!this.phaseModelMap.containsKey(name))
+        String rulePath = ruleFile.getPath();
+        Path p = ruleFile.toPath();
+        Path absoluteRulePath = p.toAbsolutePath();
+        boolean foundMatchingTestFile = false;
+        boolean foundMatchingTestRuleId = true;
+
+
+
+        while (testRulesPath.hasNextRule())
         {
-            ExecutionPhaseModel phaseModel = executionPhaseService.create();
-            phaseModel.setName(name);
-            this.phaseModelMap.put(name, phaseModel);
+            File [] tests = testRulesPath.getNextRule();
+            File test = tests[0];
+            final RuleLoaderContext ruleLoaderContext = new RuleLoaderContext();
+            final ParserContext parser = new ParserContext(furnace, ruleLoaderContext);
+            RuleTest ruleTest = parser.processDocument(test.toURI());
+            for (String path : ruleTest.getRulePaths())
+            {
+                Path ruleTestDirectory = test.toPath().getParent().normalize();
+                Path testRulePath = ruleTestDirectory.resolve(path).normalize().toAbsolutePath();
+                if(testRulePath.equals(absoluteRulePath))
+                {
+                    foundMatchingTestFile = true;
+
+
+                    break;
+                }
+
+            }
+
+
+
         }
-    }
-
-    private ExecutionPhaseModel getPhaseModel(RuleProvider ruleProvider)
-    {
-        Class<? extends RulePhase> phase = ruleProvider.getMetadata().getPhase();
-
-        String name = phase.getSimpleName();
-
-        if (!this.phaseModelMap.containsKey(name))
-        {
-            ExecutionPhaseModel phaseModel = executionPhaseService.create();
-            phaseModel.setName(name);
-            this.phaseModelMap.put(name, phaseModel);
-        }
-
-        ExecutionPhaseModel phaseModel = this.phaseModelMap.get(name);
-
-        return phaseModel;
+        Assert.assertTrue("Test file matching rule",foundMatchingTestFile);
     }
 }
