@@ -44,6 +44,7 @@ import org.jboss.windup.reporting.service.rule.ExecutionPhaseService;
 import org.jboss.windup.reporting.service.rule.RuleExecutionService;
 import org.jboss.windup.reporting.service.rule.RuleProviderService;
 import org.jboss.windup.rules.apps.java.config.SourceModeOption;
+import org.jboss.windup.util.exception.WindupException;
 import org.jboss.windup.util.file.FileSuffixPredicate;
 import org.jboss.windup.util.file.FileVisit;
 import org.junit.Assert;
@@ -58,7 +59,13 @@ import org.ocpsoft.rewrite.context.Context;
 import org.ocpsoft.rewrite.param.DefaultParameterValueStore;
 import org.ocpsoft.rewrite.param.ParameterValueStore;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.jboss.windup.reporting.ruleexecution.RuleExecutionResultsListener;
+import org.w3c.dom.*;
+import org.xml.sax.SAXException;
 
 @RunWith(ParameterizedArquillianRunner.class)
 public class WindupRulesMultipleTests {
@@ -186,10 +193,18 @@ public class WindupRulesMultipleTests {
         {
             Map<String, Exception> exceptions;
             Path outputPath = getDefaultPath();
+            RuleTest ruleTest = null;
             try (GraphContext context = factory.create(outputPath, true))
             {
                 // load the ruletest file
-                RuleTest ruleTest = parser.processDocument(ruleTestFile.toURI());
+                try {
+                    ruleTest = parser.processDocument(ruleTestFile.toURI());
+                }
+                catch (WindupException we)
+                {
+                    Assert.fail("XML parse fail: " + we.getMessage());
+                    throw we;
+                }
                 List<Path> rulePaths = new ArrayList<>();
                 if (ruleTest.getRulePaths().isEmpty())
                 {
@@ -249,14 +264,28 @@ public class WindupRulesMultipleTests {
                 Path reportPath = outputPath.resolve("reports");
                 runWindup(context, directory, rulePaths, testDataPath, reportPath.toFile(), ruleTest.isSourceMode(), ruleTest.getSource(), ruleTest.getTarget());
 
+          /*      Iterable <RuleProviderModel> rpmList = ruleProviderService.findAllByProperty(RuleExecutionModel.RULE_ID,rule.getId());
+                Iterator rpmIter = rpmList.iterator();
+                while(rpmIter.hasNext())
+                {
+                    RuleProviderModel rpm  = (RuleProviderModel) rpmIter.next();
+                    String id = rpm.getId();
 
+                }*/
 
                 List<RuleExecutionModel> masterExecList = new ArrayList<>();
 
+                List<String> idsList = new ArrayList<>();
+                for(Path rulePath: rulePaths)
+                {
+                    idsList.addAll(getRuleIds(rulePath));
+                }
 
-                for (Rule rule : ruleTestConfiguration.getRules()) {
+                //Build a list of RuleExecutionModel for each rule we tried to execute
+                for (String id : idsList) {
 
-                    Iterable<RuleExecutionModel> execInfoList = this.ruleExecutionService.findAllByProperty(RuleExecutionModel.RULE_ID,rule.getId());
+                    Iterable<RuleExecutionModel> execInfoList = this.ruleExecutionService.findAllByProperty(RuleExecutionModel.RULE_ID,id);
+
 
                     Iterator execIter = execInfoList.iterator();
                     while(execIter.hasNext())
@@ -266,6 +295,7 @@ public class WindupRulesMultipleTests {
 
                 }
 
+                //Assess failure and execution status of each rule we tried to execute
                 for (RuleExecutionModel execInfo: masterExecList)
                 {
                     if  (execInfo != null )
@@ -296,7 +326,7 @@ public class WindupRulesMultipleTests {
 
 
         }
-        catch (Exception e)
+        catch (IOException e)
         {
             e.printStackTrace();
             Assert.fail("Unexpected error: " + e.getMessage());
@@ -367,7 +397,6 @@ public class WindupRulesMultipleTests {
         Path p = ruleFile.toPath();
         Path absoluteRulePath = p.toAbsolutePath();
         boolean foundMatchingTestFile = false;
-        boolean foundMatchingTestRuleId = true;
 
 
 
@@ -378,6 +407,11 @@ public class WindupRulesMultipleTests {
             final RuleLoaderContext ruleLoaderContext = new RuleLoaderContext();
             final ParserContext parser = new ParserContext(furnace, ruleLoaderContext);
             RuleTest ruleTest = parser.processDocument(test.toURI());
+
+
+
+
+
             for (String path : ruleTest.getRulePaths())
             {
                 Path ruleTestDirectory = test.toPath().getParent().normalize();
@@ -385,7 +419,21 @@ public class WindupRulesMultipleTests {
                 if(testRulePath.equals(absoluteRulePath))
                 {
                     foundMatchingTestFile = true;
+                    List<String> ids = getRuleIds(absoluteRulePath);
+                    for(String id: ids)
+                    {
 
+                        boolean foundMatchingTestRuleId = false;
+                        for(String testRuleId:ruleTest.getRuleIds())
+                        {
+                            if (testRuleId.equals(id.concat("-test")))
+                            {
+                                foundMatchingTestRuleId = true;
+                                break;
+                            }
+                        }
+                        Assert.assertTrue("Rule id=" + id + " has no matching test rule id=" + id + "-test",foundMatchingTestRuleId);
+                    }
 
                     break;
                 }
@@ -397,4 +445,44 @@ public class WindupRulesMultipleTests {
         }
         Assert.assertTrue("Test file matching rule",foundMatchingTestFile);
     }
+
+    private List<String> getRuleIds(Path ruleFilePath)
+    {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = null;
+        List<String> ids = new ArrayList<>();
+        Document doc = null;
+
+        try {
+            builder = factory.newDocumentBuilder();
+            doc = builder.parse(ruleFilePath.toString());
+            doc.getDocumentElement().normalize();
+
+        }
+        catch(SAXException se)
+        {
+            Assert.fail("XML Parse fail: " + se.getMessage());
+            return null;
+        }
+        catch(Exception e)
+        {
+            Assert.fail("XML Parser not available: " + e.getMessage());
+            return null;
+        }
+
+        if(doc != null)
+        {
+            NodeList nodeList = doc.getElementsByTagName("rule");
+            for (int i = 0; i < nodeList.getLength(); i++)
+            {
+                Node ruleNode = nodeList.item(i);
+                Element ruleElement = (Element) ruleNode;
+                ids.add(ruleElement.getAttribute("id"));
+            }
+        }
+
+        return ids;
+
+    }
+
 }
