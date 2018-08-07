@@ -264,14 +264,9 @@ public class WindupRulesMultipleTests {
                 Path reportPath = outputPath.resolve("reports");
                 runWindup(context, directory, rulePaths, testDataPath, reportPath.toFile(), ruleTest.isSourceMode(), ruleTest.getSource(), ruleTest.getTarget());
 
-          /*      Iterable <RuleProviderModel> rpmList = ruleProviderService.findAllByProperty(RuleExecutionModel.RULE_ID,rule.getId());
-                Iterator rpmIter = rpmList.iterator();
-                while(rpmIter.hasNext())
-                {
-                    RuleProviderModel rpm  = (RuleProviderModel) rpmIter.next();
-                    String id = rpm.getId();
-
-                }*/
+                RuleSubset ruleSubset = RuleSubset.create(ruleTestConfiguration);
+                ruleSubset.perform(event, createEvalContext(event));
+                exceptions = ruleSubset.getExceptions();
 
                 List<RuleExecutionModel> masterExecList = new ArrayList<>();
 
@@ -320,6 +315,15 @@ public class WindupRulesMultipleTests {
                     }
                 }
 
+                if (exceptions != null && exceptions.size()>0)
+                {
+                    Iterator it = exceptions.entrySet().iterator();
+                    while (it.hasNext()) {
+                        Map.Entry pair = (Map.Entry)it.next();
+                        Assert.fail((String)pair.getKey() + ": " + ((Exception)pair.getValue()).getMessage() );
+                    }
+                }
+
             }
 
 
@@ -333,6 +337,14 @@ public class WindupRulesMultipleTests {
         }
 
 
+    }
+
+    private DefaultEvaluationContext createEvalContext(GraphRewrite event)
+    {
+        final DefaultEvaluationContext evaluationContext = new DefaultEvaluationContext();
+        final DefaultParameterValueStore values = new DefaultParameterValueStore();
+        evaluationContext.put(ParameterValueStore.class, values);
+        return evaluationContext;
     }
 
 
@@ -397,6 +409,7 @@ public class WindupRulesMultipleTests {
         Path p = ruleFile.toPath();
         Path absoluteRulePath = p.toAbsolutePath();
         boolean foundMatchingTestFile = false;
+        List<String> failingIds = new ArrayList<>();
 
 
 
@@ -432,7 +445,10 @@ public class WindupRulesMultipleTests {
                                 break;
                             }
                         }
-                        Assert.assertTrue("Rule id=" + id + " has no matching test rule id=" + id + "-test",foundMatchingTestRuleId);
+                        if(!foundMatchingTestRuleId)
+                        {
+                            failingIds.add(id);
+                        }
                     }
 
                     break;
@@ -443,7 +459,8 @@ public class WindupRulesMultipleTests {
 
 
         }
-        Assert.assertTrue("Test file matching rule",foundMatchingTestFile);
+        Assert.assertTrue("No test file matching rule",foundMatchingTestFile);
+        Assert.assertTrue("Test rule Ids " + buildListOfFailingTestIds(failingIds) + " not found",failingIds.size()==0);
     }
 
     private List<String> getRuleIds(Path ruleFilePath)
@@ -483,6 +500,31 @@ public class WindupRulesMultipleTests {
 
         return ids;
 
+    }
+    private String buildListOfFailingTestIds(List<String> failingIds)
+    {
+        if (failingIds == null || failingIds.size() == 0)
+        {
+            return "";
+        }
+
+        StringBuilder list = new StringBuilder();
+        boolean firstPass = true;
+        for (String id: failingIds )
+        {
+            if (firstPass)
+            {
+                firstPass = false;
+            }
+            else
+            {
+                list.append(", ");
+            }
+            list.append(id);
+            list.append("-test");
+        }
+
+        return list.toString();
     }
 
 }
