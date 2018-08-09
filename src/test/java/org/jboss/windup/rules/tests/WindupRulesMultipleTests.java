@@ -152,6 +152,7 @@ public class WindupRulesMultipleTests {
 
     @Inject
     private RulesPath rulesPath;
+
     
     @Before
     public void before()
@@ -163,17 +164,23 @@ public class WindupRulesMultipleTests {
     @Test
     public void executeRule()
     {
-        File[] files = testRulesPath.getNextRule();
-        Assert.assertTrue("No test file found",files !=null);
+        testRulesPath.resetIterator();
+        File[] ruleFiles = rulesPath.getNextRule();
+        File[] ruleTestFiles = findMatchingTestFile(ruleFiles[0],ruleFiles[1]);
+        Assert.assertTrue("No test file found",ruleTestFiles !=null);
 
-        LOG.info(String.format("Testing execution of rule %s%n", files[0].getName()));
-        visit(files[0], files[1]);
+        LOG.info(String.format("Testing execution of rule %s%n", ruleFiles[0].getName()));
+        visit(ruleTestFiles[0],ruleTestFiles[1]);
     }
 
     @Test
     public void conventionRule()
     {
         testRulesPath.resetIterator();
+        if(!rulesPath.hasNextRule())
+        {
+            rulesPath.resetIterator();
+        }
         File[] files = rulesPath.getNextRule();
         LOG.info(String.format("Testing convention of rule %s%n", files[0].getName()));
         examine(files[0], files[1]);
@@ -405,58 +412,41 @@ public class WindupRulesMultipleTests {
 
     public void examine(File ruleFile, File directory)
     {
-        String rulePath = ruleFile.getPath();
         Path p = ruleFile.toPath();
         Path absoluteRulePath = p.toAbsolutePath();
         boolean foundMatchingTestFile = false;
         List<String> failingIds = new ArrayList<>();
 
+        File[] matchingTest = findMatchingTestFile(ruleFile,directory);
 
 
-        while (testRulesPath.hasNextRule())
+        if (matchingTest != null)
         {
-            File [] tests = testRulesPath.getNextRule();
-            File test = tests[0];
+
+            File test = matchingTest[0];
             final RuleLoaderContext ruleLoaderContext = new RuleLoaderContext();
             final ParserContext parser = new ParserContext(furnace, ruleLoaderContext);
             RuleTest ruleTest = parser.processDocument(test.toURI());
 
-
-
-
-
-            for (String path : ruleTest.getRulePaths())
+            foundMatchingTestFile = true;
+            List<String> ids = getRuleIds(absoluteRulePath);
+            for(String id: ids)
             {
-                Path ruleTestDirectory = test.toPath().getParent().normalize();
-                Path testRulePath = ruleTestDirectory.resolve(path).normalize().toAbsolutePath();
-                if(testRulePath.equals(absoluteRulePath))
+
+                boolean foundMatchingTestRuleId = false;
+                for(String testRuleId:ruleTest.getRuleIds())
                 {
-                    foundMatchingTestFile = true;
-                    List<String> ids = getRuleIds(absoluteRulePath);
-                    for(String id: ids)
+                    if (testRuleId.equals(id.concat("-test")))
                     {
-
-                        boolean foundMatchingTestRuleId = false;
-                        for(String testRuleId:ruleTest.getRuleIds())
-                        {
-                            if (testRuleId.equals(id.concat("-test")))
-                            {
-                                foundMatchingTestRuleId = true;
-                                break;
-                            }
-                        }
-                        if(!foundMatchingTestRuleId)
-                        {
-                            failingIds.add(id);
-                        }
+                        foundMatchingTestRuleId = true;
+                        break;
                     }
-
-                    break;
                 }
-
+                if(!foundMatchingTestRuleId)
+                {
+                    failingIds.add(id);
+                }
             }
-
-
 
         }
         Assert.assertTrue("No test file matching rule",foundMatchingTestFile);
@@ -525,6 +515,44 @@ public class WindupRulesMultipleTests {
         }
 
         return list.toString();
+    }
+
+    private File[] findMatchingTestFile(File ruleFile, File directory)
+    {
+        Path p = ruleFile.toPath();
+        Path absoluteRulePath = p.toAbsolutePath();
+
+
+
+        while (testRulesPath.hasNextRule())
+        {
+            File [] tests = testRulesPath.getNextRule();
+            File test = tests[0];
+            final RuleLoaderContext ruleLoaderContext = new RuleLoaderContext();
+            final ParserContext parser = new ParserContext(furnace, ruleLoaderContext);
+            RuleTest ruleTest = parser.processDocument(test.toURI());
+
+
+
+
+
+            for (String path : ruleTest.getRulePaths())
+            {
+                Path ruleTestDirectory = test.toPath().getParent().normalize();
+                Path testRulePath = ruleTestDirectory.resolve(path).normalize().toAbsolutePath();
+                if(testRulePath.equals(absoluteRulePath))
+                {
+                   return tests;
+                }
+
+            }
+
+
+        }
+
+        //No matching test file found
+        return null;
+
     }
 
 }

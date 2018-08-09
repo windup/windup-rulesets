@@ -9,12 +9,14 @@ import java.util.Iterator;
 public class RulesPath {
 
     private Iterator<File[]> iterator;
+    Collection<File[]> rules;
 
     public void setRules(Collection<File[]> rules)
     {
         if (this.iterator == null)
         {
             this.iterator = rules.iterator();
+            this.rules = rules;
         }
     }
 
@@ -25,5 +27,15 @@ public class RulesPath {
             return iterator.next();
         }
         return null;
+    }
+
+    public boolean hasNextRule()
+    {
+        return iterator.hasNext();
+    }
+
+    public void resetIterator()
+    {
+        this.iterator = rules.iterator();
     }
 }
