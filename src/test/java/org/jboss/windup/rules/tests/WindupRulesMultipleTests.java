@@ -209,7 +209,7 @@ public class WindupRulesMultipleTests {
                 }
                 catch (WindupException we)
                 {
-                    Assert.fail("XML parse fail: " + we.getMessage());
+                    Assert.fail("XML parse fail on file " + ruleTestFile.toURI() + ":" + we.getMessage());
                     throw we;
                 }
                 List<Path> rulePaths = new ArrayList<>();
@@ -327,7 +327,7 @@ public class WindupRulesMultipleTests {
                     Iterator it = exceptions.entrySet().iterator();
                     while (it.hasNext()) {
                         Map.Entry pair = (Map.Entry)it.next();
-                        Assert.fail((String)pair.getKey() + ": " + ((Exception)pair.getValue()).getMessage() );
+                        Assert.fail("Failure: " + (String)pair.getKey() + ": " + ((Exception)pair.getValue()).getMessage() );
                     }
                 }
 
@@ -468,7 +468,7 @@ public class WindupRulesMultipleTests {
         }
         catch(SAXException se)
         {
-            Assert.fail("XML Parse fail: " + se.getMessage());
+            Assert.fail("XML Parse fail on file " + ruleFilePath.toString() + ": " + se.getMessage());
             return null;
         }
         catch(Exception e)
