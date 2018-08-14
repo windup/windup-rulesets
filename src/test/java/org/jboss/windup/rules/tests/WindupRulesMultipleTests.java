@@ -164,26 +164,41 @@ public class WindupRulesMultipleTests {
     @Test
     public void executeRule()
     {
-        testRulesPath.resetIterator();
-        File[] ruleFiles = rulesPath.getNextRule();
-        File[] ruleTestFiles = findMatchingTestFile(ruleFiles[0],ruleFiles[1]);
-        Assert.assertTrue("No test file found",ruleTestFiles !=null);
+        try {
+            testRulesPath.resetIterator();
 
-        LOG.info(String.format("Testing execution of rule %s%n", ruleFiles[0].getName()));
-        visit(ruleTestFiles[0],ruleTestFiles[1]);
+            File[] ruleFiles = rulesPath.getNextRule();
+            File[] ruleTestFiles = findMatchingTestFile(ruleFiles[0], ruleFiles[1]);
+            Assert.assertTrue("No test file found", ruleTestFiles != null);
+
+            LOG.info(String.format("Testing execution of rule %s%n", ruleFiles[0].getName()));
+            visit(ruleTestFiles[0], ruleTestFiles[1]);
+        }
+        catch(AssertionError ae)
+        {
+            LOG.error(ae.getMessage());
+            throw ae;
+        }
     }
 
     @Test
     public void conventionRule()
     {
-        testRulesPath.resetIterator();
-        if(!rulesPath.hasNextRule())
-        {
-            rulesPath.resetIterator();
+        try {
+            testRulesPath.resetIterator();
+            if(!rulesPath.hasNextRule())
+            {
+                rulesPath.resetIterator();
+            }
+            File[] files = rulesPath.getNextRule();
+            LOG.info(String.format("Testing convention of rule %s%n", files[0].getName()));
+            examine(files[0], files[1]);
         }
-        File[] files = rulesPath.getNextRule();
-        LOG.info(String.format("Testing convention of rule %s%n", files[0].getName()));
-        examine(files[0], files[1]);
+        catch(AssertionError ae)
+        {
+            LOG.error(ae.getMessage());
+            throw ae;
+        }
     }
 
     public void visit(File ruleTestFile, File directory)
