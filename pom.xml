@@ -216,6 +216,44 @@
         </resources>
 
         <plugins>
+		<plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.0</version>
+                    <executions>
+                        <execution>
+                            <id>default-compile</id>
+                            <configuration>
+                                <!-- compile everything to ensure module-info contains right entries -->
+                                <!-- required when JAVA_HOME is JDK 8 or below -->
+                                <jdkToolchain>
+                                    <version>11</version>
+                                </jdkToolchain>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>base-compile</id>
+                            <goals>
+                                <goal>compile</goal>
+                            </goals>
+                            <!-- recompile everything for target VM except the module-info.java -->
+                            <configuration>
+                                <excludes>
+                                    <exclude>module-info.java</exclude>
+                                </excludes>
+                            </configuration>
+                        </execution>
+                    </executions>
+                    <!-- defaults for compile and testCompile -->
+                    <configuration>
+                        <!-- jdkToolchain required when JAVA_HOME is JDK 9 or above -->
+                        <jdkToolchain>
+                            <version>[1.5,11)</version>
+                        </jdkToolchain>
+                        <source>1.8</source>
+                        <target>1.8</target>
+                    </configuration>
+                </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
