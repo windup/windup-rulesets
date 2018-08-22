@@ -340,10 +340,21 @@ public class WindupRulesMultipleTests {
                 if (exceptions != null && exceptions.size()>0)
                 {
                     Iterator it = exceptions.entrySet().iterator();
+                    StringBuilder sb = new StringBuilder();
+                    boolean firstPass = true;
                     while (it.hasNext()) {
+                        if (firstPass)
+                        {
+                            firstPass = false;
+                        }
+                        else
+                        {
+                            sb.append(System.getProperty("line.separator"));
+                        }
                         Map.Entry pair = (Map.Entry)it.next();
-                        Assert.fail("Failure: " + (String)pair.getKey() + ": " + ((Exception)pair.getValue()).getMessage() );
+                        sb.append("Failure: " + (String)pair.getKey() + ": " + ((Exception)pair.getValue()).getMessage() );
                     }
+                    Assert.fail(sb.toString());
                 }
 
             }
