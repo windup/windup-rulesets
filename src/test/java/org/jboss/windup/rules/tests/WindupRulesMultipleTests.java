@@ -1,15 +1,6 @@
 package org.jboss.windup.rules.tests;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.*;
-import java.util.regex.Pattern;
-
-import javax.inject.Inject;
-
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -27,7 +18,6 @@ import org.jboss.windup.config.loader.RuleLoaderContext;
 import org.jboss.windup.config.metadata.RuleMetadataType;
 import org.jboss.windup.config.metadata.RuleProviderRegistry;
 import org.jboss.windup.config.parser.ParserContext;
-import org.jboss.windup.config.phase.RulePhase;
 import org.jboss.windup.exec.WindupProcessor;
 import org.jboss.windup.exec.configuration.WindupConfiguration;
 import org.jboss.windup.exec.configuration.options.SourceOption;
@@ -38,8 +28,7 @@ import org.jboss.windup.graph.model.ProjectModel;
 import org.jboss.windup.graph.model.resource.FileModel;
 import org.jboss.windup.reporting.model.rule.ExecutionPhaseModel;
 import org.jboss.windup.reporting.model.rule.RuleExecutionModel;
-import org.jboss.windup.reporting.model.rule.RuleProviderModel;
-import org.jboss.windup.reporting.ruleexecution.RuleExecutionInformation;
+import org.jboss.windup.reporting.ruleexecution.RuleExecutionResultsListener;
 import org.jboss.windup.reporting.service.rule.ExecutionPhaseService;
 import org.jboss.windup.reporting.service.rule.RuleExecutionService;
 import org.jboss.windup.reporting.service.rule.RuleProviderService;
@@ -58,14 +47,22 @@ import org.ocpsoft.rewrite.config.Rule;
 import org.ocpsoft.rewrite.context.Context;
 import org.ocpsoft.rewrite.param.DefaultParameterValueStore;
 import org.ocpsoft.rewrite.param.ParameterValueStore;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
+import javax.inject.Inject;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.jboss.windup.reporting.ruleexecution.RuleExecutionResultsListener;
-import org.w3c.dom.*;
-import org.xml.sax.SAXException;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
+import java.util.regex.Pattern;
 
 @RunWith(ParameterizedArquillianRunner.class)
 public class WindupRulesMultipleTests {
@@ -81,8 +78,6 @@ public class WindupRulesMultipleTests {
     private RuleLoader ruleLoader;
 
     Map<String, ExecutionPhaseModel> phaseModelMap;
-
-    GraphContext graphContext;
 
     RuleProviderService ruleProviderService;
     RuleExecutionService ruleExecutionService;
@@ -111,10 +106,10 @@ public class WindupRulesMultipleTests {
         final List<File[]> rulesetToTest = new ArrayList<>();
         FileVisit.visit(directory, predicate).stream()
                     .filter(file -> testToExecutePattern.matcher(file.toString()).find()).map(file -> new File[] { file, directory })
-                    .forEach(files -> rulesetToTest.add(files));
+                    .forEach(rulesetToTest::add);
         FileVisit.visit(rulesReviewed, predicate).stream()
                     .filter(file -> testToExecutePattern.matcher(file.toString()).find())
-                    .map(file -> new File[] { file, rulesReviewed }).forEach(files -> rulesetToTest.add(files));
+                    .map(file -> new File[] { file, rulesReviewed }).forEach(rulesetToTest::add);
 
         return rulesetToTest;
     }
@@ -169,7 +164,7 @@ public class WindupRulesMultipleTests {
 
             File[] ruleFiles = rulesPath.getNextRule();
             File[] ruleTestFiles = findMatchingTestFile(ruleFiles[0], ruleFiles[1]);
-            Assert.assertTrue("No test file found", ruleTestFiles != null);
+            Assert.assertNotNull("No test file found", ruleTestFiles);
 
             LOG.info(String.format("Testing execution of rule %s%n", ruleFiles[0].getName()));
             visit(ruleTestFiles[0], ruleTestFiles[1]);
@@ -293,10 +288,7 @@ public class WindupRulesMultipleTests {
                 List<RuleExecutionModel> masterExecList = new ArrayList<>();
 
                 List<String> idsList = new ArrayList<>();
-                for(Path rulePath: rulePaths)
-                {
-                    idsList.addAll(getRuleIds(rulePath));
-                }
+                rulePaths.forEach( rulePath -> Optional.ofNullable(getRuleIds(rulePath)).ifPresent(idsList::addAll));
 
                 //Build a list of RuleExecutionModel for each rule we tried to execute
                 for (String id : idsList) {
@@ -304,10 +296,8 @@ public class WindupRulesMultipleTests {
                     Iterable<RuleExecutionModel> execInfoList = this.ruleExecutionService.findAllByProperty(RuleExecutionModel.RULE_ID,id);
 
 
-                    Iterator execIter = execInfoList.iterator();
-                    while(execIter.hasNext())
-                    {
-                        masterExecList.add((RuleExecutionModel) execIter.next());
+                    for (RuleExecutionModel anExecInfoList : execInfoList) {
+                        masterExecList.add(anExecInfoList);
                     }
 
                 }
@@ -339,37 +329,19 @@ public class WindupRulesMultipleTests {
 
                 if (exceptions != null && exceptions.size()>0)
                 {
-                    Iterator it = exceptions.entrySet().iterator();
-                    StringBuilder sb = new StringBuilder();
-                    boolean firstPass = true;
-                    while (it.hasNext()) {
-                        if (firstPass)
-                        {
-                            firstPass = false;
-                        }
-                        else
-                        {
-                            sb.append(System.getProperty("line.separator"));
-                        }
-                        Map.Entry pair = (Map.Entry)it.next();
-                        sb.append("Failure: " + (String)pair.getKey() + ": " + ((Exception)pair.getValue()).getMessage() );
-                    }
-                    Assert.fail(sb.toString());
+                    List<String> failureMessages = new ArrayList<>();
+                    exceptions.forEach( (key, value) -> failureMessages.add("Failure: " + key + ": " + value.getMessage()));
+
+                    Assert.fail(StringUtils.join(failureMessages,System.lineSeparator()));
                 }
 
             }
-
-
-
-
         }
         catch (IOException e)
         {
             e.printStackTrace();
             Assert.fail("Unexpected error: " + e.getMessage());
         }
-
-
     }
 
     private DefaultEvaluationContext createEvalContext(GraphRewrite event)
@@ -379,7 +351,6 @@ public class WindupRulesMultipleTests {
         evaluationContext.put(ParameterValueStore.class, values);
         return evaluationContext;
     }
-
 
 
     private Path getDefaultPath()
@@ -456,27 +427,28 @@ public class WindupRulesMultipleTests {
 
             foundMatchingTestFile = true;
             List<String> ids = getRuleIds(absoluteRulePath);
-            for(String id: ids)
+            if (CollectionUtils.isNotEmpty(ids))
             {
-
-                boolean foundMatchingTestRuleId = false;
-                for(String testRuleId:ruleTest.getRuleIds())
+                for(String id: ids)
                 {
-                    if (testRuleId.equals(id.concat("-test")))
+                    boolean foundMatchingTestRuleId = false;
+                    for(String testRuleId:ruleTest.getRuleIds())
                     {
-                        foundMatchingTestRuleId = true;
-                        break;
+                        if (testRuleId.equals(id.concat("-test")))
+                        {
+                            foundMatchingTestRuleId = true;
+                            break;
+                        }
+                    }
+                    if(!foundMatchingTestRuleId)
+                    {
+                        failingIds.add(id);
                     }
                 }
-                if(!foundMatchingTestRuleId)
-                {
-                    failingIds.add(id);
-                }
             }
-
         }
         Assert.assertTrue("No test file matching rule",foundMatchingTestFile);
-        Assert.assertTrue("Test rule Ids " + buildListOfFailingTestIds(failingIds) + " not found",failingIds.size()==0);
+        Assert.assertEquals("Test rule Ids " + buildListOfFailingTestIds(failingIds) + " not found", 0, failingIds.size());
     }
 
     private List<String> getRuleIds(Path ruleFilePath)
@@ -519,28 +491,9 @@ public class WindupRulesMultipleTests {
     }
     private String buildListOfFailingTestIds(List<String> failingIds)
     {
-        if (failingIds == null || failingIds.size() == 0)
-        {
-            return "";
-        }
-
-        StringBuilder list = new StringBuilder();
-        boolean firstPass = true;
-        for (String id: failingIds )
-        {
-            if (firstPass)
-            {
-                firstPass = false;
-            }
-            else
-            {
-                list.append(", ");
-            }
-            list.append(id);
-            list.append("-test");
-        }
-
-        return list.toString();
+        List<String> ids = new ArrayList<>();
+        failingIds.forEach( id -> ids.add(id + "-test"));
+        return StringUtils.join(ids, ",");
     }
 
     private File[] findMatchingTestFile(File ruleFile, File directory)
@@ -558,10 +511,6 @@ public class WindupRulesMultipleTests {
             final ParserContext parser = new ParserContext(furnace, ruleLoaderContext);
             RuleTest ruleTest = parser.processDocument(test.toURI());
 
-
-
-
-
             for (String path : ruleTest.getRulePaths())
             {
                 Path ruleTestDirectory = test.toPath().getParent().normalize();
@@ -570,15 +519,9 @@ public class WindupRulesMultipleTests {
                 {
                    return tests;
                 }
-
             }
-
-
         }
-
         //No matching test file found
         return null;
-
     }
-
 }
