@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<ruletest id="oracle2openjdk-tests" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data</testDataPath>
+    <rulePath>../oracle2openjdk.rhamt.xml</rulePath>
+    <sourceMode>true</sourceMode>
+    <ruleset>
+        <rules>
+            <rule id="oracle2openjdk-00000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Currently OpenJFX"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[oracle2openjdk] JavaFX hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="oracle2openjdk-00001-test">
+                <when>
+                    <not>
+                        <hint-exists message="The font library is different in OpenJDK"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[oracle2openjdk] fonts usage hint was not found." />
+                </perform>
+            </rule>
+            <rule id="oracle2openjdk-00002-test">
+                <when>
+                    <not>
+                        <hint-exists message="OpenJDK does not support the resource management API for Java"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[oracle2openjdk] resource management API hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="oracle2openjdk-00003-test">
+                <when>
+                    <not>
+                        <hint-exists message="OracleJDK used to use KCMS as color mangement system up until JDK7 by default"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[oracle2openjdk] color mangeement hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="oracle2openjdk-00004-test">
+                <when>
+                    <not>
+                        <hint-exists message="OpenJDK has its own 2D library"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[oracle2openjdk] 2D library hint not found!" />
+                </perform>
+            </rule>
+            <rule id="oracle2openjdk-00005-test">
+                <when>
+                    <not>
+                        <hint-exists message="OpenJDK uses the NSS crypto library from RHEL"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[oracle2openjdk] elliptic curve hint 1 not found" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
