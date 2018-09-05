@@ -295,7 +295,6 @@ public class WindupRulesMultipleTests {
 
                     Iterable<RuleExecutionModel> execInfoList = this.ruleExecutionService.findAllByProperty(RuleExecutionModel.RULE_ID,id);
 
-
                     for (RuleExecutionModel anExecInfoList : execInfoList) {
                         masterExecList.add(anExecInfoList);
                     }
@@ -448,7 +447,7 @@ public class WindupRulesMultipleTests {
             }
         }
         Assert.assertTrue("No test file matching rule",foundMatchingTestFile);
-        Assert.assertEquals("Test rule Ids " + buildListOfFailingTestIds(failingIds) + " not found", 0, failingIds.size());
+        Assert.assertTrue("Test rule Ids " + buildListOfFailingTestIds(failingIds) + " not found", failingIds.size() == 0);
     }
 
     private List<String> getRuleIds(Path ruleFilePath)
@@ -493,7 +492,7 @@ public class WindupRulesMultipleTests {
     {
         List<String> ids = new ArrayList<>();
         failingIds.forEach( id -> ids.add(id + "-test"));
-        return StringUtils.join(ids, ",");
+        return StringUtils.join(ids, ", ");
     }
 
     private File[] findMatchingTestFile(File ruleFile, File directory)
