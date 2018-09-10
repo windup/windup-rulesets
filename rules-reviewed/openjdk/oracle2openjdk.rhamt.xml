@@ -27,7 +27,7 @@
                     </message>
                     <link href="https://access.redhat.com/solutions/3299701" title="Knowledge base article about JavaFX support in RHEL" />
                     <link href="https://bugzilla.redhat.com/show_bug.cgi?id=1275610" title="RFE to include OpenJFX in RHEL"/>
-                    <tag>javafx</tag>
+                    <tag>JavaFX</tag>
                 </hint>
             </perform>
         </rule>
@@ -71,7 +71,7 @@
                         OpenJDK does not support the resource management API for Java.
                     </message>
                     <link href="https://access.redhat.com/solutions/2489791" title="Knowledge base article OracleJDK vs. OpenJDK" />
-                    <tag>oraclejdk</tag>
+                    <tag>Oracle JDK resource management</tag>
                 </hint>
             </perform>
         </rule>
@@ -86,7 +86,7 @@
                         OpenJDK uses LCMS. If you continued to use KCMS by using the property ``sun.java2d.cmm=sun.java2d.cmm.kcms.KcmsServiceProvider``, remove this property and ensure in your tests that your application still works as expected.
                     </message>
                     <link href="https://access.redhat.com/solutions/2489791" title="Knowledge base article OracleJDK vs. OpenJDK" />
-                    <tag>cms</tag>
+                    <tag>JDK color management</tag>
                 </hint>
             </perform>
         </rule>
@@ -103,7 +103,7 @@
                        Ensure during your tests that the application behaves as expected.
                     </message>
                     <link href="https://access.redhat.com/solutions/2489791" title="Knowledge base article OracleJDK vs. OpenJDK" />
-                    <tag>cms</tag>
+                    <tag>2D library</tag>
                 </hint>
             </perform>
             <where param="package">
@@ -114,10 +114,13 @@
             <when>
                 <or>
                     <!--
-                        this will produce some false positives since we can't check explcitely
+                        these two will produce some false positives since we can't check explcitely
                         just for respective string values like e.g. "EC"
                     -->
                     <javaclass references="java.security.KeyPairGenerator.getInstance({*}">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                    <javaclass references="javax.crypto.KeyAgreement.getInstance({*}">
                         <location>METHOD_CALL</location>
                     </javaclass>
                     <javaclass references="java.security.spec.EC{*}">
@@ -150,7 +153,6 @@
                     </message>
                     <link href="https://access.redhat.com/solutions/2489791" title="Knowledge base article OracleJDK vs. OpenJDK" />
                     <tag>crypto</tag>
-                    <tag>security</tag>
                 </hint>
             </perform>
         </rule>

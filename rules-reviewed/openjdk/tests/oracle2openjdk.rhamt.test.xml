@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
-<ruletest id="oracle2openjdk-tests" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+<ruletest id="oracle2openjdk-tests" 
+    xmlns="http://windup.jboss.org/schema/jboss-ruleset" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <testDataPath>data</testDataPath>
     <rulePath>../oracle2openjdk.rhamt.xml</rulePath>
     <sourceMode>true</sourceMode>
@@ -59,11 +60,13 @@
             <rule id="oracle2openjdk-00005-test">
                 <when>
                     <not>
-                        <hint-exists message="OpenJDK uses the NSS crypto library from RHEL"/>
+                        <iterable-filter size="7">
+                            <hint-exists message="OpenJDK uses the NSS crypto library from RHEL"/>
+                        </iterable-filter>
                     </not>
                 </when>
                 <perform>
-                    <fail message="[oracle2openjdk] elliptic curve hint 1 not found" />
+                    <fail message="[oracle2openjdk] elliptic curve hint not found" />
                 </perform>
             </rule>
         </rules>
