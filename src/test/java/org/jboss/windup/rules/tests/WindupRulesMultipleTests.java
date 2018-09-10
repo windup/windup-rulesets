@@ -278,6 +278,10 @@ public class WindupRulesMultipleTests {
 
                 // run windup
                 File testDataPath = new File(ruleTestFile.getParentFile(), ruleTest.getTestDataPath());
+                if (!testDataPath.exists())
+                {
+                    Assert.fail("Test file path from <testDataPath> tag has not been not found. Expected path to test file is: " + testDataPath.toString());
+                }
                 Path reportPath = outputPath.resolve("reports");
                 runWindup(context, directory, rulePaths, testDataPath, reportPath.toFile(), ruleTest.isSourceMode(), ruleTest.getSource(), ruleTest.getTarget());
 
@@ -307,20 +311,20 @@ public class WindupRulesMultipleTests {
                     if  (execInfo != null )
                     {
                         if (execInfo.getFailed()) {
-                            Assert.fail(execInfo.getRuleId() + ": " + execInfo.getFailureMessage());
+                            Assert.fail("The rule with id=\"" + execInfo.getRuleId() + "\" has failed with message:" + execInfo.getFailureMessage());
                         }
                         else
                         {
-                            Assert.assertTrue(execInfo.getRuleId() + ": Ran without failure",true);
+                            Assert.assertTrue("The rule with id=\"" + execInfo.getRuleId() + "\" ran without failure",true);
                         }
 
                         if (!execInfo.getExecuted())
                         {
-                            Assert.fail(execInfo.getRuleId() + ": " + "Not Executed");
+                            Assert.fail("The rule with id=\"" + execInfo.getRuleId() + "\" has not been executed");
                         }
                         else
                         {
-                            Assert.assertTrue(execInfo.getRuleId() + ": Executed",true);
+                            Assert.assertTrue("The rule with id=\"" + execInfo.getRuleId() + "\" executed correctly",true);
                         }
 
                     }
