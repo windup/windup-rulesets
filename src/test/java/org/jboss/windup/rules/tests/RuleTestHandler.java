@@ -56,6 +56,7 @@ public class RuleTestHandler implements ElementHandler<RuleTest>
     public static final String SOURCE_MODE = "sourceMode";
     public static final String SOURCE = "source";
     public static final String TARGET = "target";
+    public static final String RULESET = "ruleset";
 
     @Override
     public RuleTest processElement(ParserContext context, Element element) throws ConfigurationException
@@ -84,6 +85,22 @@ public class RuleTestHandler implements ElementHandler<RuleTest>
             else if (child.getNodeName().equals(TARGET))
             {
                 ruleTest.setTarget(child.getTextContent().trim());
+            }
+            else if (child.getNodeName().equals(RULESET))
+            {
+                if (child.hasChildNodes())
+                {
+                    List<Element> rules = $(child).children().get();
+                    for (Element rulesElement : rules) {
+                        List<Element> ruleElements = $(rulesElement).children().get();
+                        for (Element rule : ruleElements) {
+                            ruleTest.addRuleId(rule.getAttribute("id"));
+                        }
+                    }
+                }
+                //if this is not here the parser doesn't get a builder impl
+                context.processElement(child);
+
             }
             else
             {
