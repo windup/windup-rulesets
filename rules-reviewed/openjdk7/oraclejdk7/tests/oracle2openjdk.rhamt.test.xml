@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<ruletest id="oracle2openjdk-tests" 
-    xmlns="http://windup.jboss.org/schema/jboss-ruleset" 
+<ruletest id="oracle2openjdk-tests"
+    xmlns="http://windup.jboss.org/schema/jboss-ruleset"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <testDataPath>data</testDataPath>
     <rulePath>../oracle2openjdk.rhamt.xml</rulePath>
@@ -10,7 +10,9 @@
             <rule id="oracle2openjdk-00000-test">
                 <when>
                     <not>
-                        <hint-exists message="Currently OpenJFX"/>
+                        <iterable-filter size="7">
+                            <hint-exists message="Currently OpenJFX"/>
+                        </iterable-filter>
                     </not>
                 </when>
                 <perform>
@@ -20,7 +22,9 @@
             <rule id="oracle2openjdk-00001-test">
                 <when>
                     <not>
-                        <hint-exists message="The font library is different in OpenJDK"/>
+                        <iterable-filter size="5">
+                            <hint-exists message="The font library is different in OpenJDK compared to OracleJDK"/>
+                        </iterable-filter>
                     </not>
                 </when>
                 <perform>
@@ -30,7 +34,9 @@
             <rule id="oracle2openjdk-00002-test">
                 <when>
                     <not>
-                        <hint-exists message="OpenJDK does not support the resource management API for Java"/>
+                        <iterable-filter size="1">
+                            <hint-exists message="OpenJDK does not support the resource management API for Java"/>
+                        </iterable-filter>
                     </not>
                 </when>
                 <perform>
@@ -40,7 +46,9 @@
             <rule id="oracle2openjdk-00003-test">
                 <when>
                     <not>
-                        <hint-exists message="OracleJDK used to use KCMS as color mangement system up until JDK7 by default"/>
+                        <iterable-filter size="3">
+                            <hint-exists message="OracleJDK used to use KCMS as color mangement system up until JDK7 by default"/>
+                        </iterable-filter>
                     </not>
                 </when>
                 <perform>
@@ -50,7 +58,9 @@
             <rule id="oracle2openjdk-00004-test">
                 <when>
                     <not>
-                        <hint-exists message="OpenJDK has its own 2D library"/>
+                        <iterable-filter size="3">
+                            <hint-exists message="OpenJDK has its own 2D library"/>
+                        </iterable-filter>
                     </not>
                 </when>
                 <perform>
