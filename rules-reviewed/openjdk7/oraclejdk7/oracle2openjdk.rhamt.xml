@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="oracle2openjdk" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis with respect to the migration from OracleJDK to OpenJDK.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="oraclejdk" versionRange="[7,)"/>
+        <targetTechnology id="openjdk" versionRange="[7,)" />
+    </metadata>
+    <rules>
+        <!-- remove / change this rule if OpenJFX is shipped with RHEL. -->
+        <rule id="oracle2openjdk-00000">
+            <when>
+                <javaclass references="javafx.{*}">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="JavaFX usage" effort="0" category-id="potential">
+                    <message>
+                        Currently OpenJFX (open-source implementation of JavaFX) is neither shipped nor supported on RHEL.
+                    </message>
+                    <link href="https://access.redhat.com/solutions/3299701" title="Knowledge base article about JavaFX support in RHEL" />
+                    <link href="https://bugzilla.redhat.com/show_bug.cgi?id=1275610" title="RFE to include OpenJFX in RHEL"/>
+                    <tag>JavaFX</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="oracle2openjdk-00001">
+            <when>
+                <or>
+                    <javaclass references="{package}.Font">
+                        <location>IMPORT</location>
+                    </javaclass>
+                    <!-- covers get/setFont methods -->
+                    <javaclass references="{package}.{*}Font{*}">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                    <javaclass references="javax.swing.{*}.{*}Font{*}">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="Fonts usage" effort="0" category-id="potential">
+                    <message>
+                        The font library is different in OpenJDK compared to OracleJDK.
+                        This means slightly different text layout in some cases.
+                        Ensure with tests that the output is still as expected.
+                    </message>
+                    <link href="https://access.redhat.com/solutions/2489791" title="Knowledge base article OracleJDK vs. OpenJDK" />
+                    <tag>fonts</tag>
+                </hint>
+            </perform>
+            <where param="package">
+                <matches pattern="(java\.awt|javafx\.scene\.text)"/>
+            </where>
+        </rule>
+        <rule id="oracle2openjdk-00002">
+            <when>
+                <javaclass references="jdk.management.resource.{*}"/>
+            </when>
+            <perform>
+                <hint title="Resource management API usage" effort="0" category-id="potential">
+                    <message>
+                        OpenJDK does not support the resource management API for Java.
+                    </message>
+                    <link href="https://access.redhat.com/solutions/2489791" title="Knowledge base article OracleJDK vs. OpenJDK" />
+                    <tag>Oracle JDK resource management</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="oracle2openjdk-00003">
+            <when>
+                <javaclass references="java.awt.Color"/>
+            </when>
+            <perform>
+                <hint title="Color management usage" effort="0" category-id="potential">
+                    <message>
+                        OracleJDK used to use KCMS as color mangement system up until JDK7 by default. It switched to Little CMS (LCMS) with JDK8.
+                        OpenJDK uses LCMS. If you continued to use KCMS by using the property ``sun.java2d.cmm=sun.java2d.cmm.kcms.KcmsServiceProvider``, remove this property and ensure in your tests that your application still works as expected.
+                    </message>
+                    <link href="https://access.redhat.com/solutions/2489791" title="Knowledge base article OracleJDK vs. OpenJDK" />
+                    <tag>JDK color management</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="oracle2openjdk-00004">
+            <when>
+                <javaclass references="java.awt.{package}{*}">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Java 2D library usage" effort="0" category-id="potential">
+                    <message>
+                       OpenJDK has its own 2D library, different from the proprietary JDK. This means that its performance may be different.
+                       Ensure during your tests that the application behaves as expected.
+                    </message>
+                    <link href="https://access.redhat.com/solutions/2489791" title="Knowledge base article OracleJDK vs. OpenJDK" />
+                    <tag>2D library</tag>
+                </hint>
+            </perform>
+            <where param="package">
+                <matches pattern="(geom|color|font|image|image\.renderable|print)"/>
+            </where>
+        </rule>
+        <rule id="oracle2openjdk-00005">
+            <when>
+                <or>
+                    <!--
+                        these two will produce some false positives since we can't check explcitely
+                        just for respective string values like e.g. "EC"
+                    -->
+                    <javaclass references="java.security.KeyPairGenerator.getInstance({*}">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                    <javaclass references="javax.crypto.KeyAgreement.getInstance({*}">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                    <javaclass references="java.security.spec.EC{*}">
+                        <location>CONSTRUCTOR_CALL</location>
+                        <location>IMPORT</location>
+                        <location>INHERITANCE</location>
+                        <location>METHOD_CALL</location>
+                        <location>VARIABLE_DECLARATION</location>
+                    </javaclass>
+                    <javaclass references="java.security.spec.EllipticCurve{*}">
+                        <location>CONSTRUCTOR_CALL</location>
+                        <location>IMPORT</location>
+                        <location>INHERITANCE</location>
+                        <location>METHOD_CALL</location>
+                        <location>VARIABLE_DECLARATION</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="Crypto: elliptic curves usage" effort="0" category-id="potential">
+                    <message>
+                    When on RHEL, OpenJDK uses the NSS crypto library from RHEL instead of the built-in one.
+
+                    This mostly affects elliptic curve cryptography, where OpenJDK supports all of the RHEL curves and none of the others.
+                    
+                    A list of all cipher suits of NSS in RHEL:
+
+                    * RHEL6: [https://access.redhat.com/articles/1470663](https://access.redhat.com/articles/1470663)
+                    * RHEL7: [https://access.redhat.com/articles/1463663](https://access.redhat.com/articles/1463663)
+                    </message>
+                    <link href="https://access.redhat.com/solutions/2489791" title="Knowledge base article OracleJDK vs. OpenJDK" />
+                    <tag>crypto</tag>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
