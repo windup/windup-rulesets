@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruletest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:windupfunctions="windupcustomfunctions"
+          xmlns:windup="http://windup.jboss.org/schema/jboss-ruleset"
+          id="jdbc-test"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <testDataPath>data/jdbc</testDataPath>
+    <rulePath>../jdbc.windup.xml</rulePath>
+   <ruleset>
+      <rules>
+           <rule id="jdbc-01000-test">
+            <when>
+               <classification-exists classification="JDBC Driver Used is older than version 4.0"/>
+               <technology-tag-exists technology-tag="JDBC Driver Version"/>
+            </when>
+            <perform>
+               <fail message="Condition JDBC Driver older than 4.0 has met"/>
+            </perform>
+         </rule>
+      </rules>
+   </ruleset>
+</ruletest>
