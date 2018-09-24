@@ -9,7 +9,7 @@
             <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
             <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
         </dependencies>
-        <targetTechnology id="eap" versionRange="[7,8)" />
+        <targetTechnology id="eap" versionRange="[6,7,8)" />
     </metadata>
     <rules>
         <rule id="jotm-00001">
@@ -21,9 +21,10 @@
             <perform>
                 <hint title="JOTM usage" effort="2" category-id="mandatory">
                     <message>
-                        JOTM JTA implementations are not loaded by EAP on deployment
+                        JOTM JTA implementations are not loaded by EAP on deployment.
+                        This results in "java.lang.NoClassDefFoundError: sun/rmi/server/UnicastServerRef" when the module is deployed.
                     </message>
-                    <link href="https://access.redhat.com/solutions/1217863" title="Knowledge base article on exception raised when deploying a module using transaction services provided by JOTM" />
+                    <link href="https://access.redhat.com/solutions/1217863" title="Knowledge base article with solution on exception raised when deploying a module using transaction services provided by JOTM" />
                     <tag>transactions</tag>
                 </hint>
             </perform>
