@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="jotm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset finds JOTM JTA implementations.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <targetTechnology id="eap" versionRange="[6,7,8)" />
+    </metadata>
+    <rules>
+        <rule id="jotm-00001">
+            <when>
+                <javaclass references="org.objectweb.jotm.{*}">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="JTA: JOTM usage" effort="5" category-id="mandatory">
+                    <message>
+                        The modules required by JOTM's JTA implementation are not loaded by default on EAP6+.
+                        This likely results in a "java.lang.NoClassDefFoundError: sun/rmi/server/UnicastServerRef" exception when it is deployed.
+
+                        To solve this issue it is highly recommended to use JTA provided JBoss EAP since JOTM is not maintained anymore.  
+                        
+                        If you want to stick with JOTM, you can add "sun/rmi/server" as system export in your applications deployment-structure.xml as described in [this knowledge base article](https://access.redhat.com/solutions/1217863).
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.1/html/development_guide/java_transaction_api_jta" title="JBoss EAP 7.1. JTA documentation" />
+                    <link href="https://access.redhat.com/solutions/1217863" title="Using transaction services by JTOM on EAP 6" />
+                    <tag>transactions</tag>
+                    <tag>jta</tag>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
