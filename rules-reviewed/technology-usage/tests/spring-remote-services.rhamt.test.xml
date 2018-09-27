@@ -1,0 +1,76 @@
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          id="spring-remote-services-test" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+  <testDataPath>data/spring-remote-services/</testDataPath>
+  <rulePath>../spring-remote-services.rhamt.xml</rulePath>
+  <ruleset>
+    <rules>
+      <rule id="spring-remote-services-01000-test">
+        <when>
+           <not>
+              <classification-exists classification="Spring rmi package referenced"/>
+              <technology-tag-exists technology-tag="spring-rmi"/>	
+	   </not>
+        </when>
+        <perform>
+          <fail message="Test failure for rule spring-remote-services-01000"/>
+        </perform>
+      </rule>
+      <rule id="spring-remote-services-02000-test">
+        <when>
+           <not>
+              <classification-exists classification="Spring Hessian Service Exporter package referenced"/>
+              <technology-tag-exists technology-tag="spring-hessian"/>	
+	   </not>
+        </when>
+        <perform>
+          <fail message="Test failure for rule spring-remote-services-02000"/>
+        </perform>
+      </rule>
+      <rule id="spring-remote-services-03000-test">
+        <when>
+           <not>
+              <classification-exists classification="Spring JAX-WS detected"/>
+              <technology-tag-exists technology-tag="spring-jax-ws"/>	
+	   </not>
+        </when>
+        <perform>
+          <fail message="Test failure for rule spring-remote-services-03000"/>
+        </perform>
+      </rule>
+      <rule id="spring-remote-services-04000-test">
+        <when>
+           <not>
+              <classification-exists classification="Spring Rest Controller package referenced"/>
+              <technology-tag-exists technology-tag="spring-rest"/>	
+	   </not>
+        </when>
+        <perform>
+          <fail message="Test failure for rule spring-remote-services-04000"/>
+        </perform>
+      </rule>
+      <rule id="spring-remote-services-05000-test">
+        <when>
+           <not>
+              <classification-exists classification="Spring JMS package referenced"/>
+              <technology-tag-exists technology-tag="spring-jms"/>	
+	   </not>
+        </when>
+        <perform>
+          <fail message="Test failure for rule spring-remote-services-05000"/>
+        </perform>
+      </rule>
+      <rule id="spring-remote-services-06000-test">
+        <when>
+           <not>
+              <classification-exists classification="Spring AMQP package referenced"/>
+              <technology-tag-exists technology-tag="spring-amqp"/>	
+	   </not>
+        </when>
+        <perform>
+          <fail message="Test failure for rule spring-remote-services-06000"/>
+        </perform>
+      </rule>
+    </rules>
+   </ruleset>
+</ruletest>

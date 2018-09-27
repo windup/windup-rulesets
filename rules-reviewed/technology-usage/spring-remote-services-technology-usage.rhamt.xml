@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<ruleset id="spring-remote-services-technology-usage"
+    xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides a summary of Spring Remote Services
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <phase>PostMigrationRulesPhase</phase>
+    </metadata>
+    <rules>
+       <rule id="technology-usage-spring-remote-services-01000">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">spring-rmi</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Spring RMI">
+                    <tag name="Connect"/>
+                    <tag name="Embedded"/>
+                    <tag name="Other"/>
+                </technology-identified>
+            </perform>
+       </rule>
+       <rule id="technology-usage-spring-remote-services-02000">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">spring-hessian</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Spring Hessian">
+                    <tag name="Connect"/>
+                    <tag name="Embedded"/>
+                    <tag name="Other"/>
+                </technology-identified>
+            </perform>
+       </rule>
+       <rule id="technology-usage-spring-remote-services-03000">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">spring-jax-ws</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Spring JAX-WS">
+                    <tag name="Connect"/>
+                    <tag name="Embedded"/>
+                    <tag name="Web Service"/>
+                </technology-identified>
+            </perform>
+       </rule>
+       <rule id="technology-usage-spring-remote-services-04000">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">spring-rest</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Spring REST">
+                    <tag name="Connect"/>
+                    <tag name="Embedded"/>
+                    <tag name="REST"/>
+                </technology-identified>
+            </perform>
+       </rule>
+       <rule id="technology-usage-spring-remote-services-05000">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">spring-jms</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Spring JMS">
+                    <tag name="Connect"/>
+                    <tag name="Java EE"/>
+                    <tag name="Messaging"/>
+                </technology-identified>
+            </perform>
+       </rule>
+       <rule id="technology-usage-spring-remote-services-06000">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">spring-amqp</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Spring AMQP">
+                    <tag name="Connect"/>
+                    <tag name="Java EE"/>
+                    <tag name="Messaging"/>
+                </technology-identified>
+            </perform>
+       </rule>
+   </rules>
+</ruleset>
