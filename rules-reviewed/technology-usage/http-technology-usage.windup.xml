@@ -14,7 +14,9 @@
     <rules>
         <rule id="technology-usage-http-01000">
             <when>
-                <graph-query discriminator="JaxRSWebServiceModel"></graph-query>
+                <graph-query discriminator="RestWebServiceModel">
+                    <property name="source">javaee</property>
+                </graph-query>
             </when>
             <perform>
                 <technology-identified name="JAX-RS">
