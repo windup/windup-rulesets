@@ -7,7 +7,6 @@
           xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
 
     <testDataPath>data/spring-remote-services/</testDataPath>
-    <rulePath>../spring-remote-services.rhamt.xml</rulePath>
     <rulePath>../spring-remote-services-technology-usage.rhamt.xml</rulePath>
    <ruleset>
       <rules>
@@ -93,6 +92,20 @@
             </when>
             <perform>
                <fail message="Expected data not found for rule technology-usage-spring-remote-services-06000"/>
+            </perform>
+         </rule>
+          <rule id="technology-usage-spring-remote-services-07000-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Spring Http Invoker" number-found="1">
+                     <tag name="Connect"/>
+                     <tag name="Embedded"/>
+                     <tag name="Other"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-spring-remote-services-07000"/>
             </perform>
          </rule>
      </rules>
