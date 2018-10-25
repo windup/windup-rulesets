@@ -204,6 +204,27 @@
                 <jdk>1.8</jdk>
             </activation>
         </profile>
+        <profile>
+            <id>surefire-jdk11</id>
+            <activation>
+                <property>
+                    <name>jdk.version</name>
+                    <value>11</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <!-- http://maven.apache.org/surefire/maven-surefire-plugin/faq.html#late-property-evaluation -->
+                            <argLine>--add-modules java.se</argLine>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 
 
