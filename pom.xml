@@ -296,6 +296,26 @@
                   </includes>
                </configuration>
             </plugin>
+            <!--
+            we need to download the CSS files each time we generate the surefire report due to
+            https://issues.apache.org/jira/browse/SUREFIRE-616
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>download-css</id>
+                        <goals>
+                            <goal>site</goal>
+                        </goals>
+                        <phase>test</phase>
+                    </execution>
+                </executions>
+                <configuration>
+                    <generateReports>false</generateReports>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
