@@ -29,6 +29,10 @@
 
                         Next the contract in `hibernate.transaction.coordinator_class` property should refer to `org.hibernate.resource.transaction.TransactionCoordinatorBuilder`
                         instead of to `org.hibernate.engine.transaction.spi.TransactionFactory`
+
+                        If a JPA application does not provide a setting for `hibernate.transaction.coordinator_class`, Hibernate will automatically build the proper transaction coordinator based on the transaction type for the persistence unit.
+
+                        If a non-JPA application does not provide a setting for `hibernate.transaction.coordinator_class`, Hibernate will use jdbc as the default. This default will cause problems if the application actually uses JTA-based transactions. A non-JPA application that uses JTA-based transactions should explicitly set `hibernate.transaction.coordinator_class=jta` or provide a custom `org.hibernate.resource.transaction.TransactionCoordinatorBuilder` that builds a `org.hibernate.resource.transaction.TransactionCoordinator` that properly coordinates with JTA-based transactions.
                         </message>
                     <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/single/migration_guide/#migration_hibernate_orm_changes_transactions"
                         title="Hibernate 5 redesigned Transactions SPI" />
