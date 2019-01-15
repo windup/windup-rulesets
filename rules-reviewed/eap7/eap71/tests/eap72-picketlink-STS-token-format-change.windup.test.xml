@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          id="eap72-picketlink-STS-token-format-change-test" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/data-eap72-picketlink-STS-token-format-change/</testDataPath>
+    <rulePath>../eap72-picketlink-STS-token-format-change.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="eap72-picketlink-STS-token-format-change-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="JBoss EAP 7.2 PicketLink STS issues tokens with a different format" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="eap72-picketlink-STS-token-format-change-00000 rule hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
