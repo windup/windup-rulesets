@@ -115,8 +115,12 @@
         <rule id="hibernate51-53-01000">
             <when>
                 <or>
-                    <xmlfile matches="//property[@name='hibernate.default_schema']"/>
-                    <xmlfile matches="//property[@name='hibernate.default_catalog']"/>
+                    <xmlfile matches="//s:property[@name='hibernate.default_schema']">
+                        <namespace prefix="s" uri="http://java.sun.com/xml/ns/persistence"/>
+                    </xmlfile>
+                    <xmlfile matches="//s:property[@name='hibernate.default_catalog']">
+                        <namespace prefix="s" uri="http://java.sun.com/xml/ns/persistence"/>
+                    </xmlfile>
                 </or>
             </when>
             <perform>
