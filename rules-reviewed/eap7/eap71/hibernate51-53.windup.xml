@@ -24,17 +24,30 @@
             </perform>
         </rule>
         -->
-        <!--https://issues.jboss.org/browse/WINDUPRULE-377
+        <!--https://issues.jboss.org/browse/WINDUPRULE-377 -->
         <rule id="hibernate51-53-00100">
             <when>
+                <project>
+                    <artifact groupId="org.hibernate" artifactId="hibernate-java8" />
+                </project>
+                <not>
+                    <project>
+                        <artifact groupId="org.hibernate" artifactId="hibernate-core" />
+                    </project>
+                </not>
             </when>
             <perform>
+                <hint title="Hibernate 5.3 - hibernate-java8 module has been merged into hibernate-core and the Java 8 date/time types are now natively supported." effort="1" category-id="mandatory">
+                    <message>change reference to hibernate-java8 to hibernate-core (since hibernate-java8 has been merged into hibernate-core module) </message>
+                    <link title="Red Hat JBoss EAP 7.2: Migrating from Hibernate ORM 5.1 to Hibernate ORM 5.3" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/#migrating_from_hibernate_5_1_to_5_3"/>
+                    <tag>hibernate</tag>
+                    <quickfix name="hibernate-java8" type="REPLACE">
+                        <replacement>hibernate-core</replacement>
+                        <search>hibernate-java8</search>
+                    </quickfix>
+                </hint>
             </perform>
-            <where param="">
-                <matches pattern="" />
-            </where>
         </rule>
-        -->
         <!--https://issues.jboss.org/browse/WINDUPRULE-378
         <rule id="hibernate51-53-00200">
             <when>
