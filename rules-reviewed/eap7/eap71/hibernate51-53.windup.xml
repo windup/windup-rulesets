@@ -114,14 +114,9 @@
         <!--https://issues.jboss.org/browse/WINDUPRULE-386-->
         <rule id="hibernate51-53-01000">
             <when>
-                <or>
-                    <xmlfile matches="//s:property[@name='hibernate.default_schema']">
-                        <namespace prefix="s" uri="http://java.sun.com/xml/ns/persistence"/>
-                    </xmlfile>
-                    <xmlfile matches="//s:property[@name='hibernate.default_catalog']">
-                        <namespace prefix="s" uri="http://java.sun.com/xml/ns/persistence"/>
-                    </xmlfile>
-                </or>
+                <xmlfile matches="//s:property/@name[windup:matches(self::node(), '{propertyname}')]">
+                    <namespace prefix="s" uri="http://java.sun.com/xml/ns/persistence"/>
+                </xmlfile>
             </when>
             <perform>
                 <hint title="Hibernate 5.3 - default_schema or default_catalog must be defined or set jdbc_metadata_extraction_strategy" category-id="mandatory">
@@ -130,6 +125,9 @@
                     <tag>hibernate</tag>
                 </hint>
             </perform>
+            <where param="propertyname">
+                <matches pattern="hibernate.default_schema|hibernate.default_catalog"/>
+            </where>
         </rule>
         <!--https://issues.jboss.org/browse/WINDUPRULE-387
         <rule id="hibernate51-53-01100">
