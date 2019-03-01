@@ -100,17 +100,43 @@
             </perform>
         </rule>
         -->
-        <!--https://issues.jboss.org/browse/WINDUPRULE-385
+        <!--https://issues.jboss.org/browse/WINDUPRULE-385-->
         <rule id="hibernate51-53-00900">
             <when>
+                <and>
+                    <javaclass references="{param_classes_setfirstresult}" as="result_classes_setFirstResult">
+                        <location>INHERITANCE</location>
+                    </javaclass>
+                    <javaclass references="setFirstResult" from="result_classes_setFirstResult">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+
+
+                    <xmlfile matches="//s:property[@name='hibernate.dialect' and windup:matches(@value, '{param_dialects}')]" as="result_dialect"/>
+
+
+                </and>
             </when>
             <perform>
+                <iteration over="result_dialect">
+                    <when>
+                        <javaclass references="org.hibernate.dialect.{dialects}" as="result_classes_dialect">
+                            <location>INHERITANCE</location>
+                        </javaclass>
+
+                        <javaclass references="getLimitHandler" from="result_classes_dialect">
+                            <location>METHOD</location>
+                        </javaclass>
+                    </when>
+                </iteration>
             </perform>
-            <where param="">
-                <matches pattern="" />
+            <where param="param_classes_setfirstresult">
+                <matches pattern="javax.persistence.Query|org.hibernate.Query|org.hibernate.Criteria"/>
+            </where>
+            <where param="param_dialects">
+                <matches pattern="Cache71Dialect|DB2390Dialect|InformixDialect|IngresDialect|RDMSOS2200Dialect|SQLServerDialect|TimesTenDialect"/>
             </where>
         </rule>
-        -->
         <!--https://issues.jboss.org/browse/WINDUPRULE-386
         <rule id="hibernate51-53-01000">
             <when>
