@@ -3,6 +3,7 @@
           id="hibernate51-53-test" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <testDataPath>data/data-hibernate51-53/</testDataPath>
+    <!--<testDataPath>data/hibernate-core-5.1.6.Final-sources/</testDataPath>-->
     <rulePath>../hibernate51-53.windup.xml</rulePath>
     <ruleset>
         <rules>
@@ -104,20 +105,44 @@
                 </perform>
             </rule>
             -->
-            <!--https://issues.jboss.org/browse/WINDUPRULE-383-
+            <!--https://issues.jboss.org/browse/WINDUPRULE-383-->
             <rule id="hibernate51-53-00700-test">
                 <when>
                     <not>
-                        <iterable-filter size="5">
-                            <hint-exists message="" />
+                        <iterable-filter size="2">
+                            <hint-exists message="A change to be aware of is accessing cache entries via `SecondLevelCacheStatistics.getEntries\(\)` and `NaturalIdCacheStatistics.getEntries\(\)`*" />
                         </iterable-filter>
                     </not>
                 </when>
                 <perform>
-                    <fail message="" />
+                    <fail message="Hint deprecated methods SecondLevelCacheStatistics.getEntries and NaturalIdCacheStatistics.getEntries not found" />
                 </perform>
             </rule>
-            -->
+            <rule id="hibernate51-53-00701-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="A change to be aware of is accessing cache entries via `NaturalIdCacheStatistics.getEntries\(\)`*" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint deprecated method NaturalIdCacheStatistics.getEntries not found" />
+                </perform>
+            </rule>
+            <rule id="hibernate51-53-00702-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="A change to be aware of is accessing cache entries via `SecondLevelCacheStatistics.getEntries\(\)`\." />
+                            <!--<hint-exists message="A change to be aware of is accessing cache entries via `SecondLevelCacheStatistics.getEntries\(\)`.*[\n]*.*This method  has been deprecated" />-->
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint deprecated method SecondLevelCacheStatistics.getEntries not found" />
+                </perform>
+            </rule>
             <!--https://issues.jboss.org/browse/WINDUPRULE-384
             <rule id="hibernate51-53-00800-test">
                 <when>
