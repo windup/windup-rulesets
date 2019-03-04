@@ -20,20 +20,19 @@
                 </perform>
             </rule>
             -->
-            <!--https://issues.jboss.org/browse/WINDUPRULE-377
+            <!--https://issues.jboss.org/browse/WINDUPRULE-377 -->
             <rule id="hibernate51-53-00100-test">
                 <when>
                     <not>
-                        <iterable-filter size="5">
-                            <hint-exists message="" />
+                        <iterable-filter size="2">
+                            <hint-exists message="change reference to hibernate-java8 to hibernate-core" />
                         </iterable-filter>
                     </not>
                 </when>
                 <perform>
-                    <fail message="" />
+                    <fail message="No reference to hibernate-java8 found in pom.xml (where hibernate-core not also referenced)" />
                 </perform>
             </rule>
-            -->
             <!--https://issues.jboss.org/browse/WINDUPRULE-378-
             <rule id="hibernate51-53-00200-test">
                 <when>
