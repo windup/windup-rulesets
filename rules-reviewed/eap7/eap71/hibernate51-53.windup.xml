@@ -74,17 +74,24 @@
             </perform>
         </rule>
         -->
-        <!--https://issues.jboss.org/browse/WINDUPRULE-381
+        <!--https://issues.jboss.org/browse/WINDUPRULE-381 -->
         <rule id="hibernate51-53-00500">
             <when>
+                <javaclass references="org.hibernate.{className}" >
+                </javaclass>
             </when>
             <perform>
+                <hint title="Hibernate 5.3 - RegionFactory usage" effort="2" category-id="mandatory">
+                    <message>Review usage of classes in org.hibernate.cache.spi.RegionFactory, as SPIs for this class has changed. See Javadoc for org.hibernate.cache.spi.RegionFactory for details.</message>
+                    <link title="Red Hat JBoss EAP 7.2: Migrating from Hibernate ORM 5.1 to Hibernate ORM 5.3" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/#migrating_from_hibernate_5_1_to_5_3"/>
+                    <link title="Javadoc for org.hibernate.cache.spi.RegionFactory" href="https://docs.jboss.org/hibernate/orm/5.3/javadocs/org/hibernate/cache/spi/RegionFactory.html"/>
+                    <tag>hibernate</tag>
+                </hint>
             </perform>
-            <where param="">
-                <matches pattern="" />
+            <where param="className">
+                <matches pattern="(cache.RegionFactory|cache.spi.RegionFactory|cache.spi.AbstractRegionFactory|testing.cache.CachingRegionFactory|cache.spi.support.RegionFactoryTemplate)" />
             </where>
         </rule>
-        -->
         <!--https://issues.jboss.org/browse/WINDUPRULE-382
         <rule id="hibernate51-53-00600">
             <when>
