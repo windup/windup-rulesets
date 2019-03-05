@@ -5,22 +5,22 @@
     <testDataPath>data/data-hibernate51-53/</testDataPath>
     <!--<testDataPath>data/hibernate-core-5.1.6.Final-sources/</testDataPath>-->
     <rulePath>../hibernate51-53.windup.xml</rulePath>
+    <rulePath>../hibernate51-53.windup.groovy</rulePath>
     <ruleset>
         <rules>
-            <!--https://issues.jboss.org/browse/WINDUPRULE-376
+            <!--https://issues.jboss.org/browse/WINDUPRULE-376-->
             <rule id="hibernate51-53-00000-test">
                 <when>
                     <not>
-                        <iterable-filter size="1">
-                            <hint-exists message="" />
+                        <iterable-filter size="29">
+                            <hint-exists message="`org.hibernate.engine.spi.SessionImplementor` parameter has to be changed to `org.hibernate.engine.spi.SharedSessionContractImplementor`*" />
                         </iterable-filter>
                     </not>
                 </when>
                 <perform>
-                    <fail message="" />
+                    <fail message="SessionImplementor hint not found." />
                 </perform>
             </rule>
-            -->
             <!--https://issues.jboss.org/browse/WINDUPRULE-377 -->
             <rule id="hibernate51-53-00100-test">
                 <when>
