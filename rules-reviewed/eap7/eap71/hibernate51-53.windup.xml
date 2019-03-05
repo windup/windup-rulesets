@@ -37,7 +37,7 @@
                 <matches pattern="(org.hibernate.usertype.UserVersionType.next|org.hibernate.type.VersionType.next|org.hibernate.type.SingleColumnType.set|org.hibernate.type.AbstractStandardBasicType.set|org.hibernate.type.Type.resolve|org.hibernate.usertype.UserVersionType.seed|org.hibernate.type.VersionType.seed|org.hibernate.collection.spi.PersistentCollection.setCurrentSession|org.hibernate.type.ProcedureParameterNamedBinder.nullSafeSet|org.hibernate.type.Type.nullSafeSet|org.hibernate.usertype.UserType.nullSafeSet|org.hibernate.usertype.CompositeUserType.nullSafeSet|org.hibernate.type.Type.beforeAssemble|org.hibernate.type.AbstractStandardBasicType.nullSafeGet|org.hibernate.type.Type.nullSafeGet|org.hibernate.type.SingleColumnType.nullSafeGet|org.hibernate.usertype.UserType.nullSafeGet|org.hibernate.usertype.CompositeUserType.nullSafeGet|org.hibernate.type.Type.replace|org.hibernate.usertype.CompositeUserType.replace|org.hibernate.usertype.UserCollectionType.replaceElements|org.hibernate.collection.spi.PersistentCollection.unsetSession|org.hibernate.type.Type.hydrate|org.hibernate.type.Type.semiResolve|org.hibernate.usertype.CompositeUserType.assemble|org.hibernate.type.Type.assemble|org.hibernate.usertype.UserCollectionType.instantiate|org.hibernate.usertype.CompositeUserType.disassemble|org.hibernate.type.Type.disassemble|org.hibernate.type.ProcedureParameterExtractionAware.extract|org.hibernate.type.Type.isDirty|org.hibernate.type.Type.isModified|org.hibernate.type.SingleColumnType.get|org.hibernate.type.AbstractStandardBasicType.get|org.hibernate.usertype.UserCollectionType.wrap)" />
             </where>
         </rule>
-        <!--https://issues.jboss.org/browse/WINDUPRULE-377 -->
+        <!--https://issues.jboss.org/browse/WINDUPRULE-377 and WINDUPRULE-378-->
         <rule id="hibernate51-53-00100">
             <when>
                 <project>
@@ -60,25 +60,40 @@
                 <matches pattern="(hibernate-java8|hibernate-entitymanager)" />
             </where>
         </rule>
-        <!--https://issues.jboss.org/browse/WINDUPRULE-378
-        <rule id="hibernate51-53-00200">
-            <when>
-            </when>
-            <perform>
-            </perform>
-        </rule>
-        -->
-        <!--https://issues.jboss.org/browse/WINDUPRULE-379
+        <!--https://issues.jboss.org/browse/WINDUPRULE-379-->
         <rule id="hibernate51-53-00300">
             <when>
+                <javaclass references="org.hibernate.{className}">
+                </javaclass>
             </when>
             <perform>
+                <hint title="Hibernate 5.3 - Exception Handling" effort="1" category-id="mandatory">
+                    <message> If the SessionFactory is built via Hibernate’s native bootstrapping and org.hibernate.HibernateException or a subclass is referenced by the application
+                        then set hibernate.native_exception_handling_51_compliance configuration property to true..</message>
+                    <link title="Red Hat JBoss EAP 7.2: Migrating from Hibernate ORM 5.1 to Hibernate ORM 5.3" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/#migrating_from_hibernate_5_1_to_5_3"/>
+                    <tag>hibernate</tag>
+                </hint>
             </perform>
-            <where param="">
-                <matches pattern="" />
+            <where param="className">
+                <matches pattern="(boot.archive.spi.ArchiveException|envers.exception.AuditException|jdbc.BatchFailedException|cache.CacheException|CallbackException
+|boot.registry.classloading.spi.ClassLoadingException|tool.schema.spi.CommandAcceptanceException|bytecode.enhance.spi.EnhancementException
+|tuple.entity.EntityMetamodel.ValueGenerationStrategyException|event.service.spi.EventListenerRegistrationException|HibernateError
+|id.IdentifierGenerationException|boot.model.naming.IllegalIdentifierException|tool.hbm2ddl.ImportScriptException
+|boot.spi.InFlightMetadataCollector.DuplicateSecondaryTableException|InstantiationException|secure.spi.IntegrationException|JDBCException
+|engine.jndi.JndiException|engine.jndi.JndiNameException|engine.transaction.jta.platform.spi.JtaPlatformException|LazyInitializationException
+|resource.transaction.LocalSynchronizationException|dialect.lock.LockingStrategyException|MappingException|loader.MultipleBagFetchException
+|procedure.NamedParametersNotSupportedException|result.NoMoreReturnsException|loader.custom.NonUniqueDiscoveredSqlAliasException
+|NonUniqueObjectException|NonUniqueResultException|procedure.NoSuchParameterException|bytecode.spi.NotInstrumentedException
+|service.NullServiceException|resource.transaction.NullSynchronizationException|procedure.ParameterMisuseException
+|engine.query.ParameterRecognitionException|procedure.ParameterStrategyException|PersistentObjectException|property.access.spi.PropertyAccessBuildingException
+|PropertyAccessException|property.access.spi.PropertyAccessSerializationException|PropertyValueException|QueryException
+|loader.plan.spi.QuerySpaceUidNotRegisteredException|ResourceClosedException|tool.schema.extract.spi.SchemaExtractionException|tool.schema.spi.SchemaManagementException
+|type.SerializationException|service.spi.ServiceException|SessionException|StaleStateException|boot.registry.selector.spi.StrategySelectionException
+|context.TenantIdentifierMismatchException|jdbc.TooManyRowsAffectedException|TransactionException|resource.transaction.TransactionRequiredForJoinException
+|TransientObjectException|TypeMismatchException|cache.spi.access.UnknownAccessTypeException|persister.spi.UnknownPersisterException|UnknownProfileException
+|service.UnknownServiceException|service.UnknownUnwrapTypeException|UnresolvableObjectException|UnsupportedLockAttemptException|WrongClassException)"/>
             </where>
         </rule>
-        -->
         <!--https://issues.jboss.org/browse/WINDUPRULE-380-->
         <rule id="hibernate51-53-00400">
             <when>
