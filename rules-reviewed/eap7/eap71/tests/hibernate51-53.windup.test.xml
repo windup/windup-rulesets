@@ -3,6 +3,7 @@
           id="hibernate51-53-test" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <testDataPath>data/data-hibernate51-53/</testDataPath>
+    <!--<testDataPath>data/hibernate-core-5.1.6.Final-sources/</testDataPath>-->
     <rulePath>../hibernate51-53.windup.xml</rulePath>
     <ruleset>
         <rules>
@@ -117,20 +118,19 @@
                 </perform>
             </rule>
             -->
-            <!--https://issues.jboss.org/browse/WINDUPRULE-384
+            <!--https://issues.jboss.org/browse/WINDUPRULE-384-->
             <rule id="hibernate51-53-00800-test">
                 <when>
                     <not>
-                        <iterable-filter size="1">
-                            <hint-exists message="" />
+                        <iterable-filter size="9">
+                            <hint-exists message="The SPIs in the `org.hibernate*" />
                         </iterable-filter>
                     </not>
                 </when>
                 <perform>
-                    <fail message="" />
+                    <fail message="Hint package org.hibernate.(persister|tuple) changed not found" />
                 </perform>
             </rule>
-            -->
             <!--https://issues.jboss.org/browse/WINDUPRULE-385
             <rule id="hibernate51-53-00900-test">
                 <when>

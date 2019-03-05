@@ -104,14 +104,29 @@
             </where>
         </rule>
         -->
-        <!--https://issues.jboss.org/browse/WINDUPRULE-384
+        <!--https://issues.jboss.org/browse/WINDUPRULE-384-->
         <rule id="hibernate51-53-00800">
             <when>
+                <javaclass references="org.hibernate.{packages}.{*}" >
+                    <location>IMPORT</location>
+                </javaclass>
             </when>
             <perform>
+                <hint title="Hibernate 5.3 - SPI in package org.hibernate.{packages} changed" effort="3" category-id="mandatory">
+                    <message>
+                        The SPIs in the `org.hibernate.{packages}` package have changed.  
+                        Any custom classes using those SPIs will need to be reviewed and updated.  
+                        See Javadoc for these packages for details.
+                    </message>
+                    <link title="Red Hat JBoss EAP 7.2: Migrating from Hibernate ORM 5.1 to Hibernate ORM 5.3" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/#migrating_from_hibernate_5_1_to_5_3"/>
+                    <link title="Hibernate 5.3 JavaDoc" href="http://docs.jboss.org/hibernate/orm/5.3/javadocs/"/>
+                    <tag>hibernate</tag>
+                </hint>
             </perform>
+            <where param="packages">
+                <matches pattern="(persister|tuple)"/>
+            </where>
         </rule>
-        -->
         <!--https://issues.jboss.org/browse/WINDUPRULE-385
         <rule id="hibernate51-53-00900">
             <when>
