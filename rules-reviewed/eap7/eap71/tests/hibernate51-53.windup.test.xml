@@ -163,7 +163,9 @@
             <rule id="hibernate51-53-01100-test">
                 <when>
                     <not>
-                        <hint-exists message="Existing applications migrating to 5.3 and using the `@TableGenerator`" />
+                        <iterable-filter size="1">
+                            <hint-exists message="Existing applications migrating to 5.3 and using the `@TableGenerator`" />
+                        </iterable-filter>
                     </not>
                 </when>
                 <perform>
