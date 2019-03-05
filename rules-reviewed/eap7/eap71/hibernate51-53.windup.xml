@@ -24,17 +24,29 @@
             </perform>
         </rule>
         -->
-        <!--https://issues.jboss.org/browse/WINDUPRULE-377
+        <!--https://issues.jboss.org/browse/WINDUPRULE-377 -->
         <rule id="hibernate51-53-00100">
             <when>
+                <project>
+                    <artifact groupId="org.hibernate" artifactId="{substitution}" />
+                </project>
+                <not>
+                    <project>
+                        <artifact groupId="org.hibernate" artifactId="hibernate-core" />
+                    </project>
+                </not>
             </when>
             <perform>
+                <hint title="Hibernate 5.3 - hibernate-java8 module has been merged into hibernate-core and the Java 8 date/time types are now natively supported." effort="1" category-id="mandatory">
+                    <message>change reference to hibernate-java8 to hibernate-core (since hibernate-java8 has been merged into hibernate-core module) </message>
+                    <link title="Red Hat JBoss EAP 7.2: Migrating from Hibernate ORM 5.1 to Hibernate ORM 5.3" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/#migrating_from_hibernate_5_1_to_5_3"/>
+                    <tag>hibernate</tag>
+                </hint>
             </perform>
-            <where param="">
-                <matches pattern="" />
+            <where param="substitution">
+                <matches pattern="(hibernate-java8|hibernate-entitymanager)" />
             </where>
         </rule>
-        -->
         <!--https://issues.jboss.org/browse/WINDUPRULE-378
         <rule id="hibernate51-53-00200">
             <when>
@@ -54,14 +66,151 @@
             </where>
         </rule>
         -->
-        <!--https://issues.jboss.org/browse/WINDUPRULE-380
+        <!--https://issues.jboss.org/browse/WINDUPRULE-380-->
         <rule id="hibernate51-53-00400">
             <when>
+                <javaclass references="org.hibernate.engine.spi.SessionFactoryImplementor.getQueryCache()">
+                    <location>METHOD_CALL</location>
+                </javaclass>
             </when>
             <perform>
+                <hint title="Hibernate 5.3 - SessionFactoryImplementor.getQueryCache() method removed" category-id="mandatory" effort="1">
+                    <message>`org.hibernate.engine.spi.SessionFactoryImplementor.getCache().getDefaultQueryResultsCache()` should be used instead of `SessionFactoryImplementor.getQueryCache()` method.</message>
+                    <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/#migrating_from_hibernate_5_1_to_5_3" title="Red Hat JBoss EAP 7.2: Migrating from Hibernate ORM 5.1 to Hibernate ORM 5.3" />
+                    <tag>hibernate</tag>
+                    <quickfix name="SessionFactoryImplementor.getQueryCache" type="REPLACE">
+                        <replacement>getCache().getDefaultQueryResultsCache()</replacement>
+                        <search>getQueryCache()</search>
+                    </quickfix>
+                </hint>
             </perform>
         </rule>
-        -->
+        <rule id="hibernate51-53-00401">
+            <when>
+                <javaclass references="org.hibernate.engine.spi.SessionFactoryImplementor.getQueryCache({*}String{*})">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Hibernate 5.3 - SessionFactoryImplementor.getQueryCache(String regionName) method removed" category-id="mandatory" effort="1">
+                    <message>`org.hibernate.engine.spi.SessionFactoryImplementor.getCache().getDefaultQueryResultsCache(String regionName)` should be used instead of `SessionFactoryImplementor.getQueryCache(String regionName)` method.</message>
+                    <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/#migrating_from_hibernate_5_1_to_5_3" title="Red Hat JBoss EAP 7.2: Migrating from Hibernate ORM 5.1 to Hibernate ORM 5.3" />
+                    <tag>hibernate</tag>
+                    <quickfix name="SessionFactoryImplementor.getQueryCache" type="REPLACE">
+                        <replacement>getCache().getQueryResultsCache(</replacement>
+                        <search>getQueryCache(</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate51-53-00402">
+            <when>
+                <javaclass references="org.hibernate.engine.spi.SessionFactoryImplementor.getUpdateTimestampsCache()">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Hibernate 5.3 - SessionFactoryImplementor.getUpdateTimestampsCache() method removed" category-id="mandatory" effort="1">
+                    <message>`org.hibernate.engine.spi.SessionFactoryImplementor.getCache().getTimestampsCache()` should be used instead of `SessionFactoryImplementor.getUpdateTimestampsCache()` method.</message>
+                    <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/#migrating_from_hibernate_5_1_to_5_3" title="Red Hat JBoss EAP 7.2: Migrating from Hibernate ORM 5.1 to Hibernate ORM 5.3" />
+                    <tag>hibernate</tag>
+                    <quickfix name="SessionFactoryImplementor.getUpdateTimestampsCache" type="REPLACE">
+                        <replacement>getCache().getTimestampsCache()</replacement>
+                        <search>getUpdateTimestampsCache()</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate51-53-00403">
+            <when>
+                <javaclass references="org.hibernate.engine.spi.SessionFactoryImplementor.getSecondLevelCacheRegion({*}String{*})">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Hibernate 5.3 - SessionFactoryImplementor.getSecondLevelCacheRegion(String regionName) method removed" category-id="mandatory" effort="1">
+                    <message>`org.hibernate.engine.spi.SessionFactoryImplementor.getCache().getRegion(String regionName)` should be used instead of `SessionFactoryImplementor.getSecondLevelCacheRegion(String regionName)` method.</message>
+                    <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/#migrating_from_hibernate_5_1_to_5_3" title="Red Hat JBoss EAP 7.2: Migrating from Hibernate ORM 5.1 to Hibernate ORM 5.3" />
+                    <tag>hibernate</tag>
+                    <quickfix name="SessionFactoryImplementor.getSecondLevelCacheRegion" type="REPLACE">
+                        <replacement>getCache().getRegion(</replacement>
+                        <search>getSecondLevelCacheRegion(</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate51-53-00404">
+            <when>
+                <javaclass references="org.hibernate.engine.spi.SessionFactoryImplementor.getSecondLevelCacheRegionAccessStrategy({*}String{*})">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Hibernate 5.3 - SessionFactoryImplementor.getSecondLevelCacheRegionAccessStrategy(String regionName) method removed" category-id="mandatory" effort="1">
+                    <message>
+                        Depending on the type of region, the appropriate method should be used instead: 
+                        
+                        * For an entity cache region, `org.hibernate.engine.spi.SessionFactoryImplementor.getMetamodel().entityPersister( entityName ).getCacheAccessStrategy()` should be used instead
+                        * For a collection region, `org.hibernate.engine.spi.SessionFactoryImplementor.getMetamodel().collectionPersister( role ).getCacheAccessStrategy()` should be used instead
+                        * For a natural ID region, `org.hibernate.engine.spi.SessionFactoryImplementor.getMetamodel().entityPersister( entityName ).getNaturalIdCacheAccessStrategy()` should be used instead
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/#migrating_from_hibernate_5_1_to_5_3" title="Red Hat JBoss EAP 7.2: Migrating from Hibernate ORM 5.1 to Hibernate ORM 5.3" />
+                    <tag>hibernate</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate51-53-00405">
+            <when>
+                <javaclass references="org.hibernate.engine.spi.SessionFactoryImplementor.getNaturalIdCacheRegion({*}String{*})">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Hibernate 5.3 - SessionFactoryImplementor.getNaturalIdCacheRegion(String regionName) method removed" category-id="mandatory" effort="1">
+                    <message>`org.hibernate.engine.spi.SessionFactoryImplementor.getCache().getRegion(String regionName)` should be used instead of `SessionFactoryImplementor.getNaturalIdCacheRegion(String regionName)` method.</message>
+                    <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/#migrating_from_hibernate_5_1_to_5_3" title="Red Hat JBoss EAP 7.2: Migrating from Hibernate ORM 5.1 to Hibernate ORM 5.3" />
+                    <tag>hibernate</tag>
+                    <quickfix name="SessionFactoryImplementor.getNaturalIdCacheRegion" type="REPLACE">
+                        <replacement>getCache().getRegion(</replacement>
+                        <search>getNaturalIdCacheRegion(</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate51-53-00406">
+            <when>
+                <javaclass references="org.hibernate.engine.spi.SessionFactoryImplementor.getNaturalIdCacheRegionAccessStrategy({*}String{*})">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Hibernate 5.3 - SessionFactoryImplementor.getNaturalIdCacheRegionAccessStrategy(String regionName) method removed" category-id="mandatory" effort="1">
+                    <message>`org.hibernate.engine.spi.SessionFactoryImplementor.getMetamodel().entityPersister( entityName ).getNaturalIdCacheAccessStrategy()` should be used instead of `SessionFactoryImplementor.getNaturalIdCacheRegionAccessStrategy(String regionName)` method.</message>
+                    <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/#migrating_from_hibernate_5_1_to_5_3" title="Red Hat JBoss EAP 7.2: Migrating from Hibernate ORM 5.1 to Hibernate ORM 5.3" />
+                    <tag>hibernate</tag>
+                    <quickfix name="SessionFactoryImplementor.getNaturalIdCacheRegionAccessStrategy" type="REPLACE">
+                        <replacement>getMetamodel().entityPersister( entityName ).getNaturalIdCacheAccessStrategy(</replacement>
+                        <search>getNaturalIdCacheRegionAccessStrategy(</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate51-53-00407">
+            <when>
+                <javaclass references="org.hibernate.engine.spi.SessionFactoryImplementor.getAllSecondLevelCacheRegions()">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Hibernate 5.3 - SessionFactoryImplementor.getAllSecondLevelCacheRegions() method removed" category-id="mandatory" effort="1">
+                    <message>
+                        `org.hibernate.engine.spi.SessionFactoryImplementor.getCache().getCacheRegionNames()` should be used to obtain all cache region names, then `org.hibernate.engine.spi.SessionFactoryImplementor.getCache().getRegion(String regionName)` should be used to look up each region.
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/#migrating_from_hibernate_5_1_to_5_3" title="Red Hat JBoss EAP 7.2: Migrating from Hibernate ORM 5.1 to Hibernate ORM 5.3" />
+                    <tag>hibernate</tag>
+                </hint>
+            </perform>
+        </rule>
         <!--https://issues.jboss.org/browse/WINDUPRULE-381
         <rule id="hibernate51-53-00500">
             <when>
@@ -73,14 +222,29 @@
             </where>
         </rule>
         -->
-        <!--https://issues.jboss.org/browse/WINDUPRULE-382
+        <!--https://issues.jboss.org/browse/WINDUPRULE-382-->
         <rule id="hibernate51-53-00600">
             <when>
+                <javaclass references="org.hibernate.cache.spi.QueryCacheFactory">
+                    <location>IMPLEMENTS_TYPE</location>
+                </javaclass>
             </when>
             <perform>
+                <hint title="Hibernate 5.3 - org.hibernate.cache.spi.QueryCacheFactory implementations" effort="1" category-id="mandatory">
+                    <message>
+                        One potential upgrade concern is any custom `org.hibernate.cache.spi.QueryCacheFactory` implementations.  
+                        `org.hibernate.cache.spi.QueryCacheFactory` was meant as a means to allow service providers the ability to define query result caching, generally with more stale-tolerant query result invalidation handling.  
+                        However, the contract also bound it to the old second level cache contracts so they had to be updated.  
+                        Its responsibilities also changed so we also decided to "rename it" to `org.hibernate.cache.spi.TimestampsCacheFactory`.  
+                        Details can be found in HHH-11356 JIRA issue (link below).
+                    </message>
+                    <link href="https://github.com/hibernate/hibernate-orm/blob/5.3/migration-guide.adoc#second-level-cache-provider-spi-changes" title="Hibernate ORM 5.3 Migration Guide: Second-level cache provider SPI changes" />
+                    <link title="Red Hat JBoss EAP 7.2: Migrating from Hibernate ORM 5.1 to Hibernate ORM 5.3" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/#hibernate_orm_5_3_features"/>
+                    <link href="https://hibernate.atlassian.net/browse/HHH-11356" title="HHH-11356: Adjust the 2nd-Cache SPIs to better reflect supported uses" />
+                    <tag>hibernate</tag>
+                </hint>
             </perform>
         </rule>
-        -->
         <!--https://issues.jboss.org/browse/WINDUPRULE-383-->
         <rule id="hibernate51-53-00700">
             <when>

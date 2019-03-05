@@ -21,20 +21,19 @@
                 </perform>
             </rule>
             -->
-            <!--https://issues.jboss.org/browse/WINDUPRULE-377
+            <!--https://issues.jboss.org/browse/WINDUPRULE-377 -->
             <rule id="hibernate51-53-00100-test">
                 <when>
                     <not>
-                        <iterable-filter size="5">
-                            <hint-exists message="" />
+                        <iterable-filter size="2">
+                            <hint-exists message="change reference to hibernate-java8 to hibernate-core" />
                         </iterable-filter>
                     </not>
                 </when>
                 <perform>
-                    <fail message="" />
+                    <fail message="No reference to hibernate-java8 found in pom.xml (where hibernate-core not also referenced)" />
                 </perform>
             </rule>
-            -->
             <!--https://issues.jboss.org/browse/WINDUPRULE-378-
             <rule id="hibernate51-53-00200-test">
                 <when>
@@ -63,20 +62,103 @@
                 </perform>
             </rule>
             -->
-            <!--https://issues.jboss.org/browse/WINDUPRULE-380
+            <!--https://issues.jboss.org/browse/WINDUPRULE-380-->
             <rule id="hibernate51-53-00400-test">
                 <when>
                     <not>
                         <iterable-filter size="1">
-                            <hint-exists message="" />
+                            <hint-exists message="`org.hibernate.engine.spi.SessionFactoryImplementor.getCache\(\).getDefaultQueryResultsCache\(\)` should be used instead of `SessionFactoryImplementor.getQueryCache\(\)` method*" />
                         </iterable-filter>
                     </not>
                 </when>
                 <perform>
-                    <fail message="" />
+                    <fail message="Hint removed method getQueryCache() not found" />
                 </perform>
             </rule>
-            -->
+            <rule id="hibernate51-53-00401-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.hibernate.engine.spi.SessionFactoryImplementor.getCache\(\).getDefaultQueryResultsCache\(String regionName\)` should be used instead of `SessionFactoryImplementor.getQueryCache\(String regionName\)` method" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint removed method getQueryCache(String regionName) not found" />
+                </perform>
+            </rule>
+            <rule id="hibernate51-53-00402-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.hibernate.engine.spi.SessionFactoryImplementor.getCache\(\).getTimestampsCache\(\)` should be used instead of `SessionFactoryImplementor.getUpdateTimestampsCache\(\)` method" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint removed method getUpdateTimestampsCache() not found" />
+                </perform>
+            </rule>
+            <rule id="hibernate51-53-00403-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.hibernate.engine.spi.SessionFactoryImplementor.getCache\(\).getRegion\(String regionName\)` should be used instead of `SessionFactoryImplementor.getSecondLevelCacheRegion\(String regionName\)` method" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint removed method getSecondLevelCacheRegion(String regionName) not found" />
+                </perform>
+            </rule>
+            <rule id="hibernate51-53-00404-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Depending on the type of region, the appropriate method should be used instead.*" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint removed method getSecondLevelCacheRegionAccessStrategy(String regionName) not found" />
+                </perform>
+            </rule>
+            <rule id="hibernate51-53-00405-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.hibernate.engine.spi.SessionFactoryImplementor.getCache\(\).getRegion\(String regionName\)` should be used instead of `SessionFactoryImplementor.getNaturalIdCacheRegion\(String regionName\)` method" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint removed method getNaturalIdCacheRegion(String regionName) not found" />
+                </perform>
+            </rule>
+            <rule id="hibernate51-53-00406-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.hibernate.engine.spi.SessionFactoryImplementor.getMetamodel\(\).entityPersister\( entityName \).getNaturalIdCacheAccessStrategy\(\)` should be used instead of `SessionFactoryImplementor.getNaturalIdCacheRegionAccessStrategy\(String regionName\)` method" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint removed method getNaturalIdCacheRegionAccessStrategy(String regionName) not found" />
+                </perform>
+            </rule>
+            <rule id="hibernate51-53-00407-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.hibernate.engine.spi.SessionFactoryImplementor.getCache\(\).getCacheRegionNames\(\)` should be used to obtain all cache region names.*" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint removed method getAllSecondLevelCacheRegions() not found" />
+                </perform>
+            </rule>
             <!--https://issues.jboss.org/browse/WINDUPRULE-381
             <rule id="hibernate51-53-00500-test">
                 <when>
@@ -91,20 +173,19 @@
                 </perform>
             </rule>
             -->
-            <!--https://issues.jboss.org/browse/WINDUPRULE-382
+            <!--https://issues.jboss.org/browse/WINDUPRULE-382-->
             <rule id="hibernate51-53-00600-test">
                 <when>
                     <not>
                         <iterable-filter size="1">
-                            <hint-exists message="" />
+                            <hint-exists message="One potential upgrade concern is any custom `org.hibernate.cache.spi.QueryCacheFactory` implementations*" />
                         </iterable-filter>
                     </not>
                 </when>
                 <perform>
-                    <fail message="" />
+                    <fail message="Removed interface QueryCacheFactory not found" />
                 </perform>
             </rule>
-            -->
             <!--https://issues.jboss.org/browse/WINDUPRULE-383-->
             <rule id="hibernate51-53-00700-test">
                 <when>
