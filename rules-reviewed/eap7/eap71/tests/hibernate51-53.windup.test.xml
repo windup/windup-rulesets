@@ -172,20 +172,19 @@
                 </perform>
             </rule>
             -->
-            <!--https://issues.jboss.org/browse/WINDUPRULE-382
+            <!--https://issues.jboss.org/browse/WINDUPRULE-382-->
             <rule id="hibernate51-53-00600-test">
                 <when>
                     <not>
                         <iterable-filter size="1">
-                            <hint-exists message="" />
+                            <hint-exists message="One potential upgrade concern is any custom `org.hibernate.cache.spi.QueryCacheFactory` implementations*" />
                         </iterable-filter>
                     </not>
                 </when>
                 <perform>
-                    <fail message="" />
+                    <fail message="Removed interface QueryCacheFactory not found" />
                 </perform>
             </rule>
-            -->
             <!--https://issues.jboss.org/browse/WINDUPRULE-383-
             <rule id="hibernate51-53-00700-test">
                 <when>
