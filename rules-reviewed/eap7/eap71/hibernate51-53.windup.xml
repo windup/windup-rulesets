@@ -177,7 +177,7 @@
             <perform>
                 <hint title="Hibernate 5.3 - SessionFactoryImplementor.getSecondLevelCacheRegionAccessStrategy(String regionName) method removed" category-id="mandatory" effort="1">
                     <message>
-                        Depending on the type of region, the appropriate method should be used instead:
+                        Depending on the type of region, the appropriate method should be used instead:  
 
                         * For an entity cache region, `org.hibernate.engine.spi.SessionFactoryImplementor.getMetamodel().entityPersister( entityName ).getCacheAccessStrategy()` should be used instead
                         * For a collection region, `org.hibernate.engine.spi.SessionFactoryImplementor.getMetamodel().collectionPersister( role ).getCacheAccessStrategy()` should be used instead
@@ -261,10 +261,10 @@
             <perform>
                 <hint title="Hibernate 5.3 - org.hibernate.cache.spi.QueryCacheFactory implementations" effort="1" category-id="mandatory">
                     <message>
-                        One potential upgrade concern is any custom `org.hibernate.cache.spi.QueryCacheFactory` implementations.
-                        `org.hibernate.cache.spi.QueryCacheFactory` was meant as a means to allow service providers the ability to define query result caching, generally with more stale-tolerant query result invalidation handling.
-                        However, the contract also bound it to the old second level cache contracts so they had to be updated.
-                        Its responsibilities also changed so we also decided to "rename it" to `org.hibernate.cache.spi.TimestampsCacheFactory`.
+                        One potential upgrade concern is any custom `org.hibernate.cache.spi.QueryCacheFactory` implementations.  
+                        `org.hibernate.cache.spi.QueryCacheFactory` was meant as a means to allow service providers the ability to define query result caching, generally with more stale-tolerant query result invalidation handling.  
+                        However, the contract also bound it to the old second level cache contracts so they had to be updated.  
+                        Its responsibilities also changed so we also decided to "rename it" to `org.hibernate.cache.spi.TimestampsCacheFactory`.  
                         Details can be found in HHH-11356 JIRA issue (link below).
                     </message>
                     <link href="https://github.com/hibernate/hibernate-orm/blob/5.3/migration-guide.adoc#second-level-cache-provider-spi-changes" title="Hibernate ORM 5.3 Migration Guide: Second-level cache provider SPI changes" />
@@ -284,10 +284,10 @@
             <perform>
                 <hint title="Hibernate 5.3 - SecondLevelCacheStatistics.getEntries() and NaturalIdCacheStatistics.getEntries(): deprecated methods" effort="1" category-id="optional">
                     <message>
-                        A change to be aware of is accessing cache entries via `SecondLevelCacheStatistics.getEntries()` and `NaturalIdCacheStatistics.getEntries()`.
-                        These methods have been deprecated, however the new caching SPI does not really require caching providers to support this.
-                        As of Hibernate 5.3 these methods inherently return an empty Map (`Collections#emptyMap`).
-                        This has always been something that providers did not implement "correctly" anyway.
+                        A change to be aware of is accessing cache entries via `SecondLevelCacheStatistics.getEntries()` and `NaturalIdCacheStatistics.getEntries()`.  
+                        These methods have been deprecated, however the new caching SPI does not really require caching providers to support this.  
+                        As of Hibernate 5.3 these methods inherently return an empty Map (`Collections#emptyMap`).  
+                        This has always been something that providers did not implement "correctly" anyway.  
                         Details can be found in HHH-11356 JIRA issue (link below).
                     </message>
                     <link href="https://github.com/hibernate/hibernate-orm/blob/5.3/migration-guide.adoc#second-level-cache-provider-spi-changes" title="Hibernate ORM 5.3 Migration Guide: Second-level cache provider SPI changes" />
@@ -317,10 +317,10 @@
                     <perform>
                         <hint title="Hibernate 5.3 - NaturalIdCacheStatistics.getEntries() deprecated method" effort="1" category-id="optional">
                             <message>
-                                A change to be aware of is accessing cache entries via `NaturalIdCacheStatistics.getEntries()`.
-                                This method has been deprecated, however the new caching SPI does not really require caching providers to support this.
-                                As of Hibernate 5.3 this method inherently return an empty Map (`Collections#emptyMap`).
-                                This has always been something that providers did not implement "correctly" anyway.
+                                A change to be aware of is accessing cache entries via `NaturalIdCacheStatistics.getEntries()`.  
+                                This method has been deprecated, however the new caching SPI does not really require caching providers to support this.  
+                                As of Hibernate 5.3 this method inherently return an empty Map (`Collections#emptyMap`).  
+                                This has always been something that providers did not implement "correctly" anyway.  
                                 Details can be found in HHH-11356 JIRA issue (link below).
                             </message>
                             <link href="https://github.com/hibernate/hibernate-orm/blob/5.3/migration-guide.adoc#second-level-cache-provider-spi-changes" title="Hibernate ORM 5.3 Migration Guide: Second-level cache provider SPI changes" />
@@ -349,10 +349,10 @@
                     <perform>
                         <hint title="Hibernate 5.3 - SecondLevelCacheStatistics.getEntries() deprecated method" effort="1" category-id="optional">
                             <message>
-                                A change to be aware of is accessing cache entries via `SecondLevelCacheStatistics.getEntries()`.
-                                This method has been deprecated, however the new caching SPI does not really require caching providers to support this.
-                                As of Hibernate 5.3 these methods inherently return an empty Map (`Collections#emptyMap`).
-                                This has always been something that providers did not implement "correctly" anyway.
+                                A change to be aware of is accessing cache entries via `SecondLevelCacheStatistics.getEntries()`.   
+                                This method has been deprecated, however the new caching SPI does not really require caching providers to support this.  
+                                As of Hibernate 5.3 these methods inherently return an empty Map (`Collections#emptyMap`).  
+                                This has always been something that providers did not implement "correctly" anyway.  
                                 Details can be found in HHH-11356 JIRA issue (link below).
                             </message>
                             <link href="https://github.com/hibernate/hibernate-orm/blob/5.3/migration-guide.adoc#second-level-cache-provider-spi-changes" title="Hibernate ORM 5.3 Migration Guide: Second-level cache provider SPI changes" />
