@@ -791,5 +791,51 @@
                 <matches pattern="(java|properties|xml)"/>
             </where>
         </rule>
+        <!--https://issues.jboss.org/browse/WINDUPRULE-385-->
+        <rule id="hibernate4-00040">
+            <when>
+                <and>
+                    <!-- check if we are calling the setFirstResult method of one of the Query class -->
+                    <javaclass references="{param_classes_setfirstresult}.setFirstResult(int)" >
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+
+                    <javaclass references="org.hibernate.dialect.{param_dialects}" as="result_classes_dialect">
+                        <location>INHERITANCE</location>
+                    </javaclass>
+
+                    <not>
+                        <!-- check if dialect class used is overriding the method to set the limit handler -->
+                        <javaclass references="{*}getLimitHandler()" from="result_classes_dialect">
+                            <location>METHOD</location>
+                        </javaclass>
+                    </not>
+
+                    <!-- check if the dialect is one of the special ones -->
+                    <or>
+                        <xmlfile matches="//s:property[@name='hibernate.dialect' and windup:matches(@value, '{result_classes_dialect}')]">
+                            <namespace prefix="s" uri="http://xmlns.jcp.org/xml/ns/persistence"/>
+                        </xmlfile>
+                        <xmlfile matches="//property[@name='hibernate.dialect' and windup:matches(@value, '{result_classes_dialect}')]"/>
+                    </or>
+
+                </and>
+            </when>
+            <perform>
+                <iteration over="default">
+                    <hint title="Hibernate 4.3 - Dialects not supporting Limit Offset" effort="1" category-id="mandatory">
+                        <message>Dialect does not support limit offset ({dialect_used}) therefore as setFirstResult is used then hibernate.legacy_limit_handler=true is mandatory.</message>
+                        <link title="Red Hat JBoss EAP 7.2: Migrating from Hibernate ORM 4.3 to Hibernate ORM 5.3" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/#migrating_from_hibernate_5_1_to_5_3"/>
+                        <tag>hibernate</tag>
+                    </hint>
+                </iteration>
+            </perform>
+            <where param="param_classes_setfirstresult">
+                <matches pattern="javax.persistence.Query|org.hibernate.Query|org.hibernate.Criteria"/>
+            </where>
+            <where param="param_dialects">
+                <matches pattern="Cache71Dialect|DB2390Dialect|InformixDialect|IngresDialect|RDMSOS2200Dialect|SQLServerDialect|TimesTenDialect"/>
+            </where>
+        </rule>
     </rules>
 </ruleset>
