@@ -159,20 +159,19 @@
                     <fail message="Hint removed method getAllSecondLevelCacheRegions() not found" />
                 </perform>
             </rule>
-            <!--https://issues.jboss.org/browse/WINDUPRULE-381
+            <!--https://issues.jboss.org/browse/WINDUPRULE-381 -->
             <rule id="hibernate51-53-00500-test">
                 <when>
                     <not>
-                        <iterable-filter size="5">
-                            <hint-exists message="" />
+                        <iterable-filter size="10">
+                            <hint-exists message="Review usage of classes in org.hibernate.cache.spi.RegionFactory" />
                         </iterable-filter>
                     </not>
                 </when>
                 <perform>
-                    <fail message="" />
+                    <fail message="RegionFactory references not flagged as required" />
                 </perform>
             </rule>
-            -->
             <!--https://issues.jboss.org/browse/WINDUPRULE-382-->
             <rule id="hibernate51-53-00600-test">
                 <when>
