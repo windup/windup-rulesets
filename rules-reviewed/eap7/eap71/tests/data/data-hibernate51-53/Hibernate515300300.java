@@ -47,7 +47,7 @@ import org.hibernate.jpa.internal.EntityManagerMessageLogger;
  *
  * @author Steve Ebersole
  */
-public class ExplodedArchiveDescriptor extends AbstractArchiveDescriptor {
+public class Hibernate515300300 extends AbstractArchiveDescriptor {
     private static final EntityManagerMessageLogger LOG = Logger.getMessageLogger(
             EntityManagerMessageLogger.class,
             ExplodedArchiveDescriptor.class.getName()
@@ -60,7 +60,7 @@ public class ExplodedArchiveDescriptor extends AbstractArchiveDescriptor {
      * @param archiveUrl The directory URL
      * @param entryBasePrefix the base (within the url) that described the prefix for entries within the archive
      */
-    public ExplodedArchiveDescriptor(
+    public Hibernate515300300(
             ArchiveDescriptorFactory archiveDescriptorFactory,
             URL archiveUrl,
             String entryBasePrefix) {

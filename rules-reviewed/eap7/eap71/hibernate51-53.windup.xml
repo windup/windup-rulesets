@@ -64,13 +64,14 @@
         <rule id="hibernate51-53-00300">
             <when>
                 <javaclass references="org.hibernate.{className}">
+                    <location>IMPORT</location>
                 </javaclass>
             </when>
             <perform>
                 <hint title="Hibernate 5.3 - Exception Handling" effort="1" category-id="mandatory">
-                    <message> If the SessionFactory is built via Hibernate’s native bootstrapping and org.hibernate.HibernateException or a subclass is referenced by the application
-                        then set hibernate.native_exception_handling_51_compliance configuration property to true..</message>
-                    <link title="Red Hat JBoss EAP 7.2: Migrating from Hibernate ORM 5.1 to Hibernate ORM 5.3" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/#migrating_from_hibernate_5_1_to_5_3"/>
+                    <message> If the 'SessionFactory' is built via Hibernate’s native bootstrapping and 'org.hibernate.HibernateException' or a subclass is referenced by the application
+                        then set 'hibernate.native_exception_handling_51_compliance' configuration property to true..</message>
+                    <link title="Red Hat JBoss EAP 7.2: Migrating from Hibernate ORM 5.1 to Hibernate ORM 5.3" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/#exception_handling_changes_between_51_53"/>
                     <tag>hibernate</tag>
                 </hint>
             </perform>
