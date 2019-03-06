@@ -112,23 +112,26 @@
                         <location>METHOD_CALL</location>
                     </javaclass>
 
-                    <!-- check if the dialect is one of the special ones -->
-                    <or>
-                        <xmlfile matches="//s:property[@name='hibernate.dialect' and windup:matches(@value, 'org.hibernate.dialect.{param_dialects}')]">
-                            <namespace prefix="s" uri="http://xmlns.jcp.org/xml/ns/persistence"/>
-                        </xmlfile>
-                        <xmlfile matches="//property[@name='hibernate.dialect' and windup:matches(@value, 'org.hibernate.dialect.{param_dialects}')]"/>
-                    </or>
+                    <javaclass references="org.hibernate.dialect.{param_dialects}" as="result_classes_dialect">
+                        <location>INHERITANCE</location>
+                    </javaclass>
 
                     <not>
                         <!-- check if dialect class used is overriding the method to set the limit handler -->
-                        <javaclass references="org.hibernate.dialect.{param_dialects}" as="result_classes_dialect">
-                            <location>INHERITANCE</location>
-                        </javaclass>
                         <javaclass references="{*}getLimitHandler()" from="result_classes_dialect">
                             <location>METHOD</location>
                         </javaclass>
                     </not>
+
+                    <!-- check if the dialect is one of the special ones -->
+                    <or>
+                        <xmlfile matches="//s:property[@name='hibernate.dialect' and windup:matches(@value, '{result_classes_dialect}')]">
+                            <namespace prefix="s" uri="http://xmlns.jcp.org/xml/ns/persistence"/>
+                        </xmlfile>
+                        <xmlfile matches="//property[@name='hibernate.dialect' and windup:matches(@value, '{result_classes_dialect}')]"/>
+                        <xmlfile matches="//property[@name='hibernate.dialect' and windup:matches(self::node(),'{result_classes_dialect}')]"/>
+                    </or>
+
                 </and>
             </when>
             <perform>
