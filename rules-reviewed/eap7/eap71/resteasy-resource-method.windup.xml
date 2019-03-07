@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="resteasy-resource-method"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <targetTechnology id="eap" versionRange="[7,8)" />
+    </metadata>
+    <rules>
+        <!--https://issues.jboss.org/browse/WINDUPRULE-370 -->
+        <rule id="resteasy-resource-method-00001">
+            <when>
+                <project>
+                    <artifact groupId="org.jboss.spec.javax.ws.rs" artifactId="jboss-jaxrs-api_2.0_spec" />
+                </project>
+            </when>
+            <perform>
+                <hint title="RESTEasy Resource Method Algorithm Switch changes" effort="1" category-id="potential">
+                    <message>If you migrate your application from JBoss EAP from 7.1.1 to 7.2.x and want to retain the stricter behavior as defined in the JAX-RS 2.0 specification, set the `jaxrs.2.0.request.matching` option to true.</message>
+                    <link title="Red Hat JBoss EAP 7.2: RESTEasy Resource Method Algorithm Switch changes" href=" https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/index#migrate_resteasy_resource_method_algoritm_switch"/>
+                    <tag>resteasy</tag>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
