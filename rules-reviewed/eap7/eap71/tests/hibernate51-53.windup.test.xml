@@ -208,20 +208,19 @@
                     <fail message="Hint deprecated method SecondLevelCacheStatistics.getEntries not found" />
                 </perform>
             </rule>
-            <!--https://issues.jboss.org/browse/WINDUPRULE-384
+            <!--https://issues.jboss.org/browse/WINDUPRULE-384-->
             <rule id="hibernate51-53-00800-test">
                 <when>
                     <not>
-                        <iterable-filter size="1">
-                            <hint-exists message="" />
+                        <iterable-filter size="11">
+                            <hint-exists message="The SPIs in the `org.hibernate*" />
                         </iterable-filter>
                     </not>
                 </when>
                 <perform>
-                    <fail message="" />
+                    <fail message="Hint package org.hibernate.(persister|tuple) changed not found" />
                 </perform>
             </rule>
-            -->
             <!--https://issues.jboss.org/browse/WINDUPRULE-385
             <rule id="hibernate51-53-00900-test">
                 <when>
