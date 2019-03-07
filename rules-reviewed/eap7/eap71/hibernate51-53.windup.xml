@@ -16,73 +16,388 @@
         <targetTechnology id="eap" versionRange="[7,8)" />
     </metadata>
     <rules>
-        <!--https://issues.jboss.org/browse/WINDUPRULE-376
-        <rule id="hibernate51-53-00000">
+        <!--https://issues.jboss.org/browse/WINDUPRULE-376-->
+        <!--<rule id="hibernate51-53-00000">
+            refer to hibernate51-53.windup.groovy
+        </rule>-->
+        <rule id="hibernate51-53-00001">
             <when>
+                <javaclass references="{methods_param}({*}org.hibernate.engine.spi.SessionImplementor{*})">
+                    <location>METHOD_CALL</location>
+                </javaclass>
             </when>
             <perform>
+                <hint title="Hibernate 5.3 - SessionImplementor parameter changed to SharedSessionContractImplementor" effort="1" category-id="mandatory">
+                    <message>`org.hibernate.engine.spi.SessionImplementor` parameter has to be changed to `org.hibernate.engine.spi.SharedSessionContractImplementor`.</message>
+                    <link title="Red Hat JBoss EAP 7.2: Migrating from Hibernate ORM 5.1 to Hibernate ORM 5.3" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/#hibernate_51_compatiblity_transformer"/>
+                    <tag>hibernate</tag>
+                </hint>
             </perform>
+            <where param="methods_param">
+                <matches pattern="(org.hibernate.usertype.UserVersionType.next|org.hibernate.type.VersionType.next|org.hibernate.type.SingleColumnType.set|org.hibernate.type.AbstractStandardBasicType.set|org.hibernate.type.Type.resolve|org.hibernate.usertype.UserVersionType.seed|org.hibernate.type.VersionType.seed|org.hibernate.collection.spi.PersistentCollection.setCurrentSession|org.hibernate.type.ProcedureParameterNamedBinder.nullSafeSet|org.hibernate.type.Type.nullSafeSet|org.hibernate.usertype.UserType.nullSafeSet|org.hibernate.usertype.CompositeUserType.nullSafeSet|org.hibernate.type.Type.beforeAssemble|org.hibernate.type.AbstractStandardBasicType.nullSafeGet|org.hibernate.type.Type.nullSafeGet|org.hibernate.type.SingleColumnType.nullSafeGet|org.hibernate.usertype.UserType.nullSafeGet|org.hibernate.usertype.CompositeUserType.nullSafeGet|org.hibernate.type.Type.replace|org.hibernate.usertype.CompositeUserType.replace|org.hibernate.usertype.UserCollectionType.replaceElements|org.hibernate.collection.spi.PersistentCollection.unsetSession|org.hibernate.type.Type.hydrate|org.hibernate.type.Type.semiResolve|org.hibernate.usertype.CompositeUserType.assemble|org.hibernate.type.Type.assemble|org.hibernate.usertype.UserCollectionType.instantiate|org.hibernate.usertype.CompositeUserType.disassemble|org.hibernate.type.Type.disassemble|org.hibernate.type.ProcedureParameterExtractionAware.extract|org.hibernate.type.Type.isDirty|org.hibernate.type.Type.isModified|org.hibernate.type.SingleColumnType.get|org.hibernate.type.AbstractStandardBasicType.get|org.hibernate.usertype.UserCollectionType.wrap)" />
+            </where>
         </rule>
-        -->
-        <!--https://issues.jboss.org/browse/WINDUPRULE-377
+        <!--https://issues.jboss.org/browse/WINDUPRULE-377 and WUNDUPRULE-378-->
         <rule id="hibernate51-53-00100">
             <when>
+                <project>
+                    <artifact groupId="org.hibernate" artifactId="{substitution}" />
+                </project>
+                <not>
+                    <project>
+                        <artifact groupId="org.hibernate" artifactId="hibernate-core" />
+                    </project>
+                </not>
             </when>
             <perform>
+                <hint title="Hibernate 5.3 - hibernate-java8 module has been merged into hibernate-core and the Java 8 date/time types are now natively supported." effort="1" category-id="mandatory">
+                    <message>change reference to hibernate-java8 to hibernate-core (since hibernate-java8 has been merged into hibernate-core module) </message>
+                    <link title="Red Hat JBoss EAP 7.2: Migrating from Hibernate ORM 5.1 to Hibernate ORM 5.3" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/#migrating_from_hibernate_5_1_to_5_3"/>
+                    <tag>hibernate</tag>
+                </hint>
             </perform>
-            <where param="">
-                <matches pattern="" />
+            <where param="substitution">
+                <matches pattern="(hibernate-java8|hibernate-entitymanager)" />
             </where>
         </rule>
-        -->
-        <!--https://issues.jboss.org/browse/WINDUPRULE-378
-        <rule id="hibernate51-53-00200">
-            <when>
-            </when>
-            <perform>
-            </perform>
-        </rule>
-        -->
-        <!--https://issues.jboss.org/browse/WINDUPRULE-379
+        <!--https://issues.jboss.org/browse/WINDUPRULE-379-->
         <rule id="hibernate51-53-00300">
             <when>
+                <javaclass references="org.hibernate.{className}">
+                    <location>IMPORT</location>
+                </javaclass>
             </when>
             <perform>
+                <hint title="Hibernate 5.3 - Exception Handling" effort="1" category-id="mandatory">
+                    <message> If the `SessionFactory` is built via Hibernate’s native bootstrapping and `org.hibernate.HibernateException` or a subclass is referenced by the application
+                        then set `hibernate.native_exception_handling_51_compliance` configuration property to `true`.</message>
+                    <link title="Red Hat JBoss EAP 7.2: Migrating from Hibernate ORM 5.1 to Hibernate ORM 5.3" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/#exception_handling_changes_between_51_53"/>
+                    <tag>hibernate</tag>
+                </hint>
             </perform>
-            <where param="">
-                <matches pattern="" />
+            <where param="className">
+                <matches pattern="(boot.archive.spi.ArchiveException|envers.exception.AuditException|jdbc.BatchFailedException|cache.CacheException|CallbackException
+|boot.registry.classloading.spi.ClassLoadingException|tool.schema.spi.CommandAcceptanceException|bytecode.enhance.spi.EnhancementException
+|tuple.entity.EntityMetamodel.ValueGenerationStrategyException|event.service.spi.EventListenerRegistrationException|HibernateError
+|id.IdentifierGenerationException|boot.model.naming.IllegalIdentifierException|tool.hbm2ddl.ImportScriptException
+|boot.spi.InFlightMetadataCollector.DuplicateSecondaryTableException|InstantiationException|secure.spi.IntegrationException|JDBCException
+|engine.jndi.JndiException|engine.jndi.JndiNameException|engine.transaction.jta.platform.spi.JtaPlatformException|LazyInitializationException
+|resource.transaction.LocalSynchronizationException|dialect.lock.LockingStrategyException|MappingException|loader.MultipleBagFetchException
+|procedure.NamedParametersNotSupportedException|result.NoMoreReturnsException|loader.custom.NonUniqueDiscoveredSqlAliasException
+|NonUniqueObjectException|NonUniqueResultException|procedure.NoSuchParameterException|bytecode.spi.NotInstrumentedException
+|service.NullServiceException|resource.transaction.NullSynchronizationException|procedure.ParameterMisuseException
+|engine.query.ParameterRecognitionException|procedure.ParameterStrategyException|PersistentObjectException|property.access.spi.PropertyAccessBuildingException
+|PropertyAccessException|property.access.spi.PropertyAccessSerializationException|PropertyValueException|QueryException
+|loader.plan.spi.QuerySpaceUidNotRegisteredException|ResourceClosedException|tool.schema.extract.spi.SchemaExtractionException|tool.schema.spi.SchemaManagementException
+|type.SerializationException|service.spi.ServiceException|SessionException|StaleStateException|boot.registry.selector.spi.StrategySelectionException
+|context.TenantIdentifierMismatchException|jdbc.TooManyRowsAffectedException|TransactionException|resource.transaction.TransactionRequiredForJoinException
+|TransientObjectException|TypeMismatchException|cache.spi.access.UnknownAccessTypeException|persister.spi.UnknownPersisterException|UnknownProfileException
+|service.UnknownServiceException|service.UnknownUnwrapTypeException|UnresolvableObjectException|UnsupportedLockAttemptException|WrongClassException)"/>
             </where>
         </rule>
-        -->
-        <!--https://issues.jboss.org/browse/WINDUPRULE-380
+        <!--https://issues.jboss.org/browse/WINDUPRULE-380-->
         <rule id="hibernate51-53-00400">
             <when>
+                <javaclass references="org.hibernate.engine.spi.SessionFactoryImplementor.getQueryCache()">
+                    <location>METHOD_CALL</location>
+                </javaclass>
             </when>
             <perform>
+                <hint title="Hibernate 5.3 - SessionFactoryImplementor.getQueryCache() method removed" category-id="mandatory" effort="1">
+                    <message>`org.hibernate.engine.spi.SessionFactoryImplementor.getCache().getDefaultQueryResultsCache()` should be used instead of `SessionFactoryImplementor.getQueryCache()` method.</message>
+                    <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/#migrating_from_hibernate_5_1_to_5_3" title="Red Hat JBoss EAP 7.2: Migrating from Hibernate ORM 5.1 to Hibernate ORM 5.3" />
+                    <tag>hibernate</tag>
+                    <quickfix name="SessionFactoryImplementor.getQueryCache" type="REPLACE">
+                        <replacement>getCache().getDefaultQueryResultsCache()</replacement>
+                        <search>getQueryCache()</search>
+                    </quickfix>
+                </hint>
             </perform>
         </rule>
-        -->
-        <!--https://issues.jboss.org/browse/WINDUPRULE-381
+        <rule id="hibernate51-53-00401">
+            <when>
+                <javaclass references="org.hibernate.engine.spi.SessionFactoryImplementor.getQueryCache({*}String{*})">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Hibernate 5.3 - SessionFactoryImplementor.getQueryCache(String regionName) method removed" category-id="mandatory" effort="1">
+                    <message>`org.hibernate.engine.spi.SessionFactoryImplementor.getCache().getDefaultQueryResultsCache(String regionName)` should be used instead of `SessionFactoryImplementor.getQueryCache(String regionName)` method.</message>
+                    <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/#migrating_from_hibernate_5_1_to_5_3" title="Red Hat JBoss EAP 7.2: Migrating from Hibernate ORM 5.1 to Hibernate ORM 5.3" />
+                    <tag>hibernate</tag>
+                    <quickfix name="SessionFactoryImplementor.getQueryCache" type="REPLACE">
+                        <replacement>getCache().getQueryResultsCache(</replacement>
+                        <search>getQueryCache(</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate51-53-00402">
+            <when>
+                <javaclass references="org.hibernate.engine.spi.SessionFactoryImplementor.getUpdateTimestampsCache()">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Hibernate 5.3 - SessionFactoryImplementor.getUpdateTimestampsCache() method removed" category-id="mandatory" effort="1">
+                    <message>`org.hibernate.engine.spi.SessionFactoryImplementor.getCache().getTimestampsCache()` should be used instead of `SessionFactoryImplementor.getUpdateTimestampsCache()` method.</message>
+                    <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/#migrating_from_hibernate_5_1_to_5_3" title="Red Hat JBoss EAP 7.2: Migrating from Hibernate ORM 5.1 to Hibernate ORM 5.3" />
+                    <tag>hibernate</tag>
+                    <quickfix name="SessionFactoryImplementor.getUpdateTimestampsCache" type="REPLACE">
+                        <replacement>getCache().getTimestampsCache()</replacement>
+                        <search>getUpdateTimestampsCache()</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate51-53-00403">
+            <when>
+                <javaclass references="org.hibernate.engine.spi.SessionFactoryImplementor.getSecondLevelCacheRegion({*}String{*})">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Hibernate 5.3 - SessionFactoryImplementor.getSecondLevelCacheRegion(String regionName) method removed" category-id="mandatory" effort="1">
+                    <message>`org.hibernate.engine.spi.SessionFactoryImplementor.getCache().getRegion(String regionName)` should be used instead of `SessionFactoryImplementor.getSecondLevelCacheRegion(String regionName)` method.</message>
+                    <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/#migrating_from_hibernate_5_1_to_5_3" title="Red Hat JBoss EAP 7.2: Migrating from Hibernate ORM 5.1 to Hibernate ORM 5.3" />
+                    <tag>hibernate</tag>
+                    <quickfix name="SessionFactoryImplementor.getSecondLevelCacheRegion" type="REPLACE">
+                        <replacement>getCache().getRegion(</replacement>
+                        <search>getSecondLevelCacheRegion(</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate51-53-00404">
+            <when>
+                <javaclass references="org.hibernate.engine.spi.SessionFactoryImplementor.getSecondLevelCacheRegionAccessStrategy({*}String{*})">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Hibernate 5.3 - SessionFactoryImplementor.getSecondLevelCacheRegionAccessStrategy(String regionName) method removed" category-id="mandatory" effort="1">
+                    <message>
+                        Depending on the type of region, the appropriate method should be used instead:  
+
+                        * For an entity cache region, `org.hibernate.engine.spi.SessionFactoryImplementor.getMetamodel().entityPersister( entityName ).getCacheAccessStrategy()` should be used instead
+                        * For a collection region, `org.hibernate.engine.spi.SessionFactoryImplementor.getMetamodel().collectionPersister( role ).getCacheAccessStrategy()` should be used instead
+                        * For a natural ID region, `org.hibernate.engine.spi.SessionFactoryImplementor.getMetamodel().entityPersister( entityName ).getNaturalIdCacheAccessStrategy()` should be used instead
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/#migrating_from_hibernate_5_1_to_5_3" title="Red Hat JBoss EAP 7.2: Migrating from Hibernate ORM 5.1 to Hibernate ORM 5.3" />
+                    <tag>hibernate</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate51-53-00405">
+            <when>
+                <javaclass references="org.hibernate.engine.spi.SessionFactoryImplementor.getNaturalIdCacheRegion({*}String{*})">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Hibernate 5.3 - SessionFactoryImplementor.getNaturalIdCacheRegion(String regionName) method removed" category-id="mandatory" effort="1">
+                    <message>`org.hibernate.engine.spi.SessionFactoryImplementor.getCache().getRegion(String regionName)` should be used instead of `SessionFactoryImplementor.getNaturalIdCacheRegion(String regionName)` method.</message>
+                    <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/#migrating_from_hibernate_5_1_to_5_3" title="Red Hat JBoss EAP 7.2: Migrating from Hibernate ORM 5.1 to Hibernate ORM 5.3" />
+                    <tag>hibernate</tag>
+                    <quickfix name="SessionFactoryImplementor.getNaturalIdCacheRegion" type="REPLACE">
+                        <replacement>getCache().getRegion(</replacement>
+                        <search>getNaturalIdCacheRegion(</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate51-53-00406">
+            <when>
+                <javaclass references="org.hibernate.engine.spi.SessionFactoryImplementor.getNaturalIdCacheRegionAccessStrategy({*}String{*})">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Hibernate 5.3 - SessionFactoryImplementor.getNaturalIdCacheRegionAccessStrategy(String regionName) method removed" category-id="mandatory" effort="1">
+                    <message>`org.hibernate.engine.spi.SessionFactoryImplementor.getMetamodel().entityPersister( entityName ).getNaturalIdCacheAccessStrategy()` should be used instead of `SessionFactoryImplementor.getNaturalIdCacheRegionAccessStrategy(String regionName)` method.</message>
+                    <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/#migrating_from_hibernate_5_1_to_5_3" title="Red Hat JBoss EAP 7.2: Migrating from Hibernate ORM 5.1 to Hibernate ORM 5.3" />
+                    <tag>hibernate</tag>
+                    <quickfix name="SessionFactoryImplementor.getNaturalIdCacheRegionAccessStrategy" type="REPLACE">
+                        <replacement>getMetamodel().entityPersister( entityName ).getNaturalIdCacheAccessStrategy(</replacement>
+                        <search>getNaturalIdCacheRegionAccessStrategy(</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate51-53-00407">
+            <when>
+                <javaclass references="org.hibernate.engine.spi.SessionFactoryImplementor.getAllSecondLevelCacheRegions()">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Hibernate 5.3 - SessionFactoryImplementor.getAllSecondLevelCacheRegions() method removed" category-id="mandatory" effort="1">
+                    <message>
+                        `org.hibernate.engine.spi.SessionFactoryImplementor.getCache().getCacheRegionNames()` should be used to obtain all cache region names, then `org.hibernate.engine.spi.SessionFactoryImplementor.getCache().getRegion(String regionName)` should be used to look up each region.
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/#migrating_from_hibernate_5_1_to_5_3" title="Red Hat JBoss EAP 7.2: Migrating from Hibernate ORM 5.1 to Hibernate ORM 5.3" />
+                    <tag>hibernate</tag>
+                </hint>
+            </perform>
+        </rule>
+        <!--https://issues.jboss.org/browse/WINDUPRULE-381 -->
         <rule id="hibernate51-53-00500">
             <when>
+                <javaclass references="org.hibernate.{className}" >
+                    <location>IMPORT</location>
+                </javaclass>
             </when>
             <perform>
+                <hint title="Hibernate 5.3 - RegionFactory usage" effort="3" category-id="mandatory">
+                    <message>Review usage of classes in `org.hibernate.cache.spi.RegionFactory`, as SPIs for this class has changed.  
+                        See Javadoc for `org.hibernate.cache.spi.RegionFactory` for details.</message>
+                    <link title="Red Hat JBoss EAP 7.2: Migrating from Hibernate ORM 5.1 to Hibernate ORM 5.3" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/#migrating_from_hibernate_5_1_to_5_3"/>
+                    <link title="Javadoc for org.hibernate.cache.spi.RegionFactory" href="https://docs.jboss.org/hibernate/orm/5.3/javadocs/org/hibernate/cache/spi/RegionFactory.html"/>
+                    <tag>hibernate</tag>
+                </hint>
             </perform>
-            <where param="">
-                <matches pattern="" />
+            <where param="className">
+                <matches pattern="(cache.RegionFactory|cache.spi.RegionFactory|cache.spi.AbstractRegionFactory|testing.cache.CachingRegionFactory|cache.spi.support.RegionFactoryTemplate|cache.ehcache.EhCacheRegionFactory|cache.infinispan.InfinispanRegionFactory|cache.infinispan.JndiInfinispanRegionFactory|cache.internal.NoCachingRegionFactory|cache.ehcache.SingletonEhCacheRegionFactory)" />
             </where>
         </rule>
-        -->
-        <!--https://issues.jboss.org/browse/WINDUPRULE-382
+        <!--https://issues.jboss.org/browse/WINDUPRULE-382-->
         <rule id="hibernate51-53-00600">
             <when>
+                <javaclass references="org.hibernate.cache.spi.QueryCacheFactory">
+                    <location>IMPLEMENTS_TYPE</location>
+                </javaclass>
             </when>
             <perform>
+                <hint title="Hibernate 5.3 - org.hibernate.cache.spi.QueryCacheFactory implementations" effort="1" category-id="mandatory">
+                    <message>
+                        One potential upgrade concern is any custom `org.hibernate.cache.spi.QueryCacheFactory` implementations.  
+                        `org.hibernate.cache.spi.QueryCacheFactory` was meant as a means to allow service providers the ability to define query result caching, generally with more stale-tolerant query result invalidation handling.  
+                        However, the contract also bound it to the old second level cache contracts so they had to be updated.  
+                        Its responsibilities also changed so we also decided to "rename it" to `org.hibernate.cache.spi.TimestampsCacheFactory`.  
+                        Details can be found in HHH-11356 JIRA issue (link below).
+                    </message>
+                    <link href="https://github.com/hibernate/hibernate-orm/blob/5.3/migration-guide.adoc#second-level-cache-provider-spi-changes" title="Hibernate ORM 5.3 Migration Guide: Second-level cache provider SPI changes" />
+                    <link title="Red Hat JBoss EAP 7.2: Migrating from Hibernate ORM 5.1 to Hibernate ORM 5.3" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/#hibernate_orm_5_3_features"/>
+                    <link href="https://hibernate.atlassian.net/browse/HHH-11356" title="HHH-11356: Adjust the 2nd-Cache SPIs to better reflect supported uses" />
+                    <tag>hibernate</tag>
+                </hint>
             </perform>
         </rule>
-        -->
-        <!--https://issues.jboss.org/browse/WINDUPRULE-383
+        <!--https://issues.jboss.org/browse/WINDUPRULE-383-->
         <rule id="hibernate51-53-00700">
+            <when>
+                <javaclass references="org.hibernate.stat.{interfaces}.getEntries()">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Hibernate 5.3 - SecondLevelCacheStatistics.getEntries() and NaturalIdCacheStatistics.getEntries(): deprecated methods" effort="1" category-id="optional">
+                    <message>
+                        A change to be aware of is accessing cache entries via `SecondLevelCacheStatistics.getEntries()` and `NaturalIdCacheStatistics.getEntries()`.  
+                        These methods have been deprecated, however the new caching SPI does not really require caching providers to support this.  
+                        As of Hibernate 5.3 these methods inherently return an empty Map (`Collections#emptyMap`).  
+                        This has always been something that providers did not implement "correctly" anyway.  
+                        Details can be found in HHH-11356 JIRA issue (link below).
+                    </message>
+                    <link href="https://github.com/hibernate/hibernate-orm/blob/5.3/migration-guide.adoc#second-level-cache-provider-spi-changes" title="Hibernate ORM 5.3 Migration Guide: Second-level cache provider SPI changes" />
+                    <link title="Red Hat JBoss EAP 7.2: Migrating from Hibernate ORM 5.1 to Hibernate ORM 5.3" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/#hibernate_orm_5_3_features"/>
+                    <link href="https://hibernate.atlassian.net/browse/HHH-11356" title="HHH-11356: Adjust the 2nd-Cache SPIs to better reflect supported uses" />
+                    <tag>hibernate</tag>
+                </hint>
+            </perform>
+            <where param="interfaces">
+                <matches pattern="(SecondLevelCacheStatistics|NaturalIdCacheStatistics)" />
+            </where>
+        </rule>
+        <rule id="hibernate51-53-00701">
+            <when>
+                <javaclass references="{*}.getEntries()" >
+                    <location>METHOD</location>
+                </javaclass>
+            </when>
+            <perform>
+                <iteration>
+                    <when>
+                        <javaclass references="org.hibernate.stat.NaturalIdCacheStatistics">
+                            <location>INHERITANCE</location>
+                            <location>IMPLEMENTS_TYPE</location>
+                        </javaclass>
+                    </when>
+                    <perform>
+                        <hint title="Hibernate 5.3 - NaturalIdCacheStatistics.getEntries() deprecated method" effort="1" category-id="optional">
+                            <message>
+                                A change to be aware of is accessing cache entries via `NaturalIdCacheStatistics.getEntries()`.  
+                                This method has been deprecated, however the new caching SPI does not really require caching providers to support this.  
+                                As of Hibernate 5.3 this method inherently return an empty Map (`Collections#emptyMap`).  
+                                This has always been something that providers did not implement "correctly" anyway.  
+                                Details can be found in HHH-11356 JIRA issue (link below).
+                            </message>
+                            <link href="https://github.com/hibernate/hibernate-orm/blob/5.3/migration-guide.adoc#second-level-cache-provider-spi-changes" title="Hibernate ORM 5.3 Migration Guide: Second-level cache provider SPI changes" />
+                            <link title="Red Hat JBoss EAP 7.2: Migrating from Hibernate ORM 5.1 to Hibernate ORM 5.3" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/#hibernate_orm_5_3_features"/>
+                            <link href="https://hibernate.atlassian.net/browse/HHH-11356" title="HHH-11356: Adjust the 2nd-Cache SPIs to better reflect supported uses" />
+                            <tag>hibernate</tag>
+                        </hint>
+                    </perform>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="hibernate51-53-00702">
+            <when>
+                <javaclass references="{*}.getEntries()" >
+                    <location>METHOD</location>
+                </javaclass>
+            </when>
+            <perform>
+                <iteration>
+                    <when>
+                        <javaclass references="org.hibernate.stat.SecondLevelCacheStatistics">
+                            <location>INHERITANCE</location>
+                            <location>IMPLEMENTS_TYPE</location>
+                        </javaclass>
+                    </when>
+                    <perform>
+                        <hint title="Hibernate 5.3 - SecondLevelCacheStatistics.getEntries() deprecated method" effort="1" category-id="optional">
+                            <message>
+                                A change to be aware of is accessing cache entries via `SecondLevelCacheStatistics.getEntries()`.   
+                                This method has been deprecated, however the new caching SPI does not really require caching providers to support this.  
+                                As of Hibernate 5.3 these methods inherently return an empty Map (`Collections#emptyMap`).  
+                                This has always been something that providers did not implement "correctly" anyway.  
+                                Details can be found in HHH-11356 JIRA issue (link below).
+                            </message>
+                            <link href="https://github.com/hibernate/hibernate-orm/blob/5.3/migration-guide.adoc#second-level-cache-provider-spi-changes" title="Hibernate ORM 5.3 Migration Guide: Second-level cache provider SPI changes" />
+                            <link title="Red Hat JBoss EAP 7.2: Migrating from Hibernate ORM 5.1 to Hibernate ORM 5.3" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/#hibernate_orm_5_3_features"/>
+                            <link href="https://hibernate.atlassian.net/browse/HHH-11356" title="HHH-11356: Adjust the 2nd-Cache SPIs to better reflect supported uses" />
+                            <tag>hibernate</tag>
+                        </hint>
+                    </perform>
+                </iteration>
+            </perform>
+        </rule>
+        <!--https://issues.jboss.org/browse/WINDUPRULE-384-->
+        <rule id="hibernate51-53-00800">
+            <when>
+                <javaclass references="org.hibernate.{packages}.{*}" >
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Hibernate 5.3 - SPI in package org.hibernate.{packages} changed" effort="3" category-id="mandatory">
+                    <message>
+                        The SPIs in the `org.hibernate.{packages}` package have changed.  
+                        Any custom classes using those SPIs will need to be reviewed and updated.  
+                        See Javadoc for these packages for details.
+                    </message>
+                    <link title="Red Hat JBoss EAP 7.2: Migrating from Hibernate ORM 5.1 to Hibernate ORM 5.3" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/#migrating_from_hibernate_5_1_to_5_3"/>
+                    <link title="Hibernate 5.3 JavaDoc" href="http://docs.jboss.org/hibernate/orm/5.3/javadocs/"/>
+                    <tag>hibernate</tag>
+                </hint>
+            </perform>
+            <where param="packages">
+                <matches pattern="(persister|tuple)"/>
+            </where>
+        </rule>
+        <!--https://issues.jboss.org/browse/WINDUPRULE-385
+        <rule id="hibernate51-53-00900">
             <when>
             </when>
             <perform>
@@ -90,14 +405,6 @@
             <where param="">
                 <matches pattern="" />
             </where>
-        </rule>
-        -->
-        <!--https://issues.jboss.org/browse/WINDUPRULE-384
-        <rule id="hibernate51-53-00800">
-            <when>
-            </when>
-            <perform>
-            </perform>
         </rule>
         -->
         <!--https://issues.jboss.org/browse/WINDUPRULE-386
@@ -108,17 +415,21 @@
             </perform>
         </rule>
         -->
-        <!--https://issues.jboss.org/browse/WINDUPRULE-387
+        <!--https://issues.jboss.org/browse/WINDUPRULE-387-->
         <rule id="hibernate51-53-01100">
             <when>
+                    <javaclass references="javax.persistence.TableGenerator">
+                        <location>IMPORT</location>
+                    </javaclass>
             </when>
             <perform>
+                <hint title="Hibernate 5.3  - @TableGenerator changes interpretation" effort="1" category-id="potential">
+                    <message>Applications using the `@TableGenerator` should set the `hibernate.id.generator.stored_last_used` configuration property to `false`.</message>
+                    <link title="Red Hat JBoss EAP 7.2: Migrating from Hibernate ORM 5.1 to Hibernate ORM 5.3" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/#hibernate_orm_5_3_features" />
+                    <tag>hibernate</tag>
+                </hint>
             </perform>
-            <where param="">
-                <matches pattern="" />
-            </where>
         </rule>
-        -->
         <!--https://issues.jboss.org/browse/WINDUPRULE-388-->
         <rule id="hibernate51-53-01200">
             <when>
@@ -139,6 +450,6 @@
             <where param="className">
                 <matches pattern="(engine.query.spi.NamedParameterDescriptor|engine.query.spi.OrdinalParameterDescriptor|query.procedure.internal.ProcedureParameterImpl|query.internal.QueryParameterImpl|query.internal.QueryParameterNamedImpl)"/>
             </where>
-         </rule>
+        </rule>
     </rules>
 </ruleset>
