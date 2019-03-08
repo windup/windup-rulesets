@@ -10,7 +10,7 @@ import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-public class Hibernate515300900_FirstResult {
+public class Hibernate515300900_FirstResult_Second {
 
     public void listUserByPage(int pageNo, int pageSize) {
         Session session = sessionFactory.getCurrentSession();
@@ -19,7 +19,10 @@ public class Hibernate515300900_FirstResult {
         criteria.setProjection(null);
         criteria.addOrder(Order.desc("registerDate"));
 
-        criteria.setFirstResult(10);
+        criteria.setFirstResult(20);
+        criteria.setFirstResult(30);
+        criteria.setFirstResult(40);
+        criteria.setFirstResult(50);
 
         criteria.setMaxResults(pageSize);
     }
