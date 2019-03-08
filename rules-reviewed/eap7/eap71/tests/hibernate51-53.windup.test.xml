@@ -221,20 +221,20 @@
                     <fail message="Hint package org.hibernate.(persister|tuple) changed not found" />
                 </perform>
             </rule>
-            <!--https://issues.jboss.org/browse/WINDUPRULE-386
+            <!--https://issues.jboss.org/browse/WINDUPRULE-386-->
             <rule id="hibernate51-53-01000-test">
                 <when>
                     <not>
                         <iterable-filter size="1">
-                            <hint-exists message="" />
+                            <hint-exists message="Define `hibernate.default_schema` or `hibernate.default_catalog`"/>
                         </iterable-filter>
                     </not>
                 </when>
                 <perform>
-                    <fail message="" />
+                    <fail message="No default_schema or default_catalog found"/>
                 </perform>
             </rule>
-            -->
+            <!--https://issues.jboss.org/browse/WINDUPRULE-387-->
             <rule id="hibernate51-53-01100-test">
                 <when>
                     <not>
