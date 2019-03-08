@@ -436,6 +436,19 @@
                     <fail message="Hint for mapped byte[] and Byte[] was not found!" />
                 </perform>
             </rule>
+            <!--https://issues.jboss.org/browse/WINDUPRULE-385-->
+            <rule id="hibernate4-00040-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="If the migration is from JBoss EAP 6 or Hibernate 4 then the dialect" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hibernate dialect not supporting limit offset not found" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
