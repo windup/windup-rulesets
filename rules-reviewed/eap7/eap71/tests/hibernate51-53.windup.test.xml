@@ -234,6 +234,18 @@
                     <fail message="No default_schema or default_catalog found"/>
                 </perform>
             </rule>
+            <rule id="hibernate51-53-01001-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="If the application uses Hibernate, please define `hibernate.default_schema` or `hibernate.default_catalog`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="No default_schema or default_catalog found"/>
+                </perform>
+            </rule>
             <!--https://issues.jboss.org/browse/WINDUPRULE-387-->
             <rule id="hibernate51-53-01100-test">
                 <when>

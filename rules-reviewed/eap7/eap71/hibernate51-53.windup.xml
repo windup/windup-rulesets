@@ -418,6 +418,25 @@
                 </iteration>
             </perform>
         </rule>
+        <rule id="hibernate51-53-01001">
+            <when>
+                <xmlfile matches="//s:persistence-unit[not(s:provider) or s:provider[not(text())]]" as="persistence_files">
+                    <namespace prefix="s" uri="http://java.sun.com/xml/ns/persistence"/>
+                </xmlfile>
+                <xmlfile matches="//s:properties[count(s:property[@name='hibernate.default_schema'])=0 and count(s:property[@name='hibernate.default_catalog'])=0]" from="persistence_files" as="wrong_files">
+                    <namespace prefix="s" uri="http://java.sun.com/xml/ns/persistence"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <iteration over="wrong_files">
+                    <hint title="Hibernate 5.3 - default_schema or default_catalog must be defined or set jdbc_metadata_extraction_strategy" category-id="potential" effort="1">
+                        <message>If the application uses Hibernate, please define `hibernate.default_schema` or `hibernate.default_catalog` (whichever is used by the selected dialect), or, alternatively, set `hibernate.hbm2ddl.jdbc_metadata_extraction_strategy=individually`.</message>
+                        <link title="Red Hat JBoss EAP 7.2: Migrating from Hibernate ORM 5.1 to Hibernate ORM 5.3" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2/html-single/migration_guide/#schema_management_tooling_changes_71"/>
+                        <tag>hibernate</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
         <!--https://issues.jboss.org/browse/WINDUPRULE-387-->
         <rule id="hibernate51-53-01100">
             <when>
