@@ -400,7 +400,7 @@
         <rule id="hibernate51-53-01000">
             <when>
                 <and>
-                    <xmlfile matches="//s:persistence-unit" as="persistence_files">
+                    <xmlfile matches="//s:persistence-unit/s:provider[starts-with(text(), 'org.hibernate')]" as="persistence_files">
                         <namespace prefix="s" uri="http://java.sun.com/xml/ns/persistence"/>
                     </xmlfile>
                     <xmlfile matches="//s:properties[count(s:property[@name='hibernate.default_schema'])=0 and count(s:property[@name='hibernate.default_catalog'])=0]" from="persistence_files" as="wrong_files">
