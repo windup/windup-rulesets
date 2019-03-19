@@ -110,7 +110,7 @@
                 </classification>
                 <technology-tag level="INFORMATIONAL">JACC</technology-tag>
             </perform>
-        </rule>
+        </rule>        
         <!-- Java EE Management - MEJB -->
         <rule id="javaee-technology-usage-00050">
             <when>
@@ -125,10 +125,11 @@
                 <technology-tag level="INFORMATIONAL">MEJB</technology-tag>
             </perform>
         </rule>
+
         <!-- Java EE Application Deployment - EAR -->
         <rule id="javaee-technology-usage-00060">
             <when>
-                <file-exists filename="{*}.ear"/>
+                <file filename="{*}.ear"/>
             </when>
             <perform>
                 <classification title="Java EE Application Deployment" category-id="information" effort="0">
@@ -154,7 +155,7 @@
         <!-- Common Annotations -->
         <rule id="javaee-technology-usage-00080">
             <when>
-                <javaclass references="javax.annotation.{*}">
+                <javaclass references="javax.annotation.{annotation}">
                     <location>IMPORT</location>
                 </javaclass>
             </when>
@@ -164,11 +165,14 @@
                 </classification>
                 <technology-tag level="INFORMATIONAL">Common Annotations</technology-tag>
             </perform>
+            <where param="annotation">
+                <matches pattern="PreDestroy|PostConstruct|Resource|Resources"/>
+            </where>
         </rule>
         <!-- JAXB Usage -->
         <rule id="javaee-technology-usage-00090">
             <when>
-                <javaclass references="javax.xml.bind.{*}">
+                <javaclass references="{package}.xml.bind.{*}">
                     <location>IMPORT</location>
                 </javaclass>
             </when>
@@ -178,6 +182,9 @@
                 </classification>
                 <technology-tag level="INFORMATIONAL">JAXB</technology-tag>
             </perform>
+            <where param="package">
+                <matches pattern="java|javax"/>
+            </where>
         </rule>
         <!-- JAXR Usage -->
         <rule id="javaee-technology-usage-00100">
