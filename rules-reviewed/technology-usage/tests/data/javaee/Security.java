@@ -18,6 +18,7 @@ public class MyJaccProviderService {
         }
         return pcf;
     }    
+    
     public static Management getMEJBRemote() {
             Context context = new InitialContext(null);
             ManagementHome home = (ManagementHome) context.lookup("ejb.mgmt.MEJB");
