@@ -126,6 +126,26 @@
                     <fail message="'Bean Validation' Technology Tag Not Found" />
                 </perform>
             </rule>
+            <rule id="javaee-technology-usage-00120-test">
+                <when>
+                    <not>
+                        <technology-tag-exists technology-tag="Servlet"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="'Servlet' Technology Tag Not Found" />
+                </perform>
+            </rule>
+            <rule id="javaee-technology-usage-00130-test">
+                <when>
+                    <not>
+                        <technology-tag-exists technology-tag="JSON-B"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="'JSON-B' Technology Tag Not Found" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>

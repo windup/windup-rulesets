@@ -213,6 +213,36 @@
                 </classification>
                 <technology-tag level="INFORMATIONAL">Bean Validation</technology-tag>
             </perform>
+        </rule>        
+        <!-- Java Servlet -->
+        <rule id="javaee-technology-usage-00120">
+            <when>
+                <javaclass references="javax.servlet.{*}">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <classification title="Java Servlet" category-id="information" effort="0">
+                    <description>The application uses Java Servlets</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Servlet</technology-tag>
+            </perform>
         </rule>
+        <!-- JSON Binding -->
+        <rule id="javaee-technology-usage-00130">
+            <when>
+                <javaclass references="javax.json.bind.{*}">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <classification title="JSON Binding" category-id="information" effort="0">
+                    <description>The application uses JSON binding</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">JSON-B</technology-tag>
+            </perform>
+        </rule>
+        
+        
     </rules>
 </ruleset>
