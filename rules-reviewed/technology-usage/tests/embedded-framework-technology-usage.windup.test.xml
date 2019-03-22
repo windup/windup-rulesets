@@ -937,6 +937,24 @@
                <fail message="Expected data not found for rule technology-usage-embedded-framework-08100"/>
             </perform>
          </rule>
+         <rule id="technology-usage-embedded-framework-08200-test">
+            <when>
+               <not>
+                  <!--
+                      JAX-RS counts each method annotated with @Path as JaxRSWebServiceModel.
+                      Also class annotated with @Path is counted as additional model.
+                  -->
+                  <technology-statistics-exists name="JAX-RS" number-found="5">
+                     <tag name="Connect"/>
+                     <tag name="Embedded"/>
+                     <tag name="REST"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="JAX-RS Technology Statistic Not Found" />
+            </perform>
+         </rule>
       </rules>
    </ruleset>
 </ruletest>
