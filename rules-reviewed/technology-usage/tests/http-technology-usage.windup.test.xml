@@ -4,6 +4,24 @@
     <rulePath>../http-technology-usage.windup.xml</rulePath>
     <ruleset>
         <rules>
+            <rule id="technology-usage-http-01000-test">
+                <when>
+                    <not>
+                        <!--
+                            JAX-RS counts each method annotated with @Path as JaxRSWebServiceModel.
+                            Also class annotated with @Path is counted as additional model.
+                        -->
+                        <technology-statistics-exists name="JAX-RS" number-found="5">
+                            <tag name="Connect"/>
+                            <tag name="REST"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="JAX-RS Technology Statistic Not Found" />
+                </perform>
+            </rule>
             <rule id="technology-usage-http-01100-test">
                 <when>
                     <not>
