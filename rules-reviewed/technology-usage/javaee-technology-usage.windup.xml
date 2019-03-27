@@ -96,8 +96,153 @@
                     <tag name="Java EE"/>
                 </technology-identified>
             </perform>
+        </rule>
+        <!-- Java Authorization Contract for Containers - JACC -->
+        <rule id="javaee-technology-usage-00040">
+            <when>
+                <javaclass references="javax.security.jacc.{*}">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <classification title="Java Authorization Contract for Containers" category-id="information" effort="0">
+                    <description>The application uses JACC.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">JACC</technology-tag>
+            </perform>
         </rule>        
-        <rule id="javaee-technology-usage-00240">
+        <!-- Java EE Management - MEJB -->
+        <rule id="javaee-technology-usage-00050">
+            <when>
+                <javaclass references="javax.management.j2ee.{*}">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <classification title="Java EE Management" category-id="information" effort="0">
+                    <description>The application uses Java EE Management.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">MEJB</technology-tag>
+            </perform>
+        </rule>
+
+        <!-- Java EE Application Deployment - EAR -->
+        <rule id="javaee-technology-usage-00060">
+            <when>
+                <file filename="{*}.ear"/>
+            </when>
+            <perform>
+                <classification title="Java EE Application Deployment" category-id="information" effort="0">
+                    <description>The application uses Java EE Application Deployment.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">EAR</technology-tag>
+            </perform>
+        </rule>
+        <!-- Web Services Metadata -->
+        <rule id="javaee-technology-usage-00070">
+            <when>
+                <javaclass references="javax.jws.{*}">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <classification title="Web Services Metadata" category-id="information" effort="0">
+                    <description>The application uses Web Services Metadata</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">WS Metadata</technology-tag>
+            </perform>
+        </rule>
+        <!-- Common Annotations -->
+        <rule id="javaee-technology-usage-00080">
+            <when>
+                <javaclass references="javax.annotation.{annotation}">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <classification title="Common Annotations" category-id="information" effort="0">
+                    <description>The application uses Common Annotations</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Common Annotations</technology-tag>
+            </perform>
+            <where param="annotation">
+                <matches pattern="PreDestroy|PostConstruct|Resource|Resources"/>
+            </where>
+        </rule>
+        <!-- JAXB Usage -->
+        <rule id="javaee-technology-usage-00090">
+            <when>
+                <javaclass references="{package}.xml.bind.{*}">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <classification title="JAXB" category-id="information" effort="0">
+                    <description>The application uses JAXB</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">JAXB</technology-tag>
+            </perform>
+            <where param="package">
+                <matches pattern="java|javax"/>
+            </where>
+        </rule>
+        <!-- JAXR Usage -->
+        <rule id="javaee-technology-usage-00100">
+            <when>
+                <javaclass references="javax.xml.registry.{*}">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <classification title="JAXR" category-id="information" effort="0">
+                    <description>The application uses JAXR</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">JAXR</technology-tag>
+            </perform>
+        </rule>
+        <!-- Bean Validation Usage -->
+        <rule id="javaee-technology-usage-00110">
+            <when>
+                <javaclass references="javax.validation.constraints.{*}">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <classification title="Bean Validation" category-id="information" effort="0">
+                    <description>The application uses Bean Validation</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Bean Validation</technology-tag>
+            </perform>
+        </rule>        
+        <!-- Java Servlet -->
+        <rule id="javaee-technology-usage-00120">
+            <when>
+                <javaclass references="javax.servlet.{*}">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <classification title="Java Servlet" category-id="information" effort="0">
+                    <description>The application uses Java Servlets</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Servlet</technology-tag>
+            </perform>
+        </rule>
+        <!-- JSON Binding -->
+        <rule id="javaee-technology-usage-00130">
+            <when>
+                <javaclass references="javax.json.bind.{*}">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <classification title="JSON Binding" category-id="information" effort="0">
+                    <description>The application uses JSON binding</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">JSON-B</technology-tag>
+            </perform>
+        </rule>
+        <rule id="javaee-technology-usage-00140">
             <when>
                 <graph-query discriminator="TechnologyTagModel">
                     <property name="name">JACC</property>
@@ -111,7 +256,7 @@
                 </technology-identified>
             </perform>
         </rule>        
-        <rule id="javaee-technology-usage-00250">
+        <rule id="javaee-technology-usage-00150">
             <when>
                 <graph-query discriminator="TechnologyTagModel">
                     <property name="name">MEJB</property>
@@ -125,7 +270,7 @@
                 </technology-identified>
             </perform>
         </rule>
-        <rule id="javaee-technology-usage-00260">
+        <rule id="javaee-technology-usage-00160">
             <when>
                 <graph-query discriminator="TechnologyTagModel">
                     <property name="name">EAR</property>
@@ -134,12 +279,12 @@
             <perform>
                 <technology-identified name="Java EE Deployment">
                     <tag name="Other"/>
-                    <tag name="Deployment"/>
+                    <tag name="Connect"/>
                     <tag name="Java EE"/>
                 </technology-identified>
             </perform>
         </rule>
-        <rule id="javaee-technology-usage-00270">
+        <rule id="javaee-technology-usage-00170">
             <when>
                 <graph-query discriminator="TechnologyTagModel">
                     <property name="name">WS Metadata</property>
@@ -153,7 +298,7 @@
                 </technology-identified>
             </perform>
         </rule>        
-        <rule id="javaee-technology-usage-00280">
+        <rule id="javaee-technology-usage-00180">
             <when>
                 <graph-query discriminator="TechnologyTagModel">
                     <property name="name">Common Annotations</property>
@@ -162,12 +307,12 @@
             <perform>
                 <technology-identified name="Common Annotations">
                     <tag name="Connect"/>
-                    <tag name="Other"/>
+                    <tag name="EJB"/>
                     <tag name="Java EE"/>
                 </technology-identified>
             </perform>
         </rule>
-        <rule id="javaee-technology-usage-00290">
+        <rule id="javaee-technology-usage-00190">
             <when>
                 <graph-query discriminator="TechnologyTagModel">
                     <property name="name">JAXB</property>
@@ -181,7 +326,7 @@
                 </technology-identified>
             </perform>
         </rule>        
-        <rule id="javaee-technology-usage-00300">
+        <rule id="javaee-technology-usage-00200">
             <when>
                 <graph-query discriminator="TechnologyTagModel">
                     <property name="name">JAXR</property>
@@ -195,7 +340,7 @@
                 </technology-identified>
             </perform>
         </rule>        
-        <rule id="javaee-technology-usage-00310">
+        <rule id="javaee-technology-usage-00210">
             <when>
                 <graph-query discriminator="TechnologyTagModel">
                     <property name="name">Bean Validation</property>
@@ -203,13 +348,13 @@
             </when>
             <perform>
                 <technology-identified name="Bean Validation">
-                    <tag name="Validate"/>
-                    <tag name="Sustain"/>
+                    <tag name="Processing"/>
+                    <tag name="Execute"/>
                     <tag name="Embedded"/>
                 </technology-identified>
             </perform>
         </rule>
-        <rule id="javaee-technology-usage-00320">
+        <rule id="javaee-technology-usage-00220">
             <when>
                 <graph-query discriminator="TechnologyTagModel">
                     <property name="name">JSON-B</property>
@@ -223,7 +368,7 @@
                 </technology-identified>
             </perform>
         </rule>
-        <rule id="javaee-technology-usage-00330">
+        <rule id="javaee-technology-usage-00230">
             <when>
                 <graph-query discriminator="TechnologyTagModel">
                     <property name="name">Servlet</property>
