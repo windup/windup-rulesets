@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="java-multiple-camelcontexts-per-application-not-supported"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis with respect to multiple Camel Context not supported in Apache Camel 3.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="camel" versionRange="[2,3)"/>
+        <targetTechnology id="camel" versionRange="[3,)" />
+    </metadata>
+    <rules>
+        <rule id="java-multiple-camelcontexts-per-application-not-supported-00000">
+            <when>
+                <javaclass references="org.apache.camel.{class}">
+                    <location>ANNOTATION</location>
+                    <annotation-literal name="context" pattern="{*}" />
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="{class}: `context` attribute removed" effort="1" category-id="mandatory">
+                    <message>
+                        The `context` attribute on `{class}` annotations has been removed since support for multiple CamelContexts has been removed and only one CamelContext per deployment is supported.
+                    </message>
+                    <link title="Camel 3 - Migration Guide: multiple CamelContexts per application not supported" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_multiple_camelcontexts_per_application_not_supported" />
+                </hint>
+            </perform>
+            <where param="class">
+                <!-- taken from https://github.com/apache/camel/commit/87998250fb56e561643e192874ba00c5ff3a1b9c -->
+                <matches pattern="(BeanInject|Consume|DynamicRouter|EndpointInject|Produce|PropertyInject|RecipientList|RoutingSlip)" />
+            </where>
+        </rule>
+    </rules>
+</ruleset>
