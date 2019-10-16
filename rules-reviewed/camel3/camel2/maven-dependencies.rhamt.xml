@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="maven-dependencies"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis with respect to the missing dependencies in Apache Camel 3 due to Java 11 adoption.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="camel" versionRange="[2,3)"/>
+        <targetTechnology id="camel" versionRange="[3,)" />
+    </metadata>
+    <rules>
+        <rule id="maven-dependencies-00000">
+            <when>
+                <xmlfile as="dependencies-block" matches="/m:project/m:dependencies" in="pom.xml">
+                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
+                </xmlfile>
+                <not>
+                    <project>
+                        <artifact groupId="com.sun.activation" artifactId="javax.activation" />
+                    </project>
+                </not>
+            </when>
+            <perform over="dependencies-block">
+                <hint title="'javax.activation' Maven dependency missing" effort="1" category-id="potential">
+                    <message>
+                        <![CDATA[
+                        `javax.activation` Maven dependency missing.
+
+                        Apache Camel 3 supports Java 11 and in this Java version JAXB modules have been removed from the JDK, therefore you will need to add them as Maven dependencies since there are couple of components rely on them:
+
+                        ```Xml
+                        <dependency>
+                            <groupId>com.sun.activation</groupId>
+                            <artifactId>javax.activation</artifactId>
+                            <version>${javax.activation.version}</version>
+                        </dependency>
+                        ```
+                        ]]>
+                    </message>
+                    <link title="Camel 3 - Migration Guide: Java Versions" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_java_versions" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="maven-dependencies-00001">
+            <when>
+                <xmlfile as="dependencies-block" matches="/m:project/m:dependencies" in="pom.xml">
+                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
+                </xmlfile>
+                <not>
+                    <project>
+                        <artifact groupId="javax.xml.bind" artifactId="jaxb-api" />
+                    </project>
+                </not>
+            </when>
+            <perform over="dependencies-block">
+                <hint title="'jaxb-api' Maven dependency missing" effort="1" category-id="potential">
+                    <message>
+                        <![CDATA[
+                        `jaxb-api` Maven dependency missing.
+
+                        Apache Camel 3 supports Java 11 and in this Java version JAXB modules have been removed from the JDK, therefore you will need to add them as Maven dependencies since there are couple of components rely on them:
+
+                        ```Xml
+                        <dependency>
+                            <groupId>javax.xml.bind</groupId>
+                            <artifactId>jaxb-api</artifactId>
+                            <version>${jaxb.api.version}</version>
+                        </dependency>
+                        ```
+                        ]]>
+                    </message>
+                    <link title="Camel 3 - Migration Guide: Java Versions" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_java_versions" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="maven-dependencies-00002">
+            <when>
+                <xmlfile as="dependencies-block" matches="/m:project/m:dependencies" in="pom.xml">
+                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
+                </xmlfile>
+                <not>
+                    <project>
+                        <artifact groupId="com.sun.xml.bind" artifactId="jaxb-core" />
+                    </project>
+                </not>
+            </when>
+            <perform over="dependencies-block">
+                <hint title="'jaxb-core' Maven dependency missing" effort="1" category-id="potential">
+                    <message>
+                        <![CDATA[
+                        `jaxb-core` Maven dependency missing.
+
+                        Apache Camel 3 supports Java 11 and in this Java version JAXB modules have been removed from the JDK, therefore you will need to add them as Maven dependencies since there are couple of components rely on them:
+
+                        ```Xml
+                        <dependency>
+                            <groupId>com.sun.xml.bind</groupId>
+                            <artifactId>jaxb-core</artifactId>
+                            <version>${jaxb.api.version}</version>
+                        </dependency>
+                        ```
+                        ]]>
+                    </message>
+                    <link title="Camel 3 - Migration Guide: Java Versions" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_java_versions" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="maven-dependencies-00003">
+            <when>
+                <xmlfile as="dependencies-block" matches="/m:project/m:dependencies" in="pom.xml">
+                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
+                </xmlfile>
+                <not>
+                    <project>
+                        <artifact groupId="com.sun.xml.bind" artifactId="jaxb-impl" />
+                    </project>
+                </not>
+            </when>
+            <perform over="dependencies-block">
+                <hint title="'jaxb-impl' Maven dependency missing" effort="1" category-id="potential">
+                    <message>
+                        <![CDATA[
+                        `jaxb-impl` Maven dependency missing.
+
+                        Apache Camel 3 supports Java 11 and in this Java version JAXB modules have been removed from the JDK, therefore you will need to add them as Maven dependencies since there are couple of components rely on them:
+
+                        ```Xml
+                        <dependency>
+                            <groupId>com.sun.xml.bind</groupId>
+                            <artifactId>jaxb-impl</artifactId>
+                            <version>${jaxb.api.version}</version>
+                        </dependency>
+                        ```
+                        ]]>
+                    </message>
+                    <link title="Camel 3 - Migration Guide: Java Versions" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_java_versions" />
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

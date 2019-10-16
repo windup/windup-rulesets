@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<ruletest id="maven-dependencies-tests"
+    xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/maven-dependencies</testDataPath>
+    <rulePath>../maven-dependencies.rhamt.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="maven-dependencies-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`javax.activation` Maven dependency missing*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[maven-dependencies] 'javax.activation' Maven dependency missing hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="maven-dependencies-00001-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`jaxb-api` Maven dependency missing*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[maven-dependencies] 'jaxb-api' Maven dependency missing hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="maven-dependencies-00002-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`jaxb-core` Maven dependency missing*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[maven-dependencies] 'jaxb-core' Maven dependency missing hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="maven-dependencies-00003-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`jaxb-impl` Maven dependency missing*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[maven-dependencies] 'jaxb-impl' Maven dependency missing hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
