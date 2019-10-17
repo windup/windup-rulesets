@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<ruleset id="ocp-001" xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            Verify the version of the Springboot application is compatible with those supported by RHOAR
+        </description>
+        <!-- version ranges applied to from and to technologies -->
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <targetTechnology id="cloud-readiness"/>
+        <tag>logging</tag>
+    </metadata>
+    <rules>
+        <rule id="ocp-001-00001">
+            <!-- rule condition, when it could be fired -->
+            <when>
+                <dependency groupId="org.springframework.boot" artifactId="{*}" fromVersion="1.0.0.RELEASE" toVersion="2.1.1.RELEASE" />
+            </when>
+            <!-- rule operation, what to do if it is fired -->
+            <perform>
+                <hint title="ocp-001-00001 Unsupported version of SpringBoot" effort="1"
+                      category-id="potential">
+                    <message><![CDATA[ocp-001-00001 Unsupported version of SpringBoot ]]></message>
+                    <link href="https://access.redhat.com/articles/3348731" title="RHOAR SpringBoot Supported Configurations">link</link>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
