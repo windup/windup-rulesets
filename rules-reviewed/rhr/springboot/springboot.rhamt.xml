@@ -19,7 +19,23 @@
         <rule id="springboot-00001">
             <!-- rule condition, when it could be fired -->
             <when>
-                <dependency groupId="org.springframework.boot" artifactId="{*}" fromVersion="1.0.0.RELEASE" toVersion="2.1.1.RELEASE" />
+                <dependency groupId="org.springframework.boot" artifactId="{*}" toVersion="1.6.0" />
+            </when>
+            <!-- rule operation, what to do if it is fired -->
+            <perform>
+                <hint title="Unsupported version of Spring Boot" effort="3" category-id="mandatory">
+                    <message>Spring Boot has to be updated to Spring Boot 2.0 before being able to be migrated to a version supported by Red Hat Runtimes</message>
+                    <link href="https://access.redhat.com/articles/3349341" title="RHOAR Spring Boot Supported Configurations" />
+                    <link href="https://access.redhat.com/articles/3348731" title="RHOAR Component Details Overview" />
+                    <link href="https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.0-Migration-Guide"
+                          title="Spring Boot 2.0 Migration Guide" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="springboot-00002">
+            <!-- rule condition, when it could be fired -->
+            <when>
+                <dependency groupId="spring.boot" artifactId="{*}" fromVersion="2.0.0" toVersion="2.1.1.RELEASE" />
             </when>
             <!-- rule operation, what to do if it is fired -->
             <perform>
@@ -27,6 +43,8 @@
                     <message>Spring Boot has to be updated to a version supported by Red Hat Runtimes</message>
                     <link href="https://access.redhat.com/articles/3349341" title="RHOAR Spring Boot Supported Configurations" />
                     <link href="https://access.redhat.com/articles/3348731" title="RHOAR Component Details Overview" />
+                    <link href="https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.1-Release-Notes#upgrading-from-spring-boot-20"
+                          title="Spring Boot 2.1 - Upgrading from Spring Boot 2.0" />
                 </hint>
             </perform>
         </rule>
