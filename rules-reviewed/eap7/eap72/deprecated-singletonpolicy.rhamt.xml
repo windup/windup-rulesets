@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="deprecated-singletonpolicy"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of HA Singleton legacy applications, which API was deprecated, starting with JBoss EAP 7.3.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <targetTechnology id="eap" versionRange="[7,8)" />        
+    </metadata>
+    <rules>
+        <!-- https://issues.jboss.org/browse/WINDUPRULE-405 -->
+        <rule id="deprecated-singletonpolicy-00001">
+            <when>
+                <javaclass references="org.wildfly.clustering.singleton.SingletonPolicy" >
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Deprecated HA Singleton API" effort="1" category-id="potential">
+                    <message>The application imports class `org.wildfly.clustering.singleton.SingletonPolicy`, from deprecated HA Singleton API.</message>
+                    <link title="Red Hat JBoss EAP 7.3: HA Singleton Service" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.3/html-single/development_guide/index#clustered_ha_singleton_service"/>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
