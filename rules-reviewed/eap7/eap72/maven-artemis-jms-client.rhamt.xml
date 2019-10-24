@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="maven-artemis-jms-client"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of Maven built applications that depend on Artemis JMS Client artifacts, which requires a dependency on wildfly-client-properties artifact too, starting with JBoss EAP 7.3.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <targetTechnology id="eap" versionRange="[7,8)" />        
+    </metadata>
+    <rules>
+        <!-- https://issues.jboss.org/browse/WINDUPRULE-404 -->
+        <rule id="maven-artemis-jms-client-00001">
+            <when>
+                <not>
+                    <project>
+                        <artifact groupId="org.jboss.eap" artifactId="wildfly-client-properties" />
+                    </project>                
+                </not>
+                <and>
+                    <project>
+                        <artifact groupId="org.apache.activemq" artifactId="artemis-jms-client" />
+                    </project>
+                </and>
+            </when>
+            <perform>
+                <hint title="Artemis JMS Client requires wildfly-client-properties" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP 7.3 (or later), and want to ensure its Maven building, running or testing works as expected, if the application depends on Artemis JMS Client artifact then it should also depend on artifact with groupId `org.jboss.eap`, and artifactId `wildfly-client-properties`.</message>
+                    <link title="Red Hat JBoss EAP 7.3: Messaging Application Changes Required for JBoss EAP 7.2" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.3/html-single/migration_guide/index#migrate_messaging_application_changes_7_2"/>
+                    <tag>JMS</tag>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

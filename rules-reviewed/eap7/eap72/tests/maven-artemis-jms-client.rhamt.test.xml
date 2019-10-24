@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          id="maven-artemis-jms-client-test" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/data-maven-artemis-jms-client/</testDataPath>
+    <rulePath>../maven-artemis-jms-client.rhamt.xml</rulePath>
+    <ruleset>
+        <rules>
+            <!--https://issues.jboss.org/browse/WINDUPRULE-404 -->
+            <rule id="maven-artemis-jms-client-00001-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="If you migrate your application to JBoss EAP 7.3 \(or later\), and want to ensure its Maven building, running or testing works as expected, if the application depends on Artemis JMS Client artifact then it should also depend on artifact with groupId `org.jboss.eap`, and artifactId `wildfly-client-properties`." />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="No reference to `org.apache.activemq:artemis-jms-client`found in pom.xml" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
