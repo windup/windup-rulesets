@@ -4,9 +4,8 @@
          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <metadata>
         <description>
-            Verify the version of the Springboot application is compatible with those supported by RHOAR
+            Verify the version of the Spring Boot framework is compatible with those supported by Red Hat Runtimes
         </description>
-        <!-- version ranges applied to from and to technologies -->
         <dependencies>
             <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
             <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
@@ -18,7 +17,7 @@
     <rules>
         <rule id="springboot-associated-00001">
             <when>
-                <dependency groupId="org.amqphub.spring" artifactId="amqp-10-jms-spring-boot-starter" fromVersion="0.0.0" toVersion="2.0.9" />
+                <dependency groupId="org.amqphub.spring" artifactId="amqp-10-jms-spring-boot-starter" toVersion="2.0.9" />
             </when>
             <perform>
                 <hint title="Unsupported version of AMQP SpringBoot starter" effort="1" category-id="potential">
@@ -42,7 +41,7 @@
         </rule>
         <rule id="springboot-associated-00003">
             <when>
-                <dependency groupId="org.jboss.resteasy" artifactId="resteasy-spring-boot-starter" fromVersion="0.0.0" toVersion="2.9.9" />
+                <dependency groupId="org.jboss.resteasy" artifactId="resteasy-spring-boot-starter" toVersion="2.9.9" />
             </when>
             <perform>
                 <hint title="Unsupported version of Resteasy SpringBoot starter" effort="1" category-id="potential">
@@ -54,22 +53,22 @@
         </rule>
         <rule id="springboot-associated-00004">
             <when>
-                <dependency groupId="org.infinispan" artifactId="{artifactName}" fromVersion="0.0.0" toVersion="2.1.2" />
+                <dependency groupId="org.infinispan" artifactId="{infinispanArtifactName}" toVersion="2.1.2" />
             </when>
             <perform>
-                <hint title="Unsupported version of infinispan SpringBoot starter" effort="1" category-id="potential">
+                <hint title="Unsupported version of Infinispan SpringBoot starter" effort="1" category-id="potential">
                     <message>Unsupported version of Infinispan SpringBoot starter</message>
                     <link href="https://access.redhat.com/articles/3349341" title="RHOAR Spring Boot Supported Configurations" />
                     <link href="https://access.redhat.com/articles/3348731" title="RHOAR Component Details Overview" />
                 </hint>
             </perform>
-            <where param="artifactName">
+            <where param="infinispanArtifactName">
                 <matches pattern="(infinispan-spring-boot-starter-embedded|infinispan-spring-boot-starter-remote)"/>
             </where>
         </rule>
         <rule id="springboot-associated-00005">
             <when>
-                <dependency groupId="org.keycloak" artifactId="keycloak-spring-boot-starter" fromVersion="0.0.0" toVersion="4.8.2" />
+                <dependency groupId="org.keycloak" artifactId="keycloak-spring-boot-starter" toVersion="4.8.2" />
             </when>
             <perform>
                 <hint title="Unsupported version of Keycloak SpringBoot starter" effort="1" category-id="potential">
@@ -81,7 +80,7 @@
         </rule>
         <rule id="springboot-associated-00006">
             <when>
-                <dependency groupId="me.snowdrop" artifactId="narayana-spring-boot-starter" fromVersion="0.0.0" toVersion="2.0.9" />
+                <dependency groupId="me.snowdrop" artifactId="narayana-spring-boot-starter" toVersion="2.0.9" />
             </when>
             <perform>
                 <hint title="Unsupported version of Narayana SpringBoot starter" effort="1" category-id="potential">
