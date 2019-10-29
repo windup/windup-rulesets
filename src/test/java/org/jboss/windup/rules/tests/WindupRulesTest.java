@@ -221,6 +221,10 @@ public class WindupRulesTest
 
                     // run windup
                     File testDataPath = new File(ruleTestFile.getParentFile(), ruleTest.getTestDataPath());
+                    // in order to be able to provide data into "cache" folder, e.g. the "nexus-indexer-data" data folder,
+                    // the "user.home" will be set to be the test file parent directory
+                    // e.g. /windup-rulesets/rules-reviewed/rhr/springboot/tests/.rhamt/cache/nexus-indexer-data
+                    System.setProperty("user.home", ruleTestFile.getParentFile().getAbsolutePath());
                     Path reportPath = outputPath.resolve("reports");
                     runWindup(context, directory, rulePaths, testDataPath, reportPath.toFile(), ruleTest.isSourceMode(), ruleTest.getSource(), ruleTest.getTarget());
 

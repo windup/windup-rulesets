@@ -282,6 +282,10 @@ public class WindupRulesMultipleTests {
                 {
                     Assert.fail("Test file path from <testDataPath> tag has not been not found. Expected path to test file is: " + testDataPath.toString());
                 }
+                // in order to be able to provide data into "cache" folder, e.g. the "nexus-indexer-data" data folder,
+                // the "user.home" will be set to be the test file parent directory
+                // e.g. /windup-rulesets/rules-reviewed/rhr/springboot/tests/.rhamt/cache/nexus-indexer-data
+                System.setProperty("user.home", ruleTestFile.getParentFile().getAbsolutePath());
                 Path reportPath = outputPath.resolve("reports");
                 runWindup(context, directory, rulePaths, testDataPath, reportPath.toFile(), ruleTest.isSourceMode(), ruleTest.getSource(), ruleTest.getTarget());
 
