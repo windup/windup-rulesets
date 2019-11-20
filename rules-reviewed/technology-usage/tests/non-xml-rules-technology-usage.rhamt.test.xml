@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruletest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:windupfunctions="windupcustomfunctions"
+          xmlns:windup="http://windup.jboss.org/schema/jboss-ruleset"
+          id="non-xml-technology-usage-test"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <testDataPath>data/non-xml/</testDataPath>
+    <!--testDataPath>data/</testDataPath>
+    <testDataPath>data/ejb/</testDataPath-->
+    <rulePath>../non-xml-rules-technology-usage.rhamt.xml</rulePath>
+    <ruleset>
+        <rules>
+            <!--rule id="non-xml-technology-usage-01000-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="EJB" number-found="1">
+                            <tag name="Connect"/>
+                            <tag name="Bean"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Expected data not found for rule non-xml-technology-usage-01000"/>
+                </perform>
+            </rule>
+            <rule id="non-xml-technology-usage-02000-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="EJB XML" number-found="1">
+                            <tag name="Connect"/>
+                            <tag name="Bean"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Expected data not found for rule non-xml-technology-usage-02000"/>
+                </perform>
+            </rule>
+            <rule id="non-xml-technology-usage-03000-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="Enterprise Web Services" number-found="1">
+                            <tag name="Connect"/>
+                            <tag name="Web"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Expected data not found for rule non-xml-technology-usage-03000"/>
+                </perform>
+            </rule>
+            <rule id="non-xml-technology-usage-04000-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="Entity Bean" number-found="1">
+                            <tag name="Connect"/>
+                            <tag name="Bean"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Expected data not found for rule non-xml-technology-usage-04000"/>
+                </perform>
+            </rule-->
+            <rule id="non-xml-technology-usage-05000-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="Hibernate Cfg" number-found="1">
+                            <tag name="Store"/>
+                            <tag name="Embedded"/>
+                            <tag name="Object Mapping"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Expected data not found for rule non-xml-technology-usage-05000"/>
+                </perform>
+            </rule>
+            <rule id="non-xml-technology-usage-06000-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="Hibernate Mapping" number-found="1">
+                            <tag name="Store"/>
+                            <tag name="Embedded"/>
+                            <tag name="Object Mapping"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Expected data not found for rule non-xml-technology-usage-06000"/>
+                </perform>
+            </rule>
+            <!--rule id="non-xml-technology-usage-08000-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="Java EE Batch API" number-found="1">
+                            <tag name="Execute"/>
+                            <tag name="Processing"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Expected data not found for rule non-xml-technology-usage-08000"/>
+                </perform>
+            </rule-->
+            <rule id="non-xml-technology-usage-09000-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="Java EE Security" number-found="1">
+                            <tag name="Security"/>
+                            <tag name="Sustain"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Expected data not found for rule non-xml-technology-usage-09000"/>
+                </perform>
+            </rule>
+            <rule id="non-xml-technology-usage-10000-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="JavaMail" number-found="1">
+                            <tag name="Connect"/>
+                            <tag name="Other"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Expected data not found for rule non-xml-technology-usage-10000"/>
+                </perform>
+            </rule>
+            <rule id="non-xml-technology-usage-11000-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="JAX-RPC" number-found="1">
+                            <tag name="Connect"/>
+                            <tag name="Other"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Expected data not found for rule non-xml-technology-usage-11000"/>
+                </perform>
+            </rule>
+            <rule id="non-xml-technology-usage-12000-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="JBoss EJB XML" number-found="1">
+                            <tag name="Connect"/>
+                            <tag name="Bean"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Expected data not found for rule non-xml-technology-usage-12000"/>
+                </perform>
+            </rule>
+            <rule id="non-xml-technology-usage-13000-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="JBoss Web XML" number-found="1">
+                            <tag name="View"/>
+                            <tag name="Web"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Expected data not found for rule non-xml-technology-usage-13000"/>
+                </perform>
+            </rule>
+            <rule id="non-xml-technology-usage-14000-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="JDBC (embedded)" number-found="1">
+                            <tag name="Store"/>
+                            <tag name="Database"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Expected data not found for rule non-xml-technology-usage-14000"/>
+                </perform>
+            </rule>
+            <rule id="non-xml-technology-usage-15000-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="JMS" number-found="1">
+                            <tag name="Connect"/>
+                            <tag name="Messaging"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Expected data not found for rule non-xml-technology-usage-15000"/>
+                </perform>
+            </rule>
+            <rule id="non-xml-technology-usage-16000-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="JPA" number-found="1">
+                            <tag name="Store"/>
+                            <tag name="Persistence"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Expected data not found for rule non-xml-technology-usage-16000"/>
+                </perform>
+            </rule>
+            <rule id="non-xml-technology-usage-17000-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="JPA XML" number-found="1">
+                            <tag name="Store"/>
+                            <tag name="Persistence"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Expected data not found for rule non-xml-technology-usage-17000"/>
+                </perform>
+            </rule>
+            <rule id="non-xml-technology-usage-18000-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="Orion EJB XML" number-found="1">
+                            <tag name="Connect"/>
+                            <tag name="Bean"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Expected data not found for rule non-xml-technology-usage-18000"/>
+                </perform>
+            </rule>
+            <rule id="non-xml-technology-usage-19000-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="Orion Web XML" number-found="1">
+                            <tag name="View"/>
+                            <tag name="Web"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Expected data not found for rule non-xml-technology-usage-19000"/>
+                </perform>
+            </rule>
+            <rule id="non-xml-technology-usage-20000-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="Properties" number-found="1">
+                            <tag name="Sustain"/>
+                            <tag name="Embedded"/>
+                            <tag name="Other"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Expected data not found for rule non-xml-technology-usage-20000"/>
+                </perform>
+            </rule>
+            <rule id="non-xml-technology-usage-21000-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="Seam (embedded)" number-found="1">
+                            <tag name="View"/>
+                            <tag name="Web"/>
+                            <tag name="Embedded"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Expected data not found for rule non-xml-technology-usage-21000"/>
+                </perform>
+            </rule>
+            <rule id="non-xml-technology-usage-22000-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="WebLogic Web XML" number-found="1">
+                            <tag name="View"/>
+                            <tag name="Web"/>
+                            <tag name="Embedded"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Expected data not found for rule non-xml-technology-usage-22000"/>
+                </perform>
+            </rule>
+            <rule id="non-xml-technology-usage-23000-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="WebSphere EJB" number-found="1">
+                            <tag name="Connect"/>
+                            <tag name="Bean"/>
+                            <tag name="Embedded"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Expected data not found for rule non-xml-technology-usage-23000"/>
+                </perform>
+            </rule>
+            <rule id="non-xml-technology-usage-24000-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="WebSphere EJB Ext" number-found="1">
+                            <tag name="Connect"/>
+                            <tag name="Bean"/>
+                            <tag name="Embedded"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Expected data not found for rule non-xml-technology-usage-24000"/>
+                </perform>
+            </rule>
+            <rule id="non-xml-technology-usage-25000-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="WebSphere Web XML" number-found="1">
+                            <tag name="View"/>
+                            <tag name="Web"/>
+                            <tag name="Embedded"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Expected data not found for rule non-xml-technology-usage-25000"/>
+                </perform>
+            </rule>
+            <rule id="non-xml-technology-usage-26000-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="WebSphere WS Binding" number-found="1">
+                            <tag name="Connect"/>
+                            <tag name="Embedded"/>
+                            <tag name="Web Service"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Expected data not found for rule non-xml-technology-usage-26000"/>
+                </perform>
+            </rule>
+            <rule id="non-xml-technology-usage-27000-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="WebSphere WS Extension" number-found="1">
+                            <tag name="Connect"/>
+                            <tag name="Embedded"/>
+                            <tag name="Web Service"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Expected data not found for rule non-xml-technology-usage-27000"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
