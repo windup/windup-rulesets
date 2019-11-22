@@ -7,6 +7,8 @@
           xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
 
     <testDataPath>data/non-xml/</testDataPath>
+    <rulePath>../../eap7/embedded-framework-libraries.windup.xml</rulePath>
+    <rulePath>../javaee-technology-usage.windup.xml</rulePath>
     <rulePath>../non-xml-rules-technology-usage.rhamt.xml</rulePath>
     <ruleset>
         <rules>
@@ -50,20 +52,6 @@
                 </when>
                 <perform>
                     <fail message="Expected data not found for rule non-xml-technology-usage-03000"/>
-                </perform>
-            </rule>
-            <rule id="non-xml-technology-usage-04000-test">
-                <when>
-                    <not>
-                        <technology-statistics-exists name="Entity Bean" number-found="1">
-                            <tag name="Connect"/>
-                            <tag name="Bean"/>
-                            <tag name="Java EE"/>
-                        </technology-statistics-exists>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="Expected data not found for rule non-xml-technology-usage-04000"/>
                 </perform>
             </rule-->
             <rule id="non-xml-technology-usage-05000-test">
@@ -178,7 +166,7 @@
                     <fail message="Expected data not found for rule non-xml-technology-usage-13000"/>
                 </perform>
             </rule>
-            <!--rule id="non-xml-technology-usage-14000-test">
+            <rule id="non-xml-technology-usage-14000-test">
                 <when>
                     <not>
                         <technology-statistics-exists name="JDBC (embedded)" number-found="1">
@@ -192,7 +180,7 @@
                     <fail message="Expected data not found for rule non-xml-technology-usage-14000"/>
                 </perform>
             </rule>
-            <rule id="non-xml-technology-usage-15000-test">
+            <!--rule id="non-xml-technology-usage-15000-test">
                 <when>
                     <not>
                         <technology-statistics-exists name="JMS" number-found="1">
@@ -276,7 +264,7 @@
                     <fail message="Expected data not found for rule non-xml-technology-usage-20000"/>
                 </perform>
             </rule>
-            <!--rule id="non-xml-technology-usage-21000-test">
+            <rule id="non-xml-technology-usage-21000-test">
                 <when>
                     <not>
                         <technology-statistics-exists name="Seam (embedded)">
@@ -289,7 +277,7 @@
                 <perform>
                     <fail message="Expected data not found for rule non-xml-technology-usage-21000"/>
                 </perform>
-            </rule-->
+            </rule>
             <rule id="non-xml-technology-usage-22000-test">
                 <when>
                     <not>
