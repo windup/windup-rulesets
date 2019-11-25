@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="java-generic-information"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis with respect to generic changes to be applied to Java code to run on Apache Camel 3
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="camel" versionRange="[2,3)"/>
+        <targetTechnology id="camel" versionRange="[3,)" />
+    </metadata>
+    <rules>
+        <rule id="java-generic-information-00000">
+            <when>
+                <javaclass references="org.apache.camel.processor.aggregate.AggregationStrategy">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel.processor.aggregate.AggregationStrategy` has been moved" effort="1" category-id="mandatory">
+                    <message>
+                        The class `org.apache.camel.processor.aggregate.AggregationStrategy` has been moved to `org.apache.camel.AggregationStrategy`.
+                    </message>
+                    <link title="Camel 3 - Migration Guide: Generic Information" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information" />
+                    <quickfix type="REPLACE" name="AggregationStrategy-replace">
+                        <replacement>org.apache.camel.AggregationStrategy</replacement>
+                        <search>org.apache.camel.processor.aggregate.AggregationStrategy</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
