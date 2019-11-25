@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ruletest id="java-generic-information-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/java-generic-information</testDataPath>
+    <rulePath>../java-generic-information.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="java-generic-information-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The class `org.apache.camel.processor.aggregate.AggregationStrategy` has been moved to `org.apache.camel.AggregationStrategy`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-generic-information] 'AggregationStrategy' moved hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
