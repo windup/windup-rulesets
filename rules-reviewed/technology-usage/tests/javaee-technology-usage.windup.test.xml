@@ -7,6 +7,20 @@
             <rule id="javaee-technology-usage-00010-test">
                 <when>
                     <not>
+                        <technology-statistics-exists name="Java EE Batch API" number-found="1">
+                            <tag name="Execute"/>
+                            <tag name="Processing"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="'Java EE Batch API' Technology Statistic Not Found" />
+                </perform>
+            </rule>
+            <rule id="javaee-technology-usage-00011-test">
+                <when>
+                    <not>
                         <technology-statistics-exists name="Java EE Batch" number-found="1">
                             <tag name="Execute"/>
                             <tag name="Processing"/>
