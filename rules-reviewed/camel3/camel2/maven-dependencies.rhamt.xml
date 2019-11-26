@@ -140,5 +140,33 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="maven-dependencies-00004">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-linkedin" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-linkedin` artifact has been removed" effort="7" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-linkedin` artifact has been removed in Apache Camel 3 so it won't be available</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="maven-dependencies-00005">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-http4" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-http4` artifact has been moved" effort="1" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-http4` artifact has been moved in Apache Camel 3 to `org.apache.camel:camel-http` artifact</message>
+                    <quickfix type="REPLACE" name="camel-http4-replace">
+                        <replacement>camel-http</replacement>
+                        <search>camel-http4</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
     </rules>
 </ruleset>

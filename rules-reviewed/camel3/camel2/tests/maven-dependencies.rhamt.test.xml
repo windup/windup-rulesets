@@ -54,6 +54,30 @@
                     <fail message="[maven-dependencies] 'jaxb-impl' Maven dependency missing hint was not found!" />
                 </perform>
             </rule>
+            <rule id="maven-dependencies-00004-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.apache.camel:camel-linkedin` artifact has been removed in Apache Camel 3 so it won't be available"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[maven-dependencies] 'camel-linkedin' dependency removed hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="maven-dependencies-00005-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.apache.camel:camel-http4` artifact has been moved in Apache Camel 3 to `org.apache.camel:camel-http` artifact"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[maven-dependencies] 'camel-http4' dependency moved hint was not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
