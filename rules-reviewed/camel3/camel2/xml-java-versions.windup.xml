@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="maven-dependencies"
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="xml-java-versions"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <metadata>
         <description>
@@ -12,39 +12,7 @@
         <targetTechnology id="camel" versionRange="[3,)" />
     </metadata>
     <rules>
-        <rule id="maven-dependencies-00000">
-            <when>
-                <xmlfile as="dependencies-block" matches="/m:project/m:dependencies" in="pom.xml">
-                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
-                </xmlfile>
-                <not>
-                    <project>
-                        <artifact groupId="com.sun.activation" artifactId="javax.activation" />
-                    </project>
-                </not>
-            </when>
-            <perform over="dependencies-block">
-                <hint title="'javax.activation' Maven dependency missing" effort="1" category-id="potential">
-                    <message>
-                        <![CDATA[
-                        `javax.activation` Maven dependency missing.
-
-                        Apache Camel 3 supports Java 11 and in this Java version JAXB modules have been removed from the JDK, therefore you will need to add them as Maven dependencies since there are couple of components rely on them:
-
-                        ```Xml
-                        <dependency>
-                            <groupId>com.sun.activation</groupId>
-                            <artifactId>javax.activation</artifactId>
-                            <version>${javax.activation.version}</version>
-                        </dependency>
-                        ```
-                        ]]>
-                    </message>
-                    <link title="Camel 3 - Migration Guide: Java Versions" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_java_versions" />
-                </hint>
-            </perform>
-        </rule>
-        <rule id="maven-dependencies-00001">
+        <rule id="xml-java-versions-00001">
             <when>
                 <xmlfile as="dependencies-block" matches="/m:project/m:dependencies" in="pom.xml">
                     <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
@@ -67,7 +35,7 @@
                         <dependency>
                             <groupId>javax.xml.bind</groupId>
                             <artifactId>jaxb-api</artifactId>
-                            <version>${jaxb.api.version}</version>
+                            <version>2.3.1</version>
                         </dependency>
                         ```
                         ]]>
@@ -76,7 +44,7 @@
                 </hint>
             </perform>
         </rule>
-        <rule id="maven-dependencies-00002">
+        <rule id="xml-java-versions-00002">
             <when>
                 <xmlfile as="dependencies-block" matches="/m:project/m:dependencies" in="pom.xml">
                     <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
@@ -99,7 +67,7 @@
                         <dependency>
                             <groupId>com.sun.xml.bind</groupId>
                             <artifactId>jaxb-core</artifactId>
-                            <version>${jaxb.api.version}</version>
+                            <version>2.3.0.1</version>
                         </dependency>
                         ```
                         ]]>
@@ -108,7 +76,7 @@
                 </hint>
             </perform>
         </rule>
-        <rule id="maven-dependencies-00003">
+        <rule id="xml-java-versions-00003">
             <when>
                 <xmlfile as="dependencies-block" matches="/m:project/m:dependencies" in="pom.xml">
                     <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
@@ -131,40 +99,12 @@
                         <dependency>
                             <groupId>com.sun.xml.bind</groupId>
                             <artifactId>jaxb-impl</artifactId>
-                            <version>${jaxb.api.version}</version>
+                            <version>2.3.2</version>
                         </dependency>
                         ```
                         ]]>
                     </message>
                     <link title="Camel 3 - Migration Guide: Java Versions" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_java_versions" />
-                </hint>
-            </perform>
-        </rule>
-        <rule id="maven-dependencies-00004">
-            <when>
-                <project>
-                    <artifact groupId="org.apache.camel" artifactId="camel-linkedin" />
-                </project>
-            </when>
-            <perform>
-                <hint title="`org.apache.camel:camel-linkedin` artifact has been removed" effort="7" category-id="mandatory" >
-                    <message>`org.apache.camel:camel-linkedin` artifact has been removed in Apache Camel 3 so it won't be available</message>
-                </hint>
-            </perform>
-        </rule>
-        <rule id="maven-dependencies-00005">
-            <when>
-                <project>
-                    <artifact groupId="org.apache.camel" artifactId="camel-http4" />
-                </project>
-            </when>
-            <perform>
-                <hint title="`org.apache.camel:camel-http4` artifact has been moved" effort="1" category-id="mandatory" >
-                    <message>`org.apache.camel:camel-http4` artifact has been moved in Apache Camel 3 to `org.apache.camel:camel-http` artifact</message>
-                    <quickfix type="REPLACE" name="camel-http4-replace">
-                        <replacement>camel-http</replacement>
-                        <search>camel-http4</search>
-                    </quickfix>
                 </hint>
             </perform>
         </rule>
