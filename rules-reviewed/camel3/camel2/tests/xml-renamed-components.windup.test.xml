@@ -30,6 +30,18 @@
                     <fail message="[xml-renamed-components] 'camel-rxjava2' dependency moved hint was not found!" />
                 </perform>
             </rule>
+            <rule id="xml-renamed-components-00002-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.apache.camel:camel-zookeeper-starter` artifact has been renamed in Apache Camel 3 to `org.apache.camel.springboot:camel-zookeeper-starter` artifact"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-renamed-components] 'camel-zookeeper-starter' dependency moved hint was not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
