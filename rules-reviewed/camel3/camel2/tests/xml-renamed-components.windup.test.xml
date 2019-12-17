@@ -18,6 +18,18 @@
                     <fail message="[xml-renamed-components] 'camel-http4' dependency moved hint was not found!" />
                 </perform>
             </rule>
+            <rule id="xml-renamed-components-00001-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.apache.camel:camel-rxjava2` artifact has been renamed in Apache Camel 3 to `org.apache.camel:camel-rxjava` artifact"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-renamed-components] 'camel-rxjava2' dependency moved hint was not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
