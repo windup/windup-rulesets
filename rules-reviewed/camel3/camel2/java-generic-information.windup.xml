@@ -54,5 +54,24 @@
                 <matches pattern="(DefaultEndpoint|BaseSelectorProducer|AsyncCallbackToCompletableFutureAdapter|BridgeExceptionHandlerToErrorHandler|DefaultAsyncProducer|DefaultComponent|DefaultConsumerDefaultEndpoint|DefaultExchange|DefaultExchangeHolder|DefaultHeaderFilterStrategy|DefaultMessage|DefaultMessageHistory|DefaultPollingConsumerPollStrategy|DefaultPollingEndpoint|DefaultProducer|DefaultScheduledPollConsumer|DefaultScheduledPollConsumerScheduler|DefaultThreadPoolFactory|EventDrivenPollingConsumer|ExpressionAdapter|ExpressionComparator|ExpressionListComparator|ExpressionSupport|HeaderFilterStrategyComponent|HeaderSelectorProducer|LoggingExceptionHandler|MessageSupport|PollingConsumerSupport|ProcessorEndpoint|ProcessorPollingConsumer|RoutePolicySupport|ScheduledBatchPollingConsumer|ScheduledPollConsumer|ScheduledPollEndpoint|SimpleRegistry|SimpleUuidGeneratorSynchronizationAdapter|SynchronousDelegateProducer)" />
             </where>
         </rule>
+        <rule id="java-generic-information-00002">
+            <when>
+                <javaclass references="org.apache.camel.language.LanguageAnnotation">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel.language.LanguageAnnotation` has been moved" effort="1" category-id="mandatory">
+                    <message>
+                        The class `org.apache.camel.language.LanguageAnnotation` has been moved to `org.apache.camel.support.language.LanguageAnnotation`.
+                    </message>
+                    <link title="Camel 3 - Migration Guide: Migrating custom languages" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_migrating_custom_languages" />
+                    <quickfix type="REPLACE" name="LanguageAnnotation-replace">
+                        <replacement>org.apache.camel.support.language.LanguageAnnotation</replacement>
+                        <search>org.apache.camel.language.LanguageAnnotation</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
