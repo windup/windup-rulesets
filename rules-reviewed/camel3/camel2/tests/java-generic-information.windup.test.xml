@@ -18,6 +18,18 @@
                     <fail message="[java-generic-information] 'AggregationStrategy' moved hint was not found!" />
                 </perform>
             </rule>
+            <rule id="java-generic-information-00001-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The class `org.apache.camel.impl.DefaultEndpoint` has been moved to `org.apache.camel.support.DefaultEndpoint`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-generic-information] 'DefaultEndpoint' moved hint was not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
