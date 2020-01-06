@@ -78,6 +78,30 @@
                     <fail message="[xml-renamed-components] 'camel-hdfs' dependency moved hint was not found!" />
                 </perform>
             </rule>
+            <rule id="xml-renamed-components-00006-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.apache.camel:camel-mina2` artifact has been renamed to `org.apache.camel:camel-mina`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-renamed-components] 'camel-mina2' dependency moved hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="xml-renamed-components-00007-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.apache.camel:camel-mina` artifact has been replaced with the old `org.apache.camel:camel-mina2` artifact"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-renamed-components] 'camel-mina' dependency moved hint was not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>

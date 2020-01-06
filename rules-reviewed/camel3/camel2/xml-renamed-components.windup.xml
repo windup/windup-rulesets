@@ -111,6 +111,36 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="xml-renamed-components-00006">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-mina2" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-mina2` artifact has been renamed to `org.apache.camel:camel-mina`" effort="1" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-mina2` artifact has been renamed to `org.apache.camel:camel-mina`. It’s corresponding component package was renamed from `org.apache.camel.component.mina2` to `org.apache.camel.component.mina`. The supported scheme is now `mina`.</message>
+                    <link title="Camel 3 - Renamed Components" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_renamed_components" />
+                    <quickfix type="REPLACE" name="camel-mina2-replace">
+                        <replacement>camel-mina2</replacement>
+                        <search>camel-mina</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-renamed-components-00007">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-mina" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-mina` artifact has been replaced with the old `org.apache.camel:camel-mina2` artifact" effort="2" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-mina` artifact has been replaced with the old `org.apache.camel:camel-mina2` artifact. The component now depends on Mina 2.x, upgrade efforts may vary.</message>
+                    <link title="Camel 3 - Renamed Components" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_renamed_components" />
+                </hint>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
 
