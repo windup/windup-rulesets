@@ -42,6 +42,18 @@
                     <fail message="[xml-renamed-components] 'camel-zookeeper-starter' dependency moved hint was not found!" />
                 </perform>
             </rule>
+            <rule id="xml-renamed-components-00003-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.apache.camel:camel-mongodb3` artifact has been renamed to `org.apache.camel:camel-mongodb`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-renamed-components] 'camel-mongodb3' dependency moved hint was not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
