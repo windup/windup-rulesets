@@ -64,6 +64,53 @@
                 <matches pattern="([a-zA-Z0-9]|-)*" />
             </where>
         </rule>
+        <rule id="xml-renamed-components-00003">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-mongodb3" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-mongodb3` artifact has been renamed to `org.apache.camel:camel-mongodb`" effort="1" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-mongodb3` artifact has been renamed to `org.apache.camel:camel-mongodb`. It’s corresponding component package was renamed from `org.apache.camel.component.mongodb3` to `org.apache.camel.component.mongodb`. The supported scheme is now `mongodb`.</message>
+                    <link title="Camel 3 - Renamed Components" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_renamed_components" />
+                    <quickfix type="REPLACE" name="camel-mongodb3-replace">
+                        <replacement>camel-mongodb</replacement>
+                        <search>camel-mongodb3</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-renamed-components-00004">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-hdfs2" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-hdfs2` artifact has been renamed to `org.apache.camel:camel-hdfs`" effort="1" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-hdfs2` artifact has been renamed to `org.apache.camel:camel-hdfs`. It’s corresponding component package was renamed from `org.apache.camel.component.hdfs2` to `org.apache.camel.component.hdfs`. The supported scheme is now `hdfs`.</message>
+                    <link title="Camel 3 - Renamed Components" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_renamed_components" />
+                    <quickfix type="REPLACE" name="camel-hdfs2-replace">
+                        <replacement>camel-hdfs2</replacement>
+                        <search>camel-hdfs</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-renamed-components-00005">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-hdfs" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-hdfs` artifact has been replaced with the old `org.apache.camel:camel-hdfs2` artifact" effort="1" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-hdfs` artifact has been replaced with the old `org.apache.camel:camel-hdfs2` artifact. The component now depends on Hadoop 2.x, upgrade efforts may vary.</message>
+                    <link title="Camel 3 - Renamed Components" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_renamed_components" />
+                </hint>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
 
