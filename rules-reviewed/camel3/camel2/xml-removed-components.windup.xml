@@ -36,6 +36,43 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="xml-removed-components-00002">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-jibx" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-jibx` artifact has been removed" effort="7" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-jibx` artifact has been deprecated in Apache Camel 2 and removed in Apache Camel 3 because it did not support JDK8.</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-removed-components-00003">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-boon" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-boon` artifact has been removed" effort="7" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-boon` artifact has been deprecated in Apache Camel 2 and removed in Apache Camel 3 because it did not support JDK9 and later.</message>
+                </hint>
+            </perform>
+        </rule>
+        <!-- TODO:try to detect if the component is actually in use-->
+        <rule id="xml-removed-components-00004">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-twitter-streaming" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`twitter-streaming` component has been removed" effort="1" category-id="information" >
+                    <message>`twitter-streaming` component has been deprecated in Apache Camel 2 and removed in Apache Camel 3 because it relied on the deprecated Twitter Streaming API and is no longer functional.</message>
+                </hint>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
 
