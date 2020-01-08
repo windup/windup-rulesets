@@ -174,7 +174,7 @@
         <rule id="xml-renamed-components-000010">
             <when>
                 <project>
-                    <artifact groupId="org.apache.camel" artifactId="camel-netty4" />
+                    <artifact groupId="org.apache.camel" artifactId="camel-netty4-http" />
                 </project>
             </when>
             <perform>
@@ -191,12 +191,42 @@
         <rule id="xml-renamed-components-00011">
             <when>
                 <project>
-                    <artifact groupId="org.apache.camel" artifactId="camel-netty" />
+                    <artifact groupId="org.apache.camel" artifactId="camel-netty-http" />
                 </project>
             </when>
             <perform>
                 <hint title="`org.apache.camel:camel-netty-http` artifact has been replaced with the old `org.apache.camel:camel-netty4-http` artifact" effort="2" category-id="mandatory" >
                     <message>`org.apache.camel:camel-netty-http` artifact has been replaced with the old `org.apache.camel:camel-netty4-http` artifact. The component now depends on Netty 4.x, upgrade efforts may vary.</message>
+                    <link title="Camel 3 - Renamed Components" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_renamed_components" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-renamed-components-000012">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-quartz2" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-quartz2` artifact has been renamed to `org.apache.camel:camel-quartz`" effort="1" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-quartz2` artifact has been renamed to `org.apache.camel:camel-quartz`. It’s corresponding component package was renamed from `org.apache.camel.component.quartz2` to `org.apache.camel.component.quartz`. The supported scheme is now `quartz`.</message>
+                    <link title="Camel 3 - Renamed Components" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_renamed_components" />
+                    <quickfix type="REPLACE" name="camel-quartz2-replace">
+                        <replacement>camel-quartz</replacement>
+                        <search>camel-quartz2</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-renamed-components-00013">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-quartz" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-quartz` artifact has been replaced with the old `org.apache.camel:camel-quartz2` artifact" effort="2" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-quartz` artifact has been replaced with the old `org.apache.camel:camel-quartz2` artifact. The component now depends on Quartz 2.x, upgrade efforts may vary.</message>
                     <link title="Camel 3 - Renamed Components" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_renamed_components" />
                 </hint>
             </perform>
