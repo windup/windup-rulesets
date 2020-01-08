@@ -18,6 +18,18 @@
                     <fail message="[xml-removed-components] 'camel-linkedin' dependency removed hint was not found!" />
                 </perform>
             </rule>
+            <rule id="xml-removed-components-00001-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.apache.camel:camel-script` artifact has been deprecated in Apache Camel 2*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-components] 'camel-script' dependency removed hint was not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
