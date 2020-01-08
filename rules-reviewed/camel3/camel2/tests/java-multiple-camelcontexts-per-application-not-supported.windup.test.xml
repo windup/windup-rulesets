@@ -18,6 +18,18 @@
                     <fail message="[java-multiple-camelcontexts-per-application-not-supported] 'context' attribute removed hint was not found!" />
                 </perform>
             </rule>
+            <rule id="java-multiple-camelcontexts-per-application-not-supported-00001-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="Support for multiple CamelContexts has been removed*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-multiple-camelcontexts-per-application-not-supported] 'ContextName' hint was not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
