@@ -165,8 +165,38 @@
                 </project>
             </when>
             <perform>
-                <hint title="`org.apache.camel:camel-mina` artifact has been replaced with the old `org.apache.camel:camel-netty4` artifact" effort="2" category-id="mandatory" >
-                    <message>`org.apache.camel:camel-netty` artifact has been replaced with the old `org.apache.camel:camel-netty4` artifact. The component now depends on Mina 4.x, upgrade efforts may vary.</message>
+                <hint title="`org.apache.camel:camel-netty` artifact has been replaced with the old `org.apache.camel:camel-netty4` artifact" effort="2" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-netty` artifact has been replaced with the old `org.apache.camel:camel-netty4` artifact. The component now depends on Netty 4.x, upgrade efforts may vary.</message>
+                    <link title="Camel 3 - Renamed Components" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_renamed_components" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-renamed-components-000010">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-netty4" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-netty4-http` artifact has been renamed to `org.apache.camel:camel-netty-http`" effort="1" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-netty4-http` artifact has been renamed to `org.apache.camel:camel-netty-http`. It’s corresponding component package was renamed from `org.apache.camel.component.netty4.http` to `org.apache.camel.component.netty.http`. The supported scheme is now `netty-http`.</message>
+                    <link title="Camel 3 - Renamed Components" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_renamed_components" />
+                    <quickfix type="REPLACE" name="camel-netty4-http-replace">
+                        <replacement>camel-netty4-http</replacement>
+                        <search>camel-netty-http</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-renamed-components-00011">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-netty" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-netty-http` artifact has been replaced with the old `org.apache.camel:camel-netty4-http` artifact" effort="2" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-netty-http` artifact has been replaced with the old `org.apache.camel:camel-netty4-http` artifact. The component now depends on Netty 4.x, upgrade efforts may vary.</message>
                     <link title="Camel 3 - Renamed Components" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_renamed_components" />
                 </hint>
             </perform>
