@@ -102,6 +102,30 @@
                     <fail message="[xml-renamed-components] 'camel-mina' dependency moved hint was not found!" />
                 </perform>
             </rule>
+            <rule id="xml-renamed-components-00008-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.apache.camel:camel-netty4` artifact has been renamed to `org.apache.camel:camel-netty`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-renamed-components] 'camel-netty4' dependency moved hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="xml-renamed-components-00009-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.apache.camel:camel-netty` artifact has been replaced with the old `org.apache.camel:camel-netty4` artifact"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-renamed-components] 'camel-netty' dependency moved hint was not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
