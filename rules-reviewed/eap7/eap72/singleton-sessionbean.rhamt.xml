@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="singleton-sessionbean"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of any java class with type annotation javax.ejb.Singleton that also implement interface javax.ejb.SessionBean because SessionBean API was deprecated starting with JBoss EAP 7.3.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <targetTechnology id="eap" versionRange="[7,8)" />
+    </metadata>
+    <rules>
+        <!-- https://issues.redhat.com/browse/WINDUPRULE-403 -->
+        <rule id="singleton-sessionbean-00001">
+            <when>
+                <javaclass references="javax.ejb.Singleton" as="singleton">
+                    <location>ANNOTATION</location>
+                </javaclass>
+                <javaclass references="javax.ejb.SessionBean" from="singleton" as="sessionbean">
+                    <location>IMPLEMENTS_TYPE</location>
+                </javaclass>
+            </when>
+            <perform>
+                <iteration over="sessionbean">
+                    <hint title="Removed SessionBean interface" effort="1" category-id="mandatory">
+                        <message>
+                            <![CDATA[
+                            The `javax.ejb.SessionBean` interface should be removed from the implements clause.  
+                            All methods declared in `javax.ejb.SessionBean` interface (see below) that are implemented in the bean class or its super classes should be checked for `@Override` annotation and remove this annotation too if present.  
+                            Methods declared by `javax.ejb.SessionBean` interface:  
+                            
+                            ```
+                            void setSessionContext(SessionContext ctx);  
+                            
+                            void ejbRemove();  
+                            
+                            void ejbActivate();  
+                            
+                            void ejbPassivate();  
+                            ```
+                            ]]>
+                        </message>
+                        <link title="FIXME" href="FIXME"/>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          id="singleton-sessionbean-test" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/singleton-sessionbean/</testDataPath>
+    <rulePath>../singleton-sessionbean.rhamt.xml</rulePath>
+    <ruleset>
+        <rules>
+            <!-- https://issues.redhat.com/browse/WINDUPRULE-403 -->
+            <rule id="singleton-sessionbean-00001-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The `javax.ejb.SessionBean` interface should be removed from the implements clause*" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="No import of `org.wildfly.clustering.singleton.SingletonPolicy` found in ServiceActivator.java" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
