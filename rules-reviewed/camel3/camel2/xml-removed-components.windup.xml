@@ -86,6 +86,82 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="xml-removed-components-00005">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-aws" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-aws` artifact has been split up into multiple components" effort="1" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-aws` artifact has been removed and split up into multiple components. So you’ll have to explicitly add the dependencies for these components. Please remove `org.apache.camel:camel-aws`. From the OSGi perspective, there is still a `camel-aws` Karaf feature, which includes all the components features.</message>
+                    <link title="Camel 3 - AWS" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_aws" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-removed-components-00006">
+            <when>
+                <xmlfile as="dependencies-block" matches="/m:project/m:dependencies[count(m:dependency/m:artifactId[windup:matches(text(), 'camel-{aws-component}')])=0]" in="pom.xml">
+                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
+                </xmlfile>
+                <filecontent pattern="{from|to}(&quot;{aws-component}:" filename="{*}.java"/>
+            </when>
+            <perform>
+                <iteration over="dependencies-block">
+                    <hint title="`org.apache.camel:camel-aws` artifact has been split up into multiple components" effort="1" category-id="mandatory" >
+                        <message>`org.apache.camel:camel-aws` artifact has been removed and split up into multiple components. So you’ll have to explicitly add the dependencies for these components. Please add `org.apache.camel:{aws-component}` to your `pom.xml` file. From the OSGi perspective, there is still a `camel-aws` Karaf feature, which includes all the components features.</message>
+                        <link title="Camel 3 - AWS" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_aws" />
+                    </hint>
+                </iteration>
+            </perform>
+            <where param="aws-component">
+                <matches pattern="(aws2-cw|aws2-ddb|aws2-ec2|aws2-ecs|aws2-eks|aws2-iam|aws2-kinesis|aws2-kms|aws2-lambda|aws2-mq|aws2-msk|aws2-s3|aws2-ses|aws2-sns|aws2-sqs|aws2-translate|aws-cw|aws-ddb|aws-ec2|aws-ecs|aws-eks|aws-iam|aws-kinesis|aws-kms|aws-lambda|aws-mq|aws-msk|aws-s3|aws-sdb|aws-ses|aws-sns|aws-sqs|aws-swf|aws-translate|aws-xray)"/>
+            </where>
+        </rule>
+        <rule id="xml-removed-components-00007">
+            <when>
+                <xmlfile as="dependencies-block" matches="/m:project/m:dependencies[count(m:dependency/m:artifactId[windup:matches(text(), 'camel-{aws-component}')])=0]" in="pom.xml">
+                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
+                </xmlfile>
+                <!-- Spring XML -->
+                <xmlfile matches="//*/c:route/*/@uri[windup:matches(self::node(), '{aws-component}:{*}')]">
+                    <namespace prefix="c" uri="http://camel.apache.org/schema/spring"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <iteration over="dependencies-block">
+                    <hint title="`org.apache.camel:camel-aws` artifact has been split up into multiple components" effort="1" category-id="mandatory" >
+                        <message>`org.apache.camel:camel-aws` artifact has been removed and split up into multiple components. So you’ll have to explicitly add the dependencies for these components. Please add `org.apache.camel:{aws-component}` to your `pom.xml` file. From the OSGi perspective, there is still a `camel-aws` Karaf feature, which includes all the components features.</message>
+                        <link title="Camel 3 - AWS" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_aws" />
+                    </hint>
+                </iteration>
+            </perform>
+            <where param="aws-component">
+                <matches pattern="(aws2-cw|aws2-ddb|aws2-ec2|aws2-ecs|aws2-eks|aws2-iam|aws2-kinesis|aws2-kms|aws2-lambda|aws2-mq|aws2-msk|aws2-s3|aws2-ses|aws2-sns|aws2-sqs|aws2-translate|aws-cw|aws-ddb|aws-ec2|aws-ecs|aws-eks|aws-iam|aws-kinesis|aws-kms|aws-lambda|aws-mq|aws-msk|aws-s3|aws-sdb|aws-ses|aws-sns|aws-sqs|aws-swf|aws-translate|aws-xray)"/>
+            </where>
+        </rule>
+        <rule id="xml-removed-components-00008">
+            <when>
+                <xmlfile as="dependencies-block" matches="/m:project/m:dependencies[count(m:dependency/m:artifactId[windup:matches(text(), 'camel-{aws-component}')])=0]" in="pom.xml">
+                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
+                </xmlfile>
+                <!-- Blueprint XML -->
+                <xmlfile matches="//*/c:route/*/@uri[windup:matches(self::node(), '{aws-component}:{*}')]">
+                    <namespace prefix="c" uri="http://camel.apache.org/schema/blueprint"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <iteration over="dependencies-block">
+                    <hint title="`org.apache.camel:camel-aws` artifact has been split up into multiple components" effort="1" category-id="mandatory" >
+                        <message>`org.apache.camel:camel-aws` artifact has been removed and split up into multiple components. So you’ll have to explicitly add the dependencies for the AWS components. Please add `org.apache.camel:{aws-component}` to your `pom.xml` file. From the OSGi perspective, there is still a `camel-aws` Karaf feature, which includes all the components features.</message>
+                        <link title="Camel 3 - AWS" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_aws" />
+                    </hint>
+                </iteration>
+            </perform>
+            <where param="aws-component">
+                <matches pattern="(aws2-cw|aws2-ddb|aws2-ec2|aws2-ecs|aws2-eks|aws2-iam|aws2-kinesis|aws2-kms|aws2-lambda|aws2-mq|aws2-msk|aws2-s3|aws2-ses|aws2-sns|aws2-sqs|aws2-translate|aws-cw|aws-ddb|aws-ec2|aws-ecs|aws-eks|aws-iam|aws-kinesis|aws-kms|aws-lambda|aws-mq|aws-msk|aws-s3|aws-sdb|aws-ses|aws-sns|aws-sqs|aws-swf|aws-translate|aws-xray)"/>
+            </where>
+        </rule>
     </rules>
 </ruleset>
 
