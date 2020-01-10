@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="xml-renamed-components"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            Rules for changes in XML file (e.g. pom.xml) to run on Apache Camel 3
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="camel" versionRange="[2,3)"/>
+        <targetTechnology id="camel" versionRange="[3,)" />
+    </metadata>
+    <rules>
+        <rule id="xml-renamed-components-00000">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-http4" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-http4` artifact has been renamed" effort="1" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-http4` artifact has been renamed in Apache Camel 3 to `org.apache.camel:camel-http` artifact</message>
+                    <quickfix type="REPLACE" name="camel-http4-replace">
+                        <replacement>camel-http</replacement>
+                        <search>camel-http4</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
+

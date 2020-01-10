@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ruletest id="FIX_RULESET_ID-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/xml-renamed-components</testDataPath>
+    <rulePath>../xml-renamed-components.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="xml-renamed-components-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.apache.camel:camel-http4` artifact has been renamed in Apache Camel 3 to `org.apache.camel:camel-http` artifact"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-renamed-components] 'camel-http4' dependency moved hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
