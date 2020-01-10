@@ -186,6 +186,18 @@
                     <fail message="[xml-renamed-components] 'camel-jetty9' dependency moved hint was not found!" />
                 </perform>
             </rule>
+            <rule id="xml-renamed-components-000015-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.apache.activemq:activemq-camel` artifact has been moved to `org.apache.camel:camel-activemq`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-renamed-components] 'camel-activemq' dependency moved hint was not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
