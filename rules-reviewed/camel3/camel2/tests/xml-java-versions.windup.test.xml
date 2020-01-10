@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<ruletest id="xml-java-versions-tests"
+    xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/xml-java-versions</testDataPath>
+    <rulePath>../xml-java-versions.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="xml-java-versions-00001-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`jaxb-api` Maven dependency missing*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-java-versions] 'jaxb-api' Maven dependency missing hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="xml-java-versions-00002-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`jaxb-core` Maven dependency missing*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-java-versions] 'jaxb-core' Maven dependency missing hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="xml-java-versions-00003-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`jaxb-impl` Maven dependency missing*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-java-versions] 'jaxb-impl' Maven dependency missing hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
