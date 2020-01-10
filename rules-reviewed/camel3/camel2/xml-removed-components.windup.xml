@@ -60,7 +60,7 @@
                 </hint>
             </perform>
         </rule>
-        <!-- TODO:try to detect if the component is actually in use-->
+        <!-- TODO: try to detect if the component is actually in use-->
         <rule id="xml-removed-components-00004">
             <when>
                 <project>
@@ -70,6 +70,20 @@
             <perform>
                 <hint title="`twitter-streaming` component has been removed" effort="1" category-id="information" >
                     <message>`twitter-streaming` component has been deprecated in Apache Camel 2 and removed in Apache Camel 3 because it relied on the deprecated Twitter Streaming API and is no longer functional.</message>
+                </hint>
+            </perform>
+        </rule>
+        <!-- TODO: try to provide list of AWS components in use-->
+        <rule id="xml-removed-components-00005">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-aws" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-aws` artifact has been split up into multiple components" effort="2" category-id="information" >
+                    <message>`org.apache.camel:camel-aws` artifact has been split up into multiple components. So you’ll have to add explicitly the dependencies for these components. From the OSGi perspective, there is still a `camel-aws` Karaf feature, which includes all the components features.</message>
+                    <link title="Camel 3 - AWS" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_aws" />
                 </hint>
             </perform>
         </rule>
