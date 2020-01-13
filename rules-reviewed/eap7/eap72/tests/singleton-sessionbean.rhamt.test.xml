@@ -11,12 +11,12 @@
                 <when>
                     <not>
                         <iterable-filter size="1">
-                            <hint-exists message="The `javax.ejb.SessionBean` interface should be removed from the implements clause*" />
+                            <hint-exists message="When a singleton EJB bean class implements `javax.ejb.SessionBean` interface, this interface should be removed from the implements clause.*" />
                         </iterable-filter>
                     </not>
                 </when>
                 <perform>
-                    <fail message="No import of `org.wildfly.clustering.singleton.SingletonPolicy` found in ServiceActivator.java" />
+                    <fail message="No hint found for `javax.ejb.SessionBean` interface removed" />
                 </perform>
             </rule>
         </rules>
