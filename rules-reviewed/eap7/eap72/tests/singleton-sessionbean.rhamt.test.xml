@@ -4,13 +4,14 @@
           xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <testDataPath>data/singleton-sessionbean/</testDataPath>
     <rulePath>../singleton-sessionbean.rhamt.xml</rulePath>
+    <rulePath>../singleton-sessionbean.rhamt.groovy</rulePath>
     <ruleset>
         <rules>
             <!-- https://issues.redhat.com/browse/WINDUPRULE-403 -->
             <rule id="singleton-sessionbean-00001-test">
                 <when>
                     <not>
-                        <iterable-filter size="1">
+                        <iterable-filter size="2">
                             <hint-exists message="When a singleton EJB bean class implements `javax.ejb.SessionBean` interface, this interface should be removed from the implements clause.*" />
                         </iterable-filter>
                     </not>
