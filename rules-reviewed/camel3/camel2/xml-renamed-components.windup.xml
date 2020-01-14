@@ -29,6 +29,23 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="xml-renamed-components-00001">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-rxjava2" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-rxjava2` artifact has been renamed" effort="1" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-rxjava2` artifact has been renamed in Apache Camel 3 to `org.apache.camel:camel-rxjava` artifact</message>
+                    <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_renamed_components" title="Camel 3 - Migration Guide: Renamed components" />
+                    <quickfix type="REPLACE" name="camel-rxjava2-replace">
+                        <replacement>camel-rxjava</replacement>
+                        <search>camel-rxjava2</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
 
