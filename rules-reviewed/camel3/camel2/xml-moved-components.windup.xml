@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="xml-moved-components"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            Rules for changes in XML file (e.g. pom.xml) to run on Apache Camel 3
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final"/>
+        </dependencies>
+        <sourceTechnology id="camel" versionRange="[2,3)"/>
+        <targetTechnology id="camel" versionRange="[3,)"/>
+    </metadata>
+    <rules>
+        <rule id="xml-moved-components-00000">
+            <when>
+                <xmlfile matches="//*/c:route/*/@uri[windup:matches(self::node(), '{component}:{*}')]">
+                    <namespace prefix="c" uri="http://camel.apache.org/schema/spring"/>
+                </xmlfile>
+                <xmlfile as="dependencies-block"
+                        matches="/m:project/m:dependencies[count(m:dependency/m:artifactId[windup:matches(text(), 'camel-{component}')])=0]"
+                        in="pom.xml">
+                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <iteration over="dependencies-block">
+                    <hint title="`camel-{component}` has been moved" effort="1" category-id="mandatory">
+                        <message>`camel-{component}` component has been moved from `camel-core` to separate artifact
+                            `org.apache.camel:camel-{component}` that has to be added as a dependency to your project pom.xml file
+                        </message>
+                        <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_modularization_of_camel_core"
+                                title="Camel 3 - Migration Guide: Modularization of camel-core"/>
+                    </hint>
+                </iteration>
+            </perform>
+            <where param="component">
+                <matches pattern="(bean|direct|xslt|browse|dataset|direct-vm|file|log|mock|ref|saga|scheduler|seda|stub|timer|validator|vm|controlbus)"/>
+            </where>
+        </rule>
+        <rule id="xml-moved-components-00001">
+            <when>
+                <xmlfile matches="//*/b:route/*/@uri[windup:matches(self::node(), '{component}:{*}')]">
+                    <namespace prefix="b" uri="http://camel.apache.org/schema/blueprint"/>
+                </xmlfile>
+                <xmlfile as="dependencies-block"
+                        matches="/m:project/m:dependencies[count(m:dependency/m:artifactId[windup:matches(text(), 'camel-{component}')])=0]"
+                        in="pom.xml">
+                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <iteration over="dependencies-block">
+                    <hint title="`camel-{component}` has been moved" effort="1" category-id="mandatory">
+                        <message>`camel-{component}` component has been moved from `camel-core` to separate artifact
+                            `org.apache.camel:camel-{component}` that has to be added as a dependency to your project pom.xml file
+                        </message>
+                        <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_modularization_of_camel_core"
+                                title="Camel 3 - Migration Guide: Modularization of camel-core"/>
+                    </hint>
+                </iteration>
+            </perform>
+            <where param="component">
+                <matches pattern="(bean|direct|xslt|browse|dataset|direct-vm|file|log|mock|ref|saga|scheduler|seda|stub|timer|validator|vm|controlbus)"/>
+            </where>
+        </rule>
+        <rule id="xml-moved-components-00002">
+            <when>
+                <filecontent pattern="(&quot;{component}:" filename="{*}.java"/>
+                <xmlfile as="dependencies-block" matches="/m:project/m:dependencies[count(m:dependency/m:artifactId[windup:matches(text(), 'camel-{component}')])=0]" in="pom.xml">
+                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <iteration over="dependencies-block">
+                    <hint title="`camel-{component}` has been moved" effort="1" category-id="mandatory">
+                        <message>`camel-{component}` component has been moved from `camel-core` to separate artifact
+                            `org.apache.camel:camel-{component}` that has to be added as a dependency to your project pom.xml file
+                        </message>
+                        <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_modularization_of_camel_core"
+                                title="Camel 3 - Migration Guide: Modularization of camel-core"/>
+                    </hint>
+                </iteration>
+            </perform>
+            <where param="component">
+                <matches pattern="(bean|direct|xslt|browse|dataset|direct-vm|file|log|mock|ref|saga|scheduler|seda|stub|timer|validator|vm|controlbus)"/>
+            </where>
+        </rule>
+    </rules>
+</ruleset>
+
