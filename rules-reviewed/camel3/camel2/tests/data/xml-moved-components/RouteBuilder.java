@@ -4,6 +4,10 @@ import org.apache.camel.builder.RouteBuilder;
  * A Camel Java DSL Router
  */
 public class MyRouteBuilder extends RouteBuilder {
+    rest("/say")
+                .get("/hello").to("direct:hello")
+                .get("/bye").consumes("application/json")
+                .post("/bye");
 
     public void configure() {
         from("direct:xslt-copy-all")
@@ -20,6 +24,11 @@ public class MyRouteBuilder extends RouteBuilder {
 
         from("dataset:foo")
             .to("direct-vm:bar");
+            .from("scheduler://foo?delay=60s")
+            .to("seda:next")
+            .to("stub:smtp://somehost.foo.com?user=windup");
+
+            from("vm:bar?concurrentConsumers=5")
 
         from("scheduler://foo?delay=60s")
             .to("seda:next")
