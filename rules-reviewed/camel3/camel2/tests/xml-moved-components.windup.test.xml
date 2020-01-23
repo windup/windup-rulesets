@@ -79,6 +79,18 @@
                     <fail message="[xml-moved-components] camel-rest dependency moved hint was not found!"/>
                 </perform>
             </rule>
+            <rule id="xml-moved-components-00006-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="camel-attachments` required for using rest DSL.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-moved-components] camel-rest dependency moved hint was not found!"/>
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
