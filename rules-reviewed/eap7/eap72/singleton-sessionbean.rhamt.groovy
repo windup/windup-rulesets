@@ -4,7 +4,6 @@ import org.jboss.windup.config.parameters.ParameterizedIterationOperation
 import org.jboss.windup.config.query.Query
 import org.jboss.windup.reporting.category.IssueCategoryRegistry
 import org.jboss.windup.reporting.config.Hint
-import org.jboss.windup.reporting.config.Link
 import org.jboss.windup.rules.apps.java.model.JavaClassModel
 import org.jboss.windup.rules.apps.java.scan.ast.JavaTypeReferenceModel
 import org.jboss.windup.rules.apps.java.service.TypeReferenceService
@@ -36,7 +35,6 @@ ruleSet("singleton-sessionbean-groovy")
                             ```
                             """)
                     .withIssueCategory(new IssueCategoryRegistry().getByID(IssueCategoryRegistry.MANDATORY))
-                    .with(Link.to("FIXME", "FIXME"))
                     .withEffort(1);
 
             Set<String> getRequiredParameterNames() {
