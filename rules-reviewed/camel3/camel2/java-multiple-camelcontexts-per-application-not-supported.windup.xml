@@ -32,5 +32,23 @@
                 <matches pattern="(BeanInject|Consume|DynamicRouter|EndpointInject|Produce|PropertyInject|RecipientList|RoutingSlip)" />
             </where>
         </rule>
+        <rule id="java-multiple-camelcontexts-per-application-not-supported-00001">
+            <when>
+                <javaclass references="org.apache.camel.cdi.{CdiCamelContextName}">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="{CdiCamelContextName} has been removed" effort="3" category-id="mandatory">
+                    <message>
+                        Support for multiple CamelContexts has been removed, and therefore `{CdiCamelContextName}` has been removed. Instead use standard CDI annotations such as `javax.inject.Named` and `javax.enterprise.context.ApplicationScoped`.
+                    </message>
+                    <link title="Camel 3 - Migration Guide: multiple CamelContexts per application not supported" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_camel_cdi" />
+                </hint>
+            </perform>
+            <where param="CdiCamelContextName">
+                <matches pattern="(ContextName|ContextNames)" />
+            </where>
+        </rule>
     </rules>
 </ruleset>
