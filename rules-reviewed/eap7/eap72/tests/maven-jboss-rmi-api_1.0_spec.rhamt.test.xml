@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          id="maven-jboss-rmi-api_1.0_spec-test" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/data-maven-jboss-rmi-api_1.0_spec/</testDataPath>
+    <rulePath>../maven-jboss-rmi-api_1.0_spec.rhamt.xml</rulePath>
+    <ruleset>
+        <rules>
+            <!--https://issues.jboss.org/browse/WINDUPRULE-401 -->
+            <rule id="maven-jboss-rmi-api_1.0_spec-00001-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="If you migrate your application to JBoss EAP 7.3 \(or later\), and want to ensure its Maven building, running or testing works as expected, remove any dependency on unsupported artifact with groupId `org.jboss.spec.javax.rmi`, and artifactId `jboss-rmi-api_1.0_spec`." />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="No reference to `org.jboss.spec.javax.rmi:jboss-rmi-api_1.0_spec` found in pom.xml" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
