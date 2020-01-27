@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          id="deprecated-singletonpolicy-test" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/data-deprecated-singletonpolicy/</testDataPath>
+    <rulePath>../deprecated-singletonpolicy.rhamt.xml</rulePath>
+    <ruleset>
+        <rules>
+            <!--https://issues.jboss.org/browse/WINDUPRULE-405 -->
+            <rule id="deprecated-singletonpolicy-00001-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The application imports class `org.wildfly.clustering.singleton.SingletonPolicy`, from deprecated HA Singleton API." />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="No import of `org.wildfly.clustering.singleton.SingletonPolicy` found in ServiceActivator.java" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
