@@ -46,6 +46,22 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="xml-renamed-components-00002">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-{substitution}-starter" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-{substitution}-starter` artifact has been renamed" effort="1" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-{substitution}-starter` artifact has been renamed in Apache Camel 3 to `org.apache.camel.springboot:camel-{substitution}-starter` artifact</message>
+                    <link title="Camel 3 - Migration Guide: the Maven `groupId` for the Camel Spring Boot starters have changed" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_spring_boot_starters_maven_coordinate_change" />
+                </hint>
+            </perform>
+            <where param="substitution">
+                <matches pattern="([a-zA-Z0-9]|-)*" />
+            </where>
+        </rule>
     </rules>
 </ruleset>
 
