@@ -18,6 +18,7 @@ public class MyRouteBuilder extends RouteBuilder {
 
         from("ref:endpoint1")
             .marshal().zip()
+            .marshal().zipDeflater()
             .to("browse:orderReceived")
             .to("controlbus:route?routeId=mainRoute&action=stop&async=true")
             .to("language:simple:classpath:org/apache/camel/component/language/mysimplescript.txt")

@@ -151,6 +151,30 @@
                     <fail message="[xml-moved-components] `camel-xpath` dependency moved hint was not found!"/>
                 </perform>
             </rule>
+            <rule id="xml-moved-components-00007-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="camel-dataformat` dependency required.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-moved-components] camel-dataformat dependency moved hint was not found!"/>
+                </perform>
+            </rule>
+            <rule id="xml-moved-components-00008-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="camel-dataformat` dependency required.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-moved-components] camel-rest dependency moved hint was not found!"/>
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
