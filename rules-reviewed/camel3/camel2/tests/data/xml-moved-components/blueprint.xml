@@ -21,6 +21,7 @@
         </route>
         <route>
             <from uri="scheduler://foo?delay=60s"/>
+            <unmarshal ref="myJaxb"/>
             <to uri="seda:next"/>
             <to uri="controlbus:route?routeId=mainRoute&amp;action=stop&amp;async=true"/>
             <to uri="stub:smtp://somehost.foo.com?user=windup"/>
