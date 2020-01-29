@@ -296,6 +296,66 @@
                 </iteration>
             </perform>
         </rule>
+        <rule id="xml-moved-components-00011">
+            <when>
+                <xmlfile as="dependencies-block" in="pom.xml"
+                        matches="/m:project/m:dependencies[count(m:dependency/m:artifactId[text()='camel-xpath'])=0]">
+                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
+                </xmlfile>
+                <javaclass references="org.apache.camel.builder.RouteBuilder" as="routeBuilders">
+                    <location>INHERITANCE</location>
+                </javaclass>
+                <or>
+                    <filecontent pattern=".xpath({*})" from="routeBuilders"/>
+                    <xmlfile matches="//*[count(b:xpath) >0]">
+                        <namespace prefix="b" uri="http://camel.apache.org/schema/blueprint"/>
+                    </xmlfile>
+                    <xmlfile matches="//*[count(c:xpath) > 0]">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/spring"/>
+                    </xmlfile>
+                </or>
+            </when>
+            <perform>
+                <iteration over="dependencies-block">
+                    <hint title="`camel-xpath` component has been moved" effort="1" category-id="mandatory">
+                        <message>`camel-xpath` dependency required. Component has been moved from `camel-core` to separate artifact
+                            org.apache.camel:camel-dataformat that has to be added as a dependency to your project pom.xml file
+                        </message>
+                        <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_modularization_of_camel_core"
+                                title="Camel 3 - Migration Guide"/>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+<!--        <rule id="xml-moved-components-00012">-->
+<!--            <when>-->
+<!--                <xmlfile as="dependencies-block" in="pom.xml"-->
+<!--                        matches="/m:project/m:dependencies[count(m:dependency/m:artifactId[text()='camel-dataformat'])=0]">-->
+<!--                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>-->
+<!--                </xmlfile>-->
+
+<!--                <or>-->
+<!--                    <xmlfile matches="//*[count(b:xpath) >0]">-->
+<!--                        <namespace prefix="b" uri="http://camel.apache.org/schema/blueprint"/>-->
+<!--                    </xmlfile>-->
+<!--                    <xmlfile matches="//*[count(c:xpath) > 0]">-->
+<!--                        <namespace prefix="c" uri="http://camel.apache.org/schema/spring"/>-->
+<!--                    </xmlfile>-->
+<!--                </or>-->
+<!--            </when>-->
+<!--            <perform>-->
+<!--                <iteration over="dependencies-block">-->
+<!--                    <hint title="`camel-xpath` component has been moved" effort="1" category-id="mandatory">-->
+<!--                        <message>`camel-xpath` dependency required. Component has been moved from `camel-core` to separate artifact-->
+<!--                            org.apache.camel:camel-dataformat that has to be-->
+<!--                            added as a dependency to your project pom.xml file-->
+<!--                        </message>-->
+<!--                        <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_modularization_of_camel_core"-->
+<!--                                title="Camel 3 - Migration Guide"/>-->
+<!--                    </hint>-->
+<!--                </iteration>-->
+<!--            </perform>-->
+<!--        </rule>-->
     </rules>
 </ruleset>
 

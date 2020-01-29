@@ -39,5 +39,10 @@ public class MyRouteBuilder extends RouteBuilder {
 
         from("vm:bar?concurrentConsumers=5")
             .to("validator:org/apache/camel/component/validator/schema.xsd?headerName=headerToValidate&amp;failOnNullHeader=false");
+
+        from("ctivemq:MyQueue").choice()
+            .when().xpath("in:header('foo') = 'bar'").to("activemq:x")
+            .when().xpath("in:body() = '<two/>'").to("activemq:y")
+            .otherwise().to("activemq:MyQueue");
     }
 }

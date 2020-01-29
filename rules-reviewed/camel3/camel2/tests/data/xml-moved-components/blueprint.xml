@@ -35,6 +35,13 @@
             <from uri="vm:bar?concurrentConsumers=5"/>
             <to uri="validator:org/apache/camel/component/validator/schema.xsd?headerName=headerToValidate&amp;failOnNullHeader=false"/>
         </route>
+        <route>
+            <from uri="activemq:MyQueue"/>
+            <filter>
+                <xpath>/foo:person[@name='James']</xpath>
+                <to uri="mqseries:SomeOtherQueue"/>
+            </filter>
+        </route>
     </camelContext>
 
 </blueprint>
