@@ -199,6 +199,18 @@
                     <fail message="[xml-moved-components] camel-zip-deflater dependency moved hint was not found!"/>
                 </perform>
             </rule>
+            <rule id="xml-moved-components-00011-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="camel-xpath` dependency required.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-moved-components] camel-zip-deflater dependency moved hint was not found!"/>
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
