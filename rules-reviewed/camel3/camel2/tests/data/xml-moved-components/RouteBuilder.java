@@ -15,15 +15,17 @@ public class MyRouteBuilder extends RouteBuilder {
         from("ref:endpoint1")
             .to("browse:orderReceived")
             .to("controlbus:route?routeId=mainRoute&action=stop&async=true")
+            .to("language:simple:classpath:org/apache/camel/component/language/mysimplescript.txt")
             .to("bean:bye");
 
         from("dataset:foo")
             .to("direct-vm:bar");
-            .from("scheduler://foo?delay=60s")
+
+        from("scheduler://foo?delay=60s")
             .to("seda:next")
             .to("stub:smtp://somehost.foo.com?user=windup");
 
-            from("vm:bar?concurrentConsumers=5")
+        from("vm:bar?concurrentConsumers=5")
             .to("validator:org/apache/camel/component/validator/schema.xsd?headerName=headerToValidate&amp;failOnNullHeader=false");
     }
 }
