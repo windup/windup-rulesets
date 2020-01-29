@@ -233,10 +233,64 @@
                 <iteration over="dependencies-block">
                     <hint title="`camel-dataformat` component has been moved" effort="1" category-id="mandatory">
                         <message>`camel-dataformat` dependency required. Component has been moved from `camel-core` to separate artifact
+                            org.apache.camel:camel-dataformat that has to be added as a dependency to your project pom.xml file
+                        </message>
+                        <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html"
+                                title="Camel 3 - Migration Guide"/>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="xml-moved-components-00009">
+            <when>
+                <xmlfile as="dependencies-block" in="pom.xml"
+                        matches="/m:project/m:dependencies[count(m:dependency/m:artifactId[text()='camel-zip-deflater'])=0]">
+                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
+                </xmlfile>
+                <javaclass references="org.apache.camel.builder.RouteBuilder" as="routeBuilders">
+                    <location>INHERITANCE</location>
+                </javaclass>
+                <or>
+                    <filecontent pattern=".zip({*})" from="routeBuilders"/>
+                    <filecontent pattern=".gzip({*})" from="routeBuilders"/>
+                </or>
+            </when>
+            <perform>
+                <iteration over="dependencies-block">
+                    <hint title="`camel-zip-deflater` component has been moved" effort="1" category-id="mandatory">
+                        <message>`camel-zip-deflater` dependency required. Component has been moved from `camel-core` to separate artifact
+                            org.apache.camel:camel-dataformat that has to be added as a dependency to your project pom.xml file
+                        </message>
+                        <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_zip_and_gzip_dataformat"
+                                title="Camel 3 - Migration Guide"/>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="xml-moved-components-00010">
+            <when>
+                <xmlfile as="dependencies-block" in="pom.xml"
+                        matches="/m:project/m:dependencies[count(m:dependency/m:artifactId[text()='camel-dataformat'])=0]">
+                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
+                </xmlfile>
+
+                <or>
+                    <xmlfile matches="//*[(count(b:zip)+count(b:gzip)) >0]">
+                        <namespace prefix="b" uri="http://camel.apache.org/schema/blueprint"/>
+                    </xmlfile>
+                    <xmlfile matches="//*[(count(c:gzip)+count(c:zip)) > 0]">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/spring"/>
+                    </xmlfile>
+                </or>
+            </when>
+            <perform>
+                <iteration over="dependencies-block">
+                    <hint title="`camel-zip-deflater` component has been moved" effort="1" category-id="mandatory">
+                        <message>`camel-zip-deflater` dependency required. Component has been moved from `camel-core` to separate artifact
                             org.apache.camel:camel-dataformat that has to be
                             added as a dependency to your project pom.xml file
                         </message>
-                        <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html"
+                        <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_zip_and_gzip_dataformat"
                                 title="Camel 3 - Migration Guide"/>
                     </hint>
                 </iteration>
