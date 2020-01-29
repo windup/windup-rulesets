@@ -32,10 +32,6 @@ public class MyRouteBuilder extends RouteBuilder {
             .to("seda:next")
             .to("stub:smtp://somehost.foo.com?user=windup");
 
-        from("scheduler://foo?delay=60s")
-            .to("seda:next")
-            .to("stub:smtp://somehost.foo.com?user=windup");
-
         from("vm:bar?concurrentConsumers=5")
             .to("validator:org/apache/camel/component/validator/schema.xsd?headerName=headerToValidate&amp;failOnNullHeader=false");
 
