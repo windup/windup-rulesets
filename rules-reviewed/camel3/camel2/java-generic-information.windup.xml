@@ -9,7 +9,7 @@
             <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
         </dependencies>
         <sourceTechnology id="camel" versionRange="[2,3)"/>
-        <targetTechnology id="camel" versionRange="[3,)" />
+        <targetTechnology id="camel" versionRange="[3,)"/>
     </metadata>
     <rules>
         <rule id="java-generic-information-00000">
@@ -52,6 +52,27 @@
             <where param="SupportClass" >
                 <matches pattern="(BaseSelectorProducer|AsyncCallbackToCompletableFutureAdapter|BridgeExceptionHandlerToErrorHandler|DefaultAsyncProducer|DefaultComponent|DefaultConsumer|DefaultEndpoint|DefaultExchange|DefaultExchangeHolder|DefaultHeaderFilterStrategy|DefaultMessage|DefaultMessageHistory|DefaultPollingConsumerPollStrategy|DefaultPollingEndpoint|DefaultProducer|DefaultScheduledPollConsumer|DefaultScheduledPollConsumerScheduler|DefaultThreadPoolFactory|EventDrivenPollingConsumer|ExpressionAdapter|ExpressionComparator|ExpressionListComparator|ExpressionSupport|HeaderFilterStrategyComponent|HeaderSelectorProducer|LoggingExceptionHandler|MessageSupport|PollingConsumerSupport|ProcessorEndpoint|ProcessorPollingConsumer|RoutePolicySupport|ScheduledBatchPollingConsumer|ScheduledPollConsumer|ScheduledPollEndpoint|SimpleRegistry|SimpleUuidGeneratorSynchronizationAdapter|SynchronousDelegateProducer)" />
             </where>
+        </rule>
+        <rule id="java-generic-information-00002">
+            <when>
+                <javaclass references="org.apache.camel.builder.RouteBuilder" as="routeBuilders">
+                    <location>INHERITANCE</location>
+                </javaclass>
+                <or>
+                    <filecontent pattern=".zip({*})" from="routeBuilders"/>
+                    <filecontent pattern=".gzip({*})" from="routeBuilders"/>
+                </or>
+            </when>
+            <perform>
+                <iteration over="routeBuilders">
+                    <hint title="`zip` and `gzip` dataformat was renamed" effort="1" category-id="mandatory">
+                        <message>`zip` and `gzip` dataformats were renamed to `zipdeflater and `gzipdeflater`
+                        </message>
+                        <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_zip_and_gzip_dataformat"
+                                title="Camel 3 - Migration Guide"/>
+                    </hint>
+                </iteration>
+            </perform>
         </rule>
     </rules>
 </ruleset>
