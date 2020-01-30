@@ -1,4 +1,5 @@
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.util.component.*;
 
 /**
  * A Camel Java DSL Router

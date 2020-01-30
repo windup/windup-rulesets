@@ -328,6 +328,28 @@
                 </iteration>
             </perform>
         </rule>
+        <rule id="xml-moved-components-00011">
+            <when>
+                <xmlfile as="dependencies-block" in="pom.xml"
+                        matches="/m:project/m:dependencies[count(m:dependency/m:artifactId[text()='camel-support'])=0]">
+                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
+                </xmlfile>
+                <javaclass references="org.apache.camel.util.component.{*}">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <iteration over="dependencies-block">
+                    <hint title="`camel-support` dependency not found" effort="1" category-id="mandatory">
+                        <message>`All the classes from `org.apache.camel.util.component` have been moved to `org.apache.camel.support.component.
+                            org.apache.camel:camel-support that has to be added as a dependency to your project pom.xml file
+                        </message>
+                        <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_modularization_of_camel_core"
+                                title="Camel 3 - Migration Guide"/>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
 
