@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          id="move-to-microprofile-rest-client-1.3-test" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/data-move-to-microprofile-rest-client-1.3/</testDataPath>
+    <rulePath>../move-to-microprofile-rest-client-1.3.rhamt.xml</rulePath>
+    <ruleset>
+        <rules>
+            <!--https://issues.jboss.org/browse/WINDUPRULE-400 -->
+            <rule id="move-to-microprofile-rest-client-1.3-00001-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The application imports class `org.jboss.resteasy.client.microprofile.MicroprofileClientBuilderResolver`, and should be changed to use instead `org.eclipse.microprofile.rest.client.RestClientBuilder`, from Microprofile REST Client 1.3." />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="No import of `org.jboss.resteasy.client.microprofile.MicroprofileClientBuilderResolver` found." />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
