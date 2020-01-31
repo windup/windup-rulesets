@@ -2,6 +2,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.CompositeRegistry;
 import org.apache.camel.impl.PropertyPlaceholderDelegateRegistry;
 import org.apache.camel.util.component.*;
+import org.apache.camel.processor.loadbalancer.SimpleLoadBalancerSupport;
 
 /**
  * A Camel Java DSL Router

@@ -53,11 +53,23 @@
                 <perform>
                     <fail message="[generic-information] Camel dependency moved hint was not found!"/>
                 </perform>
-            </rule> <rule id="java-generic-information-00004-test">
+            </rule>
+            <rule id="java-generic-information-00004-test">
                 <when>
                     <not>
                         <iterable-filter size="2">
                             <hint-exists message="The class `org.apache.camel.impl.*` has been removed. Use `org.apache.camel.support.DefaultRegistry` instead."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[generic-information] Camel dependency moved hint was not found!"/>
+                </perform>
+            </rule><rule id="java-generic-information-00005-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The class `org.apache.camel.processor.loadbalancer.SimpleLoadBalancerSupport` has been removed.*"/>
                         </iterable-filter>
                     </not>
                 </when>
