@@ -3,6 +3,8 @@ import org.apache.camel.impl.CompositeRegistry;
 import org.apache.camel.impl.PropertyPlaceholderDelegateRegistry;
 import org.apache.camel.util.component.*;
 import org.apache.camel.processor.loadbalancer.SimpleLoadBalancerSupport;
+import org.apache.camel.impl.FileWatcherReloadStrategy;
+import org.apache.camel.support.ReloadStrategySupport;
 
 /**
  * A Camel Java DSL Router

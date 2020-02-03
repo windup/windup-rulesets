@@ -127,20 +127,40 @@
                 </javaclass>
             </when>
             <perform over="javaClass">
-                    <hint title="``org.apache.camel.processor.loadbalancer.SimpleLoadBalancerSupport` has been removed." effort="1"
-                            category-id="mandatory">
-                        <message>
-                            The class `org.apache.camel.processor.loadbalancer.SimpleLoadBalancerSupport` has been removed. Use
-                            `org.apache.camel.processor.loadbalancer.LoadBalancerSupport` instead.
-                        </message>
-                        <link title="Camel 3 - Migration Guide: Generic Information"
-                                href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information"/>
-                        <quickfix type="REPLACE" name="AggregationStrategy-replace">
-                            <replacement>org.apache.camel.processor.loadbalancer.LoadBalancerSupport</replacement>
-                            <search>oorg.apache.camel.processor.loadbalancer.SimpleLoadBalancerSupport</search>
-                        </quickfix>
-                    </hint>
+                <hint title="``org.apache.camel.processor.loadbalancer.SimpleLoadBalancerSupport` has been removed." effort="1"
+                        category-id="mandatory">
+                    <message>
+                        The class `org.apache.camel.processor.loadbalancer.SimpleLoadBalancerSupport` has been removed. Use
+                        `org.apache.camel.processor.loadbalancer.LoadBalancerSupport` instead.
+                    </message>
+                    <link title="Camel 3 - Migration Guide: Generic Information"
+                            href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information"/>
+                    <quickfix type="REPLACE" name="AggregationStrategy-replace">
+                        <replacement>org.apache.camel.processor.loadbalancer.LoadBalancerSupport</replacement>
+                        <search>oorg.apache.camel.processor.loadbalancer.SimpleLoadBalancerSupport</search>
+                    </quickfix>
+                </hint>
             </perform>
+        </rule>
+        <rule id="java-generic-information-00006">
+            <when>
+                <javaclass references="org.apache.camel.{removed}" as="javaClass">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform over="javaClass">
+                <hint title="`org.apache.camel.{removed}` has been removed." effort="1"
+                        category-id="mandatory">
+                    <message>
+                        The class `org.apache.camel.{removed}` has been removed.
+                    </message>
+                    <link title="Camel 3 - Migration Guide: Generic Information"
+                            href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information"/>
+                </hint>
+            </perform>
+            <where param="removed">
+                <matches pattern="(impl.FileWatcherReloadStrategy|support.ReloadStrategySupport)"/>
+            </where>
         </rule>
     </rules>
 </ruleset>

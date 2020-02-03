@@ -65,7 +65,8 @@
                 <perform>
                     <fail message="[generic-information] Camel dependency moved hint was not found!"/>
                 </perform>
-            </rule><rule id="java-generic-information-00005-test">
+            </rule>
+            <rule id="java-generic-information-00005-test">
                 <when>
                     <not>
                         <iterable-filter size="1">
@@ -75,6 +76,30 @@
                 </when>
                 <perform>
                     <fail message="[generic-information] Camel dependency moved hint was not found!"/>
+                </perform>
+            </rule>
+            <rule id="java-generic-information-00006-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The class `org.apache.camel.support.ReloadStrategySupport` has been removed."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[generic-information] Class removed not found!"/>
+                </perform>
+            </rule>
+            <rule id="java-generic-information-00006-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The class `org.apache.camel.impl.FileWatcherReloadStrategy` has been removed."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[generic-information] Class removed not found!"/>
                 </perform>
             </rule>
         </rules>
