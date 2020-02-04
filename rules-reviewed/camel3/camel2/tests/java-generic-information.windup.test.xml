@@ -102,6 +102,18 @@
                     <fail message="[generic-information] Class removed not found!"/>
                 </perform>
             </rule>
+            <rule id="java-generic-information-00007-test">
+                <when>
+                    <not>
+                        <iterable-filter size="3">
+                            <hint-exists message="The class `org.apache.camel.impl.*` has been moved to `org.apache.camel.impl.engine` package."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[generic-information] Class moved not found!"/>
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>

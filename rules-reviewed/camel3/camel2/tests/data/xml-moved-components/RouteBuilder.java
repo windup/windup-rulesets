@@ -1,6 +1,11 @@
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.util.component.*;
 
+import org.apache.camel.impl.FileWatcherReloadStrategy;
+import org.apache.camel.impl.CamelPostProcessorHelper;
+import org.apache.camel.impl.TypedProcessorFactory;
+import org.apache.camel.impl.WebSpherePackageScanClassResolver;
+
 /**
  * A Camel Java DSL Router
  */

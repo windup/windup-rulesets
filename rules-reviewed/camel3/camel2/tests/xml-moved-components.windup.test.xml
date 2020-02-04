@@ -162,6 +162,18 @@
                     <fail message="All the classes from `org.apache.camel.util.component`.* "/>
                 </perform>
             </rule>
+        <rule id="xml-moved-components-00012-test">
+        <when>
+            <not>
+                <iterable-filter size="3">
+                    <hint-exists message="The class `org.apache.camel.impl.*` has been moved to `org.apache.camel.impl.engine`.*"/>
+                </iterable-filter>
+            </not>
+        </when>
+        <perform>
+            <fail message="All the classes from `org.apache.camel.util.component`.* "/>
+        </perform>
+    </rule>
         </rules>
     </ruleset>
 </ruletest>

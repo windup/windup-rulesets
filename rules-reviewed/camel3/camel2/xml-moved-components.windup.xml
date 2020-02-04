@@ -350,6 +350,35 @@
                 </iteration>
             </perform>
         </rule>
+        <rule id="xml-moved-components-00012">
+            <when>
+                <javaclass references="org.apache.camel.impl.{moved}" as="javaClass">
+                    <location>IMPORT</location>
+                </javaclass>
+                <not>
+                    <xmlfile as="dependencies" in="pom.xml"
+                            matches="/m:project/m:dependencies/m:dependency/m:artifactId[text()='camel-base']">
+                        <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
+                    </xmlfile>
+                </not>
+            </when>
+            <perform>
+                <iteration over="javaClass">
+                    <hint title="`camel-base` dependency required for `{moved}` class" effort="1" category-id="mandatory">
+                        <message>The class `org.apache.camel.impl.{moved}` has been moved to `org.apache.camel.impl.engine` package in `camel-base`
+                            dependency.
+                            `org.apache.camel:camel-base` has to be added as a dependency to your project pom.xml file
+                        </message>
+                        <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information"
+                                title="Camel 3 - Migration Guide: General information"/>
+                    </hint>
+                </iteration>
+            </perform>
+            <where param="moved">
+                <matches
+                        pattern="(CamelPostProcessorHelper|DefaultAsyncProcessorAwaitManager|DefaultCamelBeanPostProcessor|DefaultCamelContextNameStrategy|DefaultClaimCheckRepository|DefaultClassResolver|DefaultComponentResolver|DefaultConsumerTemplate|DefaultDataFormatResolver|DefaultEndpointRegistry|DefaultEndpointUtilizationStatistics|DefaultFactoryFinder|DefaultFactoryFinderResolver|DefaultHeadersMapFactory|DefaultInflightRepository|DefaultInjector|DefaultLanguageResolver|DefaultManagementNameStrategy|DefaultMessageHistoryFactory|DefaultNodeIdFactory|DefaultPackageScanClassResolver|DefaultProcessorFactory|DefaultProducerTemplate|DefaultRoute|DefaultRouteContext|DefaultRouteController|DefaultRouteError|DefaultRouteStartupOrder|DefaultRuntimeEndpointRegistry|DefaultShutdownStrategy|DefaultStreamCachingStrategy|DefaultTransformerRegistry|DefaultUnitOfWork|DefaultUnitOfWorkFactory|DefaultUuidGenerator|DefaultValidatorRegistry|DeferProducer|DeferServiceStartupListener|DurationRoutePolicy|DurationRoutePolicyFactory|EndpointKey|EventDrivenConsumerRoute|EventNotifierCallback|ExplicitCamelContextNameStrategy|FileStateRepository|HashMapHeadersMapFactory|HeadersMapFactoryResolver|InterceptSendToEndpointProcessor|InterceptSendToMockEndpointStrategy|JavaUuidGenerator|LimitedPollingConsumerPollStrategy|MDCUnitOfWork|MemoryStateRepository|SubscribeMethodProcessor|SupervisingRouteController|SupervisingRouteController.FilterResult|SupervisingRouteControllerFilters|SupervisingRouteControllerFilters.BlackList|TypedProcessorFactory|WebSpherePackageScanClassResolver)"/>
+            </where>
+        </rule>
     </rules>
 </ruleset>
 

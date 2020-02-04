@@ -3,7 +3,12 @@ import org.apache.camel.impl.CompositeRegistry;
 import org.apache.camel.impl.PropertyPlaceholderDelegateRegistry;
 import org.apache.camel.util.component.*;
 import org.apache.camel.processor.loadbalancer.SimpleLoadBalancerSupport;
+
 import org.apache.camel.impl.FileWatcherReloadStrategy;
+import org.apache.camel.impl.CamelPostProcessorHelper;
+import org.apache.camel.impl.TypedProcessorFactory;
+import org.apache.camel.impl.WebSpherePackageScanClassResolver;
+
 import org.apache.camel.support.ReloadStrategySupport;
 
 /**
