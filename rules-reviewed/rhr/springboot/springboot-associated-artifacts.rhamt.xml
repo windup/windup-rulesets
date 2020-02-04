@@ -102,5 +102,157 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="springboot-associated-00008">
+            <when>
+                <xmlfile as="dependencies-block"
+                         matches="/m:project/m:dependencies/m:dependency/m:version[../m:groupId='org.amqphub.spring' and ../m:artifactId='amqp-10-jms-spring-boot-starter' and not(contains(., 'redhat'))]"
+                         in="pom.xml">
+                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <iteration over="dependencies-block">
+                    <hint title="Migrate to a supported AMQP dependency" effort="1" category-id="optional">
+                        <message>Migrate `org.amqphub.spring:amqp-10-jms-spring-boot-starter` dependency to a version compatible with the supported versions of the RHOAR components provided in the link.
+                        </message>
+                        <link href="https://access.redhat.com/articles/4310921"
+                              title="Red Hat OpenShift Application Runtimes Spring Boot 2.1.6 Component Details - Supported Red Hat Components"/>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="springboot-associated-00009">
+            <when>
+                <xmlfile as="dependencies-block"
+                         matches="/m:project/m:dependencies/m:dependency/m:version[../m:groupId='org.apache.cxf' and ../m:artifactId='cxf-spring-boot-starter-jaxrs' and not(contains(., 'redhat'))]"
+                         in="pom.xml">
+                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <iteration over="dependencies-block">
+                    <hint title="Migrate to a supported CXF JAX-RS dependency" effort="1" category-id="optional">
+                        <message>Migrate `org.apache.cxf:cxf-spring-boot-starter-jaxrs` dependency to a version compatible with the supported versions of the RHOAR components provided in the link.
+                        </message>
+                        <link href="https://access.redhat.com/articles/4310921"
+                              title="Red Hat OpenShift Application Runtimes Spring Boot 2.1.6 Component Details - Supported Red Hat Components"/>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="springboot-associated-00010">
+            <when>
+                <xmlfile as="dependencies-block"
+                         matches="/m:project/m:dependencies/m:dependency/m:version[../m:groupId='org.jboss.resteasy' and ../m:artifactId='resteasy-spring-boot-starter' and not(contains(., 'redhat'))]"
+                         in="pom.xml">
+                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <iteration over="dependencies-block">
+                    <hint title="Migrate to a supported RestEasy dependency" effort="1" category-id="optional">
+                        <message>Migrate `org.jboss.resteasy:resteasy-spring-boot-starter` dependency to a version compatible with the supported versions of the RHOAR components provided in the link.
+                        </message>
+                        <link href="https://access.redhat.com/articles/4310921"
+                              title="Red Hat OpenShift Application Runtimes Spring Boot 2.1.6 Component Details - Supported Red Hat Components"/>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="springboot-associated-00011">
+            <when>
+                <xmlfile as="dependencies-block"
+                         matches="/m:project/m:dependencies/m:dependency/m:version[../m:groupId='org.infinispan' and ../m:artifactId='infinispan-spring-boot-starter-embedded' and not(contains(., 'redhat'))]"
+                         in="pom.xml">
+                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <iteration over="dependencies-block">
+                    <hint title="Migrate to a supported Infinispan embedded dependency" effort="1" category-id="optional">
+                        <message>Migrate `org.infinispan:infinispan-spring-boot-starter-embedded` dependency to a version compatible with the supported versions of the RHOAR components provided in the link.
+                        </message>
+                        <link href="https://access.redhat.com/articles/4310921"
+                              title="Red Hat OpenShift Application Runtimes Spring Boot 2.1.6 Component Details - Supported Red Hat Components"/>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="springboot-associated-00012">
+            <when>
+                <xmlfile as="dependencies-block"
+                         matches="/m:project/m:dependencies/m:dependency/m:version[../m:groupId='org.infinispan' and ../m:artifactId='infinispan-spring-boot-starter-remote' and not(contains(., 'redhat'))]"
+                         in="pom.xml">
+                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <iteration over="dependencies-block">
+                    <hint title="Migrate to a supported Infinispan remote dependency" effort="1" category-id="optional">
+                        <message>Migrate `org.infinispan:infinispan-spring-boot-starter-remote` dependency to a version compatible with the supported versions of the RHOAR components provided in the link.
+                        </message>
+                        <link href="https://access.redhat.com/articles/4310921"
+                              title="Red Hat OpenShift Application Runtimes Spring Boot 2.1.6 Component Details - Supported Red Hat Components"/>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="springboot-associated-00013">
+            <when>
+                <xmlfile as="dependencies-block"
+                         matches="/m:project/m:dependencies/m:dependency/m:version[../m:groupId='org.keycloak' and ../m:artifactId='keycloak-spring-boot-starter' and not(contains(., 'redhat'))]"
+                         in="pom.xml">
+                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <iteration over="dependencies-block">
+                    <hint title="Migrate to a supported Keycloak dependency" effort="1" category-id="optional">
+                        <message>Migrate `org.keycloak:keycloak-spring-boot-starter` dependency to a version compatible with the supported versions of the RHOAR components provided in the link.
+                        </message>
+                        <link href="https://access.redhat.com/articles/4310921"
+                              title="Red Hat OpenShift Application Runtimes Spring Boot 2.1.6 Component Details - Supported Red Hat Components"/>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="springboot-associated-00014">
+            <when>
+                <xmlfile as="dependencies-block"
+                         matches="/m:project/m:dependencies/m:dependency/m:version[../m:groupId='me.snowdrop' and ../m:artifactId='narayana-spring-boot-starter' and not(contains(., 'redhat'))]"
+                         in="pom.xml">
+                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <iteration over="dependencies-block">
+                    <hint title="Migrate to a supported Narayana dependency" effort="1" category-id="optional">
+                        <message>Migrate `me.snowdrop:narayana-spring-boot-starter` dependency to a version compatible with the supported versions of the RHOAR components provided in the link.
+                        </message>
+                        <link href="https://access.redhat.com/articles/4310921"
+                              title="Red Hat OpenShift Application Runtimes Spring Boot 2.1.6 Component Details - Supported Red Hat Components"/>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="springboot-associated-00015">
+            <when>
+                <xmlfile as="dependencies-block"
+                         matches="/m:project/m:dependencies/m:dependency/m:version[../m:groupId='io.opentracing.contrib' and ../m:artifactId='opentracing-spring-jaeger-web-starter' and not(contains(., 'redhat'))]"
+                         in="pom.xml">
+                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <iteration over="dependencies-block">
+                    <hint title="Migrate to a supported Spring Jaeger dependency" effort="1" category-id="optional">
+                        <message>Migrate `io.opentracing.contrib:opentracing-spring-jaeger-web-starter` dependency to a version compatible with the supported versions of the RHOAR components provided in the link.
+                        </message>
+                        <link href="https://access.redhat.com/articles/4310921"
+                              title="Red Hat OpenShift Application Runtimes Spring Boot 2.1.6 Component Details - Supported Red Hat Components"/>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
