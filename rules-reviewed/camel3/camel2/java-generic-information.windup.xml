@@ -206,6 +206,25 @@
                     </quickfix>
                 </hint>
             </perform>
+        </rule><rule id="java-generic-information-00009">
+            <when>
+                <javaclass references="org.apache.camel.management.JmxSystemPropertyKeys">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel.management.JmxSystemPropertyKeys` has been moved" effort="1" category-id="mandatory">
+                    <message>
+                        The class `org.apache.camel.management.JmxSystemPropertyKeys` has been moved to ` org.apache.camel.api.management.JmxSystemPropertyKeys`.
+                    </message>
+                    <link title="Camel 3 - Migration Guide: Generic Information"
+                            href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information"/>
+                    <quickfix type="REPLACE" name="AggregationStrategy-replace">
+                        <replacement> org.apache.camel.api.management.JmxSystemPropertyKeys</replacement>
+                        <search>org.apache.camel.management.JmxSystemPropertyKeys</search>
+                    </quickfix>
+                </hint>
+            </perform>
         </rule>
     </rules>
 </ruleset>

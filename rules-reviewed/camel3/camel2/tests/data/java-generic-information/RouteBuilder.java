@@ -10,7 +10,7 @@ import org.apache.camel.impl.TypedProcessorFactory;
 import org.apache.camel.impl.WebSpherePackageScanClassResolver;
 
 import org.apache.camel.support.ReloadStrategySupport;
-
+import org.apache.camel.management.JmxSystemPropertyKeys;
 /**
  * A Camel Java DSL Router
  */
