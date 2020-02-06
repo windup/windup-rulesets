@@ -187,5 +187,25 @@
                         pattern="(CamelPostProcessorHelper|DefaultAsyncProcessorAwaitManager|DefaultCamelBeanPostProcessor|DefaultCamelContextNameStrategy|DefaultClaimCheckRepository|DefaultClassResolver|DefaultComponentResolver|DefaultConsumerTemplate|DefaultDataFormatResolver|DefaultEndpointRegistry|DefaultEndpointUtilizationStatistics|DefaultFactoryFinder|DefaultFactoryFinderResolver|DefaultHeadersMapFactory|DefaultInflightRepository|DefaultInjector|DefaultLanguageResolver|DefaultManagementNameStrategy|DefaultMessageHistoryFactory|DefaultNodeIdFactory|DefaultPackageScanClassResolver|DefaultProcessorFactory|DefaultProducerTemplate|DefaultRoute|DefaultRouteContext|DefaultRouteController|DefaultRouteError|DefaultRouteStartupOrder|DefaultRuntimeEndpointRegistry|DefaultShutdownStrategy|DefaultStreamCachingStrategy|DefaultTransformerRegistry|DefaultUnitOfWork|DefaultUnitOfWorkFactory|DefaultUuidGenerator|DefaultValidatorRegistry|DeferProducer|DeferServiceStartupListener|DurationRoutePolicy|DurationRoutePolicyFactory|EndpointKey|EventDrivenConsumerRoute|EventNotifierCallback|ExplicitCamelContextNameStrategy|FileStateRepository|HashMapHeadersMapFactory|HeadersMapFactoryResolver|InterceptSendToEndpointProcessor|InterceptSendToMockEndpointStrategy|JavaUuidGenerator|LimitedPollingConsumerPollStrategy|MDCUnitOfWork|MemoryStateRepository|SubscribeMethodProcessor|SupervisingRouteController|SupervisingRouteController.FilterResult|SupervisingRouteControllerFilters|SupervisingRouteControllerFilters.BlackList|TypedProcessorFactory|WebSpherePackageScanClassResolver)"/>
             </where>
         </rule>
+        <rule id="java-generic-information-00008">
+            <when>
+                <javaclass references="org.apache.camel.util.toolbox.AggregationStrategies">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="`oorg.apache.camel.util.toolbox.AggregationStrategies` has been moved" effort="1" category-id="mandatory">
+                    <message>
+                        The class `org.apache.camel.util.toolbox.AggregationStrategies` has been moved to `org.apache.camel.builder.AggregationStrategies`.
+                    </message>
+                    <link title="Camel 3 - Migration Guide: Generic Information"
+                            href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information"/>
+                    <quickfix type="REPLACE" name="AggregationStrategy-replace">
+                        <replacement>org.apache.camel.builder.AggregationStrategies</replacement>
+                        <search>org.apache.camel.util.toolbox.AggregationStrategies</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
     </rules>
 </ruleset>

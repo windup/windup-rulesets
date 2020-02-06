@@ -2,6 +2,7 @@ package camelinaction;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.processor.aggregate.AggregationStrategy;
+import org.apache.camel.util.toolbox.AggregationStrategies has been moved;
 
 public class MyAggregationStrategy implements AggregationStrategy {
 
