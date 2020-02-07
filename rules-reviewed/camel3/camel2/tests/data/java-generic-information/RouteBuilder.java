@@ -44,3 +44,13 @@ public class MyRouteBuilder extends RouteBuilder {
             .to("validator:org/apache/camel/component/validator/schema.xsd?headerName=headerToValidate&amp;failOnNullHeader=false");
     }
 }
+    @Override
+    public void configure(CustomRouteBuilder configuration) throws Exception{
+        if (configuration.getIntercepted() != null) {
+            configuration.getIntercepted().includeRoutes(configuration);
+        } else {
+            camelContext.addRoutes(configuration);
+        }
+        LOG.debug("Custom route builder configured: {}", configuration);
+    }
+

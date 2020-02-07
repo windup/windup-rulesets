@@ -125,7 +125,8 @@
                 <perform>
                     <fail message="[java-generic-information] 'AggregationStrategy' moved hint was not found!" />
                 </perform>
-            </rule> <rule id="java-generic-information-00009-test">
+            </rule>
+            <rule id="java-generic-information-00009-test">
                 <when>
                     <not>
                         <iterable-filter size="1">
@@ -135,6 +136,17 @@
                 </when>
                 <perform>
                     <fail message="[java-generic-information] 'JmxSystemPropertyKeys' moved hint was not found!" />
+                </perform>
+            </rule>  <rule id="java-generic-information-00010-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`includeRoutes` method has been removed"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-generic-information] `includeRoutes` moved hint was not found!" />
                 </perform>
             </rule>
         </rules>
