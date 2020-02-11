@@ -11,6 +11,15 @@ import org.apache.camel.impl.WebSpherePackageScanClassResolver;
 
 import org.apache.camel.support.ReloadStrategySupport;
 import org.apache.camel.management.JmxSystemPropertyKeys;
+
+import org.apache.camel.language.Bean;
+import org.apache.camel.language.Simple;
+import org.apache.camel.language.SpEL;
+
+import org.apache.camel.InvokeOnHeader;
+import org.apache.camel.Constant;
+import org.apache.camel.InvokeOnHeaders;
+
 /**
  * A Camel Java DSL Router
  */

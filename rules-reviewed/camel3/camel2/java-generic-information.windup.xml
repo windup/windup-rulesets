@@ -239,5 +239,99 @@
                     </hint>
             </perform>
         </rule>
+        <rule id="java-generic-information-00011">
+           <when>
+            <javaclass references="org.apache.camel.language.Bean" as="annotations">
+                <location>IMPORT</location>
+           </javaclass>
+           </when>
+            <perform>
+                    <hint title="Annotation `org.apache.camel.language.Bean` method has been moved" effort="1" category-id="mandatory">
+                        <message>Annotation `org.apache.camel.language.Bean` has been moved to `org.apache.camel.language.bean.Bean`</message>
+                        <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information"
+                                title="Camel 3 - Migration Guide"/>
+                        <quickfix type="REPLACE" name="AggregationStrategy-replace">
+                            <replacement> org.apache.camel.language.bean.Bean</replacement>
+                            <search>org.apache.camel.language.Bean</search>
+                        </quickfix>
+                    </hint>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-00012">
+            <when>
+                <javaclass references="org.apache.camel.language.Simple" as="annotations">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Annotation `org.apache.camel.language.Simple` method has been moved" effort="1" category-id="mandatory">
+                    <message>Annotation `org.apache.camel.language.Simple` has been moved to `org.apache.camel.language.simple.Simple`</message>
+                    <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information"
+                            title="Camel 3 - Migration Guide"/>
+                    <quickfix type="REPLACE" name="Annotation-replace">
+                        <replacement>org.apache.camel.language.simple.Simple</replacement>
+                        <search>org.apache.camel.language.Simple</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-00013">
+            <when>
+                <javaclass references="org.apache.camel.language.SpEL" as="annotations">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Annotation `org.apache.camel.language.SpEL` method has been moved" effort="1" category-id="mandatory">
+                    <message>Annotation `org.apache.camel.language.SpEL` has been moved to `org.apache.camel.language.spel.SpEL`</message>
+                    <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information"
+                            title="Camel 3 - Migration Guide"/>
+                    <quickfix type="REPLACE" name="Annotation-replace">
+                        <replacement>org.apache.camel.language.spel.SpEL</replacement>
+                        <search>org.apache.camel.language.SpEL</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-00014">
+            <when>
+                <javaclass references="org.apache.camel.{annotation}" as="annotations">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Annotation `org.apache.camel.{annotation}` has been moved" effort="1" category-id="mandatory">
+                    <message>Annotation `org.apache.camel.{annotation}` has been moved to `org.apache.camel.spi.{annotation}`</message>
+                    <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information"
+                            title="Camel 3 - Migration Guide"/>
+                    <quickfix type="REPLACE" name="AAnnotation-replace">
+                        <replacement>org.apache.camel.spi.{annotation}</replacement>
+                        <search>org.apache.camel{annotation}</search>
+                    </quickfix>
+                </hint>
+            </perform>
+            <where param="annotation">
+                <matches pattern="(InvokeOnHeaders|InvokeOnHeader)"/>
+            </where>
+        </rule>
+        <rule id="java-generic-information-00015">
+            <when>
+                <javaclass references="org.apache.camel.Constant" as="annotation">
+                    <location>IMPORT</location>
+                </javaclass>
+
+            </when>
+            <perform>
+                <hint title="Annotation `org.apache.camel.Constant`has been removed" effort="1" category-id="mandatory">
+                    <message>Annotation `org.apache.camel.Constant` has been removed. Use `@Simple` instead.`</message>
+                    <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information"
+                            title="Camel 3 - Migration Guide"/>
+                    <quickfix type="REPLACE" name="Annotation-replace">
+                        <replacement>org.apache.camel.language.simple.Simple</replacement>
+                        <search>org.apache.camel.Constant</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
