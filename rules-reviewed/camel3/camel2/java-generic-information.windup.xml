@@ -319,7 +319,6 @@
                 <javaclass references="org.apache.camel.Constant" as="annotation">
                     <location>IMPORT</location>
                 </javaclass>
-
             </when>
             <perform>
                 <hint title="Annotation `org.apache.camel.Constant`has been removed" effort="1" category-id="mandatory">
@@ -329,6 +328,60 @@
                     <quickfix type="REPLACE" name="Annotation-replace">
                         <replacement>org.apache.camel.language.simple.Simple</replacement>
                         <search>org.apache.camel.Constant</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-00016">
+            <when>
+                <javaclass references="org.apache.camel.builder.xml.XPathBuilder" as="class">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Annotation `org.apache.camel.builder.xml.XPathBuilder`has been moved" effort="1" category-id="mandatory">
+                    <message>Class `org.apache.camel.builder.xml.XPathBuilder` has been moved to `org.apache.camel.language.xpath.XPathBuilder`.</message>
+                    <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information"
+                            title="Camel 3 - Migration Guide"/>
+                    <quickfix type="REPLACE" name="Annotation-replace">
+                        <replacement> org.apache.camel.language.xpath.XPathBuilder</replacement>
+                        <search>org.apache.camel.builder.xml.XPathBuilder</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-00017">
+            <when>
+                <javaclass references="org.apache.camel.language.XPath" as="annotations">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Annotation `org.apache.camel.language.XPath` has been moved" effort="1" category-id="mandatory">
+                    <message>Annotation `org.apache.camel.language.XPath` has been moved to `org.apache.camel.language.xpath.XPath`</message>
+                    <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information"
+                            title="Camel 3 - Migration Guide"/>
+                    <quickfix type="REPLACE" name="Annotation-replace">
+                        <replacement>org.apache.camel.language.xpath.XPath</replacement>
+                        <search>org.apache.camel.language.XPath</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-00018">
+            <when>
+                <javaclass references="org.apache.camel.builder.xml.InvalidXPathExpression" as="annotations">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Exception `org.apache.camel.builder.xml.InvalidXPathExpression` has been moved" effort="1" category-id="mandatory">
+                    <message>Exception `org.apache.camel.builder.xml.InvalidXPathExpression` has been moved to `org.apache.camel.language.xpath.InvalidXPathException `</message>
+                    <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information"
+                            title="Camel 3 - Migration Guide"/>
+                    <quickfix type="REPLACE" name="Annotation-replace">
+                        <replacement>org.apache.camel.language.xpath.InvalidXPathException</replacement>
+                        <search> org.apache.camel.builder.xml.InvalidXPathExpression</search>
                     </quickfix>
                 </hint>
             </perform>

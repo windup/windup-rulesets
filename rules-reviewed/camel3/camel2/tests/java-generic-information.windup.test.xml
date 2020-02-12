@@ -209,6 +209,42 @@
                     <fail message="[java-generic-information] Annotation moved hint was not found!" />
                 </perform>
             </rule>
+            <rule id="java-generic-information-00016-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Class `org.apache.camel.builder.xml.XPathBuilder.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-generic-information] Class moved hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="java-generic-information-00017-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Annotation `org.apache.camel.language.XPath"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-generic-information] Annotation moved hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="java-generic-information-00018-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Exception `org.apache.camel.builder.xml.InvalidXPathExpression.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-generic-information] Exception moved hint was not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>

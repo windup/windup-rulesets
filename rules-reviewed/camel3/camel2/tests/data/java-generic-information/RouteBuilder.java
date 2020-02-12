@@ -20,6 +20,10 @@ import org.apache.camel.InvokeOnHeader;
 import org.apache.camel.Constant;
 import org.apache.camel.InvokeOnHeaders;
 
+import org.apache.camel.builder.xml.XPathBuilder;
+import org.apache.camel.language.XPath;
+import org.apache.camel.builder.xml.InvalidXPathExpression;
+
 /**
  * A Camel Java DSL Router
  */
