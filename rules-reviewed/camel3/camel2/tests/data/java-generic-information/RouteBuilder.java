@@ -24,6 +24,8 @@ import org.apache.camel.builder.xml.XPathBuilder;
 import org.apache.camel.language.XPath;
 import org.apache.camel.builder.xml.InvalidXPathExpression;
 
+import org.apache.camel.processor.validation.PredicateValidationException;
+
 /**
  * A Camel Java DSL Router
  */

@@ -386,5 +386,23 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="java-generic-information-00019">
+            <when>
+                <javaclass references="org.apache.camel.processor.validation.PredicateValidationException" as="annotations">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Exception `org.apache.camel.processor.validation.PredicateValidationException` has been moved" effort="1" category-id="mandatory">
+                    <message>Exception `org.apache.camel.processor.validation.PredicateValidationException` has been moved to `org.apache.camel.support.processor.validation.PredicateValidationException`</message>
+                    <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information"
+                            title="Camel 3 - Migration Guide"/>
+                    <quickfix type="REPLACE" name="Annotation-replace">
+                        <replacement>org.apache.camel.support.processor.validation.PredicateValidationException</replacement>
+                        <search> org.apache.camel.processor.validation.PredicateValidationException</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
