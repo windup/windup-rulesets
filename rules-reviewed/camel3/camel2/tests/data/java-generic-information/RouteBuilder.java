@@ -25,6 +25,7 @@ import org.apache.camel.language.XPath;
 import org.apache.camel.builder.xml.InvalidXPathExpression;
 
 import org.apache.camel.processor.validation.PredicateValidationException;
+import org.apache.camel.util.toolbox.AggregationStrategies;
 
 /**
  * A Camel Java DSL Router
@@ -58,7 +59,11 @@ public class MyRouteBuilder extends RouteBuilder {
             from("vm:bar?concurrentConsumers=5")
             .to("validator:org/apache/camel/component/validator/schema.xsd?headerName=headerToValidate&amp;failOnNullHeader=false");
     }
-}
+
+    public static void main(String[] args) throws Exception {
+        Object ag = AggregationStrategies.xslt("somePath");
+    }
+
     @Override
     public void configure(CustomRouteBuilder configuration) throws Exception{
         if (configuration.getIntercepted() != null) {

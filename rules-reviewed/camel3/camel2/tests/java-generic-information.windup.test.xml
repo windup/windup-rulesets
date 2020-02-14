@@ -117,7 +117,7 @@
             <rule id="java-generic-information-00008-test">
                 <when>
                     <not>
-                        <iterable-filter size="1">
+                        <iterable-filter size="2">
                             <hint-exists message="The class `org.apache.camel.util.toolbox.AggregationStrategies` has been moved to `org.apache.camel.builder.AggregationStrategies`."/>
                         </iterable-filter>
                     </not>
@@ -250,6 +250,18 @@
                     <not>
                         <iterable-filter size="1">
                             <hint-exists message="Exception `org.apache.camel.processor.validation.PredicateValidationException.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-generic-information] Exception moved hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="java-generic-information-00021-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="xslt method was removed from `org.apache.camel.util.toolbox.AggregationStrategies.*"/>
                         </iterable-filter>
                     </not>
                 </when>
