@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<ruletest id="xml-moved-components-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/xml-moved-components</testDataPath>
+    <rulePath>../xml-moved-components.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="xml-moved-components-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="45">
+                            <hint-exists message="`camel-.*` component has been moved from `camel-core`*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-moved-components] Camel dependency moved hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="xml-moved-components-00001-test">
+                <when>
+                    <not>
+                        <iterable-filter size="45">
+                            <hint-exists message="`camel-.*` component has been moved from `camel-core`*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-moved-components] Camel dependency moved hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="xml-moved-components-00002-test">
+                <when>
+                    <not>
+                        <iterable-filter size="45">
+                            <hint-exists message="`camel-.*` component has been moved from `camel-core`*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-moved-components] Camel dependency moved hint was not found!"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
