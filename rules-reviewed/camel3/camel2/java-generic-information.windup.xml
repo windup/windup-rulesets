@@ -31,5 +31,27 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="java-generic-information-00001">
+            <when>
+                <javaclass references="org.apache.camel.impl.{SupportClass}">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel.impl.{SupportClass}` has been moved" effort="3" category-id="mandatory">
+                    <message>
+                        The class `org.apache.camel.impl.{SupportClass}` has been moved to `org.apache.camel.support.{SupportClass}`. It has been moved out of `org.apache.camel:camel-core` and into `org.apache.camel:camel-support`.
+                    </message>
+                    <link title="Camel 3 - Migration Guide: Migrating custom Components" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_migrating_custom_components" />
+                    <quickfix type="REPLACE" name="Support-replace">
+                        <replacement>org.apache.camel.impl.{SupportClass}</replacement>
+                        <search>org.apache.camel.impl.{SupportClass}</search>
+                    </quickfix>
+                </hint>
+            </perform>
+            <where param="SupportClass" >
+                <matches pattern="(BaseSelectorProducer|AsyncCallbackToCompletableFutureAdapter|BridgeExceptionHandlerToErrorHandler|DefaultAsyncProducer|DefaultComponent|DefaultConsumer|DefaultEndpoint|DefaultExchange|DefaultExchangeHolder|DefaultHeaderFilterStrategy|DefaultMessage|DefaultMessageHistory|DefaultPollingConsumerPollStrategy|DefaultPollingEndpoint|DefaultProducer|DefaultScheduledPollConsumer|DefaultScheduledPollConsumerScheduler|DefaultThreadPoolFactory|EventDrivenPollingConsumer|ExpressionAdapter|ExpressionComparator|ExpressionListComparator|ExpressionSupport|HeaderFilterStrategyComponent|HeaderSelectorProducer|LoggingExceptionHandler|MessageSupport|PollingConsumerSupport|ProcessorEndpoint|ProcessorPollingConsumer|RoutePolicySupport|ScheduledBatchPollingConsumer|ScheduledPollConsumer|ScheduledPollEndpoint|SimpleRegistry|SimpleUuidGeneratorSynchronizationAdapter|SynchronousDelegateProducer)" />
+            </where>
+        </rule>
     </rules>
 </ruleset>
