@@ -38,6 +38,54 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="xml-removed-components-00002">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-jibx" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-jibx` artifact has been removed" effort="7" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-jibx` artifact has been deprecated in Apache Camel 2 and removed in Apache Camel 3 because it did not support JDK8.</message>
+                    <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_removed_components" title="Camel 3 - Migration Guide: Removed components" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-removed-components-00003">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-boon" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-boon` artifact has been removed" effort="7" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-boon` artifact has been deprecated in Apache Camel 2 and removed in Apache Camel 3 because it did not support JDK9 and later.</message>
+                    <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_removed_components" title="Camel 3 - Migration Guide: Removed components" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-removed-components-00004">
+            <when>
+                <or>
+                    <!-- Spring XML -->
+                    <xmlfile matches="//*/c:from/@uri[windup:matches(self::node(), 'twitter-streaming:{*}')]">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/spring"/>
+                    </xmlfile>
+                    <!-- Blueprint XML -->
+                    <xmlfile matches="//*/c:from/@uri[windup:matches(self::node(), 'twitter-streaming:{*}')]">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/blueprint"/>
+                    </xmlfile>
+                    <!-- Java -->
+                    <filecontent pattern="from(&quot;twitter-streaming:{*}" filename="{*}.java"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="`twitter-streaming` component has been removed" effort="7" category-id="mandatory" >
+                    <message>`twitter-streaming` component has been deprecated in Apache Camel 2 and removed in Apache Camel 3 because it relied on the deprecated Twitter Streaming API and is no longer functional.</message>
+                    <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_removed_components" title="Camel 3 - Migration Guide: Removed components" />
+                </hint>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
 
