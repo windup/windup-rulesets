@@ -1,6 +1,11 @@
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
 
     <camelContext xmlns="http://camel.apache.org/schema/blueprint">
+        <dataFormats>
+            <jaxb id="myJaxb" prettyPrint="true" contextPath="org.apache.camel.example"/>
+            <zip id="myzip" prettyPrint="true" contextPath="org.apache.camel.example"/>
+            <gzip id="mygzip" prettyPrint="true" contextPath="org.apache.camel.example"/>
+        </dataFormats>
         <route>
             <from uri="direct:xslt-copy-all"/>
             <to uri="xslt:xslt/copy-all.xsl"/>
@@ -21,6 +26,7 @@
         </route>
         <route>
             <from uri="scheduler://foo?delay=60s"/>
+            <unmarshal ref="myJaxb"/>
             <to uri="seda:next"/>
             <to uri="controlbus:route?routeId=mainRoute&amp;action=stop&amp;async=true"/>
             <to uri="stub:smtp://somehost.foo.com?user=windup"/>
@@ -29,6 +35,14 @@
             <from uri="vm:bar?concurrentConsumers=5"/>
             <to uri="validator:org/apache/camel/component/validator/schema.xsd?headerName=headerToValidate&amp;failOnNullHeader=false"/>
         </route>
+        <route>
+            <from uri="activemq:MyQueue"/>
+            <filter>
+                <xpath>/foo:person[@name='James']</xpath>
+                <to uri="mqseries:SomeOtherQueue"/>
+            </filter>
+        </route>
     </camelContext>
 
 </blueprint>
+
