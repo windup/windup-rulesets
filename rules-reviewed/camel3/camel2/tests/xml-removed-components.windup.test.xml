@@ -30,6 +30,42 @@
                     <fail message="[xml-removed-components] 'camel-script' dependency removed hint was not found!" />
                 </perform>
             </rule>
+            <rule id="xml-removed-components-00002-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.apache.camel:camel-jibx` artifact has been deprecated in Apache Camel 2*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-components] 'camel-jibx' dependency removed hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="xml-removed-components-00003-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.apache.camel:camel-boon` artifact has been deprecated in Apache Camel 2*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-components] 'camel-boon' dependency removed hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="xml-removed-components-00004-test">
+                <when>
+                    <not>
+                        <iterable-filter size="3">
+                            <hint-exists message="`twitter-streaming` component has been deprecated in Apache Camel 2*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-components] 'camel-twitter-streaming' dependency removed hint was not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
