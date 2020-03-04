@@ -9,7 +9,7 @@
             <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
         </dependencies>
         <sourceTechnology id="camel" versionRange="[2,3)"/>
-        <targetTechnology id="camel" versionRange="[3,)" />
+        <targetTechnology id="camel" versionRange="[3,)"/>
     </metadata>
     <rules>
         <rule id="java-generic-information-00000">
@@ -52,6 +52,371 @@
             <where param="SupportClass" >
                 <matches pattern="(BaseSelectorProducer|AsyncCallbackToCompletableFutureAdapter|BridgeExceptionHandlerToErrorHandler|DefaultAsyncProducer|DefaultComponent|DefaultConsumer|DefaultEndpoint|DefaultExchange|DefaultExchangeHolder|DefaultHeaderFilterStrategy|DefaultMessage|DefaultMessageHistory|DefaultPollingConsumerPollStrategy|DefaultPollingEndpoint|DefaultProducer|DefaultScheduledPollConsumer|DefaultScheduledPollConsumerScheduler|DefaultThreadPoolFactory|EventDrivenPollingConsumer|ExpressionAdapter|ExpressionComparator|ExpressionListComparator|ExpressionSupport|HeaderFilterStrategyComponent|HeaderSelectorProducer|LoggingExceptionHandler|MessageSupport|PollingConsumerSupport|ProcessorEndpoint|ProcessorPollingConsumer|RoutePolicySupport|ScheduledBatchPollingConsumer|ScheduledPollConsumer|ScheduledPollEndpoint|SimpleRegistry|SimpleUuidGeneratorSynchronizationAdapter|SynchronousDelegateProducer)" />
             </where>
+        </rule>
+        <rule id="java-generic-information-00002">
+            <when>
+                <javaclass references="org.apache.camel.builder.RouteBuilder" as="routeBuilders">
+                    <location>INHERITANCE</location>
+                </javaclass>
+                <or>
+                    <filecontent pattern=".zip({*})" from="routeBuilders"/>
+                    <filecontent pattern=".gzip({*})" from="routeBuilders"/>
+                </or>
+            </when>
+            <perform>
+                <iteration over="routeBuilders">
+                    <hint title="`zip` and `gzip` dataformat was renamed" effort="1" category-id="mandatory">
+                        <message>`zip` and `gzip` dataformats were renamed to `zipdeflater and `gzipdeflater`
+                        </message>
+                        <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_zip_and_gzip_dataformat"
+                                title="Camel 3 - Migration Guide"/>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-00003">
+            <when>
+                <javaclass references="org.apache.camel.util.component.{*}">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel.util.component` content has been moved" effort="1" category-id="mandatory">
+                    <message>
+                        All the classes from `org.apache.camel.util.component` have been moved to `org.apache.camel.support.component`.
+                    </message>
+                    <link title="Camel 3 - Migration Guide: Generic Information"
+                            href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information"/>
+                    <quickfix type="REPLACE" name="Support-replace2">
+                        <replacement>org.apache.camel.support.component</replacement>
+                        <search>org.apache.camel.util.component</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-00004">
+            <when>
+                <javaclass references="org.apache.camel.impl.{registry}" as="javaClass">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform over="javaClass">
+                <iteration>
+                    <hint title="``org.apache.camel.impl.{registry}` has been removed." effort="1" category-id="mandatory">
+                        <message>
+                            The class `org.apache.camel.impl.{registry}` has been removed. Use `org.apache.camel.support.DefaultRegistry` instead.
+                        </message>
+                        <link title="Camel 3 - Migration Guide: Generic Information"
+                                href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information"/>
+                        <quickfix type="REPLACE" name="Registry-replace">
+                            <replacement>org.apache.camel.support.DefaultRegistry</replacement>
+                            <search>org.apache.camel.impl.{registry}</search>
+                        </quickfix>
+                    </hint>
+                </iteration>
+            </perform>
+            <where param="registry">
+                <matches pattern="(PropertyPlaceholderDelegateRegistry|CompositeRegistry)"/>
+            </where>
+        </rule>
+        <rule id="java-generic-information-00005">
+            <when>
+                <javaclass references="org.apache.camel.processor.loadbalancer.SimpleLoadBalancerSupport" as="javaClass">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform over="javaClass">
+                <hint title="``org.apache.camel.processor.loadbalancer.SimpleLoadBalancerSupport` has been removed." effort="1"
+                        category-id="mandatory">
+                    <message>
+                        The class `org.apache.camel.processor.loadbalancer.SimpleLoadBalancerSupport` has been removed. Use
+                        `org.apache.camel.processor.loadbalancer.LoadBalancerSupport` instead.
+                    </message>
+                    <link title="Camel 3 - Migration Guide: Generic Information"
+                            href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information"/>
+                    <quickfix type="REPLACE" name="LoadBalancer-replace">
+                        <replacement>org.apache.camel.processor.loadbalancer.LoadBalancerSupport</replacement>
+                        <search>org.apache.camel.processor.loadbalancer.SimpleLoadBalancerSupport</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-00006">
+            <when>
+                <javaclass references="org.apache.camel.{removed}" as="javaClass">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform over="javaClass">
+                <hint title="`org.apache.camel.{removed}` has been removed." effort="1"
+                        category-id="mandatory">
+                    <message>
+                        The class `org.apache.camel.{removed}` has been removed.
+                    </message>
+                    <link title="Camel 3 - Migration Guide: Generic Information"
+                            href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information"/>
+                </hint>
+            </perform>
+            <where param="removed">
+                <matches pattern="(impl.FileWatcherReloadStrategy|support.ReloadStrategySupport)"/>
+            </where>
+        </rule>
+        <rule id="java-generic-information-00007">
+            <when>
+                <javaclass references="org.apache.camel.impl.{moved}" as="javaClass">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <iteration over="javaClass">
+                    <hint title="`org.apache.camel.impl.{moved}` has been moved." effort="1"
+                            category-id="mandatory">
+                        <message>The class `org.apache.camel.impl.{moved}` has been moved to `org.apache.camel.impl.engine` package.</message>
+                        <link title="Camel 3 - Migration Guide: Generic Information"
+                                href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information"/>
+                        <quickfix type="REPLACE" name="camel.impl-replace">
+                            <replacement>org.apache.camel.impl.engine.{moved}</replacement>
+                            <search>org.apache.camel.impl.{moved}</search>
+                        </quickfix>
+                    </hint>
+                </iteration>
+            </perform>
+
+            <where param="moved">
+                <matches
+                        pattern="(CamelPostProcessorHelper|DefaultAsyncProcessorAwaitManager|DefaultCamelBeanPostProcessor|DefaultCamelContextNameStrategy|DefaultClaimCheckRepository|DefaultClassResolver|DefaultComponentResolver|DefaultConsumerTemplate|DefaultDataFormatResolver|DefaultEndpointRegistry|DefaultEndpointUtilizationStatistics|DefaultFactoryFinder|DefaultFactoryFinderResolver|DefaultHeadersMapFactory|DefaultInflightRepository|DefaultInjector|DefaultLanguageResolver|DefaultManagementNameStrategy|DefaultMessageHistoryFactory|DefaultNodeIdFactory|DefaultPackageScanClassResolver|DefaultProcessorFactory|DefaultProducerTemplate|DefaultRoute|DefaultRouteContext|DefaultRouteController|DefaultRouteError|DefaultRouteStartupOrder|DefaultRuntimeEndpointRegistry|DefaultShutdownStrategy|DefaultStreamCachingStrategy|DefaultTransformerRegistry|DefaultUnitOfWork|DefaultUnitOfWorkFactory|DefaultUuidGenerator|DefaultValidatorRegistry|DeferProducer|DeferServiceStartupListener|DurationRoutePolicy|DurationRoutePolicyFactory|EndpointKey|EventDrivenConsumerRoute|EventNotifierCallback|ExplicitCamelContextNameStrategy|FileStateRepository|HashMapHeadersMapFactory|HeadersMapFactoryResolver|InterceptSendToEndpointProcessor|InterceptSendToMockEndpointStrategy|JavaUuidGenerator|LimitedPollingConsumerPollStrategy|MDCUnitOfWork|MemoryStateRepository|SubscribeMethodProcessor|SupervisingRouteController|SupervisingRouteController.FilterResult|SupervisingRouteControllerFilters|SupervisingRouteControllerFilters.BlackList|TypedProcessorFactory|WebSpherePackageScanClassResolver)"/>
+            </where>
+        </rule>
+        <rule id="java-generic-information-00008">
+            <when>
+                <javaclass references="org.apache.camel.util.toolbox.AggregationStrategies">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel.util.toolbox.AggregationStrategies` has been moved" effort="1" category-id="mandatory">
+                    <message>
+                        The class `org.apache.camel.util.toolbox.AggregationStrategies` has been moved to `org.apache.camel.builder.AggregationStrategies`.
+                    </message>
+                    <link title="Camel 3 - Migration Guide: Generic Information"
+                            href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information"/>
+                    <quickfix type="REPLACE" name="AggregationStrategies-replace">
+                        <replacement>org.apache.camel.builder.AggregationStrategies</replacement>
+                        <search>org.apache.camel.util.toolbox.AggregationStrategies</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule><rule id="java-generic-information-00009">
+            <when>
+                <javaclass references="org.apache.camel.management.JmxSystemPropertyKeys">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel.management.JmxSystemPropertyKeys` has been moved" effort="1" category-id="mandatory">
+                    <message>
+                        The class `org.apache.camel.management.JmxSystemPropertyKeys` has been moved to ` org.apache.camel.api.management.JmxSystemPropertyKeys`.
+                    </message>
+                    <link title="Camel 3 - Migration Guide: Generic Information"
+                            href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information"/>
+                    <quickfix type="REPLACE" name="AggregationStrategy-replace">
+                        <replacement> org.apache.camel.api.management.JmxSystemPropertyKeys</replacement>
+                        <search>org.apache.camel.management.JmxSystemPropertyKeys</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-00010">
+            <when>
+           <filecontent pattern=".includeRoutes({*})" filename="{*}.java" />
+            </when>
+            <perform>
+                    <hint title="`includeRoutes` method has been removed" effort="1" category-id="mandatory">
+                        <message>`includeRoutes` method has been removed"
+                        </message>
+                        <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information"
+                                title="Camel 3 - Migration Guide"/>
+                    </hint>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-00011">
+           <when>
+            <javaclass references="org.apache.camel.language.Bean" as="annotations">
+                <location>IMPORT</location>
+           </javaclass>
+           </when>
+            <perform>
+                    <hint title="Annotation `org.apache.camel.language.Bean` method has been moved" effort="1" category-id="mandatory">
+                        <message>Annotation `org.apache.camel.language.Bean` has been moved to `org.apache.camel.language.bean.Bean`</message>
+                        <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information"
+                                title="Camel 3 - Migration Guide"/>
+                        <quickfix type="REPLACE" name="AggregationStrategy-replace">
+                            <replacement> org.apache.camel.language.bean.Bean</replacement>
+                            <search>org.apache.camel.language.Bean</search>
+                        </quickfix>
+                    </hint>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-00012">
+            <when>
+                <javaclass references="org.apache.camel.language.Simple" as="annotations">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Annotation `org.apache.camel.language.Simple` method has been moved" effort="1" category-id="mandatory">
+                    <message>Annotation `org.apache.camel.language.Simple` has been moved to `org.apache.camel.language.simple.Simple`</message>
+                    <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information"
+                            title="Camel 3 - Migration Guide"/>
+                    <quickfix type="REPLACE" name="Annotation-replace">
+                        <replacement>org.apache.camel.language.simple.Simple</replacement>
+                        <search>org.apache.camel.language.Simple</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-00013">
+            <when>
+                <javaclass references="org.apache.camel.language.SpEL" as="annotations">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Annotation `org.apache.camel.language.SpEL` method has been moved" effort="1" category-id="mandatory">
+                    <message>Annotation `org.apache.camel.language.SpEL` has been moved to `org.apache.camel.language.spel.SpEL`</message>
+                    <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information"
+                            title="Camel 3 - Migration Guide"/>
+                    <quickfix type="REPLACE" name="Annotation-replace">
+                        <replacement>org.apache.camel.language.spel.SpEL</replacement>
+                        <search>org.apache.camel.language.SpEL</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-00014">
+            <when>
+                <javaclass references="org.apache.camel.{annotation}" as="annotations">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Annotation `org.apache.camel.{annotation}` has been moved" effort="1" category-id="mandatory">
+                    <message>Annotation `org.apache.camel.{annotation}` has been moved to `org.apache.camel.spi.{annotation}`</message>
+                    <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information"
+                            title="Camel 3 - Migration Guide"/>
+                    <quickfix type="REPLACE" name="AAnnotation-replace">
+                        <replacement>org.apache.camel.spi.{annotation}</replacement>
+                        <search>org.apache.camel{annotation}</search>
+                    </quickfix>
+                </hint>
+            </perform>
+            <where param="annotation">
+                <matches pattern="(InvokeOnHeaders|InvokeOnHeader)"/>
+            </where>
+        </rule>
+        <rule id="java-generic-information-00015">
+            <when>
+                <javaclass references="org.apache.camel.Constant" as="annotation">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Annotation `org.apache.camel.Constant`has been removed" effort="1" category-id="mandatory">
+                    <message>Annotation `org.apache.camel.Constant` has been removed. Use `@Simple` instead.`</message>
+                    <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information"
+                            title="Camel 3 - Migration Guide"/>
+                    <quickfix type="REPLACE" name="Annotation-replace">
+                        <replacement>org.apache.camel.language.simple.Simple</replacement>
+                        <search>org.apache.camel.Constant</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-00016">
+            <when>
+                <javaclass references="org.apache.camel.builder.xml.XPathBuilder" as="class">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Annotation `org.apache.camel.builder.xml.XPathBuilder`has been moved" effort="1" category-id="mandatory">
+                    <message>Class `org.apache.camel.builder.xml.XPathBuilder` has been moved to `org.apache.camel.language.xpath.XPathBuilder`.</message>
+                    <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information"
+                            title="Camel 3 - Migration Guide"/>
+                    <quickfix type="REPLACE" name="XPathBuilder-replace">
+                        <replacement> org.apache.camel.language.xpath.XPathBuilder</replacement>
+                        <search>org.apache.camel.builder.xml.XPathBuilder</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-00017">
+            <when>
+                <javaclass references="org.apache.camel.language.XPath" as="annotations">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Annotation `org.apache.camel.language.XPath` has been moved" effort="1" category-id="mandatory">
+                    <message>Annotation `org.apache.camel.language.XPath` has been moved to `org.apache.camel.language.xpath.XPath`</message>
+                    <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information"
+                            title="Camel 3 - Migration Guide"/>
+                    <quickfix type="REPLACE" name="Xpath-Annotation-replace">
+                        <replacement>org.apache.camel.language.xpath.XPath</replacement>
+                        <search>org.apache.camel.language.XPath</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-00018">
+            <when>
+                <javaclass references="org.apache.camel.builder.xml.InvalidXPathExpression" as="annotations">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Exception `org.apache.camel.builder.xml.InvalidXPathExpression` has been moved" effort="1" category-id="mandatory">
+                    <message>Exception `org.apache.camel.builder.xml.InvalidXPathExpression` has been moved to `org.apache.camel.language.xpath.InvalidXPathException `</message>
+                    <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information"
+                            title="Camel 3 - Migration Guide"/>
+                    <quickfix type="REPLACE" name="InvalidXpatchExpression-Annotation-replace">
+                        <replacement>org.apache.camel.language.xpath.InvalidXPathException</replacement>
+                        <search> org.apache.camel.builder.xml.InvalidXPathExpression</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-00019">
+            <when>
+                <javaclass references="org.apache.camel.processor.validation.PredicateValidationException" as="annotations">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Exception `org.apache.camel.processor.validation.PredicateValidationException` has been moved" effort="1" category-id="mandatory">
+                    <message>Exception `org.apache.camel.processor.validation.PredicateValidationException` has been moved to `org.apache.camel.support.processor.validation.PredicateValidationException`</message>
+                    <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information"
+                            title="Camel 3 - Migration Guide"/>
+                    <quickfix type="REPLACE" name="PredicateValidationException-Annotation-replace">
+                        <replacement>org.apache.camel.support.processor.validation.PredicateValidationException</replacement>
+                        <search> org.apache.camel.processor.validation.PredicateValidationException</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+    <rule id="java-generic-information-00021">
+            <when>
+                <javaclass references="org.apache.camel.util.toolbox.AggregationStrategies.xslt({*})" >
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="xslt method was removed from `org.apache.camel.util.toolbox.AggregationStrategies`" effort="1" category-id="mandatory">
+                    <message>xslt method was removed from `org.apache.camel.util.toolbox.AggregationStrategies`. Instead use the `XsltAggregationStrategy` from `camel-xslt` JAR directly`</message>
+                    <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information"
+                            title="Camel 3 - Migration Guide"/>
+                </hint>
+            </perform>
         </rule>
     </rules>
 </ruleset>
