@@ -269,6 +269,18 @@
                     <fail message="[java-generic-information] Exception moved hint was not found!" />
                 </perform>
             </rule>
+            <rule id="java-generic-information-00022-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The class `org.apache.camel.language.LanguageAnnotation` has been moved to `org.apache.camel.support.language.LanguageAnnotation`*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-generic-information] 'LanguageAnnotation' moved hint was not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
