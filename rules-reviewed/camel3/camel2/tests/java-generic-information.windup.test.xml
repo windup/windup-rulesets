@@ -329,6 +329,30 @@
                     <fail message="[java-generic-information] `org.apache.camel.util.ObjectHelper` moved hint was not found!" />
                 </perform>
             </rule>
+            <rule id="java-generic-information-00027-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The class `org.apache.camel.support.RoutePolicySupport` has been moved*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-generic-information] `org.apache.camel.support.RoutePolicySupport` moved hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="java-generic-information-00028-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The class `org.apache.camel.impl.ThrottlingInflightRoutePolicy` has been moved to `org.apache.camel.throttling.ThrottlingInflightRoutePolicy`*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-generic-information] `org.apache.camel.impl.ThrottlingInflightRoutePolicy` moved hint was not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>

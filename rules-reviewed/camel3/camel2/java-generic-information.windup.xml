@@ -50,7 +50,7 @@
                 </hint>
             </perform>
             <where param="SupportClass" >
-                <matches pattern="(BaseSelectorProducer|AsyncCallbackToCompletableFutureAdapter|BridgeExceptionHandlerToErrorHandler|DefaultAsyncProducer|DefaultComponent|DefaultConsumer|DefaultEndpoint|DefaultExchange|DefaultExchangeHolder|DefaultHeaderFilterStrategy|DefaultMessage|DefaultMessageHistory|DefaultPollingConsumerPollStrategy|DefaultPollingEndpoint|DefaultProducer|DefaultScheduledPollConsumer|DefaultScheduledPollConsumerScheduler|DefaultThreadPoolFactory|EventDrivenPollingConsumer|ExpressionAdapter|ExpressionComparator|ExpressionListComparator|ExpressionSupport|HeaderFilterStrategyComponent|HeaderSelectorProducer|LoggingExceptionHandler|MessageSupport|PollingConsumerSupport|ProcessorEndpoint|ProcessorPollingConsumer|RoutePolicySupport|ScheduledBatchPollingConsumer|ScheduledPollConsumer|ScheduledPollEndpoint|SimpleRegistry|SimpleUuidGeneratorSynchronizationAdapter|SynchronousDelegateProducer)" />
+                <matches pattern="(BaseSelectorProducer|AsyncCallbackToCompletableFutureAdapter|BridgeExceptionHandlerToErrorHandler|DefaultAsyncProducer|DefaultComponent|DefaultConsumer|DefaultEndpoint|DefaultExchange|DefaultExchangeHolder|DefaultHeaderFilterStrategy|DefaultMessage|DefaultMessageHistory|DefaultPollingConsumerPollStrategy|DefaultPollingEndpoint|DefaultProducer|DefaultScheduledPollConsumer|DefaultScheduledPollConsumerScheduler|DefaultThreadPoolFactory|EventDrivenPollingConsumer|ExpressionAdapter|ExpressionComparator|ExpressionListComparator|ExpressionSupport|HeaderFilterStrategyComponent|HeaderSelectorProducer|LoggingExceptionHandler|MessageSupport|PollingConsumerSupport|ProcessorEndpoint|ProcessorPollingConsumer|ScheduledBatchPollingConsumer|ScheduledPollConsumer|ScheduledPollEndpoint|SimpleRegistry|SimpleUuidGeneratorSynchronizationAdapter|SynchronousDelegateProducer)" />
             </where>
         </rule>
         <rule id="java-generic-information-00002">
@@ -519,6 +519,44 @@
                         <message>The class `org.apache.camel.util.ObjectHelper` has been moved out of the `org.apache.camel:camel-core` and has been split into two classes: `org.apache.camel.support.ObjectHelper` (`org.apache.camel:camel-support`) and `org.apache.camel.util.ObjectHelper` (`org.apache.camel:camel-util`). This has been done to isolate the methods using `org.apache.camel:camel-api`.</message>
                         <link title="Camel 3 - Migration Guide: Helpers and Support"
                               href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_helpers_and_support"/>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-00027">
+            <when>
+                <javaclass references="org.apache.camel.support.RoutePolicySupport" as="javaClass">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <iteration over="javaClass">
+                    <hint title="`org.apache.camel.support.RoutePolicySupport` has been moved." effort="1"
+                          category-id="mandatory">
+                        <message>The class `org.apache.camel.support.RoutePolicySupport` has been moved out of `org.apache.camel:camel-core` and into `org.apache.camel:camel-support`. The return type from `startConsumer` and `stopConsumer` has been changed from boolean to void as they always returned true before.</message>
+                        <link title="Camel 3 - Migration Guide: Route Policies"
+                              href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_route_policies"/>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-00028">
+            <when>
+                <javaclass references="org.apache.camel.impl.ThrottlingInflightRoutePolicy" as="javaClass">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <iteration over="javaClass">
+                    <hint title="`org.apache.camel.impl.ThrottlingInflightRoutePolicy` has been moved." effort="1"
+                          category-id="mandatory">
+                        <message>The class `org.apache.camel.impl.ThrottlingInflightRoutePolicy` has been moved to `org.apache.camel.throttling.ThrottlingInflightRoutePolicy`. It has been moved out of `org.apache.camel:camel-core` and into `org.apache.camel:camel-base`.</message>
+                        <link title="Camel 3 - Migration Guide: Route Policies"
+                              href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_route_policies"/>
+                        <quickfix type="REPLACE" name="camel.ThrottlingInflightRoutePolicy-replace">
+                            <replacement>org.apache.camel.throttling.ThrottlingInflightRoutePolicy</replacement>
+                            <search>org.apache.camel.impl.ThrottlingInflightRoutePolicy</search>
+                        </quickfix>
                     </hint>
                 </iteration>
             </perform>
