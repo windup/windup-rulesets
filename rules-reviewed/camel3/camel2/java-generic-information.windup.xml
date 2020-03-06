@@ -561,5 +561,26 @@
                 </iteration>
             </perform>
         </rule>
+
+        <rule id="java-generic-information-00029">
+            <when>
+                <or>
+                    <javaclass references="org.apache.camel.processor.idempotent.{moved}">
+                        <location>IMPORT</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel.processor.idempotent.{moved}` has been moved" effort="1" category-id="mandatory">
+                    <message>
+                        The class `org.apache.camel.processor.idempotent.{moved}` has been moved to `org.apache.camel.support.processor.idempotent.{moved}`. It has been moved out of `org.apache.camel:camel-core` and into `org.apache.camel:camel-support`.
+                    </message>
+                    <link title="Camel 3 - Migration Guide: Idempotent repositories" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_idempotent_repositories" />
+                </hint>
+            </perform>
+            <where param="moved" >
+                <matches pattern="(FileIdempotentRepository|MemoryIdempotentRepository)" />
+            </where>
+        </rule>
     </rules>
 </ruleset>
