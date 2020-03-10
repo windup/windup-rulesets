@@ -582,5 +582,19 @@
                 <matches pattern="(FileIdempotentRepository|MemoryIdempotentRepository)" />
             </where>
         </rule>
+        <rule id="java-generic-information-00030">
+            <when>
+                <javaclass references="org.apache.camel.FallbackConverter">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Annotation `org.apache.camel.FallbackConverter` has been removed" effort="1" category-id="mandatory">
+                    <message>Annotation `org.apache.camel.FallbackConverter` has been removed. You should use `@org.apache.camel.Converter(fallback = true)` from `org.apache.camel:camel-api` instead. You can also set `@org.apache.camel.Converter(generateLoader = true)` on the converter class to allow Camel to generate source code for loading type converters in a faster way.</message>
+                    <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_fallback_type_converters"
+                          title="Camel 3 - Migration Guide: Fallback Type Converters"/>
+                </hint>
+            </perform>
+        </rule>
     </rules>
 </ruleset>

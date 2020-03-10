@@ -365,6 +365,18 @@
                     <fail message="[java-generic-information] Idempotent repositories moved hint was not found!" />
                 </perform>
             </rule>
+            <rule id="java-generic-information-00030-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Annotation `org.apache.camel.FallbackConverter` has been removed*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-generic-information] `org.apache.camel.FallbackConverter` removed hint was not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
