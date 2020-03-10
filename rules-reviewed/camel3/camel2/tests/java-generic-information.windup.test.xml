@@ -281,6 +281,90 @@
                     <fail message="[java-generic-information] 'LanguageAnnotation' moved hint was not found!" />
                 </perform>
             </rule>
+            <rule id="java-generic-information-00023-test">
+                <when>
+                    <not>
+                        <iterable-filter size="3">
+                            <hint-exists message="The class `org.apache.camel.util.*` has been moved to `org.apache.camel.support.*`*. It has been moved out of `org.apache.camel:camel-core` and into `org.apache.camel:camel-support"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-generic-information] `org.apache.camel.util.*` moved hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="java-generic-information-00024-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The class `org.apache.camel.util.ServiceHelper` has been moved to `org.apache.camel.support.service.ServiceHelper`*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-generic-information] `org.apache.camel.util.ServiceHelper` moved hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="java-generic-information-00025-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The class `org.apache.camel.spi.RestProducerFactoryHelper` has been moved to `org.apache.camel.support.RestProducerFactoryHelper`*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-generic-information] `org.apache.camel.spi.RestProducerFactoryHelper` moved hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="java-generic-information-00026-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The class `org.apache.camel.util.ObjectHelper` has been moved out of the `org.apache.camel:camel-core` and has been split into two classes*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-generic-information] `org.apache.camel.util.ObjectHelper` moved hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="java-generic-information-00027-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The class `org.apache.camel.support.RoutePolicySupport` has been moved*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-generic-information] `org.apache.camel.support.RoutePolicySupport` moved hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="java-generic-information-00028-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The class `org.apache.camel.impl.ThrottlingInflightRoutePolicy` has been moved to `org.apache.camel.throttling.ThrottlingInflightRoutePolicy`*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-generic-information] `org.apache.camel.impl.ThrottlingInflightRoutePolicy` moved hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="java-generic-information-00029-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="The class `org.apache.camel.processor.idempotent*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-generic-information] Idempotent repositories moved hint was not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>

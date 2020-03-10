@@ -50,7 +50,7 @@
                 </hint>
             </perform>
             <where param="SupportClass" >
-                <matches pattern="(BaseSelectorProducer|AsyncCallbackToCompletableFutureAdapter|BridgeExceptionHandlerToErrorHandler|DefaultAsyncProducer|DefaultComponent|DefaultConsumer|DefaultEndpoint|DefaultExchange|DefaultExchangeHolder|DefaultHeaderFilterStrategy|DefaultMessage|DefaultMessageHistory|DefaultPollingConsumerPollStrategy|DefaultPollingEndpoint|DefaultProducer|DefaultScheduledPollConsumer|DefaultScheduledPollConsumerScheduler|DefaultThreadPoolFactory|EventDrivenPollingConsumer|ExpressionAdapter|ExpressionComparator|ExpressionListComparator|ExpressionSupport|HeaderFilterStrategyComponent|HeaderSelectorProducer|LoggingExceptionHandler|MessageSupport|PollingConsumerSupport|ProcessorEndpoint|ProcessorPollingConsumer|RoutePolicySupport|ScheduledBatchPollingConsumer|ScheduledPollConsumer|ScheduledPollEndpoint|SimpleRegistry|SimpleUuidGeneratorSynchronizationAdapter|SynchronousDelegateProducer)" />
+                <matches pattern="(BaseSelectorProducer|AsyncCallbackToCompletableFutureAdapter|BridgeExceptionHandlerToErrorHandler|DefaultAsyncProducer|DefaultComponent|DefaultConsumer|DefaultEndpoint|DefaultExchange|DefaultExchangeHolder|DefaultHeaderFilterStrategy|DefaultMessage|DefaultMessageHistory|DefaultPollingConsumerPollStrategy|DefaultPollingEndpoint|DefaultProducer|DefaultScheduledPollConsumer|DefaultScheduledPollConsumerScheduler|DefaultThreadPoolFactory|EventDrivenPollingConsumer|ExpressionAdapter|ExpressionComparator|ExpressionListComparator|ExpressionSupport|HeaderFilterStrategyComponent|HeaderSelectorProducer|LoggingExceptionHandler|MessageSupport|PollingConsumerSupport|ProcessorEndpoint|ProcessorPollingConsumer|ScheduledBatchPollingConsumer|ScheduledPollConsumer|ScheduledPollEndpoint|SimpleRegistry|SimpleUuidGeneratorSynchronizationAdapter|SynchronousDelegateProducer)" />
             </where>
         </rule>
         <rule id="java-generic-information-00002">
@@ -438,6 +438,149 @@
                     </quickfix>
                 </hint>
             </perform>
+        </rule>
+        <rule id="java-generic-information-00023">
+            <when>
+                <javaclass references="org.apache.camel.util.{moved}" as="javaClass">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <iteration over="javaClass">
+                    <hint title="`org.apache.camel.util.{moved}` has been moved." effort="1"
+                          category-id="mandatory">
+                        <message>The class `org.apache.camel.util.{moved}` has been moved to `org.apache.camel.support.{moved}`. It has been moved out of `org.apache.camel:camel-core` and into `org.apache.camel:camel-support`</message>
+                        <link title="Camel 3 - Migration Guide: Helpers and Support"
+                              href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_helpers_and_support"/>
+                        <quickfix type="REPLACE" name="camel.helpers-replace">
+                            <replacement>org.apache.camel.support</replacement>
+                            <search>org.apache.camel.util</search>
+                        </quickfix>
+                    </hint>
+                </iteration>
+            </perform>
+            <where param="moved">
+                <matches
+                        pattern="(AsyncProcessorHelper|AsyncProcessorConverterHelper|EndpointHelper|EventHelper|ExchangeHelper|GZIPHelper|JsonSchemaHelper|MessageHelper|PlatformHelper|PredicateAssertHelper|ResolverHelper|ResourceHelper|UnitOfWorkHelper)"/>
+            </where>
+        </rule>
+        <rule id="java-generic-information-00024">
+            <when>
+                <javaclass references="org.apache.camel.util.ServiceHelper" as="javaClass">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <iteration over="javaClass">
+                    <hint title="`org.apache.camel.util.ServiceHelper` has been moved." effort="1"
+                          category-id="mandatory">
+                        <message>The class `org.apache.camel.util.ServiceHelper` has been moved to `org.apache.camel.support.service.ServiceHelper`. It has been moved out of `org.apache.camel:camel-core` and into `org.apache.camel:camel-api`</message>
+                        <link title="Camel 3 - Migration Guide: Helpers and Support"
+                              href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_helpers_and_support"/>
+                        <quickfix type="REPLACE" name="camel.ServiceHelper-replace">
+                            <replacement>org.apache.camel.support.service.ServiceHelper</replacement>
+                            <search>org.apache.camel.util.ServiceHelper</search>
+                        </quickfix>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-00025">
+            <when>
+                <javaclass references="org.apache.camel.spi.RestProducerFactoryHelper" as="javaClass">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <iteration over="javaClass">
+                    <hint title="`org.apache.camel.spi.RestProducerFactoryHelper` has been moved." effort="1"
+                          category-id="mandatory">
+                        <message>The class `org.apache.camel.spi.RestProducerFactoryHelper` has been moved to `org.apache.camel.support.RestProducerFactoryHelper`. It has been moved out of `org.apache.camel:camel-core` and into `org.apache.camel:camel-support`</message>
+                        <link title="Camel 3 - Migration Guide: Helpers and Support"
+                              href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_helpers_and_support"/>
+                        <quickfix type="REPLACE" name="camel.RestProducerFactoryHelper-replace">
+                            <replacement>org.apache.camel.support.RestProducerFactoryHelper</replacement>
+                            <search>org.apache.camel.spi.RestProducerFactoryHelper</search>
+                        </quickfix>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-00026">
+            <when>
+                <javaclass references="org.apache.camel.util.ObjectHelper" as="javaClass">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <iteration over="javaClass">
+                    <hint title="`org.apache.camel.util.ObjectHelper` has been moved." effort="1"
+                          category-id="mandatory">
+                        <message>The class `org.apache.camel.util.ObjectHelper` has been moved out of the `org.apache.camel:camel-core` and has been split into two classes: `org.apache.camel.support.ObjectHelper` (`org.apache.camel:camel-support`) and `org.apache.camel.util.ObjectHelper` (`org.apache.camel:camel-util`). This has been done to isolate the methods using `org.apache.camel:camel-api`.</message>
+                        <link title="Camel 3 - Migration Guide: Helpers and Support"
+                              href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_helpers_and_support"/>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-00027">
+            <when>
+                <javaclass references="org.apache.camel.support.RoutePolicySupport" as="javaClass">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <iteration over="javaClass">
+                    <hint title="`org.apache.camel.support.RoutePolicySupport` has been moved." effort="1"
+                          category-id="mandatory">
+                        <message>The class `org.apache.camel.support.RoutePolicySupport` has been moved out of `org.apache.camel:camel-core` and into `org.apache.camel:camel-support`. The return type from `startConsumer` and `stopConsumer` has been changed from boolean to void as they always returned true before.</message>
+                        <link title="Camel 3 - Migration Guide: Route Policies"
+                              href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_route_policies"/>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-00028">
+            <when>
+                <javaclass references="org.apache.camel.impl.ThrottlingInflightRoutePolicy" as="javaClass">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <iteration over="javaClass">
+                    <hint title="`org.apache.camel.impl.ThrottlingInflightRoutePolicy` has been moved." effort="1"
+                          category-id="mandatory">
+                        <message>The class `org.apache.camel.impl.ThrottlingInflightRoutePolicy` has been moved to `org.apache.camel.throttling.ThrottlingInflightRoutePolicy`. It has been moved out of `org.apache.camel:camel-core` and into `org.apache.camel:camel-base`.</message>
+                        <link title="Camel 3 - Migration Guide: Route Policies"
+                              href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_route_policies"/>
+                        <quickfix type="REPLACE" name="camel.ThrottlingInflightRoutePolicy-replace">
+                            <replacement>org.apache.camel.throttling.ThrottlingInflightRoutePolicy</replacement>
+                            <search>org.apache.camel.impl.ThrottlingInflightRoutePolicy</search>
+                        </quickfix>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+
+        <rule id="java-generic-information-00029">
+            <when>
+                <or>
+                    <javaclass references="org.apache.camel.processor.idempotent.{moved}">
+                        <location>IMPORT</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel.processor.idempotent.{moved}` has been moved" effort="1" category-id="mandatory">
+                    <message>
+                        The class `org.apache.camel.processor.idempotent.{moved}` has been moved to `org.apache.camel.support.processor.idempotent.{moved}`. It has been moved out of `org.apache.camel:camel-core` and into `org.apache.camel:camel-support`.
+                    </message>
+                    <link title="Camel 3 - Migration Guide: Idempotent repositories" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_idempotent_repositories" />
+                </hint>
+            </perform>
+            <where param="moved" >
+                <matches pattern="(FileIdempotentRepository|MemoryIdempotentRepository)" />
+            </where>
         </rule>
     </rules>
 </ruleset>
