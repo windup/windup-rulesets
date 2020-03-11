@@ -377,6 +377,18 @@
                     <fail message="[java-generic-information] `org.apache.camel.FallbackConverter` removed hint was not found!" />
                 </perform>
             </rule>
+            <rule id="java-generic-information-00031-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The class `org.apache.camel.util.toolbox.XsltAggregationStrategy` has been moved*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-generic-information] `org.apache.camel.util.toolbox.XsltAggregationStrategy` moved hint was not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
