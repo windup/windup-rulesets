@@ -598,9 +598,20 @@
         </rule>
         <rule id="java-generic-information-00031">
             <when>
-                <javaclass references="org.apache.camel.util.toolbox.XsltAggregationStrategy">
-                    <location>IMPORT</location>
-                </javaclass>
+                <or>
+                    <!-- Spring XML -->
+                    <xmlfile matches="//*/c:bean/@class[windup:matches(self::node(), 'org.apache.camel.util.toolbox.XsltAggregationStrategy')]">
+                        <namespace prefix="c" uri="http://www.springframework.org/schema/beans"/>
+                    </xmlfile>
+                    <!-- Blueprint XML -->
+                    <xmlfile matches="//*/c:bean/@class[windup:matches(self::node(), 'org.apache.camel.util.toolbox.XsltAggregationStrategy')]">
+                        <namespace prefix="c" uri="http://www.osgi.org/xmlns/blueprint/v1.0.0"/>
+                    </xmlfile>
+                    <!-- Java-->
+                    <javaclass references="org.apache.camel.util.toolbox.XsltAggregationStrategy">
+                        <location>IMPORT</location>
+                    </javaclass>
+                </or>
             </when>
             <perform>
                 <hint title="`org.apache.camel.util.toolbox.XsltAggregationStrategy` has been moved." effort="1"
