@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+
+
+<bean id="function1" class="org.jboss.qe.camel.components.xslt.extensions.MyExtensionFunction1"/>
+    <bean id="function2" class="org.jboss.qe.camel.components.xslt.extensions.MyExtensionFunction2"/>
+    <bean id="aggregationStrategy" class="org.apache.camel.util.toolbox.XsltAggregationStrategy">
+        <constructor-arg value="/xslt/aggregationStrategy.xsl"/>
+    </bean>
+
+    <camelContext id="test-camel-context" xmlns="http://camel.apache.org/schema/blueprint">
+        <dataFormats>
+            <jaxb id="myJaxb" prettyPrint="true" contextPath="org.apache.camel.example"/>
+            <zip id="myzip" prettyPrint="true" contextPath="org.apache.camel.example"/>
+            <gzip id="mygzip" prettyPrint="true" contextPath="org.apache.camel.example"/>
+        </dataFormats>
+        <route>
+            <from uri="direct:xslt-copy-all"/>
+            <to uri="xslt:xslt/copy-all.xsl"/>
+            <to uri="file:file"/>
+            <to uri="log:foo?logMask=true"/>
+            <to uri="mock:result"/>
+        </route>
+        <route>
+            <from uri="ref:endpoint1"/>
+            <to uri="browse:orderReceived"/>
+            <to uri="language:simple:classpath:org/apache/camel/component/language/mysimplescript.txt" />
+            <to uri="bean:bye"/>
+        </route>
+        <route>
+            <from uri="dataset:foo"/>
+            <marshal ref="myJaxb"/>
+            <to uri="controlbus:route?routeId=mainRoute&amp;action=stop&amp;async=true"/>
+            <to uri="direct-vm:bar"></to>
+
+        </route>
+		<route>
+			<from uri="scheduler://foo?delay=60s"/>
+			<to uri="seda:next"/>
+            <unmarshal ref="myJaxb"/>
+			<to uri="stub:smtp://somehost.foo.com?user=windup"/>
+		</route>
+		<route>
+            <from uri="vm:bar?concurrentConsumers=5"/>
+			<to uri="validator:org/apache/camel/component/validator/schema.xsd?headerName=headerToValidate&amp;failOnNullHeader=false"/>
+		</route>
+        <route>
+            <from uri="activemq:MyQueue"/>
+            <filter>
+                <xpath>/foo:person[@name='James']</xpath>
+                <to uri="mqseries:SomeOtherQueue"/>
+            </filter>
+        </route>
+    </camelContext>
+</blueprint>
