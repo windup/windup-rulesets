@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="springboot-di-toquarkus"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints to migrate from SpringBoot DI to Quarkus spring-di extension
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="springboot" />
+        <targetTechnology id="quarkus" />
+    </metadata>
+    <rules>
+        <rule id="springboot-di-to-quarkus-00000">
+            <when>
+                <dependency groupId="org.springframework" artifactId="spring-beans"/>
+            </when>
+            <perform>
+                <hint title="Replace the SpringBoot Dependency Injection artifact with Quarkus 'spring-di' extension" effort="1" category-id="mandatory">
+                    <message>Replace the SpringBoot Dependency Injection artifact with Quarkus 'spring-di' extension</message>
+                    <link title="Quarkus DI : " href="https://quarkus.io/guides/spring-di" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="springboot-di-to-quarkus-00010">
+            <when>
+                <javaclass references="org.springframework.{*}.{annotation}">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Replace the @{annotation} annotation usages with CDI @ApplicationScoped" effort="1" category-id="mandatory">
+                    <message>Replace the @{annotation} annotation usages with CDI @ApplicationScoped</message>
+                    <link title="Quarkus DI : " href="https://quarkus.io/guides/spring-di" />
+                </hint>
+            </perform>
+            <where param="annotation">
+                <matches pattern="(Component|Service)"/>
+            </where>
+        </rule>
+        <rule id="springboot-di-to-quarkus-00020">
+            <when>
+                <javaclass references="org.springframework.beans.factory.annotation.Autowired">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Replace the @Autowired annotation usages with CDI @Inject" effort="1" category-id="mandatory">
+                    <message>Replace the @Autowired annotation usages with CDI @Inject</message>
+                    <link title="Quarkus DI : " href="https://quarkus.io/guides/spring-di" />
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
