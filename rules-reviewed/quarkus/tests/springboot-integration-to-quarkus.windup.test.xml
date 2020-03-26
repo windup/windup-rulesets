@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ruletest id="FIX_RULESET_ID-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/springboot-integration</testDataPath>
+    <!-- By default sourceMode is True, so it will only consider .java files, not .jar binaries -->
+    <sourceMode>false</sourceMode>
+    <rulePath>../springboot-integration-to-quarkus.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="springboot-integration-to-quarkus-00000-test">
+                <when>
+                    <not>
+                        <hint-exists message="SpringBoot Integration is not supported. A migration to Apache Camel is mandatory."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-integration-to-quarkus-extension] SpringBoot Integration not supported was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

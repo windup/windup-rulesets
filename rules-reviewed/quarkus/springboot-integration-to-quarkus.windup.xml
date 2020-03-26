@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="springboot-di-toquarkus"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints to migrate from SpringBoot Integration to Quarkus
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="springboot" />
+        <targetTechnology id="quarkus" />
+    </metadata>
+    <rules>
+        <rule id="springboot-integration-to-quarkus-00000">
+            <when>
+                <dependency groupId="org.springframework.integration" artifactId="spring-integration-core"/>
+            </when>
+            <perform>
+                <hint title="SpringBoot Integration is not supported. A migration to Apache Camel is mandatory." effort="1" category-id="mandatory">
+                    <message>SpringBoot Integration is not supported. A migration to Apache Camel is mandatory.</message>
+                    <link title="Quarkus Apache Camel : " href="https://quarkus.io/guides/camel" />
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
