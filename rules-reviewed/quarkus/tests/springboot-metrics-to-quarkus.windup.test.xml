@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<ruletest id="quarkus-metrics-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/springboot-metrics</testDataPath>
+    <!-- By default sourceMode is True, so it will only consider .java files, not .jar binaries -->
+    <sourceMode>false</sourceMode>
+    <rulePath>../springboot-metrics-to-quarkus.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="springboot-metrics-to-quarkus-00000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace the Micrometer dependency with Quarkus 'quarkus-smallrye-metrics' artifact"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-metrics-to-quarkus-extension] Micrometer Dependency artifact replaced by Quarkus artifact was not found!" />
+                </perform>
+            </rule>
+            <rule id="springboot-metrics-to-quarkus-00010-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace the Micrometer code with Microprole Metrics code"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-metrics-to-quarkus-annotations] Micrometer code replaced by Microprofile Metrics code was not found!" />
+                </perform>
+            </rule>
+            <rule id="springboot-metrics-to-quarkus-00020-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace the Micrometer metric annotation with Microprofile metric annotation"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-metrics-to-quarkus-annotations] SpringBoot Micrometer metric replaced by Microprofile metric was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
