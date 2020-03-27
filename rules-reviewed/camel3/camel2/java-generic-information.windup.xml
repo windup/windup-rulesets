@@ -622,5 +622,31 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="java-generic-information-00032">
+            <when>
+                <or>
+                    <!-- Spring XML -->
+                    <xmlfile matches="//c:camelContext/c:properties">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/spring"/>
+                    </xmlfile>
+                    <!-- Blueprint XML -->
+                    <xmlfile matches="//c:camelContext/c:properties">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/blueprint"/>
+                    </xmlfile>
+                    <!-- Java-->
+                    <javaclass references="org.apache.camel.CamelContext.{get|set}Propert{y|ies}({*})" >
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel.CamelContext` property methods have been removed." effort="1"
+                      category-id="mandatory">
+                    <message>The `getProperties` and `setProperty` methods have been removed from `org.apache.camel.CamelContext`. Please use `getGlobalOptions` and `setGlobalOptions` instead</message>
+                    <link title="Camel 3 - Migration Guide: CONFIGURING GLOBAL OPTIONS ON CAMELCONTEXT"
+                          href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_configuring_global_options_on_camelcontext"/>
+                </hint>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
