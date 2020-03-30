@@ -29,5 +29,34 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="springboot-integration-to-quarkus-00010">
+            <when>
+                <xmlfile matches="//*[local-name()='channel']">
+                    <namespace prefix="int" uri="http://www.springframework.org/schema/integration"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="SpringBoot Integration flow is not supported. A migration to Apache Camel route is mandatory." effort="3" category-id="mandatory">
+                    <message>
+                        SpringBoot Integration flow is not supported. A migration to Apache Camel route is mandatory.
+                    </message>
+                    <link title="Quarkus Apache Camel" href="https://quarkus.io/guides/camel" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="springboot-integration-to-quarkus-00020">
+            <when>
+                <javaclass references="org.springframework.integration.dsl.IntegrationFlow">
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="SpringBoot IntegrationFlow is not supported. A migration to Apache Camel route using From is mandatory." effort="3" category-id="mandatory">
+                    <message>
+                        SpringBoot IntegrationFlow is not supported. A migration to Apache Camel route using From is mandatory.
+                    </message>
+                    <link title="Quarkus Apache Camel" href="https://quarkus.io/guides/camel" />
+                </hint>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
