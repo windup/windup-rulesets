@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="springboot-di-toquarkus"
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="springboot-integration-to-quarkus"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <metadata>
         <description>
@@ -19,9 +19,13 @@
                 <dependency groupId="org.springframework.integration" artifactId="spring-integration-core"/>
             </when>
             <perform>
-                <hint title="SpringBoot Integration is not supported. A migration to Apache Camel is mandatory." effort="1" category-id="mandatory">
-                    <message>SpringBoot Integration is not supported. A migration to Apache Camel is mandatory.</message>
-                    <link title="Quarkus Apache Camel : " href="https://quarkus.io/guides/camel" />
+                <hint title="SpringBoot Integration is not supported. A migration to Apache Camel is mandatory." effort="10" category-id="mandatory">
+                    <message>
+                        SpringBoot Integration is not supported. A migration to Apache Camel is mandatory.
+                        Spring dependency `org.springframework.boot:spring-boot-starter-integration` need to move to `org.apache.camel.quarkus:camel-quarkus-parent`.
+                        Spring Integration Flows must be recoded into Apache Camel Routes.
+                    </message>
+                    <link title="Quarkus Apache Camel" href="https://quarkus.io/guides/camel" />
                 </hint>
             </perform>
         </rule>
