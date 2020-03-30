@@ -20,8 +20,14 @@
             </when>
             <perform>
                 <hint title="Replace the SpringBoot Dependency Injection artifact with Quarkus 'spring-di' extension" effort="1" category-id="mandatory">
-                    <message>Replace the SpringBoot Dependency Injection artifact with Quarkus 'spring-di' extension</message>
-                    <link title="Quarkus DI : " href="https://quarkus.io/guides/spring-di" />
+                    <message>
+                        Replace the SpringBoot Dependency Injection artifact with Quarkus `spring-di` extension
+
+                        Spring DI is in spring-beans artifact brought transitively by any `org.springframework.boot:spring-boot-*` dependency
+                        Add Quarkus dependency `io.quarkus:quarkus-spring-di`
+                    </message>
+                    <link title="Quarkus DI Guide" href="https://quarkus.io/guides/spring-di" />
+
                 </hint>
             </perform>
         </rule>
@@ -33,8 +39,12 @@
             </when>
             <perform>
                 <hint title="Replace the @{annotation} annotation usages with CDI @ApplicationScoped" effort="1" category-id="mandatory">
-                    <message>Replace the @{annotation} annotation usages with CDI @ApplicationScoped</message>
-                    <link title="Quarkus DI : " href="https://quarkus.io/guides/spring-di" />
+                    <message>Replace the `@org.springframework.stereotype.{annotation}` annotation usages with CDI `@javax.enterprise.context.ApplicationScoped`</message>
+                    <link title="Quarkus DI Guide" href="https://quarkus.io/guides/spring-di" />
+                    <quickfix type="REPLACE" name="di-dependency-component">
+                        <replacement>javax.enterprise.context.ApplicationScoped</replacement>
+                        <search>org.springframework.stereotype.Component</search>
+                    </quickfix>
                 </hint>
             </perform>
             <where param="annotation">
@@ -49,8 +59,12 @@
             </when>
             <perform>
                 <hint title="Replace the @Autowired annotation usages with CDI @Inject" effort="1" category-id="mandatory">
-                    <message>Replace the @Autowired annotation usages with CDI @Inject</message>
-                    <link title="Quarkus DI : " href="https://quarkus.io/guides/spring-di" />
+                    <message>Replace the `@org.springframework.beans.factory.annotation.Autowired` annotation usages with CDI `@javax.inject.Inject`</message>
+                    <link title="Quarkus DI Guide" href="https://quarkus.io/guides/spring-di" />
+                    <quickfix type="REPLACE" name="di-dependency-component">
+                        <replacement>javax.inject.Inject</replacement>
+                        <search>org.springframework.beans.factory.annotation.Autowired</search>
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
