@@ -19,9 +19,12 @@
                 <dependency groupId="io.micrometer" artifactId="micrometer-core"/>
             </when>
             <perform>
-                <hint title="Replace the Micrometer dependency with Quarkus 'quarkus-smallrye-metrics' artifact" effort="1" category-id="mandatory">
-                    <message>Replace the Micrometer dependency with Quarkus 'quarkus-smallrye-metrics' artifact</message>
-                    <link title="Quarkus metrics : " href="https://quarkus.io/guides/microprofile-metrics" />
+                <hint title="Replace the Micrometer dependency with Quarkus 'metrics' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the Micrometer dependency with Quarkus 'metrics' extension
+                        Usually this is a transitive dependency brought by `org.springframework.boot:spring-boot-starter-actuator` and has to be replaced by `io.quarkus:quarkus-smallrye-metrics' artifact`
+                    </message>
+                    <link title="Quarkus metrics" href="https://quarkus.io/guides/microprofile-metrics" />
                 </hint>
             </perform>
         </rule>
@@ -33,8 +36,11 @@
             </when>
             <perform>
                 <hint title="Replace the Micrometer code with Microprole Metrics code" effort="1" category-id="mandatory">
-                    <message>Replace the Micrometer code with Microprole Metrics code</message>
-                    <link title="Quarkus metrics : " href="https://quarkus.io/guides/microprofile-metrics" />
+                    <message>
+                        Replace the Micrometer code with Microprole Metrics code
+                        example `io.micrometer.core.instrument.MeterRegistry` replaced by `org.eclipse.microprofile.metrics.MetricRegistry`
+                    </message>
+                    <link title="Quarkus metrics" href="https://quarkus.io/guides/microprofile-metrics" />
                 </hint>
             </perform>
         </rule>
@@ -46,8 +52,11 @@
             </when>
             <perform>
                 <hint title="Replace the Micrometer metric annotation with Microprofile metric annotation" effort="1" category-id="mandatory">
-                    <message>Replace the Micrometer metric annotation with Microprofile metric annotation</message>
-                    <link title="Quarkus metrics : " href="https://quarkus.io/guides/microprofile-metrics" />
+                    <message>
+                        Replace the Micrometer metric annotation with Microprofile metric annotation
+                        example `io.micrometer.core.annotation.Timed` replaced by `org.eclipse.microprofile.metrics.annotation.Timed`
+                    </message>
+                    <link title="Quarkus metrics" href="https://quarkus.io/guides/microprofile-metrics" />
                 </hint>
             </perform>
         </rule>
