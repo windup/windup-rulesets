@@ -6,6 +6,7 @@
     <testDataPath>data/springboot-metrics</testDataPath>
     <!-- By default sourceMode is True, so it will only consider .java files, not .jar binaries -->
     <sourceMode>false</sourceMode>
+    <rulePath>../../../technology-usage/embedded-framework.windup.xml</rulePath>
     <rulePath>../springboot-metrics-to-quarkus.windup.xml</rulePath>
     <ruleset>
         <rules>
@@ -37,6 +38,31 @@
                 </when>
                 <perform>
                     <fail message="[springboot-metrics-to-quarkus-annotations] SpringBoot Micrometer metric replaced by Microprofile metric was not found!" />
+                </perform>
+            </rule>
+            <rule id="embedded-framework-08200-test">
+                <when>
+                    <not>
+                        <classification-exists classification="Embedded framework - Micrometer"/>
+                        <technology-tag-exists technology-tag="Micrometer \(embedded\)"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Expected data not found for rule embedded-framework-08200"/>
+                </perform>
+            </rule>
+            <rule id="technology-usage-embedded-framework-08200-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="Micrometer" number-found="1">
+                            <tag name="Execute"/>
+                            <tag name="Embedded"/>
+                            <tag name="Metrics"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Expected data not found for rule technology-usage-embedded-framework-08200"/>
                 </perform>
             </rule>
         </rules>

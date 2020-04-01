@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="springboot-metrics-toquarkus"
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="springboot-metrics-to-quarkus"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <metadata>
         <description>
@@ -12,23 +12,24 @@
         </dependencies>
         <sourceTechnology id="springboot" />
         <targetTechnology id="quarkus" />
+        <executeAfter>embedded-framework</executeAfter>
     </metadata>
     <rules>
-        <rule id="springboot-metrics-to-quarkus-00000">
+        <rule id="springboot-metrics-to-quarkus-0100">
             <when>
                 <technology-tag-exists technology-tag="Micrometer (embedded)"/>
             </when>
             <perform>
                 <hint title="Replace the Micrometer dependency with Quarkus 'metrics' extension" effort="1" category-id="mandatory">
                     <message>
-                        Replace the Micrometer dependency with Quarkus 'metrics' extension  
+                        Replace the Micrometer dependency with Quarkus 'metrics' extension
                         Usually this is a transitive dependency brought by `org.springframework.boot:spring-boot-starter-actuator` and has to be replaced by `io.quarkus:quarkus-smallrye-metrics' artifact`
                     </message>
                     <link title="Quarkus metrics" href="https://quarkus.io/guides/microprofile-metrics" />
                 </hint>
             </perform>
         </rule>
-        <rule id="springboot-metrics-to-quarkus-00010">
+        <rule id="springboot-metrics-to-quarkus-0400">
             <when>
                 <javaclass references="io.micrometer.core.instrument.{*}">
                     <location>IMPORT</location>
@@ -44,7 +45,7 @@
                 </hint>
             </perform>
         </rule>
-        <rule id="springboot-metrics-to-quarkus-00020">
+        <rule id="springboot-metrics-to-quarkus-0500">
             <when>
                 <javaclass references="io.micrometer.core.annotation.{*}">
                     <location>IMPORT</location>
