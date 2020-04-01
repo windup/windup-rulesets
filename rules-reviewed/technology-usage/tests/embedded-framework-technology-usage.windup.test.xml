@@ -936,6 +936,20 @@
             <perform>
                <fail message="Expected data not found for rule technology-usage-embedded-framework-08100"/>
             </perform>
+         </rule>         
+         <rule id="technology-usage-embedded-framework-08200-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Spring DI" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="Inversion of Control"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-08200"/>
+            </perform>
          </rule>
       </rules>
    </ruleset>
