@@ -236,7 +236,7 @@
             </when>
             <perform>
                     <hint title="`includeRoutes` method has been removed" effort="1" category-id="mandatory">
-                        <message>`includeRoutes` method has been removed"
+                        <message>`includeRoutes` method has been removed
                         </message>
                         <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information"
                                 title="Camel 3 - Migration Guide"/>
@@ -416,7 +416,7 @@
             </when>
             <perform>
                 <hint title="xslt method was removed from `org.apache.camel.util.toolbox.AggregationStrategies`" effort="1" category-id="mandatory">
-                    <message>xslt method was removed from `org.apache.camel.util.toolbox.AggregationStrategies`. Instead use the `XsltAggregationStrategy` from `camel-xslt` JAR directly`</message>
+                    <message>xslt method was removed from `org.apache.camel.util.toolbox.AggregationStrategies`. Instead use the `XsltAggregationStrategy` from `camel-xslt` JAR directly</message>
                     <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information"
                             title="Camel 3 - Migration Guide"/>
                 </hint>
@@ -645,6 +645,19 @@
                     <message>The `getProperties` and `setProperty` methods have been removed from `org.apache.camel.CamelContext`. Please use `getGlobalOptions` and `setGlobalOptions` instead</message>
                     <link title="Camel 3 - Migration Guide: CONFIGURING GLOBAL OPTIONS ON CAMELCONTEXT"
                           href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_configuring_global_options_on_camelcontext"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-00033">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-fhir" toVersion="2"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-fhir` default FHIR specification has changed from DSTU3 to R4" effort="0" category-id="information" >
+                    <message>The default FHIR specification in the `org.apache.camel:camel-fhir` artifact has changed from DSTU3 to R4. Therefore if DSTU3 is desired it has to be explicitly set.</message>
+                    <link title="Camel 3 - Migration Guide: FHIR" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_fhir" />
                 </hint>
             </perform>
         </rule>
