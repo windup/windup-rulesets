@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 		http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
 
     <bean id="function1" class="org.jboss.qe.camel.components.xslt.extensions.MyExtensionFunction1"/>
@@ -9,7 +9,6 @@
     <bean id="aggregationStrategy" class="org.apache.camel.util.toolbox.XsltAggregationStrategy">
         <constructor-arg value="/xslt/aggregationStrategy.xsl"/>
     </bean>
-
     <camelContext id="test-camel-context" xmlns="http://camel.apache.org/schema/spring" autoStartup="true">
         <dataFormats>
             <jaxb id="myJaxb" prettyPrint="true" contextPath="org.apache.camel.example"/>
@@ -34,6 +33,18 @@
         <route>
             <from uri="vm:bar?concurrentConsumers=5"/>
             <to uri="validator:org/apache/camel/component/validator/schema.xsd?headerName=headerToValidate&amp;failOnNullHeader=false"/>
+        </route>
+
+        <route>
+            <from uri="direct:start"/>
+            <unmarshal>
+                <zipFile/>
+            </unmarshal>
+            <loadBalance>
+                <custom ref="myCustomLoadBalancer"/>
+                <to uri="mock:x"/>
+                <to uri="mock:y"/>
+            </loadBalance>
         </route>
     </camelContext>
 </beans>
