@@ -46,5 +46,18 @@
                 <to uri="mock:y"/>
             </loadBalance>
         </route>
+
+        <route>
+            <from uri="direct:circuit-breaker"/>
+            <hystrix>
+                <to uri="http://fooservice.com/slow"/>
+                <onFallback>
+                    <transform>
+                        <constant>Fallback message</constant>
+                    </transform>
+                </onFallback>
+            </hystrix>
+            <to uri="mock:result"/>
+        </route>
     </camelContext>
 </beans>

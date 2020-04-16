@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="java-dsl-changes"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            Rules for changes in XML file (e.g. pom.xml) to run on Apache Camel 3
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final"/>
+        </dependencies>
+        <sourceTechnology id="camel" versionRange="[2,3)"/>
+        <targetTechnology id="camel" versionRange="[3,)"/>
+    </metadata>
+    <rules>
+        <rule id="java-dsl-changes-00001">
+            <when>
+                <javaclass references="{*}.hystrix()">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="`hystrix()` has been renamed." effort="1" category-id="mandatory">
+                    <message>Hystrix circuit breaker has been generalized as circuit breaker. Use `circuitBreaker()`
+                        instead of `hystrix()`
+                    </message>
+                    <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_hystrix_eip"
+                          title="Camel 3 - Migration Guide - Hystrix EIP"/>
+                    <quickfix type="REPLACE" name="camel.eip.hystrix.replacement">
+                        <replacement>.circuitBreaker()</replacement>
+                        <search>.hystrix()</search>
+                    </quickfix>
+                </hint>
+
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

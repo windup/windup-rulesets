@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ruletest id="java-dsl-changes-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/java-dsl-changes</testDataPath>
+    <rulePath>../java-dsl-changes.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="java-dsl-changes-00001-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists
+                                    message="Hystrix circuit breaker has been generalized as circuit breaker. Use `circuitBreaker().*`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[Camel Hystrix EIP] not found!"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

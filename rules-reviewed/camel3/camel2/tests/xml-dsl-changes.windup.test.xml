@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
-<ruletest id="xml-generic-information-tests"
+<ruletest id="xml-dsl-changes-tests"
           xmlns="http://windup.jboss.org/schema/jboss-ruleset"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
-    <testDataPath>data/xml-generic-information</testDataPath>
-    <rulePath>../xml-generic-information.windup.xml</rulePath>
+    <testDataPath>data/xml-dsl-changes</testDataPath>
+    <rulePath>../xml-dsl-changes.windup.xml</rulePath>
     <ruleset>
         <rules>
-            <rule id="xml-generic-information-00001-test">
+            <rule id="xml-dsl-changes-00001-test">
                 <when>
                     <not>
                         <iterable-filter size="1">
@@ -19,7 +19,7 @@
                     <fail message="[generic-information] Camel dependency moved hint was not found!"/>
                 </perform>
             </rule>
-            <rule id="xml-generic-information-00002-test">
+            <rule id="xml-dsl-changes-00002-test">
                 <when>
                     <not>
                         <iterable-filter size="2">
@@ -31,7 +31,7 @@
                     <fail message="[Camel XML DSL changed] Hint for renamed custom loadbalancer not found!"/>
                 </perform>
             </rule>
-            <rule id="xml-generic-information-00003-test">
+            <rule id="xml-dsl-changes-00003-test">
                 <when>
                     <not>
                         <iterable-filter size="1">
@@ -43,7 +43,7 @@
                     <fail message="[Camel XML DSL changed] Hint for renamed zipFile dataformat not found!"/>
                 </perform>
             </rule>
-            <rule id="xml-generic-information-00004-test">
+            <rule id="xml-dsl-changes-00004-test">
                 <when>
                     <not>
                         <iterable-filter size="1">
@@ -54,6 +54,19 @@
                 </when>
                 <perform>
                     <fail message="[Camel XML DSL changed] Hint for renamed parameter not found!"/>
+                </perform>
+            </rule>
+        <rule id="xml-dsl-changes-00005-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists
+                                    message="Hystrix circuit breaker has been generalized as circuit breaker. Use `circuitBreaker.*`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[Camel XML DSL changed] not found!"/>
                 </perform>
             </rule>
         </rules>

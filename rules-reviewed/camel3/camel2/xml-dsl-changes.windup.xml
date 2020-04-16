@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="xml-generic-information"
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="xml-dsl-changes"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <metadata>
@@ -13,7 +13,7 @@
         <targetTechnology id="camel" versionRange="[3,)"/>
     </metadata>
     <rules>
-        <rule id="xml-generic-information-00001">
+        <rule id="xml-dsl-changes-00001">
             <when>
                 <or>
                     <xmlfile matches="//*[(count(b:zip)+count(b:gzip)) >0]">
@@ -34,7 +34,7 @@
                 </hint>
             </perform>
         </rule>
-        <rule id="xml-generic-information-00002">
+        <rule id="xml-dsl-changes-00002">
             <when>
                 <or>
                     <xmlfile matches="//*/b:route/b:loadBalance/b:custom">
@@ -60,7 +60,7 @@
                 </hint>
             </perform>
         </rule>
-        <rule id="xml-generic-information-00003">
+        <rule id="xml-dsl-changes-00003">
             <when>
                 <or>
                     <xmlfile matches="//*/b:marshal/b:zipFile">
@@ -92,7 +92,7 @@
                 </hint>
             </perform>
         </rule>
-        <rule id="xml-generic-information-00004">
+        <rule id="xml-dsl-changes-00004">
             <when>
                 <or>
                     <xmlfile matches="//*/b:secureXML/@keyOrTrustStoreParametersId">
@@ -114,6 +114,35 @@
                     <quickfix type="REPLACE" name="camel.dataformat.securexml.replacement">
                         <replacement>keyOrTrustStoreParametersId</replacement>
                         <search>keyOrTrustStoreParametersId</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-dsl-changes-00005">
+            <when>
+                <or>
+                    <xmlfile matches="//b:hystrix">
+                        <namespace prefix="b" uri="http://camel.apache.org/schema/blueprint"/>
+                    </xmlfile>
+                    <xmlfile matches="//*/c:hystrix">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/spring"/>
+                    </xmlfile>
+                </or>
+            </when>
+            <perform>
+                <hint title="`hystrix` was renamed" effort="1"
+                      category-id="mandatory">
+                    <message>Hystrix circuit breaker has been generalized as circuit breaker. Use `circuitBreaker` instead of `hystrix'.
+                    </message>
+                    <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_xml_dsl_migration"
+                          title="Camel 3 - Migration Guide"/>
+                    <quickfix type="REPLACE" name="camel.eip.hystrix.replacement.spring">
+                        <replacement>b:circuitBreaker</replacement>
+                        <search>b:hystrix</search>
+                    </quickfix>
+                    <quickfix type="REPLACE" name="camel.eip.hystrix.replacement.blueprint">
+                        <replacement>c:circuitBreaker</replacement>
+                        <search>c:hystrix</search>
                     </quickfix>
                 </hint>
             </perform>
