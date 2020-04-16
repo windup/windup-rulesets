@@ -17,7 +17,7 @@
     <rules>
         <rule id="springboot-metrics-to-quarkus-0100">
             <when>
-                <technology-tag-exists technology-tag="Micrometer (embedded)"/>
+                <dependency groupId="io.micrometer" artifactId="micrometer-core"/>
             </when>
             <perform>
                 <hint title="Replace the Micrometer dependency with Quarkus 'metrics' extension" effort="1" category-id="mandatory">
@@ -29,7 +29,7 @@
                 </hint>
             </perform>
         </rule>
-        <rule id="springboot-metrics-to-quarkus-0400">
+        <rule id="springboot-metrics-to-quarkus-0200">
             <when>
                 <javaclass references="io.micrometer.core.instrument.{*}">
                     <location>IMPORT</location>
@@ -45,7 +45,7 @@
                 </hint>
             </perform>
         </rule>
-        <rule id="springboot-metrics-to-quarkus-0500">
+        <rule id="springboot-metrics-to-quarkus-0300">
             <when>
                 <javaclass references="io.micrometer.core.annotation.{*}">
                     <location>IMPORT</location>

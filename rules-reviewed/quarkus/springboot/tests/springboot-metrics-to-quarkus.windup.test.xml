@@ -5,12 +5,12 @@
           xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <testDataPath>data/springboot-metrics</testDataPath>
     <!-- By default sourceMode is True, so it will only consider .java files, not .jar binaries -->
-    <sourceMode>false</sourceMode>
+    <sourceMode>true</sourceMode>
     <rulePath>../../../technology-usage/embedded-framework.windup.xml</rulePath>
     <rulePath>../springboot-metrics-to-quarkus.windup.xml</rulePath>
     <ruleset>
         <rules>
-            <rule id="springboot-metrics-to-quarkus-00000-test">
+            <rule id="springboot-metrics-to-quarkus-0100-test">
                 <when>
                     <not>
                         <hint-exists message="Replace the Micrometer dependency with Quarkus 'metrics' extension"/>
@@ -20,7 +20,7 @@
                     <fail message="[springboot-metrics-to-quarkus-extension] Micrometer Dependency artifact replaced by Quarkus artifact was not found!" />
                 </perform>
             </rule>
-            <rule id="springboot-metrics-to-quarkus-00010-test">
+            <rule id="springboot-metrics-to-quarkus-0200-test">
                 <when>
                     <not>
                         <hint-exists message="Replace the Micrometer code with Microprole Metrics code"/>
@@ -30,7 +30,7 @@
                     <fail message="[springboot-metrics-to-quarkus-annotations] Micrometer code replaced by Microprofile Metrics code was not found!" />
                 </perform>
             </rule>
-            <rule id="springboot-metrics-to-quarkus-00020-test">
+            <rule id="springboot-metrics-to-quarkus-0300-test">
                 <when>
                     <not>
                         <hint-exists message="Replace the Micrometer metric annotation with Microprofile metric annotation"/>
@@ -40,7 +40,7 @@
                     <fail message="[springboot-metrics-to-quarkus-annotations] SpringBoot Micrometer metric replaced by Microprofile metric was not found!" />
                 </perform>
             </rule>
-            <rule id="embedded-framework-08200-test">
+            <rule id="springboot-metrics-embedded-framework-08200-test">
                 <when>
                     <not>
                         <classification-exists classification="Embedded framework - Micrometer"/>
@@ -49,20 +49,6 @@
                 </when>
                 <perform>
                     <fail message="Expected data not found for rule embedded-framework-08200"/>
-                </perform>
-            </rule>
-            <rule id="technology-usage-embedded-framework-08200-test">
-                <when>
-                    <not>
-                        <technology-statistics-exists name="Micrometer" number-found="1">
-                            <tag name="Execute"/>
-                            <tag name="Embedded"/>
-                            <tag name="Metrics"/>
-                        </technology-statistics-exists>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="Expected data not found for rule technology-usage-embedded-framework-08200"/>
                 </perform>
             </rule>
         </rules>
