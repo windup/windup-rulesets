@@ -211,5 +211,61 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="xml-dsl-changes-00008">
+            <when>
+                <or>
+                    <xmlfile matches="//*/b:setHeader/@headerName">
+                        <namespace prefix="b" uri="http://camel.apache.org/schema/blueprint"/>
+                    </xmlfile>
+                    <xmlfile matches="//*/c:setHeader/@headerName">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/spring"/>
+                    </xmlfile>
+                </or>
+            </when>
+            <perform>
+                <hint title="`completionSize` in aggregate was renamed" effort="1"
+                      category-id="mandatory">
+                    <message>The attribute `headerName` was renamed to `name`.</message>
+                    <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_setheader_and_setproperty_in_xml_dsl"
+                          title="Camel 3 - Migration Guide - Aggregate EIP changes"/>
+                    <quickfix type="REPLACE" name="camel.header.name.replacement.spring">
+                        <replacement>c:setHeader/@name</replacement>
+                        <search>c:setHeader/@headerName</search>
+                    </quickfix>
+                    <quickfix type="REPLACE" name="camel.header.name.blueprint">
+                        <replacement>c:b:setHeader/@name</replacement>
+                        <search>b:setHeader/@headerName</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-dsl-changes-00009">
+            <when>
+                <or>
+                    <xmlfile matches="//*/b:setProperty/@propertyName">
+                        <namespace prefix="b" uri="http://camel.apache.org/schema/blueprint"/>
+                    </xmlfile>
+                    <xmlfile matches="//*/c:setProperty/@propertyName">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/spring"/>
+                    </xmlfile>
+                </or>
+            </when>
+            <perform>
+                <hint title="`completionSize` in aggregate was renamed" effort="1"
+                      category-id="mandatory">
+                    <message>The attribute `propertyName` was renamed to `name`.</message>
+                    <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_setheader_and_setproperty_in_xml_dsl"
+                          title="Camel 3 - Migration Guide - Aggregate EIP changes"/>
+                    <quickfix type="REPLACE" name="camel.header.name.replacement.spring">
+                        <replacement>c:setHeader/@name</replacement>
+                        <search>c:setHeader/@propertyName</search>
+                    </quickfix>
+                    <quickfix type="REPLACE" name="camel.header.name.blueprint">
+                        <replacement>c:b:setHeader/@name</replacement>
+                        <search>b:setHeader/@propertyName</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
     </rules>
 </ruleset>

@@ -49,6 +49,7 @@
 
         <route>
             <from uri="direct:circuit-breaker"/>
+            <setProperty propertyName="foo"><simple>Hello ${body}</simple></setProperty>
             <hystrix>
                 <to uri="http://fooservice.com/slow"/>
                 <onFallback>

@@ -95,6 +95,32 @@
                     <fail message="[Camel XML DSL changed] Aggregate change not found!"/>
                 </perform>
             </rule>
+            <rule id="xml-dsl-changes-00008-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists
+                                    message="The attribute `headerName` was renamed to `name`."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[Camel XML DSL changed] Aggregate change not found!"/>
+                </perform>
+            </rule>
+            <rule id="xml-dsl-changes-00009-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists
+                                    message="The attribute `propertyName` was renamed to `name`."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[Camel XML DSL changed] Aggregate change not found!"/>
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
