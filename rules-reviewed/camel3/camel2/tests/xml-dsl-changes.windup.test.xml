@@ -56,7 +56,7 @@
                     <fail message="[Camel XML DSL changed] Hint for renamed parameter not found!"/>
                 </perform>
             </rule>
-        <rule id="xml-dsl-changes-00005-test">
+            <rule id="xml-dsl-changes-00005-test">
                 <when>
                     <not>
                         <iterable-filter size="1">
@@ -67,6 +67,32 @@
                 </when>
                 <perform>
                     <fail message="[Camel XML DSL changed] not found!"/>
+                </perform>
+            </rule>
+            <rule id="xml-dsl-changes-00006-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists
+                                    message=" Use `completionSizeExpression` instead of `completionSize*`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[Camel XML DSL changed] Aggregate change not found!"/>
+                </perform>
+            </rule>
+            <rule id="xml-dsl-changes-00007-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists
+                                    message=" Use `completionTimeoutExpression` instead of `completionTimeout*`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[Camel XML DSL changed] Aggregate change not found!"/>
                 </perform>
             </rule>
         </rules>

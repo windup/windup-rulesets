@@ -19,6 +19,20 @@
                 <to uri="mock:y"/>
             </loadBalance>
         </route>
+
+        <route>
+            <from uri="direct:start"/>
+            <aggregate>
+                <completionSize>
+                    <header>mySize</header>
+                </completionSize>
+                <completionTimeout>
+                    <header>5000</header>
+                </completionTimeout>
+                <to uri="mock:result"/>
+            </aggregate>
+        </route>
+
     </camelContext>
 
 </blueprint>

@@ -132,7 +132,8 @@
             <perform>
                 <hint title="`hystrix` was renamed" effort="1"
                       category-id="mandatory">
-                    <message>Hystrix circuit breaker has been generalized as circuit breaker. Use `circuitBreaker` instead of `hystrix'.
+                    <message>Hystrix circuit breaker has been generalized as circuit breaker. Use `circuitBreaker`
+                        instead of `hystrix'.
                     </message>
                     <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_xml_dsl_migration"
                           title="Camel 3 - Migration Guide"/>
@@ -143,6 +144,69 @@
                     <quickfix type="REPLACE" name="camel.eip.hystrix.replacement.blueprint">
                         <replacement>c:circuitBreaker</replacement>
                         <search>c:hystrix</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-dsl-changes-00006">
+            <when>
+                <or>
+                    <xmlfile matches="//*/b:aggregate/b:completionSize">
+                        <namespace prefix="b" uri="http://camel.apache.org/schema/blueprint"/>
+                    </xmlfile>
+                    <xmlfile matches="//*/c:aggregate/c:completionSize">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/spring"/>
+                    </xmlfile>
+                </or>
+            </when>
+            <perform>
+                <hint title="`completionSize` in aggregate was renamed" effort="1"
+                      category-id="mandatory">
+                    <message>Use
+                        Use `completionSizeExpression` instead of `completionSize`. Expressions (not the attributes) for
+                        setting correlation size/timeout were renamed.
+                    </message>
+                    <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_aggregate_eip_in_xml_dsl"
+                          title="Camel 3 - Migration Guide - Aggregate EIP changes"/>
+                    <quickfix type="REPLACE" name="camel.eip.aggregate.size.replacement.spring">
+                        <replacement>b:completionSizeExpression</replacement>
+                        <search>b:completionSize</search>
+                    </quickfix>
+                    <quickfix type="REPLACE" name="camel.eip.aggregate.size.replacement.blueprint">
+                        <replacement>c:completionSizeExpression</replacement>
+                        <search>c:completionSize</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-dsl-changes-00007">
+            <when>
+                <or>
+                    <xmlfile matches="//*/b:aggregate/b:completionTimeout">
+                        <namespace prefix="b" uri="http://camel.apache.org/schema/blueprint"/>
+                    </xmlfile>
+                    <xmlfile matches="//*/c:aggregate/c:completionTimeout">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/spring"/>
+                    </xmlfile>
+                </or>
+            </when>
+            <perform>
+                <hint title="`completionSize` in aggregate was renamed" effort="1"
+                      category-id="mandatory">
+                    <message>Use
+                        Use `completionTimeoutExpression` instead of `completionTimeout`. Expressions (not the
+                        attributes) for
+                        setting correlation size/timeout were renamed.
+                    </message>
+                    <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_aggregate_eip_in_xml_dsl"
+                          title="Camel 3 - Migration Guide - Aggregate EIP changes"/>
+                    <quickfix type="REPLACE" name="camel.eip.aggregate.timeout.replacement.spring">
+                        <replacement>b:completionTimeoutExpression</replacement>
+                        <search>b:completionTimeout</search>
+                    </quickfix>
+                    <quickfix type="REPLACE" name="camel.eip.aggregate.timeout.blueprint">
+                        <replacement>c:completionSizeExpression</replacement>
+                        <search>c:completionSize</search>
                     </quickfix>
                 </hint>
             </perform>
