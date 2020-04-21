@@ -12,7 +12,6 @@
         </dependencies>
         <sourceTechnology id="springboot" />
         <targetTechnology id="quarkus" />
-        <executeAfter>embedded-framework</executeAfter>
     </metadata>
     <rules>
         <rule id="springboot-metrics-to-quarkus-0100">
@@ -42,11 +41,12 @@
                         example `io.micrometer.core.instrument.MeterRegistry` replaced by `org.eclipse.microprofile.metrics.MetricRegistry`
                     </message>
                     <link title="Quarkus metrics" href="https://quarkus.io/guides/microprofile-metrics" />
+
+                    <quickfix name="springboot-metrics-to-quarkus-0200" type="REPLACE">
+                        <replacement>org.eclipse.microprofile.metrics.MetricRegistry</replacement>
+                        <search>io.micrometer.core.instrument.MeterRegistry</search>
+                    </quickfix>
                 </hint>
-                <quickfix name="springboot-metrics-to-quarkus-0200" type="REPLACE">
-                    <replacement>org.eclipse.microprofile.metrics.MetricRegistry</replacement>
-                    <search>io.micrometer.core.instrument.MeterRegistry</search>
-                </quickfix>
             </perform>
         </rule>
         <rule id="springboot-metrics-to-quarkus-0300">
@@ -62,11 +62,12 @@
                         example `io.micrometer.core.annotation.Timed` replaced by `org.eclipse.microprofile.metrics.annotation.Timed`
                     </message>
                     <link title="Quarkus metrics" href="https://quarkus.io/guides/microprofile-metrics" />
-                </hint>
-                <quickfix name="springboot-metrics-to-quarkus-0300" type="REPLACE">
-                    <replacement>org.eclipse.microprofile.metrics.annotation.Timed</replacement>
-                    <search>io.micrometer.core.annotation.Timed</search>
-                </quickfix>
+
+                    <quickfix name="springboot-metrics-to-quarkus-0300" type="REPLACE">
+                        <replacement>org.eclipse.microprofile.metrics.annotation.Timed</replacement>
+                        <search>io.micrometer.core.annotation.Timed</search>
+                    </quickfix>
+                </hint>                
             </perform>
         </rule>
     </rules>
