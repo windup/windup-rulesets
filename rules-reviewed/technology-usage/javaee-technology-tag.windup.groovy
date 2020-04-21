@@ -1,7 +1,5 @@
 import org.jboss.windup.config.GraphRewrite
 import org.jboss.windup.config.operation.iteration.AbstractIterationOperation
-import org.jboss.windup.config.phase.DependentPhase
-import org.jboss.windup.config.phase.PostMigrationRulesPhase
 import org.jboss.windup.config.phase.PreReportGenerationPhase
 import org.jboss.windup.config.query.Query
 import org.jboss.windup.reporting.model.TechnologyTagLevel
@@ -14,9 +12,7 @@ List<String> technologies = Arrays.asList("EJB", "Entity Bean", "JAX-RS", "JAX-W
         "Message (MDB)", "Persistence units", "RMI", "Stateful (SFSB)", "Stateless (SLSB)")
 
 ruleSet("javaee-technology-tag")
-    .setPhase(DependentPhase.class)
-    .addExecuteAfter(PostMigrationRulesPhase.class)
-    .addExecuteBefore(PreReportGenerationPhase.class)
+    .setPhase(PreReportGenerationPhase.class)
     .addRule()
     .when(Query.fromType(TechnologyUsageStatisticsModel.class))
     .perform(new AbstractIterationOperation<TechnologyUsageStatisticsModel>() {

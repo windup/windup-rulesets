@@ -1,45 +1,39 @@
-package camel2.org.apache.camel.component.aws2.cw;
+package camel2.org.apache.camel.component.aws.cw;
 
-import java.time.Instant;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
-import org.apache.camel.BindToRegistry;
-import org.apache.camel.EndpointInject;
+import com.amazonaws.services.cloudwatch.AmazonCloudWatchClient;
+import com.amazonaws.services.cloudwatch.model.Dimension;
+import com.amazonaws.services.cloudwatch.model.MetricDatum;
+import com.amazonaws.services.cloudwatch.model.PutMetricDataRequest;
+import com.amazonaws.services.cloudwatch.model.StandardUnit;
 import org.apache.camel.Exchange;
+import org.apache.camel.ExchangePattern;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.test.junit5.CamelTestSupport;
-import org.junit.jupiter.api.Test;
-import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
-import software.amazon.awssdk.services.cloudwatch.model.StandardUnit;
+import org.apache.camel.impl.JndiRegistry;
+import org.apache.camel.test.junit4.CamelTestSupport;
+import org.junit.Test;
+import org.mockito.ArgumentCaptor;
+
+import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 public class CwComponentTest extends CamelTestSupport {
+    private static final Date NOW = new Date();
+    private static final Date LATER = new Date(NOW.getTime() + 1);
+    private AmazonCloudWatchClient cloudWatchClient = mock(AmazonCloudWatchClient.class);
 
-    @BindToRegistry("now")
-    private static final Instant NOW = Instant.now();
-
-    private static final Instant LATER = Instant.ofEpochMilli(NOW.getNano() + 1);
-
-    @BindToRegistry("amazonCwClient")
-    private CloudWatchClient cloudWatchClient = new CloudWatchClientMock();
-
-    @EndpointInject("mock:result")
-    private MockEndpoint mock;
-
-    @Test
-    public void sendMetricFromHeaderValues() throws Exception {
-        mock.expectedMessageCount(1);
-        Exchange exchange = template.request("direct:start", new Processor() {
-            public void process(Exchange exchange) throws Exception {
-                exchange.getIn().setHeader(Cw2Constants.METRIC_NAMESPACE, "camel.apache.org/overriden");
-                exchange.getIn().setHeader(Cw2Constants.METRIC_NAME, "OverridenMetric");
-                exchange.getIn().setHeader(Cw2Constants.METRIC_VALUE, Double.valueOf(3));
-                exchange.getIn().setHeader(Cw2Constants.METRIC_UNIT, StandardUnit.BYTES.toString());
-                exchange.getIn().setHeader(Cw2Constants.METRIC_TIMESTAMP, LATER);
-            }
-        });
-
-        assertMockEndpointsSatisfied();
+    @Override
+    protected JndiRegistry createRegistry() throws Exception {
+        JndiRegistry registry = super.createRegistry();
+        registry.bind("amazonCwClient", cloudWatchClient);
+        registry.bind("now", NOW);
+        return registry;
     }
 
     @Override
@@ -47,7 +41,8 @@ public class CwComponentTest extends CamelTestSupport {
         return new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("direct:start").to("aws2-cw://camel.apache.org/test?amazonCwClient=#amazonCwClient&name=testMetric&unit=BYTES&timestamp=#now").to("mock:result");
+                from("direct:start")
+                        .to("aws-cw://camel.apache.org/test?amazonCwClient=#amazonCwClient&name=testMetric&unit=Count&timestamp=#now");
             }
         };
     }

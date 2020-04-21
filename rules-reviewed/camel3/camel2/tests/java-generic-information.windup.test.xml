@@ -389,6 +389,30 @@
                     <fail message="[java-generic-information] `org.apache.camel.util.toolbox.XsltAggregationStrategy` moved hint was not found!" />
                 </perform>
             </rule>
+            <rule id="java-generic-information-00032-test">
+                <when>
+                    <not>
+                        <iterable-filter size="3">
+                            <hint-exists message="The `getProperties` and `setProperty` methods have been removed*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-generic-information] `org.apache.camel.CamelContext` `getProperties` removed hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="java-generic-information-00033-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The default FHIR specification*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-major-upgrade-components] 'camel-fhir' dependency upgrade hint was not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>

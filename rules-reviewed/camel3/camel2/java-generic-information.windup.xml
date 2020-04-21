@@ -102,7 +102,7 @@
             </when>
             <perform over="javaClass">
                 <iteration>
-                    <hint title="``org.apache.camel.impl.{registry}` has been removed." effort="1" category-id="mandatory">
+                    <hint title="`org.apache.camel.impl.{registry}` has been removed." effort="1" category-id="mandatory">
                         <message>
                             The class `org.apache.camel.impl.{registry}` has been removed. Use `org.apache.camel.support.DefaultRegistry` instead.
                         </message>
@@ -130,7 +130,7 @@
                 </javaclass>
             </when>
             <perform over="javaClass">
-                <hint title="``org.apache.camel.processor.loadbalancer.SimpleLoadBalancerSupport` has been removed." effort="1"
+                <hint title="`org.apache.camel.processor.loadbalancer.SimpleLoadBalancerSupport` has been removed." effort="1"
                         category-id="mandatory">
                     <message>
                         The class `org.apache.camel.processor.loadbalancer.SimpleLoadBalancerSupport` has been removed. Use
@@ -236,7 +236,7 @@
             </when>
             <perform>
                     <hint title="`includeRoutes` method has been removed" effort="1" category-id="mandatory">
-                        <message>`includeRoutes` method has been removed"
+                        <message>`includeRoutes` method has been removed
                         </message>
                         <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information"
                                 title="Camel 3 - Migration Guide"/>
@@ -416,7 +416,7 @@
             </when>
             <perform>
                 <hint title="xslt method was removed from `org.apache.camel.util.toolbox.AggregationStrategies`" effort="1" category-id="mandatory">
-                    <message>xslt method was removed from `org.apache.camel.util.toolbox.AggregationStrategies`. Instead use the `XsltAggregationStrategy` from `camel-xslt` JAR directly`</message>
+                    <message>xslt method was removed from `org.apache.camel.util.toolbox.AggregationStrategies`. Instead use the `XsltAggregationStrategy` from `camel-xslt` JAR directly</message>
                     <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information"
                             title="Camel 3 - Migration Guide"/>
                 </hint>
@@ -619,6 +619,45 @@
                     <message>The class `org.apache.camel.util.toolbox.XsltAggregationStrategy` has been moved to `org.apache.camel.component.xslt.XsltAggregationStrategy`. It has been moved out of `org.apache.camel:camel-core` and into `org.apache.camel:camel-xslt`. When using the option `groupedExchange` on the `aggregator` EIP, the output of the aggregation is no longer stored in the exchange property `Exchange.GROUPED_EXCHANGE`. This behaviour was already deprecated from Camel 2.13 onwards.</message>
                     <link title="Camel 3 - Migration Guide: Aggregation"
                           href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_aggregation"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-00032">
+            <when>
+                <or>
+                    <!-- Spring XML -->
+                    <xmlfile matches="//c:camelContext/c:properties">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/spring"/>
+                    </xmlfile>
+                    <!-- Blueprint XML -->
+                    <xmlfile matches="//c:camelContext/c:properties">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/blueprint"/>
+                    </xmlfile>
+                    <!-- Java-->
+                    <javaclass references="org.apache.camel.CamelContext.{get|set}Propert{y|ies}({*})" >
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel.CamelContext` property methods have been removed." effort="1"
+                      category-id="mandatory">
+                    <message>The `getProperties` and `setProperty` methods have been removed from `org.apache.camel.CamelContext`. Please use `getGlobalOptions` and `setGlobalOptions` instead</message>
+                    <link title="Camel 3 - Migration Guide: CONFIGURING GLOBAL OPTIONS ON CAMELCONTEXT"
+                          href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_configuring_global_options_on_camelcontext"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-00033">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-fhir" toVersion="2"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-fhir` default FHIR specification has changed from DSTU3 to R4" effort="0" category-id="information" >
+                    <message>The default FHIR specification in the `org.apache.camel:camel-fhir` artifact has changed from DSTU3 to R4. Therefore if DSTU3 is desired it has to be explicitly set.</message>
+                    <link title="Camel 3 - Migration Guide: FHIR" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_fhir" />
                 </hint>
             </perform>
         </rule>
