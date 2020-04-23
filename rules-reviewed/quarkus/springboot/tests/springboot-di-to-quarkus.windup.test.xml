@@ -18,26 +18,6 @@
                     <fail message="[springboot-di-to-quarkus-extension] SpringBoot Dependency artifact replaced by Quarkus extension was not found!" />
                 </perform>
             </rule>
-            <rule id="springboot-di-to-quarkus-00010-test">
-                <when>
-                    <not>
-                        <hint-exists message="Replace the `@org.springframework.stereotype.*` annotation usages with CDI `@javax.enterprise.context.ApplicationScoped`"/>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="[springboot-di-to-quarkus-annotations] SpringBoot annotation replaced by Quarkus @ApplicationScoped was not found!" />
-                </perform>
-            </rule>
-            <rule id="springboot-di-to-quarkus-00020-test">
-                <when>
-                    <not>
-                        <hint-exists message="Replace the `@org.springframework.beans.factory.annotation.Autowired` annotation usages with CDI `@javax.inject.Inject`"/>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="[springboot-di-to-quarkus-annotations] SpringBoot @Autowired replaced by Quarkus @Inject was not found!" />
-                </perform>
-            </rule>
         </rules>
     </ruleset>
 </ruletest>
