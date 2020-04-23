@@ -32,7 +32,7 @@ public class MyRouteBuilder extends RouteBuilder {
             .to("seda:next")
             .to("controlbus:route?routeId=mainRoute&action=stop&async=true")
             .to("language:simple:classpath:org/apache/camel/component/language/mysimplescript.txt")
-            .to("bean:bye");
+            .to("timer:bye");
 
         from("dataset:foo")
             .to("direct-vm:bar");

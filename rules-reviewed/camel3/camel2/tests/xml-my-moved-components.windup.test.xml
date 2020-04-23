@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<ruletest id="xml-my-moved-components-tests"
+        xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/xml-moved-components/</testDataPath>
+<!--    <testDataPath>../../../../../../cloned/camelinaction2/</testDataPath>-->
+    <rulePath>../xml-moved-components.windup.groovy</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="xml-moved-components-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="27">
+                            <hint-exists message="`camel-.*` component has been moved from `camel-core`*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-moved-components] Camel dependency moved hint was not found!"/>
+                </perform>
+            </rule>
+            <rule id="xml-moved-components-00003-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`camel-rest` component required for using Rest DSL.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-moved-components] camel-rest dependency moved hint was not found!"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

@@ -17,77 +17,10 @@
         <rule id="xml-moved-components-00000">
         <rule id="xml-moved-components-00001">
         <rule id="xml-moved-components-00002">
--->
         <rule id="xml-moved-components-00003">
-            <when>
-                <javaclass references="org.apache.camel.builder.RouteBuilder" as="routeBuilders">
-                    <location>INHERITANCE</location>
-                </javaclass>
-                <filecontent pattern="rest({*})" from="routeBuilders"/>
-                <xmlfile as="dependencies-block" in="pom.xml"
-                        matches="/m:project/m:dependencies[count(m:dependency/m:artifactId[text()='camel-rest'])=0]">
-                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
-                </xmlfile>
-            </when>
-            <perform>
-                <iteration over="dependencies-block">
-                    <hint title="`camel-rest` component has been moved" effort="1" category-id="mandatory">
-                        <message>`camel-rest` required for using rest DSL. Component has been moved from `camel-core` to separate artifact
-                            org.apache.camel:camel-rest that has to be
-                            added as a dependency to your project pom.xml file
-                        </message>
-                        <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html"
-                                title="Camel 3 - Migration Guide"/>
-                    </hint>
-                </iteration>
-            </perform>
-        </rule>
         <rule id="xml-moved-components-00004">
-            <when>
-                <xmlfile matches="//*[(count(c:rest)+count(c:get)+count(c:post)+count(c:put)+count(c:delete))>0 ]">
-                    <namespace prefix="c" uri="http://camel.apache.org/schema/spring"/>
-                </xmlfile>
-                <xmlfile as="dependencies-block" in="pom.xml"
-                        matches="/m:project/m:dependencies[count(m:dependency/m:artifactId[text()='camel-rest'])=0]">
-                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
-                </xmlfile>
-            </when>
-            <perform>
-                <iteration over="dependencies-block">
-                    <hint title="`camel-rest` component has been moved" effort="1" category-id="mandatory">
-                        <message>`camel-rest` required for using rest DSL. Component has been moved from `camel-core` to separate artifact
-                            org.apache.camel:camel-rest that has to be
-                            added as a dependency to your project pom.xml file
-                        </message>
-                        <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html"
-                                title="Camel 3 - Migration Guide"/>
-                    </hint>
-                </iteration>
-            </perform>
-        </rule>
         <rule id="xml-moved-components-00005">
-            <when>
-                <xmlfile matches="//*[(count(b:rest)+count(b:get)+count(b:post)+count(b:put)+count(b:delete))>0 ]">
-                    <namespace prefix="b" uri="http://camel.apache.org/schema/blueprint"/>
-                </xmlfile>
-                <xmlfile as="dependencies-block" in="pom.xml"
-                        matches="/m:project/m:dependencies[count(m:dependency/m:artifactId[text()='camel-rest'])=0]">
-                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
-                </xmlfile>
-            </when>
-            <perform>
-                <iteration over="dependencies-block">
-                    <hint title="`camel-rest` component has been moved" effort="1" category-id="mandatory">
-                        <message>`camel-rest` required for using rest DSL. Component has been moved from `camel-core` to separate artifact
-                            org.apache.camel:camel-rest that has to be
-                            added as a dependency to your project pom.xml file
-                        </message>
-                        <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html"
-                                title="Camel 3 - Migration Guide"/>
-                    </hint>
-                </iteration>
-            </perform>
-        </rule>
+-->
         <rule id="xml-moved-components-00006">
             <when>
                 <!--               <filecontent pattern="'xslt:'" filename="{*}.java"/>-->

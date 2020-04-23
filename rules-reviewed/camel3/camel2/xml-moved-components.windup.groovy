@@ -1,6 +1,7 @@
 package camel3.camel2
 
 import org.apache.commons.lang3.StringUtils
+import org.jboss.windup.ast.java.data.TypeReferenceLocation
 import org.jboss.windup.config.GraphRewrite
 import org.jboss.windup.config.metadata.TechnologyReference
 import org.jboss.windup.config.operation.iteration.AbstractIterationOperation
@@ -15,6 +16,8 @@ import org.jboss.windup.rules.apps.java.condition.JavaClass
 import org.jboss.windup.rules.apps.xml.condition.XmlFile
 import org.jboss.windup.rules.apps.xml.model.XmlFileModel
 import org.jboss.windup.rules.apps.xml.model.XmlTypeReferenceModel
+import org.jboss.windup.rules.files.condition.FileContent
+import org.ocpsoft.rewrite.config.And
 import org.ocpsoft.rewrite.config.Condition
 import org.ocpsoft.rewrite.context.EvaluationContext
 
@@ -31,24 +34,18 @@ final Link modularizationLink = Link.to("Camel 3 - Migration Guide: Modularizati
 final BiFunction<String, String, Boolean> isThereArtifactId = { String xmlDependenciesBlock, String component -> 
     xmlDependenciesBlock.contains("<artifactId>camel-$component</artifactId>" as CharSequence) }
 
-final Function<String, Condition> springCondition = { String component -> 
+final BiFunction<String, String, Condition> xmlCondition = { String component, String namespace ->
     XmlFile.from(FROM_XML_FILES_IN_PROJECT)
-            .matchesXpath("//*/c:route/*/@uri[windup:matches(self::node(), '" + component + ":{*}')]")
-            .namespace("c", "http://camel.apache.org/schema/spring")
-            .as("$component-spring")
-}
-
-final Function<String, Condition> blueprintCondition = { String component ->
-    XmlFile.from(FROM_XML_FILES_IN_PROJECT)
-            .matchesXpath("//*/b:route/*/@uri[windup:matches(self::node(), '" + component + ":{*}')]")
-            .namespace("b", "http://camel.apache.org/schema/blueprint")
-            .as("$component-blueprint")
+            .matchesXpath("//*/c:route/*[starts-with(@uri, '$component:')]")
+            .namespace("c", namespace)
+            .as("$component-$namespace")
 }
 
 final Function<String, Condition> javaCondition = { String component ->
-    JavaClass.from(FROM_FILES_IN_PROJECT)
-        .references("(\"$component:")
-        .as("$component-java")
+    FileContent.from(FROM_FILES_IN_PROJECT)
+            .matches("(\"$component:")
+            .inFileNamed("{*}.java")
+            .as("$component-java")
 }
 
 ruleSet("xml-moved-components-groovy")
@@ -71,8 +68,8 @@ ruleSet("xml-moved-components-groovy")
             componentsMoved.stream()
                 .filter { component -> !isThereArtifactId.apply(xmlDependenciesBlock, component) }
                 .filter { component ->
-                    springCondition.apply(component).evaluate(event, context) ||
-                    blueprintCondition.apply(component).evaluate(event, context) ||
+                    xmlCondition.apply(component, "http://camel.apache.org/schema/spring").evaluate(event, context) ||
+                    xmlCondition.apply(component, "http://camel.apache.org/schema/blueprint").evaluate(event, context) ||
                     javaCondition.apply(component).evaluate(event, context)}
                 .each { component ->
                     ((Hint) Hint.titled("`camel-$component` has been moved")
@@ -84,7 +81,26 @@ ruleSet("xml-moved-components-groovy")
                         .withEffort(1))
                         .perform(event, context, payload)
                 }
-
+            // rules xml-moved-components-0000{3-5}
+            Condition javaClass = And.all(
+                    JavaClass.from(FROM_FILES_IN_PROJECT).references("org.apache.camel.builder.RouteBuilder").at(TypeReferenceLocation.INHERITANCE).as("routeBuilders"),
+                    FileContent.from("routeBuilders").matches("rest({*})").as("rest-java")
+            )
+            final String restXmlTagCounts = "//*[(count(c:rest)+count(c:get)+count(c:post)+count(c:put)+count(c:delete))>0 ]"
+            Condition springContent = XmlFile.from(FROM_XML_FILES_IN_PROJECT).matchesXpath(restXmlTagCounts).namespace("c", "http://camel.apache.org/schema/spring").as("rest-spring")
+            Condition blueprintContent = XmlFile.from(FROM_XML_FILES_IN_PROJECT).matchesXpath(restXmlTagCounts).namespace("c", "http://camel.apache.org/schema/blueprint").as("rest-blueprint")
+            if (javaClass.evaluate(event, context) ||
+                springContent.evaluate(event, context) ||
+                blueprintContent.evaluate(event, context))
+            {
+                ((Hint) Hint.titled("`camel-rest` component has been moved")
+                .withText("""`camel-rest` required for using rest DSL.  
+                    Component has been moved from `camel-core` to separate artifact `org.apache.camel:camel-rest` that has to be added as a dependency to your project `pom.xml` file""")
+                .withIssueCategory(mandatoryIssueCategory)
+                .with(modularizationLink)
+                .withEffort(1))
+                .perform(event, context, payload)
+            }
         }
     })
-    .withId("xml-moved-components-00000")
+    .withId("xml-moved-components-groovy-00000")

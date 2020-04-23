@@ -3,15 +3,15 @@
         xmlns="http://windup.jboss.org/schema/jboss-ruleset"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
-    <testDataPath>data/xml-moved-components</testDataPath>
+    <testDataPath>data/xml-moved-components/application0</testDataPath>
     <rulePath>../xml-moved-components.windup.xml</rulePath>
     <rulePath>../xml-moved-components.windup.groovy</rulePath>
     <ruleset>
         <rules>
-            <rule id="xml-moved-components-00000-test">
+            <rule id="xml-moved-components-groovy-00000-test">
                 <when>
                     <not>
-                        <iterable-filter size="14">
+                        <iterable-filter size="15">
                             <hint-exists message="`camel-.*` component has been moved from `camel-core`*"/>
                         </iterable-filter>
                     </not>
@@ -20,34 +20,10 @@
                     <fail message="[xml-moved-components] Camel dependency moved hint was not found!"/>
                 </perform>
             </rule>
-            <rule id="xml-moved-components-00003-test">
+            <rule id="xml-moved-components-groovy-00000-test-1">
                 <when>
                     <not>
-                        <iterable-filter size="3">
-                            <hint-exists message="`camel-rest` required for using rest DSL.*"/>
-                        </iterable-filter>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="[xml-moved-components] camel-rest dependency moved hint was not found!"/>
-                </perform>
-            </rule>
-            <rule id="xml-moved-components-00004-test">
-                <when>
-                    <not>
-                        <iterable-filter size="3">
-                            <hint-exists message="`camel-rest` required for using rest DSL.*"/>
-                        </iterable-filter>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="[xml-moved-components] camel-rest dependency moved hint was not found!"/>
-                </perform>
-            </rule>
-            <rule id="xml-moved-components-00005-test">
-                <when>
-                    <not>
-                        <iterable-filter size="3">
+                        <iterable-filter size="1">
                             <hint-exists message="`camel-rest` required for using rest DSL.*"/>
                         </iterable-filter>
                     </not>
