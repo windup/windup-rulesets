@@ -22,7 +22,7 @@
             <rule id="springboot-metrics-to-quarkus-0200-test">
                 <when>
                     <not>
-                        <hint-exists message="Replace the Micrometer code with Microprole Metrics code"/>
+                        <hint-exists message="Replace the Micrometer code with Microprofile Metrics code"/>
                     </not>
                 </when>
                 <perform>
@@ -32,16 +32,6 @@
             <rule id="springboot-metrics-to-quarkus-0300-test">
                 <when>
                     <not>
-                        <hint-exists message="Replace the Micrometer metric annotation with Microprofile metric annotation"/>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="[springboot-metrics-to-quarkus-0300] SpringBoot Micrometer metric replaced by Microprofile metric was not found!" />
-                </perform>
-            </rule>            
-            <rule id="springboot-metrics-to-quarkus-0310-test">
-                <when>
-                    <not>
                         <hint-exists message="Replace the Micrometer Timed annotation with Microprofile Timed annotation"/>
                     </not>
                 </when>
@@ -49,6 +39,16 @@
                     <fail message="[springboot-metrics-to-quarkus-0310] SpringBoot Micrometer Timed replaced by Microprofile Timed was not found!" />
                 </perform>
             </rule>
+            <rule id="springboot-metrics-to-quarkus-0310-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace the Micrometer metric annotation with Microprofile metric annotation"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-metrics-to-quarkus-0300] SpringBoot Micrometer metric replaced by Microprofile metric was not found!" />
+                </perform>
+            </rule>            
 
         </rules>
     </ruleset>

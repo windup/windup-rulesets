@@ -1,17 +1,16 @@
 <?xml version="1.0"?>
-<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="springboot-metrics-to-quarkus"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="springboot-metrics-to-quarkus" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <metadata>
         <description>
             This ruleset gives hints to migrate from SpringBoot Metrics to Quarkus Microprofile Metrics extension
         </description>
         <dependencies>
-            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
-            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
-            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final"/>
         </dependencies>
-        <sourceTechnology id="springboot" />
-        <targetTechnology id="quarkus" />
+        <sourceTechnology id="springboot"/>
+        <targetTechnology id="quarkus"/>
     </metadata>
     <rules>
         <rule id="springboot-metrics-to-quarkus-0100">
@@ -24,7 +23,7 @@
                         Replace the Micrometer dependency with Quarkus 'metrics' extension
                         Usually this is a transitive dependency brought by `org.springframework.boot:spring-boot-starter-actuator` and has to be replaced by `io.quarkus:quarkus-smallrye-metrics' artifact`
                     </message>
-                    <link title="Quarkus metrics" href="https://quarkus.io/guides/microprofile-metrics" />
+                    <link title="Quarkus metrics" href="https://quarkus.io/guides/microprofile-metrics"/>
                 </hint>
             </perform>
         </rule>
@@ -39,28 +38,28 @@
                     <message>
                         Replace the Micrometer code with Microprofile Metrics code
                     </message>
-                    <link title="Quarkus metrics" href="https://quarkus.io/guides/microprofile-metrics" />
+                    <link title="Quarkus metrics" href="https://quarkus.io/guides/microprofile-metrics"/>
                 </hint>
             </perform>
         </rule>
         <rule id="springboot-metrics-to-quarkus-0300">
             <when>
-                <javaclass references="io.micrometer.core.annotation.{*}">
+                <javaclass references="io.micrometer.core.annotation.Timed">
                     <location>IMPORT</location>
                 </javaclass>
             </when>
             <perform>
-                <hint title="Replace the Micrometer metric annotation with Microprofile metric annotation" effort="1" category-id="mandatory">
-                    <message>
-                        Replace the Micrometer metric annotation with Microprofile metric annotation
-                    </message>
-                    <link title="Quarkus metrics" href="https://quarkus.io/guides/microprofile-metrics" />
-                </hint>                
+                <hint title="Replace the Micrometer Timed annotation with Microprofile Timed annotation" effort="5" category-id="mandatory">
+                    <message>Replace the Micrometer Timed annotation with Microprofile Timed annotation</message>
+                    <link title="Quarkus metrics" href="https://quarkus.io/guides/microprofile-metrics"/>
+                    <link title="Micrometer JavaDoc" href="https://www.javadoc.io/doc/io.micrometer/micrometer-core/1.0.3/io/micrometer/core/annotation/Timed.html"/>
+                    <link title="Microprofile JavaDoc" href="https://download.eclipse.org/microprofile/microprofile-2.0-javadocs-test/apidocs/org/eclipse/microprofile/metrics/annotation/Timed.html"/>
+                </hint>
             </perform>
         </rule>
         <rule id="springboot-metrics-to-quarkus-0310">
             <when>
-                <javaclass references="io.micrometer.core.annotation.Timed">
+                <javaclass references="io.micrometer.core.annotation.{*}">
                     <location>IMPORT</location>
                 </javaclass>
             </when>
@@ -68,21 +67,17 @@
                 <iteration>
                     <when>
                         <not>
-                            <has-hint />
+                            <has-hint/>
                         </not>
                     </when>
-                    <perform>            
-                        <hint title="Replace the Micrometer Timed annotation with Microprofile Timed annotation" effort="1" category-id="mandatory">
-                            <message>
-                                Replace the Micrometer Timed annotation with Microprofile Timed annotation
-                            </message>
-                            <link title="Quarkus metrics" href="https://quarkus.io/guides/microprofile-metrics" />
-                            <link title="Micrometer JavaDoc" href="https://www.javadoc.io/doc/io.micrometer/micrometer-core/1.0.3/io/micrometer/core/annotation/Timed.html"/>
-                            <link title="Microprofile JavaDoc" href="https://download.eclipse.org/microprofile/microprofile-2.0-javadocs-test/apidocs/org/eclipse/microprofile/metrics/annotation/Timed.html"/>
-                        </hint>    
+                    <perform>
+                        <hint title="Replace the Micrometer metric annotation with Microprofile metric annotation" effort="5" category-id="mandatory">
+                            <message>Replace the Micrometer metric annotation with Microprofile metric annotation</message>
+                            <link title="Quarkus metrics" href="https://quarkus.io/guides/microprofile-metrics"/>
+                        </hint>
                     </perform>
-                </iteration>            
+                </iteration>
             </perform>
-        </rule>        
+        </rule>
     </rules>
 </ruleset>
