@@ -12,7 +12,6 @@ import io.micrometer.core.annotation.Timed;
  */
 @Service
 public class SampleService {
-    
     private final Counter counter;
 
     @Timed("timer")
