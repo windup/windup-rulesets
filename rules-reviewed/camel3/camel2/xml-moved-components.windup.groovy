@@ -28,7 +28,7 @@ final String FROM_XML_FILES_IN_PROJECT = "xmlFilesInProject"
 final String FROM_FILES_IN_PROJECT = "filesInProject"
 final Set<String> componentsMoved = ["language", "bean", "direct", "xslt", "browse", "dataset", "direct-vm", "file", "log", "mock", "ref", "saga", "scheduler", "seda", "stub", "timer", "validator", "vm"]
 
-final IssueCategory mandatoryIssueCategory = new IssueCategoryRegistry().getByID(IssueCategoryRegistry.MANDATORY)
+final IssueCategory optionalIssueCategory = new IssueCategoryRegistry().getByID(IssueCategoryRegistry.OPTIONAL)
 final Link modularizationLink = Link.to("Camel 3 - Migration Guide: Modularization of camel-core", "https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_modularization_of_camel_core")
 
 final BiFunction<String, String, Boolean> isThereArtifactId = { String xmlDependenciesBlock, String component -> 
@@ -76,7 +76,7 @@ ruleSet("xml-moved-components-groovy")
                         .withText("""`camel-$component` component has been moved from `camel-core` 
                             to separate artifact `org.apache.camel:camel-$component` that has to be added as a 
                             dependency to your project `pom.xml` file""")
-                        .withIssueCategory(mandatoryIssueCategory)
+                        .withIssueCategory(optionalIssueCategory)
                         .with(modularizationLink)
                         .withEffort(1))
                         .perform(event, context, payload)
@@ -96,7 +96,7 @@ ruleSet("xml-moved-components-groovy")
                 ((Hint) Hint.titled("`camel-rest` component has been moved")
                 .withText("""`camel-rest` required for using rest DSL.  
                     Component has been moved from `camel-core` to separate artifact `org.apache.camel:camel-rest` that has to be added as a dependency to your project `pom.xml` file""")
-                .withIssueCategory(mandatoryIssueCategory)
+                .withIssueCategory(optionalIssueCategory)
                 .with(modularizationLink)
                 .withEffort(1))
                 .perform(event, context, payload)
