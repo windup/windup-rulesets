@@ -30,7 +30,7 @@
         </rule>
         <rule id="springboot-integration-to-quarkus-00010">
             <when>
-                <xmlfile matches="//*[local-name()='channel']">
+                <xmlfile matches="//*/int:channel">
                     <namespace prefix="int" uri="http://www.springframework.org/schema/integration"/>
                 </xmlfile>
             </when>
@@ -45,7 +45,9 @@
         </rule>
         <rule id="springboot-integration-to-quarkus-00020">
             <when>
-                <javaclass references="org.springframework.integration.dsl.IntegrationFlow"/>
+                <javaclass references="org.springframework.integration.dsl.IntegrationFlow">
+                  <location>IMPORT</location>
+                </javaclass>
             </when>
             <perform>
                 <hint title="SpringBoot IntegrationFlow is not supported." effort="5" category-id="mandatory">

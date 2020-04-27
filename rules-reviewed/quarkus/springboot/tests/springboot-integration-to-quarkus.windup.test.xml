@@ -21,7 +21,9 @@
             <rule id="springboot-integration-to-quarkus-00010-test">
                 <when>
                     <not>
-                        <hint-exists message="SpringBoot Integration flow is not supported. A migration to Apache Camel route is mandatory."/>
+                        <iterable-filter size="1">
+                            <hint-exists message="SpringBoot Integration flow is not supported. A migration to Apache Camel route is mandatory."/>
+                        </iterable-filter>
                     </not>
                 </when>
                 <perform>
