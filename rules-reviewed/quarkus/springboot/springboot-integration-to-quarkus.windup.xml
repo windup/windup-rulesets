@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="springboot-integration-to-quarkus"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints to migrate from SpringBoot Integration to Quarkus
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="springboot" />
+        <targetTechnology id="quarkus" />
+    </metadata>
+    <rules>
+        <rule id="springboot-integration-to-quarkus-00000">
+            <when>
+                <dependency groupId="org.springframework.integration" artifactId="spring-integration-core"/>
+            </when>
+            <perform>
+                <hint title="SpringBoot Integration is not supported." effort="7" category-id="mandatory">
+                    <message>
+                        SpringBoot Integration is not supported. A migration to Apache Camel is mandatory.  
+                        Spring dependency `org.springframework.boot:spring-boot-starter-integration` needs to move to `org.apache.camel.quarkus:camel-quarkus-parent`.  
+                        Spring Integration Flows must be recoded into Apache Camel Routes.
+                    </message>
+                    <link title="Quarkus Apache Camel" href="https://quarkus.io/guides/camel" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="springboot-integration-to-quarkus-00010">
+            <when>
+                <xmlfile matches="//*/int:channel">
+                    <namespace prefix="int" uri="http://www.springframework.org/schema/integration"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="SpringBoot Integration flows are not supported." effort="5" category-id="mandatory">
+                    <message>
+                        SpringBoot Integration flows are not supported. A migration to Apache Camel route is mandatory.
+                    </message>
+                    <link title="Quarkus Apache Camel" href="https://quarkus.io/guides/camel" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="springboot-integration-to-quarkus-00020">
+            <when>
+                <javaclass references="org.springframework.integration.dsl.IntegrationFlow">
+                  <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="SpringBoot IntegrationFlow class usage is not supported." effort="5" category-id="mandatory">
+                    <message>
+                        SpringBoot IntegrationFlow class usage is not supported. A migration to Apache Camel route using From is mandatory.
+                    </message>
+                    <link title="Quarkus Apache Camel" href="https://quarkus.io/guides/camel" />
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
