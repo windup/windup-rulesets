@@ -28,9 +28,6 @@ final Set<String> componentsAdded = ["aws-cw", "aws-ddb", "aws-ec2", "aws-iam", 
 final IssueCategory mandatoryIssueCategory = new IssueCategoryRegistry().getByID(IssueCategoryRegistry.MANDATORY)
 final Link awsLink = Link.to("Camel 3 - Migration Guide: AWS", "https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_aws")
 
-final BiFunction<String, String, Boolean> isThereArtifactId = { String xmlDependenciesBlock, String component -> 
-    xmlDependenciesBlock.contains("<artifactId>camel-$component</artifactId>" as CharSequence) }
-
 final BiFunction<String, String, Condition> xmlCondition = { String component, String namespace -> 
     XmlFile.from(FROM_XML_FILES_IN_PROJECT)
             .matchesXpath("//*/c:route/*[starts-with(@uri, '$component:')]")
@@ -60,9 +57,7 @@ ruleSet("xml-removed-components-groovy")
             final String filePath = StringUtils.removeEnd(fileModel.getFilePath(), fileModel.getFileName())
             Query.fromType(XmlFileModel.class).withProperty(FileModel.FILE_PATH, QueryPropertyComparisonType.CONTAINS_TOKEN, filePath).as(FROM_XML_FILES_IN_PROJECT).evaluate(event, context)
             Query.fromType(FileModel.class).withProperty(FileModel.FILE_PATH, QueryPropertyComparisonType.CONTAINS_TOKEN, filePath).as(FROM_FILES_IN_PROJECT).evaluate(event, context)
-            final String xmlDependenciesBlock = payload.getSourceSnippit()
             componentsAdded.stream()
-                .filter { component -> !isThereArtifactId.apply(xmlDependenciesBlock, component) }
                 .filter { component -> javaCondition.apply(component).evaluate(event, context) ||
                 xmlCondition.apply(component, "http://camel.apache.org/schema/spring").evaluate(event, context) ||
                 xmlCondition.apply(component, "http://camel.apache.org/schema/blueprint").evaluate(event, context) }
