@@ -31,6 +31,7 @@ Hint createMovedClassHint(String moved, String movedTo, String addInfo, IssueCat
             .withEffort(1);
 }
 
+final String methodCall = "{*}"
 ruleSet("java-generic-information-groovy")
         .addSourceTechnology(new TechnologyReference("camel", "[2,3)"))
         .addTargetTechnology(new TechnologyReference("camel", "[3,)"))
@@ -42,6 +43,19 @@ ruleSet("java-generic-information-groovy")
                         .perform(createMovedClassHint(MOVED_FROM, MOVED_TO, "class", mandatoryIssueCategory))
         )
         .withId("java-generic-information-00034")
+        .addRule()
+        .when(
+                JavaClass
+               //         .references("org.apache.camel.util.toolbox.AggregationStrategies.xslt({*})")
+                .references("org.apache.camel.impl.SimpleRegistry.put({*})")
+                        .at(TypeReferenceLocation.METHOD_CALL)
+        )
+
+        .perform((Hint) Hint.titled("SimpleRegistry was moved").withText("`The org.apache.camel.support.DefaultRegistry` should be favoured instead od `SimpleRegistry`." +
+                " Also `bind` operation should be used instead of `put` to add entries to the `SimpleRegistry` or `DefaultRegistry`.")
+                .with(Link.to("Camel migration guide", "https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information")))
+
+        .withId("java-generic-information-00035")
 
         .addRule()
         .when(JavaClass.references("org.apache.camel.Exchange.{get|has}Out()").at(TypeReferenceLocation.METHOD_CALL))

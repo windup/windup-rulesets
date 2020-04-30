@@ -447,6 +447,18 @@
                     <fail message="[java-moved-classes] moved org.apache.camel.ThreadPoolRejectedPolicy hint not found."/>
                 </perform>
             </rule>
+            <rule id="java-generic-information-00035-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`The org.apache.camel.support.DefaultRegistry.*`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Wrong usage of SimpleRegistry hint nof found" />
+                </perform>
+            </rule>
 
             <rule id="java-generic-information-00036-test">
                 <when>
