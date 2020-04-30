@@ -128,6 +128,18 @@
                     <fail message="All the classes from `org.apache.camel.util.component`.* "/>
                 </perform>
             </rule>
+            <rule id="xml-moved-components-00014-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The class `org.apache.camel.main.Main` has been moved out of `org.apache.camel:camel-core` and into its own JAR named `org.apache.camel:camel-main`*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="`org.apache.camel.main.Main` dependency move hint not found! "/>
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
