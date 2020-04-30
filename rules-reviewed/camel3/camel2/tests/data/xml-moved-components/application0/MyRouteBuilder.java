@@ -20,15 +20,19 @@ public class MyRouteBuilder extends RouteBuilder {
             .to("xslt:xslt/copy-all.xsl")
             .to("file:target/messages/others")
             .to("log:foo?logMask=true")
+            .to("seda:next")
+            .to("direct-vm:bar");
             .to("mock:result");
 
         from("ref:endpoint1")
             .marshal().zip()
             .marshal().zipDeflater()
             .to("browse:orderReceived")
+            .to("direct:order")
+            .to("seda:next")
             .to("controlbus:route?routeId=mainRoute&action=stop&async=true")
             .to("language:simple:classpath:org/apache/camel/component/language/mysimplescript.txt")
-            .to("bean:bye");
+            .to("timer:bye");
 
         from("dataset:foo")
             .to("direct-vm:bar");

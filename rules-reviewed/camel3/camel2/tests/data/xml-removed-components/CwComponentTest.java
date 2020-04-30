@@ -42,7 +42,8 @@ public class CwComponentTest extends CamelTestSupport {
             @Override
             public void configure() throws Exception {
                 from("direct:start")
-                        .to("aws-cw://camel.apache.org/test?amazonCwClient=#amazonCwClient&name=testMetric&unit=Count&timestamp=#now");
+                        .to("aws-iam://camel.apache.org/test?amazonCwClient=#amazonCwClient&name=testMetric&unit=Count&timestamp=#now");
+                        .to("aws-s3://camel.apache.org/test?amazonCwClient=#amazonCwClient&name=testMetric&unit=Count&timestamp=#now");
             }
         };
     }
