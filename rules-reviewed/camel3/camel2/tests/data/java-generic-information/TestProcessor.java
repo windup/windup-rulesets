@@ -10,6 +10,10 @@ public class TestProcessor implements Processor {
         if(exchange.hasOut()) {
             Message m = exchange.getOut();
             m.setHeader("header","value");
+            if (m.isFault()) {
+                m.setHeader("header", "value");
+                m.setFault(false);
+            }
         }
     }
 }

@@ -439,6 +439,18 @@
                     <fail message="Hint about deprecated getOut/hasOut methods is missing." />
                 </perform>
             </rule>
+            <rule id="java-generic-information-00037-test">
+            <when>
+                <not>
+                    <iterable-filter size="2">
+                        <hint-exists message="Fault API was removed from `org.apache.camel.Message.*`"/>
+                    </iterable-filter>
+                </not>
+            </when>
+            <perform>
+                <fail message="Hint about removed fault API is missing." />
+            </perform>
+        </rule>
 
         </rules>
     </ruleset>

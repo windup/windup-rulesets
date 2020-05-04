@@ -32,12 +32,17 @@ import org.apache.camel.util.toolbox.AggregationStrategies;
  * A Camel Java DSL Router
  */
 public class MyRouteBuilder extends RouteBuilder {
-    rest("/say")
+
+    public void configure() {
+        if(!getContext().isHandleFault()) {
+            getContext().setHandleFault(true);
+        }
+
+        rest("/say")
                 .get("/hello").to("direct:hello")
                 .get("/bye").consumes("application/json")
                 .post("/bye");
 
-    public void configure() {
         from("direct:xslt-copy-all")
             .to("xslt:xslt/copy-all.xsl")
             .to("file:target/messages/others")
