@@ -427,6 +427,19 @@
                 </perform>
             </rule>
 
+            <rule id="java-generic-information-00036-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="Methods `getOut`, `hasOut` on `Exchange.*`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Hint about deprecated getOut/hasOut methods is missing." />
+                </perform>
+            </rule>
+
         </rules>
     </ruleset>
 </ruletest>

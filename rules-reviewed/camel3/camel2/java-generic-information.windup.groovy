@@ -35,4 +35,12 @@ ruleSet("java-generic-information-groovy")
                         .perform(createMovedClassHint(MOVED_FROM, MOVED_TO, "class"))
         )
         .withId("java-generic-information-00034")
+        .addRule()
+        .when(JavaClass.references("org.apache.camel.Exchange.{get|has}Out()").at(TypeReferenceLocation.METHOD_CALL))
+        .perform(Iteration.over()
+                .perform((Hint) Hint.titled("`getOut`/`hasOut` are deprecated").withText("Methods `getOut`, `hasOut` on `Exchange` has been deprecated in favour of using `getMessage` instead.")
+                        .with(Link.to("Camel migration guide", "https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_getout_on_message"))
+                ))
+        .withId("java-generic-information-00036")
+
 
