@@ -1,0 +1,24 @@
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+
+    <keyStoreParameters id="trustStoreParams" resource="./sender.ts" password="password"/>
+
+    <camelContext xmlns="http://camel.apache.org/schema/blueprint">
+        <route>
+            <from uri="direct:start"/>
+            <marshal>
+                <secureXML secureTag="//cheese:cheesesites/italy"
+                           secureTagContents="true"
+                           xmlCipherAlgorithm="http://www.w3.org/2001/04/xmlenc#aes128-cbc"
+                           keyCipherAlgorithm="http://www.w3.org/2001/04/xmlenc#rsa-1_5"
+                           recipientKeyAlias="recipient"
+                           keyOrTrustStoreParametersId="trustStoreParams"/>
+            </marshal>
+            <loadBalance>
+                <custom ref="myCustomLoadBalancer"/>
+                <to uri="mock:x"/>
+                <to uri="mock:y"/>
+            </loadBalance>
+        </route>
+    </camelContext>
+
+</blueprint>

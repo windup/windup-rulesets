@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <ruletest id="xml-generic-information-tests"
-        xmlns="http://windup.jboss.org/schema/jboss-ruleset"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <testDataPath>data/xml-generic-information</testDataPath>
     <rulePath>../xml-generic-information.windup.xml</rulePath>
     <ruleset>
@@ -17,6 +17,43 @@
                 </when>
                 <perform>
                     <fail message="[generic-information] Camel dependency moved hint was not found!"/>
+                </perform>
+            </rule>
+            <rule id="xml-generic-information-00002-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="`custom` load balancer was renamed to `customLoadBalancer`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[Camel XML DSL changed] Hint for renamed custom loadbalancer not found!"/>
+                </perform>
+            </rule>
+            <rule id="xml-generic-information-00003-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`zipFile` data format was renamed to `zipfile"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[Camel XML DSL changed] Hint for renamed zipFile dataformat not found!"/>
+                </perform>
+            </rule>
+            <rule id="xml-generic-information-00004-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists
+                                    message="`keyOrTrustStoreParametersId` attribute was renamed to `keyOrTrustStoreParametersRef`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[Camel XML DSL changed] Hint for renamed parameter not found!"/>
                 </perform>
             </rule>
         </rules>
