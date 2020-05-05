@@ -10,6 +10,9 @@ public class FileCopierWithCamel {
         // create CamelContext
         CamelContext context = new DefaultCamelContext();
 
+        if(!context.isHandleFault()) {
+            context.setHandleFault(true);
+        }
         // add our route to the CamelContext
         context.addRoutes(new RouteBuilder() {
             public void configure() {
@@ -25,10 +28,6 @@ public class FileCopierWithCamel {
 
         // stop the CamelContext
         context.stop();
-
-        if(!context.isHandleFault()) {
-            context.setHandleFault(true);
-        }
     }
 
 }
