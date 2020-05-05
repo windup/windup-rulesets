@@ -59,5 +59,18 @@ ruleSet("java-generic-information-groovy")
                         "The option `handleFault` has also been removed and you now need to turn this on as endpoint or component option on `camel-cxf` or `camel-spring-ws`.")
                         .withIssueCategory(mandatoryIssueCategory)
                         .with(Link.to("Camel migration guide", "https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_fault_api_on_message")).withEffort(1)
+                ))Win   .withId("java-generic-information-00037")
+
+        .addRule()
+        .when(
+                Or.any(
+                        JavaClass.references("org.apache.camel.CamelContext.{start|stop|suspend|resume}Route({*})").at(TypeReferenceLocation.METHOD_CALL),
+                        JavaClass.references("org.apache.camel.CamelContext.{startAllRoutes|isStartingRoutes|getRouteStatus}({*})").at(TypeReferenceLocation.METHOD_CALL)
                 ))
-        .withId("java-generic-information-00037")
+        .perform(Iteration.over()
+                .perform((Hint) Hint.titled("Route control methods were moved").withText("Methods for controlling routes were moved from `CamelContext` to the `RouteController`." +
+                        "To call moved method use: `context.getRouteController().startRoute(\"myRoute\")`")
+                        .withIssueCategory(mandatoryIssueCategory)
+                        .with(Link.to("Camel migration guide - controlling routes", "https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_controlling_routes")).withEffort(1)
+                ))
+        .withId("java-generic-information-00038")
