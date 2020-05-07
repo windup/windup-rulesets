@@ -19,6 +19,18 @@
                     <fail message="[camel-telegram] 'Authorization Token required' hint was not found!" />
                 </perform>
             </rule>
+            <rule id="component-changes-00002-test">
+                <when>
+                    <not>
+                        <iterable-filter size="4">
+                            <hint-exists message="It's mandatory to specify key/passphrase for `ShiroSecurityPolicy`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[camel-shiro] 'Shiro needs to have passphrase specified!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
