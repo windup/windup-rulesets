@@ -37,13 +37,13 @@ Hint createHint(String title, String messase, String linkAppendix, boolean manda
     return createHint(title, messase, linkAppendix, mandatory).withQuickfix(quickfix);
 }
 
-Hint createMovedClassHint(String moved, String movedTo, String addInfo, IssueCategory issueCategory) {
+Hint createMovedClassHint(String moved, String movedTo, String addInfo, IssueCategory issueCategory, String linkAppendix) {
     Quickfix q = new Quickfix()
     q.setType(QuickfixType.REPLACE)
     q.setSearchStr(moved)
     q.setReplacementStr(movedTo)
 
-    return createHint("$moved was moved", "`$moved` was moved to `$movedTo` ", "eips", true, q)
+    return createHint("$moved was moved", "`$moved` was moved to `$movedTo` ", linkAppendix, true, q)
 }
 
 JavaClass javaMethodCallCondition(String regex) {
@@ -59,7 +59,7 @@ ruleSet("java-generic-information-groovy")
         .when(JavaClass.references(MOVED_FROM).at(TypeReferenceLocation.IMPORT).as("movedClass"))
         .perform(
                 Iteration.over("movedClass")
-                        .perform(createMovedClassHint(MOVED_FROM, MOVED_TO, "class", mandatoryIssueCategory))
+                        .perform(createMovedClassHint(MOVED_FROM, MOVED_TO, "class", mandatoryIssueCategory, "eips"))
         )
         .withId("java-generic-information-00034")
 
@@ -115,3 +115,9 @@ ruleSet("java-generic-information-groovy")
                         "main_class_2", true)
         )
         .withId("java-generic-information-00039")
+
+        .addRule()
+        .when(JavaClass.references("org.apache.camel.util.jsse.{param}").at(TypeReferenceLocation.IMPORT))
+        .perform(createMovedClassHint("org.apache.camel.util.jsse.{param}", "org.apache.camel.support.jsse.{param}", "class", mandatoryIssueCategory, "jsse"))
+        .where("param").matches(".*")
+        .withId("java-generic-information-00040")

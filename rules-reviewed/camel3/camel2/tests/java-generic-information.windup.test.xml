@@ -456,7 +456,7 @@
                     </not>
                 </when>
                 <perform>
-                    <fail message="Wrong usage of SimpleRegistry hint nof found" />
+                    <fail message="Wrong usage of SimpleRegistry hint nof found"/>
                 </perform>
             </rule>
 
@@ -506,6 +506,18 @@
                 </when>
                 <perform>
                     <fail message="Removed getCamelContextMap,getCamelContexts methods hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="java-generic-information-00040-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="`org.apache.camel.util.jsse.*` was moved to `org.*`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Moved jsse classes hint not found!"/>
                 </perform>
             </rule>
         </rules>

@@ -5,6 +5,9 @@ import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.cdi.Main;
 
+import org.apache.camel.util.jsse.KeyStoreParameters;
+import org.apache.camel.util.jsse.BaseSSLContextParameters;
+
 import java.util.Date;
 
 public class MainExample {
