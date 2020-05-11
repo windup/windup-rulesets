@@ -496,6 +496,18 @@
                     <fail message="Hint about moved control methods is missing."/>
                 </perform>
             </rule>
+            <rule id="java-generic-information-00039-test">
+                <when>
+                    <not>
+                        <iterable-filter size="3">
+                            <hint-exists message="The methods `getCamelContextMap.*`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Removed getCamelContextMap,getCamelContexts methods hint not found!"/>
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>

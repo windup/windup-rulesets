@@ -46,8 +46,8 @@ Hint createMovedClassHint(String moved, String movedTo, String addInfo, IssueCat
     return createHint("$moved was moved", "`$moved` was moved to `$movedTo` ", "eips", true, q)
 }
 
-Condition javaMethodCallCondition(String regex) {
-    return JavaClass.references("org.apache.camel.$regex").at(TypeReferenceLocation.METHOD_CALL);
+JavaClass javaMethodCallCondition(String regex) {
+    return JavaClass.references("org.apache.camel.$regex").at(TypeReferenceLocation.METHOD_CALL)
 }
 
 
@@ -74,11 +74,10 @@ ruleSet("java-generic-information-groovy")
 
         .addRule()
         .when(javaMethodCallCondition("Exchange.{get|has}Out()"))
-        .perform(Iteration.over()
-                .perform(createHint("`getOut`/`hasOut` are deprecated",
-                        "Methods `getOut`, `hasOut` on `Exchange` has been deprecated in favour of using `getMessage` instead.",
-                        "getout_on_message", false))
-        )
+        .perform(createHint("`getOut`/`hasOut` are deprecated",
+                "Methods `getOut`, `hasOut` on `Exchange` has been deprecated in favour of using `getMessage` instead.",
+                "getout_on_message", false))
+
         .withId("java-generic-information-00036")
 
         .addRule()
@@ -86,12 +85,11 @@ ruleSet("java-generic-information-groovy")
                 javaMethodCallCondition("Message.{is|set}Fault({*})"),
                 javaMethodCallCondition("CamelContext.{is|set}HandleFault({*})")
         ))
-        .perform(Iteration.over()
-                .perform(createHint("Fault API on Message was removed",
-                        "Fault API was removed from `org.apache.camel.Message`. The option `handleFault` has also been removed" +
-                                " and you now need to turn this on as endpoint or component option on `camel-cxf` or `camel-spring-ws`.",
-                        "fault_api_on_message", true)
-                ))
+        .perform(createHint("Fault API on Message was removed",
+                "Fault API was removed from `org.apache.camel.Message`. The option `handleFault` has also been removed" +
+                        " and you now need to turn this on as endpoint or component option on `camel-cxf` or `camel-spring-ws`.",
+                "fault_api_on_message", true)
+        )
         .withId("java-generic-information-00037")
 
         .addRule()
@@ -101,10 +99,19 @@ ruleSet("java-generic-information-groovy")
                 javaMethodCallCondition("CamelContext.isStartingRoutes()"),
                 javaMethodCallCondition("CamelContext.getRouteStatus({*})")
         ))
-        .perform(Iteration.over()
-                .perform(createHint("Route control methods were moved",
+        .perform(
+                createHint("Route control methods were moved",
                         "Methods for controlling routes were moved from `CamelContext` to the `RouteController`." +
                                 "To call moved method use: `context.getRouteController().startRoute(\"myRoute\")`",
                         "controlling_routes", true)
-                ))
+        )
         .withId("java-generic-information-00038")
+
+        .addRule()
+        .when(javaMethodCallCondition("{*}.Main.getCamelContext{s|map}()"))
+        .perform(
+                createHint("getCamelContextMap method removed",
+                        "The methods `getCamelContextMap` and `getCamelContexts` has been removed from the `Main` classes, and there is just a `getCamelContext` method now. ",
+                        "main_class_2", true)
+        )
+        .withId("java-generic-information-00039")
