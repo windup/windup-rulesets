@@ -468,7 +468,7 @@
                     </not>
                 </when>
                 <perform>
-                    <fail message="[java-moved-classes] ManagedCamelContext hint not found." />
+                    <fail message="[java-moved-classes] ManagedCamelContext hint not found."/>
                 </perform>
             </rule>
 
@@ -530,6 +530,31 @@
                 </when>
                 <perform>
                     <fail message="Moved jsse classes hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="java-generic-information-00041-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.apache.camel.util.jndi.JndiContext` was moved to `org.*`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="JndiContext moved hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="java-generic-information-00042-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists
+                                    message="An override the `createRegistry` method for beans registration is no longer necessary*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="createRegistry method hint not found"/>
                 </perform>
             </rule>
         </rules>
