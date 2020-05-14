@@ -557,6 +557,18 @@
                     <fail message="createRegistry method hint not found"/>
                 </perform>
             </rule>
+            <rule id="java-generic-information-00043-test">
+            <when>
+                <not>
+                    <iterable-filter size="2">
+                        <hint-exists message="`org.apache.camel.management.event.*` was moved to `org.*`"/>
+                    </iterable-filter>
+                </not>
+            </when>
+            <perform>
+                <fail message="Moved jmx event classes hint not found!"/>
+            </perform>
+        </rule>
         </rules>
     </ruleset>
 </ruletest>
