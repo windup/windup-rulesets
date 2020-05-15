@@ -27,16 +27,21 @@ final IssueCategory mandatoryIssueCategory = new IssueCategoryRegistry().getByID
 
 final String jndiRegex = "(.*createRegistry)"
 
-Hint createHint(String title, String messase, String linkAppendix, boolean mandatory) {
+Hint createHint(String title, String messase, String linkAppendix, boolean mandatory, Integer effort) {
     final String docTitleAppendix = (linkAppendix.substring(0, 1).toUpperCase() + linkAppendix.substring(1))
             .replaceAll("_", " ")
 
     HintEffort hint = Hint.titled(title)
-            .withText(messase).with(Link.to("Camel 3 - Migration Guide: $docTitleAppendix", "https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_$linkAppendix")).withEffort(1)
+            .withText(messase)
+            .with(Link.to("Camel 3 - Migration Guide: $docTitleAppendix", "https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_$linkAppendix"))
+            .withEffort(effort)
     if (mandatory) {
-        hint.withIssueCategory(new IssueCategoryRegistry().getByID(IssueCategoryRegistry.MANDATORY));
+        hint.withIssueCategory(new IssueCategoryRegistry().getByID(IssueCategoryRegistry.MANDATORY))
     }
     return (Hint) hint
+}
+Hint createHint(String title, String messase, String linkAppendix, boolean mandatory) {
+    return createHint(title,messase,linkAppendix,mandatory,1);
 }
 
 Hint createHint(String title, String messase, String linkAppendix, boolean mandatory, Quickfix quickfix) {
@@ -160,3 +165,22 @@ ruleSet("java-generic-information-groovy")
         .perform(createMovedClassHint("org.apache.camel.management.event.{event}", "org.apache.camel.spi.CamelEvent.{event}", "class", mandatoryIssueCategory, "jmx_events"))
         .where("event").matches(".*")
         .withId("java-generic-information-00043")
+
+        .addRule()
+        .when(And.all(
+                JavaClass.references("org.apache.camel.test.junit4.CamelTestSupport").at(TypeReferenceLocation.INHERITANCE).as("adviceTestClasses"),
+                JavaClass.from("adviceTestClasses").references("{*}adviceWith({*})")
+                        .at(TypeReferenceLocation.METHOD, TypeReferenceLocation.METHOD_CALL).as("adviceWith"))
+        )
+        .perform(Iteration.over("adviceWith").
+                perform(
+                        createHint(
+                                "Testing with `adviceWith` changed",
+                                "Testing with `adviceWith` changed. It's necessary to use `RouteReifier` or `AdviceWithRouteBuilder` such as:" +
+                                        " `AdviceWithRouteBuilder.adviceWith(context, \"myRoute\", a -> {\n" +
+                                        "  a.replaceFromWith(\"direct:start\");\n" +
+                                        "}`",
+                                "advicewith",
+                                true,2)
+                ))
+        .withId("java-generic-information-00044")
