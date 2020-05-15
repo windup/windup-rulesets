@@ -718,5 +718,41 @@
                 <matches pattern="(changeFunctionStartToken|changeFunctionEndToken|setFunctionStartToken|setFunctionEndToken)" />
             </where>
         </rule>
+        <rule id="java-generic-information-00047">
+            <when>
+                <javaclass references="org.apache.camel.{class}" >
+                    <location>ANNOTATION</location>
+                    <annotation-literal name="uri" pattern="{*}"/>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="@{class}: `uri` attribute has been deprecated" effort="0" category-id="optional">
+                    <message>The `uri` attribute in the @{class} annotation has been deprecated. Instead use `value`, which allows a shorthand style, from using `@{class}(uri = "jms:cheese")` to `@{class}("jms:cheese")`.</message>
+                    <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_pojo_annotations"
+                          title="Camel 3 - Pojo Annotations"/>
+                </hint>
+            </perform>
+            <where param="class">
+                <matches pattern="(Consume|EndpointInject|Produce)" />
+            </where>
+        </rule>
+        <rule id="java-generic-information-00048">
+            <when>
+                <javaclass references="org.apache.camel.{class}" >
+                    <location>ANNOTATION</location>
+                    <annotation-literal name="ref" pattern="{*}"/>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="@{class}: `ref` attribute has been removed" effort="1" category-id="mandatory">
+                    <message>The `ref` attribute in the @{class} annotation has been removed. Instead use the `ref` component in the `value` attribute, e.g @{class}("ref:myName").</message>
+                    <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_pojo_annotations"
+                          title="Camel 3 - Pojo Annotations"/>
+                </hint>
+            </perform>
+            <where param="class">
+                <matches pattern="(Consume|EndpointInject|Produce)" />
+            </where>
+        </rule>
     </rules>
 </ruleset>
