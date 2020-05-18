@@ -754,5 +754,25 @@
                 <matches pattern="(Consume|EndpointInject|Produce)" />
             </where>
         </rule>
+        <rule id="java-generic-information-00049">
+            <when>
+                <javaclass references="org.apache.camel.CamelContext.{method}({*})" >
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="The methods on `CamelContext` that are related to the catalog has been moved into a new `CatalogCamelContext` interface" effort="1" category-id="mandatory" >
+                    <message>The method `org.apache.camel.CamelContext.{method}` has moved to `org.apache.camel.CatalogCamelContext.{method}`. You can access it by adapting your CamelContext like so:
+
+                        `CatalogCamelContext ccc = context.adapt(CatalogCamelContext.class);`
+                        `ccc.{method}(...);`
+                    </message>
+                    <link title="Camel 3 - Catalog Camel Context    " href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_camelcontext" />
+                </hint>
+            </perform>
+            <where param="method" >
+                <matches pattern="(getComponentParameterJsonSchema|getDataFormatParameterJsonSchema|getLanguageParameterJsonSchema|getEipParameterJsonSchema)" />
+            </where>
+        </rule>
     </rules>
 </ruleset>

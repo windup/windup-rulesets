@@ -629,6 +629,18 @@
                     <fail message="[java-moved-classes] `ref` attribute removed hint not found" />
                 </perform>
             </rule>
+            <rule id="java-generic-information-00049-test">
+                <when>
+                    <not>
+                        <iterable-filter size="4">
+                            <hint-exists message="The method `org.apache.camel.CamelContext*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-moved-classes] moved CatalogCamelContext methods not found." />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
