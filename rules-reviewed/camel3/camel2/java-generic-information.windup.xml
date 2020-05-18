@@ -774,5 +774,22 @@
                 <matches pattern="(getComponentParameterJsonSchema|getDataFormatParameterJsonSchema|getLanguageParameterJsonSchema|getEipParameterJsonSchema)" />
             </where>
         </rule>
+        <rule id="java-generic-information-00050">
+            <when>
+                <javaclass references="org.apache.camel.CamelContext.{method}({*})" >
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="The duplicate method `org.apache.camel.CamelContext.{method}` has been removed" effort="1" category-id="mandatory" >
+                    <message>The duplicate method `org.apache.camel.CamelContext.{method}` has been removed and should be replaced by the already existing `static` method `org.apache.camel.model.ModelHelper{method}`.
+                    </message>
+                    <link title="Camel 3 - Catalog Camel Context    " href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_camelcontext" />
+                </hint>
+            </perform>
+            <where param="method" >
+                <matches pattern="(loadRoutesDefinition|loadRestsDefinition)" />
+            </where>
+        </rule>
     </rules>
 </ruleset>

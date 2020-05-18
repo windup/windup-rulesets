@@ -638,7 +638,19 @@
                     </not>
                 </when>
                 <perform>
-                    <fail message="[java-moved-classes] moved CatalogCamelContext methods not found." />
+                    <fail message="[java-moved-classes] moved CatalogCamelContext methods hint not found." />
+                </perform>
+            </rule>
+            <rule id="java-generic-information-00050-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="The duplicate method `org.apache.camel.CamelContext*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-moved-classes] duplicate ModelHelper methods hint not found." />
                 </perform>
             </rule>
         </rules>
