@@ -426,6 +426,18 @@
                     <fail message="[java-moved-classes] moved org.apache.camel.ThreadPoolRejectedPolicy hint not found." />
                 </perform>
             </rule>
+            <rule id="java-generic-information-00045-test">
+                <when>
+                    <not>
+                        <iterable-filter size="5">
+                            <hint-exists message="The method `org.apache.camel.CamelContext*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-moved-classes] ManagedCamelContext hint not found." />
+                </perform>
+            </rule>
 
         </rules>
     </ruleset>
