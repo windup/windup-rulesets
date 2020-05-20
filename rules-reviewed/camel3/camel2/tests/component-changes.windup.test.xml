@@ -91,6 +91,18 @@
                     <fail message="[Simple language] outBody/outHeaders removed hint not found!"/>
                 </perform>
             </rule>
+            <rule id="component-changes-00008-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="terser` language renamed to `hl7terser`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[simple language] terser language renamed hint not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>

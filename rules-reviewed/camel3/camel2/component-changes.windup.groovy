@@ -70,12 +70,16 @@ Hint createSimpleLanguageRemovedHint(String removed) {
             "out_message_removed_from_simple_language_and_mock_component", true)
 }
 
-Hint createMovedClassHint(String moved, String movedTo, String addInfo, IssueCategory issueCategory) {
+Quickfix createReplaceQuickfix(String replace, String replaceWith) {
     Quickfix q = new Quickfix()
     q.setType(QuickfixType.REPLACE)
-    q.setSearchStr(moved)
-    q.setReplacementStr(movedTo)
+    q.setSearchStr(replace)
+    q.setReplacementStr(replaceWith)
+    return q;
+}
 
+Hint createMovedClassHint(String moved, String movedTo, String addInfo, IssueCategory issueCategory) {
+    Quickfix q = createReplaceQuickfix(mmoved, movedTo)
     return createHint("$moved was moved", "`$moved` was moved to `$movedTo` ", "eips", true, q)
 }
 
@@ -142,7 +146,7 @@ ruleSet("component-changes-groovy")
 
         .addRule()
         .when(XmlFile.matchesXpath("//*/b:simple[text()=windup:matches(self::node(), '{*}out.{params}{*}')]")
-                        .namespace("b", "http://camel.apache.org/schema/blueprint"))
+                .namespace("b", "http://camel.apache.org/schema/blueprint"))
         .perform(createSimpleLanguageRemovedHint("out.{params}"))
         .where("params").matches("(body|header)")
         .withId("component-changes-00006")
@@ -152,6 +156,32 @@ ruleSet("component-changes-groovy")
         .perform(createSimpleLanguageRemovedHint("out.{params}"))
         .where("params").matches("(body|header)")
         .withId("component-changes-00007")
+
+        .addRule()
+        .when(Or.any(
+                XmlFile.matchesXpath("//*/c:simple[text()=windup:matches(self::node(), '{*}property{*}')]")
+                        .namespace("c", "http://camel.apache.org/schema/spring"),
+                XmlFile.matchesXpath("//*/b:simple[text()=windup:matches(self::node(), '{*}property{*}')]")
+                        .namespace("b", "http://camel.apache.org/schema/blueprint"),
+                FileContent.matches("{*}simple({*}property{*})").inFileNamed("{*}.java"))
+        )
+        .perform(createHint("Simple language: property function has been removed",
+                "`property` function has been removed from simple language. Use `exchangeProperty` instead.",
+                "languages", true))
+        .withId("component-changes-00008")
+
+        .addRule()
+        .when(Or.any(JavaClass.references("org.apache.camel.component.hl7.HL7.terser").at(TypeReferenceLocation.IMPORT).as("terser"),
+                FileContent.from("terser").matches("{*}terser({*}")
+        )
+        )
+        .perform(Iteration.over("default").perform(
+                createHint("Terser language: language renamed",
+                "`terser` language renamed to `hl7terser`",
+                "languages", true)
+                .withQuickfix(createReplaceQuickfix("org.apache.camel.component.hl7.HL7.terser",
+                        "org.apache.camel.component.hl7.HL7.hl17terser"))))
+        .withId("component-changes-00008")
 
 
 
