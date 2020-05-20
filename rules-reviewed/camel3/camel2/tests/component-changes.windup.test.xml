@@ -103,6 +103,18 @@
                     <fail message="[simple language] terser language renamed hint not found!" />
                 </perform>
             </rule>
+            <rule id="component-changes-00009-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="The default encryption algorithm is mandatory changed from `DES/CBC/PKCS5Padding.*`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[Crypto-dataformat] crypto algorithm hint not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>

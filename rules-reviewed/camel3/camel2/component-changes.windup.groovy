@@ -48,7 +48,9 @@ Hint createHint(String title, String messase, String linkAppendix, boolean manda
             .with(Link.to("Camel 3 - Migration Guide: $docTitleAppendix", "https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_$linkAppendix"))
             .withEffort(1)
     if (mandatory) {
-        hint.withIssueCategory(new IssueCategoryRegistry().getByID(IssueCategoryRegistry.MANDATORY));
+        hint.withIssueCategory(new IssueCategoryRegistry().getByID(IssueCategoryRegistry.MANDATORY))
+    } else {
+        hint.withIssueCategory(new IssueCategoryRegistry().getByID(IssueCategoryRegistry.POTENTIAL))
     }
     return (Hint) hint
 }
@@ -172,16 +174,26 @@ ruleSet("component-changes-groovy")
 
         .addRule()
         .when(Or.any(JavaClass.references("org.apache.camel.component.hl7.HL7.terser").at(TypeReferenceLocation.IMPORT).as("terser"),
-                FileContent.from("terser").matches("{*}terser({*}")
-        )
+                FileContent.from("terser").matches("{*}terser({*}"))
         )
         .perform(Iteration.over("default").perform(
                 createHint("Terser language: language renamed",
-                "`terser` language renamed to `hl7terser`",
-                "languages", true)
-                .withQuickfix(createReplaceQuickfix("org.apache.camel.component.hl7.HL7.terser",
-                        "org.apache.camel.component.hl7.HL7.hl17terser"))))
+                        "`terser` language renamed to `hl7terser`",
+                        "languages", true)
+                        .withQuickfix(createReplaceQuickfix("org.apache.camel.component.hl7.HL7.terser",
+                                "org.apache.camel.component.hl7.HL7.hl17terser"))))
         .withId("component-changes-00008")
+
+        .addRule()
+        .when(Or.any(JavaClass.references("org.apache.camel.converter.crypto.CryptoDataFormat{*}").at(TypeReferenceLocation.VARIABLE_DECLARATION),
+                XmlFile.matchesXpath("//*[c:crypto and not(b:crypto/@algorithm)]/c:crypto").namespace("c", "http://camel.apache.org/schema/spring"),
+                XmlFile.matchesXpath("//*[b:crypto and not(b:crypto/@algorithm)]/b:crypto").namespace("b", "http://camel.apache.org/schema/blueprint"))
+        )
+        .perform(createHint("Crypto dataformat: The default encryption algorithm changed to null",
+                "The default encryption algorithm is mandatory changed from `DES/CBC/PKCS5Padding` to null. " +
+                        "Therefore if algorithm hasn't been set yet, it's required to set a value for it",
+                "crypto_dataformat", false))
+        .withId("component-changes-00009")
 
 
 
