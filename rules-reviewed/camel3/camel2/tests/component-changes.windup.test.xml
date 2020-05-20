@@ -28,7 +28,67 @@
                     </not>
                 </when>
                 <perform>
-                    <fail message="[camel-shiro] 'Shiro needs to have passphrase specified!" />
+                    <fail message="[camel-shiro] 'Shiro needs to have passphrase specified - hint not found!" />
+                </perform>
+            </rule>
+            <rule id="component-changes-00003-test">
+                <when>
+                    <not>
+                        <iterable-filter size="3">
+                            <hint-exists message="`.*` has been removed from the mock component's assertion api."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[camel-mock] outBody removed hint not found!" />
+                </perform>
+            </rule>
+         <rule id="component-changes-00004-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="`@OutHeaders` annotation has been removed. Use `@Headers*`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="@OutHeaders annotation removed hint not found!" />
+                </perform>
+            </rule>
+            <rule id="component-changes-00005-test">
+                <when>
+                    <not>
+                        <iterable-filter size="6">
+                            <hint-exists message="`.*` has been removed from simple language"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[Simple language] outBody/outHeaders removed hint not found!" />
+                </perform>
+            </rule>
+            <rule id="component-changes-00006-test">
+                <when>
+                    <not>
+                        <iterable-filter size="6">
+                            <hint-exists message="`.*` has been removed from simple language"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[Simple language] outBody/outHeaders removed hint not found!" />
+                </perform>
+            </rule>
+        <rule id="component-changes-00007-test">
+                <when>
+                    <not>
+                        <iterable-filter size="6">
+                            <hint-exists message="`.*` has been removed from simple language"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[Simple language] outBody/outHeaders removed hint not found!"/>
                 </perform>
             </rule>
         </rules>

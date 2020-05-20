@@ -39,4 +39,15 @@ public class ShiroRouteBuilder extends RouteBuilder {
                 to("log:incoming payload").
                 to("direct:success");
     }
+
+    from("direct:hello")
+            .transform().simple("Hello ${out.body}");
+
+    from("direct:hello-headers")
+            .transform().simple("${out.headers.foo}=bar");
+
+    from("direct:hello-header")
+            .transform().simple("${out.headers[foo]}=bar");
+}
+
 }

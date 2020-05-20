@@ -34,6 +34,8 @@ import org.ocpsoft.rewrite.context.EvaluationContext
 final String telegramRegex = "(telegram:)(?!.*authorizationToken.*)"
 final String regexReference = "{regex}"
 
+final String regex = "\"(?.*outBody.*)\""
+
 final IssueCategory optionalIssueCategory = new IssueCategoryRegistry().getByID(IssueCategoryRegistry.OPTIONAL)
 final IssueCategory mandatoryIssueCategory = new IssueCategoryRegistry().getByID(IssueCategoryRegistry.MANDATORY)
 
@@ -60,6 +62,12 @@ boolean has(String input) {
         if (input.substring(input.indexOf("("), input.lastIndexOf(")")).split(",").length == 1)
             return true
     return false
+}
+
+Hint createSimpleLanguageRemovedHint(String removed) {
+    return createHint("Simple language: out.{params} has been removed",
+            "`$removed` has been removed from simple language",
+            "out_message_removed_from_simple_language_and_mock_component", true)
 }
 
 Hint createMovedClassHint(String moved, String movedTo, String addInfo, IssueCategory issueCategory) {
@@ -108,3 +116,42 @@ ruleSet("component-changes-groovy")
             }
         })
         .withId("component-changes-00002")
+
+        .addRule()
+        .when(FileContent.matches("{*}.{method}{*}").inFileNamed("{*}.java"))
+        .perform(createHint("Mock: {method} has been removed",
+                "`{method}` has been removed from the mock component's assertion api.",
+                "out_message_removed_from_simple_language_and_mock_component", true))
+        .where("method").matches("(outBody|outHeaders)")
+        .withId("component-changes-00003")
+
+        .addRule()
+        .when(JavaClass.references("org.apache.camel.OutHeaders").at(TypeReferenceLocation.ANNOTATION, TypeReferenceLocation.IMPORT))
+
+        .perform(createHint("@OutHeaders annotation has been removed",
+                "`@OutHeaders` annotation has been removed. Use `@Headers` instead",
+                "out_message_removed_from_simple_language_and_mock_component", true))
+        .withId("component-changes-00004")
+
+        .addRule()
+        .when(XmlFile.matchesXpath("//*/c:simple[text()=windup:matches(self::node(), '{*}out.{params}{*}')]")
+                .namespace("c", "http://camel.apache.org/schema/spring"))
+        .perform(createSimpleLanguageRemovedHint("out.{params}"))
+        .where("params").matches("(body|header)")
+        .withId("component-changes-00005")
+
+        .addRule()
+        .when(XmlFile.matchesXpath("//*/b:simple[text()=windup:matches(self::node(), '{*}out.{params}{*}')]")
+                        .namespace("b", "http://camel.apache.org/schema/blueprint"))
+        .perform(createSimpleLanguageRemovedHint("out.{params}"))
+        .where("params").matches("(body|header)")
+        .withId("component-changes-00006")
+
+        .addRule()
+        .when(FileContent.matches("{*}simple({*}out.{params}{*})").inFileNamed("{*}.java"))
+        .perform(createSimpleLanguageRemovedHint("out.{params}"))
+        .where("params").matches("(body|header)")
+        .withId("component-changes-00007")
+
+
+
