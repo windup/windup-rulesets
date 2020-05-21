@@ -581,6 +581,18 @@
                     <fail message="Moved jmx event classes hint not found!"/>
                 </perform>
             </rule>
+            <rule id="java-generic-information-00045-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Routes with multiple inputs such as `.*`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Multiple inputs route hint not found!"/>
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>

@@ -1,11 +1,12 @@
 package camel3.camel2
 
-import org.apache.tinkerpop.gremlin.structure.T
 import org.jboss.windup.ast.java.data.TypeReferenceLocation
+import org.jboss.windup.config.GraphRewrite
 import org.jboss.windup.config.metadata.TechnologyReference
 import org.jboss.windup.config.operation.Iteration
+import org.jboss.windup.config.operation.iteration.AbstractIterationOperation
+import org.jboss.windup.graph.model.FileLocationModel
 import org.jboss.windup.reporting.category.IssueCategory
-import org.jboss.windup.reporting.category.IssueCategoryModel
 import org.jboss.windup.reporting.category.IssueCategoryRegistry
 import org.jboss.windup.reporting.config.Hint
 import org.jboss.windup.reporting.config.HintEffort
@@ -14,17 +15,19 @@ import org.jboss.windup.reporting.model.QuickfixType
 import org.jboss.windup.reporting.quickfix.Quickfix
 import org.jboss.windup.rules.apps.java.condition.JavaClass
 import org.jboss.windup.rules.files.condition.FileContent
-import org.ocpsoft.rewrite.config.Condition
-import org.ocpsoft.rewrite.config.Not
 import org.ocpsoft.rewrite.config.Or
 import org.ocpsoft.rewrite.config.And
+import org.ocpsoft.rewrite.context.EvaluationContext
+
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 
 final String MOVED_FROM = "org.apache.camel.ThreadPoolRejectedPolicy"
 final String MOVED_TO = "org.apache.camel.util.concurrent.ThreadPoolRejectedPolicy"
 final IssueCategory optionalIssueCategory = new IssueCategoryRegistry().getByID(IssueCategoryRegistry.OPTIONAL)
 final IssueCategory mandatoryIssueCategory = new IssueCategoryRegistry().getByID(IssueCategoryRegistry.MANDATORY)
-
+final String fromRegex = "from\\([\\s]*.*?\\)"
 final String jndiRegex = "(.*createRegistry)"
 
 Hint createHint(String title, String messase, String linkAppendix, boolean mandatory, Integer effort) {
@@ -40,8 +43,9 @@ Hint createHint(String title, String messase, String linkAppendix, boolean manda
     }
     return (Hint) hint
 }
+
 Hint createHint(String title, String messase, String linkAppendix, boolean mandatory) {
-    return createHint(title,messase,linkAppendix,mandatory,1);
+    return createHint(title, messase, linkAppendix, mandatory, 1);
 }
 
 Hint createHint(String title, String messase, String linkAppendix, boolean mandatory, Quickfix quickfix) {
@@ -181,6 +185,30 @@ ruleSet("java-generic-information-groovy")
                                         "  a.replaceFromWith(\"direct:start\");\n" +
                                         "}`",
                                 "advicewith",
-                                true,2)
+                                true, 2)
                 ))
         .withId("java-generic-information-00044")
+
+        .addRule()
+        .when(FileContent.matches("{regex}").inFileNamed("{*}.java").as("fromStrings"))
+        .perform(new AbstractIterationOperation<FileLocationModel>() {
+            void perform(GraphRewrite event, EvaluationContext context, FileLocationModel payload) {
+
+                Hint h = createHint("Routes with multiple inputs aren't supported anymore",
+                        "Routes with multiple inputs such as `from(\"input1\",\"input2\")` aren't supported anymore",
+                        "routes_with_multiple_inputs", true,2)
+
+                Matcher matcher = Pattern.compile("(\"[^\"]*?\")").matcher(payload.sourceSnippit)
+                StringBuffer sb = new StringBuffer()
+                while (matcher.find()) {
+                    matcher.appendReplacement(sb, matcher.group(1).replaceAll(".*", "*"))
+                }
+                matcher.appendTail(sb)
+                final String input = sb.toString()
+                if ((input.substring(input.indexOf("("), input.lastIndexOf(")")).split(",").length > 1)) {
+                    h.perform(event, context, payload)
+                }
+            }
+        })
+        .where("regex").matches(fromRegex)
+        .withId("java-generic-information-00045")
