@@ -195,5 +195,19 @@ ruleSet("component-changes-groovy")
                 "crypto_dataformat", false))
         .withId("component-changes-00009")
 
+        .addRule()
+        .when(Or.any(
+                XmlFile.matchesXpath("//*[c:secureXML and (count(c:secureXML/@passPhrase)+count(c:secureXML/@passPhraseByte))<1]/c:secureXML/")
+                        .namespace("c", "http://camel.apache.org/schema/spring"),
+                XmlFile.matchesXpath("//*[b:secureXML and (count(b:secureXML/@passPhrase)+count(b:secureXML/@passPhraseByte))<1]/b:secureXML/")
+                        .namespace("b", "http://camel.apache.org/schema/blueprint"),
+                FileContent.matches("{*}secureXML").inFileNamed("{*}.java"))
+        )
+        .perform(createHint("XMLsecure dataformat: The default encryption key has been removed",
+                "The default encryption key has been removed, so it is now mandatory to supply " +
+                        "the key String/bytes if you are using symmetric encryption.",
+                "xml_security_dataformat", false))
+        .withId("component-changes-00010")
+
 
 

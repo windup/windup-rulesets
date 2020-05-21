@@ -22,6 +22,9 @@
             <from uri="telegram:foo?authorizationToken=wasd"/>
             <filter>
                 <simple>${out.headers[foo]}</simple>
+                <marshal>
+                    <secureXML secureTag="//cheese:cheesesites/italy" secureTagContents="true"/>
+                </marshal>
                 <to uri="mock:fooOrders"/>
             </filter>
             <transform>

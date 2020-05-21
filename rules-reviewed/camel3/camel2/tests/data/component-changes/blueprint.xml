@@ -12,6 +12,9 @@
                 <to uri="mock:barOrders"/>
             </filter>
             <transform>
+                <marshal>
+                    <secureXML secureTag="//cheese:cheesesites/italy" secureTagContents="true"/>
+                </marshal>
                 <simple>Hello ${out.body} bar</simple>
             </transform>
         </route>
