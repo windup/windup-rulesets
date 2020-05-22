@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <ruletest id="component-changes-tests"
-        xmlns="http://windup.jboss.org/schema/jboss-ruleset"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <testDataPath>data/component-changes</testDataPath>
     <rulePath>../component-changes.windup.groovy</rulePath>
 
@@ -16,7 +17,7 @@
                     </not>
                 </when>
                 <perform>
-                    <fail message="[camel-telegram] 'Authorization Token required' hint was not found!" />
+                    <fail message="[camel-telegram] 'Authorization Token required' hint was not found!"/>
                 </perform>
             </rule>
             <rule id="component-changes-00002-test">
@@ -28,7 +29,7 @@
                     </not>
                 </when>
                 <perform>
-                    <fail message="[camel-shiro] 'Shiro needs to have passphrase specified - hint not found!" />
+                    <fail message="[camel-shiro] 'Shiro needs to have passphrase specified - hint not found!"/>
                 </perform>
             </rule>
             <rule id="component-changes-00003-test">
@@ -40,10 +41,10 @@
                     </not>
                 </when>
                 <perform>
-                    <fail message="[camel-mock] outBody removed hint not found!" />
+                    <fail message="[camel-mock] outBody removed hint not found!"/>
                 </perform>
             </rule>
-         <rule id="component-changes-00004-test">
+            <rule id="component-changes-00004-test">
                 <when>
                     <not>
                         <iterable-filter size="2">
@@ -52,7 +53,7 @@
                     </not>
                 </when>
                 <perform>
-                    <fail message="@OutHeaders annotation removed hint not found!" />
+                    <fail message="@OutHeaders annotation removed hint not found!"/>
                 </perform>
             </rule>
             <rule id="component-changes-00005-test">
@@ -64,7 +65,7 @@
                     </not>
                 </when>
                 <perform>
-                    <fail message="[Simple language] outBody/outHeaders removed hint not found!" />
+                    <fail message="[Simple language] outBody/outHeaders removed hint not found!"/>
                 </perform>
             </rule>
             <rule id="component-changes-00006-test">
@@ -76,10 +77,10 @@
                     </not>
                 </when>
                 <perform>
-                    <fail message="[Simple language] outBody/outHeaders removed hint not found!" />
+                    <fail message="[Simple language] outBody/outHeaders removed hint not found!"/>
                 </perform>
             </rule>
-        <rule id="component-changes-00007-test">
+            <rule id="component-changes-00007-test">
                 <when>
                     <not>
                         <iterable-filter size="6">
@@ -100,31 +101,46 @@
                     </not>
                 </when>
                 <perform>
-                    <fail message="[simple language] terser language renamed hint not found!" />
+                    <fail message="[simple language] terser language renamed hint not found!"/>
                 </perform>
             </rule>
             <rule id="component-changes-00009-test">
                 <when>
                     <not>
                         <iterable-filter size="2">
-                            <hint-exists message="The default encryption algorithm is mandatory changed from `DES/CBC/PKCS5Padding.*`"/>
+                            <hint-exists
+                                    message="The default encryption algorithm is mandatory changed from `DES/CBC/PKCS5Padding.*`"/>
                         </iterable-filter>
                     </not>
                 </when>
                 <perform>
-                    <fail message="[Crypto-dataformat] crypto algorithm hint not found!" />
+                    <fail message="[Crypto-dataformat] crypto algorithm hint not found!"/>
                 </perform>
             </rule>
             <rule id="component-changes-000010-test">
                 <when>
                     <not>
                         <iterable-filter size="3">
-                            <hint-exists message="The default encryption key has been removed, so it is now mandatory to supply*"/>
+                            <hint-exists
+                                    message="The default encryption key has been removed, so it is now mandatory to supply*"/>
                         </iterable-filter>
                     </not>
                 </when>
                 <perform>
-                    <fail message="[SecureXML-dataformat] secureXML hint not found!" />
+                    <fail message="[SecureXML-dataformat] secureXML hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="component-changes-000011-test">
+                <when>
+                    <not>
+                        <iterable-filter size="3">
+                            <hint-exists
+                                    message="Consumer.options with `consumer.*`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[Consumer endpoints] removed .consumer prefix hint not found!"/>
                 </perform>
             </rule>
         </rules>

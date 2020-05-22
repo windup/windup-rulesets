@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+
+    <camelContext id="test-camel-context" xmlns="http://camel.apache.org/schema/spring" autoStartup="true">
+        <dataFormats>
+            <crypto id="initvector" algorithm="DES" keyRef="desKey" initVectorRef="initializationVector"/>
+        </dataFormats>
+        <route>
+            <from uri="imap://jones@localhost?password=secret&amp;idempotentRepository=#myRepo&amp;consumer.initialDelay=100&amp;consumer.delay=100"/>
+            <to uri="mock:result"/>
+        </route>
+    </camelContext>
+</beans>

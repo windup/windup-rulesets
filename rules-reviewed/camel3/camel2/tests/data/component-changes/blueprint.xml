@@ -18,6 +18,10 @@
                 <simple>Hello ${out.body} bar</simple>
             </transform>
         </route>
+        <route>
+            <from uri="imap://jones@localhost?password=secret&amp;idempotentRepository=#myRepo&amp;consumer.initialDelay=100&amp;consumer.delay=100"/>
+            <to uri="mock:result"/>
+        </route>
     </camelContext>
 
 </blueprint>

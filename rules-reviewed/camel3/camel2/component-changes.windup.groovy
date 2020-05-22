@@ -209,5 +209,19 @@ ruleSet("component-changes-groovy")
                 "xml_security_dataformat", false))
         .withId("component-changes-00010")
 
+        .addRule()
+        .when(Or.any(
+                XmlFile.matchesXpath("//*/c:from[@uri=windup:matches(self::node(), '{*}consumer.{*}')]")
+                        .namespace("c", "http://camel.apache.org/schema/spring"),
+                XmlFile.matchesXpath("//*/b:from[@uri=windup:matches(self::node(), '{*}consumer.{*}')]")
+                        .namespace("b", "http://camel.apache.org/schema/blueprint"),
+                FileContent.matches("{*}from({*}consumer.{*})").inFileNamed("{*}.java"))
+        )
+        .perform(createHint("Consumer endpoints: options with consumer. prefix have been removed. ",
+                "Consumer.options with `consumer.` prefix have been removed. Use options without the prefix" +
+                        "i.e `delay` instead of `consumer.delay`",
+                "using_endpoint_options_with_consumer_prefix", true))
+        .withId("component-changes-00011")
+
 
 
