@@ -163,6 +163,19 @@
                     <fail message="[xml-removed-components] 'camel-aws-starter' dependency removed hint was not found!" />
                 </perform>
             </rule>
+            <rule id="xml-removed-components-00010-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists
+                                    message="The `camel-maven-plugin` has been split up into two Maven plugins*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[Camel plugin split] Hint for Camel Maven Plugin split not found!"/>
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
