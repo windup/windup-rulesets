@@ -5,6 +5,7 @@
           xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <testDataPath>data/component-changes</testDataPath>
     <rulePath>../component-changes.windup.groovy</rulePath>
+    <rulePath>../component-changes.windup.xml</rulePath>
 
     <ruleset>
         <rules>
@@ -221,7 +222,7 @@
                     <fail message="[Crypto-component] changed  hint not found!"/>
                 </perform>
             </rule>
-        <rule id="component-changes-000018-test">
+            <rule id="component-changes-000018-test">
                 <when>
                     <not>
                         <iterable-filter size="3">
@@ -232,6 +233,18 @@
                 </when>
                 <perform>
                     <fail message="[XSLT component] new component hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="component-changes-00019-test">
+                <when>
+                    <not>
+                        <iterable-filter size="7">
+                            <hint-exists message="The `org.apache.camel:camel-kafka` component has removed the options `bridgeEndpoint` and `circularEndpointDetection`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[component-changes] 'camel-kafka' hint was not found!" />
                 </perform>
             </rule>
         </rules>

@@ -2,18 +2,10 @@
 
     <camelContext xmlns="http://camel.apache.org/schema/blueprint">
         <route>
-            <from uri="vm:circularTopicDetection"/>
-            <to uri="kafka:mytopic?brokers=localhost&amp;circularTopicDetection=false"/>
-        </route>
-        <route>
             <from uri="vm:bridgeEndpoint"/>
             <to uri="kafka:mytopic?brokers=localhost&amp;bridgeEndpoint=false"/>
         </route>
-        <!-- These shouldn't trigger the rules -->
-        <route>
-            <from uri="vm:circularTopicDetection-no-match"/>
-            <to uri="netty4-http:localhost:9898/foo?matchOnUriPrefix=true&amp;circularTopicDetection=false"/>
-        </route>
+        <!-- This shouldn't trigger the rules -->
         <route>
             <from uri="vm:circularTopicDetection-no-match"/>
             <to uri="netty4-http:localhost:9898/foo?matchOnUriPrefix=true&amp;bridgeEndpoint=false"/>

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="removed-endpoint-options"
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="component-changes"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <metadata>
         <description>
@@ -12,7 +12,7 @@
         <targetTechnology id="camel" versionRange="[3,)" />
     </metadata>
     <rules>
-        <rule id="removed-endpoint-options-00000">
+        <rule id="component-changes-00019">
             <when>
                 <or>
                     <!-- Spring XML -->
@@ -32,7 +32,7 @@
             </when>
             <perform>
                 <hint title="The `org.apache.camel:camel-kafka` component has removed the options `bridgeEndpoint` and `circularEndpointDetection`" effort="3" category-id="mandatory" >
-                    <message>The `org.apache.camel:camel-kafka` component has removed the options `bridgeEndpoint` and `circularEndpointDetection` as this is no longer needed as the component is acting as bridging would work on Camel 2.x. In other words camel-kafka will send messages to the topic from the endpoint uri. To override this use the KafkaConstants.OVERRIDE_TOPIC header with the new topic. See more details in the camel-kafka component documentation.</message>
+                    <message>The `org.apache.camel:camel-kafka` component has removed the options `bridgeEndpoint` and `circularEndpointDetection` as they are no longer needed because the component is acting as bridging would work on Camel 2.x. In other words camel-kafka will send messages to the topic from the endpoint uri. To override this use the KafkaConstants.OVERRIDE_TOPIC header with the new topic. See more details in the camel-kafka component documentation.</message>
                     <link title="Camel 3 - Migration Guide: Kafka" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_kafka" />
                 </hint>
             </perform>
