@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+
+    <!-- configure Simple to use custom prefix/suffix tokens -->
+    <bean id="simple" class="org.apache.camel.language.simple.SimpleLanguage">
+        <property name="functionStartToken" value="["/>
+        <property name="functionEndToken" value="]"/>
+    </bean>
+
+    <camelContext id="test-camel-context" xmlns="http://camel.apache.org/schema/blueprint">
+        <!-- This route transforms the body using simple with custom prefix and suffix tokens configured by "simple" bean,
+        the text ' is cool' is appended to the body and then routed to mock:result. -->
+        <route>
+            <from uri="direct:start"/>
+            <transform>
+                <simple>[body] is cool</simple>
+            </transform>
+            <to uri="mock:result"/>
+        </route>
+    </camelContext>
+</blueprint>
