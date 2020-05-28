@@ -4,8 +4,18 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 		http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
 
+    <bean id="camelTracer" class="org.apache.camel.processor.interceptor.Tracer">
+        <property name="traceExceptions" value="false"/>
+        <property name="traceInterceptors" value="true"/>
+        <property name="logLevel" value="ERROR"/>
+        <property name="logName" value="com.mycompany.messages"/>
+    </bean>
+    <bean id="traceFormatter" class="org.apache.camel.processor.interceptor.DefaultTraceFormatter">
+        <property name="showBody" value="true" />
+        <property name="maxChars" value="0" />
+    </bean>
 
-    <camelContext id="test-camel-context" xmlns="http://camel.apache.org/schema/spring" autoStartup="true">
+    <camelContext trace="true" id="test-camel-context" xmlns="http://camel.apache.org/schema/spring" autoStartup="true">
         <dataFormats>
             <crypto id="initvector" algorithm="DES" keyRef="desKey" initVectorRef="initializationVector"/>
         </dataFormats>

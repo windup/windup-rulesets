@@ -27,8 +27,10 @@ import org.jboss.windup.rules.apps.xml.model.XmlTypeReferenceModel
 import org.jboss.windup.rules.files.condition.FileContent
 import org.ocpsoft.rewrite.config.And
 import org.ocpsoft.rewrite.config.Condition
+import org.ocpsoft.rewrite.config.ConditionBuilder
 import org.ocpsoft.rewrite.config.Not
 import org.ocpsoft.rewrite.config.Or
+import org.ocpsoft.rewrite.config.True
 import org.ocpsoft.rewrite.context.EvaluationContext
 
 final String telegramRegex = "(telegram:)(?!.*authorizationToken.*)"
@@ -223,5 +225,53 @@ ruleSet("component-changes-groovy")
                 "using_endpoint_options_with_consumer_prefix", true))
         .withId("component-changes-00011")
 
+        .addRule()
+        .when(Or.any(
+                XmlFile.matchesXpath("//*[@class='org.apache.camel.processor.interceptor.Tracer']"),
+                 JavaClass.references("org.apache.camel.processor.interceptor.Tracer").at(TypeReferenceLocation.IMPORT)
+        ))
+        .perform(createHint("Tracing: Tracer class removed",
+                "`org.apache.camel.processor.interceptor.Tracer` class has been removed and replaced by `org.apache.camel.Tracing`." +
+                        "See the documentation:",
+                "tracing", true)
+                .with(Link.to("Tracer in Camel 3","https://camel.apache.org/manual/latest/tracer.html"))
+                .withEffort(2))
+        .withId("component-changes-00012")
+
+        .addRule()
+        .when(Or.any(
+                XmlFile.matchesXpath("//*[@class='org.apache.camel.processor.interceptor.DefaultTraceFormatter']"),
+                 JavaClass.references("org.apache.camel.processor.interceptor.DefaultTraceFormatter").at(TypeReferenceLocation.IMPORT)
+        ))
+        .perform(createHint("Tracing: DefaultTraceFormatter formatter removed",
+                "`org.apache.camel.processor.interceptor.DefaultTraceFormatter` class has been removed. " +
+                        "Use `ExchangeFormatter` as described in the documentation:",
+                "tracing", true)
+                .with(Link.to("Tracer in Camel 3","https://camel.apache.org/manual/latest/tracer.html"))
+                .withEffort(2))
+        .withId("component-changes-00013")
+
+        .addRule()
+        .when( XmlFile.matchesXpath("/m:project/m:dependencies[m:dependency/m:artifactId/text() = 'camel-core']")
+                .inFile("pom.xml").namespace("m", "http://maven.apache.org/POM/4.0.0"))
+        .perform(createHint("Tracing:  BacklogTracer is no longer enabled by default in JMX",
+                "`BacklogTracer` is no longer enabled by default in JMX. For using BacklogTracer you need to enable by setting `backlogTracing=true` on CamelContext.",
+                "tracing", false))
+        .withId("component-changes-00015")
+
+
+        .addRule()
+        .when(Or.any(
+                XmlFile.matchesXpath("//*/c:to[contains(@uri,'xmlsecurity')]")
+                        .namespace("c", "http://camel.apache.org/schema/spring"),
+                XmlFile.matchesXpath("//*/b:to[contains(@uri,'xmlsecurity')]")
+                        .namespace("b", "http://camel.apache.org/schema/blueprint"),
+                FileContent.matches(".to({*}xmlsecurity{*}").inFileNamed("{*}.java")//
+        )
+        )
+        .perform(createHint("XMLSecurity component: The default signature algorithm has changed",
+                "The default signature algorithm in the XMLSecurity component has changed `SHA1WithDSA` to `SHA256withRSA`. ",
+                "using_endpoint_options_with_consumer_prefix", IssueCategoryRegistry.INFORMATION))
+        .withId("component-changes-00012")
 
 
