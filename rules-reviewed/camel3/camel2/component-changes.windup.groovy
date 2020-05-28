@@ -41,7 +41,7 @@ final String regex = "\"(?.*outBody.*)\""
 final IssueCategory optionalIssueCategory = new IssueCategoryRegistry().getByID(IssueCategoryRegistry.OPTIONAL)
 final IssueCategory mandatoryIssueCategory = new IssueCategoryRegistry().getByID(IssueCategoryRegistry.MANDATORY)
 
-Hint createHint(String title, String messase, String linkAppendix, boolean mandatory) {
+Hint createHint(String title, String messase, String linkAppendix, String issueCategory) {
     final String docTitleAppendix = (linkAppendix.substring(0, 1).toUpperCase() + linkAppendix.substring(1))
             .replaceAll("_", " ")
 
@@ -49,12 +49,18 @@ Hint createHint(String title, String messase, String linkAppendix, boolean manda
             .withText(messase)
             .with(Link.to("Camel 3 - Migration Guide: $docTitleAppendix", "https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_$linkAppendix"))
             .withEffort(1)
+
+    ((Hint) hint).withIssueCategory(new IssueCategoryRegistry().getByID(issueCategory))
+    return hint
+}
+
+Hint createHint(String title, String messase, String linkAppendix, boolean mandatory) {
+    HintEffort hint
     if (mandatory) {
-        hint.withIssueCategory(new IssueCategoryRegistry().getByID(IssueCategoryRegistry.MANDATORY))
+        return createHint(title, messase, linkAppendix, IssueCategoryRegistry.MANDATORY)
     } else {
-        hint.withIssueCategory(new IssueCategoryRegistry().getByID(IssueCategoryRegistry.POTENTIAL))
+        return createHint(title, messase, linkAppendix, IssueCategoryRegistry.POTENTIAL)
     }
-    return (Hint) hint
 }
 
 Hint createHint(String title, String messase, String linkAppendix, boolean mandatory, Quickfix quickfix) {
@@ -255,10 +261,10 @@ ruleSet("component-changes-groovy")
         .when( XmlFile.matchesXpath("/m:project/m:dependencies[m:dependency/m:artifactId/text() = 'camel-core']")
                 .inFile("pom.xml").namespace("m", "http://maven.apache.org/POM/4.0.0"))
         .perform(createHint("Tracing:  BacklogTracer is no longer enabled by default in JMX",
-                "`BacklogTracer` is no longer enabled by default in JMX. For using BacklogTracer you need to enable by setting `backlogTracing=true` on CamelContext.",
+                "`BacklogTracer` is no longer enabled by default in JMX. For using BacklogTracer " +
+                        "you need to enable by setting `backlogTracing=true` on CamelContext.",
                 "tracing", false))
-        .withId("component-changes-00015")
-
+        .withId("component-changes-00014")
 
         .addRule()
         .when(Or.any(
@@ -272,6 +278,17 @@ ruleSet("component-changes-groovy")
         .perform(createHint("XMLSecurity component: The default signature algorithm has changed",
                 "The default signature algorithm in the XMLSecurity component has changed `SHA1WithDSA` to `SHA256withRSA`. ",
                 "using_endpoint_options_with_consumer_prefix", IssueCategoryRegistry.INFORMATION))
-        .withId("component-changes-00012")
+        .withId("component-changes-00015")
 
-
+        .addRule()
+        .when(Or.any(
+                XmlFile.matchesXpath("//*/c:route/*[contains(@uri,'crypto:')]")
+                        .namespace("c", "http://camel.apache.org/schema/spring"),
+                XmlFile.matchesXpath("//*/b:route/*[contains(@uri,'crypto:')]")
+                        .namespace("b", "http://camel.apache.org/schema/blueprint"),
+                FileContent.matches(".to({*}crypto:{*}").inFileNamed("{*}.java"))
+        )
+        .perform(createHint("Crypto component: The default signature algorithm has changed",
+                "The default signature algorithm in the Crypto component has changed from `SHA1WithDSA` to `SHA256withRSA`.",
+                "using_endpoint_options_with_consumer_prefix", IssueCategoryRegistry.INFORMATION))
+        .withId("component-changes-00016")

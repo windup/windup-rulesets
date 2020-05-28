@@ -23,5 +23,18 @@
             <from uri="imap://jones@localhost?password=secret&amp;idempotentRepository=#myRepo&amp;consumer.initialDelay=100&amp;consumer.delay=100"/>
             <to uri="mock:result"/>
         </route>
+
+        <route>
+            <from uri="direct:keypair"/>
+            <to uri="crypto:sign://basic?privateKey=#myPrivateKey" />
+            <to uri="crypto:verify://basic?publicKey=#myPublicKey" />
+            <to uri="mock:result"/>
+        </route>
+        <route>
+            <from uri="direct:enveloping"/>
+            <to uri="xmlsecurity-sign://enveloping?keyAccessor=#accessor"/>
+            <to uri="xmlsecurity-verify://enveloping?keySelector=#selector"/>
+            <to uri="mock:result"/>
+        </route>
     </camelContext>
 </beans>
