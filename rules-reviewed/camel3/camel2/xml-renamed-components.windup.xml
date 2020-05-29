@@ -32,6 +32,19 @@
         <rule id="xml-renamed-components-00001">
             <when>
                 <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-http4-starter" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-http4-starter` artifact has been renamed" effort="1" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-http4-starter` artifact has been renamed in Apache Camel 3 to `org.apache.camel.springboot:camel-http-starter` artifact</message>
+                    <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_renamed_components" title="Camel 3 - Migration Guide: Renamed components" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-renamed-components-00002">
+            <when>
+                <project>
                     <artifact groupId="org.apache.camel" artifactId="camel-rxjava2" />
                 </project>
             </when>
@@ -46,7 +59,20 @@
                 </hint>
             </perform>
         </rule>
-        <rule id="xml-renamed-components-00002">
+        <rule id="xml-renamed-components-00003">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-rxjava2-starter" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-rxjava2-starter` artifact has been renamed" effort="1" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-rxjava2-starter` artifact has been renamed in Apache Camel 3 to `org.apache.camel.springboot:camel-rxjava-starter` artifact</message>
+                    <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_renamed_components" title="Camel 3 - Migration Guide: Renamed components" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-renamed-components-00004">
             <when>
                 <project>
                     <artifact groupId="org.apache.camel" artifactId="camel-{substitution}-starter" />
@@ -59,10 +85,10 @@
                 </hint>
             </perform>
             <where param="substitution">
-                <matches pattern="([a-zA-Z0-9]|-)*" />
+                <matches pattern="(?!rxjava2-starter$|http4-starter$|mongodb3-starter$|hdfs2-starter$|hdfs-starter$|mina2-starter$|mina-starter$|netty4-starter$|netty-starter$|netty4-http-starter$|netty-http-starter$|quartz2-starter$|quartz-starter$|jetty9-starter$)([a-zA-Z0-9]|-)*" />
             </where>
         </rule>
-        <rule id="xml-renamed-components-00003">
+        <rule id="xml-renamed-components-00005">
             <when>
                 <project>
                     <artifact groupId="org.apache.camel" artifactId="camel-mongodb3" />
@@ -79,7 +105,20 @@
                 </hint>
             </perform>
         </rule>
-        <rule id="xml-renamed-components-00004">
+        <rule id="xml-renamed-components-00006">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-mongodb3-starter" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-mongodb3-starter` artifact has been renamed" effort="1" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-mongodb3-starter` artifact has been renamed to `org.apache.camel.springboot:camel-mongodb-starter`. It’s corresponding component package was renamed from `org.apache.camel.component.mongodb3` to `org.apache.camel.component.mongodb`. The supported scheme is now `mongodb`.</message>
+                    <link title="Camel 3 - Renamed Components" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_renamed_components" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-renamed-components-00007">
             <when>
                 <project>
                     <artifact groupId="org.apache.camel" artifactId="camel-hdfs2" />
@@ -96,7 +135,20 @@
                 </hint>
             </perform>
         </rule>
-        <rule id="xml-renamed-components-00005">
+        <rule id="xml-renamed-components-00008">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-hdfs2-starter" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-hdfs2-starter` artifact has been renamed" effort="1" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-hdfs2-starter` artifact has been renamed to `org.apache.camel.springboot:camel-hdfs-starter`. It’s corresponding component package was renamed from `org.apache.camel.component.hdfs2` to `org.apache.camel.component.hdfs`. The supported scheme is now `hdfs`.</message>
+                    <link title="Camel 3 - Renamed Components" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_renamed_components" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-renamed-components-00009">
             <when>
                 <project>
                     <artifact groupId="org.apache.camel" artifactId="camel-hdfs" toVersion="2"/>
@@ -109,7 +161,20 @@
                 </hint>
             </perform>
         </rule>
-        <rule id="xml-renamed-components-00006">
+        <rule id="xml-renamed-components-00010">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-hdfs-starter"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-hdfs-starter` artifact has been renamed" effort="1" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-hdfs-starter` artifact has been renamed to `org.apache.camel.springboot:camel-hdfs-starter`. The component now depends on Hadoop 2.x, upgrade efforts may vary.</message>
+                    <link title="Camel 3 - Renamed Components" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_renamed_components" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-renamed-components-00011">
             <when>
                 <project>
                     <artifact groupId="org.apache.camel" artifactId="camel-mina2" />
@@ -126,7 +191,20 @@
                 </hint>
             </perform>
         </rule>
-        <rule id="xml-renamed-components-00007">
+        <rule id="xml-renamed-components-00012">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-mina2-starter" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-mina2-starter` artifact has been renamed" effort="1" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-mina2-starter` artifact has been renamed to `org.apache.camel.springboot:camel-mina-starter`. It’s corresponding component package was renamed from `org.apache.camel.component.mina2` to `org.apache.camel.component.mina`. The supported scheme is now `mina`.</message>
+                    <link title="Camel 3 - Renamed Components" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_renamed_components" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-renamed-components-00013">
             <when>
                 <project>
                     <artifact groupId="org.apache.camel" artifactId="camel-mina" toVersion="2"/>
@@ -139,7 +217,20 @@
                 </hint>
             </perform>
         </rule>
-        <rule id="xml-renamed-components-00008">
+        <rule id="xml-renamed-components-00014">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-mina-starter"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-mina-starter` artifact has been renamed" effort="1" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-mina-starter` artifact has been renamed to `org.apache.camel.springboot:camel-mina-starter`. The component now depends on Mina 2.x, upgrade efforts may vary.</message>
+                    <link title="Camel 3 - Renamed Components" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_renamed_components" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-renamed-components-00015">
             <when>
                 <project>
                     <artifact groupId="org.apache.camel" artifactId="camel-netty4" />
@@ -156,7 +247,20 @@
                 </hint>
             </perform>
         </rule>
-        <rule id="xml-renamed-components-00009">
+        <rule id="xml-renamed-components-00016">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-netty4-starter" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-netty4-starter` artifact has been renamed" effort="1" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-netty4-starter` artifact has been renamed to `org.apache.camel.springboot:camel-netty-starter`. It’s corresponding component package was renamed from `org.apache.camel.component.netty4` to `org.apache.camel.component.netty`. The supported scheme is now `netty`.</message>
+                    <link title="Camel 3 - Renamed Components" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_renamed_components" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-renamed-components-00017">
             <when>
                 <project>
                     <artifact groupId="org.apache.camel" artifactId="camel-netty" toVersion="2"/>
@@ -169,7 +273,20 @@
                 </hint>
             </perform>
         </rule>
-        <rule id="xml-renamed-components-000010">
+        <rule id="xml-renamed-components-00018">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-netty-starter"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-netty-starter` artifact has been renamed" effort="1" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-netty-starter` artifact has been renamed to `org.apache.camel.springboot:camel-netty-starter` artifact. The component now depends on Netty 4.x, upgrade efforts may vary.</message>
+                    <link title="Camel 3 - Renamed Components" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_renamed_components" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-renamed-components-000019">
             <when>
                 <project>
                     <artifact groupId="org.apache.camel" artifactId="camel-netty4-http" />
@@ -186,7 +303,20 @@
                 </hint>
             </perform>
         </rule>
-        <rule id="xml-renamed-components-00011">
+        <rule id="xml-renamed-components-000020">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-netty4-http-starter" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-netty4-http-starter` artifact has been renamed" effort="1" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-netty4-http` artifact has been renamed to `org.apache.camel.springboot:camel-netty-http-starter`. It’s corresponding component package was renamed from `org.apache.camel.component.netty4.http` to `org.apache.camel.component.netty.http`. The supported scheme is now `netty-http`.</message>
+                    <link title="Camel 3 - Renamed Components" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_renamed_components" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-renamed-components-00021">
             <when>
                 <project>
                     <artifact groupId="org.apache.camel" artifactId="camel-netty-http" toVersion="2"/>
@@ -199,7 +329,20 @@
                 </hint>
             </perform>
         </rule>
-        <rule id="xml-renamed-components-000012">
+        <rule id="xml-renamed-components-00022">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-netty-http-starter"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-netty-http-starter` artifact has been renamed" effort="1" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-netty-http-starter` artifact has been renamed to `org.apache.camel.springboot:camel-netty-http-starter`. The component now depends on Netty 4.x, upgrade efforts may vary.</message>
+                    <link title="Camel 3 - Renamed Components" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_renamed_components" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-renamed-components-000023">
             <when>
                 <project>
                     <artifact groupId="org.apache.camel" artifactId="camel-quartz2" />
@@ -216,7 +359,20 @@
                 </hint>
             </perform>
         </rule>
-        <rule id="xml-renamed-components-00013">
+        <rule id="xml-renamed-components-000024">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-quartz2-starter" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-quartz2-starter` artifact has been renamed" effort="1" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-quartz2-starter` artifact has been renamed to `org.apache.camel.springboot:camel-quartz-starter`. It’s corresponding component package was renamed from `org.apache.camel.component.quartz2` to `org.apache.camel.component.quartz`. The supported scheme is now `quartz`.</message>
+                    <link title="Camel 3 - Renamed Components" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_renamed_components" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-renamed-components-00025">
             <when>
                 <project>
                     <artifact groupId="org.apache.camel" artifactId="camel-quartz" toVersion="2"/>
@@ -229,7 +385,20 @@
                 </hint>
             </perform>
         </rule>
-        <rule id="xml-renamed-components-000014">
+        <rule id="xml-renamed-components-00026">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-quartz-starter" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-quartz-starter` artifact has been renamed" effort="1" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-quartz-starter` artifact has been renamed to `org.apache.camel.springboot:camel-quartz-starter`. The component now depends on Quartz 2.x, upgrade efforts may vary.</message>
+                    <link title="Camel 3 - Renamed Components" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_renamed_components" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-renamed-components-000027">
             <when>
                 <project>
                     <artifact groupId="org.apache.camel" artifactId="camel-jetty9" />
@@ -246,7 +415,20 @@
                 </hint>
             </perform>
         </rule>
-        <rule id="xml-renamed-components-000015">
+        <rule id="xml-renamed-components-000028">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-jetty9-starter" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-jetty9-starter` artifact has been renamed" effort="1" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-jetty9-starter` artifact has been renamed to `org.apache.camel.springboot:camel-jetty-starter`.</message>
+                    <link title="Camel 3 - Renamed Components" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_renamed_components" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-renamed-components-000029">
             <when>
                 <project>
                     <artifact groupId="org.apache.activemq" artifactId="activemq-camel" />
