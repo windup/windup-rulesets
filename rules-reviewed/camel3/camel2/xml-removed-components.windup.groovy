@@ -75,3 +75,31 @@ ruleSet("xml-removed-components-groovy")
         }
     })
     .withId("xml-removed-components-groovy-00000")
+    .addRule()
+    .when(
+            XmlFile.matchesXpath("/m:project/m:dependencies[m:dependency/m:groupId/text() = 'org.apache.camel' and m:dependency/m:artifactId/text() = 'camel-aws-starter']")
+                    .inFile("pom.xml").namespace("m", "http://maven.apache.org/POM/4.0.0")
+    )
+    .perform(new AbstractIterationOperation<XmlTypeReferenceModel>()
+    {
+        void perform(GraphRewrite event, EvaluationContext context, XmlTypeReferenceModel payload) {
+            final FileModel fileModel = payload.getFile()
+            final String filePath = StringUtils.removeEnd(fileModel.getFilePath(), fileModel.getFileName())
+            Query.fromType(XmlFileModel.class).withProperty(FileModel.FILE_PATH, QueryPropertyComparisonType.CONTAINS_TOKEN, filePath).as(FROM_XML_FILES_IN_PROJECT).evaluate(event, context)
+            Query.fromType(FileModel.class).withProperty(FileModel.FILE_PATH, QueryPropertyComparisonType.CONTAINS_TOKEN, filePath).as(FROM_FILES_IN_PROJECT).evaluate(event, context)
+            componentsAdded.stream()
+                    .filter { component -> javaCondition.apply(component).evaluate(event, context) ||
+                            xmlCondition.apply(component, "http://camel.apache.org/schema/spring").evaluate(event, context) }
+                    .each { component ->
+                        ((Hint) Hint.titled("`org.apache.camel:camel-aws-starter` artifact has been split up into multiple components (org.apache.camel.springboot:camel-$component-starter)")
+                                .withText("""`org.apache.camel:camel-aws-starter` artifact has been removed and split up into multiple components.  
+                            So you’ll have to explicitly add the dependencies for these components.  
+                            Please add `org.apache.camel.springboot:camel-$component-starter` to your `pom.xml` file.""")
+                                .withIssueCategory(mandatoryIssueCategory)
+                                .with(awsLink)
+                                .withEffort(1))
+                                .perform(event, context, payload)
+                    }
+        }
+    })
+    .withId("xml-removed-components-groovy-00001")

@@ -139,6 +139,18 @@
                     <fail message="[xml-removed-components] 'camel-restlet' dependency removed hint was not found!" />
                 </perform>
             </rule>
+            <rule id="xml-removed-components-groovy-00001-test">
+                <when>
+                    <not>
+                        <iterable-filter size="5">
+                            <hint-exists message="`org.apache.camel:camel-aws-starter` artifact has been removed and split up into multiple components*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-components] 'camel-aws-starter' dependency removed hint was not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
