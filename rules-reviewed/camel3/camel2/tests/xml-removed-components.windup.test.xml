@@ -115,6 +115,18 @@
                     <fail message="[xml-removed-components] 'camel-twitter-streaming' dependency removed hint was not found!" />
                 </perform>
             </rule>
+            <rule id="xml-removed-components-00009-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.apache.camel:camel-core-starter` artifact has been removed*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-components] 'camel-core-starter' dependency removed hint was not found!" />
+                </perform>
+            </rule>
             <rule id="xml-removed-components-groovy-00000-test">
                 <when>
                     <not>
