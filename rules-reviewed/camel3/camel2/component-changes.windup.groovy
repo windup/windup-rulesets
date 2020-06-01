@@ -292,3 +292,17 @@ ruleSet("component-changes-groovy")
                 "The default signature algorithm in the Crypto component has changed from `SHA1WithDSA` to `SHA256withRSA`.",
                 "using_endpoint_options_with_consumer_prefix", IssueCategoryRegistry.INFORMATION))
         .withId("component-changes-00016")
+        .addRule()
+        .when(Or.any(
+                XmlFile.matchesXpath("//*/c:route/*[contains(@uri,'xslt:') and contains(@uri,'saxon=true')]")
+                        .namespace("c", "http://camel.apache.org/schema/spring"),
+                XmlFile.matchesXpath("//*/b:route/*[contains(@uri,'xslt:') and contains(@uri,'saxon=true')]")
+                        .namespace("b", "http://camel.apache.org/schema/blueprint"),
+                FileContent.matches(".{*}xslt:{*}saxon=true").inFileNamed("{*}.java"))
+        )
+        .perform(createHint("XSLT: Use xslt-saxon component to use Saxon",
+                "The XSLT component has moved out of `camel-core` into `camel-xslt` and `camel-xslt-saxon`. " +
+                        "Use `xslt-saxon` in URI as described in the documentation.",
+                "xslt", true)
+                .with(Link.to("Camel 3 XSLT Saxon Documentation", "https://camel.apache.org/components/latest/xslt-saxon-component.html")))
+        .withId("component-changes-00017")

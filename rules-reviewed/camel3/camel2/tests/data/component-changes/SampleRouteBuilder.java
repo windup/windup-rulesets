@@ -29,7 +29,8 @@ public class SampleRouteBuilder extends RouteBuilder {
         c.setTracing(true);
 
         from("imap://jones@localhost?password=secret&idempotentRepository=#myRepo&consumer.initialDelay=100&consumer.delay=100").routeId("foo").noAutoStartup()
-                .to("mock:result");
+                .to("mock:result")
+            .to("xslt:my-file.xsl?saxon=true");
 
         from("direct:enveloping")
                 .to("xmlsecurity-sign://enveloping?keyAccessor=#accessor", "mock:result")

@@ -209,6 +209,19 @@
                     <fail message="[Crypto-component] changed  hint not found!"/>
                 </perform>
             </rule>
+        <rule id="component-changes-000017-test">
+                <when>
+                    <not>
+                        <iterable-filter size="3">
+                            <hint-exists
+                                    message="The XSLT component has moved out of `camel-core` into `camel-xslt` and `camel-xslt-saxon*`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[XSLT component] new component hint not found!"/>
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
