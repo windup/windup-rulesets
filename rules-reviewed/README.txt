@@ -1,4 +1,4 @@
-This directory contains default set of Windup rules distributed with RHAMT.
+This directory contains default set of Windup rules distributed with MTA.
 The name 'rules-reviewed' came from historic event of rewriting Windup 1.0 rules to Windup 2.0.
 
 The directory structure is:
