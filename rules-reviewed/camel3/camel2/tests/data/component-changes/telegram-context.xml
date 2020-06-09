@@ -6,14 +6,27 @@
 
 
     <camelContext id="test-camel-context" xmlns="http://camel.apache.org/schema/spring" autoStartup="true">
+
         <route>
             <from uri="telegram:endpoint1"/>
             <to uri="browse:orderReceived"/>
-            <to uri="bean:bye"/>
+            <filter>
+                <simple>${out.header.foo}</simple>
+                <to uri="mock:fooOrders"/>
+            </filter>
         </route>
         <route>
             <from uri="telegram:foo?authorizationToken=wasd"/>
-            <to uri="direct-vm:bar"></to>
+            <filter>
+                <simple>${out.headers[foo]}</simple>
+                <marshal>
+                    <secureXML secureTag="//cheese:cheesesites/italy" secureTagContents="true"/>
+                </marshal>
+                <to uri="mock:fooOrders"/>
+            </filter>
+            <transform>
+                <simple>Hello ${body}</simple>
+            </transform>
         </route>
     </camelContext>
 </beans>

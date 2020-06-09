@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <ruletest id="component-changes-tests"
-        xmlns="http://windup.jboss.org/schema/jboss-ruleset"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <testDataPath>data/component-changes</testDataPath>
     <rulePath>../component-changes.windup.groovy</rulePath>
 
@@ -16,7 +17,221 @@
                     </not>
                 </when>
                 <perform>
-                    <fail message="[camel-telegram] 'Authorization Token required' hint was not found!" />
+                    <fail message="[camel-telegram] 'Authorization Token required' hint was not found!"/>
+                </perform>
+            </rule>
+            <rule id="component-changes-00002-test">
+                <when>
+                    <not>
+                        <iterable-filter size="4">
+                            <hint-exists message="It's mandatory to specify key/passphrase for `ShiroSecurityPolicy`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[camel-shiro] 'Shiro needs to have passphrase specified - hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="component-changes-00003-test">
+                <when>
+                    <not>
+                        <iterable-filter size="3">
+                            <hint-exists message="`.*` has been removed from the mock component's assertion api."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[camel-mock] outBody removed hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="component-changes-00004-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="`@OutHeaders` annotation has been removed. Use `@Headers*`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="@OutHeaders annotation removed hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="component-changes-00005-test">
+                <when>
+                    <not>
+                        <iterable-filter size="6">
+                            <hint-exists message="`.*` has been removed from simple language"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[Simple language] outBody/outHeaders removed hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="component-changes-00006-test">
+                <when>
+                    <not>
+                        <iterable-filter size="6">
+                            <hint-exists message="`.*` has been removed from simple language"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[Simple language] outBody/outHeaders removed hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="component-changes-00007-test">
+                <when>
+                    <not>
+                        <iterable-filter size="6">
+                            <hint-exists message="`.*` has been removed from simple language"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[Simple language] outBody/outHeaders removed hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="component-changes-00008-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`property` function has been removed from simple language. Use `exchangeProperty.*`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Simple language: property function has been removed hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="component-changes-00009-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="terser` language renamed to `hl7terser`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[simple language] terser language renamed hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="component-changes-00010-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists
+                                    message="The default encryption algorithm is mandatory changed from `DES/CBC/PKCS5Padding.*`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[Crypto-dataformat] crypto algorithm hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="component-changes-000011-test">
+                <when>
+                    <not>
+                        <iterable-filter size="3">
+                            <hint-exists
+                                    message="The default encryption key has been removed, so it is now mandatory to supply*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[SecureXML-dataformat] secureXML hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="component-changes-000012-test">
+                <when>
+                    <not>
+                        <iterable-filter size="3">
+                            <hint-exists
+                                    message="Consumer.options with `consumer.*`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[Consumer endpoints] removed .consumer prefix hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="component-changes-000013-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists
+                                    message="org.apache.camel.processor.interceptor.Tracer` class has been removed.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[Tracing] Removed Tracer class hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="component-changes-000014-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists
+                                    message="`org.apache.camel.processor.interceptor.DefaultTraceFormatter` class has been removed.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[Tracing] Removed DefaultTraceFormatter class hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="component-changes-000015-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists
+                                    message="`BacklogTracer` is no longer enabled by default in JMX.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[Tracing] Removed DefaultFormatter class hint not found!"/>
+                </perform>
+            </rule>
+
+            <rule id="component-changes-000016-test">
+                <when>
+                    <not>
+                        <iterable-filter size="5">
+                            <hint-exists
+                                    message="The default signature algorithm in the XMLSecurity component has changed `SHA1WithDSA.*`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xmlsecurity-component] changed  hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="component-changes-000017-test">
+                <when>
+                    <not>
+                        <iterable-filter size="3">
+                            <hint-exists
+                                    message="The default signature algorithm in the Crypto component has changed from `SHA1WithDSA.*`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[Crypto-component] changed  hint not found!"/>
+                </perform>
+            </rule>
+        <rule id="component-changes-000018-test">
+                <when>
+                    <not>
+                        <iterable-filter size="3">
+                            <hint-exists
+                                    message="The XSLT component has moved out of `camel-core` into `camel-xslt` and `camel-xslt-saxon*`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[XSLT component] new component hint not found!"/>
                 </perform>
             </rule>
         </rules>

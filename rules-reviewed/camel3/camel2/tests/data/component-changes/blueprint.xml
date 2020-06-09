@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+
+    <camelContext xmlns="http://camel.apache.org/schema/blueprint">
+        <dataformats>
+            <crypto id="initvector" keyRef="desKey" initVectorRef="initializationVector"/>
+        </dataformats>
+        <route>
+            <from uri="direct:property"/>
+            <filter>
+                <simple>${property.simple-property} == bar</simple>
+                <to uri="mock:barOrders"/>
+            </filter>
+            <transform>
+                <marshal>
+                    <secureXML secureTag="//cheese:cheesesites/italy" secureTagContents="true"/>
+                </marshal>
+                <simple>Hello ${out.body} bar</simple>
+            </transform>
+        </route>
+        <route>
+            <from uri="imap://jones@localhost?password=secret&amp;idempotentRepository=#myRepo&amp;consumer.initialDelay=100&amp;consumer.delay=100"/>
+            <to uri="mock:result"/>
+        </route>
+        <route>
+            <from uri="direct:enveloping"/>
+            <to uri="xmlsecurity-sign://enveloping?keyAccessor=#accessor"/>
+            <to uri="xmlsecurity-verify://enveloping?keySelector=#selector"/>
+            <to uri="xslt:my-file.xsl?saxon=true" />
+            <to uri="mock:result"/>
+        </route>
+
+    </camelContext>
+
+</blueprint>
