@@ -110,8 +110,8 @@ ruleSet("java-generic-information-groovy")
         .addRule()
         .when(javaMethodCallCondition("{*}.Main.getCamelContext{s|map}()"))
         .perform(
-                createHint("getCamelContextMap method removed",
-                        "The methods `getCamelContextMap` and `getCamelContexts` has been removed from the `Main` classes, and there is just a `getCamelContext` method now. ",
+                createHint("getCamelContextMap,getCamelContexts methods removed",
+                        "The methods `getCamelContextMap` and `getCamelContexts` have been removed from the `Main` classes, and there is just a `getCamelContext` method now. ",
                         "main_class_2", true)
         )
         .withId("java-generic-information-00039")
