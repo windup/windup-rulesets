@@ -661,5 +661,27 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="java-generic-information-00045">
+            <when>
+                <javaclass references="org.apache.camel.CamelContext.{method}({*})" >
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="The methods on `CamelContext` that are related to JMX has been moved into a new `ManagedCamelContext` interface present in the `org.apache.camel:camel-management-api` artifact" effort="1" category-id="mandatory" >
+                    <message>The method `org.apache.camel.CamelContext.{method}` has been moved to `org.apache.camel.api.management.ManagedCamelContext.{method}`. You can access it by adapting your CamelContext like so:
+
+                        `ManagedCamelContext managed = context.adapt(ManagedCamelContext.class);`
+                        `managed.{method}(...);`
+
+                     If you want JMX to be enabled out of the box, `org.apache.camel:camel-management` needs to be on the classpath.
+                    </message>
+                    <link title="Camel 3 - Managed Camel Context" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_jmx" />
+                </hint>
+            </perform>
+            <where param="method" >
+                <matches pattern="(getManagedCamelContext|getManagedProcessor|getManagedRoute)" />
+            </where>
+        </rule>
     </rules>
 </ruleset>

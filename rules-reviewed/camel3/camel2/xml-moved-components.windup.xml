@@ -259,6 +259,23 @@
                 </iteration>
             </perform>
         </rule>
+        <rule id="xml-moved-components-00015">
+            <when>
+                <xmlfile as="dependencies-block" in="pom.xml"
+                         matches="/m:project/m:dependencies[count(m:dependency/m:artifactId[text()='camel-management'])=0 and count(m:dependency/m:artifactId[text()='camel-core'])>0]">
+                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <iteration over="dependencies-block">
+                    <hint title="JMX is disable by default" effort="1" category-id="potential">
+                        <message>If you run Camel standalone with just `camel-core` as a dependency, and you want JMX enabled out of the box, then you need to add `org.apache.camel:camel-management` as a dependency.
+                        </message>
+                        <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_jmx" title="Camel 3 - JMX"/>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
 

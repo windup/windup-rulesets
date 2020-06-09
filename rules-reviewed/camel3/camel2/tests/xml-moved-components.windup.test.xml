@@ -140,6 +140,18 @@
                     <fail message="`org.apache.camel.main.Main` dependency move hint not found! "/>
                 </perform>
             </rule>
+            <rule id="xml-moved-components-00015-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="If you run Camel standalone with just `camel-core` as a dependency, and you want JMX enabled out of the box, then you need to add `org.apache.camel:camel-management` as a dependency.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="JMX dependency move hint not found! "/>
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
