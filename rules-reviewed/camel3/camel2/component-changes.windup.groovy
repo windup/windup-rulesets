@@ -181,7 +181,7 @@ ruleSet("component-changes-groovy")
         .withId("component-changes-00008")
 
         .addRule()
-        .when(Or.any(JavaClass.references("org.apache.camel.component.hl7.HL7.terser").at(TypeReferenceLocation.IMPORT).as("terser"),
+        .when(And.all(JavaClass.references("org.apache.camel.component.hl7.HL7.terser").at(TypeReferenceLocation.IMPORT).as("terser"),
                 FileContent.from("terser").matches("{*}terser({*}"))
         )
         .perform(Iteration.over("default").perform(
@@ -190,7 +190,7 @@ ruleSet("component-changes-groovy")
                         "languages", true)
                         .withQuickfix(createReplaceQuickfix("org.apache.camel.component.hl7.HL7.terser",
                                 "org.apache.camel.component.hl7.HL7.hl17terser"))))
-        .withId("component-changes-00008")
+        .withId("component-changes-00009")
 
         .addRule()
         .when(Or.any(JavaClass.references("org.apache.camel.converter.crypto.CryptoDataFormat{*}").at(TypeReferenceLocation.VARIABLE_DECLARATION),
@@ -201,7 +201,7 @@ ruleSet("component-changes-groovy")
                 "The default encryption algorithm is mandatory changed from `DES/CBC/PKCS5Padding` to null. " +
                         "Therefore if algorithm hasn't been set yet, it's required to set a value for it",
                 "crypto_dataformat", false))
-        .withId("component-changes-00009")
+        .withId("component-changes-00010")
 
         .addRule()
         .when(Or.any(
@@ -215,7 +215,7 @@ ruleSet("component-changes-groovy")
                 "The default encryption key has been removed, so it is now mandatory to supply " +
                         "the key String/bytes if you are using symmetric encryption.",
                 "xml_security_dataformat", false))
-        .withId("component-changes-00010")
+        .withId("component-changes-00011")
 
         .addRule()
         .when(Or.any(
@@ -229,7 +229,7 @@ ruleSet("component-changes-groovy")
                 "Consumer.options with `consumer.` prefix have been removed. Use options without the prefix" +
                         "i.e `delay` instead of `consumer.delay`",
                 "using_endpoint_options_with_consumer_prefix", true))
-        .withId("component-changes-00011")
+        .withId("component-changes-00012")
 
         .addRule()
         .when(Or.any(
@@ -242,7 +242,7 @@ ruleSet("component-changes-groovy")
                 "tracing", true)
                 .with(Link.to("Tracer in Camel 3","https://camel.apache.org/manual/latest/tracer.html"))
                 .withEffort(2))
-        .withId("component-changes-00012")
+        .withId("component-changes-00013")
 
         .addRule()
         .when(Or.any(
@@ -255,7 +255,7 @@ ruleSet("component-changes-groovy")
                 "tracing", true)
                 .with(Link.to("Tracer in Camel 3","https://camel.apache.org/manual/latest/tracer.html"))
                 .withEffort(2))
-        .withId("component-changes-00013")
+        .withId("component-changes-00014")
 
         .addRule()
         .when( XmlFile.matchesXpath("/m:project/m:dependencies[m:dependency/m:artifactId/text() = 'camel-core']")
@@ -264,7 +264,7 @@ ruleSet("component-changes-groovy")
                 "`BacklogTracer` is no longer enabled by default in JMX. For using BacklogTracer " +
                         "you need to enable by setting `backlogTracing=true` on CamelContext.",
                 "tracing", false))
-        .withId("component-changes-00014")
+        .withId("component-changes-00015")
 
         .addRule()
         .when(Or.any(
@@ -278,7 +278,7 @@ ruleSet("component-changes-groovy")
         .perform(createHint("XMLSecurity component: The default signature algorithm has changed",
                 "The default signature algorithm in the XMLSecurity component has changed `SHA1WithDSA` to `SHA256withRSA`. ",
                 "using_endpoint_options_with_consumer_prefix", IssueCategoryRegistry.INFORMATION))
-        .withId("component-changes-00015")
+        .withId("component-changes-00016")
 
         .addRule()
         .when(Or.any(
@@ -291,7 +291,7 @@ ruleSet("component-changes-groovy")
         .perform(createHint("Crypto component: The default signature algorithm has changed",
                 "The default signature algorithm in the Crypto component has changed from `SHA1WithDSA` to `SHA256withRSA`.",
                 "using_endpoint_options_with_consumer_prefix", IssueCategoryRegistry.INFORMATION))
-        .withId("component-changes-00016")
+        .withId("component-changes-00017")
         .addRule()
         .when(Or.any(
                 XmlFile.matchesXpath("//*/c:route/*[contains(@uri,'xslt:') and contains(@uri,'saxon=true')]")
@@ -305,4 +305,4 @@ ruleSet("component-changes-groovy")
                         "Use `xslt-saxon` in URI as described in the documentation.",
                 "xslt", true)
                 .with(Link.to("Camel 3 XSLT Saxon Documentation", "https://camel.apache.org/components/latest/xslt-saxon-component.html")))
-        .withId("component-changes-00017")
+        .withId("component-changes-00018")
