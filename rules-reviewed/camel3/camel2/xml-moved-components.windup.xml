@@ -239,23 +239,28 @@
         </rule>
         <rule id="xml-moved-components-00014">
             <when>
-                <xmlfile as="dependencies-block" in="pom.xml"
-                         matches="/m:project/m:dependencies[count(m:dependency/m:artifactId[text()='camel-main'])=0]">
-                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
-                </xmlfile>
-                <javaclass references="org.apache.camel.main.Main">
+                <javaclass references="org.apache.camel.main.Main" as="javaClass">
                     <location>IMPORT</location>
                 </javaclass>
             </when>
             <perform>
-                <iteration over="dependencies-block">
-                    <hint title="`org.apache.camel.main.Main` class has been moved" effort="1" category-id="mandatory">
-                        <message>The class `org.apache.camel.main.Main` has been moved out of `org.apache.camel:camel-core` and into its own JAR named `org.apache.camel:camel-main`.
-                            `org.apache.camel:camel-main` has to be added as a dependency to your project pom.xml file
-                        </message>
-                        <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_main_class"
-                              title="Camel 3 - Main class"/>
-                    </hint>
+                <iteration over="javaClass">
+                    <when>
+                        <not>
+                            <project>
+                                <artifact groupId="org.apache.camel" artifactId="camel-main" />
+                            </project>
+                        </not>
+                    </when>
+                    <perform>
+                        <hint title="`org.apache.camel.main.Main` class has been moved" effort="1" category-id="mandatory">
+                            <message>The class `org.apache.camel.main.Main` has been moved out of `org.apache.camel:camel-core` and into its own JAR named `org.apache.camel:camel-main`.
+                                `org.apache.camel:camel-main` has to be added as a dependency to your project pom.xml file
+                            </message>
+                            <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_main_class"
+                                  title="Camel 3 - Main class"/>
+                        </hint>
+                    </perform>
                 </iteration>
             </perform>
         </rule>
