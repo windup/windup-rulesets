@@ -30,8 +30,9 @@
 
                     </message>
                     <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_zip_and_gzip_dataformat"
-                          title="Camel 3 - Migration Guide"/>
+                          title="Camel 3 - Migration Guide: Zip and Gzip dafaformats"/>
                 </hint>
+
             </perform>
         </rule>
         <rule id="xml-dsl-changes-00002">
@@ -112,7 +113,7 @@
                     <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_xml_dsl_migration"
                           title="Camel 3 - Migration Guide"/>
                     <quickfix type="REPLACE" name="camel.dataformat.securexml.replacement">
-                        <replacement>keyOrTrustStoreParametersId</replacement>
+                        <replacement>keyOrTrustStoreParametersRef</replacement>
                         <search>keyOrTrustStoreParametersId</search>
                     </quickfix>
                 </hint>
@@ -137,13 +138,9 @@
                     </message>
                     <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_xml_dsl_migration"
                           title="Camel 3 - Migration Guide"/>
-                    <quickfix type="REPLACE" name="camel.eip.hystrix.replacement.spring">
-                        <replacement>b:circuitBreaker</replacement>
-                        <search>b:hystrix</search>
-                    </quickfix>
-                    <quickfix type="REPLACE" name="camel.eip.hystrix.replacement.blueprint">
-                        <replacement>c:circuitBreaker</replacement>
-                        <search>c:hystrix</search>
+                    <quickfix type="REPLACE" name="camel.eip.hystrix.replacement">
+                        <replacement>circuitBreaker</replacement>
+                        <search>hystrix</search>
                     </quickfix>
                 </hint>
             </perform>
@@ -162,20 +159,11 @@
             <perform>
                 <hint title="`completionSize` in aggregate was renamed" effort="1"
                       category-id="mandatory">
-                    <message>Use
-                        Use `completionSizeExpression` instead of `completionSize`. Expressions (not the attributes) for
+                    <message>Use `completionSizeExpression` instead of `completionSize`. Expressions (not the attributes) for
                         setting correlation size/timeout were renamed.
                     </message>
                     <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_aggregate_eip_in_xml_dsl"
                           title="Camel 3 - Migration Guide - Aggregate EIP changes"/>
-                    <quickfix type="REPLACE" name="camel.eip.aggregate.size.replacement.spring">
-                        <replacement>b:completionSizeExpression</replacement>
-                        <search>b:completionSize</search>
-                    </quickfix>
-                    <quickfix type="REPLACE" name="camel.eip.aggregate.size.replacement.blueprint">
-                        <replacement>c:completionSizeExpression</replacement>
-                        <search>c:completionSize</search>
-                    </quickfix>
                 </hint>
             </perform>
         </rule>
@@ -191,23 +179,14 @@
                 </or>
             </when>
             <perform>
-                <hint title="`completionSize` in aggregate was renamed" effort="1"
+                <hint title="`completionTimeout` in aggregate was renamed" effort="1"
                       category-id="mandatory">
-                    <message>Use
-                        Use `completionTimeoutExpression` instead of `completionTimeout`. Expressions (not the
+                    <message>Use `completionTimeoutExpression` instead of `completionTimeout`. Expressions (not the
                         attributes) for
                         setting correlation size/timeout were renamed.
                     </message>
                     <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_aggregate_eip_in_xml_dsl"
                           title="Camel 3 - Migration Guide - Aggregate EIP changes"/>
-                    <quickfix type="REPLACE" name="camel.eip.aggregate.timeout.replacement.spring">
-                        <replacement>b:completionTimeoutExpression</replacement>
-                        <search>b:completionTimeout</search>
-                    </quickfix>
-                    <quickfix type="REPLACE" name="camel.eip.aggregate.timeout.blueprint">
-                        <replacement>c:completionSizeExpression</replacement>
-                        <search>c:completionSize</search>
-                    </quickfix>
                 </hint>
             </perform>
         </rule>
@@ -223,18 +202,14 @@
                 </or>
             </when>
             <perform>
-                <hint title="`completionSize` in aggregate was renamed" effort="1"
+                <hint title="`headerName` attribute was renamed" effort="1"
                       category-id="mandatory">
                     <message>The attribute `headerName` was renamed to `name`.</message>
                     <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_setheader_and_setproperty_in_xml_dsl"
                           title="Camel 3 - Migration Guide - Aggregate EIP changes"/>
-                    <quickfix type="REPLACE" name="camel.header.name.replacement.spring">
-                        <replacement>c:setHeader/@name</replacement>
-                        <search>c:setHeader/@headerName</search>
-                    </quickfix>
-                    <quickfix type="REPLACE" name="camel.header.name.blueprint">
-                        <replacement>c:b:setHeader/@name</replacement>
-                        <search>b:setHeader/@headerName</search>
+                    <quickfix type="REPLACE" name="camel.header.name.replacement">
+                        <replacement>setHeader/@name</replacement>
+                        <search>setHeader/@headerName</search>
                     </quickfix>
                 </hint>
             </perform>
@@ -251,18 +226,14 @@
                 </or>
             </when>
             <perform>
-                <hint title="`completionSize` in aggregate was renamed" effort="1"
+                <hint title="`propertyName` attribute was renamed" effort="1"
                       category-id="mandatory">
                     <message>The attribute `propertyName` was renamed to `name`.</message>
                     <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_setheader_and_setproperty_in_xml_dsl"
                           title="Camel 3 - Migration Guide - Aggregate EIP changes"/>
                     <quickfix type="REPLACE" name="camel.header.name.replacement.spring">
-                        <replacement>c:setHeader/@name</replacement>
-                        <search>c:setHeader/@propertyName</search>
-                    </quickfix>
-                    <quickfix type="REPLACE" name="camel.header.name.blueprint">
-                        <replacement>c:b:setHeader/@name</replacement>
-                        <search>b:setHeader/@propertyName</search>
+                        <replacement>setProperty/@name</replacement>
+                        <search>setProperty/@propertyName</search>
                     </quickfix>
                 </hint>
             </perform>
