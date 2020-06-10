@@ -82,19 +82,20 @@ ruleSet("java-generic-information-groovy")
 
         .addRule()
         .when(Or.any(
-                javaMethodCallCondition("Message.{is|set}Fault({*})"),
-                javaMethodCallCondition("CamelContext.{is|set}HandleFault({*})")
+                javaMethodCallCondition("Message.{param}Fault({*})"),
+                javaMethodCallCondition("CamelContext.{param}HandleFault({*})")
         ))
         .perform(createHint("Fault API on Message was removed",
                 "Fault API was removed from `org.apache.camel.Message`. The option `handleFault` has also been removed" +
                         " and you now need to turn this on as endpoint or component option on `camel-cxf` or `camel-spring-ws`.",
                 "fault_api_on_message", true)
         )
+        .where("param").matches("(is|set)")
         .withId("java-generic-information-00037")
 
         .addRule()
         .when(Or.any(
-                javaMethodCallCondition("CamelContext.{start|stop|suspend|resume}Route({*})"),
+                javaMethodCallCondition("CamelContext.{param}Route({*})"),
                 javaMethodCallCondition("CamelContext.startAllRoutes()"),
                 javaMethodCallCondition("CamelContext.isStartingRoutes()"),
                 javaMethodCallCondition("CamelContext.getRouteStatus({*})")
@@ -105,16 +106,19 @@ ruleSet("java-generic-information-groovy")
                                 "To call moved method use: `context.getRouteController().startRoute(\"myRoute\")`",
                         "controlling_routes", true)
         )
+        .where("param").matches("(start|stop|suspend|resume)")
         .withId("java-generic-information-00038")
 
         .addRule()
-        .when(javaMethodCallCondition("{*}.Main.getCamelContext{s|map}()"))
+        .when(javaMethodCallCondition("{*}.Main.getCamelContext{param}()"))
         .perform(
                 createHint("getCamelContextMap,getCamelContexts methods removed",
                         "The methods `getCamelContextMap` and `getCamelContexts` have been removed from the `Main` classes, and there is just a `getCamelContext` method now. ",
                         "main_class_2", true)
         )
+        .where("param").matches("(s|map)")
         .withId("java-generic-information-00039")
+
 
         .addRule()
         .when(JavaClass.references("org.apache.camel.util.jsse.{param}").at(TypeReferenceLocation.IMPORT))
