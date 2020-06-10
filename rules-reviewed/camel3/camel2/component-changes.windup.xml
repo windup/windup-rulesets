@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="component-changes"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            XML Rules for Camel endpoints that have had one or more options removed
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="camel" versionRange="[2,3)"/>
+        <targetTechnology id="camel" versionRange="[3,)" />
+    </metadata>
+    <rules>
+        <rule id="component-changes-00019">
+            <when>
+                <or>
+                    <!-- Spring XML -->
+                    <xmlfile matches="//*/c:to/@uri[windup:matches(self::node(), 'kafka:{*}{options}{*}')]">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/spring"/>
+                    </xmlfile>
+                    <!-- Blueprint XML -->
+                    <xmlfile matches="//*/c:to/@uri[windup:matches(self::node(), 'kafka:{*}{options}{*}')]">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/blueprint"/>
+                    </xmlfile>
+                    <!-- Java -->
+                    <filecontent pattern=".to(&quot;kafka:{[^&quot;]+}{options}={*}" filename="{*}.java"/>
+                    <javaclass references="org.apache.camel.component.kafka.KafkaConfiguration.{method}({*})">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="The `org.apache.camel:camel-kafka` component has removed the options `bridgeEndpoint` and `circularEndpointDetection`" effort="3" category-id="mandatory" >
+                    <message>The `org.apache.camel:camel-kafka` component has removed the options `bridgeEndpoint` and `circularEndpointDetection` as they are no longer needed because the component is acting as bridging would work on Camel 2.x. In other words camel-kafka will send messages to the topic from the endpoint uri. To override this use the KafkaConstants.OVERRIDE_TOPIC header with the new topic. See more details in the camel-kafka component documentation.</message>
+                    <link title="Camel 3 - Migration Guide: Kafka" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_kafka" />
+                </hint>
+            </perform>
+            <where param="options">
+                <matches pattern="(circularTopicDetection|bridgeEndpoint)"/>
+            </where>
+            <where param="method">
+                <matches pattern="(setBridgeEndpoint|setCircularTopicDetection)"/>
+            </where>
+        </rule>
+    </rules>
+</ruleset>
+
