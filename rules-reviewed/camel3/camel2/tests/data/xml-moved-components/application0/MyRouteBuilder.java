@@ -10,12 +10,14 @@ import org.apache.camel.impl.WebSpherePackageScanClassResolver;
  * A Camel Java DSL Router
  */
 public class MyRouteBuilder extends RouteBuilder {
-    rest("/say")
+
+
+    public void configure() {
+        rest("/say")
                 .get("/hello").to("direct:hello")
                 .get("/bye").consumes("application/json")
                 .post("/bye");
 
-    public void configure() {
         from("direct:xslt-copy-all")
             .to("xslt:xslt/copy-all.xsl")
             .to("file:target/messages/others")
