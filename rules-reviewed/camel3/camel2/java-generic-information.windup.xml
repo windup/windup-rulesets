@@ -683,5 +683,40 @@
                 <matches pattern="(getManagedCamelContext|getManagedProcessor|getManagedRoute)" />
             </where>
         </rule>
+        <rule id="java-generic-information-00046">
+            <when>
+                <or>
+                    <!-- Spring XML -->
+                    <xmlfile matches="//c:bean[@class='org.apache.camel.language.simple.SimpleLanguage']/c:property[@name='functionStartToken' or @name='functionEndToken']">
+                        <namespace prefix="c" uri="http://www.springframework.org/schema/beans"/>
+                    </xmlfile>
+                    <!-- Blueprint XML -->
+                    <xmlfile matches="//c:bean[@class='org.apache.camel.language.simple.SimpleLanguage']/c:property[@name='functionStartToken' or @name='functionEndToken']">
+                        <namespace prefix="c" uri="http://www.osgi.org/xmlns/blueprint/v1.0.0"/>
+                    </xmlfile>
+                    <!-- Java-->
+                    <javaclass references="org.apache.camel.language.simple.SimpleLanguage.{languageMethods}({*})" >
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                    <javaclass references="org.apache.camel.language.simple.SimpleTokenizer.{tokenizerMethods})({*})" >
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="The functionality to change the simple language tokens for start/end functions has been removed." effort="1"
+                      category-id="mandatory">
+                    <message>The functionality to change the simple language tokens for start/end functions has been removed. The default tokens with `${xxx}` and `$simple{xxx}` is now hardcoded (optimized). The functionality to change these tokens was never really in use and would only confuse Camel users if a new syntax was used.</message>
+                    <link title="Camel 3 - Migration Guide: Simple Language"
+                          href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_simple_language"/>
+                </hint>
+            </perform>
+            <where param="tokenizerMethods" >
+                <matches pattern="(changeFunctionStartToken|changeFunctionEndToken)" />
+            </where>
+            <where param="languageMethods" >
+                <matches pattern="(changeFunctionStartToken|changeFunctionEndToken|setFunctionStartToken|setFunctionEndToken)" />
+            </where>
+        </rule>
     </rules>
 </ruleset>

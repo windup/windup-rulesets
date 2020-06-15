@@ -593,6 +593,18 @@
                     <fail message="Multiple inputs route hint not found!"/>
                 </perform>
             </rule>
+            <rule id="java-generic-information-00046-test">
+                <when>
+                    <not>
+                        <iterable-filter size="6">
+                            <hint-exists message="The functionality to change the simple language tokens for start/end functions has been removed*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-moved-classes] removed Simple Language hint not found." />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
