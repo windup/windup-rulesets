@@ -605,6 +605,30 @@
                     <fail message="[java-moved-classes] removed Simple Language hint not found." />
                 </perform>
             </rule>
+            <rule id="java-generic-information-00047-test">
+                <when>
+                    <not>
+                        <iterable-filter size="3">
+                            <hint-exists message="The `uri` attribute in the*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-moved-classes] `uri` attribute deprecated hint not found" />
+                </perform>
+            </rule>
+            <rule id="java-generic-information-00048-test">
+                <when>
+                    <not>
+                        <iterable-filter size="3">
+                            <hint-exists message="The `ref` attribute in the*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-moved-classes] `ref` attribute removed hint not found" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
