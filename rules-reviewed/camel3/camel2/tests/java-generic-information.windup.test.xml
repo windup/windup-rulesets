@@ -37,7 +37,7 @@
             <rule id="java-generic-information-00002-test">
                 <when>
                     <not>
-                        <iterable-filter size="1">
+                        <iterable-filter size="2">
                             <hint-exists message="zip` and `gzip` dataformats were renamed.*"/>
                         </iterable-filter>
                     </not>
@@ -468,7 +468,7 @@
                     </not>
                 </when>
                 <perform>
-                    <fail message="[java-moved-classes] ManagedCamelContext hint not found." />
+                    <fail message="[java-moved-classes] ManagedCamelContext hint not found."/>
                 </perform>
             </rule>
 
@@ -530,6 +530,67 @@
                 </when>
                 <perform>
                     <fail message="Moved jsse classes hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="java-generic-information-00041-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.apache.camel.util.jndi.JndiContext` was moved to `org.*`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="JndiContext moved hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="java-generic-information-00042-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists
+                                    message="An override the `createRegistry` method for beans registration is no longer necessary*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="createRegistry method hint not found"/>
+                </perform>
+            </rule>
+            <rule id="java-generic-information-00043-test">
+            <when>
+                <not>
+                    <iterable-filter size="2">
+                        <hint-exists message="`org.apache.camel.management.event.*` was moved to `org.*`"/>
+                    </iterable-filter>
+                </not>
+            </when>
+            <perform>
+                <fail message="Moved jmx event classes hint not found!"/>
+            </perform>
+        </rule>
+            <rule id="java-generic-information-00044-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Testing with `adviceWith` changed. It's necessary to use `RouteReifier`*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Moved jmx event classes hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="java-generic-information-00045-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Routes with multiple inputs such as `.*`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Multiple inputs route hint not found!"/>
                 </perform>
             </rule>
         </rules>
