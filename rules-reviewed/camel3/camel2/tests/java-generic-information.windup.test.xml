@@ -459,19 +459,6 @@
                     <fail message="Wrong usage of SimpleRegistry hint nof found"/>
                 </perform>
             </rule>
-            <rule id="java-generic-information-00045-test">
-                <when>
-                    <not>
-                        <iterable-filter size="5">
-                            <hint-exists message="The method `org.apache.camel.CamelContext*"/>
-                        </iterable-filter>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="[java-moved-classes] ManagedCamelContext hint not found."/>
-                </perform>
-            </rule>
-
             <rule id="java-generic-information-00036-test">
                 <when>
                     <not>
@@ -627,6 +614,30 @@
                 </when>
                 <perform>
                     <fail message="[java-moved-classes] `ref` attribute removed hint not found" />
+                </perform>
+            </rule>
+            <rule id="java-generic-information-00049-test">
+                <when>
+                    <not>
+                        <iterable-filter size="15">
+                            <hint-exists message="The method `org.apache.camel.CamelContext*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-moved-classes] moved CamelContext methods hint not found." />
+                </perform>
+            </rule>
+            <rule id="java-generic-information-00050-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="The duplicate method `org.apache.camel.CamelContext*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-moved-classes] duplicate ModelHelper methods hint not found." />
                 </perform>
             </rule>
         </rules>
