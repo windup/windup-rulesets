@@ -95,11 +95,11 @@ public class WindupRulesMultipleTests {
         FileSuffixPredicate predicate = null;
         if (findingTestFiles)
         {
-            predicate = new FileSuffixPredicate("\\.(windup|rhamt)\\.test\\.xml");
+            predicate = new FileSuffixPredicate("\\.(windup|rhamt|mta)\\.test\\.xml");
         }
         else
         {
-            predicate = new FileSuffixPredicate("\\.(windup|rhamt)\\.xml");
+            predicate = new FileSuffixPredicate("\\.(windup|rhamt|mta)\\.xml");
         }
         final File directory = new File("rules");
         final File rulesReviewed = new File("rules-reviewed");

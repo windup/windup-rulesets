@@ -14,7 +14,7 @@ if [ $# -ne 2 ] ; then
 fi
 RULES_BASEDIR=$1
 SAXONHE_PATH=$2
-for rulesetfilepath in $(ls $RULES_BASEDIR*.{windup,rhamt}.xml 2>/dev/null); do
+for rulesetfilepath in $(ls $RULES_BASEDIR*.{windup,rhamt,mta}.xml 2>/dev/null); do
  if [ ! -f $RULES_BASEDIR"tests/$(basename -- "$rulesetfilepath" .xml).test.xml" ]; then
 # Just an example, modify to suit your environment
 java -jar $SAXONHE_PATH \

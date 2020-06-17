@@ -55,7 +55,7 @@ public class WindupRulesLinksTest {
             HttpURLConnection.HTTP_MOVED_PERM,
             HttpURLConnection.HTTP_MOVED_TEMP
     );
-    private static final FileSuffixPredicate FILE_SUFFIX_PREDICATE = new FileSuffixPredicate("\\.(windup|rhamt)\\.xml");
+    private static final FileSuffixPredicate FILE_SUFFIX_PREDICATE = new FileSuffixPredicate("\\.(windup|rhamt|mta)\\.xml");
     private static final List<File> DIRECTORIES_WITH_RULES = Arrays.asList(
             new File("rules"),
             new File("rules-reviewed")
