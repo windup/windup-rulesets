@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<ruletest id="xml-dsl-changes-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/xml-dsl-changes</testDataPath>
+    <rulePath>../xml-dsl-changes.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="xml-dsl-changes-00001-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="zip` and `gzip` dataformats were renamed.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[generic-information] Camel dependency moved hint was not found!"/>
+                </perform>
+            </rule>
+            <rule id="xml-dsl-changes-00002-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="`custom` load balancer was renamed to `customLoadBalancer`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[Camel XML DSL changed] Hint for renamed custom loadbalancer not found!"/>
+                </perform>
+            </rule>
+            <rule id="xml-dsl-changes-00003-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`zipFile` data format was renamed to `zipfile"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[Camel XML DSL changed] Hint for renamed zipFile dataformat not found!"/>
+                </perform>
+            </rule>
+            <rule id="xml-dsl-changes-00004-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists
+                                    message="`keyOrTrustStoreParametersId` attribute was renamed to `keyOrTrustStoreParametersRef`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[Camel XML DSL changed] Hint for renamed parameter not found!"/>
+                </perform>
+            </rule>
+            <rule id="xml-dsl-changes-00005-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists
+                                    message="Hystrix circuit breaker has been generalized as circuit breaker. Use `circuitBreaker.*`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[Camel XML DSL changed] not found!"/>
+                </perform>
+            </rule>
+            <rule id="xml-dsl-changes-00006-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists
+                                    message="Use `completionSizeExpression` instead of `completionSize*`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[Camel XML DSL changed] Aggregate change not found!"/>
+                </perform>
+            </rule>
+            <rule id="xml-dsl-changes-00007-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists
+                                    message="Use `completionTimeoutExpression` instead of `completionTimeout*`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[Camel XML DSL changed] Aggregate change not found!"/>
+                </perform>
+            </rule>
+            <rule id="xml-dsl-changes-00008-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists
+                                    message="The attribute `headerName` was renamed to `name`."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[Camel XML DSL changed] Aggregate change not found!"/>
+                </perform>
+            </rule>
+            <rule id="xml-dsl-changes-00009-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists
+                                    message="The attribute `propertyName` was renamed to `name`."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[Camel XML DSL changed] Aggregate change not found!"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
