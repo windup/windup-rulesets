@@ -165,6 +165,28 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="xml-removed-components-00008">
+            <when>
+                <or>
+                    <!-- match by plugin goal-->
+                    <xmlfile in="pom.xml"
+                             matches="/m:project/m:build/m:plugins/m:plugin[m:groupId='org.apache.camel' and m:artifactId='camel-maven-plugin']/m:executions/m:execution/m:goals[m:goal='validate' or m:goal='route-coverage']">
+                        <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
+                    </xmlfile>
+                    <!-- match by plugin goal in Maven Profiles-->
+                    <xmlfile in="pom.xml"
+                             matches="/m:project/m:profiles/m:profile/m:build/m:plugins/m:plugin[m:groupId='org.apache.camel' and m:artifactId='camel-maven-plugin']/m:executions/m:execution/m:goals[m:goal='validate' or m:goal='route-coverage']">
+                        <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
+                    </xmlfile>
+                </or>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-maven-plugin` has been split" effort="1" category-id="mandatory" >
+                    <message>The `camel-maven-plugin` has been split up into two Maven plugins: `camel-maven-plugin` and `camel-report-maven-plugin`. The `camel-maven-plugin` contains the `run` goal which is intended for quickly running Camel applications. The `camel-report-maven-plugin` has the `validate` and `route-coverage` goals which is used for generating reports of your Camel projects by validating Camel endpoint URIs and performing route coverage reports. Please use the `org.apache.camel:camel-report-maven-plugin` in this case.</message>
+                    <link title="Camel 3 - Migration Guide: Camel Maven Plugin" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_migrating_camel_maven_plugins" />
+                </hint>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
 

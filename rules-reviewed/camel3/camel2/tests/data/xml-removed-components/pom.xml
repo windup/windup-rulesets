@@ -57,4 +57,60 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <defaultGoal>install</defaultGoal>
+        <plugins>
+            <!-- run using camel:validate -->
+            <plugin>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-maven-plugin</artifactId>
+                <version>${camel-version}</version>
+                <executions>
+                    <execution>
+                        <configuration>
+                            <!-- lets not fail the build on errors -->
+                            <failOnError>false</failOnError>
+                            <!-- lets also check the unit test source code -->
+                            <includeTest>true</includeTest>
+                        </configuration>
+                        <!-- validate during build of the project -->
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>validate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>validate</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.camel</groupId>
+                        <artifactId>camel-maven-plugin</artifactId>
+                        <version>${camel-version}</version>
+                        <executions>
+                            <execution>
+                                <configuration>
+                                    <!-- lets not fail the build on errors -->
+                                    <failOnError>false</failOnError>
+                                    <!-- lets also check the unit test source code -->
+                                    <includeTest>true</includeTest>
+                                </configuration>
+                                <!-- validate during build of the project -->
+                                <phase>process-classes</phase>
+                                <goals>
+                                    <goal>route-coverage</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
