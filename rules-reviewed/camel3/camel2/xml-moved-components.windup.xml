@@ -31,16 +31,12 @@
         -->
         <rule id="xml-moved-components-00012">
             <when>
-                <xmlfile as="dependencies-block" in="pom.xml"
-                        matches="/m:project/m:dependencies[count(m:dependency/m:artifactId[text()='camel-support'])=0]">
-                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
-                </xmlfile>
-                <javaclass references="org.apache.camel.util.component.{*}">
+                <javaclass references="org.apache.camel.util.component.{*}" as="javaClass">
                     <location>IMPORT</location>
                 </javaclass>
             </when>
             <perform>
-                <iteration over="dependencies-block">
+                <iteration over="javaClass">
                     <hint title="The classes from `org.apache.camel.util.component` have been moved" effort="1" category-id="mandatory">
                         <message>All the classes from `org.apache.camel.util.component` have been moved to `org.apache.camel.support.component`.
                             `org.apache.camel:camel-support` is a transitive dependency of `camel-core` but it could be used also separately to trim the application size.
@@ -58,18 +54,11 @@
                 <javaclass references="org.apache.camel.impl.{moved}" as="javaClass">
                     <location>IMPORT</location>
                 </javaclass>
-                <not>
-                    <xmlfile as="dependencies" in="pom.xml"
-                            matches="/m:project/m:dependencies/m:dependency/m:artifactId[text()='camel-base']">
-                        <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
-                    </xmlfile>
-                </not>
             </when>
             <perform>
                 <iteration over="javaClass">
                     <hint title="`org.apache.camel.impl.{moved}` class has been moved" effort="1" category-id="mandatory">
-                        <message>The class `org.apache.camel.impl.{moved}` has been moved to `org.apache.camel.impl.engine` package in `camel-base`
-                            dependency.
+                        <message>The class `org.apache.camel.impl.{moved}` has been moved to `org.apache.camel.impl.engine` package in `camel-base` dependency.
                             `org.apache.camel:camel-base` is a transitive dependency of `camel-core` but it could be used also separately to trim the application size.
                         </message>
                         <link href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information"
