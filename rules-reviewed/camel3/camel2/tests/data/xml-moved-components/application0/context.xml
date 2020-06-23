@@ -32,8 +32,10 @@
         <route>
             <from uri="dataset:foo"/>
             <marshal ref="myJaxb"/>
-            <to uri="controlbus:route?routeId=mainRoute&amp;action=stop&amp;async=true"/>
-            <to uri="direct-vm:bar"></to>
+            <multicast>
+                <to uri="controlbus:route?routeId=mainRoute&amp;action=stop&amp;async=true"/>
+                <to uri="direct-vm:bar"></to>
+            </multicast>
 
         </route>
 		<route>

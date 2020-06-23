@@ -31,7 +31,8 @@ final String FROM_FILES_IN_PROJECT = "filesInProject"
 /*
 returns xpath condition that counts elements
  */
- String countXpath(String... elements) {
+
+String countXpath(String... elements) {
     StringBuilder sb = new StringBuilder("//*[( ")
     for (i = 0; i < elements.length; i++) {
         sb.append("count(c:" + elements[i] + ")")
@@ -48,7 +49,7 @@ static String componentNameExpression(String componentName) {
 }
 
 static String componentNameXpath(String component) {
-    return "//*/c:route/*[starts-with(@uri, '$component:')]"
+    return "//*/c:route//*[starts-with(@uri, '$component:')]"
 }
 
 final Map<String, String[]> movedComponents = [
@@ -57,6 +58,7 @@ final Map<String, String[]> movedComponents = [
         "bean"         : [componentNameXpath("bean"), componentNameExpression("bean")],
         "direct"       : [componentNameXpath("direct"), componentNameExpression("direct")],
         "xslt"         : [componentNameXpath("xslt"), componentNameExpression("xslt")],
+        "controlbus"   : [componentNameXpath("controlbus"), componentNameExpression("controlbus")],
         "browse"       : [componentNameXpath("browse"), componentNameExpression("browse")],
         "dataset"      : [componentNameXpath("dataset"), componentNameExpression("dataset")],
         "direct-vm"    : [componentNameXpath("direct-vm"), componentNameExpression("direct-vm")],
@@ -72,7 +74,7 @@ final Map<String, String[]> movedComponents = [
         "validator"    : [componentNameXpath("validator"), componentNameExpression("validator")],
         "vm"           : [componentNameXpath("vm"), componentNameExpression("vm")],
         "rest"         : [countXpath("rest", "get", "post", "put", "delete"), "rest({*})"],
-        "xslt "         : [countXpath("xpath"), ".xpath({*})"],
+        "xslt "        : [countXpath("xpath"), ".xpath({*})"],
         "zip-deflater" : [countXpath("zip"), ".zip({*})"],
         "zip-deflater ": [countXpath("gzip"), ".gzip({*})"],
         "dataformat "  : [countXpath("marshal,unmarshal,dataformats"), ".marshal({*})"],
@@ -86,13 +88,6 @@ final Link modularizationLink = Link.to("Camel 3 - Migration Guide: Modularizati
 
 final BiFunction<String, String, Boolean> isThereArtifactId = { String xmlDependenciesBlock, String component ->
     xmlDependenciesBlock.contains("<artifactId>camel-$component</artifactId>" as CharSequence)
-}
-
-final BiFunction<String, String, Condition> xmlCondition = { String component, String namespace ->
-    XmlFile.from(FROM_XML_FILES_IN_PROJECT)
-            .matchesXpath("//*/c:route/*[starts-with(@uri, '$component:')]")
-            .namespace("c", namespace)
-            .as("$component-$namespace")
 }
 
 final BiFunction<String, String, Condition> xmlConditionWithXpath = { String xpath, String namespace ->
@@ -125,28 +120,29 @@ ruleSet("xml-moved-components-groovy")
                 final String xmlDependenciesBlock = payload.getSourceSnippit()
                 // rules xml-moved-components-0000{0-2}
                 movedComponents.keySet().stream()
-                        .filter { component -> !isThereArtifactId.apply(xmlDependenciesBlock, component.replaceAll("\\s","")) }
+                        .filter { component -> !isThereArtifactId.apply(xmlDependenciesBlock, component.replaceAll("\\s", "")) }
                         .filter { component ->
-                            (movedComponents[component][0] != "" ? xmlCondition.apply(movedComponents[component][0], "http://camel.apache.org/schema/spring").evaluate(event, context) : false) ||
+                            (movedComponents[component][0] != "" ? xmlConditionWithXpath.apply(movedComponents[component][0], "http://camel.apache.org/schema/spring").evaluate(event, context) : false) ||
                                     (movedComponents[component][0] != "" ? xmlConditionWithXpath.apply(movedComponents[component][0],
                                             "http://camel.apache.org/schema/blueprint").evaluate(event, context) : false) ||
                                     (movedComponents[component][1] != "" ? javaConditionMatches.apply(movedComponents[component][1]).evaluate(event, context) : false)
                         }
-                        .each { component -> usedComponents.add(component.replaceAll("\\s","")) }
+                        .each { component -> usedComponents.add(component.replaceAll("\\s", "")) }
 
-                String components = usedComponents.stream()
-                        .map { component -> "`camel-$component`" }.toArray().toString()
+                if (usedComponents.size() > 0) {
+                    String components = usedComponents.stream()
+                            .map { component -> "`camel-$component`" }.toArray().toString()
+                    ((Hint) Hint.titled("Modularization of camel-core")
+                            .withText(" $components components were moved out of `camel-core` to separate artifacts. Maven users of Apache Camel can keep using the dependency `camel-core`" +
+                                    "which has transitive dependencies on all of its modules, except for `camel-main`" +
+                                    "and therefore no migration is needed. However, users who want to trim the size of the classes on the classpath," +
+                                    "can use fine grained Maven dependencies on only the modules needed.")
+                            .withIssueCategory(optionalIssueCategory)
+                            .with(modularizationLink)
+                            .withEffort(1))
+                            .perform(event, context, payload)
 
-                ((Hint) Hint.titled("Modularization of camel-core")
-                        .withText(" $components components were moved out of `camel-core` to separate artifacts. Maven users of Apache Camel can keep using the dependency `camel-core`" +
-                                "which has transitive dependencies on all of its modules, except for `camel-main`" +
-                                "and therefore no migration is needed. However, users who want to trim the size of the classes on the classpath," +
-                                "can use fine grained Maven dependencies on only the modules needed.")
-                        .withIssueCategory(optionalIssueCategory)
-                        .with(modularizationLink)
-                        .withEffort(1))
-                        .perform(event, context, payload)
-
+                }
             }
         })
         .withId("xml-moved-components-groovy-00000")

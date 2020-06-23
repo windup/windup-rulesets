@@ -32,7 +32,6 @@ public class MyRouteBuilder extends RouteBuilder {
             .to("browse:orderReceived")
             .to("direct:order")
             .to("seda:next")
-            .to("controlbus:route?routeId=mainRoute&action=stop&async=true")
             .to("language:simple:classpath:org/apache/camel/component/language/mysimplescript.txt")
             .to("timer:bye");
 
