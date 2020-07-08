@@ -145,32 +145,6 @@
                 <matches pattern="(impl.FileWatcherReloadStrategy|support.ReloadStrategySupport)"/>
             </where>
         </rule>
-        <rule id="java-generic-information-00007">
-            <when>
-                <javaclass references="org.apache.camel.impl.{moved}" as="javaClass">
-                    <location>IMPORT</location>
-                </javaclass>
-            </when>
-            <perform>
-                <iteration over="javaClass">
-                    <hint title="`org.apache.camel.impl.{moved}` has been moved." effort="1"
-                            category-id="mandatory">
-                        <message>The class `org.apache.camel.impl.{moved}` has been moved to `org.apache.camel.impl.engine` package.</message>
-                        <link title="Camel 3 - Migration Guide: Generic Information"
-                                href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information"/>
-                        <quickfix type="REPLACE" name="camel.impl-replace">
-                            <replacement>org.apache.camel.impl.engine.</replacement>
-                            <search>org.apache.camel.impl.</search>
-                        </quickfix>
-                    </hint>
-                </iteration>
-            </perform>
-
-            <where param="moved">
-                <matches
-                        pattern="(CamelPostProcessorHelper|DefaultAsyncProcessorAwaitManager|DefaultCamelBeanPostProcessor|DefaultCamelContextNameStrategy|DefaultClaimCheckRepository|DefaultClassResolver|DefaultComponentResolver|DefaultConsumerTemplate|DefaultDataFormatResolver|DefaultEndpointRegistry|DefaultEndpointUtilizationStatistics|DefaultFactoryFinder|DefaultFactoryFinderResolver|DefaultHeadersMapFactory|DefaultInflightRepository|DefaultInjector|DefaultLanguageResolver|DefaultManagementNameStrategy|DefaultMessageHistoryFactory|DefaultNodeIdFactory|DefaultPackageScanClassResolver|DefaultProcessorFactory|DefaultProducerTemplate|DefaultRoute|DefaultRouteContext|DefaultRouteController|DefaultRouteError|DefaultRouteStartupOrder|DefaultRuntimeEndpointRegistry|DefaultShutdownStrategy|DefaultStreamCachingStrategy|DefaultTransformerRegistry|DefaultUnitOfWork|DefaultUnitOfWorkFactory|DefaultUuidGenerator|DefaultValidatorRegistry|DeferProducer|DeferServiceStartupListener|DurationRoutePolicy|DurationRoutePolicyFactory|EndpointKey|EventDrivenConsumerRoute|EventNotifierCallback|ExplicitCamelContextNameStrategy|FileStateRepository|HashMapHeadersMapFactory|HeadersMapFactoryResolver|InterceptSendToEndpointProcessor|InterceptSendToMockEndpointStrategy|JavaUuidGenerator|LimitedPollingConsumerPollStrategy|MDCUnitOfWork|MemoryStateRepository|SubscribeMethodProcessor|SupervisingRouteController|SupervisingRouteController.FilterResult|SupervisingRouteControllerFilters|SupervisingRouteControllerFilters.BlackList|TypedProcessorFactory|WebSpherePackageScanClassResolver)"/>
-            </where>
-        </rule>
         <rule id="java-generic-information-00008">
             <when>
                 <javaclass references="org.apache.camel.util.toolbox.AggregationStrategies">
