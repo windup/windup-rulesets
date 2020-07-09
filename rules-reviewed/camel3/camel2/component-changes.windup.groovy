@@ -226,7 +226,7 @@ ruleSet("component-changes-groovy")
                 FileContent.matches("{*}from({*}consumer.{*})").inFileNamed("{*}.java"))
         )
         .perform(createHint("Consumer endpoints: options with consumer. prefix have been removed. ",
-                "Consumer.options with `consumer.` prefix have been removed. Use options without the prefix" +
+                "Consumer.options with `consumer.` prefix have been removed. Use options without the prefix " +
                         "i.e `delay` instead of `consumer.delay`",
                 "using_endpoint_options_with_consumer_prefix", true))
         .withId("component-changes-00012")

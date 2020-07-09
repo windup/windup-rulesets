@@ -81,7 +81,7 @@ ruleSet("java-generic-information-groovy")
         .addRule()
         .when(javaMethodCallCondition("impl.SimpleRegistry.put({*})"))
         .perform(createHint("SimpleRegistry was moved",
-                "`The org.apache.camel.support.DefaultRegistry` should be favoured instead od `SimpleRegistry`." +
+                "`The org.apache.camel.support.DefaultRegistry` should be favoured instead of `SimpleRegistry`." +
                         "Also `bind` operation should be used instead of `put` to add entries to the `SimpleRegistry` or `DefaultRegistry`.",
                 "generic_information", false)
         )
@@ -91,7 +91,7 @@ ruleSet("java-generic-information-groovy")
         .when(javaMethodCallCondition("Exchange.{get|has}Out()"))
         .perform(createHint("`getOut`/`hasOut` are deprecated",
                 "Methods `getOut`, `hasOut` on `Exchange` has been deprecated in favour of using `getMessage` instead.",
-                "getout_on_message", false))
+                "getout_on_exchange", false))
 
         .withId("java-generic-information-00036")
 
