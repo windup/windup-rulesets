@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<ruletest id="springboot-di-to-quarkus-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/springboot-di</testDataPath>
+    <!-- By default sourceMode is True, so it will only consider .java files, not .jar binaries -->
+    <sourceMode>true</sourceMode>
+    <rulePath>../springboot-data-jpa-to-quarkus.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="springboot-data-jpa-to-quarkus-00000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace the SpringBoot Data JPA artifact with Quarkus `spring-data-jpa` extension"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-data-jpa-to-quarkus-extension] SpringBoot Data JPA artifact replaced by Quarkus extension was not found!" />
+                </perform>
+            </rule>
+            <rule id="springboot-data-jpa-to-quarkus-00001-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace the SpringBoot Data commons artifact with Quarkus 'spring-data-jpa' extension"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-data-jpa-to-quarkus-extension] SpringBoot Data JPA artifact replaced by Quarkus extension was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
