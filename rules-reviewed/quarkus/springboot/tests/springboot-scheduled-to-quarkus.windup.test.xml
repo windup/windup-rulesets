@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ruletest id="springboot-scheduled-to-quarkus-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/springboot-scheduled</testDataPath>
+    <!-- By default sourceMode is True, so it will only consider .java files, not .jar binaries -->
+<!--    <sourceMode>true</sourceMode>-->
+    <rulePath>../springboot-scheduled-to-quarkus.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="springboot-scheduled-to-quarkus-00000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace the Spring Context artifact with Quarkus `spring-scheduled` extension"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-scheduled-to-quarkus-extension] SpringBoot Scheduled artifact replaced by Quarkus extension was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
