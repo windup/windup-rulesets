@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="springboot-shell-to-quarkus"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints to migrate from SpringBoot Shell to Quarkus picocli extension
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="springboot" />
+        <targetTechnology id="quarkus" />
+    </metadata>
+    <rules>
+        <rule id="springboot-shell-to-quarkus-00000">
+            <when>
+                <project>
+                    <artifact groupId="org.springframework.shell" artifactId="spring-shell-core"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace the SpringBoot Shell artifact with Quarkus 'picocli' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the SpringBoot Shell artifacts with Quarkus `picocli` extension
+
+                        Add Quarkus dependency `io.quarkus:quarkus-picocli`
+                    </message>
+                    <link title="Quarkus Command Mode with Picocli Guide" href="https://quarkus.io/guides/picocli" />
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
