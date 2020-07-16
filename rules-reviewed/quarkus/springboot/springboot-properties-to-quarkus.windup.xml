@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="springboot-properties-to-quarkus"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints to migrate from SpringBoot Configuration Properties to Quarkus spring-boot-properties extension
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="springboot" />
+        <targetTechnology id="quarkus" />
+    </metadata>
+    <rules>
+        <rule id="springboot-properties-to-quarkus-00000">
+            <when>
+                <dependency groupId="org.springframework.boot" artifactId="spring-boot"/>
+            </when>
+            <perform>
+                <hint title="Replace the SpringBoot artifact with Quarkus 'spring-boot-properties' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the SpringBoot artifact with Quarkus `spring-boot-properties` extension
+
+                        Spring Configuration Properties is in spring-boot artifact brought transitively by any `org.springframework.boot:spring-boot-*` dependency
+                        Add Quarkus dependency `io.quarkus:quarkus-spring-boot-properties`
+                    </message>
+                    <link title="Quarkus Spring Configuration Properties Guide" href="https://quarkus.io/guides/spring-boot-properties" />
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
