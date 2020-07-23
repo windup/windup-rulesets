@@ -11,13 +11,21 @@
             <rule id="springboot-webmvc-to-quarkus-00000-test">
                 <when>
                     <not>
-                        <iterable-filter size="2">
                             <hint-exists message="Spring MVC is not supported by Quarkus"/>
-                        </iterable-filter>
                     </not>
                 </when>
                 <perform>
                     <fail message="[springboot-webmvc-to-quarkus-extension] Spring web-mvc not supported by Quarkus was not found!" />
+                </perform>
+            </rule>
+            <rule id="springboot-webmvc-to-quarkus-00001-test">
+                <when>
+                    <not>
+                        <hint-exists message="Spring MVC is not supported by Quarkus"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-webmvc-to-quarkus-extension] Spring webflux not supported by Quarkus was not found!" />
                 </perform>
             </rule>
         </rules>

@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <metadata>
         <description>
-            This ruleset gives hints to migrate from SpringBoot DI to Quarkus spring-di extension
+            This ruleset gives hints to migrate from Spring MVC to Quarkus
         </description>
         <dependencies>
             <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
@@ -16,22 +16,37 @@
     <rules>
         <rule id="springboot-webmvc-to-quarkus-00000">
             <when>
-                <file filename="{filenameParameter}-{*}.jar" />
+                <project>
+                    <artifact groupId="org.springframework" artifactId="spring-webmvc" />
+                </project>
             </when>
             <perform>
-                <hint title="Spring MVC is not supported by Quarkus" effort="1" category-id="mandatory">
+                <hint title="Spring MVC is not supported by Quarkus" effort="13" category-id="mandatory">
                     <message>
                         Spring MVC is not supported by Quarkus
 
-                        Code relying on the spring-webmvc.jar or spring-webflux.jar
-                        cannot currently be run in Quarkus
+                        Code relying on the spring-webmvc.jar cannot currently be run in Quarkus
                     </message>
                     <link title="Quarkus Spring Web Guide" href="https://quarkus.io/guides/spring-web" />
                 </hint>
             </perform>
-            <where param="filenameParameter">
-                <matches pattern="(spring-webmvc|spring-webflux)"/>
-            </where>
+        </rule>
+        <rule id="springboot-webmvc-to-quarkus-00001">
+            <when>
+                <project>
+                    <artifact groupId="org.springframework" artifactId="spring-webflux" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Spring MVC webflux is not supported by Quarkus" effort="13" category-id="mandatory">
+                    <message>
+                        Spring MVC is not supported by Quarkus
+
+                        Code relying on the spring-webflux.jar cannot currently be run in Quarkus
+                    </message>
+                    <link title="Quarkus Spring Web Guide" href="https://quarkus.io/guides/spring-web" />
+                </hint>
+            </perform>
         </rule>
     </rules>
 </ruleset>
