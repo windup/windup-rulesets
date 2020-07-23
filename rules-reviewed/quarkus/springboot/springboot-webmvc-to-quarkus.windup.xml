@@ -16,37 +16,22 @@
     <rules>
         <rule id="springboot-webmvc-to-quarkus-00000">
             <when>
-                <project>
-                    <artifact groupId="org.springframework" artifactId="spring-webmvc" />
-                </project>
+                <file filename="{filenameParameter}-{*}.jar" />
             </when>
             <perform>
                 <hint title="Spring MVC is not supported by Quarkus" effort="13" category-id="mandatory">
                     <message>
                         Spring MVC is not supported by Quarkus
 
-                        Code relying on the spring-webmvc.jar cannot currently be run in Quarkus
+                        Code relying on the spring-webmvc.jar or spring-webflux.jar
+                        cannot currently be run in Quarkus
                     </message>
                     <link title="Quarkus Spring Web Guide" href="https://quarkus.io/guides/spring-web" />
                 </hint>
             </perform>
-        </rule>
-        <rule id="springboot-webmvc-to-quarkus-00001">
-            <when>
-                <project>
-                    <artifact groupId="org.springframework" artifactId="spring-webflux" />
-                </project>
-            </when>
-            <perform>
-                <hint title="Spring MVC webflux is not supported by Quarkus" effort="13" category-id="mandatory">
-                    <message>
-                        Spring MVC is not supported by Quarkus
-
-                        Code relying on the spring-webflux.jar cannot currently be run in Quarkus
-                    </message>
-                    <link title="Quarkus Spring Web Guide" href="https://quarkus.io/guides/spring-web" />
-                </hint>
-            </perform>
+            <where param="filenameParameter">
+                <matches pattern="(spring-webmvc|spring-webflux)"/>
+            </where>
         </rule>
     </rules>
 </ruleset>
