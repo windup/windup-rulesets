@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ruletest id="springboot-web-to-quarkus-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/springboot-web</testDataPath>
+    <rulePath>../springboot-web-to-quarkus.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="springboot-web-to-quarkus-00000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace the Spring Web artifact with Quarkus `spring-web` extension"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-web-to-quarkus-extension] Spring Web artifact replaced by Quarkus extension was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
