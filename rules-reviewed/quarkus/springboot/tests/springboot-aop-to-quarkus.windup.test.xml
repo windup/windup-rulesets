@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ruletest id="springboot-aop-to-quarkus-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/springboot-aop</testDataPath>
+    <!-- By default sourceMode is True, so it will only consider .java files, not .jar binaries -->
+    <sourceMode>true</sourceMode>
+    <rulePath>../springboot-aop-to-quarkus.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="springboot-aop-to-quarkus-00000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Spring AOP artifact is not supported by Quarkus"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-aop-to-quarkus-extension] SpringBoot AOP artifact is not supported by Quarkus was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
