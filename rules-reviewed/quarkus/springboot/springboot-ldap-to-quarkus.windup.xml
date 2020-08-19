@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="springboot-ldap-to-quarkus"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints to migrate from SpringBoot LDAP to Quarkus extension
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="springboot" />
+        <targetTechnology id="quarkus" />
+    </metadata>
+    <rules>
+        <rule id="springboot-ldap-to-quarkus-00000">
+            <when>
+                <project>
+                    <artifact groupId="org.springframework.ldap" artifactId="spring-ldap-core" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Spring LDAP artifact is not supported by Quarkus" effort="13" category-id="mandatory">
+                    <message>
+                        Spring LDAP artifact is not supported by Quarkus
+
+                        Code relying on the Spring LDAP `org.springframework.ldap:spring-ldap-core` dependency
+                        cannot currently be run in Quarkus
+                    </message>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
