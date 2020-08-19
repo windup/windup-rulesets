@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="springboot-cloud-config-to-quarkus"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints to migrate from SpringBoot Cloud config client  to Quarkus spring-cloud-config-client extension
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="springboot" />
+        <targetTechnology id="quarkus" />
+    </metadata>
+    <rules>
+        <rule id="springboot-cloud-config-client-to-quarkus-00000">
+            <when>
+                <project>
+                    <artifact groupId="org.springframework.cloud" artifactId="spring-cloud-config-client" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace the Spring Cloud Config Client artifact with Quarkus 'quarkus-spring-cloud-config-client' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the Spring Cloud Config Client artifact with Quarkus `quarkus-spring-cloud-config-client` extension
+
+                        Add Quarkus dependency `io.quarkus:quarkus-spring-cloud-config-client`.
+                        
+                        A change may also be required to the code and configuration.
+                    </message>
+                    <link title="Quarkus - Reading properties from Spring Cloud Config server" href="https://quarkus.io/guides/spring-cloud-config-client" />
+                    <link title="Spring Cloud Config" href="https://cloud.spring.io/spring-cloud-config/reference/html/" />
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
