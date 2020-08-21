@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="exporter" class="org.springframework.jmx.export.MBeanExporter" lazy-init="false">
+        <property name="beans">
+            <map>
+                <entry key="bean:name=testBean1" value-ref="testBean"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="testBean" class="org.springframework.jmx.JmxTestBean">
+        <property name="name" value="TEST"/>
+        <property name="age" value="100"/>
+    </bean>
+
+</beans>

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<ruletest id="springboot-jmx-to-quarkus-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/springboot-jmx</testDataPath>
+    <!-- By default sourceMode is True, so it will only consider .java files, not .jar binaries -->
+    <sourceMode>true</sourceMode>
+    <rulePath>../springboot-jmx-to-quarkus.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="springboot-jmx-to-quarkus-00000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Spring JMX XML configuration detected:"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-jmx-to-quarkus-extension] SpringBoot JMX is not supported by Quarkus was not found!" />
+                </perform>
+            </rule>
+            <rule id="springboot-jmx-to-quarkus-00001-test">
+                <when>
+                    <not>
+                        <hint-exists message="Spring JMX annotation configuration detected:"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-jmx-to-quarkus-extension] SpringBoot JMX is not supported by Quarkus was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
