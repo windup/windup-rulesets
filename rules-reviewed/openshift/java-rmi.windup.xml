@@ -24,18 +24,16 @@
                 <classification issue-display-mode="detail-only" title="Java Remote Method Invocation (RMI) service" effort="0" category-id="cloud-mandatory">
                 </classification>
                 <hint title="Java Remote Method Invocation (RMI) service" effort="1" category-id="cloud-mandatory">
-                    <message><![CDATA[
-                    The use of Java RMI denotes a tight coupling that is better avoid in a cloud environment.
+                    <message>
+                    Java RMI is a tightly coupled service. Tight coupling is not suitable in a cloud environment.
 
-                    Java EE standard and loosely coupled protocols are recommended for backing services interactions.
+                    Use Java EE standard or loosely coupled protocols for backing service interactions, for example:
 
-                    Some examples are:
+                    * Message-based communication (JMS) for asynchronous use cases
 
-                    * message-based communication (JMS) for asynchronous use cases
                     * HTTP-based protocol or API (JAX-RS and JAX-WS) for synchronous use cases
 
-                    In combination with load balancing, both options ensure scalability and high availability.
-                    ]]>
+                    When used with load-balancing, both options ensure scalability and high availability.
                     </message>
                     <link href="https://12factor.net/backing-services" title="Twelve-factor app - Backing services"/>
                     <tag>rmi</tag>

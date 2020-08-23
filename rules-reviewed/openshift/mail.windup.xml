@@ -29,13 +29,17 @@
             <perform>
               <hint title="Java Mail API" effort="3" category-id="cloud-optional">
                   <message>
-                    In a cloud environment, mail systems should be considered as backing services.  
-                    Ensure that the configuration of the underlying outbound mail connection is not environment-specific (e.g. no static IP, URL, property, credential, certificate...). In OpenShift, environment variables or config map could be used for this purpose.  
+                    The configuration parameters of SMTP services for outbound mail may contain environment-specific values, for example, static IP addresses, host names, properties, credentials, or certificates.
+
+                    Recommendations:
+
+                    * In a cloud environment, mail systems are considered backing services and must be treated like attached resources.
+                    * Ensure that the configuration of the underlying outbound mail connection is not environment-specific.
+                    * In OpenShift Container Platform, configuration parameters can be stored as environment variables or in a ConfigMap.
                 </message>
                 <link href="https://12factor.net/backing-services" title="Twelve-factor app - Backing services"/>
                 <link href="https://12factor.net/config" title="Twelve-factor app - Config"/>
-                <link href="https://access.redhat.com/documentation/en-us/openshift_container_platform/3.11/html-single/developer_guide/index#dev-guide-environment-variables" title="OpenShift - Managing Environment Variables"/>
-                <link href="https://access.redhat.com/documentation/en-us/openshift_container_platform/3.11/html-single/developer_guide/index#dev-guide-configmaps" title="OpenShift - ConfigMaps"/>
+                <link href="https://docs.openshift.com/container-platform/4.5/builds/creating-build-inputs.html#builds-input-secrets-configmaps_creating-build-inputs" title="OpenShift Container Platform: Input secrets and ConfigMaps"/>
                 <tag>mail</tag>
               </hint>
             </perform>
