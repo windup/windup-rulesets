@@ -4,7 +4,7 @@ import org.springframework.jmx.export.annotation.ManagedResource;
 import org.springframework.jmx.export.annotation.ManagedAttribute;
 
 @ManagedResource(objectName="bean:name=jmxTestBean", description="Test Bean")
-public class JMXAnnotationTestBean implements IJmxTestBean {
+public class SpringbootAnnotationConfiguration implements IJmxTestBean {
 
     private String item;
 
