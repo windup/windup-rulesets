@@ -4,9 +4,7 @@
 
     <metadata>
         <description>
-            This ruleset provides analysis of WebLogic proprietary code related to web-apps that may require individual
-            attention when
-            migrating to JBoss EAP 7+.
+            This ruleset provides analysis of proprietary Oracle WebLogic Server code related to web applications that might require individual attention when migrating to JBoss EAP 7+.
         </description>
         <dependencies>
             <addon id="org.jboss.windup.rules,windup-rules-javaee,2.7.0.Final" />
@@ -18,17 +16,16 @@
         <tag>web-app</tag>
     </metadata>
 
-    <rules>
-        <rule id="weblogic-webapp-eap7-01000">
-            <when>
-                <xmlfile in="weblogic.xml" matches="//wl:virtual-directory-mapping">
-                    <namespace prefix="wl" uri="http://xmlns.oracle.com/weblogic/weblogic-web-app" />
-                </xmlfile>
+http://xmlns.oracle.com/weblogic/weblogic-web-app
             </when>
             <perform>
-                <hint title="WebLogic Virtual directory mapping" effort="1" category-id="mandatory">
-                    <message>Virtual directories supported in WebLogic are not supported in JBoss EAP.</message>
-                    <link href="https://access.redhat.com/articles/1332613" title="Detailed description of how to migrate virtual directories." />
+                <hint title="Oracle WebLogic Server virtual directory mapping" effort="1" category-id="mandatory">
+                    <message>This application contains an Oracle WebLogic Server virtual directory.
+
+                            Recommendation:
+
+                            Replace the Oracle WebLogic Server virtual directory with a directory that is supported by JBoss EAP 7.</message>
+                    <link href="https://access.redhat.com/articles/1332613" title="Replace Oracle WebLogic Server Virtual Directories" />
                     <tag>file-system</tag>
                     <tag>weblogic</tag>
                 </hint>
@@ -41,15 +38,19 @@
                 </javaclass>
             </when>
             <perform>
-                <hint title="WebLogic proprietary servlet annotations" effort="1" category-id="mandatory">
+                <hint title="Oracle WebLogic Server proprietary servlet annotation" effort="1" category-id="mandatory">
                     <message>
                       <![CDATA[
-                      Replace the proprietary WebLogic `@WLServlet` annotation with the Java EE standard `@WebServlet` annotation.
+                      This application contains the Oracle WebLogic Server proprietary `@WLServlet` annotation.
 
-                      See the [javax.servlet.annotation JavaDoc](http://docs.oracle.com/javaee/7/api/javax/servlet/annotation/package-summary.html) for more information.
+                      Recommendation:
+                      
+                      Replace the proprietary Oracle WebLogic Server `@WLServlet` annotation with the Java EE standard `@WebServlet` annotation.
+
+                      For more information, see [javax.servlet.annotation JavaDoc](http://docs.oracle.com/javaee/7/api/javax/servlet/annotation/package-summary.html).
                       ]]>
                     </message>
-                    <link href="https://access.redhat.com/articles/1249423" title="Migrate WebLogic Proprietary Servlet Annotations" />
+                    <link href="https://access.redhat.com/articles/1249423" title="Migrate Oracle WebLogic Server Proprietary Servlet Annotations" />
                     <tag>servlet</tag>
                     <tag>weblogic</tag>
                     <quickfix name="WebServlet" type="REPLACE">
@@ -70,15 +71,19 @@
                 </javaclass>
             </when>
             <perform>
-                <hint title="WebLogic proprietary servlet annotations" effort="1" category-id="mandatory">
+                <hint title="Oracle WebLogic Server proprietary servlet annotation" effort="1" category-id="mandatory">
                     <message>
                       <![CDATA[
-                      Replace the proprietary WebLogic `@WLInitParam` annotation with the Java EE standard `@WebInitParam` annotation.
+                        This application contains the Oracle WebLogic Server proprietary `@WLInitParam` annotation.
 
-                      See the [javax.servlet.annotation JavaDoc](http://docs.oracle.com/javaee/7/api/javax/servlet/annotation/package-summary.html) for more information.
+                      Recommendation:.
+                      
+                      Replace the Oracle WebLogic Server proprietary `@WLInitParam` annotation with standard Java EE  `@WLInitParam` annotation.
+                      
+                      For more information, see [javax.servlet.annotation JavaDoc](http://docs.oracle.com/javaee/7/api/javax/servlet/annotation/package-summary.html).
                       ]]>
                     </message>
-                    <link href="https://access.redhat.com/articles/1249423" title="Migrate WebLogic Proprietary Servlet Annotations" />
+                    <link href="https://access.redhat.com/articles/1249423" title="Migrate Oracle WebLogic Server Proprietary Servlet Annotations" />
                     <tag>servlet</tag>
                     <tag>weblogic</tag>
                     <quickfix name="WebInitParam" type="REPLACE">
@@ -95,15 +100,19 @@
                 </javaclass>
             </when>
             <perform>
-                <hint title="WebLogic proprietary servlet annotations" effort="3" category-id="mandatory">
+                <hint title="Oracle WebLogic Server proprietary servlet annotation" effort="3" category-id="mandatory">
                     <message>
                       <![CDATA[
-                      Replace the proprietary WebLogic `@WLFilter` annotation with the Java EE standard `@WebFilter` annotation.
+                      This application contains the Oracle WebLogic Server proprietary `@WLFilter` annotation.
 
-                      See the [javax.servlet.annotation JavaDoc](http://docs.oracle.com/javaee/7/api/javax/servlet/annotation/package-summary.html) for more information.
+                      Recommendation:
+                      
+                      Replace the Oracle WebLogic Server proprietary `@WLFilter` annotation with standard Java EE `@WLFilter` annotation.
+
+                      For more information, see [javax.servlet.annotation JavaDoc](http://docs.oracle.com/javaee/7/api/javax/servlet/annotation/package-summary.html).
                       ]]>
                     </message>
-                    <link href="https://access.redhat.com/articles/1249423" title="Migrate WebLogic Proprietary Servlet Annotations" />
+                    <link href="https://access.redhat.com/articles/1249423" title="Migrate Oracle WebLogic Server Proprietary Servlet Annotations" />
                     <tag>servlet</tag>
                     <tag>weblogic</tag>
                     <quickfix name="WebFilter" type="REPLACE">
@@ -122,17 +131,23 @@
                 </javaclass>
             </when>
             <perform>
-                <hint title="WebLogic ApplicationLifecycleEvent" effort="3" category-id="mandatory">
+                <hint title="Oracle WebLogic Server proprietary ApplicationLifecycleEvent" effort="3" category-id="mandatory">
                     <message>
                       <![CDATA[
-                      WebLogic `ApplicationLifecycleEvent` must be replaced with standard Java EE `ServletContextEvent`. Otherwise, a custom solution using CDI's `ApplicationScoped` beans or EJB's `@Startup` beans is required in order to propagate a custom event object because `ServletContextEvent` types are not extendible in the standard Java EE programming model.
+                      This application contains an Oracle WebLogic Server proprietary `ApplicationLifecycleEvent`. 
+                      
+                      Recommendation:
+                      
+                      Replace the Oracle WebLogic Server proprietary `ApplicationLifecycleEvent` with a standard Java EE `ApplicationLifecycleEvent.`
 
-                      Use a `javax.servlet.ServletContextListener` with `@javax.annotation.servlet.WebListener`, or an EJB 3.1 `@javax.ejb.Startup` `@javax.ejb.Singleton` service bean.
+                      Alternatively, implement a custom solution using CDI's `ApplicationScoped` beans or EJB's `@Startup` beans in order to propagate a custom event object because `ServletContextEvent` types are not extendable in the standard Java EE programming model.
+
+                      Use a `javax.servlet.ServletContextListener` with `@javax.annotation.servlet.WebListener` or with an EJB 3.1 `@javax.ejb.Startup` `@javax.ejb.Singleton` service bean.
                       ]]>
                     </message>
-                    <link href="https://access.redhat.com/articles/1326703" title="Migrate WebLogic ApplicationLifecycleEvent to standard EJB with JBoss EAP" />
+                    <link href="https://access.redhat.com/articles/1326703" title="Migrate Oracle WebLogic Server ApplicationLifecycleEvent Code to Red Hat JBoss Enterprise Application Platform 6 or 7" />
                     <link href="http://docs.oracle.com/javaee/7/api/javax/servlet/ServletContextEvent.html" title="Java EE ServletContextEvent JavaDoc" />
-                    <link href="http://docs.oracle.com/cd/E13222_01/wls/docs90/programming/lifecycle.html" title="WebLogic custom ApplicationLifecycleEvent Documentation" />
+                    <link href="http://docs.oracle.com/cd/E13222_01/wls/docs90/programming/lifecycle.html" title="Programming Application Lifecycle Events" />
                     <tag>lifecycle</tag>
                     <tag>weblogic</tag>
                 </hint>
@@ -146,17 +161,23 @@
                 </javaclass>
             </when>
             <perform>
-                <hint title="WebLogic ApplicationLifecycleListener" effort="3" category-id="mandatory">
+                <hint title="Oracle WebLogic Server proprietary ApplicationLifecycleListener" effort="3" category-id="mandatory">
                     <message>
                       <![CDATA[
-                      WebLogic `ApplicationLifecycleListener` must be replaced with standard Java EE `ServletContextListener` types. Otherwise, a solution using CDI's `ApplicationScoped` beans or EJB's `@Startup` beans is required.
+                      This application contains an Oracle WebLogic Server proprietary `ApplicationLifecycleListener`. 
+                      
+                      Recommendation:
+                      
+                      Replace the Oracle WebLogic Server proprietary `ApplicationLifecycleEvent' with a standard Java EE `ServletContextListener` type. 
+                      
+                      Alternatively, implement a custom solution using CDI's `ApplicationScoped` beans or EJB's `@Startup` beans.
 
-                      Use a `javax.servlet.ServletContextListener` with `@javax.annotation.servlet.WebListener`, or an EJB 3.1 `@javax.ejb.Startup` `@javax.ejb.Singleton` service bean.
+                      Use a `javax.servlet.ServletContextListener` with `@javax.annotation.servlet.WebListener` or with an EJB 3.1 `@javax.ejb.Startup` `@javax.ejb.Singleton` service bean.
                       ]]>
                     </message>
                     <link href="https://access.redhat.com/articles/1326703" title="Migrate Oracle WebLogic Server ApplicationLifecycleListener Code to Red Hat JBoss EAP 6+" />
                     <link href="http://docs.oracle.com/javaee/7/api/javax/servlet/ServletContextEvent.html" title="Java EE ServletContextEvent JavaDoc" />
-                    <link href="http://docs.oracle.com/cd/E13222_01/wls/docs90/programming/lifecycle.html" title="WebLogic custom ApplicationLifecycleEvent Documentation" />
+                    <link href="http://docs.oracle.com/cd/E13222_01/wls/docs90/programming/lifecycle.html" title="Programming Application Lifecycle Events" />
                     <tag>lifecycle</tag>
                     <tag>weblogic</tag>
                 </hint>
@@ -173,8 +194,12 @@
                         <has-hint />
                     </not>
                 </when>
-                <hint title="WebLogic proprietary security API" effort="3" category-id="mandatory">
-                    <message>The usage of the WebLogic proprietary security API should be replaced by standard Java EE mechanisms or the ones provided by JBoss EAP.</message>
+                <hint title="Oracle WebLogic Server proprietary security API" effort="3" category-id="mandatory">
+                    <message>This application contains the Oracle WebLogic Server proprietary security API. 
+                    
+                    Recommendation:
+                    
+                    Replace the Oracle WebLogic Server proprietary security API by standard Java EE mechanisms or those provided by JBoss EAP.</message>
                     <link href="http://docs.oracle.com/cd/E12839_01/apirefs.1111/e13941/weblogic/security/Security.html" title="WebLogic security API documentation" />
                     <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform?category=security&amp;version=7.0" title="EAP 7 security documentation" />
                     <tag>security</tag>
@@ -188,8 +213,12 @@
                 <javaclass references="weblogic.security.Security" />
             </when>
             <perform>
-                <hint title="WebLogic proprietary security reference to weblogic.security.Security" effort="3" category-id="mandatory">
-                    <message>Migrate to JBoss EAP 7: `org.jboss.security.SecurityContextAssociation`.</message>
+                <hint title="Oracle WebLogic Server proprietary security reference to weblogic.security.Security" effort="3" category-id="mandatory">
+                    <message>This application contains an Oracle WebLogic Server proprietary security component. 
+                    
+                    Recommendation:
+                    
+                    For JBoss EAP 7:, replace the Oracle WebLogic Server proprietary security component with `org.jboss.security.SecurityContextAssociation`.</message>
                     <link href="https://access.redhat.com/webassets/avalon/d/red-hat-jboss-enterprise-application-platform/7.0.0/javadocs/org/jboss/security/SecurityContextAssociation.html" title="Security Context - JBoss EAP 7" />
                     <link href="https://access.redhat.com/solutions/55114" title="Security context retrieval in POJOs" />
                     <tag>security</tag>
@@ -202,15 +231,20 @@
                 <javaclass references="weblogic.servlet.security.ServletAuthentication"/>
             </when>
             <perform>
-                <hint effort="3" category-id="mandatory" title="WebLogic proprietary ServletAuthentication annotation">
+                <hint effort="3" category-id="mandatory" title="Oracle WebLogic Server proprietary ServletAuthentication annotation">
                     <message>
                       <![CDATA[
-                      Oracle WebLogic Server provides a proprietary `ServletAuthentication` class to perform programmatic login.
-
-                      In Red Hat JBoss EAP 7, you can use the standard Java EE servlet security 3.1 `HttpServletRequest.login()` method or you can define a `<security-constraint>` element in the web.xml file. You must also replace code that uses the Oracle WebLogic Server proprietary `ServletAuthentication` class.
+                      This application contains the Oracle WebLogic Server proprietary class `ServletAuthentication`. 
+                      
+                      Recommendation:
+                      
+                      For Red Hat JBoss EAP 7:
+                      
+                      * Replace code that uses the Oracle WebLogic Server proprietary `ServletAuthentication` class.
+                      * Use the standard Java EE servlet security 3.1 `HttpServletRequest.login()` method or define a `<security-constraint>` element in the web.xml file. 
                       ]]>
                     </message>
-                    <link href="https://access.redhat.com/articles/1329213" title="Migrate Oracle WebLogic programmatic login to JBoss EAP 7" />
+                    <link href="https://access.redhat.com/articles/1329213" title="Migrate Oracle WebLogic Server Programmatic Login to Red Hat JBoss Enterprise Application Platform 6 or 7"/>
                     <tag>security</tag>
                     <tag>weblogic</tag>
                 </hint>
