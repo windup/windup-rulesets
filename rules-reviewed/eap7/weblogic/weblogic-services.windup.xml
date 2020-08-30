@@ -5,8 +5,7 @@
 
     <metadata>
         <description>
-            This ruleset contains rules to detect WebLogic specific services code (eg, startup listeners, and access to WebLogic specific service lookup utilities),
-            and to assist in the conversion of this code to code that is compatible with JBoss EAP 7+.
+            This ruleset contains rules that detect WebLogic-specific services code (for example, startup listeners) and that assist in the conversion of this code to code that is compatible with JBoss EAP 7+.
         </description>
         <dependencies>
             <addon id="org.jboss.windup.rules,windup-rules-javaee,2.7.0.Final"/>
@@ -25,7 +24,11 @@
             </when>
             <perform>
                 <hint title="WebLogic Startup Service" effort="3" category-id="mandatory">
-                    <message>Replace this class with a class using the EJB 3.2 `@Singleton` and `@Startup` annotations.</message>
+                    <message>WebLogic Startup Service may not be suitable for migration.
+
+                    Recommendation:
+
+                    Replace WebLogic Startup Service with a class that uses the EJB 3.2 `@Singleton` and `@Startup` annotation.</message>
                     <link href="http://docs.oracle.com/javaee/7/api/javax/ejb/Singleton.html" title="EJB 3.2 Singleton Bean"/>
                     <link href="http://docs.oracle.com/javaee/7/api/javax/ejb/Startup.html" title="EJB 3.2 Startup Bean"/>
                     <tag>startup</tag>
@@ -41,9 +44,11 @@
                 <hint title="WebLogic T3ServicesDef usage" effort="3" category-id="mandatory">
                     <message>
                       <![CDATA[
-                      `T3ServicesDef` provides access to core services of the container, such as Timers and Logging facilities.
+                      `T3ServicesDef` provides access to core services of the container, such as Timers and Logging facilities. It may not be suitable for migration.
 
-                      Replace the services provided by this with a Singleton EJB (using the `@Singleton` annotation) that provides access to the equivalent services from JBoss EAP.
+                      Recommendation:
+
+                      Replace the services provided by `T3ServicesDef` with a Singleton EJB (using the `@Singleton` annotation) that provides access to the equivalent services from JBoss EAP.
                       ]]>
                     </message>
                     <link href="https://docs.oracle.com/javaee/7/tutorial/ejb-intro002.htm#GIPIM" title="Java EE Tutorial - @Singleton Session Bean"/>
@@ -60,9 +65,13 @@
                 <hint title="WebLogic proprietary logging classes" effort="1" category-id="mandatory">
                     <message>
                       <![CDATA[
-                      Oracle WebLogic logging classes should be replaced with SLF4J, Log4J, or Java Logging.
+                      Oracle WebLogic logging classes may not be suitable for migration.
 
-                      Please refer to the [JBoss EAP 7 Development guide](https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0/single/development-guide/#logging) for more information on this.
+                      Recommendation:
+
+                      Replace Oracle WebLogic logging classes with SLF4J, Log4J, or Java Logging.
+
+                      For more information, see [JBoss EAP 7 Development guide](https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0/single/development-guide/#logging).
                       ]]>
                     </message>
                     <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0/single/development-guide/#logging" title="JBoss EAP 7 Development Guide - Logging"/>

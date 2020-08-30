@@ -5,7 +5,7 @@
     <metadata>
         <description>
             This ruleset provides analysis of WebLogic proprietary classes and constructs for the Java Message Service that may require
-            individual attention when migrating to JBoss EAP 7+.
+            replacement when migrating to JBoss EAP 7+.
         </description>
         <dependencies>
             <addon id="org.jboss.windup.rules,windup-rules-javaee,2.7.0.Final" />
@@ -35,13 +35,14 @@
                 <javaclass references="oracle.jms.AQjmsSession" />
             </when>
             <perform>
-                <hint title="Oracle JMS Session" effort="1" category-id="mandatory">
+                <hint title="Oracle JMS sessions" effort="1" category-id="mandatory">
                     <message>
                         Oracle JMS sessions are used for producing and consuming messaging API objects such as message producers, message
-                        consumers, messages, queue browsers, and temporary queues and topics.
+                        consumers, messages, queue browsers, and temporary queues and topics. They may not be suitable for migration.
 
-                        This reference should be replaced with the Java EE
-                        standard API: `javax.jms.Session`.
+                        Recommendation:
+
+                        Replace Oracle JMS sessions with the Java EE standard API: `javax.jms.Session`.
                     </message>
                     <link href="https://docs.oracle.com/javaee/7/tutorial/jms-concepts003.htm#BNCEN" title="Java EE 7 - JMS Session" />
                     <tag>jms</tag>
@@ -54,12 +55,13 @@
                 <javaclass references="oracle.jms.AQjmsQueueBrowser" />
             </when>
             <perform>
-                <hint title="Oracle JMS Queue Browser" effort="1" category-id="mandatory">
+                <hint title="Oracle JMS Queue Browsers" effort="1" category-id="mandatory">
                     <message>
-                        Oracle JMS queue browsers are used for browsing messages in a JMS queue.
+                        Oracle JMS queue browsers are used for browsing messages in a JMS queue.  They may not be suitable for migration.
 
-                        This reference should be replaced with the Java
-                        EE standard API: `javax.jms.QueueBrowser`.
+                        Recommendation:
+
+                        Replace Oracle JMS queue browsers with the Java EE standard API: `javax.jms.QueueBrowser`.
                     </message>
                     <link href="https://docs.oracle.com/javaee/7/tutorial/jms-concepts003.htm#BNCEY" title="Java EE 7 - JMS Queue Browser" />
                     <tag>jms</tag>
@@ -74,11 +76,11 @@
             <perform>
                 <hint title="Oracle JMS Producer" effort="1" category-id="mandatory">
                     <message>
-                        Oracle JMS producers are used for sending messages to a destination.
+                        Oracle JMS producers are used for sending messages to a destination.  They may not be suitable for migration.
 
-                        This reference should be replaced with the Java
-                        EE
-                        standard API: `javax.jms.MessageProducer`.
+                        Recommendation:
+
+                        Replace Oracle JMS producers with the Java EE standard API: `javax.jms.MessageProducer`.
                     </message>
                     <link href="https://docs.oracle.com/javaee/7/tutorial/jms-concepts003.htm#BNCEO" title="Java EE 7 - JMS Message Producer" />
                     <tag>jms</tag>
@@ -91,12 +93,13 @@
                 <javaclass references="oracle.jms.AQjmsConsumer" />
             </when>
             <perform>
-                <hint title="Oracle JMS Consumer" effort="1" category-id="mandatory">
+                <hint title="Oracle JMS consumers" effort="1" category-id="mandatory">
                     <message>
-                        Oracle JMS consumers are used for receiving messages sent to a destination.
+                        Oracle JMS consumers are used for receiving messages sent to a destination.  They may not be suitable for migration.
 
-                        This reference should be replaced with the
-                        Java EE standard API: `javax.jms.MessageConsumer`.
+                        Recommendation:
+
+                        Replace Oracle JMS consumers with the Java EE standard API: `javax.jms.MessageConsumer`.
                     </message>
                     <link href="https://docs.oracle.com/javaee/7/tutorial/jms-concepts003.htm#BNCEP" title="Java EE 7 - JMS Message Consumer" />
                     <tag>jms</tag>
@@ -109,13 +112,13 @@
                 <javaclass references="oracle.jms.AQjmsConnection" />
             </when>
             <perform>
-                <hint title="Oracle JMS Consumer" effort="1" category-id="mandatory">
+                <hint title="Oracle JMS consumers" effort="1" category-id="mandatory">
                     <message>
-                        Oracle JMS connections represent virtual connections with a JMS provider.
+                        Oracle JMS connections represent virtual connections with a JMS provider. They may not be suitable for migration.
 
-                        This reference should be replaced with the
-                        Java
-                        EE standard API: `javax.jms.Connection`.
+                        Recommendation:
+
+                        Replace Oracle JMS connections with the Java EE standard API: `javax.jms.Connection`.
                     </message>
                     <link href="https://docs.oracle.com/javaee/7/tutorial/jms-concepts003.htm#BNCEM" title="Java EE 7 - JMS Connections" />
                     <tag>jms</tag>
@@ -130,12 +133,11 @@
             <perform>
                 <hint title="Oracle JMS {type}Message" effort="1" category-id="mandatory">
                     <message>
-                        Oracle JMS {type} messages represent the actual data passed through JMS destinations.
+                        Oracle JMS {type}messages represent the actual data passed through JMS destinations. They may not be suitable for migration.
 
-                        This reference should be replaced
-                        with the
-                        Java
-                        EE standard API: `javax.jms.{type}Message`.
+                        Recommendation:
+
+                        Replace Oracle JMS {type}messages with the Java EE standard API: `javax.jms.{type}Message`.
                     </message>
                     <link href="https://docs.oracle.com/javaee/7/tutorial/jms-concepts003.htm#BNCES" title="Java EE 7 - JMS Message API" />
                     <tag>jms</tag>
@@ -151,14 +153,13 @@
                 <javaclass references="oracle.jms.AQjmsDestination" />
             </when>
             <perform>
-                <hint title="Oracle JMS Destination" effort="1" category-id="mandatory">
+                <hint title="Oracle JMS destination" effort="1" category-id="mandatory">
                     <message>
-                        Oracle JMS destinations are the objects a client uses to specify the target of messages it produces and the source of
-                        messages it consumes.
+                        Oracle JMS destinations are objects a client uses to specify the target of messages it produces and the source of messages it consumes. They may not be suitable for migration.
 
-                        This reference should be replaced with the
-                        Java
-                        EE standard API: `javax.jms.Destination`.
+                        Recommendation:
+
+                        Replace Oracle JMS destinations with the Java EE standard API: `javax.jms.Destination`.
                     </message>
                     <link href="https://docs.oracle.com/javaee/7/tutorial/jms-concepts003.htm#BNCEL" title="Java EE 7 - JMS Destinations" />
                     <tag>jms</tag>
@@ -173,11 +174,11 @@
             <perform>
                 <hint title="Oracle JMS {type} Connection Factory" effort="1" category-id="mandatory">
                     <message>
-                        Oracle {type}ConnectionFactory is an encapsulation of JMS servers to which Connections can be created for message distribution.
+                        Oracle {type}ConnectionFactory is an encapsulation of JMS servers to which connections can be created for message distribution. It may not be suitable for migration.
 
-                        This reference should be replaced with the
-                        Java
-                        EE standard API: `javax.jms.{type}ConnectionFactory`.
+                        Recommendation:
+
+                        Replace Oracle {type}ConnectionFactory with the Java EE standard API: `javax.jms.{type}ConnectionFactory`.
                     </message>
                     <link href="https://docs.oracle.com/javaee/7/tutorial/jms-concepts003.htm#BNCEK" title="Java EE 7 - JMS Connection factories" />
                     <tag>jms</tag>
