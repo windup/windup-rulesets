@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <metadata>
         <description>
-            This ruleset focuses on relevant Java Connector Architecture (JCA) aspects while migrating to a cloud environment.
+            This ruleset detects the Java Connector Architecture (JCA), which may be problematic when migrating an application to a cloud environment.
         </description>
         <dependencies>
           <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final"/>
@@ -24,14 +24,15 @@
             </when>
             <perform>
               <hint title="Resource adapter descriptor (ra.xml)" effort="1" category-id="cloud-optional">
-                  <message>
-                     An embedded resource adapter descriptor ('ra.xml') has been found. Resource adapters implement the Java Connector Architecture (JCA) for a particular Enterprise Information System (EIS).  
-                     JCA tends to lead to tightly-coupled applications with scalability problems (i.e. configuration files, many times, have host and port to which connect to).  
-                     Check the purpose of this adapter and whether it fits an application usage in a cloud environment.  
+                <message>
+                The application contains an embedded resource adapter descriptor ('ra.xml'), which implements the Java Connector Architecture (JCA) for certain Enterprise Information Systems (EIS).
+
+                JCA often uses tightly coupled interactions between the connector and the application. Tight coupling is not suitable in a cloud environment because of scalability problems.
+
+                Recommendation: Review the purpose of the resource adapter to determine whether it is required in a cloud environment.
                 </message>
                 <link href="https://access.redhat.com/solutions/2476751" title="Resource adapter compatibility with JBoss EAP"/>
-                <link href="https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6.4/html/Administration_and_Configuration_Guide/Resource_Adapter_Descriptor_Reference1.html" title="Red Hat JBoss EAP 6 documentation - Resource adapter descriptor reference"/>
-                <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html/configuration_guide/jca_management" title="Red Hat JBoss EAP 7 documentation - Java Connector Architecture (JCA)"></link>
+                <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.3/html-single/configuring_messaging/index#deploy_configure_generic_jms_resource_adapter" title="Red Hat JBoss EAP 7 documentation - Deploying a Generic JMS Resource Adapter"/>
                 <tag>jca</tag>
               </hint>
             </perform>
