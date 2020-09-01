@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <metadata>
         <description>
-            This is a ruleset for logging-related topics when migrating and application to cloud environments.
+            This ruleset detects logging configurations that may be problematic when migrating an application to a cloud environment.
         </description>
         <dependencies>
           <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final"/>
@@ -45,16 +45,16 @@
                     <perform>
                         <hint title="Logging to file system" effort="1" category-id="cloud-mandatory">
                             <message>
-                            Logging to individual files should be avoided in a cloud environment, as locally written log files may be lost on instance termination or restart.
+                            If the application writes logs to a file system, local log files may be lost if an instance terminates or restarts.
 
-                            Review the file-based logging and considered the following options:
+                            Recommendations
 
-                            * usage of a centralized log management system
-                            * log to standard output (console) and let the cloud platform handle the output
-                            * usage of shared storage for log files
+                            * Use a centralized log management system.
+                            * Log to standard output and allow the cloud platform to manage the logging.
+                            * Use shared storage for log files.
                             </message>
                             <link href="https://12factor.net/logs" title="Twelve-factor app - Logs"/>
-                            <link href="https://access.redhat.com/documentation/en/openshift-container-platform/3.4/paged/installation-and-configuration/chapter-28-aggregating-container-logs" title="Aggregating container logs"/>
+                            <link href="https://docs.openshift.com/container-platform/4.5/logging/cluster-logging.html" title="OpenShift Container Platform: Understanding cluster logging"/>
                             <tag>logging</tag>
                         </hint>
                         <technology-tag level="INFORMATIONAL">Logging to file system</technology-tag>
@@ -76,16 +76,16 @@
                 <iteration>
                     <hint title="Logging to Socket Handler" effort="3" category-id="cloud-mandatory">
                         <message>
-                        Socket communication is not suitable in a cloud environment which does not provide fixed communication target hosts.
+                        If an application writes logs with `SocketHandler`, an alternative method is required. Socket communication is not suitable for a cloud environment because it requires fixed communication with a target host.
 
-                        Review the socket-based logging and considered the following options:
+                        Recommendations
 
-                        * usage of a centralized log management system
-                        * log to standard output (console) and let the cloud platform handle the output
-                        * usage of shared storage for log files
+                        * Use a centralized log management system.
+                        * Log to standard output and allow the cloud platform to manage the logging.
+                        * Use shared storage for log files.
                         </message>
                         <link href="https://12factor.net/logs" title="Twelve-factor app - Logs"/>
-                        <link href="https://access.redhat.com/documentation/en/openshift-container-platform/3.4/paged/installation-and-configuration/chapter-28-aggregating-container-logs" title="OpenShift - Aggregating container logs"/>
+                        <link href="https://docs.openshift.com/container-platform/4.5/logging/cluster-logging.html" title="OpenShift Container Platform: Understanding cluster logging"/>
                         <tag>logging</tag>
                     </hint>
                 </iteration>

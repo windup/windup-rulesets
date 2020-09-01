@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ruletest id="springboot-cloud-config-to-quarkus-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/springboot-cloud-config</testDataPath>
+    <rulePath>../springboot-cloud-config-client-to-quarkus.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="springboot-cloud-config-client-to-quarkus-00000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace the Spring Cloud Config Client artifact with Quarkus `quarkus-spring-cloud-config-client` extension" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-cloud-config-client-to-quarkus-extension] SpringBoot cloud config client artifact replaced by Quarkus extension was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
+
