@@ -4,8 +4,8 @@
 
     <metadata>
         <description>
-            Provides analysis of WebSphere proprietary classes and constructs that may require individual attention when migrating to JBoss EAP 7+.
-        </description>
+            This ruleset provides analysis of WebSphere proprietary classes and constructs that might require
+            individual attention when migrating to JBoss EAP 7+.
         <dependencies>
             <addon id="org.jboss.windup.rules,windup-rules-javaee,2.7.0.Final" />
             <addon id="org.jboss.windup.rules,windup-rules-java,2.7.0.Final" />
@@ -27,9 +27,13 @@
                 <hint title="WebSphere Work Manager" category-id="mandatory" effort="5">
                     <message>
                       <![CDATA[
-                      WebSphere Asynchronous Work is a Work Manager, whose purpose is to allow the user utilizing threads while letting the container manage them.
+                      WebSphere Asynchronous Work is a work manager, whose purpose is to allow the user utilizing threads while letting the container manage them. 
+                      
+                      Recoemmendation:
 
-                      For migration to JBoss EAP 7, [replace with JCA Work Manager](https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0/single/configuration-guide/#jca_management).
+                      For migration to JBoss EAP 7, replace WebSphere Asynchronous Work with JCA Work Manager. 
+                      
+                      For more information, see [Java Connector Architecture (JCA) Management](https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0/single/configuration-guide/#jca_management).
                       ]]>
                     </message>
                     <link title="Java Connector Architecture (JCA) Management"
@@ -49,9 +53,11 @@
                 <hint title="WebSphere Startup Service" category-id="mandatory" effort="4">
                     <message>
                       <![CDATA[
-                      WebSphere Startup Service serves as a callback to be invoked when the server or application starts.
+                      WebSphere Startup Service serves as a callback to be invoked when the server or application starts. 
+                      
+                      Recoemmendation:
 
-                      When migrating to JBoss EAP 7, this has to be replaced with standard EJB 3.1 Startup Bean, using `@Startup @Singleton` class and `@PostConstruct` method.
+                      For JBoss EAP 7, replace WebSphere Startup Service with standard EJB 3.1 Startup Bean, using the `@Startup @Singleton` class and the `@PostConstruct` method.
                       ]]>
                     </message>
                     <link href="http://docs.oracle.com/javaee/7/api/javax/ejb/Singleton.html" title="EJB 3.1 Singleton Bean" />
