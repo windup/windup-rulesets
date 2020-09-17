@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ruletest id="springboot-cloud-data-flow-to-quarkus-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/springboot-cloud-data-flow</testDataPath>
+    <rulePath>../springboot-cloud-data-flow-to-quarkus.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="springboot-cloud-data-flow-to-quarkus-00000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Spring Cloud Data Flow is not supported by Quarkus" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-cloud-data-flow-to-quarkus] SpringBoot cloud data flow artifact not supported by Quarkus was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
