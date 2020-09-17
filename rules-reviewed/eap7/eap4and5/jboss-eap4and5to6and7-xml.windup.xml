@@ -7,7 +7,7 @@
     <metadata>
         <description>
             This ruleset provides analysis in both JBoss EAP 4 and 5
-            that may require individual attention when migrating to JBoss EAP 6 and 7.
+            that might require individual attention when migrating to JBoss EAP 6 and 7.
         </description>
         <dependencies>
             <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final"/>
@@ -25,10 +25,13 @@
             <perform>
                 <hint issue-display-mode="all" title="Replace service-style deployments" effort="1" category-id="optional">
                     <message>
-                        <![CDATA[
-                        MBeans were part of the core architecture in previous versions of Red Hat JBoss Enterprise Application Platform.  
-                        JBoss Service Archive (SAR) deployments using the JBoss specific `jboss-service.xml` and `jboss-beans.xml` service-style descriptors were used by the application server to create MBeans based on JBoss Beans.  
-                        The internal architecture has changed in JBoss EAP 6+ and is no longer based on an MBean JMX architecture.
+                        <![CDATA[ 
+                        This applicaton contains JBoss specific service-style deployments such as `jboss-service.xml` and `jboss-beans.xml` 
+                        
+                        Recommendation:
+                        
+                        Use the references bekow to migrate your applications to EAP 7.
+                        
                         ]]>
                     </message>
                     <link title="JBoss EAP 6 - Migration Guide" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/migration_guide/#sect-Service-style_Deployment_Changes"/>
@@ -49,9 +52,11 @@
                 <hint issue-display-mode="all" title="Replace BarrierController service" effort="1" category-id="mandatory">
                     <message>
                         <![CDATA[
-                        `BarrierController` service is no longer available in JBoss EAP 6+.  
-                         In JBoss EAP 4.x the JBoss 'kernel' layer was an extension of JMX which is why everything was an MBean, though most of the MBean functionality still worked in JBoss EAP 5.  
-                         JBoss EAP 6 is no longer based on Mbeans, and the Mbeans which are seen in jconsole are actually just facades over the JBoss management API, so declaring Mbean dependencies on any other Mbeans that appear to be JBoss Mbeans does not work since they are not real Mbeans.  
+                        This application contains the `BarrierController` service, which is no longer available in JBoss EAP 6+.  
+                        
+                        Recommendation:
+                        
+                        Use the references bekow to migrate your applications to EAP 7. Note that the Mbeans that are seen in jconsole are actually just facades over the JBoss management API. Therefore, declaring Mbean dependencies on any other Mbeans that appear to be JBoss Mbeans does not work since they are not real Mbeans.  
                         ]]>
                     </message>
                     <link title="BarrierController service in JBoss EAP 6 " href="https://access.redhat.com/solutions/410953"/>
@@ -71,8 +76,11 @@
                 <hint issue-display-mode="all" title="Replace CompressingMarshaller marshaller" effort="1" category-id="mandatory">
                     <message>
                         <![CDATA[
-                        `CompressingMarshaller` marshaller is no longer available in JBoss EAP 6+.  
-                        In JBoss EAP 6.3.0 and later, data compression hints can be specified via the JBoss annotation `org.jboss.ejb.client.annotation.CompressionHint`
+                        Thi applicaton uses the `CompressingMarshaller` marshaller, which is no longer available in JBoss EAP 6+. 
+                        
+                        Recommendation:
+                         
+                        In JBoss EAP 6.3.0+, specify data compression hints using the JBoss annotation `org.jboss.ejb.client.annotation.CompressionHint`.
                         ]]>
                     </message>
                     <link title="How to compress remote EJB communication in JBoss EAP 6" href="https://access.redhat.com/solutions/322953"/>
@@ -87,7 +95,11 @@
                 <hint issue-display-mode="all" title="Replace Login Module definition" effort="5" category-id="mandatory">
                     <message>
                         <![CDATA[
-                        In JBoss EAP 6+, Security is configured in the `<security-domain>` element in the server configuration file.
+                        This application contains a security configuration file that is not supported by JBoss EAP 6+.
+                        
+                        Recomendation:
+                        
+                        In JBoss EAP 6+, configuresecurity functionality using the `<security-domain>` element in the server configuration file.
                         ]]>
                     </message>
                     <link title="Configure UsersRolesLoginModule for EAP 6 management console" href="https://access.redhat.com/solutions/219933"/>
@@ -103,9 +115,11 @@
                 <hint issue-display-mode="all" title="Remove class-loading definition" effort="3" category-id="mandatory">
                     <message>
                         <![CDATA[
-                        The `class-loading` and `loader-repository` configuration in `jboss.xml`, `jboss-web.xml` and `jboss-service.xml` were JBoss EAP 4.x & 5.x configuration options for specifying classloader isolation on a deployment.  
-                        In JBoss EAP 6+, it uses JBoss Modules for its classloader implementation so all deployments are isolated in their own classloader / JBoss Module and the `loader-repository` is no longer valid.  
-                        The `jboss-deployment-structure.xml` can be used to specify classloader / module dependencies if needed.
+                        This application contains `class-loading` and `loader-repository` configuration in `jboss.xml`, `jboss-web.xml` and `jboss-service.xml` configuration options for specifying classloader isolation on a deployment. These options are no longer supported.
+                        
+                        Recommendation:
+                        
+                        In JBoss EAP 6+, use `jboss-deployment-structure.xml` to specify classloader/module dependencies if needed.
                         ]]>
                     </message>
                     <link title="JBoss EAP 6 - Migration Guide" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/migration_guide/#sect-Configuration_File_Changes"/>
@@ -127,8 +141,12 @@
                 <hint issue-display-mode="all" title="Create org.jboss.naming.NamingAlias class" effort="1" category-id="mandatory">
                     <message>
                         <![CDATA[
-                        JBoss EAP 6 supports deploying SAR files, however JBoss EAP 5 and 6 do not share a lot of the internals.  
-                        The class your `jboss-{types}.xml` file is trying to instantiate (`org.jboss.naming.NamingAlias`) was an implementation detail of JBoss EAP 5's naming components that does not exist in JBoss EAP 6.
+                        This application contains `org.jboss.naming.NamingAlias`, a class that is not supported in JBoss EAP 6+.
+                        
+                        Recommendation:
+                        
+                        Migrate your SAR files to EAP 6+ acoording to the references below. 
+                    
                         ]]>
                     </message>
                     <link title="JBoss EAP 5 - The org.jboss.naming.NamingAlias MBean" href="https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform/5/html-single/administration_and_configuration_guide/#Additional_Naming_MBeans-The_org.jboss.naming.NamingAlias_MBean"/>
@@ -145,7 +163,11 @@
                 <hint issue-display-mode="all" title="Set authentication cache timeout " effort="1" category-id="mandatory">
                     <message>
                         <![CDATA[
-                        In JBoss EAP 6 and 7 you can set the JAAS cache timeout, changing the `cache-type` to `infinispan` which uses Infinispan cache which has an expiration capability.
+                        This application contains a JAAS cache timeout that is not supported in JBoss EAP 6+.
+                        
+                        Recommendation:
+                        
+                        In JBoss EAP 6+, set the JAAS cache timeout by changing the `cache-type` to `infinispan`. 
                         ]]>
                     </message>
                     <link title="JBoss EAP 5 - Custom Callback Handlers" href="https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform/5/html-single/security_guide/#Custom_Callback_Handlers"/>
