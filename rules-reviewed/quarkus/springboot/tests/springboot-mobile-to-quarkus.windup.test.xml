@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ruletest id="springboot-mobile-to-quarkus-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/springboot-mobile</testDataPath>
+    <rulePath>../springboot-mobile-to-quarkus.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="springboot-mobile-to-quarkus-00000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Spring Mobile is not supported by Quarkus" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-mobile-to-quarkus] SpringBoot mobile artifact not supported by Quarkus was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
