@@ -15,7 +15,7 @@
     <rules>
         <rule id="springboot-actuator-to-quarkus-0100">
             <when>
-                <dependency groupId="org.springframework.boot" artifactId="spring-boot-starter-actuator"/>
+                <dependency groupId="org.springframework.boot" artifactId="spring-boot-actuator"/>
             </when>
             <perform>
                 <hint title="Replace the Spring Boot Actuator dependency with Quarkus Smallrye Health extension" effort="1" category-id="mandatory">
@@ -26,6 +26,23 @@
                     <link title="Quarkus - Microprofile Health" href="https://quarkus.io/guides/microprofile-health"/>
                 </hint>
             </perform>
+        </rule>
+        <rule id="springboot-actuator-to-quarkus-0101">
+            <when>
+                <file filename="{filenameParameter}-{*}.jar"/>
+            </when>
+            <perform>
+                <hint title="Replace the Spring Boot Actuator dependency with Quarkus Smallrye Health extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the Spring Boot Actuator dependency with Quarkus Smallrye Health extension.  
+                        It has to be replaced by `io.quarkus:quarkus-smallrye-health` artifact.
+                    </message>
+                    <link title="Quarkus - Microprofile Health" href="https://quarkus.io/guides/microprofile-health"/>
+                </hint>
+            </perform>
+            <where param="filenameParameter">
+                <matches pattern="(spring-boot-starter-actuator|spring-boot-actuator|spring-boot-actuator-autoconfigure)"/>
+            </where>
         </rule>
     </rules>
 </ruleset>
