@@ -50,6 +50,8 @@ public class WindupRulesLinksTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(WindupRulesLinksTest.class);
     private static final String RUN_TEST_MATCHING = "runTestsMatching";
+    private static final String RETRY_ATTEMPTS = "retryAttempts";
+    private static final int RETRY_ATTEMPTS_NUM = Integer.parseInt(System.getProperty(RETRY_ATTEMPTS, "3"));
     private static final List<Integer> ACCEPTED_RESPONSE_CODE = Arrays.asList(
             HttpURLConnection.HTTP_OK,
             HttpURLConnection.HTTP_MOVED_PERM,
@@ -152,8 +154,20 @@ public class WindupRulesLinksTest {
                 final HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
                 // property name from https://docs.oracle.com/javase/8/docs/technotes/guides/net/properties.html
                 urlConn.setConnectTimeout(Integer.getInteger("sun.net.client.defaultConnectTimeout", 5000));
-                urlConn.connect();
-                CACHE_ANALYZED_LINKS.put(link, urlConn.getResponseCode());
+                int attempt = 0;
+                while (true)
+                {
+                    try {
+                        urlConn.connect();
+                        CACHE_ANALYZED_LINKS.put(link, urlConn.getResponseCode());
+                        break;
+                    } catch (IOException e) {
+                        LOG.warn(String.format("Attempt [%s/%s]: '%s' exception connecting to %s", ++attempt, RETRY_ATTEMPTS_NUM, e.getMessage(), link));
+                        if (attempt == RETRY_ATTEMPTS_NUM) throw e;
+                    } finally {
+                        urlConn.disconnect();
+                    }
+                }
             }
             final boolean validLink = ACCEPTED_RESPONSE_CODE.contains(CACHE_ANALYZED_LINKS.get(link));
             if (validLink) LOG.debug(String.format("Response code %d for %s [%dms]", CACHE_ANALYZED_LINKS.get(link), link, System.currentTimeMillis() - starTime));
