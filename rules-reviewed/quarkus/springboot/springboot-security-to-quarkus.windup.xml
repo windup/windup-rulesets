@@ -16,6 +16,15 @@
     <rules>
         <rule id="springboot-security-to-quarkus-00000">
             <when>
+                <!-- Spring component declared in source code condition -->
+                <project>
+                    <artifact groupId="org.springframework.security" artifactId="spring-security-core"/>
+                </project>
+                <!-- Spring Boot component declared in source code condition -->
+                <project>
+                    <artifact groupId="org.springframework.boot" artifactId="spring-boot-starter-security"/>
+                </project>
+                <!-- Spring component in compiled application condition -->
                 <dependency groupId="org.springframework.security" artifactId="spring-security-core"/>
             </when>
             <perform>
