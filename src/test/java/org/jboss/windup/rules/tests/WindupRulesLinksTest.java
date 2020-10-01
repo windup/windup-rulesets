@@ -51,7 +51,7 @@ import static org.awaitility.Awaitility.with;
  * The default poll interval for the same link in case of connection timeout is 200 milliseconds.
  * To change it use the property "-DpollInterval=<value>" with <value> specified in milliseconds.
  * 
- * The default poll duration for the same link in case of connection timeout is 2000 milliseconds.
+ * The default poll duration for the same link in case of connection timeout is 30000 milliseconds.
  * To change it use the property "-DpollAtMost=<value>" with <value> specified in milliseconds.
  * 
  * To quickly see the debug log, execute the test with the property "-Dorg.slf4j.simpleLogger.log.org.jboss.windup=debug"
@@ -64,7 +64,7 @@ public class WindupRulesLinksTest {
     private static final String LINK_POLL_INTERVAL = "pollInterval";
     private static final Duration LINK_POLL_INTERVAL_DURATION = Duration.of(Long.getLong(LINK_POLL_INTERVAL, 200L), ChronoUnit.MILLIS);
     private static final String LINK_POLL_AT_MOST = "pollAtMost";
-    private static final Duration LINK_POLL_AT_MOST_DURATION = Duration.of(Long.getLong(LINK_POLL_AT_MOST, 2000L), ChronoUnit.MILLIS);
+    private static final Duration LINK_POLL_AT_MOST_DURATION = Duration.of(Long.getLong(LINK_POLL_AT_MOST, 30000L), ChronoUnit.MILLIS);
     private static final List<Integer> ACCEPTED_RESPONSE_CODE = Arrays.asList(
             HttpURLConnection.HTTP_OK,
             HttpURLConnection.HTTP_MOVED_PERM,
