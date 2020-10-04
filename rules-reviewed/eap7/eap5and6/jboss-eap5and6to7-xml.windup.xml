@@ -13,7 +13,7 @@
     <metadata>
         <description>
             This ruleset provides analysis of configuration XML files in both JBoss EAP 5 and JBoss EAP 6
-            that may require individual attention when migrating to JBoss EAP 7+.
+            that might require individual attention when migrating to JBoss EAP 7+.
             The purpose of this ruleset common to those two major JBoss EAP versions is to avoid duplication of rules
             in rulesets dedicated to either version.
             Mainly deals with datasources, JBoss Web and EJB configuration.
@@ -38,8 +38,11 @@
             <perform>
                 <iteration>
                     <hint title="Stateful Session EJB Clustering configuration changes in EAP 7" effort="1" category-id="optional">
-                    <message>
-                        The `clustered` element is ignored in EAP 7 and is not useful. In case the application is started using HA profile, the replication will be done automatically.
+                    <message>   This application contains the `clustered` element, which is ignored in EAP 7.
+                            
+                                Recommendation:
+                            
+                                Migrate to EAP's clustering behavior according to the reference that follows. Note that if the application is started using an HA profile, replication is done automatically.
                     </message>
                     <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/single/migration_guide/#migrate_stateful_session_ejb_clustering_changes" title="Clustered annotation in EAP 7" />
                     <tag>cluster</tag>
@@ -59,7 +62,11 @@
             </when>
             <perform>
                 <classification issue-display-mode="all" title="JBoss Seam Components (components.xml)" effort="5">
-                    <description>You should migrate from Seam 2 Framework to Context Dependency Injection technology.</description>
+                    <description>This application contains Seam 2 components (`components.xml`).
+                            
+                                Recommendation:
+                        
+                                Migrate from the Seam 2 Framework to Context Dependency Injection technology.</description>
                     <link title="Context and dependency injection - CDI" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/development_guide/#contexts_and_dependency_injection_cdi"/>
                     <link title="Migration from Seam 2 to Java EE and alternatives" href="https://access.redhat.com/documentation/en-US/Red_Hat_JBoss_Web_Framework_Kit/2.7/html/Seam_Guide/ch36.html"/>
                     <tag>seam2</tag>
@@ -75,9 +82,11 @@
             </when>
             <perform>
                 <classification issue-display-mode="all" title="JBoss Seam Pages (pages.xml)" effort="5">
-                    <description>You should migrate from Seam 2 Framework to Context Dependency Injection technology.
-                        The most features from `pages.xml` file where it is specified a page flow and other configuration of the Seam Framework is achievable through JSF Flow.
-                    </description>
+                    <description>This appliction contains Seam 2 pages (`pages.xml`).
+                            
+                                Recommendation:
+                        
+                                Migrate from the Seam 2 Framework to Context Dependency Injection technology.</description>
                     <link href="https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform/5/html-single/seam_reference_guide/" title="Seam 2 Framework Reference"/>
                     <link href="https://docs.oracle.com/javaee/7/tutorial/jsf-configure003.htm" title="Using Faces Flows"/>
                     <tag>seam</tag>
@@ -104,8 +113,9 @@
             <perform>
                 <classification issue-display-mode="detail-only" title="JBoss web application descriptor (jboss-web.xml)" effort="1">
                     <description>
-                        The `jboss-web.xml` file configures a Java EE web application specifically for JBoss EAP.
-                        It is an extension to standard `web.xml`.
+                        This appliacation contains the `jboss-web.xml` file.
+                        
+                        
                     </description>
                     <link title="jboss-web.xml Configuration Reference" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/development_guide/#jboss-webxml_Configuration_Reference"/>
                     <tag>web</tag>
@@ -124,10 +134,11 @@
             <perform>
                 <classification issue-display-mode="all" title="JBoss EJB 2 CMP Deployment descriptor (jbosscmp-jdbc.xml)" effort="5" category-id="mandatory">
                     <description>
-                        The `jbosscmp-jdbc.xml` is a deployment decriptor controlling the Container Managed Persistence (CMP).
-
-                        Support for EJB Entity Beans is optional in Java EE 7 and they are not supported in JBoss EAP 7.
-                        This means CMP entity beans must be rewritten to use Java Persistence API (JPA) entities.
+                        This application conatins the descriptor `jbosscmp-jdbc.xml`, which is not supported in JBoss EAP 7.
+                        
+                        Recommendation:
+                        
+                        Rewrite any CMP entity beans that contain `jbosscmp-jdbc.xml`, using Java Persistence API (JPA) entities instead.
                     </description>
                     <link title="Migrate Entity Beans to JPA" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_entity_beans_to_jpa"/>
                     <link title="JBoss EAP 5 - The jbosscmp-jdbc Structure" href="https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform/5/html-single/administration_and_configuration_guide/index#The_CMP_Engine-The_jbosscmp_jdbc_Structure"/>
@@ -147,7 +158,11 @@
             <perform>
                 <classification issue-display-mode="all" title="JBoss EJB 3 deployment descriptor (jboss-ejb3.xml)" effort="5">
                     <description>
-                        A JBoss specific EJB 3 configuration allows extensions of Java EE EJB 3.
+                        This appliction contains the Boss EJB 3 deployment descriptor `jboss-ejb3.xml`.
+                        
+                        Recommendation:
+                        
+                        Configure this decriptor according to the following Red Hat docuemntation:
                     </description>
                     <link title="jboss-ejb3.xml Deployment Descriptor Reference" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/development_guide/index#jboss-ejb3xml_Deployment_Descriptor_Reference"/>
                     <tag>jboss-eap5</tag>
@@ -162,14 +177,14 @@
             <perform>
                 <classification issue-display-mode="all" title="JBoss web-services deployment descriptor (jboss-webservices.xml)" effort="5">
                     <description>
-                        JBossWS 4.0 introduces a new deployment descriptor to configure web services.
-                        The `jboss-webservices.xml` file provides additional information for the given deployment
-                        and partially replaces the obsolete `jboss.xml` file.
-
-                        For EJB webservice deployments, the expected location of the `jboss-webservices.xml` descriptor file
-                        is in the `META-INF/` directory. For POJO and EJB webservice endpoints bundled in WAR file,
-                        the expected location of the `jboss-webservices.xml` file is in the `WEB-INF/` directory.
-                    </description>
+                        This application contains JAX-RPC web services, which are no longer supported or available in EAP 7. For EJB webservice deployments, the expected location of a JAX-RPC `jboss-webservices.xml` descriptor file
+                        is in the `META-INF/` directory. For POJO and EJB webservice endpoints bundled in a WAR file,
+                        the expected location of a JAX-RPC `jboss-webservices.xml` file is in the `WEB-INF/` directory.
+                        
+                        Recommendation:
+                        
+                        Migrate these web services to JAX-WS. 
+                        
                     <link title="JBoss web-services changes" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_web_service_application_changes"/>
                     <tag>jboss-ws</tag>
                     <tag>descriptor</tag>
@@ -189,8 +204,11 @@
             <perform>
                 <iteration>
                     <hint title="CMP Entity EJB configuration" effort="3" category-id="mandatory">
-                    <message>CMP entity beans are no longer supported in JBoss EAP 7. User is requested to use JPA entities that fully replaced the functionality provided by CMP beans.
-                    CMP configuration provided in this ejb-jar.xml should be configured using JPA persistence.xml or using JPA annotations.</message>
+                    <message>This application conatins CMP entity beans, which are not supported in JBoss EAP 7.
+                    
+                    Recommendation:
+                    
+                    Use JPA entities to replace the functionality provided by CMP beans. Reconfigure any CMP configuration settings in 'ejb-jar.xml' by using JPA `persistence.xml` or by using JPA annotations.</message>
                     <link title="CMP Bean migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/single/migration_guide/#migrate_entity_beans_to_jpa"/>
                     <tag>jpa</tag>
                     <tag>cmp</tag>
@@ -209,8 +227,11 @@
             <perform>
                 <iteration>
                     <hint title="EJB 2.x BMP Entity Beans configuration" effort="3" category-id="mandatory">
-                    <message>BMP entity beans are no longer supported in JBoss EAP 7. User is requested to use JPA entities that fully replaced the functionality provided by BMP beans.
-                   BMP configuration provided in this ejb-jar.xml should be configured using JPA persistence.xml or using JPA annotations.</message>
+                    <message>This application conatins BMP entity beans, which are not supported in JBoss EAP 7.
+                   
+                   Recommendation:
+                   
+                   Use JPA entities to replace the functionality provided by BMP beans. Reconfigure any BMP configuration settings in 'ejb-jar.xml' by using JPA `persistence.xml` or by using JPA annotations.</message>
                     <link title="CMP Bean migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/single/migration_guide/#migrate_entity_beans_to_jpa" />
                     <tag>jpa</tag>
                     <tag>bmp</tag>
@@ -227,7 +248,11 @@
             <perform>
                 <iteration>
                     <hint title="Valve is not supported in JBoss EAP 7" effort="1" category-id="mandatory">
-                    <message>JBoss Web was replaced by Undertow, which does not contain support for the Valve functionality. It may be needed to migrate to Undertow handlers.</message>
+                    <message>This application contains JBoss Web valves.
+                            
+                                Recommendation:
+                            
+                                Migrate JBoss Web valves to Undertow handlers, as described in the following Red Hat documentation:</message>
                     <link title="Valve migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/single/migration_guide/#migrate_custom_application_valves"/>
                     <tag>web</tag>
                     </hint>
@@ -257,7 +282,11 @@
             <perform>
                 <iteration>
                     <hint title="JAX-RPC specific configuration" effort="3" category-id="mandatory">
-                    <message>JAX-RPC support was removed in JBoss EAP 7. All the RPC calls will need to be migrated to JAX-WS.</message>
+                    <message>This file uses a JAX-RPC specific configuration, which is not supported in JBoss EAP 7. 
+                        
+                        Recommendation:
+                        
+                        Migrate all RPC calls to JAX-WS.</message>
                     <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/single/migration_guide/#migrate_jax_rpc_support_changes" title="JAX-RPC support changes" />
                     <tag>rpc</tag>
                     <tag>jax-ws</tag>
@@ -270,8 +299,12 @@
                 <file filename="deployment-plan.xml"/>
             </when>
             <perform>
-                    <classification issue-display-mode="all" title="JSR-88 deployment plans are no more supported by JBoss EAP7" effort="3" category-id="mandatory">
-                        <description>This file should be removed and instead rely on proprietary functionality to automate deployments. Please consult EAP 7 admin documentation to learn about such functionality.</description>
+                    <classification issue-display-mode="all" title="JSR-88 deployment plans are no longer supported by JBoss EAP7" effort="3" category-id="mandatory">
+                        <description>This application uses JSR-88 classes to automate deployments. 
+                                
+                                      Recommendation:
+                                
+                                      Automate deployent by using the functionality described in EAP 7 admin documentation or in the following Red Hat documentation:</description>
                         <link title="Migrate Deployment plan configurations" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/single/migration_guide/#migrate_deployment_plan_configurations"/>
                         <tag>configuration</tag>
                     </classification>
@@ -299,9 +332,11 @@
             </when>
             <perform>
                 <hint title="Web Session Clustering config replication-mode changes in EAP 7" effort="1" category-id="optional">
-                    <message>
-                       The EAP 7 Web Session Clustering configuration deprecates element `replication-mode` element without replacement in `jboss-web.xml` file descriptor.
-                    </message>
+                    <message>This application's `jboss-web.xml` file includes the element `replication-mode`, which EAP 7 deprecates. 
+                       
+                       Recommendation:
+                       
+                       In EAP 7, configure `jboss-web.xml` acording to the following Red Hat documenation:</message>
                     <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/single/migration_guide/#migrate_web_session_clustering_changes" title="Web Session Clustering config migration changes in EAP 7" />
                     <tag>cluster</tag>
                     <tag>web</tag>
@@ -316,7 +351,11 @@
             <perform>
                 <hint title="Web Session Clustering config backups changes in EAP 7" effort="1" category-id="optional">
                     <message>
-                       The EAP 7 Web Session Clustering configuration deprecates `backups` element without replacement in `jboss-web.xml` file descriptor.
+                        This application's `jboss-web.xml` file includes the element `backups`, which EAP 7 deprecates. 
+                          
+                        Recommendation:
+                          
+                        In EAP 7, configure `jboss-web.xml` acording to the following Red Hat documenation:
                     </message>
                     <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/single/migration_guide/#migrate_web_session_clustering_changes" title="Web Session Clustering config migration changes in EAP 7" />
                     <tag>cluster</tag>
@@ -332,12 +371,13 @@
             <perform>
                 <hint title="Web Session Clustering config use-jk changes in EAP 7" effort="1" category-id="optional">
                     <message>
-                         The EAP 7 Web Session Clustering configuration deprecates `use-jk` element without replacement in `jboss-web.xml` file descriptor.
-
-                         Previously by specifying `use-jk` element, the instance-id of the node handling a given request was appended to the jsessionid (foruse by load balancers such as mod_jk, mod_proxy_balancer, mod_cluster, etc.) depending on the value specified for `use-jk`.
-
-                         In the new implementation, the instance-id, if defined, is always appended to the jsessionid.
-                    </message>
+                        This application's `jboss-web.xml` file includes the element `use-jk`, which EAP 7 deprecates. 
+                         
+                        Previously by specifying `use-jk`, the instance-id of the node handling a given request was appended to `jsessionid` - for use by load balancers such as `mod_jk`, `mod_proxy_balancer`, `mod_cluster`, and others - depending on the value specified for `use-jk`.
+                           
+                        Recommendation:
+                         
+                        In EAP 7, configure `jboss-web.xml` acording to the following Red Hat documenation. If you define `instance-id`, append it to `jsessionid`. 
                     <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/single/migration_guide/#migrate_web_session_clustering_changes" title="Web Session Clustering config migration changes in EAP 7" />
                     <tag>cluster</tag>
                     <tag>web</tag>
@@ -352,12 +392,14 @@
             <perform>
                 <hint title="Web Session Clustering config max-unreplicated-interval changes in EAP 7" effort="1" category-id="optional">
                     <message>
-                       The EAP 7 Web Session Clustering configuration deprecates `max-unreplicated-interval` element in `jboss-web.xml` file descriptor.
-
-                       Previously, this configuration option was an optimization that would prevent the replication of a session’s timestamp if no session attribute was changed. While this sounds nice, in practice it doesn't prevent any RPCs, since session access requires cache transaction RPCs regardless of whether any session attributes changed.
-
-                       In the new implementation, the timestamp of a session is replicated on every request.
-                       This prevents stale session metadata following failover.
+                       This application's `jboss-web.xml` file includes the element `max-unreplicated-interval`, which EAP 7 deprecates. 
+                     
+                       Previously, `max-unreplicated-interval` prevented the replication of a session’s timestamp if no session attribute was changed.
+                       In EAP 7, the timestamp of a session is replicated on every request, making this element unnecessary.
+                      
+                       Recommendation:
+                         
+                       In EAP 7, configure `jboss-web.xml` acording to the following Red Hat documenation:
                     </message>
                     <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/single/migration_guide/#migrate_web_session_clustering_changes" title="Web Session Clustering config migration changes in EAP 7" />
                     <tag>cluster</tag>
@@ -373,9 +415,13 @@
             <perform>
                 <hint title="Web Session Clustering config snapshot-mode changes in EAP 7" effort="1" category-id="optional">
                     <message>
-                     The EAP 7 Web Session Clustering configuration deprecates `snapshot-mode` element in `jboss-web.xml` file descriptor.
-
-                     Previously, one could configure `snapshot-mode` as INSTANT or INTERVAL. Infinispan’s replication queue renders this configuration option obsolete.
+                        This application's `jboss-web.xml` file includes the element `snapshot-mode`, which EAP 7 deprecates. 
+                      
+                        Previously, you could configure `snapshot-mode` as INSTANT or INTERVAL. Infinispan’s replication queue renders this configuration option obsolete.
+                       
+                        Recommendation:
+                          
+                        In EAP 7, configure `jboss-web.xml` acording to the following Red Hat documenation:
                     </message>
                     <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/single/migration_guide/#migrate_web_session_clustering_changes" title="Web Session Clustering config migration changes in EAP 7" />
                     <tag>cluster</tag>
@@ -391,8 +437,13 @@
             <perform>
                 <hint title="Web Session Clustering config snapshot-interval changes in EAP 7" effort="1" category-id="optional">
                     <message><![CDATA[
-                       The EAP 7 Web Session Clustering configuration removed `snapshot-interval` element from `jboss-web.xml` file descriptor.
-                       This option was only relevant for `<snapshot-mode>INTERVAL</snapshot-mode>`. Since `snapshot-mode` is no longer used, this option is no longer used as well.]]>
+                        This application's `jboss-web.xml` file includes the element `snapshot-mode`, which EAP 7 deprecates. 
+                      
+                        Previously, you could configure `snapshot-mode` as INSTANT or INTERVAL. Infinispan’s replication queue renders this configuration option obsolete.
+                       
+                        Recommendation:
+                          
+                        In EAP 7, configure `jboss-web.xml` acording to the following Red Hat documenation:]]>
                     </message>
                     <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/single/migration_guide/#migrate_web_session_clustering_changes" title="Web Session Clustering config migration changes in EAP 7" />
                     <tag>cluster</tag>
@@ -408,11 +459,13 @@
             <perform>
                 <hint title="Web Session Clustering config session-notification-policy changes in EAP 7" effort="1" category-id="optional">
                     <message>
-                       The EAP 7 Web Session Clustering configuration deprecates `session-notification-policy` element in `jboss-web.xml` file descriptor.
-
-                       Previously `session-notification-policy` element defined a policy for triggering session events.
-
-                       In the new implementation, this behaviour is specification driven and not configurable.
+                       This application's `jboss-web.xml` file includes the element `session-notification-policy`, which EAP 7 deprecates.  
+                       
+                       Previously, `session-notification-policy` defined a policy for triggering session events. In EAP 7, the policy is set by secification and is not configurable.
+                         
+                       Recommendation:
+                       
+                       Verify thst the application functions without `session-notification-policy`. For more information, see the following Red Hat documentation: 
                     </message>
                     <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/single/migration_guide/#migrate_web_session_clustering_changes" title="Web Session Clustering config migration changes in EAP 7" />
                     <tag>cluster</tag>
