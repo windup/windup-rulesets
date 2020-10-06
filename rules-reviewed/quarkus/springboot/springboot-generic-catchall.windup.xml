@@ -16,39 +16,6 @@
         <phase>PostMigrationRulesPhase</phase>
     </metadata>
     <rules>
-        <rule id="springboot-generic-catchall-00000">
-            <when>
-                <project>
-                    <artifact groupId="{group}" artifactId="{artifact}"/>
-                </project>
-            </when>
-            <perform>
-                <iteration>
-                    <when>
-                        <not>
-                            <has-hint />
-                        </not>
-                    </when>
-                    <perform>
-                        <hint title="Spring component {artifact} requires investigation" effort="5" category-id="potential">
-                            <message>
-                                Check if there is a Quarkus Extensions with Spring API compatibility for the Spring {artifact} component.  
-                                If yes, then replace the `{group}:{artifact}` dependency with the Quarkus extension.  
-                                If no, consider rewrite the code that relies on this dependency leveraging the Quarkus Guides linked below.
-                            </message>
-                            <link title="Quarkus - Guides" href="https://quarkus.io/guides/" />
-                            <tag>catchall</tag>
-                        </hint>
-                    </perform>
-                </iteration>
-            </perform>
-            <where param="group">
-                <matches pattern="(org.springframework)(.*)?" />
-            </where>
-            <where param="artifact">
-                <matches pattern=".*" />
-            </where>
-        </rule>
         <rule id="springboot-generic-catchall-00100">
             <when>
                 <dependency groupId="{group}" artifactId="{artifact}"/>
