@@ -4,6 +4,7 @@
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <testDataPath>data/springboot-properties</testDataPath>
     <rulePath>../springboot-properties-to-quarkus.windup.xml</rulePath>
+    <rulePath>../springboot-properties-to-quarkus.windup.groovy</rulePath>
     <ruleset>
         <rules>
             <rule id="springboot-properties-to-quarkus-00000-test">
@@ -14,6 +15,18 @@
                 </when>
                 <perform>
                     <fail message="[springboot-properties-to-quarkus-extension] SpringBoot artifact replaced by Quarkus extension was not found!" />
+                </perform>
+            </rule>
+            <rule id="springboot-webmvc-to-quarkus-groovy-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Please add the Quarkus dependency `io.quarkus:quarkus-spring-boot-properties` to successfully use the Spring Configuration Properties"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-properties-to-quarkus-extension] Add Quarkus extension was not found!" />
                 </perform>
             </rule>
         </rules>
