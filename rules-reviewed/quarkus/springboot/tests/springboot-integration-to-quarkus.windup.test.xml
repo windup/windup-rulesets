@@ -11,7 +11,9 @@
             <rule id="springboot-integration-to-quarkus-00000-test">
                 <when>
                     <not>
-                        <hint-exists message="SpringBoot Integration is not supported. A migration to Apache Camel is mandatory."/>
+                        <iterable-filter size="3">
+                            <hint-exists message="SpringBoot Integration is not supported. A migration to Apache Camel is mandatory."/>
+                        </iterable-filter>
                     </not>
                 </when>
                 <perform>
