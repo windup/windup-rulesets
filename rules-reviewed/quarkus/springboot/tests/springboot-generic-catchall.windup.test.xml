@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<ruletest id="springboot-generic-catchall-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/springboot-generic-catchall/</testDataPath>
+    <rulePath>../springboot-web-to-quarkus.windup.xml</rulePath>
+    <rulePath>../springboot-generic-catchall.windup.xml</rulePath>
+    <rulePath>../springboot-generic-catchall.windup.groovy</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="springboot-generic-catchall-groovy-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="4">
+                            <hint-exists message="Check if there is a Quarkus Extensions with Spring API compatibility for the Spring .* component."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-generic-catchall] Spring component catch-all was not found!" />
+                </perform>
+            </rule>
+            <rule id="springboot-generic-catchall-00100-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="If the application declares explicitly the Spring `.*` component dependency"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-generic-catchall] Spring component catch-all was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

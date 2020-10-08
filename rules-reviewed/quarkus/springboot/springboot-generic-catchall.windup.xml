@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<ruleset id="springboot-generic-catchall" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of generic Spring components that may require individual attention when
+            migrating to Quarkus.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="springboot" />
+        <targetTechnology id="quarkus" />
+        <phase>PostMigrationRulesPhase</phase>
+    </metadata>
+    <rules>
+        <rule id="springboot-generic-catchall-00100">
+            <when>
+                <dependency groupId="{group}" artifactId="{artifact}"/>
+            </when>
+            <perform>
+                <iteration>
+                    <when>
+                        <not>
+                            <has-hint />
+                        </not>
+                    </when>
+                    <perform>
+                        <hint title="Spring component {artifact} requires investigation" effort="5" category-id="potential">
+                            <message>
+                                If the application declares explicitly the Spring `{group}:{artifact}` component dependency, then check if there is a Quarkus Extensions with Spring API compatibility for the Spring {artifact} component.  
+                                If yes, then replace the `{group}:{artifact}` dependency with the Quarkus extension.  
+                                If no, consider rewrite the code that relies on this dependency leveraging the Quarkus Guides linked below.  
+                                
+                                Otherwise, if the application hasn't got this explicit Spring `{group}:{artifact}` component dependency, it has been added transitively by another Spring component.  
+                                Once the dependant Spring component will be removed, this issue will be fixed as well.
+                            </message>
+                            <link title="Quarkus - Guides" href="https://quarkus.io/guides/" />
+                            <tag>catchall</tag>
+                        </hint>
+                    </perform>
+                </iteration>
+            </perform>
+            <where param="group">
+                <matches pattern="(org.springframework)(.*)?" />
+            </where>
+            <where param="artifact">
+                <matches pattern=".*" />
+            </where>
+        </rule>
+    </rules>
+</ruleset>
