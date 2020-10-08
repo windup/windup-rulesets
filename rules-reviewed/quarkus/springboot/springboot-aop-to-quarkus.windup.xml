@@ -16,9 +16,12 @@
     <rules>
         <rule id="springboot-aop-to-quarkus-00000">
             <when>
+                <or>
                 <project>
                     <artifact groupId="org.springframework" artifactId="spring-aop" />
                 </project>
+                <dependency groupId="org.springframework" artifactId="spring-aop" />
+                </or>
             </when>
             <perform>
                 <hint title="Spring AOP artifact is not supported by Quarkus" effort="13" category-id="mandatory">
