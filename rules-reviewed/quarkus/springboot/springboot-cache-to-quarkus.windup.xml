@@ -16,7 +16,12 @@
     <rules>
         <rule id="springboot-cache-to-quarkus-00000">
             <when>
-                    <dependency groupId="org.springframework.boot" artifactId="spring-boot-starter-cache"/>
+                    <or>
+                        <dependency groupId="org.springframework.boot" artifactId="spring-boot-starter-cache"/>
+                        <project>
+                            <artifact groupId="org.springframework.boot" artifactId="spring-boot-starter-cache"/>
+                        </project>
+                    </or>
             </when>
             <perform>
                 <hint title="Replace the SpringBoot cache artifact with Quarkus 'spring-cache' extension" effort="1" category-id="mandatory">
