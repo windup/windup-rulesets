@@ -26,7 +26,8 @@ ruleSet("springboot-flo-to-quarkus-groovy")
         .setPhase(PostMigrationRulesPhase.class)
         .addRule()
         .when(
-            FileContent.matches("{.*}{flo-editor}{.*}").andNot(File.inFileNamed("{*}.(java|properties|tag|xml|txt)"))
+            //FileContent.matches("{.*}{flo-editor}{.*}").andNot(File.inFileNamed("{*}.(java|properties|tag|xml|txt)"))
+            FileContent.matches("{.*}").and(File.inFileNamed("springboot-flo-test.component.html"))
         )
         .perform(
         Iteration.over("file")
