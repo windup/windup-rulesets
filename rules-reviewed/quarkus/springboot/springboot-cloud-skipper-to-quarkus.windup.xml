@@ -16,9 +16,12 @@
     <rules>
         <rule id="springboot-cloud-skipper-to-quarkus-00000">
             <when>
-                <project>
-                    <artifact groupId="org.springframework.cloud" artifactId="spring-cloud-skipper" />
-                </project>
+                <or>
+                    <project>
+                        <artifact groupId="org.springframework.cloud" artifactId="spring-cloud-skipper" />
+                    </project>
+                    <dependency groupId="org.springframework.cloud" artifactId="spring-cloud-skipper" />
+                </or>
             </when>
             <perform>
                 <hint title="Spring Cloud Skipper is not supported by Quarkus" effort="13" category-id="mandatory">

@@ -16,9 +16,12 @@
     <rules>
         <rule id="springboot-cloud-config-client-to-quarkus-00000">
             <when>
-                <project>
-                    <artifact groupId="org.springframework.cloud" artifactId="spring-cloud-config-client" />
-                </project>
+                <or>
+                    <project>
+                        <artifact groupId="org.springframework.cloud" artifactId="spring-cloud-config-client" />
+                    </project>
+                    <dependency groupId="org.springframework.cloud" artifactId="spring-cloud-config-client" />
+                </or>
             </when>
             <perform>
                 <hint title="Replace the Spring Cloud Config Client artifact with Quarkus 'quarkus-spring-cloud-config-client' extension" effort="1" category-id="mandatory">
