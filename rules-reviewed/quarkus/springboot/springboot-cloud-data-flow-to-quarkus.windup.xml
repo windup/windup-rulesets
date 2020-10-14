@@ -16,9 +16,12 @@
     <rules>
         <rule id="springboot-cloud-data-flow-to-quarkus-00000">
             <when>
-                <project>
-                    <artifact groupId="org.springframework.cloud" artifactId="spring-cloud-dataflow-core" />
-                </project>
+                <or>
+                    <project>
+                        <artifact groupId="org.springframework.cloud" artifactId="spring-cloud-dataflow-core" />
+                    </project>
+                    <dependency groupId="org.springframework.cloud" artifactId="spring-cloud-dataflow-core" />
+                </or>
             </when>
             <perform>
                 <hint title="Spring Cloud Data Flow is not supported by Quarkus" effort="13" category-id="mandatory">
