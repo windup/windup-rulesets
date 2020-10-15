@@ -1,15 +1,17 @@
 <?xml version="1.0"?>
-<ruletest id="springboot-flo-to-quarkus-tests"
+<ruletest id="springboot-flo-to-quarkus-groovy-tests"
           xmlns="http://windup.jboss.org/schema/jboss-ruleset"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <testDataPath>data/springboot-flo</testDataPath>
-    <rulePath>../springboot-flo-to-quarkus.windup.xml</rulePath>
+    <rulePath>../springboot-flo-to-quarkus.windup.groovy</rulePath>
     <ruleset>
         <rules>
-            <rule id="springboot-flo-to-quarkus-00000-test">
+            <rule id="springboot-flo-to-quarkus-groovy-00000-test">
                 <when>
                     <not>
-                        <hint-exists message="Spring Flo Javascript library has been detected" />
+                        <iterable-filter size="2">
+                            <hint-exists message="Spring Flo Javascript library has been detected" />
+                        </iterable-filter>
                     </not>
                 </when>
                 <perform>
