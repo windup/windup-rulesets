@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ruletest id="springboot-generic-unsupported-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/springboot-generic-unsupported/</testDataPath>
+    <rulePath>../springboot-generic-unsupported.windup.groovy</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="springboot-generic-unsupported-groovy-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="12">
+                            <hint-exists message="Spring `.*` component is not supported by Quarkus.  "/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-generic-unsupported] Spring component catch-all was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
