@@ -31,7 +31,7 @@ ruleSet("springboot-generic-catchall-groovy")
                 .when(Not.any(new HasHint()))
                 .perform(((Hint) Hint.titled("Spring component {artifact} requires investigation")
                         .withText("""
-                                Check if there is a Quarkus Extensions with Spring API compatibility for the Spring {artifact} component.  
+                                Check if there is a Quarkus Extensions with Spring API compatibility for the Spring `{artifact}` component.  
                                 If yes, then replace the `{group}:{artifact}` dependency with the Quarkus extension.  
                                 If no, consider rewrite the code that relies on this dependency leveraging the Quarkus Guides linked below.
                                 """)

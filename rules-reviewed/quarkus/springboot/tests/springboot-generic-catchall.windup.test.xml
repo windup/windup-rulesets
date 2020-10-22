@@ -2,8 +2,9 @@
 <ruletest id="springboot-generic-catchall-tests"
           xmlns="http://windup.jboss.org/schema/jboss-ruleset"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
-    <testDataPath>data/springboot-generic-catchall/</testDataPath>
+    <testDataPath>data/springboot-generic-catchall/source/</testDataPath>
     <rulePath>../springboot-web-to-quarkus.windup.xml</rulePath>
+    <rulePath>../springboot-generic-unsupported.windup.groovy</rulePath>
     <rulePath>../springboot-generic-catchall.windup.xml</rulePath>
     <rulePath>../springboot-generic-catchall.windup.groovy</rulePath>
     <ruleset>
@@ -11,7 +12,7 @@
             <rule id="springboot-generic-catchall-groovy-00000-test">
                 <when>
                     <not>
-                        <iterable-filter size="5">
+                        <iterable-filter size="1">
                             <hint-exists message="Check if there is a Quarkus Extensions with Spring API compatibility for the Spring .* component."/>
                         </iterable-filter>
                     </not>
@@ -23,8 +24,8 @@
             <rule id="springboot-generic-catchall-00100-test">
                 <when>
                     <not>
-                        <iterable-filter size="2">
-                            <hint-exists message="If the application declares explicitly the Spring `.*` component dependency"/>
+                        <iterable-filter size="0">
+                            <hint-exists message="If the application declares explicitly or uses any of the feature provided by the Spring `.*` component.*"/>
                         </iterable-filter>
                     </not>
                 </when>
