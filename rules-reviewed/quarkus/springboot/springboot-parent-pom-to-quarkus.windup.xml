@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="springboot-parent-pom-to-quarkus"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints to replace the Spring Parent POM with Quarkus BOM
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="springboot" />
+        <targetTechnology id="quarkus" />
+    </metadata>
+    <rules>
+        <rule id="springboot-parent-pom-to-quarkus-00000">
+            <when>
+                <or>
+                    <xmlfile matches="/m:project/m:parent[m:groupId/text() = 'org.springframework.boot' and m:artifactId/text() = 'spring-boot-starter-parent']" in="pom.xml">
+                        <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
+                    </xmlfile>
+                    <xmlfile matches="/m:project/m:parent[m:groupId/text() = 'org.springframework.boot' and m:artifactId/text() = 'spring-boot-parent']" in="pom.xml">
+                        <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
+                    </xmlfile>
+                </or>
+            </when>
+            <perform>
+                <hint title="Replace the Spring Parent POM with Quarkus BOM" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the Spring Parent POM with Quarkus BOM in `&lt;dependencyManagement&gt;` section of the application's `pom.xml` file.  
+                        Leverage the link below to fulfill this change.
+                    </message>
+                    <link title="Quarkus - Building applications with Maven Guide" href="https://quarkus.io/guides/maven-tooling#build-tool-maven" />
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
