@@ -16,9 +16,14 @@
     <rules>
         <rule id="springboot-parent-pom-to-quarkus-00000">
             <when>
-                <xmlfile matches="/m:project/m:parent[m:groupId/text() = 'org.springframework.boot' and m:artifactId/text() = 'spring-boot-starter-parent']" in="pom.xml">
-                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
-                </xmlfile>
+                <or>
+                    <xmlfile matches="/m:project/m:parent[m:groupId/text() = 'org.springframework.boot' and m:artifactId/text() = 'spring-boot-starter-parent']" in="pom.xml">
+                        <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
+                    </xmlfile>
+                    <xmlfile matches="/m:project/m:parent[m:groupId/text() = 'org.springframework.boot' and m:artifactId/text() = 'spring-boot-parent']" in="pom.xml">
+                        <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
+                    </xmlfile>
+                </or>
             </when>
             <perform>
                 <hint title="Replace the Spring Parent POM with Quarkus BOM" effort="1" category-id="mandatory">
