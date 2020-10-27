@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<ruletest id="springboot-generic-catchall-compiled-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/springboot-generic-catchall/</testDataPath>
+    <sourceMode>false</sourceMode>
+    <rulePath>../springboot-web-to-quarkus.windup.xml</rulePath>
+    <rulePath>../springboot-generic-unsupported.windup.groovy</rulePath>
+    <rulePath>../springboot-generic-catchall.windup.xml</rulePath>
+    <rulePath>../springboot-generic-catchall.windup.groovy</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="springboot-generic-catchall-groovy-00000-compiled-test">
+                <when>
+                    <not>
+                        <iterable-filter size="0">
+                            <hint-exists message="Check if there is a Quarkus Extensions with Spring API compatibility for the Spring .* component."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-generic-catchall-compiled] Spring component catch-all was not found!" />
+                </perform>
+            </rule>
+            <rule id="springboot-generic-catchall-00100-compiled-test">
+                <when>
+                    <not>
+                        <iterable-filter size="23">
+                            <hint-exists message="If the application declares explicitly or uses any of the feature provided by the Spring `.*` component.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-generic-catchall-compiled] Spring component catch-all was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

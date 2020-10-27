@@ -15,10 +15,21 @@
     <rules>
         <rule id="springboot-actuator-to-quarkus-0100">
             <when>
-                <dependency groupId="org.springframework.boot" artifactId="spring-boot-actuator"/>
+                <or>
+                    <dependency groupId="org.springframework.boot" artifactId="spring-boot-actuator"/>
+                    <project>
+                        <artifact groupId="org.springframework.boot" artifactId="spring-boot-starter-actuator"/>
+                    </project>
+                    <project>
+                        <artifact groupId="org.springframework.boot" artifactId="spring-boot-actuator"/>
+                    </project>
+                    <project>
+                        <artifact groupId="org.springframework.boot" artifactId="spring-boot-actuator-autoconfigure"/>
+                    </project>
+                </or>
             </when>
             <perform>
-                <hint title="Replace the Spring Boot Actuator dependency with Quarkus Smallrye Health extension" effort="1" category-id="mandatory">
+                <hint title="Replace the Spring Boot Actuator dependency with Quarkus Smallrye Health extension" effort="5" category-id="mandatory">
                     <message>
                         Replace the Spring Boot Actuator dependency with Quarkus Smallrye Health extension.  
                         It has to be replaced by `io.quarkus:quarkus-smallrye-health` artifact.
@@ -26,23 +37,6 @@
                     <link title="Quarkus - Microprofile Health" href="https://quarkus.io/guides/microprofile-health"/>
                 </hint>
             </perform>
-        </rule>
-        <rule id="springboot-actuator-to-quarkus-0101">
-            <when>
-                <file filename="{filenameParameter}-{*}.jar"/>
-            </when>
-            <perform>
-                <hint title="Replace the Spring Boot Actuator dependency with Quarkus Smallrye Health extension" effort="1" category-id="mandatory">
-                    <message>
-                        Replace the Spring Boot Actuator dependency with Quarkus Smallrye Health extension.  
-                        It has to be replaced by `io.quarkus:quarkus-smallrye-health` artifact.
-                    </message>
-                    <link title="Quarkus - Microprofile Health" href="https://quarkus.io/guides/microprofile-health"/>
-                </hint>
-            </perform>
-            <where param="filenameParameter">
-                <matches pattern="(spring-boot-starter-actuator|spring-boot-actuator|spring-boot-actuator-autoconfigure)"/>
-            </where>
         </rule>
     </rules>
 </ruleset>

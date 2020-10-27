@@ -13,21 +13,6 @@
         <targetTechnology id="quarkus" />
     </metadata>
     <rules>
-        <rule id="springboot-integration-to-quarkus-00000">
-            <when>
-                <dependency groupId="org.springframework.integration" artifactId="spring-integration-core"/>
-            </when>
-            <perform>
-                <hint title="SpringBoot Integration is not supported." effort="7" category-id="mandatory">
-                    <message>
-                        SpringBoot Integration is not supported. A migration to Apache Camel is mandatory.  
-                        Spring dependency `org.springframework.boot:spring-boot-starter-integration` needs to move to `org.apache.camel.quarkus:camel-quarkus-parent`.  
-                        Spring Integration Flows must be recoded into Apache Camel Routes.
-                    </message>
-                    <link title="Quarkus Apache Camel" href="https://quarkus.io/guides/camel" />
-                </hint>
-            </perform>
-        </rule>
         <rule id="springboot-integration-to-quarkus-00010">
             <when>
                 <xmlfile matches="//*/int:channel">

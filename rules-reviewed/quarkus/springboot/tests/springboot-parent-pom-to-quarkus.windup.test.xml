@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ruletest id="springboot-parent-pom-to-quarkus-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/springboot-parent-pom</testDataPath>
+    <rulePath>../springboot-parent-pom-to-quarkus.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="springboot-parent-pom-to-quarkus-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="Replace the Spring Parent POM with Quarkus BOM in `&lt;dependencyManagement&gt;` section of the application's `pom.xml` file"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-parent-pom-to-quarkus-extension] Replace the Spring Parent POM with Quarkus BOM was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
