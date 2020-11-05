@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="kafka-to-quarkus"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints to migrate kafka components to Quarkus extension
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="kafka" />
+        <targetTechnology id="quarkus" />
+    </metadata>
+    <rules>
+        <rule id="quarkus-kafka-client-00000">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.kafka" artifactId="kafka-clients"/>
+                    </project>
+                    <dependency groupId="org.apache.kafka" artifactId="kafka-clients"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Replace the 'org.apache.kafka:kafka-clients' dependency with Quarkus 'quarkus-kafka-client' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `org.apache.kafka:kafka-clients` dependency with the Quarkus dependency `io.quarkus:quarkus-kafka-client`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/kafka" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="quarkus-kafka-streams-00000">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.kafka" artifactId="kafka-streams"/>
+                    </project>
+                    <dependency groupId="org.apache.kafka" artifactId="kafka-streams"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Replace the 'org.apache.kafka:kafka-streams' dependency with Quarkus 'quarkus-kafka-streams' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `org.apache.kafka:kafka-streams` dependency with the Quarkus dependency `io.quarkus:quarkus-kafka-streams`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/kafka-streams" />
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

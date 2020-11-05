@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="neo4j-to-quarkus"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints to migrate neo4j components to Quarkus extension
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="neo4j" />
+        <targetTechnology id="quarkus" />
+    </metadata>
+    <rules>
+        <rule id="quarkus-neo4j-00000">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.neo4j.driver" artifactId="neo4j-java-driver"/>
+                    </project>
+                    <dependency groupId="org.neo4j.driver" artifactId="neo4j-java-driver"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Replace the 'org.neo4j.driver:neo4j-java-driver' dependency with Quarkus 'quarkus-neo4j' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `org.neo4j.driver:neo4j-java-driver` dependency with the Quarkus dependency `io.quarkus:quarkus-neo4j`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/neo4j" />
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="azure-to-quarkus"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints to migrate azure components to Quarkus extension
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="azure" />
+        <targetTechnology id="quarkus" />
+    </metadata>
+    <rules>
+        <rule id="quarkus-azure-functions-http-00000">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="com.microsoft.azure.functions" artifactId="azure-functions-java-library"/>
+                    </project>
+                    <dependency groupId="com.microsoft.azure.functions" artifactId="azure-functions-java-library"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Replace the 'com.microsoft.azure.functions:azure-functions-java-library' dependency with Quarkus 'quarkus-azure-functions-http' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `com.microsoft.azure.functions:azure-functions-java-library` dependency with the Quarkus dependency `io.quarkus:quarkus-azure-functions-http`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/azure-functions-http" />
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

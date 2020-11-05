@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="cache-to-quarkus"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints to migrate cache components to Quarkus extension
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="cache" />
+        <targetTechnology id="quarkus" />
+    </metadata>
+    <rules>
+        <rule id="quarkus-cache-00000">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.eclipse.microprofile.context-propagation" artifactId="microprofile-context-propagation-api"/>
+                    </project>
+                    <dependency groupId="org.eclipse.microprofile.context-propagation" artifactId="microprofile-context-propagation-api"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Replace the 'org.eclipse.microprofile.context-propagation:microprofile-context-propagation-api' dependency with Quarkus 'quarkus-cache' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `org.eclipse.microprofile.context-propagation:microprofile-context-propagation-api` dependency with the Quarkus dependency `io.quarkus:quarkus-cache`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/cache" />
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
