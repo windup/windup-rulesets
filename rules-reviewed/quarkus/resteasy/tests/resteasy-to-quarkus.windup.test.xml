@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<ruletest id="quarkus-actuator-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data</testDataPath>
+    <!-- By default sourceMode is True, so it will only consider .java files, not .jar binaries -->
+    <sourceMode>true</sourceMode>
+    <rulePath>../resteasy-to-quarkus.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="quarkus-resteasy-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                             <hint-exists message="Replace the `jakarta.servlet:jakarta.servlet-api` dependency with the Quarkus dependency `io.quarkus:quarkus-resteasy`"/>
+                        </iterable-filter> 
+                    </not>
+                </when>
+                <perform>
+                        <fail message="[quarkus-resteasy-0000] jakarta.servlet:jakarta.servlet-api dependency not found!" />
+                </perform>
+            </rule>
+            <rule id="quarkus-resteasy-multipart-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2"> 
+                             <hint-exists message="Replace the `org.jboss.resteasy:resteasy-multipart-provider` dependency with the Quarkus dependency `io.quarkus:quarkus-resteasy-multipart`"/>
+                        </iterable-filter>  
+                    </not>
+                </when>
+                <perform>
+                        <fail message="[quarkus-resteasy-multipart-0000] org.jboss.resteasy:resteasy-multipart-provider dependency not found!" />
+                </perform>
+            </rule>
+            <rule id="quarkus-resteasy-mutiny-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">  
+                             <hint-exists message="Replace the `org.jboss.resteasy:resteasy-client` dependency with the Quarkus dependency `io.quarkus:quarkus-resteasy-mutiny`"/>
+                        </iterable-filter>   
+                    </not>
+                </when>
+                <perform>
+                        <fail message="[quarkus-resteasy-mutiny-0000] org.jboss.resteasy:resteasy-client dependency not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
