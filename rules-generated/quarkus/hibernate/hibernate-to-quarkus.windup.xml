@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="hibernate-to-quarkus"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints to migrate hibernate components to Quarkus extension
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="hibernate" />
+        <targetTechnology id="quarkus" />
+    </metadata>
+    <rules>
+        <rule id="quarkus-hibernate-envers-00000">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.hibernate" artifactId="hibernate-envers"/>
+                    </project>
+                    <dependency groupId="org.hibernate" artifactId="hibernate-envers"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Replace the 'hibernate-envers' dependency with Quarkus 'quarkus-hibernate-envers' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `org.hibernate:hibernate-envers` dependency with the Quarkus dependency `io.quarkus:quarkus-hibernate-envers`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/hibernate-orm#envers" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="quarkus-hibernate-orm-panache-kotlin-00000">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.jetbrains.kotlin" artifactId="kotlin-stdlib-jdk8"/>
+                    </project>
+                    <dependency groupId="org.jetbrains.kotlin" artifactId="kotlin-stdlib-jdk8"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Replace the 'kotlin-stdlib-jdk8' dependency with Quarkus 'quarkus-hibernate-orm-panache-kotlin' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `org.jetbrains.kotlin:kotlin-stdlib-jdk8` dependency with the Quarkus dependency `io.quarkus:quarkus-hibernate-orm-panache-kotlin`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/hibernate-orm-panache-kotlin" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="quarkus-hibernate-reactive-00000">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.hibernate.reactive" artifactId="hibernate-reactive-core"/>
+                    </project>
+                    <dependency groupId="org.hibernate.reactive" artifactId="hibernate-reactive-core"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Replace the 'hibernate-reactive-core' dependency with Quarkus 'quarkus-hibernate-reactive' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `org.hibernate.reactive:hibernate-reactive-core` dependency with the Quarkus dependency `io.quarkus:quarkus-hibernate-reactive`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/" />
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

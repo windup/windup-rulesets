@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<ruletest id="jdbc-to-quarkus-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/</testDataPath>
+    <rulePath>../jdbc-to-quarkus.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="quarkus-jdbc-db2-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="Replace the `com.ibm.db2:jcc` dependency with the Quarkus dependency.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-jdbc-db2] quarkus-jdbc-db2 Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="quarkus-jdbc-derby-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="Replace the `org.apache.derby:derbyclient` dependency with the Quarkus dependency.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-jdbc-derby] quarkus-jdbc-derby Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="quarkus-jdbc-mariadb-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="Replace the `org.mariadb.jdbc:mariadb-java-client` dependency with the Quarkus dependency.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-jdbc-mariadb] quarkus-jdbc-mariadb Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="quarkus-jdbc-mysql-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="Replace the `mysql:mysql-connector-java` dependency with the Quarkus dependency.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-jdbc-mysql] quarkus-jdbc-mysql Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="quarkus-jdbc-postgresql-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="Replace the `org.postgresql:postgresql` dependency with the Quarkus dependency.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-jdbc-postgresql] quarkus-jdbc-postgresql Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
