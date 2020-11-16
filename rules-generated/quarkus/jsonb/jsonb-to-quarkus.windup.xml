@@ -16,12 +16,23 @@
     <rules>
         <rule id="quarkus-jsonb-00000">
             <when>
-                <or>
-                    <project>
-                        <artifact groupId="org.eclipse" artifactId="yasson"/>
-                    </project>
-                    <dependency groupId="org.eclipse" artifactId="yasson"/>
-                </or>
+                <project>
+                    <artifact groupId="org.eclipse" artifactId="yasson"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace the 'yasson' dependency with Quarkus 'quarkus-jsonb' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `org.eclipse:yasson` dependency with the Quarkus dependency `io.quarkus:quarkus-jsonb`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/rest-json" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="quarkus-jsonb-00010">
+            <when>
+                <dependency groupId="org.eclipse" artifactId="yasson"/>
             </when>
             <perform>
                 <hint title="Replace the 'yasson' dependency with Quarkus 'quarkus-jsonb' extension" effort="1" category-id="mandatory">

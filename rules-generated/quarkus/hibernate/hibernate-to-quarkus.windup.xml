@@ -16,12 +16,9 @@
     <rules>
         <rule id="quarkus-hibernate-envers-00000">
             <when>
-                <or>
-                    <project>
-                        <artifact groupId="org.hibernate" artifactId="hibernate-envers"/>
-                    </project>
-                    <dependency groupId="org.hibernate" artifactId="hibernate-envers"/>
-                </or>
+                <project>
+                    <artifact groupId="org.hibernate" artifactId="hibernate-envers"/>
+                </project>
             </when>
             <perform>
                 <hint title="Replace the 'hibernate-envers' dependency with Quarkus 'quarkus-hibernate-envers' extension" effort="1" category-id="mandatory">
@@ -33,14 +30,59 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="quarkus-hibernate-envers-00010">
+            <when>
+                <dependency groupId="org.hibernate" artifactId="hibernate-envers"/>
+            </when>
+            <perform>
+                <hint title="Replace the 'hibernate-envers' dependency with Quarkus 'quarkus-hibernate-envers' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `org.hibernate:hibernate-envers` dependency with the Quarkus dependency `io.quarkus:quarkus-hibernate-envers`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/hibernate-orm#envers" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="quarkus-hibernate-envers-00020">
+            <when>
+                <javaclass references="org.hibernate.envers.{fileName}" >
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Replace the 'hibernate-envers' dependency with Quarkus 'quarkus-hibernate-envers' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `org.hibernate:hibernate-envers` dependency with the Quarkus dependency `io.quarkus:quarkus-hibernate-envers`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/hibernate-orm#envers" />
+                </hint>
+            </perform>
+            <where param="fileName">
+                <!-- from https://docs.oracle.com/javase/specs/jls/se11/html/jls-3.html#jls-3.8 -->
+                <matches pattern="[a-zA-Z_$*][a-zA-Z0-9_$]*" />
+            </where>
+        </rule>
         <rule id="quarkus-hibernate-orm-panache-kotlin-00000">
             <when>
-                <or>
-                    <project>
-                        <artifact groupId="org.jetbrains.kotlin" artifactId="kotlin-stdlib-jdk8"/>
-                    </project>
-                    <dependency groupId="org.jetbrains.kotlin" artifactId="kotlin-stdlib-jdk8"/>
-                </or>
+                <project>
+                    <artifact groupId="org.jetbrains.kotlin" artifactId="kotlin-stdlib-jdk8"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace the 'kotlin-stdlib-jdk8' dependency with Quarkus 'quarkus-hibernate-orm-panache-kotlin' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `org.jetbrains.kotlin:kotlin-stdlib-jdk8` dependency with the Quarkus dependency `io.quarkus:quarkus-hibernate-orm-panache-kotlin`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/hibernate-orm-panache-kotlin" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="quarkus-hibernate-orm-panache-kotlin-00010">
+            <when>
+                <dependency groupId="org.jetbrains.kotlin" artifactId="kotlin-stdlib-jdk8"/>
             </when>
             <perform>
                 <hint title="Replace the 'kotlin-stdlib-jdk8' dependency with Quarkus 'quarkus-hibernate-orm-panache-kotlin' extension" effort="1" category-id="mandatory">
@@ -54,12 +96,9 @@
         </rule>
         <rule id="quarkus-hibernate-reactive-00000">
             <when>
-                <or>
-                    <project>
-                        <artifact groupId="org.hibernate.reactive" artifactId="hibernate-reactive-core"/>
-                    </project>
-                    <dependency groupId="org.hibernate.reactive" artifactId="hibernate-reactive-core"/>
-                </or>
+                <project>
+                    <artifact groupId="org.hibernate.reactive" artifactId="hibernate-reactive-core"/>
+                </project>
             </when>
             <perform>
                 <hint title="Replace the 'hibernate-reactive-core' dependency with Quarkus 'quarkus-hibernate-reactive' extension" effort="1" category-id="mandatory">
@@ -70,6 +109,40 @@
                     <link title="Quarkus - Guide" href="https://quarkus.io/guides/" />
                 </hint>
             </perform>
+        </rule>
+        <rule id="quarkus-hibernate-reactive-00010">
+            <when>
+                <dependency groupId="org.hibernate.reactive" artifactId="hibernate-reactive-core"/>
+            </when>
+            <perform>
+                <hint title="Replace the 'hibernate-reactive-core' dependency with Quarkus 'quarkus-hibernate-reactive' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `org.hibernate.reactive:hibernate-reactive-core` dependency with the Quarkus dependency `io.quarkus:quarkus-hibernate-reactive`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="quarkus-hibernate-reactive-00020">
+            <when>
+                <javaclass references="org.hibernate.reactive.adaptor.impl.{fileName}" >
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Replace the 'hibernate-reactive-core' dependency with Quarkus 'quarkus-hibernate-reactive' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `org.hibernate.reactive:hibernate-reactive-core` dependency with the Quarkus dependency `io.quarkus:quarkus-hibernate-reactive`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/" />
+                </hint>
+            </perform>
+            <where param="fileName">
+                <!-- from https://docs.oracle.com/javase/specs/jls/se11/html/jls-3.html#jls-3.8 -->
+                <matches pattern="[a-zA-Z_$*][a-zA-Z0-9_$]*" />
+            </where>
         </rule>
     </rules>
 </ruleset>

@@ -16,12 +16,9 @@
     <rules>
         <rule id="quarkus-resteasy-00000">
             <when>
-                <or>
-                    <project>
-                        <artifact groupId="jakarta.servlet" artifactId="jakarta.servlet-api"/>
-                    </project>
-                    <dependency groupId="jakarta.servlet" artifactId="jakarta.servlet-api"/>
-                </or>
+                <project>
+                    <artifact groupId="jakarta.servlet" artifactId="jakarta.servlet-api"/>
+                </project>
             </when>
             <perform>
                 <hint title="Replace the 'jakarta.servlet-api' dependency with Quarkus 'quarkus-resteasy' extension" effort="1" category-id="mandatory">
@@ -33,14 +30,59 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="quarkus-resteasy-00010">
+            <when>
+                <dependency groupId="jakarta.servlet" artifactId="jakarta.servlet-api"/>
+            </when>
+            <perform>
+                <hint title="Replace the 'jakarta.servlet-api' dependency with Quarkus 'quarkus-resteasy' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `jakarta.servlet:jakarta.servlet-api` dependency with the Quarkus dependency `io.quarkus:quarkus-resteasy`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/rest-json" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="quarkus-resteasy-00020">
+            <when>
+                <javaclass references="javax.servlet.{fileName}" >
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Replace the 'jakarta.servlet-api' dependency with Quarkus 'quarkus-resteasy' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `jakarta.servlet:jakarta.servlet-api` dependency with the Quarkus dependency `io.quarkus:quarkus-resteasy`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/rest-json" />
+                </hint>
+            </perform>
+            <where param="fileName">
+                <!-- from https://docs.oracle.com/javase/specs/jls/se11/html/jls-3.html#jls-3.8 -->
+                <matches pattern="[a-zA-Z_$*][a-zA-Z0-9_$]*" />
+            </where>
+        </rule>
         <rule id="quarkus-resteasy-multipart-00000">
             <when>
-                <or>
-                    <project>
-                        <artifact groupId="org.jboss.resteasy" artifactId="resteasy-multipart-provider"/>
-                    </project>
-                    <dependency groupId="org.jboss.resteasy" artifactId="resteasy-multipart-provider"/>
-                </or>
+                <project>
+                    <artifact groupId="org.jboss.resteasy" artifactId="resteasy-multipart-provider"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace the 'resteasy-multipart-provider' dependency with Quarkus 'quarkus-resteasy-multipart' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `org.jboss.resteasy:resteasy-multipart-provider` dependency with the Quarkus dependency `io.quarkus:quarkus-resteasy-multipart`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="quarkus-resteasy-multipart-00010">
+            <when>
+                <dependency groupId="org.jboss.resteasy" artifactId="resteasy-multipart-provider"/>
             </when>
             <perform>
                 <hint title="Replace the 'resteasy-multipart-provider' dependency with Quarkus 'quarkus-resteasy-multipart' extension" effort="1" category-id="mandatory">
@@ -54,12 +96,23 @@
         </rule>
         <rule id="quarkus-resteasy-mutiny-00000">
             <when>
-                <or>
-                    <project>
-                        <artifact groupId="org.jboss.resteasy" artifactId="resteasy-client"/>
-                    </project>
-                    <dependency groupId="org.jboss.resteasy" artifactId="resteasy-client"/>
-                </or>
+                <project>
+                    <artifact groupId="org.jboss.resteasy" artifactId="resteasy-client"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace the 'resteasy-client' dependency with Quarkus 'quarkus-resteasy-mutiny' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `org.jboss.resteasy:resteasy-client` dependency with the Quarkus dependency `io.quarkus:quarkus-resteasy-mutiny`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="quarkus-resteasy-mutiny-00010">
+            <when>
+                <dependency groupId="org.jboss.resteasy" artifactId="resteasy-client"/>
             </when>
             <perform>
                 <hint title="Replace the 'resteasy-client' dependency with Quarkus 'quarkus-resteasy-mutiny' extension" effort="1" category-id="mandatory">

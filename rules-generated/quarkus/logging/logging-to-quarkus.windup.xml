@@ -16,12 +16,9 @@
     <rules>
         <rule id="quarkus-logging-gelf-00000">
             <when>
-                <or>
-                    <project>
-                        <artifact groupId="biz.paluch.logging" artifactId="logstash-gelf"/>
-                    </project>
-                    <dependency groupId="biz.paluch.logging" artifactId="logstash-gelf"/>
-                </or>
+                <project>
+                    <artifact groupId="biz.paluch.logging" artifactId="logstash-gelf"/>
+                </project>
             </when>
             <perform>
                 <hint title="Replace the 'logstash-gelf' dependency with Quarkus 'quarkus-logging-gelf' extension" effort="1" category-id="mandatory">
@@ -33,14 +30,45 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="quarkus-logging-gelf-00010">
+            <when>
+                <dependency groupId="biz.paluch.logging" artifactId="logstash-gelf"/>
+            </when>
+            <perform>
+                <hint title="Replace the 'logstash-gelf' dependency with Quarkus 'quarkus-logging-gelf' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `biz.paluch.logging:logstash-gelf` dependency with the Quarkus dependency `io.quarkus:quarkus-logging-gelf`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/centralized-log-management" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="quarkus-logging-gelf-00020">
+            <when>
+                <javaclass references="biz.paluch.logging.{fileName}" >
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Replace the 'logstash-gelf' dependency with Quarkus 'quarkus-logging-gelf' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `biz.paluch.logging:logstash-gelf` dependency with the Quarkus dependency `io.quarkus:quarkus-logging-gelf`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/centralized-log-management" />
+                </hint>
+            </perform>
+            <where param="fileName">
+                <!-- from https://docs.oracle.com/javase/specs/jls/se11/html/jls-3.html#jls-3.8 -->
+                <matches pattern="[a-zA-Z_$*][a-zA-Z0-9_$]*" />
+            </where>
+        </rule>
         <rule id="quarkus-logging-json-00000">
             <when>
-                <or>
-                    <project>
-                        <artifact groupId="org.jboss.logmanager" artifactId="jboss-logmanager-embedded"/>
-                    </project>
-                    <dependency groupId="org.jboss.logmanager" artifactId="jboss-logmanager-embedded"/>
-                </or>
+                <project>
+                    <artifact groupId="org.jboss.logmanager" artifactId="jboss-logmanager-embedded"/>
+                </project>
             </when>
             <perform>
                 <hint title="Replace the 'jboss-logmanager-embedded' dependency with Quarkus 'quarkus-logging-json' extension" effort="1" category-id="mandatory">
@@ -52,14 +80,45 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="quarkus-logging-json-00010">
+            <when>
+                <dependency groupId="org.jboss.logmanager" artifactId="jboss-logmanager-embedded"/>
+            </when>
+            <perform>
+                <hint title="Replace the 'jboss-logmanager-embedded' dependency with Quarkus 'quarkus-logging-json' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `org.jboss.logmanager:jboss-logmanager-embedded` dependency with the Quarkus dependency `io.quarkus:quarkus-logging-json`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/logging#json-logging" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="quarkus-logging-json-00020">
+            <when>
+                <javaclass references="org.jboss.logmanager.{fileName}" >
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Replace the 'jboss-logmanager-embedded' dependency with Quarkus 'quarkus-logging-json' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `org.jboss.logmanager:jboss-logmanager-embedded` dependency with the Quarkus dependency `io.quarkus:quarkus-logging-json`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/logging#json-logging" />
+                </hint>
+            </perform>
+            <where param="fileName">
+                <!-- from https://docs.oracle.com/javase/specs/jls/se11/html/jls-3.html#jls-3.8 -->
+                <matches pattern="[a-zA-Z_$*][a-zA-Z0-9_$]*" />
+            </where>
+        </rule>
         <rule id="quarkus-logging-sentry-00000">
             <when>
-                <or>
-                    <project>
-                        <artifact groupId="io.sentry" artifactId="sentry"/>
-                    </project>
-                    <dependency groupId="io.sentry" artifactId="sentry"/>
-                </or>
+                <project>
+                    <artifact groupId="io.sentry" artifactId="sentry"/>
+                </project>
             </when>
             <perform>
                 <hint title="Replace the 'sentry' dependency with Quarkus 'quarkus-logging-sentry' extension" effort="1" category-id="mandatory">
@@ -70,6 +129,40 @@
                     <link title="Quarkus - Guide" href="https://quarkus.io/guides/logging-sentry" />
                 </hint>
             </perform>
+        </rule>
+        <rule id="quarkus-logging-sentry-00010">
+            <when>
+                <dependency groupId="io.sentry" artifactId="sentry"/>
+            </when>
+            <perform>
+                <hint title="Replace the 'sentry' dependency with Quarkus 'quarkus-logging-sentry' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `io.sentry:sentry` dependency with the Quarkus dependency `io.quarkus:quarkus-logging-sentry`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/logging-sentry" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="quarkus-logging-sentry-00020">
+            <when>
+                <javaclass references="io.sentry.{fileName}" >
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Replace the 'sentry' dependency with Quarkus 'quarkus-logging-sentry' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `io.sentry:sentry` dependency with the Quarkus dependency `io.quarkus:quarkus-logging-sentry`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/logging-sentry" />
+                </hint>
+            </perform>
+            <where param="fileName">
+                <!-- from https://docs.oracle.com/javase/specs/jls/se11/html/jls-3.html#jls-3.8 -->
+                <matches pattern="[a-zA-Z_$*][a-zA-Z0-9_$]*" />
+            </where>
         </rule>
     </rules>
 </ruleset>

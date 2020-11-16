@@ -16,12 +16,23 @@
     <rules>
         <rule id="quarkus-jdbc-db2-00000">
             <when>
-                <or>
-                    <project>
-                        <artifact groupId="com.ibm.db2" artifactId="jcc"/>
-                    </project>
-                    <dependency groupId="com.ibm.db2" artifactId="jcc"/>
-                </or>
+                <project>
+                    <artifact groupId="com.ibm.db2" artifactId="jcc"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace the 'jcc' dependency with Quarkus 'quarkus-jdbc-db2' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `com.ibm.db2:jcc` dependency with the Quarkus dependency `io.quarkus:quarkus-jdbc-db2`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="quarkus-jdbc-db2-00010">
+            <when>
+                <dependency groupId="com.ibm.db2" artifactId="jcc"/>
             </when>
             <perform>
                 <hint title="Replace the 'jcc' dependency with Quarkus 'quarkus-jdbc-db2' extension" effort="1" category-id="mandatory">
@@ -35,12 +46,23 @@
         </rule>
         <rule id="quarkus-jdbc-derby-00000">
             <when>
-                <or>
-                    <project>
-                        <artifact groupId="org.apache.derby" artifactId="derbyclient"/>
-                    </project>
-                    <dependency groupId="org.apache.derby" artifactId="derbyclient"/>
-                </or>
+                <project>
+                    <artifact groupId="org.apache.derby" artifactId="derbyclient"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace the 'derbyclient' dependency with Quarkus 'quarkus-jdbc-derby' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `org.apache.derby:derbyclient` dependency with the Quarkus dependency `io.quarkus:quarkus-jdbc-derby`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="quarkus-jdbc-derby-00010">
+            <when>
+                <dependency groupId="org.apache.derby" artifactId="derbyclient"/>
             </when>
             <perform>
                 <hint title="Replace the 'derbyclient' dependency with Quarkus 'quarkus-jdbc-derby' extension" effort="1" category-id="mandatory">
@@ -54,12 +76,9 @@
         </rule>
         <rule id="quarkus-jdbc-mariadb-00000">
             <when>
-                <or>
-                    <project>
-                        <artifact groupId="org.mariadb.jdbc" artifactId="mariadb-java-client"/>
-                    </project>
-                    <dependency groupId="org.mariadb.jdbc" artifactId="mariadb-java-client"/>
-                </or>
+                <project>
+                    <artifact groupId="org.mariadb.jdbc" artifactId="mariadb-java-client"/>
+                </project>
             </when>
             <perform>
                 <hint title="Replace the 'mariadb-java-client' dependency with Quarkus 'quarkus-jdbc-mariadb' extension" effort="1" category-id="mandatory">
@@ -71,14 +90,59 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="quarkus-jdbc-mariadb-00010">
+            <when>
+                <dependency groupId="org.mariadb.jdbc" artifactId="mariadb-java-client"/>
+            </when>
+            <perform>
+                <hint title="Replace the 'mariadb-java-client' dependency with Quarkus 'quarkus-jdbc-mariadb' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `org.mariadb.jdbc:mariadb-java-client` dependency with the Quarkus dependency `io.quarkus:quarkus-jdbc-mariadb`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="quarkus-jdbc-mariadb-00020">
+            <when>
+                <javaclass references="org.mariadb.jdbc.{fileName}" >
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Replace the 'mariadb-java-client' dependency with Quarkus 'quarkus-jdbc-mariadb' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `org.mariadb.jdbc:mariadb-java-client` dependency with the Quarkus dependency `io.quarkus:quarkus-jdbc-mariadb`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/" />
+                </hint>
+            </perform>
+            <where param="fileName">
+                <!-- from https://docs.oracle.com/javase/specs/jls/se11/html/jls-3.html#jls-3.8 -->
+                <matches pattern="[a-zA-Z_$*][a-zA-Z0-9_$]*" />
+            </where>
+        </rule>
         <rule id="quarkus-jdbc-mysql-00000">
             <when>
-                <or>
-                    <project>
-                        <artifact groupId="mysql" artifactId="mysql-connector-java"/>
-                    </project>
-                    <dependency groupId="mysql" artifactId="mysql-connector-java"/>
-                </or>
+                <project>
+                    <artifact groupId="mysql" artifactId="mysql-connector-java"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace the 'mysql-connector-java' dependency with Quarkus 'quarkus-jdbc-mysql' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `mysql:mysql-connector-java` dependency with the Quarkus dependency `io.quarkus:quarkus-jdbc-mysql`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="quarkus-jdbc-mysql-00010">
+            <when>
+                <dependency groupId="mysql" artifactId="mysql-connector-java"/>
             </when>
             <perform>
                 <hint title="Replace the 'mysql-connector-java' dependency with Quarkus 'quarkus-jdbc-mysql' extension" effort="1" category-id="mandatory">
@@ -92,12 +156,9 @@
         </rule>
         <rule id="quarkus-jdbc-postgresql-00000">
             <when>
-                <or>
-                    <project>
-                        <artifact groupId="org.postgresql" artifactId="postgresql"/>
-                    </project>
-                    <dependency groupId="org.postgresql" artifactId="postgresql"/>
-                </or>
+                <project>
+                    <artifact groupId="org.postgresql" artifactId="postgresql"/>
+                </project>
             </when>
             <perform>
                 <hint title="Replace the 'postgresql' dependency with Quarkus 'quarkus-jdbc-postgresql' extension" effort="1" category-id="mandatory">
@@ -108,6 +169,40 @@
                     <link title="Quarkus - Guide" href="https://quarkus.io/guides/" />
                 </hint>
             </perform>
+        </rule>
+        <rule id="quarkus-jdbc-postgresql-00010">
+            <when>
+                <dependency groupId="org.postgresql" artifactId="postgresql"/>
+            </when>
+            <perform>
+                <hint title="Replace the 'postgresql' dependency with Quarkus 'quarkus-jdbc-postgresql' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `org.postgresql:postgresql` dependency with the Quarkus dependency `io.quarkus:quarkus-jdbc-postgresql`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="quarkus-jdbc-postgresql-00020">
+            <when>
+                <javaclass references="org.postgresql.{fileName}" >
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Replace the 'postgresql' dependency with Quarkus 'quarkus-jdbc-postgresql' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `org.postgresql:postgresql` dependency with the Quarkus dependency `io.quarkus:quarkus-jdbc-postgresql`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/" />
+                </hint>
+            </perform>
+            <where param="fileName">
+                <!-- from https://docs.oracle.com/javase/specs/jls/se11/html/jls-3.html#jls-3.8 -->
+                <matches pattern="[a-zA-Z_$*][a-zA-Z0-9_$]*" />
+            </where>
         </rule>
     </rules>
 </ruleset>
