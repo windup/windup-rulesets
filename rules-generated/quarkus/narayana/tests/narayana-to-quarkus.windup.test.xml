@@ -7,6 +7,18 @@
     <rulePath>../narayana-to-quarkus.windup.xml</rulePath>
     <ruleset>
         <rules>
+            <rule id="quarkus-narayana-jta-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="4">
+                            <hint-exists message="Replace the `org.jboss.narayana.jta:narayana-jta` dependency with the Quarkus dependency.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-narayana-jta] quarkus-narayana-jta Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
             <rule id="quarkus-narayana-stm-00000-test">
                 <when>
                     <not>
