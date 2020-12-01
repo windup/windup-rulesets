@@ -19,18 +19,6 @@
                     <fail message="[quarkus-hibernate-envers] quarkus-hibernate-envers Quarkus extension hint was not found!" />
                 </perform>
             </rule>
-            <rule id="quarkus-hibernate-orm-panache-kotlin-00000-test">
-                <when>
-                    <not>
-                        <iterable-filter size="2">
-                            <hint-exists message="Replace the `org.jetbrains.kotlin:kotlin-stdlib-jdk8` dependency with the Quarkus dependency.*"/>
-                        </iterable-filter>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="[quarkus-hibernate-orm-panache-kotlin] quarkus-hibernate-orm-panache-kotlin Quarkus extension hint was not found!" />
-                </perform>
-            </rule>
             <rule id="quarkus-hibernate-reactive-00000-test">
                 <when>
                     <not>
@@ -41,6 +29,18 @@
                 </when>
                 <perform>
                     <fail message="[quarkus-hibernate-reactive] quarkus-hibernate-reactive Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="quarkus-hibernate-validator-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="Replace the `org.hibernate.validator:hibernate-validator` dependency with the Quarkus dependency.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-hibernate-validator] quarkus-hibernate-validator Quarkus extension hint was not found!" />
                 </perform>
             </rule>
         </rules>

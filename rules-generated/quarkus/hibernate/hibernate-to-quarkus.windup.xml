@@ -64,36 +64,6 @@
                 <matches pattern="[a-zA-Z_$*][a-zA-Z0-9_$]*" />
             </where>
         </rule>
-        <rule id="quarkus-hibernate-orm-panache-kotlin-00000">
-            <when>
-                <project>
-                    <artifact groupId="org.jetbrains.kotlin" artifactId="kotlin-stdlib-jdk8"/>
-                </project>
-            </when>
-            <perform>
-                <hint title="Replace the 'kotlin-stdlib-jdk8' dependency with Quarkus 'quarkus-hibernate-orm-panache-kotlin' extension" effort="1" category-id="mandatory">
-                    <message>
-                        Replace the `org.jetbrains.kotlin:kotlin-stdlib-jdk8` dependency with the Quarkus dependency `io.quarkus:quarkus-hibernate-orm-panache-kotlin`  
-                        Further information in the link below.
-                    </message>
-                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/hibernate-orm-panache-kotlin" />
-                </hint>
-            </perform>
-        </rule>
-        <rule id="quarkus-hibernate-orm-panache-kotlin-00010">
-            <when>
-                <dependency groupId="org.jetbrains.kotlin" artifactId="kotlin-stdlib-jdk8"/>
-            </when>
-            <perform>
-                <hint title="Replace the 'kotlin-stdlib-jdk8' dependency with Quarkus 'quarkus-hibernate-orm-panache-kotlin' extension" effort="1" category-id="mandatory">
-                    <message>
-                        Replace the `org.jetbrains.kotlin:kotlin-stdlib-jdk8` dependency with the Quarkus dependency `io.quarkus:quarkus-hibernate-orm-panache-kotlin`  
-                        Further information in the link below.
-                    </message>
-                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/hibernate-orm-panache-kotlin" />
-                </hint>
-            </perform>
-        </rule>
         <rule id="quarkus-hibernate-reactive-00000">
             <when>
                 <project>
@@ -143,6 +113,36 @@
                 <!-- from https://docs.oracle.com/javase/specs/jls/se11/html/jls-3.html#jls-3.8 -->
                 <matches pattern="[a-zA-Z_$*][a-zA-Z0-9_$]*" />
             </where>
+        </rule>
+        <rule id="quarkus-hibernate-validator-00000">
+            <when>
+                <project>
+                    <artifact groupId="org.hibernate.validator" artifactId="hibernate-validator"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace the 'hibernate-validator' dependency with Quarkus 'quarkus-hibernate-validator' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `org.hibernate.validator:hibernate-validator` dependency with the Quarkus dependency `io.quarkus:quarkus-hibernate-validator`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/validation" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="quarkus-hibernate-validator-00010">
+            <when>
+                <dependency groupId="org.hibernate.validator" artifactId="hibernate-validator"/>
+            </when>
+            <perform>
+                <hint title="Replace the 'hibernate-validator' dependency with Quarkus 'quarkus-hibernate-validator' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `org.hibernate.validator:hibernate-validator` dependency with the Quarkus dependency `io.quarkus:quarkus-hibernate-validator`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/validation" />
+                </hint>
+            </perform>
         </rule>
     </rules>
 </ruleset>
