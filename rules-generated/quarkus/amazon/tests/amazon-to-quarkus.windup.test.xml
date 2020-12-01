@@ -19,6 +19,18 @@
                     <fail message="[quarkus-amazon-dynamodb] quarkus-amazon-dynamodb Quarkus extension hint was not found!" />
                 </perform>
             </rule>
+            <rule id="quarkus-amazon-iam-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="4">
+                            <hint-exists message="Replace the `software.amazon.awssdk:iam` dependency with the Quarkus dependency.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-amazon-iam] quarkus-amazon-iam Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
             <rule id="quarkus-amazon-kms-00000-test">
                 <when>
                     <not>
