@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="narayana-to-quarkus"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints to migrate narayana components to Quarkus extension
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="narayana" />
+        <targetTechnology id="quarkus" />
+    </metadata>
+    <rules>
+        <rule id="quarkus-narayana-jta-00000">
+            <when>
+                <project>
+                    <artifact groupId="org.jboss.narayana.jta" artifactId="narayana-jta"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace the 'narayana-jta' dependency with Quarkus 'quarkus-narayana-jta' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `org.jboss.narayana.jta:narayana-jta` dependency with the Quarkus dependency `io.quarkus:quarkus-narayana-jta`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/transaction" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="quarkus-narayana-jta-00010">
+            <when>
+                <dependency groupId="org.jboss.narayana.jta" artifactId="narayana-jta"/>
+            </when>
+            <perform>
+                <hint title="Replace the 'narayana-jta' dependency with Quarkus 'quarkus-narayana-jta' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `org.jboss.narayana.jta:narayana-jta` dependency with the Quarkus dependency `io.quarkus:quarkus-narayana-jta`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/transaction" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="quarkus-narayana-jta-00020">
+            <when>
+                <javaclass references="com.arjuna.ats.arjuna.{fileName}" >
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Replace the 'narayana-jta' dependency with Quarkus 'quarkus-narayana-jta' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `org.jboss.narayana.jta:narayana-jta` dependency with the Quarkus dependency `io.quarkus:quarkus-narayana-jta`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/transaction" />
+                </hint>
+            </perform>
+            <where param="fileName">
+                <!-- from https://docs.oracle.com/javase/specs/jls/se11/html/jls-3.html#jls-3.8 -->
+                <matches pattern="[a-zA-Z_$*][a-zA-Z0-9_$]*" />
+            </where>
+        </rule>
+        <rule id="quarkus-narayana-stm-00000">
+            <when>
+                <project>
+                    <artifact groupId="org.jboss.narayana.stm" artifactId="stm"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace the 'stm' dependency with Quarkus 'quarkus-narayana-stm' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `org.jboss.narayana.stm:stm` dependency with the Quarkus dependency `io.quarkus:quarkus-narayana-stm`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/software-transactional-memory" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="quarkus-narayana-stm-00010">
+            <when>
+                <dependency groupId="org.jboss.narayana.stm" artifactId="stm"/>
+            </when>
+            <perform>
+                <hint title="Replace the 'stm' dependency with Quarkus 'quarkus-narayana-stm' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `org.jboss.narayana.stm:stm` dependency with the Quarkus dependency `io.quarkus:quarkus-narayana-stm`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/software-transactional-memory" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="quarkus-narayana-stm-00020">
+            <when>
+                <javaclass references="org.jboss.stm.{fileName}" >
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Replace the 'stm' dependency with Quarkus 'quarkus-narayana-stm' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `org.jboss.narayana.stm:stm` dependency with the Quarkus dependency `io.quarkus:quarkus-narayana-stm`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/software-transactional-memory" />
+                </hint>
+            </perform>
+            <where param="fileName">
+                <!-- from https://docs.oracle.com/javase/specs/jls/se11/html/jls-3.html#jls-3.8 -->
+                <matches pattern="[a-zA-Z_$*][a-zA-Z0-9_$]*" />
+            </where>
+        </rule>
+    </rules>
+</ruleset>

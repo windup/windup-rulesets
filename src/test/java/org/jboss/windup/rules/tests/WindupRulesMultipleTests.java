@@ -101,16 +101,19 @@ public class WindupRulesMultipleTests {
         {
             predicate = new FileSuffixPredicate("\\.(windup|rhamt|mta)\\.xml");
         }
-        final File directory = new File("rules");
-        final File rulesReviewed = new File("rules-reviewed");
         final List<File[]> rulesetToTest = new ArrayList<>();
-        FileVisit.visit(directory, predicate).stream()
-                    .filter(file -> testToExecutePattern.matcher(file.toString()).find()).map(file -> new File[] { file, directory })
-                    .forEach(rulesetToTest::add);
-        FileVisit.visit(rulesReviewed, predicate).stream()
-                    .filter(file -> testToExecutePattern.matcher(file.toString()).find())
-                    .map(file -> new File[] { file, rulesReviewed }).forEach(rulesetToTest::add);
-
+        final FileSuffixPredicate predicateTrick = predicate;
+        Arrays.asList(
+                new File("rules"),
+                new File("rules-reviewed"),
+                new File("rules-generated")
+        ).forEach(directory ->
+                {
+                    FileVisit.visit(directory, predicateTrick).stream()
+                            .filter(file -> testToExecutePattern.matcher(file.toString()).find())
+                            .map(file -> new File[] { file, directory }).forEach(rulesetToTest::add);
+                }
+        );
         return rulesetToTest;
     }
 

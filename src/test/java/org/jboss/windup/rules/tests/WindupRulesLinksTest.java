@@ -58,7 +58,8 @@ public class WindupRulesLinksTest {
     private static final FileSuffixPredicate FILE_SUFFIX_PREDICATE = new FileSuffixPredicate("\\.(windup|rhamt|mta)\\.xml");
     private static final List<File> DIRECTORIES_WITH_RULES = Arrays.asList(
             new File("rules"),
-            new File("rules-reviewed")
+            new File("rules-reviewed"),
+            new File("rules-generated")
     );
     private static final Map<String, Integer> CACHE_ANALYZED_LINKS = new HashMap<>();
     private static int totalRulesetsToBeTested = 0;

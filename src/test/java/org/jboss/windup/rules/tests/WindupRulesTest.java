@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -115,13 +116,16 @@ public class WindupRulesTest
         final Map<String, Exception> errors = new LinkedHashMap<>();
 
         FileSuffixPredicate predicate = new FileSuffixPredicate("\\.(windup|rhamt|mta)\\.test\\.xml");
-        final File directory = new File("rules");
-        final File rulesReviewed = new File("rules-reviewed");
-        Visitor<File> mainVisitor = new RuleTestVisitor(successes, errors, directory);
-        Visitor<File> rulesReviewedVisitor = new RuleTestVisitor(successes, errors, rulesReviewed);
-
-        FileVisit.visit(directory, predicate, mainVisitor);
-        FileVisit.visit(rulesReviewed, predicate, rulesReviewedVisitor);
+        Arrays.asList(
+                new File("rules"),
+                new File("rules-reviewed"),
+                new File("rules-generated")
+        ).forEach(directory ->
+                {
+                    Visitor<File> visitor = new RuleTestVisitor(successes, errors, directory);
+                    FileVisit.visit(directory, predicate, visitor);
+                }
+        );
 
         System.out.println("Successful tests:\n");
         for (String successfulTest : successes)

@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="keycloak-to-quarkus"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints to migrate keycloak components to Quarkus extension
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="keycloak" />
+        <targetTechnology id="quarkus" />
+    </metadata>
+    <rules>
+        <rule id="quarkus-keycloak-admin-client-00000">
+            <when>
+                <project>
+                    <artifact groupId="org.keycloak" artifactId="keycloak-admin-client"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace the 'keycloak-admin-client' dependency with Quarkus 'quarkus-keycloak-admin-client' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `org.keycloak:keycloak-admin-client` dependency with the Quarkus dependency `io.quarkus:quarkus-keycloak-admin-client`  
+                        No specific guide is available.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="quarkus-keycloak-admin-client-00010">
+            <when>
+                <dependency groupId="org.keycloak" artifactId="keycloak-admin-client"/>
+            </when>
+            <perform>
+                <hint title="Replace the 'keycloak-admin-client' dependency with Quarkus 'quarkus-keycloak-admin-client' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `org.keycloak:keycloak-admin-client` dependency with the Quarkus dependency `io.quarkus:quarkus-keycloak-admin-client`  
+                        No specific guide is available.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="quarkus-keycloak-admin-client-00020">
+            <when>
+                <javaclass references="org.keycloak.admin.client.{fileName}" >
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Replace the 'keycloak-admin-client' dependency with Quarkus 'quarkus-keycloak-admin-client' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `org.keycloak:keycloak-admin-client` dependency with the Quarkus dependency `io.quarkus:quarkus-keycloak-admin-client`  
+                        No specific guide is available.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/" />
+                </hint>
+            </perform>
+            <where param="fileName">
+                <!-- from https://docs.oracle.com/javase/specs/jls/se11/html/jls-3.html#jls-3.8 -->
+                <matches pattern="[a-zA-Z_$*][a-zA-Z0-9_$]*" />
+            </where>
+        </rule>
+    </rules>
+</ruleset>
