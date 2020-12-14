@@ -16,18 +16,23 @@
     <rules>
         <rule id="quarkus-jsonb-00000">
             <when>
+                <graph-query discriminator="WindupJavaConfigurationModel" as="discard">
+                    <property type="BOOLEAN" name="sourceMode">true</property>
+                </graph-query>
                 <project>
                     <artifact groupId="org.eclipse" artifactId="yasson"/>
                 </project>
             </when>
             <perform>
-                <hint title="Replace the 'yasson' dependency with Quarkus 'quarkus-jsonb' extension" effort="1" category-id="mandatory">
-                    <message>
-                        Replace the `org.eclipse:yasson` dependency with the Quarkus dependency `io.quarkus:quarkus-jsonb`  
-                        Further information in the link below.
-                    </message>
-                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/rest-json" />
-                </hint>
+                <iteration over="default">
+                    <hint title="Replace the 'yasson' dependency with Quarkus 'quarkus-jsonb' extension" effort="1" category-id="mandatory">
+                        <message>
+                            Replace the `org.eclipse:yasson` dependency with the Quarkus dependency `io.quarkus:quarkus-jsonb`  
+                            Further information in the link below.
+                        </message>
+                        <link title="Quarkus - Guide" href="https://quarkus.io/guides/rest-json" />
+                    </hint>
+                </iteration>
             </perform>
         </rule>
         <rule id="quarkus-jsonb-00010">

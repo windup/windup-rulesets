@@ -16,18 +16,23 @@
     <rules>
         <rule id="quarkus-hibernate-envers-00000">
             <when>
+                <graph-query discriminator="WindupJavaConfigurationModel" as="discard">
+                    <property type="BOOLEAN" name="sourceMode">true</property>
+                </graph-query>
                 <project>
                     <artifact groupId="org.hibernate" artifactId="hibernate-envers"/>
                 </project>
             </when>
             <perform>
-                <hint title="Replace the 'hibernate-envers' dependency with Quarkus 'quarkus-hibernate-envers' extension" effort="1" category-id="mandatory">
-                    <message>
-                        Replace the `org.hibernate:hibernate-envers` dependency with the Quarkus dependency `io.quarkus:quarkus-hibernate-envers`  
-                        Further information in the link below.
-                    </message>
-                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/hibernate-orm#envers" />
-                </hint>
+                <iteration over="default">
+                    <hint title="Replace the 'hibernate-envers' dependency with Quarkus 'quarkus-hibernate-envers' extension" effort="1" category-id="mandatory">
+                        <message>
+                            Replace the `org.hibernate:hibernate-envers` dependency with the Quarkus dependency `io.quarkus:quarkus-hibernate-envers`  
+                            Further information in the link below.
+                        </message>
+                        <link title="Quarkus - Guide" href="https://quarkus.io/guides/hibernate-orm#envers" />
+                    </hint>
+                </iteration>
             </perform>
         </rule>
         <rule id="quarkus-hibernate-envers-00010">
@@ -66,18 +71,23 @@
         </rule>
         <rule id="quarkus-hibernate-reactive-00000">
             <when>
+                <graph-query discriminator="WindupJavaConfigurationModel" as="discard">
+                    <property type="BOOLEAN" name="sourceMode">true</property>
+                </graph-query>
                 <project>
                     <artifact groupId="org.hibernate.reactive" artifactId="hibernate-reactive-core"/>
                 </project>
             </when>
             <perform>
-                <hint title="Replace the 'hibernate-reactive-core' dependency with Quarkus 'quarkus-hibernate-reactive' extension" effort="1" category-id="mandatory">
-                    <message>
-                        Replace the `org.hibernate.reactive:hibernate-reactive-core` dependency with the Quarkus dependency `io.quarkus:quarkus-hibernate-reactive`  
-                        Further information in the link below.
-                    </message>
-                    <link title="Quarkus - Quickstart" href="https://github.com/quarkusio/quarkus-quickstarts/tree/master/hibernate-reactive-quickstart" />
-                </hint>
+                <iteration over="default">
+                    <hint title="Replace the 'hibernate-reactive-core' dependency with Quarkus 'quarkus-hibernate-reactive' extension" effort="1" category-id="mandatory">
+                        <message>
+                            Replace the `org.hibernate.reactive:hibernate-reactive-core` dependency with the Quarkus dependency `io.quarkus:quarkus-hibernate-reactive`  
+                            Further information in the link below.
+                        </message>
+                        <link title="Quarkus - Quickstart" href="https://github.com/quarkusio/quarkus-quickstarts/tree/master/hibernate-reactive-quickstart" />
+                    </hint>
+                </iteration>
             </perform>
         </rule>
         <rule id="quarkus-hibernate-reactive-00010">
@@ -116,18 +126,23 @@
         </rule>
         <rule id="quarkus-hibernate-validator-00000">
             <when>
+                <graph-query discriminator="WindupJavaConfigurationModel" as="discard">
+                    <property type="BOOLEAN" name="sourceMode">true</property>
+                </graph-query>
                 <project>
                     <artifact groupId="org.hibernate.validator" artifactId="hibernate-validator"/>
                 </project>
             </when>
             <perform>
-                <hint title="Replace the 'hibernate-validator' dependency with Quarkus 'quarkus-hibernate-validator' extension" effort="1" category-id="mandatory">
-                    <message>
-                        Replace the `org.hibernate.validator:hibernate-validator` dependency with the Quarkus dependency `io.quarkus:quarkus-hibernate-validator`  
-                        Further information in the link below.
-                    </message>
-                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/validation" />
-                </hint>
+                <iteration over="default">
+                    <hint title="Replace the 'hibernate-validator' dependency with Quarkus 'quarkus-hibernate-validator' extension" effort="1" category-id="mandatory">
+                        <message>
+                            Replace the `org.hibernate.validator:hibernate-validator` dependency with the Quarkus dependency `io.quarkus:quarkus-hibernate-validator`  
+                            Further information in the link below.
+                        </message>
+                        <link title="Quarkus - Guide" href="https://quarkus.io/guides/validation" />
+                    </hint>
+                </iteration>
             </perform>
         </rule>
         <rule id="quarkus-hibernate-validator-00010">
