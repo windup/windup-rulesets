@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<ruletest id="resteasy-to-quarkus-compiled-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/</testDataPath>
+    <sourceMode>false</sourceMode>
+    <rulePath>../resteasy-to-quarkus.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="quarkus-resteasy-00000-compiled-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Replace the `jakarta.servlet:jakarta.servlet-api` dependency with the Quarkus dependency.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-resteasy-compiled] quarkus-resteasy Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="quarkus-resteasy-multipart-00000-compiled-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Replace the `org.jboss.resteasy:resteasy-multipart-provider` dependency with the Quarkus dependency.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-resteasy-multipart-compiled] quarkus-resteasy-multipart Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="quarkus-resteasy-mutiny-00000-compiled-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Replace the `org.jboss.resteasy:resteasy-client` dependency with the Quarkus dependency.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-resteasy-mutiny-compiled] quarkus-resteasy-mutiny Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

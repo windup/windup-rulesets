@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<ruletest id="hibernate-to-quarkus-compiled-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/</testDataPath>
+    <sourceMode>false</sourceMode>
+    <rulePath>../hibernate-to-quarkus.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="quarkus-hibernate-envers-00000-compiled-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Replace the `org.hibernate:hibernate-envers` dependency with the Quarkus dependency.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-hibernate-envers-compiled] quarkus-hibernate-envers Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="quarkus-hibernate-reactive-00000-compiled-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Replace the `org.hibernate.reactive:hibernate-reactive-core` dependency with the Quarkus dependency.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-hibernate-reactive-compiled] quarkus-hibernate-reactive Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="quarkus-hibernate-validator-00000-compiled-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Replace the `org.hibernate.validator:hibernate-validator` dependency with the Quarkus dependency.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-hibernate-validator-compiled] quarkus-hibernate-validator Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<ruletest id="logging-to-quarkus-compiled-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/</testDataPath>
+    <sourceMode>false</sourceMode>
+    <rulePath>../logging-to-quarkus.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="quarkus-logging-gelf-00000-compiled-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Replace the `biz.paluch.logging:logstash-gelf` dependency with the Quarkus dependency.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-logging-gelf-compiled] quarkus-logging-gelf Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="quarkus-logging-json-00000-compiled-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Replace the `org.jboss.logmanager:jboss-logmanager-embedded` dependency with the Quarkus dependency.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-logging-json-compiled] quarkus-logging-json Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="quarkus-logging-sentry-00000-compiled-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Replace the `io.sentry:sentry` dependency with the Quarkus dependency.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-logging-sentry-compiled] quarkus-logging-sentry Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

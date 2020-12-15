@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<ruletest id="kafka-to-quarkus-compiled-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/</testDataPath>
+    <sourceMode>false</sourceMode>
+    <rulePath>../kafka-to-quarkus.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="quarkus-kafka-client-00000-compiled-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Replace the `org.apache.kafka:kafka-clients` dependency with the Quarkus dependency.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-kafka-client-compiled] quarkus-kafka-client Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="quarkus-kafka-streams-00000-compiled-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Replace the `org.apache.kafka:kafka-streams` dependency with the Quarkus dependency.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-kafka-streams-compiled] quarkus-kafka-streams Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

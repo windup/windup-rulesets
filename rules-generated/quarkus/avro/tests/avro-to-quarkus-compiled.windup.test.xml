@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ruletest id="avro-to-quarkus-compiled-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/</testDataPath>
+    <sourceMode>false</sourceMode>
+    <rulePath>../avro-to-quarkus.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="quarkus-avro-00000-compiled-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Replace the `org.apache.avro:avro` dependency with the Quarkus dependency.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-avro-compiled] quarkus-avro Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
