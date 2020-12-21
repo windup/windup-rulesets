@@ -5,12 +5,13 @@
           xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <testDataPath>data/</testDataPath>
     <rulePath>../avro-to-quarkus.windup.xml</rulePath>
+    <rulePath>../avro-to-quarkus.windup.groovy</rulePath>
     <ruleset>
         <rules>
             <rule id="quarkus-avro-00000-test">
                 <when>
                     <not>
-                        <iterable-filter size="4">
+                        <iterable-filter size="2">
                             <hint-exists message="Replace the `org.apache.avro:avro` dependency with the Quarkus dependency.*"/>
                         </iterable-filter>
                     </not>

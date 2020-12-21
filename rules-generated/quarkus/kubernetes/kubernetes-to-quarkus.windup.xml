@@ -49,25 +49,5 @@
                 </hint>
             </perform>
         </rule>
-        <rule id="quarkus-kubernetes-client-00020">
-            <when>
-                <javaclass references="io.fabric8.kubernetes.client.{fileName}" >
-                    <location>IMPORT</location>
-                </javaclass>
-            </when>
-            <perform>
-                <hint title="Replace the 'kubernetes-client' dependency with Quarkus 'quarkus-kubernetes-client' extension" effort="1" category-id="mandatory">
-                    <message>
-                        Replace the `io.fabric8:kubernetes-client` dependency with the Quarkus dependency `io.quarkus:quarkus-kubernetes-client`  
-                        Further information in the link below.
-                    </message>
-                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/kubernetes-client" />
-                </hint>
-            </perform>
-            <where param="fileName">
-                <!-- from https://docs.oracle.com/javase/specs/jls/se11/html/jls-3.html#jls-3.8 -->
-                <matches pattern="[a-zA-Z_$*][a-zA-Z0-9_$]*" />
-            </where>
-        </rule>
     </rules>
 </ruleset>

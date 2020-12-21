@@ -5,12 +5,13 @@
           xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <testDataPath>data/</testDataPath>
     <rulePath>../logging-to-quarkus.windup.xml</rulePath>
+    <rulePath>../logging-to-quarkus.windup.groovy</rulePath>
     <ruleset>
         <rules>
             <rule id="quarkus-logging-gelf-00000-test">
                 <when>
                     <not>
-                        <iterable-filter size="4">
+                        <iterable-filter size="2">
                             <hint-exists message="Replace the `biz.paluch.logging:logstash-gelf` dependency with the Quarkus dependency.*"/>
                         </iterable-filter>
                     </not>
@@ -19,22 +20,10 @@
                     <fail message="[quarkus-logging-gelf] quarkus-logging-gelf Quarkus extension hint was not found!" />
                 </perform>
             </rule>
-            <rule id="quarkus-logging-json-00000-test">
-                <when>
-                    <not>
-                        <iterable-filter size="4">
-                            <hint-exists message="Replace the `org.jboss.logmanager:jboss-logmanager-embedded` dependency with the Quarkus dependency.*"/>
-                        </iterable-filter>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="[quarkus-logging-json] quarkus-logging-json Quarkus extension hint was not found!" />
-                </perform>
-            </rule>
             <rule id="quarkus-logging-sentry-00000-test">
                 <when>
                     <not>
-                        <iterable-filter size="4">
+                        <iterable-filter size="2">
                             <hint-exists message="Replace the `io.sentry:sentry` dependency with the Quarkus dependency.*"/>
                         </iterable-filter>
                     </not>

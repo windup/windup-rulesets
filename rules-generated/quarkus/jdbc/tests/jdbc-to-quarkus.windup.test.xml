@@ -5,6 +5,7 @@
           xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <testDataPath>data/</testDataPath>
     <rulePath>../jdbc-to-quarkus.windup.xml</rulePath>
+    <rulePath>../jdbc-to-quarkus.windup.groovy</rulePath>
     <ruleset>
         <rules>
             <rule id="quarkus-jdbc-db2-00000-test">
@@ -34,7 +35,7 @@
             <rule id="quarkus-jdbc-mariadb-00000-test">
                 <when>
                     <not>
-                        <iterable-filter size="4">
+                        <iterable-filter size="2">
                             <hint-exists message="Replace the `org.mariadb.jdbc:mariadb-java-client` dependency with the Quarkus dependency.*"/>
                         </iterable-filter>
                     </not>
@@ -58,7 +59,7 @@
             <rule id="quarkus-jdbc-postgresql-00000-test">
                 <when>
                     <not>
-                        <iterable-filter size="4">
+                        <iterable-filter size="2">
                             <hint-exists message="Replace the `org.postgresql:postgresql` dependency with the Quarkus dependency.*"/>
                         </iterable-filter>
                     </not>

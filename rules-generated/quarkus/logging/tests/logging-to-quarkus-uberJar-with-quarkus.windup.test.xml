@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<ruletest id="logging-to-quarkus-uberJar-with-quarkus-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/logging-uberJar-with-quarkus.jar</testDataPath>
+    <sourceMode>false</sourceMode>
+    <rulePath>../logging-to-quarkus.windup.xml</rulePath>
+    <rulePath>../logging-to-quarkus.windup.groovy</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="quarkus-logging-gelf-00000-uberJar-with-quarkus-compiled-test">
+                <when>
+                    <not>
+                        <iterable-filter size="0">
+                            <hint-exists message="A folder path related to a package from the `biz.paluch.logging:logstash-gelf` dependency has been found.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-logging-gelf-groovy-compiled] quarkus-logging-gelf Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="quarkus-logging-sentry-00000-uberJar-with-quarkus-compiled-test">
+                <when>
+                    <not>
+                        <iterable-filter size="0">
+                            <hint-exists message="A folder path related to a package from the `io.sentry:sentry` dependency has been found.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-logging-sentry-groovy-compiled] quarkus-logging-sentry Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

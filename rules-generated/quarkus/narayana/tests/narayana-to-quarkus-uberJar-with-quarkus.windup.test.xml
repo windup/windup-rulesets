@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<ruletest id="narayana-to-quarkus-uberJar-with-quarkus-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/narayana-uberJar-with-quarkus.jar</testDataPath>
+    <sourceMode>false</sourceMode>
+    <rulePath>../narayana-to-quarkus.windup.xml</rulePath>
+    <rulePath>../narayana-to-quarkus.windup.groovy</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="quarkus-narayana-jta-00000-uberJar-with-quarkus-compiled-test">
+                <when>
+                    <not>
+                        <iterable-filter size="0">
+                            <hint-exists message="A folder path related to a package from the `org.jboss.narayana.jta:narayana-jta` dependency has been found.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-narayana-jta-groovy-compiled] quarkus-narayana-jta Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="quarkus-narayana-stm-00000-uberJar-with-quarkus-compiled-test">
+                <when>
+                    <not>
+                        <iterable-filter size="0">
+                            <hint-exists message="A folder path related to a package from the `org.jboss.narayana.stm:stm` dependency has been found.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-narayana-stm-groovy-compiled] quarkus-narayana-stm Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

@@ -49,26 +49,6 @@
                 </hint>
             </perform>
         </rule>
-        <rule id="quarkus-amazon-dynamodb-00020">
-            <when>
-                <javaclass references="software.amazon.awssdk.services.dynamodb.{fileName}" >
-                    <location>IMPORT</location>
-                </javaclass>
-            </when>
-            <perform>
-                <hint title="Replace the 'dynamodb' dependency with Quarkus 'quarkus-amazon-dynamodb' extension" effort="1" category-id="mandatory">
-                    <message>
-                        Replace the `software.amazon.awssdk:dynamodb` dependency with the Quarkus dependency `io.quarkus:quarkus-amazon-dynamodb`  
-                        Further information in the link below.
-                    </message>
-                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/amazon-dynamodb" />
-                </hint>
-            </perform>
-            <where param="fileName">
-                <!-- from https://docs.oracle.com/javase/specs/jls/se11/html/jls-3.html#jls-3.8 -->
-                <matches pattern="[a-zA-Z_$*][a-zA-Z0-9_$]*" />
-            </where>
-        </rule>
         <rule id="quarkus-amazon-iam-00000">
             <when>
                 <graph-query discriminator="WindupJavaConfigurationModel" as="discard">
@@ -103,26 +83,6 @@
                     <link title="Quarkus - Guide" href="https://quarkus.io/guides/amazon-iam" />
                 </hint>
             </perform>
-        </rule>
-        <rule id="quarkus-amazon-iam-00020">
-            <when>
-                <javaclass references="software.amazon.awssdk.services.iam.{fileName}" >
-                    <location>IMPORT</location>
-                </javaclass>
-            </when>
-            <perform>
-                <hint title="Replace the 'iam' dependency with Quarkus 'quarkus-amazon-iam' extension" effort="1" category-id="mandatory">
-                    <message>
-                        Replace the `software.amazon.awssdk:iam` dependency with the Quarkus dependency `io.quarkus:quarkus-amazon-iam`  
-                        Further information in the link below.
-                    </message>
-                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/amazon-iam" />
-                </hint>
-            </perform>
-            <where param="fileName">
-                <!-- from https://docs.oracle.com/javase/specs/jls/se11/html/jls-3.html#jls-3.8 -->
-                <matches pattern="[a-zA-Z_$*][a-zA-Z0-9_$]*" />
-            </where>
         </rule>
         <rule id="quarkus-amazon-kms-00000">
             <when>
@@ -159,26 +119,6 @@
                 </hint>
             </perform>
         </rule>
-        <rule id="quarkus-amazon-kms-00020">
-            <when>
-                <javaclass references="software.amazon.awssdk.services.kms.{fileName}" >
-                    <location>IMPORT</location>
-                </javaclass>
-            </when>
-            <perform>
-                <hint title="Replace the 'kms' dependency with Quarkus 'quarkus-amazon-kms' extension" effort="1" category-id="mandatory">
-                    <message>
-                        Replace the `software.amazon.awssdk:kms` dependency with the Quarkus dependency `io.quarkus:quarkus-amazon-kms`  
-                        Further information in the link below.
-                    </message>
-                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/amazon-kms" />
-                </hint>
-            </perform>
-            <where param="fileName">
-                <!-- from https://docs.oracle.com/javase/specs/jls/se11/html/jls-3.html#jls-3.8 -->
-                <matches pattern="[a-zA-Z_$*][a-zA-Z0-9_$]*" />
-            </where>
-        </rule>
         <rule id="quarkus-amazon-lambda-http-00000">
             <when>
                 <graph-query discriminator="WindupJavaConfigurationModel" as="discard">
@@ -213,26 +153,6 @@
                     <link title="Quarkus - Guide" href="https://quarkus.io/guides/amazon-lambda-http" />
                 </hint>
             </perform>
-        </rule>
-        <rule id="quarkus-amazon-lambda-http-00020">
-            <when>
-                <javaclass references="com.amazonaws.serverless.exceptions.{fileName}" >
-                    <location>IMPORT</location>
-                </javaclass>
-            </when>
-            <perform>
-                <hint title="Replace the 'aws-serverless-java-container-core' dependency with Quarkus 'quarkus-amazon-lambda-http' extension" effort="1" category-id="mandatory">
-                    <message>
-                        Replace the `com.amazonaws.serverless:aws-serverless-java-container-core` dependency with the Quarkus dependency `io.quarkus:quarkus-amazon-lambda-http`  
-                        Further information in the link below.
-                    </message>
-                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/amazon-lambda-http" />
-                </hint>
-            </perform>
-            <where param="fileName">
-                <!-- from https://docs.oracle.com/javase/specs/jls/se11/html/jls-3.html#jls-3.8 -->
-                <matches pattern="[a-zA-Z_$*][a-zA-Z0-9_$]*" />
-            </where>
         </rule>
         <rule id="quarkus-amazon-lambda-xray-00000">
             <when>
@@ -269,26 +189,6 @@
                 </hint>
             </perform>
         </rule>
-        <rule id="quarkus-amazon-lambda-xray-00020">
-            <when>
-                <javaclass references="com.amazonaws.xray.interceptors.{fileName}" >
-                    <location>IMPORT</location>
-                </javaclass>
-            </when>
-            <perform>
-                <hint title="Replace the 'aws-xray-recorder-sdk-aws-sdk-v2' dependency with Quarkus 'quarkus-amazon-lambda-xray' extension" effort="1" category-id="mandatory">
-                    <message>
-                        Replace the `com.amazonaws:aws-xray-recorder-sdk-aws-sdk-v2` dependency with the Quarkus dependency `io.quarkus:quarkus-amazon-lambda-xray`  
-                        Further information in the link below.
-                    </message>
-                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/amazon-lambda#tracing-with-aws-xray-and-graalvm" />
-                </hint>
-            </perform>
-            <where param="fileName">
-                <!-- from https://docs.oracle.com/javase/specs/jls/se11/html/jls-3.html#jls-3.8 -->
-                <matches pattern="[a-zA-Z_$*][a-zA-Z0-9_$]*" />
-            </where>
-        </rule>
         <rule id="quarkus-amazon-s3-00000">
             <when>
                 <graph-query discriminator="WindupJavaConfigurationModel" as="discard">
@@ -323,26 +223,6 @@
                     <link title="Quarkus - Guide" href="https://quarkus.io/guides/amazon-s3" />
                 </hint>
             </perform>
-        </rule>
-        <rule id="quarkus-amazon-s3-00020">
-            <when>
-                <javaclass references="software.amazon.awssdk.services.s3.{fileName}" >
-                    <location>IMPORT</location>
-                </javaclass>
-            </when>
-            <perform>
-                <hint title="Replace the 's3' dependency with Quarkus 'quarkus-amazon-s3' extension" effort="1" category-id="mandatory">
-                    <message>
-                        Replace the `software.amazon.awssdk:s3` dependency with the Quarkus dependency `io.quarkus:quarkus-amazon-s3`  
-                        Further information in the link below.
-                    </message>
-                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/amazon-s3" />
-                </hint>
-            </perform>
-            <where param="fileName">
-                <!-- from https://docs.oracle.com/javase/specs/jls/se11/html/jls-3.html#jls-3.8 -->
-                <matches pattern="[a-zA-Z_$*][a-zA-Z0-9_$]*" />
-            </where>
         </rule>
         <rule id="quarkus-amazon-ses-00000">
             <when>
@@ -379,26 +259,6 @@
                 </hint>
             </perform>
         </rule>
-        <rule id="quarkus-amazon-ses-00020">
-            <when>
-                <javaclass references="software.amazon.awssdk.services.ses.{fileName}" >
-                    <location>IMPORT</location>
-                </javaclass>
-            </when>
-            <perform>
-                <hint title="Replace the 'ses' dependency with Quarkus 'quarkus-amazon-ses' extension" effort="1" category-id="mandatory">
-                    <message>
-                        Replace the `software.amazon.awssdk:ses` dependency with the Quarkus dependency `io.quarkus:quarkus-amazon-ses`  
-                        Further information in the link below.
-                    </message>
-                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/amazon-ses" />
-                </hint>
-            </perform>
-            <where param="fileName">
-                <!-- from https://docs.oracle.com/javase/specs/jls/se11/html/jls-3.html#jls-3.8 -->
-                <matches pattern="[a-zA-Z_$*][a-zA-Z0-9_$]*" />
-            </where>
-        </rule>
         <rule id="quarkus-amazon-sns-00000">
             <when>
                 <graph-query discriminator="WindupJavaConfigurationModel" as="discard">
@@ -434,26 +294,6 @@
                 </hint>
             </perform>
         </rule>
-        <rule id="quarkus-amazon-sns-00020">
-            <when>
-                <javaclass references="software.amazon.awssdk.services.sns.{fileName}" >
-                    <location>IMPORT</location>
-                </javaclass>
-            </when>
-            <perform>
-                <hint title="Replace the 'sns' dependency with Quarkus 'quarkus-amazon-sns' extension" effort="1" category-id="mandatory">
-                    <message>
-                        Replace the `software.amazon.awssdk:sns` dependency with the Quarkus dependency `io.quarkus:quarkus-amazon-sns`  
-                        Further information in the link below.
-                    </message>
-                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/amazon-sns" />
-                </hint>
-            </perform>
-            <where param="fileName">
-                <!-- from https://docs.oracle.com/javase/specs/jls/se11/html/jls-3.html#jls-3.8 -->
-                <matches pattern="[a-zA-Z_$*][a-zA-Z0-9_$]*" />
-            </where>
-        </rule>
         <rule id="quarkus-amazon-sqs-00000">
             <when>
                 <graph-query discriminator="WindupJavaConfigurationModel" as="discard">
@@ -488,26 +328,6 @@
                     <link title="Quarkus - Guide" href="https://quarkus.io/guides/amazon-sqs" />
                 </hint>
             </perform>
-        </rule>
-        <rule id="quarkus-amazon-sqs-00020">
-            <when>
-                <javaclass references="software.amazon.awssdk.services.sqs.{fileName}" >
-                    <location>IMPORT</location>
-                </javaclass>
-            </when>
-            <perform>
-                <hint title="Replace the 'sqs' dependency with Quarkus 'quarkus-amazon-sqs' extension" effort="1" category-id="mandatory">
-                    <message>
-                        Replace the `software.amazon.awssdk:sqs` dependency with the Quarkus dependency `io.quarkus:quarkus-amazon-sqs`  
-                        Further information in the link below.
-                    </message>
-                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/amazon-sqs" />
-                </hint>
-            </perform>
-            <where param="fileName">
-                <!-- from https://docs.oracle.com/javase/specs/jls/se11/html/jls-3.html#jls-3.8 -->
-                <matches pattern="[a-zA-Z_$*][a-zA-Z0-9_$]*" />
-            </where>
         </rule>
     </rules>
 </ruleset>
