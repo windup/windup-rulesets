@@ -131,7 +131,7 @@ ruleSet("xml-moved-components-groovy")
 
                 if (usedComponents.size() > 0) {
                     String components = usedComponents.stream()
-                            .map { component -> "`camel-$component`" }.toArray().toString()
+                            .map { component -> "`camel-$component`" }.sorted().toArray().toString()
                     ((Hint) Hint.titled("Modularization of camel-core")
                             .withText(" $components components were moved out of `camel-core` to separate artifacts. Maven users of Apache Camel can keep using the dependency `camel-core`" +
                                     "which has transitive dependencies on all of its modules, except for `camel-main`" +
