@@ -16,18 +16,23 @@
     <rules>
         <rule id="quarkus-keycloak-admin-client-00000">
             <when>
+                <graph-query discriminator="WindupJavaConfigurationModel" as="discard">
+                    <property type="BOOLEAN" name="sourceMode">true</property>
+                </graph-query>
                 <project>
                     <artifact groupId="org.keycloak" artifactId="keycloak-admin-client"/>
                 </project>
             </when>
             <perform>
-                <hint title="Replace the 'keycloak-admin-client' dependency with Quarkus 'quarkus-keycloak-admin-client' extension" effort="1" category-id="mandatory">
-                    <message>
-                        Replace the `org.keycloak:keycloak-admin-client` dependency with the Quarkus dependency `io.quarkus:quarkus-keycloak-admin-client`  
-                        No specific guide is available.
-                    </message>
-                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/" />
-                </hint>
+                <iteration over="default">
+                    <hint title="Replace the 'keycloak-admin-client' dependency with Quarkus 'quarkus-keycloak-admin-client' extension" effort="1" category-id="mandatory">
+                        <message>
+                            Replace the `org.keycloak:keycloak-admin-client` dependency with the Quarkus dependency `io.quarkus:quarkus-keycloak-admin-client`  
+                            No specific guide is available.
+                        </message>
+                        <link title="Quarkus - Guide" href="https://quarkus.io/guides/" />
+                    </hint>
+                </iteration>
             </perform>
         </rule>
         <rule id="quarkus-keycloak-admin-client-00010">
@@ -43,26 +48,6 @@
                     <link title="Quarkus - Guide" href="https://quarkus.io/guides/" />
                 </hint>
             </perform>
-        </rule>
-        <rule id="quarkus-keycloak-admin-client-00020">
-            <when>
-                <javaclass references="org.keycloak.admin.client.{fileName}" >
-                    <location>IMPORT</location>
-                </javaclass>
-            </when>
-            <perform>
-                <hint title="Replace the 'keycloak-admin-client' dependency with Quarkus 'quarkus-keycloak-admin-client' extension" effort="1" category-id="mandatory">
-                    <message>
-                        Replace the `org.keycloak:keycloak-admin-client` dependency with the Quarkus dependency `io.quarkus:quarkus-keycloak-admin-client`  
-                        No specific guide is available.
-                    </message>
-                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/" />
-                </hint>
-            </perform>
-            <where param="fileName">
-                <!-- from https://docs.oracle.com/javase/specs/jls/se11/html/jls-3.html#jls-3.8 -->
-                <matches pattern="[a-zA-Z_$*][a-zA-Z0-9_$]*" />
-            </where>
         </rule>
     </rules>
 </ruleset>

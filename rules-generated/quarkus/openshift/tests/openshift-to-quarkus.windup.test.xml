@@ -5,12 +5,13 @@
           xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <testDataPath>data/</testDataPath>
     <rulePath>../openshift-to-quarkus.windup.xml</rulePath>
+    <rulePath>../openshift-to-quarkus.windup.groovy</rulePath>
     <ruleset>
         <rules>
             <rule id="quarkus-openshift-client-00000-test">
                 <when>
                     <not>
-                        <iterable-filter size="4">
+                        <iterable-filter size="2">
                             <hint-exists message="Replace the `io.fabric8:openshift-client` dependency with the Quarkus dependency.*"/>
                         </iterable-filter>
                     </not>

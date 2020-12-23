@@ -5,12 +5,13 @@
           xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <testDataPath>data/</testDataPath>
     <rulePath>../narayana-to-quarkus.windup.xml</rulePath>
+    <rulePath>../narayana-to-quarkus.windup.groovy</rulePath>
     <ruleset>
         <rules>
             <rule id="quarkus-narayana-jta-00000-test">
                 <when>
                     <not>
-                        <iterable-filter size="4">
+                        <iterable-filter size="2">
                             <hint-exists message="Replace the `org.jboss.narayana.jta:narayana-jta` dependency with the Quarkus dependency.*"/>
                         </iterable-filter>
                     </not>
@@ -22,7 +23,7 @@
             <rule id="quarkus-narayana-stm-00000-test">
                 <when>
                     <not>
-                        <iterable-filter size="4">
+                        <iterable-filter size="2">
                             <hint-exists message="Replace the `org.jboss.narayana.stm:stm` dependency with the Quarkus dependency.*"/>
                         </iterable-filter>
                     </not>

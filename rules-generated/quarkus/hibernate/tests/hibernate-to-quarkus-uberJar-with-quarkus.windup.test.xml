@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<ruletest id="hibernate-to-quarkus-uberJar-with-quarkus-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/hibernate-uberJar-with-quarkus.jar</testDataPath>
+    <sourceMode>false</sourceMode>
+    <rulePath>../hibernate-to-quarkus.windup.xml</rulePath>
+    <rulePath>../hibernate-to-quarkus.windup.groovy</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="quarkus-hibernate-envers-00000-uberJar-with-quarkus-compiled-test">
+                <when>
+                    <not>
+                        <iterable-filter size="0">
+                            <hint-exists message="A folder path related to a package from the `org.hibernate:hibernate-envers` dependency has been found.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-hibernate-envers-groovy-compiled] quarkus-hibernate-envers Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="quarkus-hibernate-reactive-00000-uberJar-with-quarkus-compiled-test">
+                <when>
+                    <not>
+                        <iterable-filter size="0">
+                            <hint-exists message="A folder path related to a package from the `org.hibernate.reactive:hibernate-reactive-core` dependency has been found.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-hibernate-reactive-groovy-compiled] quarkus-hibernate-reactive Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

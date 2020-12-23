@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<ruletest id="jdbc-to-quarkus-uberJar-without-quarkus-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/jdbc-uberJar-without-quarkus.jar</testDataPath>
+    <sourceMode>false</sourceMode>
+    <rulePath>../jdbc-to-quarkus.windup.xml</rulePath>
+    <rulePath>../jdbc-to-quarkus.windup.groovy</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="quarkus-jdbc-mariadb-00000-uberJar-without-quarkus-compiled-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="A folder path related to a package from the `org.mariadb.jdbc:mariadb-java-client` dependency has been found.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-jdbc-mariadb-groovy-compiled] quarkus-jdbc-mariadb Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="quarkus-jdbc-postgresql-00000-uberJar-without-quarkus-compiled-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="A folder path related to a package from the `org.postgresql:postgresql` dependency has been found.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-jdbc-postgresql-groovy-compiled] quarkus-jdbc-postgresql Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

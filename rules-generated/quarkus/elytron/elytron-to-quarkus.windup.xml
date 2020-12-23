@@ -16,18 +16,23 @@
     <rules>
         <rule id="quarkus-elytron-security-jdbc-00000">
             <when>
+                <graph-query discriminator="WindupJavaConfigurationModel" as="discard">
+                    <property type="BOOLEAN" name="sourceMode">true</property>
+                </graph-query>
                 <project>
                     <artifact groupId="org.wildfly.security" artifactId="wildfly-elytron-realm-jdbc"/>
                 </project>
             </when>
             <perform>
-                <hint title="Replace the 'wildfly-elytron-realm-jdbc' dependency with Quarkus 'quarkus-elytron-security-jdbc' extension" effort="1" category-id="mandatory">
-                    <message>
-                        Replace the `org.wildfly.security:wildfly-elytron-realm-jdbc` dependency with the Quarkus dependency `io.quarkus:quarkus-elytron-security-jdbc`  
-                        Further information in the link below.
-                    </message>
-                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/security-jdbc" />
-                </hint>
+                <iteration over="default">
+                    <hint title="Replace the 'wildfly-elytron-realm-jdbc' dependency with Quarkus 'quarkus-elytron-security-jdbc' extension" effort="1" category-id="mandatory">
+                        <message>
+                            Replace the `org.wildfly.security:wildfly-elytron-realm-jdbc` dependency with the Quarkus dependency `io.quarkus:quarkus-elytron-security-jdbc`  
+                            Further information in the link below.
+                        </message>
+                        <link title="Quarkus - Guide" href="https://quarkus.io/guides/security-jdbc" />
+                    </hint>
+                </iteration>
             </perform>
         </rule>
         <rule id="quarkus-elytron-security-jdbc-00010">
@@ -46,18 +51,23 @@
         </rule>
         <rule id="quarkus-elytron-security-ldap-00000">
             <when>
+                <graph-query discriminator="WindupJavaConfigurationModel" as="discard">
+                    <property type="BOOLEAN" name="sourceMode">true</property>
+                </graph-query>
                 <project>
                     <artifact groupId="org.wildfly.security" artifactId="wildfly-elytron-realm-ldap"/>
                 </project>
             </when>
             <perform>
-                <hint title="Replace the 'wildfly-elytron-realm-ldap' dependency with Quarkus 'quarkus-elytron-security-ldap' extension" effort="1" category-id="mandatory">
-                    <message>
-                        Replace the `org.wildfly.security:wildfly-elytron-realm-ldap` dependency with the Quarkus dependency `io.quarkus:quarkus-elytron-security-ldap`  
-                        Further information in the link below.
-                    </message>
-                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/security-ldap" />
-                </hint>
+                <iteration over="default">
+                    <hint title="Replace the 'wildfly-elytron-realm-ldap' dependency with Quarkus 'quarkus-elytron-security-ldap' extension" effort="1" category-id="mandatory">
+                        <message>
+                            Replace the `org.wildfly.security:wildfly-elytron-realm-ldap` dependency with the Quarkus dependency `io.quarkus:quarkus-elytron-security-ldap`  
+                            Further information in the link below.
+                        </message>
+                        <link title="Quarkus - Guide" href="https://quarkus.io/guides/security-ldap" />
+                    </hint>
+                </iteration>
             </perform>
         </rule>
         <rule id="quarkus-elytron-security-ldap-00010">
@@ -76,18 +86,23 @@
         </rule>
         <rule id="quarkus-elytron-security-oauth2-00000">
             <when>
+                <graph-query discriminator="WindupJavaConfigurationModel" as="discard">
+                    <property type="BOOLEAN" name="sourceMode">true</property>
+                </graph-query>
                 <project>
                     <artifact groupId="org.wildfly.security" artifactId="wildfly-elytron-realm-token"/>
                 </project>
             </when>
             <perform>
-                <hint title="Replace the 'wildfly-elytron-realm-token' dependency with Quarkus 'quarkus-elytron-security-oauth2' extension" effort="1" category-id="mandatory">
-                    <message>
-                        Replace the `org.wildfly.security:wildfly-elytron-realm-token` dependency with the Quarkus dependency `io.quarkus:quarkus-elytron-security-oauth2`  
-                        Further information in the link below.
-                    </message>
-                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/security-oauth2" />
-                </hint>
+                <iteration over="default">
+                    <hint title="Replace the 'wildfly-elytron-realm-token' dependency with Quarkus 'quarkus-elytron-security-oauth2' extension" effort="1" category-id="mandatory">
+                        <message>
+                            Replace the `org.wildfly.security:wildfly-elytron-realm-token` dependency with the Quarkus dependency `io.quarkus:quarkus-elytron-security-oauth2`  
+                            Further information in the link below.
+                        </message>
+                        <link title="Quarkus - Guide" href="https://quarkus.io/guides/security-oauth2" />
+                    </hint>
+                </iteration>
             </perform>
         </rule>
         <rule id="quarkus-elytron-security-oauth2-00010">

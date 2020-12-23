@@ -5,12 +5,13 @@
           xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <testDataPath>data/</testDataPath>
     <rulePath>../artemis-to-quarkus.windup.xml</rulePath>
+    <rulePath>../artemis-to-quarkus.windup.groovy</rulePath>
     <ruleset>
         <rules>
             <rule id="quarkus-artemis-jms-00000-test">
                 <when>
                     <not>
-                        <iterable-filter size="4">
+                        <iterable-filter size="2">
                             <hint-exists message="Replace the `org.apache.activemq:artemis-jms-client` dependency with the Quarkus dependency.*"/>
                         </iterable-filter>
                     </not>
