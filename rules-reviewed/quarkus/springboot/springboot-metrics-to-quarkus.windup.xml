@@ -29,53 +29,21 @@
         </rule>
         <rule id="springboot-metrics-to-quarkus-0200">
             <when>
-                <javaclass references="io.micrometer.core.instrument.{*}">
-                    <location>IMPORT</location>
-                </javaclass>
+                    <graph-query discriminator="WindupJavaConfigurationModel" as="discard">
+                        <property type="BOOLEAN" name="sourceMode">true</property>
+                    </graph-query>
+                    <project>
+                        <artifact groupId="io.micrometer" artifactId="micrometer-core"/>
+                    </project>
             </when>
             <perform>
-                <hint title="Replace the Micrometer code with Microprofile Metrics code" effort="5" category-id="mandatory">
-                    <message>
-                        Replace the Micrometer code with Microprofile Metrics code
-                    </message>
-                    <link title="Quarkus metrics" href="https://quarkus.io/guides/microprofile-metrics"/>
-                </hint>
-            </perform>
-        </rule>
-        <rule id="springboot-metrics-to-quarkus-0300">
-            <when>
-                <javaclass references="io.micrometer.core.annotation.Timed">
-                    <location>IMPORT</location>
-                </javaclass>
-            </when>
-            <perform>
-                <hint title="Replace the Micrometer Timed annotation with Microprofile Timed annotation" effort="5" category-id="mandatory">
-                    <message>Replace the Micrometer Timed annotation with Microprofile Timed annotation</message>
-                    <link title="Quarkus metrics" href="https://quarkus.io/guides/microprofile-metrics"/>
-                    <link title="Micrometer Timed JavaDoc" href="https://www.javadoc.io/doc/io.micrometer/micrometer-core/latest/io/micrometer/core/annotation/Timed.html"/>
-                    <link title="Microprofile Timed JavaDoc" href="https://www.javadoc.io/doc/org.eclipse.microprofile/microprofile/latest/org/eclipse/microprofile/metrics/annotation/Timed.html"/>
-                </hint>
-            </perform>
-        </rule>
-        <rule id="springboot-metrics-to-quarkus-0310">
-            <when>
-                <javaclass references="io.micrometer.core.annotation.{*}">
-                    <location>IMPORT</location>
-                </javaclass>
-            </when>
-            <perform>
-                <iteration>
-                    <when>
-                        <not>
-                            <has-hint/>
-                        </not>
-                    </when>
-                    <perform>
-                        <hint title="Replace the Micrometer metric annotation with Microprofile metric annotation" effort="5" category-id="mandatory">
-                            <message>Replace the Micrometer metric annotation with Microprofile metric annotation</message>
-                            <link title="Quarkus metrics" href="https://quarkus.io/guides/microprofile-metrics"/>
-                        </hint>
-                    </perform>
+                <iteration over="default">
+                    <hint title="Replace the Micrometer code with Microprofile Metrics code" effort="5" category-id="mandatory">
+                        <message>
+                            Replace the Micrometer code with Microprofile Metrics code
+                        </message>
+                        <link title="Quarkus metrics" href="https://quarkus.io/guides/microprofile-metrics"/>
+                    </hint>
                 </iteration>
             </perform>
         </rule>
