@@ -14,41 +14,6 @@
         <targetTechnology id="quarkus" />
     </metadata>
     <rules>
-        <rule id="quarkus-resteasy-00000">
-            <when>
-                <graph-query discriminator="WindupJavaConfigurationModel" as="discard">
-                    <property type="BOOLEAN" name="sourceMode">true</property>
-                </graph-query>
-                <project>
-                    <artifact groupId="jakarta.servlet" artifactId="jakarta.servlet-api"/>
-                </project>
-            </when>
-            <perform>
-                <iteration over="default">
-                    <hint title="Replace the 'jakarta.servlet-api' dependency with Quarkus 'quarkus-resteasy' extension" effort="1" category-id="mandatory">
-                        <message>
-                            Replace the `jakarta.servlet:jakarta.servlet-api` dependency with the Quarkus dependency `io.quarkus:quarkus-resteasy`  
-                            Further information in the link below.
-                        </message>
-                        <link title="Quarkus - Guide" href="https://quarkus.io/guides/rest-json" />
-                    </hint>
-                </iteration>
-            </perform>
-        </rule>
-        <rule id="quarkus-resteasy-00010">
-            <when>
-                <dependency groupId="jakarta.servlet" artifactId="jakarta.servlet-api"/>
-            </when>
-            <perform>
-                <hint title="Replace the 'jakarta.servlet-api' dependency with Quarkus 'quarkus-resteasy' extension" effort="1" category-id="mandatory">
-                    <message>
-                        Replace the `jakarta.servlet:jakarta.servlet-api` dependency with the Quarkus dependency `io.quarkus:quarkus-resteasy`  
-                        Further information in the link below.
-                    </message>
-                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/rest-json" />
-                </hint>
-            </perform>
-        </rule>
         <rule id="quarkus-resteasy-multipart-00000">
             <when>
                 <graph-query discriminator="WindupJavaConfigurationModel" as="discard">
