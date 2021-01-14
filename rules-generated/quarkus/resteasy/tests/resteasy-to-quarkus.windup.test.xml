@@ -5,21 +5,8 @@
           xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <testDataPath>data/</testDataPath>
     <rulePath>../resteasy-to-quarkus.windup.xml</rulePath>
-    <rulePath>../resteasy-to-quarkus.windup.groovy</rulePath>
     <ruleset>
         <rules>
-            <rule id="quarkus-resteasy-00000-test">
-                <when>
-                    <not>
-                        <iterable-filter size="2">
-                            <hint-exists message="Replace the `jakarta.servlet:jakarta.servlet-api` dependency with the Quarkus dependency.*"/>
-                        </iterable-filter>
-                    </not>
-                </when>
-                <perform>
-                    <fail message="[quarkus-resteasy] quarkus-resteasy Quarkus extension hint was not found!" />
-                </perform>
-            </rule>
             <rule id="quarkus-resteasy-multipart-00000-test">
                 <when>
                     <not>
