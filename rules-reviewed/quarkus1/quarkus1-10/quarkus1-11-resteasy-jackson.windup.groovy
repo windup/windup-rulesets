@@ -18,8 +18,8 @@ import org.ocpsoft.rewrite.context.EvaluationContext
 final IssueCategory potentialIssueCategory = new IssueCategoryRegistry().getByID(IssueCategoryRegistry.POTENTIAL)
 
 ruleSet("quarkus1-11-resteasy-jackson-groovy")
-        .addSourceTechnology(new TechnologyReference("quarkus", "(,10]"))
-        .addTargetTechnology(new TechnologyReference("quarkus", "[11,)")) 
+        .addSourceTechnology(new TechnologyReference("quarkus1", "(,10]"))
+        .addTargetTechnology(new TechnologyReference("quarkus1", "[11,)")) 
         .addRule()
         .when(SourceMode.isDisabled(),
                 Query.fromType(FileModel)
