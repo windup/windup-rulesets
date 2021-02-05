@@ -49,7 +49,7 @@ ruleSet("quarkus1-11-kubernetes-client-groovy")
                     .withIssueCategory(potentialIssueCategory)
                     .with(Link.to("Kubernetes Client Migration Guide", "https://github.com/fabric8io/kubernetes-client/blob/master/doc/MIGRATION-v5.md"))
                     .with(Link.to("Quarkus - Migraton Guide 1.11", "https://github.com/quarkusio/quarkus/wiki/Migration-Guide-1.11"))
-                    .withEffort(1)
+                    .withEffort(3)
                 ).performParameterized(event, context, folderLocationModel)
             }
         })
