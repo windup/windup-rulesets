@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ruletest id="quarkus1-11-hibernate-elasticsearch-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/hibernate-elasticsearch</testDataPath>
+    <rulePath>../quarkus1-11-hibernate-elasticsearch.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="quarkus1-11-hibernate-elasticsearch-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1"> 
+                            <hint-exists message="The default required status for Elasticsearch indexes is now yellow"/>
+                        </iterable-filter> 
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus1-11-hibernate-elasticsearch] The Hibernate Elasticsearch hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

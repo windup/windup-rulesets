@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="quarkus1-11-hibernate-elasticsearch"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints for upgrading to quarkus 1.11 for applications that use Hibernate ORM Elasticsearch
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <!-- The major version is implied by the target, the minor is reflected in the verionRange -->
+        <sourceTechnology id="quarkus" versionRange="(,10]"/>
+        <targetTechnology id="quarkus" versionRange="[11,)"/>
+    </metadata>
+    <rules>
+        <rule id="quarkus1-11-hibernate-elasticsearch-00000">
+            <when>
+                <graph-query discriminator="WindupJavaConfigurationModel" as="discard">
+                    <property type="BOOLEAN" name="sourceMode">true</property>
+                </graph-query>
+                <project>
+                    <artifact groupId="io.quarkus" artifactId="quarkus-hibernate-search-orm-elasticsearch"/>
+                </project>
+            </when>
+            <perform>
+                <iteration over="default">
+                    <hint title="The default required status for Elasticsearch indexes is now yellow" effort="1" category-id="potential">
+                        <message>
+                            The default required status for Elasticsearch indexes is now yellow.
+                            If you have specific requirements and need to wait for indexes to be green on startup,
+                            set quarkus.hibernate-search.elasticsearch.schema-management.required-status to green.
+                            Refer to the guides below for more details about how to return to the previous behaviour.
+                        </message>
+                        <link title="Quarkus - Hibernate Search Guide" href="https://quarkus.io/guides/hibernate-search-orm-elasticsearch" />
+                        <link title="Quarkus - Migraton Guide 1.11" href="https://github.com/quarkusio/quarkus/wiki/Migration-Guide-1.11" />
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
