@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="quarkus1-11-kubernetes-client"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints for upgrading to quarkus 1.11 for applications that use the kubernetes-client 
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <!-- The major version is implied by the target, the minor is reflected in the verionRange -->
+        <sourceTechnology id="quarkus1" versionRange="(,10]"/>
+        <targetTechnology id="quarkus1" versionRange="[11,)"/>
+    </metadata>
+    <rules>
+        <rule id="quarkus1-11-kubernetes-client-00000">
+            <when>
+                <graph-query discriminator="WindupJavaConfigurationModel" as="discard">
+                    <property type="BOOLEAN" name="sourceMode">true</property>
+                </graph-query>
+                <project>
+                    <artifact groupId="io.quarkus" artifactId="quarkus-kubernetes-client"/>
+                </project>
+            </when>
+            <perform>
+                <iteration over="default">
+                    <hint title="Kubernetes Client upgraded to version 5" effort="3" category-id="potential">
+                        <message>
+                            The Kubernetes Client has been upgraded to version 5. Please refer to the Kubernetes Client Migration Guide for more information.
+                        </message>
+                        <link title="Kubernetes Client Migration Guide" href="https://github.com/fabric8io/kubernetes-client/blob/master/doc/MIGRATION-v5.md" />
+                        <link title="Quarkus - Migraton Guide 1.11" href="https://github.com/quarkusio/quarkus/wiki/Migration-Guide-1.11" />
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
