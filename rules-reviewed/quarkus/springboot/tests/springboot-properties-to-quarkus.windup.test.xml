@@ -29,6 +29,36 @@
                     <fail message="[springboot-properties-to-quarkus-extension] Add Quarkus extension was not found!" />
                 </perform>
             </rule>
+            <rule id="springboot-properties-to-quarkus-00001-test">
+                <when>
+                    <not>
+                        <hint-exists message="Spring property profile in separate file"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-properties-profiles-to-quarkus-properties] SpringBoot property profiles replaced by Quarkus property profiles was not found!" />
+                </perform>
+            </rule>
+            <rule id="springboot-properties-to-quarkus-00002-test">
+                <when>
+                    <not>
+                        <hint-exists message="Spring datasource property key/value pairs have been detected in the application property file."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-properties-to-quarkus-properties] SpringBoot datasource property replaced by Quarkus property was not found!" />
+                </perform>
+            </rule>
+            <rule id="springboot-properties-to-quarkus-00003-test">
+                <when>
+                    <not>
+                        <hint-exists message="Spring log level property configuration have been detected in the application property file"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-log-level-to-quarkus-properties] SpringBoot log level property replaced by Quarkus property was not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
