@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ruletest id="quarkus1-12-dockerfile-fast-jar-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data</testDataPath>
+    <rulePath>../quarkus1-12-dockerfile-fast-jar.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="quarkus1-12-dockerfile-fast-jar-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1"> 
+                            <hint-exists message="For existing applications, you have two Dockerfiles*"/>
+                        </iterable-filter>  
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus1-12-dockerfile-fast-jar-00000] The dockerfile-fast-jar hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
