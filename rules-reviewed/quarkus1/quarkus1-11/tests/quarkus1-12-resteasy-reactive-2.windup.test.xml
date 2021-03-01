@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ruletest id="quarkus1-12-resteasy-reactive-tests2"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/resteasy-reactive/resteasy-reactive-jackson</testDataPath>
+    <sourceMode>true</sourceMode>
+    <rulePath>../quarkus1-12-resteasy-reactive.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="quarkus1-12-resteasy-reactive-00000-test2">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`quarkus.http.body.delete-uploaded-files-on-end` now defaults to true*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus1-12-resteasy-reactive-00000] The resteasy-reactive hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
