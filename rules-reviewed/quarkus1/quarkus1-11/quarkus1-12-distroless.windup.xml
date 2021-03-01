@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="quarkus1-12-distroless"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints for upgrading to Quarkus 1.12 - Fast-jar as default
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <!-- The major version is implied by the target, the minor is reflected in the verionRange -->
+        <sourceTechnology id="quarkus1" versionRange="(,11]"/>
+        <targetTechnology id="quarkus1" versionRange="[12,)"/>
+    </metadata>
+    <rules>
+        <rule id="quarkus1-12-distroless-00000">
+            <when>
+                <filecontent filename="Dockerfile" pattern="quay.io/quarkus/quarkus-distroless-image:20.3-java11"  />
+            </when>
+            <perform>
+                <hint title="Version of distroless image" effort="1" category-id="potential">
+                    <message>
+                        If you are using the distroless image, please note that it now has an immutable version so you might have to update your Dockerfiles to use:
+
+                        quay.io/quarkus/quarkus-distroless-image:1.0 instead of quay.io/quarkus/quarkus-distroless-image:20.3-java11.
+                    </message>
+                    <link title="Quarkus - Migration Guide 1.12" href="https://github.com/quarkusio/quarkus/wiki/Migration-Guide-1.12#version-of-distroless-image" />
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
