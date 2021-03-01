@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="quarkus1-12-run-jar"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints for upgrading to Quarkus 1.12 - Fast-jar as default 
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <!-- The major version is implied by the target, the minor is reflected in the verionRange -->
+        <sourceTechnology id="quarkus1" versionRange="(,11]"/>
+        <targetTechnology id="quarkus1" versionRange="[12,)"/>
+    </metadata>
+    <rules>
+        <rule id="quarkus1-12-run-jar-00000">
+            <when>
+                <file filename="application.properties"/>
+            </when>
+            <perform>
+                <hint title="Starting the application with the -run.jar" effort="1" category-id="potential">
+                        <message>
+                            <![CDATA[
+                            The biggest change here is that to start your Quarkus application, you should now use:
+                            `java -jar target/quarkus-app/quarkus-run.jar` (instead of using the versioned `-runner` jar).
+
+                            This change will concern all your applications as soon as you have upgraded them to 1.12.
+                            
+                            For those who want to stick to the legacy jar packaging, they can go back to the previous behavior by adding the following property to the `application.properties`:
+                            `quarkus.package.type=legacy-jar`
+                            ]]>                        
+                        </message>
+                        <link title="Quarkus - Migration Guide 1.12" href="https://github.com/quarkusio/quarkus/wiki/Migration-Guide-1.12#starting-the-application" />
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
