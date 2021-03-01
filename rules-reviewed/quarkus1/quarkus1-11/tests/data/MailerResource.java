@@ -31,9 +31,6 @@ public class MailerResource {
             @Valid @Email @QueryParam("email") String email,
             @Valid @NotBlank @QueryParam("name") String name) {
         
-                MailTemplate.MailTemplateInstance.send();
-                MailTemplateInstance.send();
-                MailTemplate.of();
                 return Templates.hello(name)
                 .to(email)
                 .subject("Ahoy " + name + "!")

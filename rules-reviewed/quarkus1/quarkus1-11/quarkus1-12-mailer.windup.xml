@@ -17,18 +17,21 @@
     <rules>
         <rule id="quarkus1-12-mailer-00000">
             <when>
-                <javaclass references="io.quarkus.mailer.MailTemplate.MailTemplateInstance" >
-                    <!--<location>METHOD_CALL</location>-->
+                <javaclass references="io.quarkus.mailer.MailTemplate.MailTemplateInstance" as="mailtemplateinstance">
+                    <location>IMPORT</location>
                 </javaclass>
+                <filecontent filename="{*}.java" pattern=".send(" from="mailtemplateinstance" as="sendmethod"/>
             </when>
-            <perform>
-                <hint title="Mailer - change to returned type" effort="1" category-id="potential">
-                        <message>The `MailTemplateInstance` now returns a `Uni` instead of `CompletionStage`. 
-                            To convert a `Uni` to a `CompletionStage`, call `.subscribeAsCompletionStage()`.
-                        </message>
-                        <link title="Quarkus - Migration Guide 1.12" href="https://github.com/quarkusio/quarkus/wiki/Migration-Guide-1.12#mailer" />
-                </hint>
-            </perform>
+                <perform>
+                    <iteration over="sendmethod">
+                        <hint title="Mailer - change to returned type" effort="1" category-id="potential">
+                            <message>The `MailTemplateInstance` now returns a `Uni&lt;Void&gt;` instead of `CompletionStage&lt;Void&gt;`. 
+                                To convert a `Uni` to a `CompletionStage`, call `.subscribeAsCompletionStage()`.
+                            </message>
+                            <link title="Quarkus - Migration Guide 1.12" href="https://github.com/quarkusio/quarkus/wiki/Migration-Guide-1.12#mailer" />
+                        </hint>
+                    </iteration>
+                </perform>
         </rule>
     </rules>
 </ruleset>
