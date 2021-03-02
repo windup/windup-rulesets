@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="quarkus1-12-vertx"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints for upgrading to Quarkus 1.12 - Vert.x
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="quarkus1" versionRange="(,11]"/>
+        <targetTechnology id="quarkus1" versionRange="[12,)"/>
+    </metadata>
+    <rules>
+        <rule id="quarkus1-12-vertx-00000">
+            <when>
+                <javaclass references="io.vertx.{packages}.{*}"/>
+            </when>
+            <perform>
+                <hint title="Removed Axle and RX Java API from Vert.x" effort="5" category-id="mandatory">
+                    <message>
+                        <![CDATA[
+                        The Axle and RX Java API from Vert.x are no more exposed, use the Mutiny API instead.
+                        These features were deprecated since February 2020.
+                        ]]>
+                    </message>
+                    <link title="Quarkus - Accessing Vert.x" href="https://quarkus.io/guides/vertx#accessing-vert-x" />
+                    <link title="Quarkus - Migration Guide 1.12" href="https://github.com/quarkusio/quarkus/wiki/Migration-Guide-1.12#vertx" />
+                </hint>
+            </perform>
+            <where param="packages">
+                <matches pattern="(axle|reactivex)" />
+            </where>
+        </rule>
+    </rules>
+</ruleset>
