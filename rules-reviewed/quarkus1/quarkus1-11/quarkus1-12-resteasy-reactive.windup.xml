@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="quarkus1-12-resteasy-reactive"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints for upgrading to Quarkus 1.12 for applications that use RESTEasy Reactive
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <!-- The major version is implied by the target, the minor is reflected in the versionRange -->
+        <sourceTechnology id="quarkus1" versionRange="(,11]"/>
+        <targetTechnology id="quarkus1" versionRange="[12,)"/>
+    </metadata>
+    <rules>
+        <rule id="quarkus1-12-resteasy-reactive-00000">
+            <when>
+                <javaclass references="org.jboss.resteasy.reactive.MultipartForm">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <iteration over="default">
+                    <hint title="Default file upload settings changed" effort="1" category-id="potential">
+                        <message>
+                            <![CDATA[
+                                In `quarkus-resteasy-reactive` Quarkus extension, a couple of the default file upload settings have changed:
+                                - `quarkus.http.body.delete-uploaded-files-on-end` now defaults to `true`.
+                                The reason being that no uploaded files should be left over on the server by default.
+                                - `quarkus.http.body.uploads-directory` now defaults to `${java.io.tmpdir}/uploads`.
+                                The reason being that some application might not have the permissions to write to the current working directory.
+                            ]]>
+                        </message>
+                        <link title="Quarkus - Migration Guide 1.12" href="https://github.com/quarkusio/quarkus/wiki/Migration-Guide-1.12#http" />
+                        <link title="Quarkus - All Configuration Options" href="https://quarkus.io/guides/all-config" />
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
