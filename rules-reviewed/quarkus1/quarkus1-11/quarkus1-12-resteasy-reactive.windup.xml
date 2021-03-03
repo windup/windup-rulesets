@@ -17,36 +17,24 @@
     <rules>
         <rule id="quarkus1-12-resteasy-reactive-00000">
             <when>
-                <graph-query discriminator="WindupJavaConfigurationModel" as="discard">
-                    <property type="BOOLEAN" name="sourceMode">true</property>
-                </graph-query>
-                <or>
-                    <project>
-                        <artifact groupId="io.quarkus" artifactId="quarkus-resteasy-reactive"/>
-                    </project>
-                    <project>
-                        <artifact groupId="io.quarkus" artifactId="quarkus-resteasy-reactive-jackson"/>
-                    </project>
-                    <project>
-                        <artifact groupId="io.quarkus" artifactId="quarkus-resteasy-reactive-jsonb"/>
-                    </project>
-                </or>
+                <javaclass references="org.jboss.resteasy.reactive.MultipartForm">
+                    <location>ANNOTATION</location>
+                </javaclass>
             </when>
             <perform>
                 <iteration over="default">
-                    <hint title="Fast-jar as default" effort="1" category-id="potential">
+                    <hint title="Default file upload settings changed" effort="1" category-id="potential">
                         <message>
                             <![CDATA[
-                                If you are using the `quarkus-resteasy-reactive` extension, please note that properties' default values have changed so you might have to double-check this doesn't affect you:
-
-                                `quarkus.http.body.delete-uploaded-files-on-end` now defaults to `true`.
+                                In `quarkus-resteasy-reactive` Quarkus extension, a couple of the default file upload settings have changed:
+                                - `quarkus.http.body.delete-uploaded-files-on-end` now defaults to `true`.
                                 The reason being that no uploaded files should be left over on the server by default.
-
-                                `quarkus.http.body.uploads-directory` now defaults to `${java.io.tmpdir}/uploads`.
+                                - `quarkus.http.body.uploads-directory` now defaults to `${java.io.tmpdir}/uploads`.
                                 The reason being that some application might not have the permissions to write to the current working directory.
                             ]]>
                         </message>
                         <link title="Quarkus - Migration Guide 1.12" href="https://github.com/quarkusio/quarkus/wiki/Migration-Guide-1.12#http" />
+                        <link title="Quarkus - All Configuration Options" href="https://quarkus.io/guides/all-config" />
                     </hint>
                 </iteration>
             </perform>
