@@ -20,7 +20,7 @@
                 <javaclass references="io.quarkus.mailer.MailTemplate.MailTemplateInstance" as="mailtemplateinstance">
                     <location>IMPORT</location>
                 </javaclass>
-                <filecontent filename="{*}.java" pattern=".send(" from="mailtemplateinstance" as="sendmethod"/>
+                <filecontent pattern=".send(" from="mailtemplateinstance" as="sendmethod"/>
             </when>
                 <perform>
                     <iteration over="sendmethod">
