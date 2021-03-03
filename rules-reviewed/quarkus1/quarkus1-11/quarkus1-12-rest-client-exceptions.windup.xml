@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="quarkus1-12-rest-client-exceptions"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints for upgrading to Quarkus 1.12 - Rest Client Exceptions
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="quarkus1" versionRange="(,11]"/>
+        <targetTechnology id="quarkus1" versionRange="[12,)"/>
+    </metadata>
+    <rules>
+        <rule id="quarkus1-12-rest-client-exceptions-00000">
+            <when>
+                <javaclass references="javax.ws.rs.client.Client">
+                    <location>CONSTRUCTOR_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Quarkus Rest Client Exceptions" effort="1" category-id="potential">
+                    <message>
+                        <![CDATA[
+                        If you are using quarkus-rest-client then please be aware that MP REST Client or JAX-RS Client
+                        invocation exceptions will no longer have JAX-RS Response available by default
+                        to avoid leaking some potentially sensitive downstream endpoint data such as cookies.
+
+                        You can set `resteasy.original.webapplicationexception.behavior=true' in `application.properties`
+                        if you need to access the exception `Response`.
+                        ]]>
+                    </message>
+                    <link title="Resteasy WebApplicationExceptions" href="https://docs.jboss.org/resteasy/docs/4.5.9.Final/userguide/html/ExceptionHandling.html#ResteasyWebApplicationException" />
+                    <link title="Quarkus - Migration Guide 1.12" href="https://github.com/quarkusio/quarkus/wiki/Migration-Guide-1.12#rest-client-exceptions" />
+                    <link title="Quarkus - Using the Rest Client" href="https://quarkus.io/guides/rest-client" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="quarkus1-12-rest-client-exceptions-00001">
+            <when>
+                <graph-query discriminator="WindupJavaConfigurationModel" as="discard">
+                    <property type="BOOLEAN" name="sourceMode">true</property>
+                </graph-query>
+                <project>
+                    <artifact groupId="io.quarkus" artifactId="quarkus-rest-client"/>
+                </project>
+            </when>
+            <perform>
+                <iteration over="default">
+                    <hint title="Quarkus Rest Client Exceptions" effort="1" category-id="potential">
+                        <message>
+                            <![CDATA[
+                        If you are using quarkus-rest-client then please be aware that MP REST Client or JAX-RS Client
+                        invocation exceptions will no longer have JAX-RS Response available by default
+                        to avoid leaking some potentially sensitive downstream endpoint data such as cookies.
+
+                        You can set `resteasy.original.webapplicationexception.behavior=true' in `application.properties`
+                        if you need to access the exception `Response`.
+                        ]]>
+                        </message>
+                        <link title="Resteasy WebApplicationExceptions" href="https://docs.jboss.org/resteasy/docs/4.5.9.Final/userguide/html/ExceptionHandling.html#ResteasyWebApplicationException" />
+                        <link title="Quarkus - Migration Guide 1.12" href="https://github.com/quarkusio/quarkus/wiki/Migration-Guide-1.12#rest-client-exceptions" />
+                        <link title="Quarkus - Using the Rest Client" href="https://quarkus.io/guides/rest-client" />
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
