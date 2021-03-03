@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="quarkus1-12-mailer"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints for upgrading to Quarkus 1.12 for applications that call io.quarkus.mailer.MailTemplate.MailTemplateInstance.send() 
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <!-- The major version is implied by the target, the minor is reflected in the versionRange -->
+        <sourceTechnology id="quarkus1" versionRange="(,11]"/>
+        <targetTechnology id="quarkus1" versionRange="[12,)"/>
+    </metadata>
+    <rules>
+        <rule id="quarkus1-12-mailer-00000">
+            <when>
+                <javaclass references="io.quarkus.mailer.MailTemplate.MailTemplateInstance" as="mailtemplateinstance">
+                    <location>IMPORT</location>
+                </javaclass>
+                <filecontent pattern=".send(" from="mailtemplateinstance" as="sendmethod"/>
+            </when>
+                <perform>
+                    <iteration over="sendmethod">
+                        <hint title="Mailer - change to returned type" effort="1" category-id="potential">
+                            <message>The `MailTemplateInstance` now returns a `Uni&lt;Void&gt;` instead of `CompletionStage&lt;Void&gt;`.  
+                                To convert a `Uni` to a `CompletionStage`, call `.subscribeAsCompletionStage()`.
+                            </message>
+                            <link title="Quarkus - Migration Guide 1.12" href="https://github.com/quarkusio/quarkus/wiki/Migration-Guide-1.12#mailer" />
+                        </hint>
+                    </iteration>
+                </perform>
+        </rule>
+    </rules>
+</ruleset>
