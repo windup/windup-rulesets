@@ -1,0 +1,1 @@
+FROM quay.io/quarkus/quarkus-distroless-image:20.3-java11 AS build

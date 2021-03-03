@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="quarkus1-12-maven-plugin"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints for upgrading to Quarkus 1.12 - Quarkus Maven Plugin
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="quarkus1" versionRange="(,11]"/>
+        <targetTechnology id="quarkus1" versionRange="[12,)"/>
+    </metadata>
+    <rules>
+        <rule id="quarkus1-12-maven-plugin-00000">
+            <when>
+                <filecontent pattern="&lt;artifactId&gt;quarkus-maven-plugin&lt;/artifactId&gt;" filename="pom.xml" />
+            </when>
+            <perform>
+                <hint title="Quarkus Maven Plugin" effort="1" category-id="potential">
+                    <message>
+                        <![CDATA[
+                        Few things have been cleaned up in the Quarkus Maven Plugin.  
+                        Make sure the `quarkus-maven-plugin section` of the `pom.xml` of your project looks like:
+
+                        ```Xml
+                        <plugin>
+                            <groupId>io.quarkus</groupId>
+                            <artifactId>quarkus-maven-plugin</artifactId>
+                            <version>${quarkus-plugin.version}</version>
+                            <extensions>true</extensions>
+                            <executions>
+                                <execution>
+                                    <goals>
+                                        <goal>build</goal>
+                                        <goal>generate-code</goal>
+                                        <goal>generate-code-tests</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+                        </plugin>
+                        ```
+                        ]]>
+                    </message>
+                    <link title="Quarkus - Migration Guide 1.12" href="https://github.com/quarkusio/quarkus/wiki/Migration-Guide-1.12#quarkus-maven-plugin" />
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
