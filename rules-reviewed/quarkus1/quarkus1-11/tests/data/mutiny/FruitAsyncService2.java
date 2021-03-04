@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-import io.smallrye.mutiny.Uni;
 import io.smallrye.mutiny.Multi;
 import software.amazon.awssdk.services.dynamodb.DynamoDbAsyncClient;
 
