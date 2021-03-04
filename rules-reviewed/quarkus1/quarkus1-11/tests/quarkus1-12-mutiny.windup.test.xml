@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<ruletest id="quarkus1-12-mutiny-tests" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/mutiny</testDataPath>
+    <rulePath>../quarkus1-12-mutiny.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="quarkus1-12-mutiny-00010-test">
+                <when>
+                    <not>
+                        <iterable-filter size="5">
+                            <hint-exists message=".*Changed API is : Multi.collectItems().*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus1-12-mutiny-00010] The mutiny hint was not found!"/>
+                </perform>
+            </rule>
+            <rule id="quarkus1-12-mutiny-00020-test">
+                <when>
+                    <not>
+                        <iterable-filter size="7">
+                            <hint-exists message=".*Changed API is : Multi.groupItems().*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus1-12-mutiny-00020] The mutiny hint was not found!"/>
+                </perform>
+            </rule>
+            <rule id="quarkus1-12-mutiny-00030-test">
+                <when>
+                    <not>
+                        <iterable-filter size="7">
+                            <hint-exists message=".*Multi.transform\(\).toHotStream\(\).*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus1-12-mutiny-00030] The mutiny hint was not found!"/>
+                </perform>
+            </rule>
+            <rule id="quarkus1-12-mutiny-00040-test">
+                <when>
+                    <not>
+                        <iterable-filter size="6">
+                            <hint-exists message=".*Mutiny has removed this method \(deprecated for 11 months\): Multi.subscribeOn.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus1-12-mutiny-000040] The mutiny hint was not found!"/>
+                </perform>
+            </rule>
+            <rule id="quarkus1-12-mutiny-00045-test">
+                <when>
+                    <not>
+                        <iterable-filter size="3">
+                            <hint-exists message=".*Mutiny has removed this method \(deprecated for 11 months\): Uni.subscribeOn*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus1-12-mutiny-00045] The mutiny hint was not found!"/>
+                </perform>
+            </rule>
+            <rule id="quarkus1-12-mutiny-00050-test">
+                <when>
+                    <not>
+                        <iterable-filter size="8">
+                            <hint-exists message=".*byFilteringItemsWith*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus1-12-mutiny-00050] The mutiny hint was not found!"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
