@@ -32,11 +32,11 @@ public class FruitAsyncService extends AbstractService {
 
     public void testRule() {
         Multi<Long> multiLong = Multi.createFrom().ticks().every(Duration.ofMillis(500));
-        multiLong.collectItems();
-
+        
         Multi<Object> multiObject = (Multi<Object>) Multi.createFrom().empty();
         Multi multiEmpty = Multi.createFrom().empty();
-
+        
+        multiLong.collectItems();
         multiObject.collectItems();
         multiEmpty.collectItems();
 
