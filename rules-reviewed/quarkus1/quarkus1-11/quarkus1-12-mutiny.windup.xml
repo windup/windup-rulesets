@@ -1,0 +1,230 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd" id="quarkus1-12-mutiny">
+    <metadata>
+        <description>
+            This ruleset gives hints for upgrading to quarkus 1.12 for applications that use Mutiny 
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final"/>
+        </dependencies><!-- The major version is implied by the target, the minor is reflected in the verionRange -->
+        <sourceTechnology id="quarkus1" versionRange="(,11]"/>
+        <targetTechnology id="quarkus1" versionRange="[12,)"/>
+    </metadata>
+    <rules>
+        <rule id="quarkus1-12-mutiny-00010">
+            <when>
+                <javaclass references="io.smallrye.mutiny.Multi" as="files1">
+                    <location>IMPORT</location>
+                </javaclass>
+                <filecontent pattern="{*}.collectItems(){*}" from="files1" as="methods1" />
+            </when>
+            <perform>
+                <iteration over="methods1">
+                    <hint title="Method Multi.collectItems() deprecated" effort="1" category-id="potential">
+                        <message>
+                            <![CDATA[
+                            Mutiny has deprecated a few APIs. The deprecated APIs are still available and would work, but are planned for removal.  
+                            Changed API is : `Multi.collectItems()` -> `Multi.collect()`
+                            ]]>
+                        </message>
+                        <link title="Quarkus - Migration Guide 1.12" href="https://github.com/quarkusio/quarkus/wiki/Migration-Guide-1.12#mutiny"/>
+                        <quickfix type="REPLACE" name="collectItems">
+                            <replacement>.collect(</replacement>
+                            <search>.collectItems(</search>
+                        </quickfix>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="quarkus1-12-mutiny-00020">
+            <when>
+                <javaclass references="io.smallrye.mutiny.Multi" as="files2">
+                    <location>IMPORT</location>
+                </javaclass>
+                <filecontent pattern="{*}.groupItems(){*}" from="files2" as="methods2" />
+            </when>
+            <perform>
+                <iteration over="methods2">
+                    <hint title="Method Multi.groupItems() deprecated" effort="1" category-id="potential">
+                        <message>
+                            <![CDATA[
+                            Mutiny has deprecated a few APIs. The deprecated APIs are still available and would work, but are planned for removal.  
+                            Changed API is : `Multi.groupItems()` -> `Multi.group()`
+                            ]]></message>
+                        <link title="Quarkus - Migration Guide 1.12" href="https://github.com/quarkusio/quarkus/wiki/Migration-Guide-1.12#mutiny"/>
+                        <quickfix type="REPLACE" name="groupItems">
+                            <replacement>.group(</replacement>
+                            <search>.groupItems(</search>
+                        </quickfix>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="quarkus1-12-mutiny-00030">
+            <when>
+                <javaclass references="io.smallrye.mutiny.Multi" as="files3">
+                    <location>IMPORT</location>
+                </javaclass>
+                <filecontent pattern="{*}.toHotStream(){*}" from="files3" as="methods3" />
+            </when>
+            <perform>
+                <iteration over="methods3">
+                    <hint title="Method Multi.transform().toHotStream() deprecated" effort="1" category-id="potential">
+                        <message>
+                            <![CDATA[
+                            Mutiny has deprecated a few APIs. The deprecated APIs are still available and would work, but are planned for removal.  
+                            Changed API is : `Multi.transform().toHotStream()` -> `Multi.toHotStream()`
+                            ]]></message>
+                        <link title="Quarkus - Migration Guide 1.12" href="https://github.com/quarkusio/quarkus/wiki/Migration-Guide-1.12#mutiny"/>
+                        <quickfix type="REPLACE" name="toHotStream">
+                            <replacement>.toHotStream(</replacement>
+                            <search>.transform().toHotStream(</search>
+                        </quickfix>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="quarkus1-12-mutiny-00040">
+            <when>
+                <javaclass references="io.smallrye.mutiny.Multi" as="files4">
+                    <location>IMPORT</location>
+                </javaclass>
+                <filecontent pattern="{*}.subscribeOn{*}" from="files4" as="methods4" />
+            </when>
+            <perform>
+                <iteration over="methods4">
+                    <when>
+                        <not>
+                            <has-hint />
+                        </not>
+                    </when>
+                    <perform>
+                        <hint title="Method subscribeOn() removed" effort="1" category-id="mandatory">
+                            <message>
+                                <![CDATA[
+                                Mutiny has removed this method (deprecated for 11 months): `Multi.subscribeOn` -> `Multi.runSubscriptionOn()`
+                                ]]></message>
+                            <link title="Quarkus - Migration Guide 1.12" href="https://github.com/quarkusio/quarkus/wiki/Migration-Guide-1.12#mutiny"/>
+                            <quickfix type="REPLACE" name="subscribeOn">
+                                <replacement>.runSubscriptionOn(</replacement>
+                                <search>.subscribeOn(</search>
+                            </quickfix>
+                        </hint>
+                    </perform>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="quarkus1-12-mutiny-00045">
+            <when>
+                <javaclass references="io.smallrye.mutiny.Uni" as="files5">
+                    <location>IMPORT</location>
+                </javaclass>
+                <filecontent pattern="{*}.subscribeOn{*}" from="files5" as="methods5" />
+            </when>
+            <perform>
+                <iteration over="methods5">
+                    <when>
+                        <not>
+                            <has-hint />
+                        </not>
+                    </when>
+                    <perform>
+                        <hint title="Method subscribeOn() removed" effort="1" category-id="mandatory">
+                            <message>
+                                <![CDATA[
+                                Mutiny has removed this method (deprecated for 11 months): `Uni.subscribeOn` -> `Uni.runSubscriptionOn()`
+                                ]]></message>
+                            <link title="Quarkus - Migration Guide 1.12" href="https://github.com/quarkusio/quarkus/wiki/Migration-Guide-1.12#mutiny"/>
+                            <quickfix type="REPLACE" name="subscribeOn">
+                                <replacement>.runSubscriptionOn(</replacement>
+                                <search>.subscribeOn(</search>
+                            </quickfix>
+                        </hint>
+                    </perform>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="quarkus1-12-mutiny-00050">
+            <when>
+                <javaclass references="io.smallrye.mutiny.Multi" as="files6">
+                    <location>IMPORT</location>
+                </javaclass>
+                <filecontent pattern="{*}.byTakingFirstItems{*}" from="files6" as="methods6"/>
+            </when>
+            <perform>
+                <iteration over="methods6">
+                    <hint title="Methods byTakingFirstItems has been deprecated" effort="1" category-id="potential">
+                        <message>
+                        <![CDATA[
+                        Mutiny has deprecated a few APIs. The deprecated APIs are still available and would work, but are planned for removal.  
+                        Changed API is : `Multi.transform().byTakingFirstItems(long)` -> `Multi.select().first(long)`
+                        ]]></message>
+                        <link title="Quarkus - Migration Guide 1.12" href="https://github.com/quarkusio/quarkus/wiki/Migration-Guide-1.12#mutiny"/>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="quarkus1-12-mutiny-00051">
+            <when>
+                <javaclass references="io.smallrye.mutiny.Multi" as="files6">
+                    <location>IMPORT</location>
+                </javaclass>
+                <filecontent pattern="{*}.byTestingItemsWith{*}" from="files6" as="methods6"/>
+            </when>
+            <perform>
+                <iteration over="methods6">
+                    <hint title="Method byTestingItemsWith has been deprecated" effort="1" category-id="potential">
+                        <message>
+                        <![CDATA[
+                        Mutiny has deprecated a few APIs. The deprecated APIs are still available and would work, but are planned for removal.  
+                        Changed API is : `Multi.transform().byTestingItemsWith(Function<T, Uni<?>>)` -> `Multi.select().when(Function<T, Uni<?>>)`
+                        ]]></message>
+                        <link title="Quarkus - Migration Guide 1.12" href="https://github.com/quarkusio/quarkus/wiki/Migration-Guide-1.12#mutiny"/>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="quarkus1-12-mutiny-00052">
+            <when>
+                <javaclass references="io.smallrye.mutiny.Multi" as="files6">
+                    <location>IMPORT</location>
+                </javaclass>
+                <filecontent pattern="{*}.byFilteringItemsWith{*}" from="files6" as="methods6"/>
+            </when>
+            <perform>
+                <iteration over="methods6">
+                    <hint title="Method byFilteringItemsWith has been deprecated" effort="1" category-id="potential">
+                        <message>
+                        <![CDATA[
+                        Mutiny has deprecated a few APIs. The deprecated APIs are still available and would work, but are planned for removal.  
+                        Changed API is : `Multi.transform().byFilteringItemsWith(Predicate<T>)` -> `Multi.select().where(Predicate<T>)`
+                        ]]></message>
+                        <link title="Quarkus - Migration Guide 1.12" href="https://github.com/quarkusio/quarkus/wiki/Migration-Guide-1.12#mutiny"/>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="quarkus1-12-mutiny-00053">
+            <when>
+                <javaclass references="io.smallrye.mutiny.Multi" as="files6">
+                    <location>IMPORT</location>
+                </javaclass>
+                <filecontent pattern="{*}.bySkippingFirstItems{*}" from="files6" as="methods6"/>
+            </when>
+            <perform>
+                <iteration over="methods6">
+                    <hint title="Method bySkippingFirstItems has been deprecated" effort="1" category-id="potential">
+                        <message>
+                        <![CDATA[
+                        Mutiny has deprecated a few APIs. The deprecated APIs are still available and would work, but are planned for removal.  
+                        Changed API is : `Multi.transform().bySkippingFirstItems(long)` -> `Multi.skip().first(long)`
+                        ]]></message>
+                        <link title="Quarkus - Migration Guide 1.12" href="https://github.com/quarkusio/quarkus/wiki/Migration-Guide-1.12#mutiny"/>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
