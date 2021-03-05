@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ruletest id="quarkus1-12-maven-plugin-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/maven-plugin</testDataPath>
+    <rulePath>../quarkus1-12-maven-plugin.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="quarkus1-12-maven-plugin-groovy-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2"> 
+                            <hint-exists message="Few things have been cleaned up in the Quarkus Maven Plugin*"/>
+                        </iterable-filter>  
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus1-12-maven-plugin-00000] The maven plugin hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
