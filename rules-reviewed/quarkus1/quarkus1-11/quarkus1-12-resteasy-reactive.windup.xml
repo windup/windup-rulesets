@@ -17,7 +17,7 @@
     <rules>
         <rule id="quarkus1-12-resteasy-reactive-00000">
             <when>
-                <javaclass references="org.jboss.resteasy.reactive.MultipartForm">
+                <javaclass references="org.jboss.resteasy.annotations.providers.multipart.MultipartForm">
                     <location>ANNOTATION</location>
                 </javaclass>
             </when>
@@ -26,11 +26,12 @@
                     <hint title="Default file upload settings changed" effort="1" category-id="potential">
                         <message>
                             <![CDATA[
-                                In `quarkus-resteasy-reactive` Quarkus extension, a couple of the default file upload settings have changed:
-                                - `quarkus.http.body.delete-uploaded-files-on-end` now defaults to `true`.
-                                The reason being that no uploaded files should be left over on the server by default.
-                                - `quarkus.http.body.uploads-directory` now defaults to `${java.io.tmpdir}/uploads`.
-                                The reason being that some application might not have the permissions to write to the current working directory.
+                                In `quarkus-resteasy-reactive` Quarkus extension, a couple of the default file upload settings have changed:  
+                                
+                                - `quarkus.http.body.delete-uploaded-files-on-end` now defaults to `true`  
+                                  The reason being that no uploaded files should be left over on the server by default.  
+                                - `quarkus.http.body.uploads-directory` now defaults to `${java.io.tmpdir}/uploads`  
+                                  The reason being that some application might not have the permissions to write to the current working directory.  
                             ]]>
                         </message>
                         <link title="Quarkus - Migration Guide 1.12" href="https://github.com/quarkusio/quarkus/wiki/Migration-Guide-1.12#http" />
