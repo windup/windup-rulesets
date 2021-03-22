@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="quarkus1-13-live-reload"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints for upgrading to Quarkus 1.13 - Live Reload Instrumentation
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <!-- The major version is implied by the target, the minor is reflected in the verionRange -->
+        <sourceTechnology id="quarkus1" versionRange="(,12]"/>
+        <targetTechnology id="quarkus1" versionRange="[13,)"/>
+    </metadata>
+    <rules>
+        <rule id="quarkus1-13-live-reload-00000">
+            <when>
+                <filecontent filename="application.properties" pattern="quarkus.dev.instrumentation"  />
+            </when>
+            <perform>
+                <hint title="Live Reload Instrumentation" effort="1" category-id="mandatory">
+                    <message>
+                        <![CDATA[
+                        `quarkus.dev.instrumentation` has been renamed to `quarkus.live-reload.instrumentation` 
+                        to be more consistent with other configuration properties related to live reload. 
+                        ]]>
+                    </message>
+                    <link title="Quarkus - Migration Guide 1.13" href="https://github.com/quarkusio/quarkus/wiki/Migration-Guide-1.13#live-reload-instrumentation" />
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
