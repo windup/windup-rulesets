@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="quarkus1-13-native-image-goal"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints for upgrading to Quarkus 1.13 - native-image Maven goal
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <!-- The major version is implied by the target, the minor is reflected in the verionRange -->
+        <sourceTechnology id="quarkus1" versionRange="(,12]"/>
+        <targetTechnology id="quarkus1" versionRange="[13,)"/>
+    </metadata>
+    <rules>
+        <rule id="quarkus1-13-native-image-goal-00000">
+            <when>
+                <filecontent filename="pom.xml" pattern="native-image"  />
+            </when>
+            <perform>
+                <hint title="The native-image Maven goal has been removed" effort="1" category-id="mandatory">
+                    <message>
+                        <![CDATA[
+                        The goal `native-image` of `quarkus-maven-plugin` had long been deprecated and the plugin had been logging a warning since 1.11.1.Final.
+
+                        It has now finally been removed in 1.13. Please remove the plugin execution from your `pom.xml` and simply add the following property to your native profile:
+                        
+                        ```Xml
+                        <properties>
+                            <quarkus.package.type>native</quarkus.package.type>
+                        </properties>
+                        ```
+                        In case you have been setting non-default configuration parameters like
+                        ```
+                        <enableHttpsUrlHandler>true</enableHttpsUrlHandler>
+                        ```
+                         ,replace those with the respective documented properties, e.g. 
+                        ```
+                        <quarkus.native.enable-https-url-handler>true</quarkus.native.enable-https-url-handler>
+                        ```
+                        ]]>
+                    </message>
+                    <link title="Quarkus - Migration Guide 1.13" href="https://github.com/quarkusio/quarkus/wiki/Migration-Guide-1.13#removal-of-the-native-image-maven-goal" />
+                    <link title="Quarkus - Configuring the Native Executable" href="https://quarkus.io/guides/building-native-image#configuration-reference" />
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
