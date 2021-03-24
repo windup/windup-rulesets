@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ruletest id="quarkus1-13-uberjar-param-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/uberjar-param</testDataPath>
+    <rulePath>../quarkus1-13-uberjar-param.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="quarkus1-13-uberjar-param-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The Maven `uberJar` parameter has been deprecated"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus1-13-uberjar-param-00000] The maven uberJar parameter hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

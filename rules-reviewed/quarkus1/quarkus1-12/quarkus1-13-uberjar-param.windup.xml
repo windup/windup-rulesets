@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="quarkus1-13-uberjar-param"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints for upgrading to Quarkus 1.13 - uberjar Maven parameter
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <!-- The major version is implied by the target, the minor is reflected in the verionRange -->
+        <sourceTechnology id="quarkus1" versionRange="(,12]"/>
+        <targetTechnology id="quarkus1" versionRange="[13,)"/>
+    </metadata>
+    <rules>
+        <rule id="quarkus1-13-uberjar-param-00000">
+            <when>
+                <filecontent filename="pom.xml" pattern="/uberJar"  />
+            </when>
+            <perform>
+                <hint title="The Maven uberJar parameter has been removed" effort="1" category-id="mandatory">
+                    <message>
+                        <![CDATA[
+                        The Maven `uberJar` parameter has been deprecated since `1.11.2.Final` / `1.12.0.CR1` and have now been removed in `1.13`.
+
+                        As a replacement, add `quarkus.package.type=uber-jar` to your `application.properties` (or e.g. `pom.xml`).
+                        ]]>
+                    </message>
+                    <link title="Quarkus - Migration Guide 1.13" href="https://github.com/quarkusio/quarkus/wiki/Migration-Guide-1.13#removal-of-the-maven-uberjar-and-gradle---uber-jar-parameters" />
+                    <link title="Quarkus - uberJar Creation" href="https://quarkus.io/guides/maven-tooling#uber-jar-maven" />
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
