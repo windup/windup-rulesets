@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="quarkus1-13-authentication-request-signatures"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints for upgrading to Quarkus 1.13 - method signature changes in AuthenticationRequest
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <!-- The major version is implied by the target, the minor is reflected in the verionRange -->
+        <sourceTechnology id="quarkus1" versionRange="(,12]"/>
+        <targetTechnology id="quarkus1" versionRange="[13,)"/>
+    </metadata>
+    <rules>
+        <rule id="quarkus1-13-authentication-request-signatures-00000">
+            <when>
+                    <javaclass references="io.quarkus.security.identity.request.AuthenticationRequest">
+                        <location>IMPLEMENTS_TYPE</location>
+                    </javaclass>
+            </when>
+            <perform>
+                <hint title="New methods signatures have been added to the `AuthenticationRequest` interface" effort="1" category-id="mandatory" >
+                    <message>
+                    <![CDATA[
+                    New methods signatures have been added to the `AuthenticationRequest` interface to allow transportation 
+                    of additional context information with the request such as context path, HTTP header or query parameter values. 
+                    If you were implementing this interface before, you can now extend `BaseAuthenticationRequest` in 1.13 without having to implement the new methods.
+                    ]]>
+                    </message>
+                    <link title="Quarkus - Migration Guide 1.13" href="https://github.com/quarkusio/quarkus/wiki/Migration-Guide-1.13#new-methods-signatures-in-authenticationrequest" />
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
