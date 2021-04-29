@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          id="replace_thorntail_boms-test" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/data-replace_thorntail_boms/</testDataPath>
+    <rulePath>../replace_thorntail_boms.mta.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="replace_thorntail_boms-1-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="If you migrate your application to JBoss EAP XP 2.0 \(or later\), and want to ensure its Maven building, running or testing works as expected, replace Thorntail BOM `io.thorntail:bom` with JBoss EAP XP MicroProfile BOM and/or JBoss EAP Jakarta EE BOM." />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="No reference to Thorntail BOM `io.thorntail:bom` found in pom.xml" />
+                </perform>
+            </rule>
+            <rule id="replace_thorntail_boms-2-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="If you migrate your application to JBoss EAP XP 2.0 \(or later\), and want to ensure its Maven building, running or testing works as expected, replace Thorntail BOM `io.thorntail:bom-certified` with JBoss EAP XP MicroProfile BOM and/or JBoss EAP Jakarta EE BOM." />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="No reference to Thorntail BOM `io.thorntail:bom-certified` found in pom.xml" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
