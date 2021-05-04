@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          id="remove_thorntail_yaml_configuration_files-test" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/data-remove_thorntail_yaml_configuration_files/</testDataPath>
+    <rulePath>../remove_thorntail_yaml_configuration_files.mta.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="remove_thorntail_yaml_configuration_files-1-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="If you migrate your application to JBoss EAP XP 2.0 \(or later\), and want to ensure its Maven building, running or testing works as expected, remove all Thorntail YAML Configuration Files." />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="No default Thorntail YAML Configuration File found." />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
