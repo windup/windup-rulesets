@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<ruleset id="static-compression"
+    xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This is a ruleset for .net static compression topics when migrating an application to cloud environments.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules" />
+        </dependencies>
+        <sourceTechnology id="dotnet"/>
+        <targetTechnology id="cloud-readiness"/>
+        <tag>static-compression</tag>
+    </metadata>
+    <rules>
+        <rule id="static-compression-0000">
+            <when>
+                <filecontent filename="{*}.config" pattern="httpCompression"/>
+            </when>
+            <perform>
+				<hint title="Unsupported module : HTTP Compression" effort="5" category-id="cloud-mandatory">
+					<message>Unsupported module : HTTP Compression
+					</message>
+					<tag>http-compression</tag>
+				</hint>
+				<technology-tag level="INFORMATIONAL">.Net</technology-tag>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

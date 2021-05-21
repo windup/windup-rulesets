@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<ruleset id="db2-unmanaged"
+    xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This is a ruleset for .net db2-unmanaged topics when migrating an application to cloud environments.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules" />
+        </dependencies>
+        <sourceTechnology id="dotnet"/>
+        <targetTechnology id="cloud-readiness"/>
+        <tag>db2-unmanaged</tag>
+    </metadata>
+    <rules>
+        <rule id="db2-unmanaged-0000">
+            <when>
+                <filecontent filename="{*}.{cs|vb}" pattern="IBM.Data.DB2"/>
+            </when>
+            <perform>
+				<hint title="Unmanaged DB2 Database" effort="7" category-id="cloud-mandatory">
+					<message>IBM.Data.DB2 can require a special procedure so that the driver's native components are deployed with the application.
+					</message>
+					<tag>DatabaseAccess</tag>
+				</hint>
+				<technology-tag level="INFORMATIONAL">.Net</technology-tag>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<ruleset id="logging.net"
+    xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This is a ruleset for .net logging topics when migrating an application to cloud environments.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules" />
+        </dependencies>
+        <sourceTechnology id="dotnet"/>
+        <targetTechnology id="cloud-readiness"/>
+        <tag>logging</tag>
+    </metadata>
+    <rules>
+        <rule id="logging-net-00000">
+            <when>
+                <filecontent filename="{*}.{cs|vb}" pattern="{EventLogTraceListener|EventLog}"/>
+            </when>
+            <perform>
+				<hint title="Logging" effort="1" category-id="cloud-mandatory">
+					<message>Logging to the Event Log is not recommended for cloud native apps.
+					</message>
+					<tag>logging</tag>
+				</hint>
+				<technology-tag level="INFORMATIONAL">.Net</technology-tag>
+            </perform>
+        </rule>		
+    </rules>
+</ruleset>

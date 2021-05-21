@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<ruleset id="windowsServices"
+    xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This is a ruleset for .net windowsServices topics when migrating an application to cloud environments.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules" />
+        </dependencies>
+        <sourceTechnology id="dotnet"/>
+        <targetTechnology id="cloud-readiness"/>
+        <tag>windowsServices</tag>
+    </metadata>
+    <rules>
+        <rule id="windowsServices-00000">
+            <when>
+                <filecontent filename="{*}.{cs|vb}" pattern="{System.ServiceProcess|ServiceController|ServiceBase}"/>
+            </when>
+            <perform>
+				<hint title="Unsupported module : Windows Services" effort="5" category-id="cloud-mandatory">
+					<message>Don't rely on Windows Services as Cloud manages the lifecycle of your service.  
+							 Convert any Windows service to a console application to run in Cloud.
+					</message>
+					<tag>windowsRegistry</tag>
+				</hint>
+				<technology-tag level="INFORMATIONAL">.Net</technology-tag>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
