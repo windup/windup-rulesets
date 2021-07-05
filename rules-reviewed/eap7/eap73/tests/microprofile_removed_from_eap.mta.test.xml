@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          id="microprofile_removed_from_eap-test" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/data-microprofile_removed_from_eap/</testDataPath>
+    <rulePath>../microprofile_removed_from_eap.mta.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="microprofile_removed_from_eap-00001-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="This application depends on Eclipse MicroProfile Config, which is no longer supported by JBoss EAP 7.4 \(or later\), unless the JBoss EAP expansion pack is installed." />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="No dependency to Eclipse MicroProfile Config found in pom.xml" />
+                </perform>
+            </rule>
+            <rule id="microprofile_removed_from_eap-00002-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="This application depends on Eclipse MicroProfile Health, which is no longer supported by JBoss EAP 7.4 \(or later\), unless the JBoss EAP expansion pack is installed." />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="No dependency to Eclipse MicroProfile Health found in pom.xml" />
+                </perform>
+            </rule>
+            <rule id="microprofile_removed_from_eap-00003-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="This application depends on Eclipse MicroProfile Metrics, which is no longer supported by JBoss EAP 7.4 \(or later\), unless the JBoss EAP expansion pack is installed." />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="No dependency to Eclipse MicroProfile Metrics found in pom.xml" />
+                </perform>
+            </rule>
+            <rule id="microprofile_removed_from_eap-00004-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="This application depends on Eclipse MicroProfile REST Client, which is no longer supported by JBoss EAP 7.4 \(or later\), unless the JBoss EAP expansion pack is installed." />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="No dependency to Eclipse MicroProfile REST Client found in pom.xml" />
+                </perform>
+            </rule>
+            <rule id="microprofile_removed_from_eap-00005-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="This application depends on Eclipse MicroProfile Opentracing, which is no longer supported by JBoss EAP 7.4 \(or later\), unless the JBoss EAP expansion pack is installed." />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="No dependency to Eclipse MicroProfile Opentracing found in pom.xml" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
