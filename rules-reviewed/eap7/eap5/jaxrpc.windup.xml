@@ -4,7 +4,8 @@
 
     <metadata>
         <description>
-            This ruleset provides generic migration knowledge for the Java EE specification
+            This ruleset provides analysis of the Java EE specification that might require
+            individual attention when migrating to JBoss EAP 7+.
         </description>
         <dependencies>
             <addon id="org.jboss.windup.rules,windup-rules-javaee,2.5.0.Final" />
@@ -23,7 +24,13 @@
             </when>
             <perform>
                 <hint title="JAX-RPC Generic Handler not supported" effort="5" category-id="mandatory">
-                    <message>JAX-RPC is no longer supported on JBoss EAP 7. JAX-WS is successor and offers a more accurate and complete solution.</message>
+                    <message>
+                        
+                        This application contains JAX-RPC, which is not supported on JBoss EAP 7. 
+                        
+                        Recommmendation:
+                        
+                        Migrate to JAX-WS, which offers a more accurate and complete solution.</message>
                     <link href="http://docs.oracle.com/cd/E17802_01/webservices/webservices/docs/1.6/api/javax/xml/rpc/handler/GenericHandler.html"
                         title="Java EE RPC Generic Handler API" />
                     <link href="https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/7.0/single/developing-web-services-applications/#developing_jax_ws_web_services"

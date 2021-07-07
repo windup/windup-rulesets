@@ -6,7 +6,7 @@
 
     <metadata>
         <description>
-            This ruleset provides analysis of JBoss EAP 5 JAVA source files that may require individual attention when migrating to JBoss EAP 7+.
+            This ruleset provides analysis of JBoss EAP 5 JAVA source files that might require individual attention when migrating to JBoss EAP 7+.
         </description>
         <dependencies>
             <addon id="org.jboss.windup.rules,windup-rules-javaee,2.3.0.Final"/>
@@ -31,7 +31,9 @@
                 <hint title="JMS legacy javax.jms.QueueConnectionFactory" effort="1" category-id="optional">
                     <message>
                       <![CDATA[
-                      `QueueConnectionFactory` was used to obtain connection to JMS queues.
+                      This application contains the lookup string `QueueConnectionFactory`.
+                      
+                      Recommendation:
 
                       Replace the lookup string `QueueConnectionFactory` with `ConnectionFactory`.
                       ]]>
@@ -52,8 +54,9 @@
             <perform>
                 <hint title="JBoss EJB @Service annotation" effort="3" category-id="mandatory">
                     <message>
-                        The purpose of `@Service` annotation was to achieve @Singleton like behavior.
-                        It was deprecated with the release of JBoss AS 6 and removed from JBoss EAP 6.
+                        This application contains the `@Service` annotation.
+                        
+                        Recommendation:
 
                         Use the Java EE 6 `javax.ejb.Singleton` annotation instead.
                     </message>
@@ -84,13 +87,13 @@
             <perform>
                 <hint title="JBoss EJB @Management annotation" effort="3" category-id="mandatory">
                     <message>
-                        The `@Management` annotation is one of JBoss EJB 3.0 extension which wraps the bean
-                        as an MBean and registers it in the JBoss MBean Server automatically.
-                        JBoss EAP 6+ no longer supports the @Management annotations.
+                        This application contains the `@Management` annotation.
+                        
+                        Recommendation:
+                        
+                        Create a simple MBean using the Java EE 6 `@Singleton` and `@Startup` to register itself in JMX Server.
 
-                        The Solution is to create a simple MBean using the Java EE 6 `@Singleton` and `@Startup` to register itself in JMX Server.
-
-                        Create your `@Singleton` MBean implementation which implements your service interface. Use `@PostConstruct` to have your Singleton register itself in the JMX MBean Server and then use `@PreDestroy` to unregister your MBean from the JMX Server.
+                        Create a `@Singleton` MBean implementation that implements the service interface. Use `@PostConstruct` to cause the Singleton to register itself in the JMX MBean Server and then use `@PreDestroy` to unregister the MBean from the JMX Server.
                     </message>
                     <link title="JBoss EJB 3.0 extensions" href="https://docs.jboss.org/ejb3/docs/reference/build/reference/en/html/jboss_extensions.html"/>
                     <link title="JBoss EJB 3.0 Javadoc" href="https://docs.jboss.org/ejb3/embedded/api/org/jboss/annotation/ejb/package-summary.html"/>
@@ -116,8 +119,10 @@
             <perform>
                 <hint title="org.jboss.annotation.ejb.LocalBinding" effort="3" category-id="mandatory">
                     <message>
-                        The `@LocalBinding` annotation is one of JBoss EJB 3.0 extensions
-                        which specifies the local jndi binding for an EJB local interface.
+                        This application contains the `@LocalBinding` annotation.
+                        
+                        Recommendation:
+                        
                         Use `@EJB(lookup="your_jndi")` instead.
                     </message>
                     <link title="JBoss EJB 3.0 extensions" href="https://docs.jboss.org/ejb3/docs/reference/build/reference/en/html/jboss_extensions.html"/>
@@ -143,8 +148,10 @@
             <perform>
                 <hint title="org.jboss.annotation.ejb.Depends" effort="3" category-id="mandatory">
                     <message>
-                        The `@Depends` annotation is one of JBoss EJB 3.0 extensions
-                        which specifies a deployment dependency for a bean.
+                        This application contains the `@Depends` annotation, which specifies a deployment dependency for a bean.
+                        
+                        Recommendation:
+                        
                         Validate that a JBoss EAP 6 Dependency exists.
                     </message>
                     <link title="JBoss EJB 3.0 extensions" href="https://docs.jboss.org/ejb3/docs/reference/build/reference/en/html/jboss_extensions.html"/>
@@ -161,7 +168,11 @@
             <perform>
                 <hint title="org.jboss.wsf.spi.annotation has been moved to org.jboss.ws.api.annotation" effort="1" category-id="mandatory">
                     <message>
-                        This package has been relocated to `org.jboss.ws.api.annotation` as specified in the
+                        This application contains the `org.jboss.wsf.spi.annotation` package.
+                        
+                        Recommendation:
+                        
+                        Relocate the package to `org.jboss.ws.api.annotation` as specified in the EAP 6
                         migration guide.
                     </message>
                     <link title="EAP 6 Migration Guide" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/migration_guide/#sect-Web_Services_Changes"/>
@@ -176,10 +187,14 @@
             <perform>
                 <hint title="org.jboss.wsf.spi.binding has been moved to org.jboss.ws.api.binding" effort="1" category-id="mandatory">
                     <message>
-                        This package has been relocated to `org.jboss.ws.api.binding` as specified in the
+                        This application contains the `org.jboss.wsf.spi.binding` package.
+                        
+                        Recommendation:
+                        
+                        Relocate the package to `org.jboss.ws.api.binding` as specified in the EAP 6
                         migration guide.
                     </message>
-                    <link title="EAP 6 Migration Guide" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/migration_guide/#sect-Web_Services_Changes"/>
+                    <link title="EAP 6 Migration Guide" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/migration_guide/#sect-Web_Services_Changes"/>Update 
                     <tag>jbossws</tag>
                 </hint>
             </perform>
@@ -191,7 +206,11 @@
             <perform>
                 <hint title="org.jboss.wsf.spi.management.recording has been moved to org.jboss.ws.api.monitoring" effort="1" category-id="mandatory">
                     <message>
-                        This package has been relocated to `org.jboss.ws.api.monitoring` as specified in the
+                        This application contains the `org.jboss.wsf.spi.management.recording` package.
+                        
+                        Recommendation:
+                        
+                        Relocate the package to `org.jboss.ws.api.monitoring` as specified in the EAP 6
                         migration guide.
                     </message>
                     <link title="EAP 6 Migration Guide" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/migration_guide/#sect-Web_Services_Changes"/>
@@ -206,7 +225,11 @@
             <perform>
                 <hint title="org.jboss.wsf.spi.tools.ant has been moved to org.jboss.ws.tools.ant" effort="1" category-id="mandatory">
                     <message>
-                        This package has been relocated to `org.jboss.ws.tools.ant` as specified in the
+                        This application contains the `org.jboss.wsf.spi.tools.ant` package.
+                        
+                        Recommendation:
+                        
+                        Relocate the package to `org.jboss.ws.tools.ant` as specified in the EAP 6
                         migration guide.
                     </message>
                     <link title="EAP 6 Migration Guide" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/migration_guide/#sect-Web_Services_Changes"/>
@@ -221,7 +244,11 @@
             <perform>
                 <hint title="org.jboss.wsf.spi.tools.cmd has been moved to org.jboss.ws.tools.cmd" effort="1" category-id="mandatory">
                     <message>
-                        This package has been relocated to `org.jboss.ws.tools.cmd` as specified in the
+                        This application contains the `org.jboss.wsf.spi.tools.cmd` package.
+                        
+                        Recommendation:
+                        
+                        Relocate the package to `org.jboss.ws.tools.cmd` as specified in the EAP 6
                         migration guide.
                     </message>
                     <link title="EAP 6 Migration Guide" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/migration_guide/#sect-Web_Services_Changes"/>
@@ -242,7 +269,11 @@
                     </when>
                     <hint title="org.jboss.wsf.spi.tools has been moved to org.jboss.ws.api.tools" effort="1" category-id="mandatory">
                         <message>
-                            This package has been relocated to `org.jboss.ws.api.tools` as specified in the
+                            This application contains the `org.jboss.wsf.spi.tools` package.
+                            
+                            Recommendation:
+                            
+                            Relocate the package to `org.jboss.ws.api.tools` as specified in the EAP 6
                             migration guide.
                         </message>
                         <link title="EAP 6 Migration Guide" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/migration_guide/#sect-Web_Services_Changes"/>
@@ -258,7 +289,11 @@
             <perform>
                 <hint title="org.jboss.wsf.spi.util.ServiceLoader has been moved to org.jboss.ws.api.util.ServiceLoader" effort="1" category-id="mandatory">
                     <message>
-                        This class has been relocated to `org.jboss.ws.api.util.ServiceLoader` as specified in the
+                        This application contains the class `org.jboss.wsf.spi.util.ServiceLoader`.
+                        
+                        Recommendation:
+                        
+                        Relocate the class to `org.jboss.ws.api.util.ServiceLoader` as specified in the EAP 6
                         migration guide.
                     </message>
                     <link title="EAP 6 Migration Guide" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/migration_guide/#sect-Web_Services_Changes"/>
@@ -273,7 +308,11 @@
             <perform>
                 <hint title="org.jboss.wsf.common.handler has been moved to org.jboss.ws.api.handler" effort="1" category-id="mandatory">
                     <message>
-                        This package has been relocated to `org.jboss.ws.api.handler` as specified in the
+                        This application contains the `org.jboss.wsf.common.handler` package.
+                        
+                        Recommendation:
+                        
+                        Relocate the package to `org.jboss.ws.api.handler` as specified in the EAP 6
                         migration guide.
                     </message>
                     <link title="EAP 6 Migration Guide" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/migration_guide/#sect-Web_Services_Changes"/>
@@ -288,7 +327,11 @@
             <perform>
                 <hint title="org.jboss.wsf.common.addressing has been moved to org.jboss.ws.api.addressing" effort="1" category-id="mandatory">
                     <message>
-                        This package has been relocated to `org.jboss.ws.api.addressing` as specified in the
+                        This application contains the `org.jboss.wsf.common.addressing` package.
+                        
+                        Recommendation:
+                        
+                        Relocate the package to `org.jboss.ws.api.addressing` as specified in the EAP 6
                         migration guide.
                     </message>
                     <link title="EAP 6 Migration Guide" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/migration_guide/#sect-Web_Services_Changes"/>
@@ -303,7 +346,11 @@
             <perform>
                 <hint title="org.jboss.wsf.common.DOMUtils has been moved to org.jboss.ws.api.util.DOMUtils" effort="1" category-id="mandatory">
                     <message>
-                        This class has been relocated to `org.jboss.ws.api.util.DOMUtils` as specified in the
+                        This application contains the `org.jboss.wsf.common.DOMUtils` package.
+                        
+                        Recommendation:
+                        
+                        Relocate the package to `org.jboss.ws.api.util.DOMUtils` as specified in the EAP 6
                         migration guide.
                     </message>
                     <link title="EAP 6 Migration Guide" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/migration_guide/#sect-Web_Services_Changes"/>
@@ -324,7 +371,11 @@
                     </when>
                     <hint title="org.jboss.wsf.common has been moved to org.jboss.ws.common" effort="1" category-id="mandatory">
                         <message>
-                            This package has been relocated to `org.jboss.ws.common` as specified in the
+                            This application contains the `org.jboss.wsf.common` package.
+                            
+                            Recommendation:
+                            
+                            Relocate the package to `org.jboss.ws.common` as specified in the EAP 6
                             migration guide.
                         </message>
                         <link title="EAP 6 Migration Guide" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/migration_guide/#sect-Web_Services_Changes"/>
@@ -341,7 +392,11 @@
             <perform>
                 <hint title="org.jboss.ws.annotation.EndpointConfig has been moved to org.jboss.ws.api.annotation.EndpointConfig" effort="1" category-id="mandatory">
                     <message>
-                        This class has been relocated to `org.jboss.ws.api.annotation.EndpointConfig` as specified in the
+                        This application contains the class `ws.annotation.EndpointConfig`.
+                        
+                        Recommendation:
+                        
+                        Relocate the class to `org.jboss.ws.api.annotation.EndpointConfig` as specified in the EAP 6
                         migration guide.
                     </message>
                     <link title="EAP 6 Migration Guide" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/migration_guide/#sect-Web_Services_Changes"/>
