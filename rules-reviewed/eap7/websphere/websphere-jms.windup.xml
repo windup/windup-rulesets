@@ -3,8 +3,8 @@
     xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <metadata>
         <description>
-            This ruleset provides analysis of WebSphere proprietary classes and constructs that may require individual attention when
-            migrating to JBoss EAP 7+.
+            This ruleset provides analysis of WebSphere proprietary classes and constructs that might require
+            individual attention when migrating to JBoss EAP 7+.
         </description>
         <dependencies>
             <addon id="org.jboss.windup.rules,windup-rules-javaee,2.7.0.Final" />
@@ -21,8 +21,11 @@
             </when>
             <perform>
                 <classification issue-display-mode="all" title="IBM JMS Client" effort="3" category-id="mandatory">
-                    <description>WebSphere MQ client API is used to communicate with the MQ server from client-side applications.
-                        For JBoss EAP 7, this needs to be replaced with standard Java EE 7 JMS API, or with ActiveMQ Artemis client API.
+                    <description>The WebSphere MQ client API is used to communicate with the MQ server from client-side applications.
+                        
+                        Recoemndation:
+                        
+                        For JBoss EAP 7, replace the WebSphere MQ client API with the standard Java EE 7 JMS API, or with the ActiveMQ Artemis client API.
                     </description>
                     <link title="Java EE 7 JMS Tutorial" href="https://docs.oracle.com/javaee/7/tutorial/jms-concepts003.htm#BNCEH" />
                     <link title="ActiveMQ Artemis User Manual" href="http://activemq.apache.org/artemis/docs/1.5.0/messaging-concepts.html" />
@@ -47,7 +50,11 @@
                 <hint title="IBM {prefix}{type}ConnectionFactory reference" effort="1" category-id="mandatory">
                     <message>
                         IBM {prefix}{type}ConnectionFactory is a proprietary encapsulation of JMS servers to which Connections can be created for
-                        message distribution. This reference should be replaced with the Java EE standard API: `javax.jms.{type}ConnectionFactory`.
+                        message distribution.
+                            
+                        Recoemndation:
+                        
+                        Replace references to IBM {prefix}{type}ConnectionFactory with the Java EE standard API: `javax.jms.{type}ConnectionFactory`.
                     </message>
                     <link href="https://docs.oracle.com/javaee/7/tutorial/jms-concepts003.htm#BNCEH" title="Java EE JMS Documentation" />
                     <tag>jms</tag>
@@ -72,8 +79,11 @@
             <perform>
                 <hint title="IBM JMS topic/queue message" effort="1" category-id="mandatory">
                     <message>
-                        IBM JMS API {type}s are used for sending/reading messages to/from a topic or queue. This reference should be
-                        replaced with the Java EE standard API `javax.jms.Message{type}`.
+                        IBM JMS API `{type}`s are used for sending/reading messages to/from a topic or queue. 
+                            
+                        Recoemndation:
+                        
+                        Replace each reference to an IBM JMS API `{type}` with the Java EE standard API `javax.jms.Message{type}`.
                     </message>
                     <link href="https://docs.oracle.com/javaee/7/tutorial/jms-concepts003.htm#BNCEH" title="Java EE JMS Documentation" />
                     <tag>jms</tag>
@@ -95,8 +105,11 @@
             <perform>
                 <hint title="WebSphere implementation MQe{type}Queue of JMS Queue" category-id="mandatory" effort="1">
                     <message>
-                        `MQe{type}Queue` is a WebSphere implementation of a JMS `Queue` and should be migrated to
-                        the Java EE 6 JMS standard interface `javax.jms.Queue`.
+                        `MQe{type}Queue` is a WebSphere implementation of a JMS `Queue`.
+                            
+                        Recoemndation:
+                        
+                        Migrate each `MQe{type}Queue` to the Java EE 6 JMS standard interface `javax.jms.Queue`.
                     </message>
                     <link title="Java EE 7 JMS Tutorial" href="https://docs.oracle.com/javaee/7/tutorial/jms-concepts003.htm#BNCEH" />
                     <tag>jms</tag>
@@ -119,8 +132,11 @@
                     <perform>
                         <hint title="IBM JMS destination message" effort="1" category-id="mandatory">
                             <message>
-                                JMS `{package}.{prefix}{type}Message` messages represent the actual data passed through JMS destinations. This reference should be
-                                replaced with the Java EE standard API `javax.jms.{type}Message`.
+                                JMS `{package}.{prefix}{type}Message` messages represent the actual data passed through JMS destinations. 
+                                    
+                                Recoemndation:
+                                 
+                                Replace JMS `{package}.{prefix}{type}Message` messages with the Java EE standard API `javax.jms.{type}Message`.
                             </message>
                             <link href="https://docs.oracle.com/javaee/7/tutorial/jms-concepts003.htm#sthref2271" title="Java EE 7 JMS Tutorial - Message API" />
                             <tag>jms</tag>
@@ -153,7 +169,11 @@
                     </when>
                     <perform>
                         <hint title="IBM JMS interface" effort="1" category-id="mandatory">
-                            <message>`{package}.{prefix}{type}` is an IBM proprietary interface and needs to be migrated to the Java EE standard API `javax.jms.{type}`.</message>
+                            <message>`{package}.{prefix}{type}` is an IBM proprietary interface.
+                                
+                            Recoemndation:
+                                
+                            Migrate each `{package}.{prefix}{type}` to the Java EE standard API `javax.jms.{type}`.</message>
                             <link href="https://docs.oracle.com/javaee/7/tutorial/jms-concepts003.htm#BNCEH" title="Java EE JMS Documentation" />
                             <tag>jms</tag>
                             <tag>websphere</tag>
