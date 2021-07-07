@@ -4,8 +4,7 @@
 
     <metadata>
         <description>
-            This ruleset provides analysis of WebLogic proprietary classes and constructs for the Java Message Service that may require
-            individual attention when migrating to JBoss EAP 7+.
+            This ruleset provides analysis of WebLogic proprietary classes and constructs for the Java Message Service (JMS) that might require individual attention when migrating to JBoss EAP 7+.
         </description>
         <dependencies>
             <addon id="org.jboss.windup.rules,windup-rules-javaee,2.7.0.Final" />
@@ -35,15 +34,15 @@
                 <javaclass references="oracle.jms.AQjmsSession" />
             </when>
             <perform>
-                <hint title="Oracle JMS Session" effort="1" category-id="mandatory">
+                <hint title="Oracle JMS session" effort="1" category-id="mandatory">
                     <message>
-                        Oracle JMS sessions are used for producing and consuming messaging API objects such as message producers, message
-                        consumers, messages, queue browsers, and temporary queues and topics.
+                        This application contains an Oracle JMS session.
 
-                        This reference should be replaced with the Java EE
-                        standard API: `javax.jms.Session`.
+                        Recommendation:
+
+                        Replace the Oracle JMS session with the Java EE standard API `javax.jms.Session`.
                     </message>
-                    <link href="https://docs.oracle.com/javaee/7/tutorial/jms-concepts003.htm#BNCEN" title="Java EE 7 - JMS Session" />
+                    <link href="https://docs.oracle.com/javaee/7/tutorial/jms-concepts003.htm#BNCEN" title="Java EE 7 - JMS Sessions" />
                     <tag>jms</tag>
                     <tag>weblogic</tag>
                 </hint>
@@ -54,14 +53,15 @@
                 <javaclass references="oracle.jms.AQjmsQueueBrowser" />
             </when>
             <perform>
-                <hint title="Oracle JMS Queue Browser" effort="1" category-id="mandatory">
+                <hint title="Oracle JMS queue browser" effort="1" category-id="mandatory">
                     <message>
-                        Oracle JMS queue browsers are used for browsing messages in a JMS queue.
+                        This application contains an Oracle JMS queue browser.  
 
-                        This reference should be replaced with the Java
-                        EE standard API: `javax.jms.QueueBrowser`.
+                        Recommendation:
+
+                        Replace the Oracle JMS queue browser with the Java EE standard API `javax.jms.QueueBrowser`.
                     </message>
-                    <link href="https://docs.oracle.com/javaee/7/tutorial/jms-concepts003.htm#BNCEY" title="Java EE 7 - JMS Queue Browser" />
+                    <link href="https://docs.oracle.com/javaee/7/tutorial/jms-concepts003.htm#BNCEY" title="Java EE 7 - JMS Queue Browsers" />
                     <tag>jms</tag>
                     <tag>weblogic</tag>
                 </hint>
@@ -72,15 +72,15 @@
                 <javaclass references="oracle.jms.AQjmsProducer" />
             </when>
             <perform>
-                <hint title="Oracle JMS Producer" effort="1" category-id="mandatory">
+                <hint title="Oracle JMS message producer" effort="1" category-id="mandatory">
                     <message>
-                        Oracle JMS producers are used for sending messages to a destination.
+                        This application contains an Oracle JMS message producer. 
+                        
+                        Recommendation:
 
-                        This reference should be replaced with the Java
-                        EE
-                        standard API: `javax.jms.MessageProducer`.
+                        Replace the Oracle JMS message producer with the Java EE standard API `javax.jms.MessageProducer`.
                     </message>
-                    <link href="https://docs.oracle.com/javaee/7/tutorial/jms-concepts003.htm#BNCEO" title="Java EE 7 - JMS Message Producer" />
+                    <link href="https://docs.oracle.com/javaee/7/tutorial/jms-concepts003.htm#BNCEO" title="Java EE 7 - JMS Message Producers" />
                     <tag>jms</tag>
                     <tag>weblogic</tag>
                 </hint>
@@ -91,14 +91,15 @@
                 <javaclass references="oracle.jms.AQjmsConsumer" />
             </when>
             <perform>
-                <hint title="Oracle JMS Consumer" effort="1" category-id="mandatory">
+                <hint title="Oracle JMS message consumer" effort="1" category-id="mandatory">
                     <message>
-                        Oracle JMS consumers are used for receiving messages sent to a destination.
+                        This application contains an Oracle JMS message consumer. 
 
-                        This reference should be replaced with the
-                        Java EE standard API: `javax.jms.MessageConsumer`.
+                        Recommendation:
+
+                        Replace the Oracle JMS message consumer with the Java EE standard API `javax.jms.MessageConsumer`.
                     </message>
-                    <link href="https://docs.oracle.com/javaee/7/tutorial/jms-concepts003.htm#BNCEP" title="Java EE 7 - JMS Message Consumer" />
+                    <link href="https://docs.oracle.com/javaee/7/tutorial/jms-concepts003.htm#BNCEP" title="Java EE 7 - JMS Message Consumers" />
                     <tag>jms</tag>
                     <tag>weblogic</tag>
                 </hint>
@@ -109,13 +110,13 @@
                 <javaclass references="oracle.jms.AQjmsConnection" />
             </when>
             <perform>
-                <hint title="Oracle JMS Consumer" effort="1" category-id="mandatory">
+                <hint title="Oracle JMS connection" effort="1" category-id="mandatory">
                     <message>
-                        Oracle JMS connections represent virtual connections with a JMS provider.
+                        This application contains an Oracle JMS connection. 
+                        
+                        Recommendation:
 
-                        This reference should be replaced with the
-                        Java
-                        EE standard API: `javax.jms.Connection`.
+                        Replace the Oracle JMS connection with the Java EE standard API `javax.jms.Connection`.
                     </message>
                     <link href="https://docs.oracle.com/javaee/7/tutorial/jms-concepts003.htm#BNCEM" title="Java EE 7 - JMS Connections" />
                     <tag>jms</tag>
@@ -130,14 +131,13 @@
             <perform>
                 <hint title="Oracle JMS {type}Message" effort="1" category-id="mandatory">
                     <message>
-                        Oracle JMS {type} messages represent the actual data passed through JMS destinations.
+                        This application contains an Oracle JMS {type}Message.
 
-                        This reference should be replaced
-                        with the
-                        Java
-                        EE standard API: `javax.jms.{type}Message`.
+                        Recommendation:
+
+                        Replace the Oracle JMS {type}Message with the Java EE standard API `javax.jms.{type}Message`.
                     </message>
-                    <link href="https://docs.oracle.com/javaee/7/tutorial/jms-concepts003.htm#BNCES" title="Java EE 7 - JMS Message API" />
+                    <link href="https://docs.oracle.com/javaee/7/tutorial/jms-concepts003.htm#BNCES" title="Java EE 7 - JMS Messages" />
                     <tag>jms</tag>
                     <tag>weblogic</tag>
                 </hint>
@@ -151,14 +151,13 @@
                 <javaclass references="oracle.jms.AQjmsDestination" />
             </when>
             <perform>
-                <hint title="Oracle JMS Destination" effort="1" category-id="mandatory">
+                <hint title="Oracle JMS destination" effort="1" category-id="mandatory">
                     <message>
-                        Oracle JMS destinations are the objects a client uses to specify the target of messages it produces and the source of
-                        messages it consumes.
+                        This application contains an Oracle JMS destination. 
 
-                        This reference should be replaced with the
-                        Java
-                        EE standard API: `javax.jms.Destination`.
+                        Recommendation:
+
+                        Replace the Oracle JMS destination with the Java EE standard API `javax.jms.Destination`.
                     </message>
                     <link href="https://docs.oracle.com/javaee/7/tutorial/jms-concepts003.htm#BNCEL" title="Java EE 7 - JMS Destinations" />
                     <tag>jms</tag>
@@ -171,15 +170,15 @@
                 <javaclass references="oracle.jms.AQjms{type}ConnectionFactory" />
             </when>
             <perform>
-                <hint title="Oracle JMS {type} Connection Factory" effort="1" category-id="mandatory">
+                <hint title="Oracle JMS {type}ConnectionFactory" effort="1" category-id="mandatory">
                     <message>
-                        Oracle {type}ConnectionFactory is an encapsulation of JMS servers to which Connections can be created for message distribution.
+                        This application contains an Oracle JMS `{type}ConnectionFactory`. 
 
-                        This reference should be replaced with the
-                        Java
-                        EE standard API: `javax.jms.{type}ConnectionFactory`.
+                        Recommendation:
+
+                        Replace the Oracle JMS `{type}ConnectionFactory` using the Java EE standard API `javax.jms.{type}ConnectionFactory`.
                     </message>
-                    <link href="https://docs.oracle.com/javaee/7/tutorial/jms-concepts003.htm#BNCEK" title="Java EE 7 - JMS Connection factories" />
+                    <link href="https://docs.oracle.com/javaee/7/tutorial/jms-concepts003.htm#BNCEK" title="Java EE 7 - JMS Connection Factories" />
                     <tag>jms</tag>
                     <tag>weblogic</tag>
                 </hint>
