@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          id="eapxp_bootable_jar_maven_plugin_configuration_changes-test" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/data-eapxp_bootable_jar_maven_plugin_configuration_changes/</testDataPath>
+    <rulePath>../eapxp_bootable_jar_maven_plugin_configuration_changes.mta.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="eapxp_bootable_jar_maven_plugin_configuration_changes-1-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="If you migrate your application to JBoss EAP XP 3.0 \(or later\), and want to ensure its Maven building, running or testing works as expected, rename the configuration element `extraServerContent` to `extraServerContentDirs`." />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Bootable JAR Maven Plugin configuration with element `extraServerContent` not found in pom.xml" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
