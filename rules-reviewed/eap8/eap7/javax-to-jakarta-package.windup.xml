@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="javax-to-jakarta-package"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of Java EE applications that need to change their import statements to replace javax.* with jakarta.*
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <targetTechnology id="eap" versionRange="[8,)" />  
+        <targetTechnology id="jakarta-ee" versionRange="[9,)" />      
+    </metadata>
+    <rules>
+        <!-- https://issues.jboss.org/browse/WINDUP-3152 -->
+        <rule id="javax-to-jakarta-import-00001">
+            <when>
+                <javaclass references="javax.{renamed}{*}" as="javaClass">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <iteration over="javaClass">
+                    <hint title="javax.{renamed} has been replaced by jakarta.{renamed}" effort="1"
+                          category-id="mandatory">
+                        <message>Replace the `jaxax.{renamed}` import statement with `jakarta.{renamed}` </message>
+                        <link title="Jakarta EE"
+                              href="https://jakarta.ee/"/>
+                        <quickfix type="REPLACE" name="javax-replace">
+                            <replacement>jakarta</replacement>
+                            <search>javax</search>
+                        </quickfix>
+                    </hint>
+                </iteration>
+            </perform>
+            <where param="renamed">
+                <matches
+                    pattern="(activation|annotation|batch|decorator|ejb|el|enterprise|faces|inject|interceptor|jms|json|jws|mail|persistence|resource|security|servlet|transaction|validation|websocket|ws|xml)"/>
+            </where>
+        </rule>    
+    </rules>
+</ruleset>
