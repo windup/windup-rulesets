@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="java-removals"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis with respect to API removals between OpenJDK 8 and 11.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="openjdk" versionRange="[8,)"/>
+        <targetTechnology id="openjdk" versionRange="[11,)"/>
+    </metadata>
+    <rules>
+        <rule id="java-removals-00000">
+            <when>
+                <javaclass references="java.lang.Thread.stop({.+})">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="The `java.lang.Thread.stop(Throwable)` method has been removed" effort="3" category-id="mandatory">
+                    <message>
+                        The `java.lang.Thread.stop(Throwable)` method has been removed, as it is dangerous for a thread to not only be able to directly stop another thread, but with an exception it may not expect. Instead, the thread should be notified to stop using a shared variable or `interrupt()`.
+                    </message>
+                    <link title="Java Thread Primitive Deprecation" href="https://docs.oracle.com/javase/7/docs/technotes/guides/concurrency/threadPrimitiveDeprecation.html"/>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
