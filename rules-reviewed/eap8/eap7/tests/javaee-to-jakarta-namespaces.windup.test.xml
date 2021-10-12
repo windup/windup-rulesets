@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<ruletest id="javaee-to-jakarta-namespaces-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/namespaces</testDataPath>
+    <rulePath>../javaee-to-jakarta-namespaces.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="javaee-to-jakarta-namespaces-00001-test">
+                <when>
+                    <not>
+                        <iterable-filter size="12"> 
+                            <hint-exists message="Replace `http://xmlns.jcp.org/xml/ns/javaee`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javaee-to-jakarta-namespaces-00001] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="javaee-to-jakarta-namespaces-00002-test">
+                <when>
+                    <not>
+                        <iterable-filter size="6"> 
+                            <hint-exists message="Replace `http://xmlns.jcp.org/xml/ns/persistence`"/>
+                        </iterable-filter>
+                       </not>
+                </when>
+                <perform>
+                    <fail message="[javaee-to-jakarta-namespaces-00002] The hint was not found!" />
+               </perform>             
+            </rule>
+            <rule id="javaee-to-jakarta-namespaces-00003-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2"> 
+                            <hint-exists message="Replace `http://xmlns.jcp.org/xml/ns/validation`"/>
+                        </iterable-filter>
+                   </not>
+                </when>
+                <perform>
+                    <fail message="[javaee-to-jakarta-namespaces-00003] The hint was not found!" />
+                </perform>             
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

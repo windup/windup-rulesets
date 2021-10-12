@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="javaee-to-jakarta-namespaces"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of Java EE applications that need to change their deployment descriptor namespaces 
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <targetTechnology id="eap" versionRange="[8,)" />  
+        <targetTechnology id="jakarta-ee" versionRange="[9,)" />      
+    </metadata>
+    <rules>
+        <!-- https://issues.jboss.org/browse/WINDUP-3149 -->
+        <rule id="javaee-to-jakarta-namespaces-00001">
+            <when>
+                <filecontent filename="{*}.xml" pattern="http://xmlns.jcp.org/xml/ns/javaee" />
+            </when>
+            <perform>
+                <hint title="Replace the Java EE namespace, schemaLocation and version with the Jakarta equivalent" effort="1"
+                          category-id="mandatory">
+                        <message>Replace `http://xmlns.jcp.org/xml/ns/javaee` with `https://jakarta.ee/xml/ns/jakartaee` and change the schema version number </message>
+                        <link title="Jakarta EE XML Schemas"
+                              href="https://jakarta.ee/xml/ns/jakartaee/#10"/>
+                        <quickfix type="REPLACE" name="javaee-namespaces-replace">
+                            <replacement>https://jakarta.ee/xml/ns/jakartaee</replacement>
+                            <search>http://xmlns.jcp.org/xml/ns/javaee</search>
+                        </quickfix>
+                    </hint>
+            </perform>
+        </rule>
+        <rule id="javaee-to-jakarta-namespaces-00002">
+            <when>
+                <filecontent filename="{*}.xml" pattern="http://xmlns.jcp.org/xml/ns/persistence" />
+            </when>
+            <perform>
+                <hint title="Replace the Java EE persistence namespace, schemaLocation and version with the Jakarta equivalent" effort="1"
+                          category-id="mandatory">
+                        <message>Replace `http://xmlns.jcp.org/xml/ns/persistence` with `https://jakarta.ee/xml/ns/persistence` and change the schema version number </message>
+                        <link title="Jakarta Persistence XML Schemas"
+                              href="https://jakarta.ee/xml/ns/persistence/#3"/>
+                        <quickfix type="REPLACE" name="javaee-persistence-namespace-replace">
+                            <replacement>https://jakarta.ee/xml/ns/persistence</replacement>
+                            <search>http://xmlns.jcp.org/xml/ns/persistence</search>
+                        </quickfix>
+                    </hint>
+            </perform>
+        </rule>
+        <rule id="javaee-to-jakarta-namespaces-00003">
+            <when>
+                <filecontent filename="{*}.xml" pattern="http://xmlns.jcp.org/xml/ns/validation" />
+            </when>
+            <perform>
+                <hint title="Replace the Java EE bean validation configuration namespace, schemaLocation and version with the Jakarta equivalent" effort="1"
+                          category-id="mandatory">
+                        <message>Replace `http://xmlns.jcp.org/xml/ns/validation` with `https://jakarta.ee/xml/ns/validation` and change the schema version number </message>
+                        <link title="Jakarta Bean Validation XML Schemas"
+                              href="https://jakarta.ee/xml/ns/validation/"/>
+                        <quickfix type="REPLACE" name="javaee-bean-validation-namespace-replace">
+                            <replacement>https://jakarta.ee/xml/ns/validation</replacement>
+                            <search>http://xmlns.jcp.org/xml/ns/validation</search>
+                        </quickfix>
+                    </hint>
+            </perform>
+        </rule>    
+    </rules>
+</ruleset>
