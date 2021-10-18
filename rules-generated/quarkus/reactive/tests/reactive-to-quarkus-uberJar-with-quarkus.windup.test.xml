@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<ruletest id="reactive-to-quarkus-uberJar-with-quarkus-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/reactive-uberJar-with-quarkus.jar</testDataPath>
+    <sourceMode>false</sourceMode>
+    <rulePath>../reactive-to-quarkus.windup.xml</rulePath>
+    <rulePath>../reactive-to-quarkus.windup.groovy</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="quarkus-reactive-mysql-client-00000-uberJar-with-quarkus-compiled-test">
+                <when>
+                    <not>
+                        <iterable-filter size="0">
+                            <hint-exists message="A folder path related to a package from the `io.vertx:vertx-mysql-client` dependency has been found.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-reactive-mysql-client-groovy-compiled] quarkus-reactive-mysql-client Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

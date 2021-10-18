@@ -48,12 +48,24 @@
                 <when>
                     <not>
                         <iterable-filter size="2">
-                            <hint-exists message="Replace the `com.amazonaws.serverless:aws-serverless-java-container-core` dependency with the Quarkus dependency.*"/>
+                            <hint-exists message="Replace the `com.amazonaws:aws-lambda-java-core` dependency with the Quarkus dependency.*"/>
                         </iterable-filter>
                     </not>
                 </when>
                 <perform>
                     <fail message="[quarkus-amazon-lambda-http] quarkus-amazon-lambda-http Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="quarkus-amazon-lambda-rest-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="Replace the `com.amazonaws.serverless:aws-serverless-java-container-core` dependency with the Quarkus dependency.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-amazon-lambda-rest] quarkus-amazon-lambda-rest Quarkus extension hint was not found!" />
                 </perform>
             </rule>
             <rule id="quarkus-amazon-lambda-xray-00000-test">
@@ -114,6 +126,18 @@
                 </when>
                 <perform>
                     <fail message="[quarkus-amazon-sqs] quarkus-amazon-sqs Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="quarkus-amazon-ssm-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="Replace the `software.amazon.awssdk:ssm` dependency with the Quarkus dependency.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-amazon-ssm] quarkus-amazon-ssm Quarkus extension hint was not found!" />
                 </perform>
             </rule>
         </rules>

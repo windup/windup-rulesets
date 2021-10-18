@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="reactive-to-quarkus"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints to migrate reactive components to Quarkus extension
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="reactive" />
+        <targetTechnology id="quarkus" />
+    </metadata>
+    <rules>
+        <rule id="quarkus-reactive-mysql-client-00000">
+            <when>
+                <graph-query discriminator="WindupJavaConfigurationModel" as="discard">
+                    <property type="BOOLEAN" name="sourceMode">true</property>
+                </graph-query>
+                <project>
+                    <artifact groupId="io.vertx" artifactId="vertx-mysql-client"/>
+                </project>
+            </when>
+            <perform>
+                <iteration over="default">
+                    <hint title="Replace the 'vertx-mysql-client' dependency with Quarkus 'quarkus-reactive-mysql-client' extension" effort="1" category-id="mandatory">
+                        <message>
+                            Replace the `io.vertx:vertx-mysql-client` dependency with the Quarkus dependency `io.quarkus:quarkus-reactive-mysql-client`  
+                            Further information in the link below.
+                        </message>
+                        <link title="Quarkus - Guide" href="https://quarkus.io/guides/reactive-sql-clients" />
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="quarkus-reactive-mysql-client-00010">
+            <when>
+                <dependency groupId="io.vertx" artifactId="vertx-mysql-client"/>
+            </when>
+            <perform>
+                <hint title="Replace the 'vertx-mysql-client' dependency with Quarkus 'quarkus-reactive-mysql-client' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `io.vertx:vertx-mysql-client` dependency with the Quarkus dependency `io.quarkus:quarkus-reactive-mysql-client`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/reactive-sql-clients" />
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

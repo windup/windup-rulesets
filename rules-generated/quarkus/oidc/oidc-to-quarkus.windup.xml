@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="oidc-to-quarkus"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints to migrate oidc components to Quarkus extension
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="oidc" />
+        <targetTechnology id="quarkus" />
+    </metadata>
+    <rules>
+        <rule id="quarkus-oidc-token-propagation-00000">
+            <when>
+                <graph-query discriminator="WindupJavaConfigurationModel" as="discard">
+                    <property type="BOOLEAN" name="sourceMode">true</property>
+                </graph-query>
+                <project>
+                    <artifact groupId="org.eclipse.microprofile.jwt" artifactId="microprofile-jwt-auth-api"/>
+                </project>
+            </when>
+            <perform>
+                <iteration over="default">
+                    <hint title="Replace the 'microprofile-jwt-auth-api' dependency with Quarkus 'quarkus-oidc-token-propagation' extension" effort="1" category-id="mandatory">
+                        <message>
+                            Replace the `org.eclipse.microprofile.jwt:microprofile-jwt-auth-api` dependency with the Quarkus dependency `io.quarkus:quarkus-oidc-token-propagation`  
+                            Further information in the link below.
+                        </message>
+                        <link title="Quarkus - Guide" href="https://quarkus.io/guides/security-openid-connect-client" />
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="quarkus-oidc-token-propagation-00010">
+            <when>
+                <dependency groupId="org.eclipse.microprofile.jwt" artifactId="microprofile-jwt-auth-api"/>
+            </when>
+            <perform>
+                <hint title="Replace the 'microprofile-jwt-auth-api' dependency with Quarkus 'quarkus-oidc-token-propagation' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `org.eclipse.microprofile.jwt:microprofile-jwt-auth-api` dependency with the Quarkus dependency `io.quarkus:quarkus-oidc-token-propagation`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/security-openid-connect-client" />
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

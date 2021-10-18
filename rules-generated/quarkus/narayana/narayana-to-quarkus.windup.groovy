@@ -29,7 +29,7 @@ ruleSet("narayana-to-quarkus-groovy")
                 .withProperty(FileModel.FILE_PATH, QueryPropertyComparisonType.REGEX, ".*/com/arjuna/ats/arjuna\$"))
         .perform(new AbstractIterationOperation<FileModel>() {
             void perform(GraphRewrite event, EvaluationContext context, FileModel payload) {
-                final String sourceBasePath = payload.getFilePath().replace("/com/arjuna/ats/arjuna", "")
+                final String sourceBasePath = payload.getFilePath().replaceAll("/com/arjuna/ats/arjuna\$", "")
                 final String dependencyJarName = sourceBasePath.substring(sourceBasePath.lastIndexOf("/") + 1)
                 WindupConfigurationModel windupConfigurationModel = WindupConfigurationService.getConfigurationModel(event.getGraphContext())
                 boolean packageComesFromAnalyzedApplication = false
@@ -67,7 +67,7 @@ ruleSet("narayana-to-quarkus-groovy")
                 .withProperty(FileModel.FILE_PATH, QueryPropertyComparisonType.REGEX, ".*/org/jboss/stm\$"))
         .perform(new AbstractIterationOperation<FileModel>() {
             void perform(GraphRewrite event, EvaluationContext context, FileModel payload) {
-                final String sourceBasePath = payload.getFilePath().replace("/org/jboss/stm", "")
+                final String sourceBasePath = payload.getFilePath().replaceAll("/org/jboss/stm\$", "")
                 final String dependencyJarName = sourceBasePath.substring(sourceBasePath.lastIndexOf("/") + 1)
                 WindupConfigurationModel windupConfigurationModel = WindupConfigurationService.getConfigurationModel(event.getGraphContext())
                 boolean packageComesFromAnalyzedApplication = false

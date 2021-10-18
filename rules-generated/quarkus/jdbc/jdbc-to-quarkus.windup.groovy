@@ -29,7 +29,7 @@ ruleSet("jdbc-to-quarkus-groovy")
                 .withProperty(FileModel.FILE_PATH, QueryPropertyComparisonType.REGEX, ".*/org/mariadb/jdbc\$"))
         .perform(new AbstractIterationOperation<FileModel>() {
             void perform(GraphRewrite event, EvaluationContext context, FileModel payload) {
-                final String sourceBasePath = payload.getFilePath().replace("/org/mariadb/jdbc", "")
+                final String sourceBasePath = payload.getFilePath().replaceAll("/org/mariadb/jdbc\$", "")
                 final String dependencyJarName = sourceBasePath.substring(sourceBasePath.lastIndexOf("/") + 1)
                 WindupConfigurationModel windupConfigurationModel = WindupConfigurationService.getConfigurationModel(event.getGraphContext())
                 boolean packageComesFromAnalyzedApplication = false
@@ -64,10 +64,48 @@ ruleSet("jdbc-to-quarkus-groovy")
         .when(SourceMode.isDisabled(),
                 Query.fromType(FileModel)
                 .withProperty(FileModel.IS_DIRECTORY, Boolean.TRUE)
+                .withProperty(FileModel.FILE_PATH, QueryPropertyComparisonType.REGEX, ".*/oracle/jdbc\$"))
+        .perform(new AbstractIterationOperation<FileModel>() {
+            void perform(GraphRewrite event, EvaluationContext context, FileModel payload) {
+                final String sourceBasePath = payload.getFilePath().replaceAll("/oracle/jdbc\$", "")
+                final String dependencyJarName = sourceBasePath.substring(sourceBasePath.lastIndexOf("/") + 1)
+                WindupConfigurationModel windupConfigurationModel = WindupConfigurationService.getConfigurationModel(event.getGraphContext())
+                boolean packageComesFromAnalyzedApplication = false
+                windupConfigurationModel.getInputPaths().each {
+                    if (!packageComesFromAnalyzedApplication && it.filePath.endsWith(dependencyJarName)) packageComesFromAnalyzedApplication = true
+                }
+                if (!packageComesFromAnalyzedApplication) return
+                final String targetFolderPath = sourceBasePath +"/io/quarkus/jdbc/oracle/runtime"
+                final boolean foundQuarkusExtensionFolder = Query.fromType(FileModel)
+                        .withProperty(FileModel.IS_DIRECTORY, Boolean.TRUE)
+                        .withProperty(FileModel.FILE_PATH, targetFolderPath).as("target_folder").evaluate(event, context)
+                if (foundQuarkusExtensionFolder) return
+                final GraphService<FileLocationModel> fileLocationService = new GraphService<>(event.getGraphContext(), FileLocationModel.class)
+                final FileLocationModel folderLocationModel = fileLocationService.create()
+                folderLocationModel.setFile(payload)
+                folderLocationModel.setColumnNumber(1)
+                folderLocationModel.setLineNumber(1)
+                folderLocationModel.setLength(1)
+                folderLocationModel.setSourceSnippit("Folder Match")
+                ((Hint) Hint.titled("Replace the 'ojdbc11' dependency with Quarkus 'quarkus-jdbc-oracle' extension")
+                    .withText("""A folder path related to a package from the `com.oracle.database.jdbc:ojdbc11` dependency has been found.  
+                                    Replace the `com.oracle.database.jdbc:ojdbc11` dependency with the Quarkus dependency `io.quarkus:quarkus-jdbc-oracle` in the application's dependencies management system (Maven, Gradle).  
+                                    Further information in the link below.""")
+                    .withIssueCategory(mandatoryIssueCategory)
+                    .with(Link.to("Quarkus - Guide", "https://quarkus.io/guides/hibernate-orm"))
+                    .withEffort(1)
+                ).performParameterized(event, context, folderLocationModel)
+            }
+        })
+        .withId("quarkus-jdbc-oracle-groovy-00000")
+        .addRule()
+        .when(SourceMode.isDisabled(),
+                Query.fromType(FileModel)
+                .withProperty(FileModel.IS_DIRECTORY, Boolean.TRUE)
                 .withProperty(FileModel.FILE_PATH, QueryPropertyComparisonType.REGEX, ".*/org/postgresql\$"))
         .perform(new AbstractIterationOperation<FileModel>() {
             void perform(GraphRewrite event, EvaluationContext context, FileModel payload) {
-                final String sourceBasePath = payload.getFilePath().replace("/org/postgresql", "")
+                final String sourceBasePath = payload.getFilePath().replaceAll("/org/postgresql\$", "")
                 final String dependencyJarName = sourceBasePath.substring(sourceBasePath.lastIndexOf("/") + 1)
                 WindupConfigurationModel windupConfigurationModel = WindupConfigurationService.getConfigurationModel(event.getGraphContext())
                 boolean packageComesFromAnalyzedApplication = false

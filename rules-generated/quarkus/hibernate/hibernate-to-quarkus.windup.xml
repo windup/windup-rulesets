@@ -84,6 +84,41 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="quarkus-hibernate-search-orm-elasticsearch-aws-00000">
+            <when>
+                <graph-query discriminator="WindupJavaConfigurationModel" as="discard">
+                    <property type="BOOLEAN" name="sourceMode">true</property>
+                </graph-query>
+                <project>
+                    <artifact groupId="org.hibernate.search" artifactId="hibernate-search-backend-elasticsearch-aws"/>
+                </project>
+            </when>
+            <perform>
+                <iteration over="default">
+                    <hint title="Replace the 'hibernate-search-backend-elasticsearch-aws' dependency with Quarkus 'quarkus-hibernate-search-orm-elasticsearch-aws' extension" effort="1" category-id="mandatory">
+                        <message>
+                            Replace the `org.hibernate.search:hibernate-search-backend-elasticsearch-aws` dependency with the Quarkus dependency `io.quarkus:quarkus-hibernate-search-orm-elasticsearch-aws`  
+                            Further information in the link below.
+                        </message>
+                        <link title="Quarkus - Guide" href="https://quarkus.io/guides/hibernate-search-orm-elasticsearch" />
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="quarkus-hibernate-search-orm-elasticsearch-aws-00010">
+            <when>
+                <dependency groupId="org.hibernate.search" artifactId="hibernate-search-backend-elasticsearch-aws"/>
+            </when>
+            <perform>
+                <hint title="Replace the 'hibernate-search-backend-elasticsearch-aws' dependency with Quarkus 'quarkus-hibernate-search-orm-elasticsearch-aws' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `org.hibernate.search:hibernate-search-backend-elasticsearch-aws` dependency with the Quarkus dependency `io.quarkus:quarkus-hibernate-search-orm-elasticsearch-aws`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/hibernate-search-orm-elasticsearch" />
+                </hint>
+            </perform>
+        </rule>
         <rule id="quarkus-hibernate-validator-00000">
             <when>
                 <graph-query discriminator="WindupJavaConfigurationModel" as="discard">
