@@ -36,6 +36,7 @@
             </perform>
         </rule>
         <!-- javax.activation:activation -> com.sun.activation:jakarta.activation -->
+        <!--
         <rule id="maven-javax-to-jakarta-00002">
             <when>
                 <project>
@@ -58,7 +59,9 @@
                 </hint>
             </perform>
         </rule>
+        -->
         <!-- javax.enterprise:cdi-api -> jakarta.enterprise:jakarta.enterprise.cdi-api -->
+        <!--
         <rule id="maven-javax-to-jakarta-00003">
             <when>
                 <project>
@@ -81,7 +84,9 @@
                 </hint>
             </perform>
         </rule>
+        -->
         <!-- javax.inject:javax.inject -> jakarta.inject:jakarta.inject-api -->
+        <!-- 
         <rule id="maven-javax-to-jakarta-00004">
             <when>
                 <project>
@@ -104,7 +109,9 @@
                 </hint>
             </perform>
         </rule>
+        -->
         <!-- javax.json:javax.json-api -> jakarta.json:jakarta.json-api -->
+        <!--
         <rule id="maven-javax-to-jakarta-00005">
             <when>
                 <project>
@@ -126,8 +133,10 @@
                     </quickfix>
                 </hint>
             </perform>
-        </rule>        
+        </rule>
+        -->        
         <!-- javax.json.bind:javax.json.bind-api -> jakarta.json.bind:jakarta.json.bind-api -->
+        <!--
         <rule id="maven-javax-to-jakarta-00006">
             <when>
                 <project>
@@ -150,7 +159,9 @@
                 </hint>
             </perform>
         </rule>
+        -->
         <!-- javax.persistence:javax.persistence-api -> jakarta.persistence:jakarta.persistence-api -->
+        <!--
         <rule id="maven-javax-to-jakarta-00007">
             <when>
                 <project>
@@ -173,7 +184,9 @@
                 </hint>
             </perform>
         </rule>
+        -->
         <!-- javax.security.enterprise:javax.security.enterprise-api -> jakarta.security.enterprise:jakarta.security.enterprise-api -->
+        <!-- 
         <rule id="maven-javax-to-jakarta-00008">
             <when>
                 <project>
@@ -196,7 +209,9 @@
                 </hint>
             </perform>
         </rule>
+        -->
         <!-- javax.validation:validation-api -> jakarta.validation:jakarta.validation-api -->
+        <!--
         <rule id="maven-javax-to-jakarta-00009">
             <when>
                 <project>
@@ -215,6 +230,131 @@
                     <quickfix name="maven-javax-to-jakarta-00009-qf-artifactId" type="REPLACE">
                         <replacement>jakarta.validation-api</replacement>
                         <search>validation-api</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        -->
+        <rule id="maven-javax-to-jakarta-00002">
+            <when>
+                <project>
+                    <artifact groupId="javax.activation" artifactId="activation" />
+                </project>    
+            </when>
+            <perform>
+                <hint title="Move to Jakarta EE Maven Artifacts - replace groupId javax.activation" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP 7.3, or later, and want to ensure its Maven building, running or testing works as expected, use instead the Jakarta EE dependency with groupId `com.sun.activation`</message>
+                    <link title="Red Hat JBoss EAP 7.3 Migration Guide: Maven Artifact Changes for Jakarta EE" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.3/html-single/migration_guide/index#maven-artifact-changes-for-jakarta-ee_default"/>
+                    <tag>JakartaEE</tag>
+                    <quickfix name="maven-javax-to-jakarta-00002-qf-groupId" type="REPLACE">
+                        <replacement>com.sun.activation</replacement>
+                        <search>javax.activation</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="maven-javax-to-jakarta-00003">
+            <when>
+                <filecontent filename="pom.xml" pattern="artifactId&gt;activation&lt;" />
+            </when>
+            <perform>
+                <hint title="Move to Jakarta EE Maven Artifacts - replace artifactId activation" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP 7.3, or later, and want to ensure its Maven building, running or testing works as expected, use instead the Jakarta EE dependency with artifactId `jakarta.activation`</message>
+                    <link title="Red Hat JBoss EAP 7.3 Migration Guide: Maven Artifact Changes for Jakarta EE" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.3/html-single/migration_guide/index#maven-artifact-changes-for-jakarta-ee_default"/>
+                    <tag>JakartaEE</tag>
+                    <quickfix name="maven-javax-to-jakarta-00002-qf-artifactId" type="REPLACE">
+                        <replacement>jakarta.activation</replacement>
+                        <search>activation</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="maven-javax-to-jakarta-00004">
+             <when>
+                <filecontent filename="pom.xml" pattern="groupId&gt;javax.{renamed-g}&lt;" />
+            </when>
+            <perform>
+                    <hint title="javax.{renamed-g} groupId has been replaced by jakarta.{renamed-g}" effort="1"
+                          category-id="potential">
+                          <message>If you migrate your application to JBoss EAP 7.3, or later, and want to ensure its Maven building, running or testing works as expected, use instead the Jakarta EE dependency - groupId `jakarta.{renamed-g}`.</message>
+                          <link title="Red Hat JBoss EAP 7.3 Migration Guide: Maven Artifact Changes for Jakarta EE" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.3/html-single/migration_guide/index#maven-artifact-changes-for-jakarta-ee_default"/>
+                          <tag>JakartaEE</tag>
+                        <quickfix name="maven-javax-to-jakarta-g" type="REPLACE">
+                               <replacement>jakarta</replacement>
+                               <search>javax</search>
+                        </quickfix>
+                    </hint>
+            </perform>
+            <where param="renamed-g">
+                <matches
+                    pattern="(enterprise|inject|json|json.bind|persistence|security.enterprise|validation)"/>
+            </where>
+        </rule>
+        <rule id="maven-javax-to-jakarta-00005">
+            <when>
+                <filecontent filename="pom.xml" pattern="artifactId&gt;javax.{renamed-a}-api&lt;" />
+            </when>
+            <perform>
+                    <hint title="javax.{renamed-a} javax.{renamed-a}-api artifactId has been replaced by jakarta.{renamed-a} jakarta.{renamed-a}-api" effort="1"
+                          category-id="potential">
+                          <message>If you migrate your application to JBoss EAP 7.3, or later, and want to ensure its Maven building, running or testing works as expected, use instead the Jakarta EE dependency with groupId `jakarta.{renamed-a}`, and artifactId `jakarta.{renamed-a}-api`.</message>
+                          <link title="Red Hat JBoss EAP 7.3 Migration Guide: Maven Artifact Changes for Jakarta EE" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.3/html-single/migration_guide/index#maven-artifact-changes-for-jakarta-ee_default"/>
+                          <tag>JakartaEE</tag>
+                        <quickfix name="javax-to-jakarta-pom-dependencies-a" type="REPLACE">
+                               <replacement>jakarta</replacement>
+                               <search>javax</search>
+                        </quickfix>
+                    </hint>
+            </perform>
+            <where param="renamed-a">
+                <matches
+                    pattern="(json|json.bind|persistence|security.enterprise)"/>
+            </where>
+        </rule>
+        <rule id="maven-javax-to-jakarta-00006">
+            <when>
+                    <filecontent filename="pom.xml" pattern="artifactId&gt;cdi-api&lt;" />
+            </when>
+            <perform>
+                <hint title="Move to Jakarta EE Maven Artifacts - replace artifactId cdi-api" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP 7.3, or later, and want to ensure its Maven building, running or testing works as expected, use instead the Jakarta EE dependency with artifactId `jakarta.enterprise.cdi-api`</message>
+                    <link title="Red Hat JBoss EAP 7.3 Migration Guide: Maven Artifact Changes for Jakarta EE" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.3/html-single/migration_guide/index#maven-artifact-changes-for-jakarta-ee_default"/>
+                    <tag>JakartaEE</tag>
+                    <quickfix name="maven-javax-to-jakarta-00006-qf-artifactId" type="REPLACE">
+                        <replacement>jakarta.enterprise.cdi-api</replacement>
+                        <search>cdi-api</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="maven-javax-to-jakarta-00007">
+            <when>
+                    <filecontent filename="pom.xml" pattern="artifactId&gt;validation-api&lt;" />
+            </when>
+            <perform>
+                <hint title="Move to Jakarta EE Maven Artifacts - replace artifactId validation-api" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP 7.3, or later, and want to ensure its Maven building, running or testing works as expected, use instead the Jakarta EE dependency with artifactId `jakarta.validation-api`</message>
+                    <link title="Red Hat JBoss EAP 7.3 Migration Guide: Maven Artifact Changes for Jakarta EE" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.3/html-single/migration_guide/index#maven-artifact-changes-for-jakarta-ee_default"/>
+                    <tag>JakartaEE</tag>
+                    <quickfix name="maven-javax-to-jakarta-00007-qf-artifactId" type="REPLACE">
+                        <replacement>jakarta.validation-api</replacement>
+                        <search>validation-api</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="maven-javax-to-jakarta-00008">
+            <when>
+                    <filecontent filename="pom.xml" pattern="artifactId&gt;javax.inject&lt;" />
+            </when>
+            <perform>
+                <hint title="Move to Jakarta EE Maven Artifacts - replace artifactId javax.inject" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP 7.3, or later, and want to ensure its Maven building, running or testing works as expected, use instead the Jakarta EE dependency with artifactId `jakarta.inject-api`</message>
+                    <link title="Red Hat JBoss EAP 7.3 Migration Guide: Maven Artifact Changes for Jakarta EE" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.3/html-single/migration_guide/index#maven-artifact-changes-for-jakarta-ee_default"/>
+                    <tag>JakartaEE</tag>
+                    <quickfix name="maven-javax-to-jakarta-00008-qf-artifactId" type="REPLACE">
+                        <replacement>jakarta.inject-api</replacement>
+                        <search>javax.inject</search>
                     </quickfix>
                 </hint>
             </perform>
