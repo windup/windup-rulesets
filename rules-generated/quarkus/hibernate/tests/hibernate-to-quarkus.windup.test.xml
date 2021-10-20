@@ -32,6 +32,18 @@
                     <fail message="[quarkus-hibernate-reactive] quarkus-hibernate-reactive Quarkus extension hint was not found!" />
                 </perform>
             </rule>
+            <rule id="quarkus-hibernate-search-orm-elasticsearch-aws-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="Replace the `org.hibernate.search:hibernate-search-backend-elasticsearch-aws` dependency with the Quarkus dependency.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-hibernate-search-orm-elasticsearch-aws] quarkus-hibernate-search-orm-elasticsearch-aws Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
             <rule id="quarkus-hibernate-validator-00000-test">
                 <when>
                     <not>

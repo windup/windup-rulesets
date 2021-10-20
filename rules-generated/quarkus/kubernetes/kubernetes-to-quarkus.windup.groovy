@@ -29,7 +29,7 @@ ruleSet("kubernetes-to-quarkus-groovy")
                 .withProperty(FileModel.FILE_PATH, QueryPropertyComparisonType.REGEX, ".*/io/fabric8/kubernetes/client\$"))
         .perform(new AbstractIterationOperation<FileModel>() {
             void perform(GraphRewrite event, EvaluationContext context, FileModel payload) {
-                final String sourceBasePath = payload.getFilePath().replace("/io/fabric8/kubernetes/client", "")
+                final String sourceBasePath = payload.getFilePath().replaceAll("/io/fabric8/kubernetes/client\$", "")
                 final String dependencyJarName = sourceBasePath.substring(sourceBasePath.lastIndexOf("/") + 1)
                 WindupConfigurationModel windupConfigurationModel = WindupConfigurationService.getConfigurationModel(event.getGraphContext())
                 boolean packageComesFromAnalyzedApplication = false

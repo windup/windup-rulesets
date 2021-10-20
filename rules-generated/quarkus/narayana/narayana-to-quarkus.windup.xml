@@ -49,6 +49,41 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="quarkus-narayana-lra-00000">
+            <when>
+                <graph-query discriminator="WindupJavaConfigurationModel" as="discard">
+                    <property type="BOOLEAN" name="sourceMode">true</property>
+                </graph-query>
+                <project>
+                    <artifact groupId="org.jboss.narayana.rts" artifactId="narayana-lra"/>
+                </project>
+            </when>
+            <perform>
+                <iteration over="default">
+                    <hint title="Replace the 'narayana-lra' dependency with Quarkus 'quarkus-narayana-lra' extension" effort="1" category-id="mandatory">
+                        <message>
+                            Replace the `org.jboss.narayana.rts:narayana-lra` dependency with the Quarkus dependency `io.quarkus:quarkus-narayana-lra`  
+                            Further information in the link below.
+                        </message>
+                        <link title="Quarkus - Guide" href="https://quarkus.io/guides/lra" />
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="quarkus-narayana-lra-00010">
+            <when>
+                <dependency groupId="org.jboss.narayana.rts" artifactId="narayana-lra"/>
+            </when>
+            <perform>
+                <hint title="Replace the 'narayana-lra' dependency with Quarkus 'quarkus-narayana-lra' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `org.jboss.narayana.rts:narayana-lra` dependency with the Quarkus dependency `io.quarkus:quarkus-narayana-lra`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/lra" />
+                </hint>
+            </perform>
+        </rule>
         <rule id="quarkus-narayana-stm-00000">
             <when>
                 <graph-query discriminator="WindupJavaConfigurationModel" as="discard">

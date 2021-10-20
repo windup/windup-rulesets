@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<ruletest id="opentelemetry-to-quarkus-uberJar-without-quarkus-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/opentelemetry-uberJar-without-quarkus.jar</testDataPath>
+    <sourceMode>false</sourceMode>
+    <rulePath>../opentelemetry-to-quarkus.windup.xml</rulePath>
+    <rulePath>../opentelemetry-to-quarkus.windup.groovy</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="quarkus-opentelemetry-exporter-jaeger-00000-uberJar-without-quarkus-compiled-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="A folder path related to a package from the `io.opentelemetry:opentelemetry-exporter-jaeger` dependency has been found.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-opentelemetry-exporter-jaeger-groovy-compiled] quarkus-opentelemetry-exporter-jaeger Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="quarkus-opentelemetry-exporter-otlp-00000-uberJar-without-quarkus-compiled-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="A folder path related to a package from the `io.opentelemetry:opentelemetry-exporter-otlp-trace` dependency has been found.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-opentelemetry-exporter-otlp-groovy-compiled] quarkus-opentelemetry-exporter-otlp Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

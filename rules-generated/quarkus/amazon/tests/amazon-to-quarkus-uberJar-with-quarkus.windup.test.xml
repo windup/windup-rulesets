@@ -49,12 +49,24 @@
                 <when>
                     <not>
                         <iterable-filter size="0">
-                            <hint-exists message="A folder path related to a package from the `com.amazonaws.serverless:aws-serverless-java-container-core` dependency has been found.*"/>
+                            <hint-exists message="A folder path related to a package from the `com.amazonaws:aws-lambda-java-core` dependency has been found.*"/>
                         </iterable-filter>
                     </not>
                 </when>
                 <perform>
                     <fail message="[quarkus-amazon-lambda-http-groovy-compiled] quarkus-amazon-lambda-http Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="quarkus-amazon-lambda-rest-00000-uberJar-with-quarkus-compiled-test">
+                <when>
+                    <not>
+                        <iterable-filter size="0">
+                            <hint-exists message="A folder path related to a package from the `com.amazonaws.serverless:aws-serverless-java-container-core` dependency has been found.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-amazon-lambda-rest-groovy-compiled] quarkus-amazon-lambda-rest Quarkus extension hint was not found!" />
                 </perform>
             </rule>
             <rule id="quarkus-amazon-lambda-xray-00000-uberJar-with-quarkus-compiled-test">
@@ -115,6 +127,18 @@
                 </when>
                 <perform>
                     <fail message="[quarkus-amazon-sqs-groovy-compiled] quarkus-amazon-sqs Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="quarkus-amazon-ssm-00000-uberJar-with-quarkus-compiled-test">
+                <when>
+                    <not>
+                        <iterable-filter size="0">
+                            <hint-exists message="A folder path related to a package from the `software.amazon.awssdk:ssm` dependency has been found.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-amazon-ssm-groovy-compiled] quarkus-amazon-ssm Quarkus extension hint was not found!" />
                 </perform>
             </rule>
         </rules>

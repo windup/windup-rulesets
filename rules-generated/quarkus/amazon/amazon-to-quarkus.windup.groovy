@@ -29,7 +29,7 @@ ruleSet("amazon-to-quarkus-groovy")
                 .withProperty(FileModel.FILE_PATH, QueryPropertyComparisonType.REGEX, ".*/software/amazon/awssdk/services/dynamodb\$"))
         .perform(new AbstractIterationOperation<FileModel>() {
             void perform(GraphRewrite event, EvaluationContext context, FileModel payload) {
-                final String sourceBasePath = payload.getFilePath().replace("/software/amazon/awssdk/services/dynamodb", "")
+                final String sourceBasePath = payload.getFilePath().replaceAll("/software/amazon/awssdk/services/dynamodb\$", "")
                 final String dependencyJarName = sourceBasePath.substring(sourceBasePath.lastIndexOf("/") + 1)
                 WindupConfigurationModel windupConfigurationModel = WindupConfigurationService.getConfigurationModel(event.getGraphContext())
                 boolean packageComesFromAnalyzedApplication = false
@@ -67,7 +67,7 @@ ruleSet("amazon-to-quarkus-groovy")
                 .withProperty(FileModel.FILE_PATH, QueryPropertyComparisonType.REGEX, ".*/software/amazon/awssdk/services/iam\$"))
         .perform(new AbstractIterationOperation<FileModel>() {
             void perform(GraphRewrite event, EvaluationContext context, FileModel payload) {
-                final String sourceBasePath = payload.getFilePath().replace("/software/amazon/awssdk/services/iam", "")
+                final String sourceBasePath = payload.getFilePath().replaceAll("/software/amazon/awssdk/services/iam\$", "")
                 final String dependencyJarName = sourceBasePath.substring(sourceBasePath.lastIndexOf("/") + 1)
                 WindupConfigurationModel windupConfigurationModel = WindupConfigurationService.getConfigurationModel(event.getGraphContext())
                 boolean packageComesFromAnalyzedApplication = false
@@ -105,7 +105,7 @@ ruleSet("amazon-to-quarkus-groovy")
                 .withProperty(FileModel.FILE_PATH, QueryPropertyComparisonType.REGEX, ".*/software/amazon/awssdk/services/kms\$"))
         .perform(new AbstractIterationOperation<FileModel>() {
             void perform(GraphRewrite event, EvaluationContext context, FileModel payload) {
-                final String sourceBasePath = payload.getFilePath().replace("/software/amazon/awssdk/services/kms", "")
+                final String sourceBasePath = payload.getFilePath().replaceAll("/software/amazon/awssdk/services/kms\$", "")
                 final String dependencyJarName = sourceBasePath.substring(sourceBasePath.lastIndexOf("/") + 1)
                 WindupConfigurationModel windupConfigurationModel = WindupConfigurationService.getConfigurationModel(event.getGraphContext())
                 boolean packageComesFromAnalyzedApplication = false
@@ -140,10 +140,10 @@ ruleSet("amazon-to-quarkus-groovy")
         .when(SourceMode.isDisabled(),
                 Query.fromType(FileModel)
                 .withProperty(FileModel.IS_DIRECTORY, Boolean.TRUE)
-                .withProperty(FileModel.FILE_PATH, QueryPropertyComparisonType.REGEX, ".*/com/amazonaws/serverless/exceptions\$"))
+                .withProperty(FileModel.FILE_PATH, QueryPropertyComparisonType.REGEX, ".*/com/amazonaws/services/lambda/runtime\$"))
         .perform(new AbstractIterationOperation<FileModel>() {
             void perform(GraphRewrite event, EvaluationContext context, FileModel payload) {
-                final String sourceBasePath = payload.getFilePath().replace("/com/amazonaws/serverless/exceptions", "")
+                final String sourceBasePath = payload.getFilePath().replaceAll("/com/amazonaws/services/lambda/runtime\$", "")
                 final String dependencyJarName = sourceBasePath.substring(sourceBasePath.lastIndexOf("/") + 1)
                 WindupConfigurationModel windupConfigurationModel = WindupConfigurationService.getConfigurationModel(event.getGraphContext())
                 boolean packageComesFromAnalyzedApplication = false
@@ -163,9 +163,9 @@ ruleSet("amazon-to-quarkus-groovy")
                 folderLocationModel.setLineNumber(1)
                 folderLocationModel.setLength(1)
                 folderLocationModel.setSourceSnippit("Folder Match")
-                ((Hint) Hint.titled("Replace the 'aws-serverless-java-container-core' dependency with Quarkus 'quarkus-amazon-lambda-http' extension")
-                    .withText("""A folder path related to a package from the `com.amazonaws.serverless:aws-serverless-java-container-core` dependency has been found.  
-                                    Replace the `com.amazonaws.serverless:aws-serverless-java-container-core` dependency with the Quarkus dependency `io.quarkus:quarkus-amazon-lambda-http` in the application's dependencies management system (Maven, Gradle).  
+                ((Hint) Hint.titled("Replace the 'aws-lambda-java-core' dependency with Quarkus 'quarkus-amazon-lambda-http' extension")
+                    .withText("""A folder path related to a package from the `com.amazonaws:aws-lambda-java-core` dependency has been found.  
+                                    Replace the `com.amazonaws:aws-lambda-java-core` dependency with the Quarkus dependency `io.quarkus:quarkus-amazon-lambda-http` in the application's dependencies management system (Maven, Gradle).  
                                     Further information in the link below.""")
                     .withIssueCategory(mandatoryIssueCategory)
                     .with(Link.to("Quarkus - Guide", "https://quarkus.io/guides/amazon-lambda-http"))
@@ -178,10 +178,48 @@ ruleSet("amazon-to-quarkus-groovy")
         .when(SourceMode.isDisabled(),
                 Query.fromType(FileModel)
                 .withProperty(FileModel.IS_DIRECTORY, Boolean.TRUE)
+                .withProperty(FileModel.FILE_PATH, QueryPropertyComparisonType.REGEX, ".*/com/amazonaws/serverless/exceptions\$"))
+        .perform(new AbstractIterationOperation<FileModel>() {
+            void perform(GraphRewrite event, EvaluationContext context, FileModel payload) {
+                final String sourceBasePath = payload.getFilePath().replaceAll("/com/amazonaws/serverless/exceptions\$", "")
+                final String dependencyJarName = sourceBasePath.substring(sourceBasePath.lastIndexOf("/") + 1)
+                WindupConfigurationModel windupConfigurationModel = WindupConfigurationService.getConfigurationModel(event.getGraphContext())
+                boolean packageComesFromAnalyzedApplication = false
+                windupConfigurationModel.getInputPaths().each {
+                    if (!packageComesFromAnalyzedApplication && it.filePath.endsWith(dependencyJarName)) packageComesFromAnalyzedApplication = true
+                }
+                if (!packageComesFromAnalyzedApplication) return
+                final String targetFolderPath = sourceBasePath +"/io/quarkus/amazon/lambda/http"
+                final boolean foundQuarkusExtensionFolder = Query.fromType(FileModel)
+                        .withProperty(FileModel.IS_DIRECTORY, Boolean.TRUE)
+                        .withProperty(FileModel.FILE_PATH, targetFolderPath).as("target_folder").evaluate(event, context)
+                if (foundQuarkusExtensionFolder) return
+                final GraphService<FileLocationModel> fileLocationService = new GraphService<>(event.getGraphContext(), FileLocationModel.class)
+                final FileLocationModel folderLocationModel = fileLocationService.create()
+                folderLocationModel.setFile(payload)
+                folderLocationModel.setColumnNumber(1)
+                folderLocationModel.setLineNumber(1)
+                folderLocationModel.setLength(1)
+                folderLocationModel.setSourceSnippit("Folder Match")
+                ((Hint) Hint.titled("Replace the 'aws-serverless-java-container-core' dependency with Quarkus 'quarkus-amazon-lambda-rest' extension")
+                    .withText("""A folder path related to a package from the `com.amazonaws.serverless:aws-serverless-java-container-core` dependency has been found.  
+                                    Replace the `com.amazonaws.serverless:aws-serverless-java-container-core` dependency with the Quarkus dependency `io.quarkus:quarkus-amazon-lambda-rest` in the application's dependencies management system (Maven, Gradle).  
+                                    Further information in the link below.""")
+                    .withIssueCategory(mandatoryIssueCategory)
+                    .with(Link.to("Quarkus - Guide", "https://quarkus.io/guides/amazon-lambda-http"))
+                    .withEffort(1)
+                ).performParameterized(event, context, folderLocationModel)
+            }
+        })
+        .withId("quarkus-amazon-lambda-rest-groovy-00000")
+        .addRule()
+        .when(SourceMode.isDisabled(),
+                Query.fromType(FileModel)
+                .withProperty(FileModel.IS_DIRECTORY, Boolean.TRUE)
                 .withProperty(FileModel.FILE_PATH, QueryPropertyComparisonType.REGEX, ".*/com/amazonaws/xray/interceptors\$"))
         .perform(new AbstractIterationOperation<FileModel>() {
             void perform(GraphRewrite event, EvaluationContext context, FileModel payload) {
-                final String sourceBasePath = payload.getFilePath().replace("/com/amazonaws/xray/interceptors", "")
+                final String sourceBasePath = payload.getFilePath().replaceAll("/com/amazonaws/xray/interceptors\$", "")
                 final String dependencyJarName = sourceBasePath.substring(sourceBasePath.lastIndexOf("/") + 1)
                 WindupConfigurationModel windupConfigurationModel = WindupConfigurationService.getConfigurationModel(event.getGraphContext())
                 boolean packageComesFromAnalyzedApplication = false
@@ -219,7 +257,7 @@ ruleSet("amazon-to-quarkus-groovy")
                 .withProperty(FileModel.FILE_PATH, QueryPropertyComparisonType.REGEX, ".*/software/amazon/awssdk/services/s3\$"))
         .perform(new AbstractIterationOperation<FileModel>() {
             void perform(GraphRewrite event, EvaluationContext context, FileModel payload) {
-                final String sourceBasePath = payload.getFilePath().replace("/software/amazon/awssdk/services/s3", "")
+                final String sourceBasePath = payload.getFilePath().replaceAll("/software/amazon/awssdk/services/s3\$", "")
                 final String dependencyJarName = sourceBasePath.substring(sourceBasePath.lastIndexOf("/") + 1)
                 WindupConfigurationModel windupConfigurationModel = WindupConfigurationService.getConfigurationModel(event.getGraphContext())
                 boolean packageComesFromAnalyzedApplication = false
@@ -257,7 +295,7 @@ ruleSet("amazon-to-quarkus-groovy")
                 .withProperty(FileModel.FILE_PATH, QueryPropertyComparisonType.REGEX, ".*/software/amazon/awssdk/services/ses\$"))
         .perform(new AbstractIterationOperation<FileModel>() {
             void perform(GraphRewrite event, EvaluationContext context, FileModel payload) {
-                final String sourceBasePath = payload.getFilePath().replace("/software/amazon/awssdk/services/ses", "")
+                final String sourceBasePath = payload.getFilePath().replaceAll("/software/amazon/awssdk/services/ses\$", "")
                 final String dependencyJarName = sourceBasePath.substring(sourceBasePath.lastIndexOf("/") + 1)
                 WindupConfigurationModel windupConfigurationModel = WindupConfigurationService.getConfigurationModel(event.getGraphContext())
                 boolean packageComesFromAnalyzedApplication = false
@@ -295,7 +333,7 @@ ruleSet("amazon-to-quarkus-groovy")
                 .withProperty(FileModel.FILE_PATH, QueryPropertyComparisonType.REGEX, ".*/software/amazon/awssdk/services/sns\$"))
         .perform(new AbstractIterationOperation<FileModel>() {
             void perform(GraphRewrite event, EvaluationContext context, FileModel payload) {
-                final String sourceBasePath = payload.getFilePath().replace("/software/amazon/awssdk/services/sns", "")
+                final String sourceBasePath = payload.getFilePath().replaceAll("/software/amazon/awssdk/services/sns\$", "")
                 final String dependencyJarName = sourceBasePath.substring(sourceBasePath.lastIndexOf("/") + 1)
                 WindupConfigurationModel windupConfigurationModel = WindupConfigurationService.getConfigurationModel(event.getGraphContext())
                 boolean packageComesFromAnalyzedApplication = false
@@ -333,7 +371,7 @@ ruleSet("amazon-to-quarkus-groovy")
                 .withProperty(FileModel.FILE_PATH, QueryPropertyComparisonType.REGEX, ".*/software/amazon/awssdk/services/sqs\$"))
         .perform(new AbstractIterationOperation<FileModel>() {
             void perform(GraphRewrite event, EvaluationContext context, FileModel payload) {
-                final String sourceBasePath = payload.getFilePath().replace("/software/amazon/awssdk/services/sqs", "")
+                final String sourceBasePath = payload.getFilePath().replaceAll("/software/amazon/awssdk/services/sqs\$", "")
                 final String dependencyJarName = sourceBasePath.substring(sourceBasePath.lastIndexOf("/") + 1)
                 WindupConfigurationModel windupConfigurationModel = WindupConfigurationService.getConfigurationModel(event.getGraphContext())
                 boolean packageComesFromAnalyzedApplication = false
@@ -364,3 +402,41 @@ ruleSet("amazon-to-quarkus-groovy")
             }
         })
         .withId("quarkus-amazon-sqs-groovy-00000")
+        .addRule()
+        .when(SourceMode.isDisabled(),
+                Query.fromType(FileModel)
+                .withProperty(FileModel.IS_DIRECTORY, Boolean.TRUE)
+                .withProperty(FileModel.FILE_PATH, QueryPropertyComparisonType.REGEX, ".*/software/amazon/awssdk/services/ssm\$"))
+        .perform(new AbstractIterationOperation<FileModel>() {
+            void perform(GraphRewrite event, EvaluationContext context, FileModel payload) {
+                final String sourceBasePath = payload.getFilePath().replaceAll("/software/amazon/awssdk/services/ssm\$", "")
+                final String dependencyJarName = sourceBasePath.substring(sourceBasePath.lastIndexOf("/") + 1)
+                WindupConfigurationModel windupConfigurationModel = WindupConfigurationService.getConfigurationModel(event.getGraphContext())
+                boolean packageComesFromAnalyzedApplication = false
+                windupConfigurationModel.getInputPaths().each {
+                    if (!packageComesFromAnalyzedApplication && it.filePath.endsWith(dependencyJarName)) packageComesFromAnalyzedApplication = true
+                }
+                if (!packageComesFromAnalyzedApplication) return
+                final String targetFolderPath = sourceBasePath +"/io/quarkus/amazon/ssm/runtime"
+                final boolean foundQuarkusExtensionFolder = Query.fromType(FileModel)
+                        .withProperty(FileModel.IS_DIRECTORY, Boolean.TRUE)
+                        .withProperty(FileModel.FILE_PATH, targetFolderPath).as("target_folder").evaluate(event, context)
+                if (foundQuarkusExtensionFolder) return
+                final GraphService<FileLocationModel> fileLocationService = new GraphService<>(event.getGraphContext(), FileLocationModel.class)
+                final FileLocationModel folderLocationModel = fileLocationService.create()
+                folderLocationModel.setFile(payload)
+                folderLocationModel.setColumnNumber(1)
+                folderLocationModel.setLineNumber(1)
+                folderLocationModel.setLength(1)
+                folderLocationModel.setSourceSnippit("Folder Match")
+                ((Hint) Hint.titled("Replace the 'ssm' dependency with Quarkus 'quarkus-amazon-ssm' extension")
+                    .withText("""A folder path related to a package from the `software.amazon.awssdk:ssm` dependency has been found.  
+                                    Replace the `software.amazon.awssdk:ssm` dependency with the Quarkus dependency `io.quarkus:quarkus-amazon-ssm` in the application's dependencies management system (Maven, Gradle).  
+                                    Further information in the link below.""")
+                    .withIssueCategory(mandatoryIssueCategory)
+                    .with(Link.to("Quarkus - Guide", "https://quarkus.io/guides/amazon-ssm"))
+                    .withEffort(1)
+                ).performParameterized(event, context, folderLocationModel)
+            }
+        })
+        .withId("quarkus-amazon-ssm-groovy-00000")

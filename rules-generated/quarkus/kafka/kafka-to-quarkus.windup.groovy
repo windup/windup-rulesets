@@ -29,7 +29,7 @@ ruleSet("kafka-to-quarkus-groovy")
                 .withProperty(FileModel.FILE_PATH, QueryPropertyComparisonType.REGEX, ".*/org/apache/kafka/clients/admin\$"))
         .perform(new AbstractIterationOperation<FileModel>() {
             void perform(GraphRewrite event, EvaluationContext context, FileModel payload) {
-                final String sourceBasePath = payload.getFilePath().replace("/org/apache/kafka/clients/admin", "")
+                final String sourceBasePath = payload.getFilePath().replaceAll("/org/apache/kafka/clients/admin\$", "")
                 final String dependencyJarName = sourceBasePath.substring(sourceBasePath.lastIndexOf("/") + 1)
                 WindupConfigurationModel windupConfigurationModel = WindupConfigurationService.getConfigurationModel(event.getGraphContext())
                 boolean packageComesFromAnalyzedApplication = false
@@ -67,7 +67,7 @@ ruleSet("kafka-to-quarkus-groovy")
                 .withProperty(FileModel.FILE_PATH, QueryPropertyComparisonType.REGEX, ".*/org/apache/kafka/streams\$"))
         .perform(new AbstractIterationOperation<FileModel>() {
             void perform(GraphRewrite event, EvaluationContext context, FileModel payload) {
-                final String sourceBasePath = payload.getFilePath().replace("/org/apache/kafka/streams", "")
+                final String sourceBasePath = payload.getFilePath().replaceAll("/org/apache/kafka/streams\$", "")
                 final String dependencyJarName = sourceBasePath.substring(sourceBasePath.lastIndexOf("/") + 1)
                 WindupConfigurationModel windupConfigurationModel = WindupConfigurationService.getConfigurationModel(event.getGraphContext())
                 boolean packageComesFromAnalyzedApplication = false

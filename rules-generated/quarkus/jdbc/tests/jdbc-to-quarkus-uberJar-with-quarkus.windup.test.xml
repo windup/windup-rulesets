@@ -21,6 +21,18 @@
                     <fail message="[quarkus-jdbc-mariadb-groovy-compiled] quarkus-jdbc-mariadb Quarkus extension hint was not found!" />
                 </perform>
             </rule>
+            <rule id="quarkus-jdbc-oracle-00000-uberJar-with-quarkus-compiled-test">
+                <when>
+                    <not>
+                        <iterable-filter size="0">
+                            <hint-exists message="A folder path related to a package from the `com.oracle.database.jdbc:ojdbc11` dependency has been found.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-jdbc-oracle-groovy-compiled] quarkus-jdbc-oracle Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
             <rule id="quarkus-jdbc-postgresql-00000-uberJar-with-quarkus-compiled-test">
                 <when>
                     <not>

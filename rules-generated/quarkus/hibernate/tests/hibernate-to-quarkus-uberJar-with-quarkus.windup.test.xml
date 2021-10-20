@@ -33,6 +33,18 @@
                     <fail message="[quarkus-hibernate-reactive-groovy-compiled] quarkus-hibernate-reactive Quarkus extension hint was not found!" />
                 </perform>
             </rule>
+            <rule id="quarkus-hibernate-search-orm-elasticsearch-aws-00000-uberJar-with-quarkus-compiled-test">
+                <when>
+                    <not>
+                        <iterable-filter size="0">
+                            <hint-exists message="A folder path related to a package from the `org.hibernate.search:hibernate-search-backend-elasticsearch-aws` dependency has been found.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-hibernate-search-orm-elasticsearch-aws-groovy-compiled] quarkus-hibernate-search-orm-elasticsearch-aws Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>

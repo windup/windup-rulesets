@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<ruletest id="resteasy-to-quarkus-uberJar-without-quarkus-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/resteasy-uberJar-without-quarkus.jar</testDataPath>
+    <sourceMode>false</sourceMode>
+    <rulePath>../resteasy-to-quarkus.windup.xml</rulePath>
+    <rulePath>../resteasy-to-quarkus.windup.groovy</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="quarkus-resteasy-multipart-00000-uberJar-without-quarkus-compiled-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="A folder path related to a package from the `org.jboss.resteasy:resteasy-multipart-provider` dependency has been found.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-resteasy-multipart-groovy-compiled] quarkus-resteasy-multipart Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
