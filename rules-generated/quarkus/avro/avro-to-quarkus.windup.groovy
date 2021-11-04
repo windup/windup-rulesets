@@ -29,7 +29,7 @@ ruleSet("avro-to-quarkus-groovy")
                 .withProperty(FileModel.FILE_PATH, QueryPropertyComparisonType.REGEX, ".*/org/apache/avro\$"))
         .perform(new AbstractIterationOperation<FileModel>() {
             void perform(GraphRewrite event, EvaluationContext context, FileModel payload) {
-                final String sourceBasePath = payload.getFilePath().replace("/org/apache/avro", "")
+                final String sourceBasePath = payload.getFilePath().replaceAll("/org/apache/avro\$", "")
                 final String dependencyJarName = sourceBasePath.substring(sourceBasePath.lastIndexOf("/") + 1)
                 WindupConfigurationModel windupConfigurationModel = WindupConfigurationService.getConfigurationModel(event.getGraphContext())
                 boolean packageComesFromAnalyzedApplication = false
@@ -37,7 +37,7 @@ ruleSet("avro-to-quarkus-groovy")
                     if (!packageComesFromAnalyzedApplication && it.filePath.endsWith(dependencyJarName)) packageComesFromAnalyzedApplication = true
                 }
                 if (!packageComesFromAnalyzedApplication) return
-                final String targetFolderPath = sourceBasePath +"/io/quarkus/avro/graal"
+                final String targetFolderPath = sourceBasePath +"/io/quarkus/avro/runtime"
                 final boolean foundQuarkusExtensionFolder = Query.fromType(FileModel)
                         .withProperty(FileModel.IS_DIRECTORY, Boolean.TRUE)
                         .withProperty(FileModel.FILE_PATH, targetFolderPath).as("target_folder").evaluate(event, context)

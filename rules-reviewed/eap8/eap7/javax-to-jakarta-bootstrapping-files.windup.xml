@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="javax-to-jakarta-bootstrapping-files"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset identifies bootstrapping files named with the javax.* prefix
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <targetTechnology id="eap" versionRange="[8,)" />  
+        <targetTechnology id="jakarta-ee" versionRange="[9,)" />      
+    </metadata>
+    <rules>
+        <!-- https://issues.jboss.org/browse/WINDUP-3151 -->
+        <rule id="javax-to-jakarta-bootstrapping-files-00001">
+            <when>
+                <file filename="javax.enterprise{*}"/>
+            </when>
+            <perform>
+                <hint title="Bootstrapping files prefixed with javax should be renamed to use the jakarta prefix" effort="1"
+                          category-id="mandatory">
+                        <message>Replace the bootstrapping file name prefix `javax.` with `jakarta.`</message>
+                        <link title="Jakarta EE"
+                              href="https://jakarta.ee/"/>
+                </hint>
+            </perform>
+        </rule>    
+    </rules>
+</ruleset>

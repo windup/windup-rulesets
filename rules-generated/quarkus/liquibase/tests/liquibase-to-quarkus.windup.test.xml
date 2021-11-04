@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<ruletest id="liquibase-to-quarkus-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/</testDataPath>
+    <rulePath>../liquibase-to-quarkus.windup.xml</rulePath>
+    <rulePath>../liquibase-to-quarkus.windup.groovy</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="quarkus-liquibase-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="Replace the `org.liquibase:liquibase-core` dependency with the Quarkus dependency.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-liquibase] quarkus-liquibase Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="quarkus-liquibase-mongodb-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="Replace the `org.liquibase.ext:liquibase-mongodb` dependency with the Quarkus dependency.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-liquibase-mongodb] quarkus-liquibase-mongodb Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

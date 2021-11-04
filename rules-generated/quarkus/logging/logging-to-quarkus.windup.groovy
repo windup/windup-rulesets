@@ -29,7 +29,7 @@ ruleSet("logging-to-quarkus-groovy")
                 .withProperty(FileModel.FILE_PATH, QueryPropertyComparisonType.REGEX, ".*/biz/paluch/logging\$"))
         .perform(new AbstractIterationOperation<FileModel>() {
             void perform(GraphRewrite event, EvaluationContext context, FileModel payload) {
-                final String sourceBasePath = payload.getFilePath().replace("/biz/paluch/logging", "")
+                final String sourceBasePath = payload.getFilePath().replaceAll("/biz/paluch/logging\$", "")
                 final String dependencyJarName = sourceBasePath.substring(sourceBasePath.lastIndexOf("/") + 1)
                 WindupConfigurationModel windupConfigurationModel = WindupConfigurationService.getConfigurationModel(event.getGraphContext())
                 boolean packageComesFromAnalyzedApplication = false
@@ -64,10 +64,10 @@ ruleSet("logging-to-quarkus-groovy")
         .when(SourceMode.isDisabled(),
                 Query.fromType(FileModel)
                 .withProperty(FileModel.IS_DIRECTORY, Boolean.TRUE)
-                .withProperty(FileModel.FILE_PATH, QueryPropertyComparisonType.REGEX, ".*/io/sentry\$"))
+                .withProperty(FileModel.FILE_PATH, QueryPropertyComparisonType.REGEX, ".*/io/sentry/jul\$"))
         .perform(new AbstractIterationOperation<FileModel>() {
             void perform(GraphRewrite event, EvaluationContext context, FileModel payload) {
-                final String sourceBasePath = payload.getFilePath().replace("/io/sentry", "")
+                final String sourceBasePath = payload.getFilePath().replaceAll("/io/sentry/jul\$", "")
                 final String dependencyJarName = sourceBasePath.substring(sourceBasePath.lastIndexOf("/") + 1)
                 WindupConfigurationModel windupConfigurationModel = WindupConfigurationService.getConfigurationModel(event.getGraphContext())
                 boolean packageComesFromAnalyzedApplication = false
@@ -87,9 +87,9 @@ ruleSet("logging-to-quarkus-groovy")
                 folderLocationModel.setLineNumber(1)
                 folderLocationModel.setLength(1)
                 folderLocationModel.setSourceSnippit("Folder Match")
-                ((Hint) Hint.titled("Replace the 'sentry' dependency with Quarkus 'quarkus-logging-sentry' extension")
-                    .withText("""A folder path related to a package from the `io.sentry:sentry` dependency has been found.  
-                                    Replace the `io.sentry:sentry` dependency with the Quarkus dependency `io.quarkus:quarkus-logging-sentry` in the application's dependencies management system (Maven, Gradle).  
+                ((Hint) Hint.titled("Replace the 'sentry-jul' dependency with Quarkus 'quarkus-logging-sentry' extension")
+                    .withText("""A folder path related to a package from the `io.sentry:sentry-jul` dependency has been found.  
+                                    Replace the `io.sentry:sentry-jul` dependency with the Quarkus dependency `io.quarkus:quarkus-logging-sentry` in the application's dependencies management system (Maven, Gradle).  
                                     Further information in the link below.""")
                     .withIssueCategory(mandatoryIssueCategory)
                     .with(Link.to("Quarkus - Guide", "https://quarkus.io/guides/logging-sentry"))

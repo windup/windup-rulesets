@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<ruletest id="opentelemetry-to-quarkus-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/</testDataPath>
+    <rulePath>../opentelemetry-to-quarkus.windup.xml</rulePath>
+    <rulePath>../opentelemetry-to-quarkus.windup.groovy</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="quarkus-opentelemetry-exporter-jaeger-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="Replace the `io.opentelemetry:opentelemetry-exporter-jaeger` dependency with the Quarkus dependency.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-opentelemetry-exporter-jaeger] quarkus-opentelemetry-exporter-jaeger Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="quarkus-opentelemetry-exporter-otlp-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="Replace the `io.opentelemetry:opentelemetry-exporter-otlp-trace` dependency with the Quarkus dependency.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-opentelemetry-exporter-otlp] quarkus-opentelemetry-exporter-otlp Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

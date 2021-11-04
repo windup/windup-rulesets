@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ruletest id="javax-to-jakarta-package-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/bootstrapping-files</testDataPath>
+    <rulePath>../javax-to-jakarta-bootstrapping-files.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="javax-to-jakarta-bootstrapping-files-00001-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1"> 
+                            <hint-exists message="Replace the bootstrapping file name prefix `javax.` with `jakarta.`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javax-to-jakarta-bootstrapping-files-00001] The hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

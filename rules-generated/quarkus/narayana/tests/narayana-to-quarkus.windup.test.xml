@@ -20,6 +20,18 @@
                     <fail message="[quarkus-narayana-jta] quarkus-narayana-jta Quarkus extension hint was not found!" />
                 </perform>
             </rule>
+            <rule id="quarkus-narayana-lra-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="Replace the `org.jboss.narayana.rts:narayana-lra` dependency with the Quarkus dependency.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[quarkus-narayana-lra] quarkus-narayana-lra Quarkus extension hint was not found!" />
+                </perform>
+            </rule>
             <rule id="quarkus-narayana-stm-00000-test">
                 <when>
                     <not>
