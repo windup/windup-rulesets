@@ -69,21 +69,21 @@
         <rule id="javaee-to-jakarta-namespaces-00004">
             <when>
                 <or>
-                    <filecontent filename="{*}.xml" pattern="http://xmlns.jcp.org/xml/ns/javaee/javaee_7.xsd" />
-                    <filecontent filename="{*}.xml" pattern="http://xmlns.jcp.org/xml/ns/javaee/javaee_8.xsd" />
+                    <filecontent filename="{*}.xml" pattern="http://xmlns.jcp.org/xml/ns/javaee/beans_1_1.xsd" />
+                    <filecontent filename="{*}.xml" pattern="http://xmlns.jcp.org/xml/ns/javaee/beans_2_0.xsd" />
                 </or>
             </when>
             <perform>
                 <hint title="Replace the Java EE namespace with the Jakarta equivalent" effort="1" category-id="mandatory">
-                    <message>Replace `http://xmlns.jcp.org/xml/ns/javaee/javaee_7.xsd` or `http://xmlns.jcp.org/xml/ns/javaee/javaee_8.xsd` with `https://jakarta.ee/xml/ns/jakartaee/jakartaee_9.xsd`</message>
+                    <message>Replace `http://xmlns.jcp.org/xml/ns/javaee/beans_1_1.xsd` or `http://xmlns.jcp.org/xml/ns/javaee/beans_2_0.xsd` with `https://jakarta.ee/xml/ns/jakartaee/beans_3_0.xsd`</message>
                     <link title="Jakarta XML Schemas" href="https://jakarta.ee/xml/ns/jakartaee/#9" />
                     <quickfix type="REPLACE" name="javaee_7-namespace-replace">
-                        <replacement>https://jakarta.ee/xml/ns/jakartaee/jakartaee_9.xsd</replacement>
-                        <search>http://xmlns.jcp.org/xml/ns/javaee/javaee_7.xsd</search>
+                        <replacement>https://jakarta.ee/xml/ns/jakartaee/beans_3_0.xsd</replacement>
+                        <search>http://xmlns.jcp.org/xml/ns/javaee/beans_1_1.xsd</search>
                     </quickfix>
                     <quickfix type="REPLACE" name="javaee_8-namespace-replace">
-                        <replacement>https://jakarta.ee/xml/ns/jakartaee/jakartaee_9.xsd</replacement>
-                        <search>http://xmlns.jcp.org/xml/ns/javaee/javaee_8.xsd</search>
+                        <replacement>https://jakarta.ee/xml/ns/jakartaee/beans_3_0.xsd</replacement>
+                        <search>http://xmlns.jcp.org/xml/ns/javaee/beans_2_0.xsd</search>
                     </quickfix>
                 </hint>
             </perform>
