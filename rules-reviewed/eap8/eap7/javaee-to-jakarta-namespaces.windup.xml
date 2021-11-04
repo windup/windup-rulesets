@@ -4,14 +4,14 @@
          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <metadata>
         <description>
-            This ruleset provides analysis of Java EE applications that need to change their deployment descriptor namespaces 
+            This ruleset provides analysis of Java EE applications that need to change their deployment descriptor namespaces
         </description>
         <dependencies>
             <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
             <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
         </dependencies>
-        <targetTechnology id="eap" versionRange="[8,)" />  
-        <targetTechnology id="jakarta-ee" versionRange="[9,)" />      
+        <targetTechnology id="eap" versionRange="[8,)" />
+        <targetTechnology id="jakarta-ee" versionRange="[9,)" />
     </metadata>
     <rules>
         <!-- https://issues.jboss.org/browse/WINDUP-3149 -->
@@ -65,6 +65,28 @@
                         </quickfix>
                     </hint>
             </perform>
-        </rule>    
+        </rule>
+        <rule id="javaee-to-jakarta-namespaces-00004">
+            <when>
+                <or>
+                    <filecontent filename="{*}.xml" pattern="http://xmlns.jcp.org/xml/ns/javaee/javaee_7.xsd" />
+                    <filecontent filename="{*}.xml" pattern="http://xmlns.jcp.org/xml/ns/javaee/javaee_8.xsd" />
+                </or>
+            </when>
+            <perform>
+                <hint title="Replace the Java EE namespace with the Jakarta equivalent" effort="1" category-id="mandatory">
+                    <message>Replace `http://xmlns.jcp.org/xml/ns/javaee/javaee_7.xsd` or `http://xmlns.jcp.org/xml/ns/javaee/javaee_8.xsd` with `https://jakarta.ee/xml/ns/jakartaee/jakartaee_9.xsd`</message>
+                    <link title="Jakarta XML Schemas" href="https://jakarta.ee/xml/ns/jakartaee/#9" />
+                    <quickfix type="REPLACE" name="javaee_7-namespace-replace">
+                        <replacement>https://jakarta.ee/xml/ns/jakartaee/jakartaee_9.xsd</replacement>
+                        <search>http://xmlns.jcp.org/xml/ns/javaee/javaee_7.xsd</search>
+                    </quickfix>
+                    <quickfix type="REPLACE" name="javaee_8-namespace-replace">
+                        <replacement>https://jakarta.ee/xml/ns/jakartaee/jakartaee_9.xsd</replacement>
+                        <search>http://xmlns.jcp.org/xml/ns/javaee/javaee_8.xsd</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
