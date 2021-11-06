@@ -23,7 +23,7 @@
             <perform>
                     <hint title="javax.{renamed-g} groupId has been replaced by jakarta.{renamed-g}" effort="1"
                           category-id="mandatory">
-                        <message>Update group dependency by replacing the `jaxax.{renamed-g}` groupId with `jakarta.{renamed-g}`</message>
+                        <message>Update the group dependency by replacing the `javax.{renamed-g}` groupId with `jakarta.{renamed-g}`</message>
                         <link title="Jakarta EE"
                               href="https://jakarta.ee/"/>
                         <quickfix name="javax-to-jakarta-pom-dependencies-g" type="REPLACE">
@@ -34,7 +34,7 @@
             </perform>
             <where param="renamed-g">
                 <matches
-                    pattern="(activation|annotation|batch|ejb|el|enterprise.concurrent|enterprise.deploy|faces|interceptor|jms|jws|mail|management.j2ee|resource|security.auth.message|security.jacc|servlet|servlet.jsp|servlet.jsp.jstl|transaction|websocket|ws.rs|xml.bind|xml.registry|xml.rpc|xml.soap|xml.ws)"/>
+                    pattern="(annotation|batch|ejb|el|enterprise.concurrent|enterprise.deploy|faces|interceptor|jms|jws|mail|management.j2ee|resource|security.auth.message|security.jacc|servlet|servlet.jsp|servlet.jsp.jstl|transaction|websocket|ws.rs|xml.bind|xml.registry|xml.rpc|xml.soap|xml.ws)"/>
             </where>
         </rule>
         <rule id="javax-to-jakarta-dependencies-00002">
@@ -73,6 +73,25 @@
                            <search>jaxb-api</search>
                     </quickfix>
                 </hint>
+            </perform>
+        </rule>
+        <rule id="javax-to-jakarta-dependencies-00004">
+            <when>
+                <project>
+                    <artifact groupId="javax.activation" artifactId="javax.activation-api" />
+                </project>
+            </when>
+            <perform>
+                    <hint title="javax.activation groupId has been replaced by jakarta.activation" effort="1"
+                          category-id="mandatory">
+                        <message>Replace dependency groupId `javax.activation` with `jakarta.activation`</message>
+                        <link title="Jakarta EE"
+                              href="https://jakarta.ee/"/>
+                        <quickfix name="javax-to-jakarta-activation-g" type="REPLACE">
+                               <replacement>jakarta</replacement>
+                               <search>javax</search>
+                        </quickfix>
+                    </hint>
             </perform>
         </rule>
         <rule id="javax-to-jakarta-dependencies-00005">

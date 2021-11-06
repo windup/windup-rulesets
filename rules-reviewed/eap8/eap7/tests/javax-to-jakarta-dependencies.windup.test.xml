@@ -10,8 +10,8 @@
             <rule id="javax-to-jakarta-dependencies-00001-test">
                 <when>
                     <not>
-                        <iterable-filter size="27">  
-                            <hint-exists message="Update group dependency by replacing the `jaxax."/>
+                        <iterable-filter size="26">   
+                            <hint-exists message="Update the group dependency by replacing the `javax."/>
                         </iterable-filter> 
                     </not>
                 </when>
@@ -19,13 +19,13 @@
                     <fail message="[javax-to-jakarta-dependencies-00001] The hint was not found!" />
                 </perform>
             </rule>
-            <!-- javax-xml-bind jaxb-api artifact not covered by this rule so iterable-filter 1 less than above-->
+            <!-- javax-xml-bind jaxb-api artifact not covered by this rule-->
             <rule id="javax-to-jakarta-dependencies-00002-test">
                 <when>
                     <not>
-                        <iterable-filter size="26">   
+                        <iterable-filter size="26">  
                             <hint-exists message="Update artifact dependency by replacing the `javax."/>
-                        </iterable-filter> 
+                        </iterable-filter>
                     </not>
                 </when>
                 <perform>
@@ -42,6 +42,18 @@
                 </when>
                 <perform>
                     <fail message="[javax-to-jakarta-dependencies-00003] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="javax-to-jakarta-dependencies-00004-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">   
+                            <hint-exists message="Replace dependency groupId `javax.activation`"/>
+                        </iterable-filter> 
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javax-to-jakarta-dependencies-00004] The hint was not found!" />
                 </perform>
             </rule>
             <rule id="javax-to-jakarta-dependencies-00005-test">
