@@ -36,7 +36,9 @@
         </rule>
         <rule id="maven-javax-to-jakarta-00002">
             <when>
-                <filecontent filename="pom.xml" pattern="groupId&gt;javax.activation&lt;" />    
+                <project>
+                    <artifact groupId="javax.activation" artifactId="activation" />
+                </project>
             </when>
             <perform>
                 <hint title="Move to Jakarta EE Maven Artifacts - replace groupId javax.activation" effort="1" category-id="potential">
