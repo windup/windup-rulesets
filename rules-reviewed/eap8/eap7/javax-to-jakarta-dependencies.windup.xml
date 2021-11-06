@@ -75,23 +75,6 @@
                 </hint>
             </perform>
         </rule>
-        <rule id="javax-to-jakarta-dependencies-00004">
-            <when>
-               <filecontent filename="pom.xml" pattern="artifactId&gt;javax.mail&lt;" />
-            </when>
-            <perform>
-                <hint title="com.sun.mail javax.mail artifactId has been replaced by com.sun.mail jakarta.mail" effort="1"
-                      category-id="mandatory">
-                    <message>Update the artifact dependency by replacing the `javax.mail` artifactId with `jakarta.mail`</message>
-                    <link title="Jakarta EE"
-                          href="https://jakarta.ee/"/>
-                    <quickfix name="javax-to-jakarta-pom-dependencies-mail-a" type="REPLACE">
-                           <replacement>jakarta</replacement>
-                           <search>javax</search>
-                    </quickfix>
-                </hint>
-            </perform>
-        </rule>
         <rule id="javax-to-jakarta-dependencies-00005">
             <when>
                 <filecontent filename="pom.xml" pattern="artifactId&gt;javax.faces&lt;" />                  
