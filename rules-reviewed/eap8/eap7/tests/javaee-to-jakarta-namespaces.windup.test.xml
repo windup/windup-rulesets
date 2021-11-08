@@ -34,7 +34,7 @@
             <rule id="javaee-to-jakarta-namespaces-00003-test">
                 <when>
                     <not>
-                        <iterable-filter size="2">
+                        <iterable-filter size="5">
                             <hint-exists message="Replace `http://xmlns.jcp.org/xml/ns/validation`"/>
                         </iterable-filter>
                    </not>
@@ -345,6 +345,32 @@
                 </when>
                 <perform>
                     <fail message="[javaee-to-jakarta-namespaces-00027] The hint was not found!" />
+                </perform>
+            </rule>
+
+            <rule id="javaee-to-jakarta-namespaces-00028-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Replace `validation-mapping-2.0.xsd`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javaee-to-jakarta-namespaces-00028] The hint was not found!" />
+                </perform>
+            </rule>
+
+            <rule id="javaee-to-jakarta-namespaces-00029-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Replace `validation-configuration-2.0.xsd`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javaee-to-jakarta-namespaces-00029] The hint was not found!" />
                 </perform>
             </rule>
         </rules>

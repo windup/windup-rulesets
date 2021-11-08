@@ -442,5 +442,37 @@
                 </hint>
             </perform>
         </rule>
+
+        <rule id="javaee-to-jakarta-namespaces-00028">
+            <when>
+                <filecontent filename="{*}.xml" pattern="validation-mapping-2.0.xsd" />
+            </when>
+            <perform>
+                <hint title="Replace the Java EE XSD with the Jakarta equivalent" effort="1" category-id="mandatory">
+                    <message>Replace `validation-mapping-2.0.xsd` with `validation-mapping-3.0.xsd`</message>
+                    <link title="Jakarta XML Schemas" href="https://jakarta.ee/xml/ns/jakartaee/#9" />
+                    <quickfix type="REPLACE" name="javaee-namespaces-replace-validation-mapping-2.0-xsd">
+                        <replacement>validation-mapping-3.0.xsd</replacement>
+                        <search>validation-mapping-2.0.xsd</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="javaee-to-jakarta-namespaces-00029">
+            <when>
+                <filecontent filename="{*}.xml" pattern="validation-configuration-2.0.xsd" />
+            </when>
+            <perform>
+                <hint title="Replace the Java EE XSD with the Jakarta equivalent" effort="1" category-id="mandatory">
+                    <message>Replace `validation-configuration-2.0.xsd` with `validation-configuration-3.0.xsd`</message>
+                    <link title="Jakarta XML Schemas" href="https://jakarta.ee/xml/ns/jakartaee/#9" />
+                    <quickfix type="REPLACE" name="javaee-namespaces-replace-validation-configuration-2.0-xsd">
+                        <replacement>validation-configuration-3.0.xsd</replacement>
+                        <search>validation-configuration-2.0.xsd</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
