@@ -19,6 +19,7 @@
                     <fail message="No reference to `com.sun.mail:javax.mail` found in pom.xml" />
                 </perform>
             </rule>
+            <!--
             <rule id="maven-javax-to-jakarta-00002-test">
                 <when>
                     <not>
@@ -31,6 +32,7 @@
                     <fail message="No reference to `javax.activation:activation` found in pom.xml" />
                 </perform>
             </rule>
+            
             <rule id="maven-javax-to-jakarta-00003-test">
                 <when>
                     <not>
@@ -113,6 +115,92 @@
                 </when>
                 <perform>
                     <fail message="No reference to `javax.validation:validation-api` found in pom.xml" />
+                </perform>
+            </rule>
+        -->
+            <rule id="maven-javax-to-jakarta-00002-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="If you migrate your application to JBoss EAP 7.3, or later, and want to ensure its Maven building, running or testing works as expected, use instead the Jakarta EE dependency with groupId `com.sun.activation`" />
+                        </iterable-filter>
+                 </not>
+                </when>
+                <perform>
+                    <fail message="maven-javax-to-jakarta-00002-test - failed" />
+                </perform>
+            </rule>
+        
+            <rule id="maven-javax-to-jakarta-00003-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="If you migrate your application to JBoss EAP 7.3, or later, and want to ensure its Maven building, running or testing works as expected, use instead the Jakarta EE dependency with artifactId `jakarta.activation`" />
+                     </iterable-filter>
+                 </not>
+                </when>
+                <perform>
+                    <fail message="maven-javax-to-jakarta-00003-test - failed" />
+                </perform>
+            </rule>
+            <rule id="maven-javax-to-jakarta-00004-test">
+                <when>
+                    <not>
+                        <iterable-filter size="7"> 
+                            <hint-exists message="If you migrate your application to JBoss EAP 7.3, or later, and want to ensure its Maven building, running or testing works as expected, use instead the Jakarta EE dependency - groupId `jakarta." />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="maven-javax-to-jakarta-00004-test - failed" />
+                </perform>
+            </rule>
+            <rule id="maven-javax-to-jakarta-00005-test">
+                <when>
+                    <not>
+                        <iterable-filter size="4"> 
+                            <hint-exists message="If you migrate your application to JBoss EAP 7.3, or later, and want to ensure its Maven building, running or testing works as expected, use instead the Jakarta EE dependency with groupId `jakarta." />
+                        </iterable-filter> 
+                    </not>
+                </when>
+                <perform>
+                    <fail message="maven-javax-to-jakarta-00005-test - failed" />
+                </perform>
+            </rule>
+            <rule id="maven-javax-to-jakarta-00006-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1"> 
+                            <hint-exists message="If you migrate your application to JBoss EAP 7.3, or later, and want to ensure its Maven building, running or testing works as expected, use instead the Jakarta EE dependency with artifactId `jakarta.enterprise.cdi-api`" />
+                        </iterable-filter> 
+                    </not>
+                </when>
+                <perform>
+                    <fail message="maven-javax-to-jakarta-00006-test - failed" />
+                </perform>
+            </rule>
+            <rule id="maven-javax-to-jakarta-00007-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1"> 
+                            <hint-exists message="If you migrate your application to JBoss EAP 7.3, or later, and want to ensure its Maven building, running or testing works as expected, use instead the Jakarta EE dependency with artifactId `jakarta.validation-api`" />
+                        </iterable-filter> 
+                    </not>
+                </when>
+                <perform>
+                    <fail message="maven-javax-to-jakarta-00007-test - failed" />
+                </perform>
+            </rule>
+            <rule id="maven-javax-to-jakarta-00008-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1"> 
+                            <hint-exists message="If you migrate your application to JBoss EAP 7.3, or later, and want to ensure its Maven building, running or testing works as expected, use instead the Jakarta EE dependency with artifactId `jakarta.inject-api`" />
+                        </iterable-filter> 
+                    </not>
+                </when>
+                <perform>
+                    <fail message="maven-javax-to-jakarta-00008-test - failed" />
                 </perform>
             </rule>
             <rule id="maven-javax-to-jakarta-00010-test">
