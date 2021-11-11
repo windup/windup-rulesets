@@ -22,7 +22,7 @@
             <rule id="javaee-to-jakarta-namespaces-00002-test">
                 <when>
                     <not>
-                        <iterable-filter size="6"> 
+                        <iterable-filter size="9">
                             <hint-exists message="Replace `http://xmlns.jcp.org/xml/ns/persistence`"/>
                         </iterable-filter>
                        </not>
@@ -371,6 +371,44 @@
                 </when>
                 <perform>
                     <fail message="[javaee-to-jakarta-namespaces-00029] The hint was not found!" />
+                </perform>
+            </rule>
+
+            <rule id="javaee-to-jakarta-namespaces-00030-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Replace `persistence_2_1.xsd`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javaee-to-jakarta-namespaces-00030] The hint was not found!" />
+                </perform>
+            </rule>
+
+            <rule id="javaee-to-jakarta-namespaces-00031-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Replace `orm_2_1.xsd`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javaee-to-jakarta-namespaces-00031] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="javaee-to-jakarta-namespaces-00032-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Replace `orm_2_2.xsd`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javaee-to-jakarta-namespaces-00032] The hint was not found!" />
                 </perform>
             </rule>
         </rules>

@@ -474,5 +474,52 @@
                 </hint>
             </perform>
         </rule>
+
+        <rule id="javaee-to-jakarta-namespaces-00030">
+            <when>
+                <filecontent filename="{*}.xml" pattern="persistence_2_1.xsd" />
+            </when>
+            <perform>
+                <hint title="Replace the Java EE XSD with the Jakarta equivalent" effort="1" category-id="mandatory">
+                    <message>Replace `persistence_2_1.xsd` with `persistence_3_0.xsd`</message>
+                    <link title="Jakarta XML Schemas" href="https://jakarta.ee/xml/ns/jakartaee/#9" />
+                    <quickfix type="REPLACE" name="javaee-namespaces-replace-persistence_2_1-xsd">
+                        <replacement>persistence_3_0.xsd</replacement>
+                        <search>persistence_2_1.xsd</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="javaee-to-jakarta-namespaces-00031">
+            <when>
+                <filecontent filename="{*}.xml" pattern="orm_2_1.xsd" />
+            </when>
+            <perform>
+                <hint title="Replace the Java EE XSD with the Jakarta equivalent" effort="1" category-id="mandatory">
+                    <message>Replace `orm_2_1.xsd` with `orm_3_0.xsd`</message>
+                    <link title="Jakarta XML Schemas" href="https://jakarta.ee/xml/ns/jakartaee/#9" />
+                    <quickfix type="REPLACE" name="javaee-namespaces-replace-orm_2_1-xsd">
+                        <replacement>orm_3_0.xsd</replacement>
+                        <search>orm_2_1.xsd</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="javaee-to-jakarta-namespaces-00032">
+            <when>
+                <filecontent filename="{*}.xml" pattern="orm_2_2.xsd" />
+            </when>
+            <perform>
+                <hint title="Replace the Java EE XSD with the Jakarta equivalent" effort="1" category-id="mandatory">
+                    <message>Replace `orm_2_2.xsd` with `orm_3_0.xsd`</message>
+                    <link title="Jakarta XML Schemas" href="https://jakarta.ee/xml/ns/jakartaee/#9" />
+                    <quickfix type="REPLACE" name="javaee-namespaces-replace-orm_2_2-xsd">
+                        <replacement>orm_3_0.xsd</replacement>
+                        <search>orm_2_2.xsd</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
