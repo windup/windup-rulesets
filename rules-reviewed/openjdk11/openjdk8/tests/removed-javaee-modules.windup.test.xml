@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ruletest id="removed-javaee-modules"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/removed-javaee-modules</testDataPath>
+    <rulePath>../removed-javaee-modules.windup.xml</rulePath>
+    <ruleset>
+      <rules>
+        <rule id="removed-javaee-modules-00000-test">
+          <when>
+	    <not>
+	      <iterable-filter size="1">
+		<hint-exists message="Add the `jakarta.activation` dependency to your application's `pom.xml`. *" />
+	      </iterable-filter>
+	    </not>
+          </when>
+          <perform>
+	    <fail message="removed-javaee-modules-00000-test - has failed"/>
+          </perform>
+        </rule>
+      </rules>
+    </ruleset>
+</ruletest>

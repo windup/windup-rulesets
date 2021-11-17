@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="removed-javaee-modules"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis with respect to modules removed between OpenJDK 8 and 11.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="openjdk" versionRange="[8,)"/>
+        <targetTechnology id="openjdk" versionRange="[11,)"/>
+    </metadata>
+    <rules>
+        <rule id="removed-javaee-modules-00000">
+            <when>
+            	<javaclass references="javax.activation{*}">
+            		<location>IMPORT</location>
+            	</javaclass>
+            </when>            
+            <perform>
+                <hint title="The java.activation (JAF) module has been removed from OpenJDK 11" effort="1" category-id="mandatory">
+                    <message>
+                        Add the `jakarta.activation` dependency to your application's `pom.xml`.&#xa;
+                        `&lt;groupId&gt;jakarta.activation&lt;/groupId&gt;`&#xa;
+                        `&lt;artifactId&gt;jakarta.activation&lt;/artifactId&gt;`
+                    </message>
+                    <link title="Removed Java EE modules" href="https://www.oracle.com/java/technologies/javase/11-relnote-issues.html#JDK-8190378"/>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
+
