@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm
+                 http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd"
+                 version="2.1">
+    <persistence-unit-metadata>
+        <xml-mapping-metadata-complete/>
+        <persistence-unit-defaults>
+            <schema>HR</schema>
+            <access>FIELD</access>
+            <cascade-persist/>
+        </persistence-unit-defaults>
+    </persistence-unit-metadata>
+
+    <named-query name="Employee.findAll">
+        <query>SELECT e FROM Employee e</query>
+    </named-query>
+
+    <entity class="Employee">
+        <attributes>
+            <id name="id"/>
+            <basic name="name"/>
+            <basic name="salary"/>
+            <basic name="startDate">
+                <temporal>DATE</temporal>
+            </basic>
+            <one-to-one name="address"/>
+            <one-to-many name="phones" mapped-by="employee"/>
+            <many-to-one name="department"/>
+            <many-to-one name="manager"/>
+            <one-to-many name="directs" mapped-by="manager"/>
+            <many-to-many name="projects"/>
+        </attributes>
+    </entity>
+
+    <entity class="Address">
+        <attributes>
+            <id name="id"/>
+            <basic name="street"/>
+            <basic name="city"/>
+            <basic name="state"/>
+            <basic name="zip"/>
+        </attributes>
+    </entity>
+
+    <entity class="Department">
+        <attributes>
+            <id name="id"/>
+            <basic name="name"/>
+            <one-to-many name="employees" mapped-by="department"/>
+        </attributes>
+    </entity>
+
+    <entity class="Phone">
+        <attributes>
+            <id name="id"/>
+            <basic name="number"/>
+            <basic name="type"/>
+            <one-to-one name="employee"/>
+        </attributes>
+    </entity>
+
+    <entity class="Project">
+        <attributes>
+            <id name="id"/>
+            <basic name="name"/>
+            <many-to-many name="employees" mapped-by="projects"/>
+        </attributes>
+    </entity>
+</entity-mappings>
