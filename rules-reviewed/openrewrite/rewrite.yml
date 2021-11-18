@@ -3,11 +3,15 @@ type: specs.openrewrite.org/v1beta/recipe
 name: org.jboss.windup.JavaxToJakarta
 displayName: migrate javax to jakarta
 recipeList:
+  - org.jboss.windup.JavaxActivationToJakartaActivation
+  - org.jboss.windup.JavaxAnnotationToJakartaAnnotation
+  - org.jboss.windup.JavaxBatchToJakartaBatch
   - org.jboss.windup.JavaxDecoratorToJakartaDecorator
   - org.jboss.windup.JavaxEjbToJakartaEjb
   - org.jboss.windup.JavaxElToJakartaEl
   - org.jboss.windup.JavaxEnterpriseToJakartaEnterprise
   - org.jboss.windup.JavaxFacesToJakartaFaces
+  - org.jboss.windup.JavaxInjectToJakartaInject
   - org.jboss.windup.JavaxInterceptorToJakartaInterceptor
   - org.jboss.windup.JavaxJmsToJakartaJms
   - org.jboss.windup.JavaxJsonToJakartaJson
@@ -17,18 +21,89 @@ recipeList:
   - org.jboss.windup.JavaxResourceToJakartaResource
   - org.jboss.windup.JavaxSecurityToJakartaSecurity
   - org.jboss.windup.JavaxServletToJakartaServlet
+  - org.jboss.windup.JavaxTransactionToJakartaTransaction
   - org.jboss.windup.JavaxValidationToJakartaValidation
   - org.jboss.windup.JavaxWebsocketToJakartaWebsocket
   - org.jboss.windup.JavaxWsToJakartaWs
+  - org.jboss.windup.JavaxXmlBindToJakartaXmlBind
   - org.jboss.windup.JavaxXmlCryptoToJakartaXmlCrypto
   - org.jboss.windup.JavaxXmlDatatypeToJakartaXmlDatatype
-  - org.jboss.windup.JavaxXmlParsersToJakartaXmlParsers
   - org.jboss.windup.JavaxXmlNamespaceToJakartaXmlNamespace
+  - org.jboss.windup.JavaxXmlParsersToJakartaXmlParsers
   - org.jboss.windup.JavaxXmlSoapToJakartaXmlSoap
   - org.jboss.windup.JavaxXmlStreamToJakartaXmlStream
   - org.jboss.windup.JavaxXmlTransformToJakartaXmlTransform
   - org.jboss.windup.JavaxXmlValidationToJakartaXmlValidation
+  - org.jboss.windup.JavaxXmlWsToJakartaXmlWs
   - org.jboss.windup.JavaxXmlXPathToJakartaXmlXPath
+
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jboss.windup.JavaxActivationToJakartaActivation
+displayName: `javax.activation` to `jakarta.activation`
+recipeList:
+
+  - org.openrewrite.java.ChangePackage:
+      oldPackageName: javax.activation
+      newPackageName: jakarta.activation
+
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jboss.windup.JavaxAnnotationToJakartaAnnotation
+displayName: `javax.annotation` to `jakarta.annotation`
+recipeList:
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: javax.annotation.Generated
+      newFullyQualifiedTypeName: jakarta.annotation.Generated
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: javax.annotation.ManagedBean
+      newFullyQualifiedTypeName: jakarta.annotation.ManagedBean
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: javax.annotation.PostConstruct
+      newFullyQualifiedTypeName: jakarta.annotation.PostConstruct
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: javax.annotation.PreDestroy
+      newFullyQualifiedTypeName: jakarta.annotation.PreDestroy
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: javax.annotation.Priority
+      newFullyQualifiedTypeName: jakarta.annotation.Priority
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: javax.annotation.Resource
+      newFullyQualifiedTypeName: jakarta.annotation.Resource
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: javax.annotation.Resources
+      newFullyQualifiedTypeName: jakarta.annotation.Resources
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: javax.annotation.security.DeclareRoles
+      newFullyQualifiedTypeName: jakarta.annotation.security.DeclareRoles
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: javax.annotation.security.DenyAll
+      newFullyQualifiedTypeName: jakarta.annotation.security.DenyAll
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: javax.annotation.security.PermitAll
+      newFullyQualifiedTypeName: jakarta.annotation.security.PermitAll
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: javax.annotation.security.RolesAllowed
+      newFullyQualifiedTypeName: jakarta.annotation.security.RolesAllowed
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: javax.annotation.security.RunAs
+      newFullyQualifiedTypeName: jakarta.annotation.security.RunAs
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: javax.annotation.sql.DataSourceDefinition
+      newFullyQualifiedTypeName: jakarta.annotation.sql.DataSourceDefinition
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: javax.annotation.sql.DataSourceDefinitions
+      newFullyQualifiedTypeName: jakarta.annotation.sql.DataSourceDefinitions
+
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jboss.windup.JavaxBatchToJakartaBatch
+displayName: `javax.batch` to `jakarta.batch`
+recipeList:
+
+  - org.openrewrite.java.ChangePackage:
+      oldPackageName: javax.batch
+      newPackageName: jakarta.batch
 
 
 ---
@@ -81,12 +156,13 @@ recipeList:
 
 ---
 type: specs.openrewrite.org/v1beta/recipe
-name: org.jboss.windup.JavaxImageioToJakartaImageio
-displayName: Change type example
+name: org.jboss.windup.JavaxInjectToJakartaInject
+displayName: `javax.inject` to `jakarta.inject`
+
 recipeList:
   - org.openrewrite.java.ChangePackage:
-      oldPackageName: javax.imageio
-      newPackageName: jakarta.imageio
+      oldPackageName: javax.inject
+      newPackageName: jakarta.inject
 
 ---
 type: specs.openrewrite.org/v1beta/recipe
@@ -126,15 +202,6 @@ recipeList:
 
 ---
 type: specs.openrewrite.org/v1beta/recipe
-name: org.jboss.windup.JavaxLangToJakartaLang
-displayName: Change type example
-recipeList:
-  - org.openrewrite.java.ChangePackage:
-      oldPackageName: javax.lang
-      newPackageName: jakarta.lang
-
----
-type: specs.openrewrite.org/v1beta/recipe
 name: org.jboss.windup.JavaxMailToJakartaMail
 displayName: Change type example
 recipeList:
@@ -142,34 +209,6 @@ recipeList:
   - org.openrewrite.java.ChangePackage:
       oldPackageName: javax.mail
       newPackageName: jakarta.mail
-
-
----
-type: specs.openrewrite.org/v1beta/recipe
-name: org.jboss.windup.JavaxManagementToJakartaManagement
-displayName: Change type example
-recipeList:
-  - org.openrewrite.java.ChangePackage:
-      oldPackageName: javax.management
-      newPackageName: jakarta.management
-
----
-type: specs.openrewrite.org/v1beta/recipe
-name: org.jboss.windup.JavaxNamingToJakartaNaming
-displayName: Change type example
-recipeList:
-  - org.openrewrite.java.ChangePackage:
-      oldPackageName: javax.naming
-      newPackageName: jakarta.naming
-
----
-type: specs.openrewrite.org/v1beta/recipe
-name: org.jboss.windup.JavaxNetToJakartaNet
-displayName: Change type example
-recipeList:
-  - org.openrewrite.java.ChangePackage:
-      oldPackageName: javax.net
-      newPackageName: jakarta.net
 
 ---
 type: specs.openrewrite.org/v1beta/recipe
@@ -182,39 +221,12 @@ recipeList:
 
 ---
 type: specs.openrewrite.org/v1beta/recipe
-name: org.jboss.windup.JavaxPrintToJakartaPrint
-displayName: Change type example
-recipeList:
-  - org.openrewrite.java.ChangePackage:
-      oldPackageName: javax.print
-      newPackageName: jakarta.print
-
----
-type: specs.openrewrite.org/v1beta/recipe
 name: org.jboss.windup.JavaxResourceToJakartaResource
 displayName: Change type example
 recipeList:
   - org.openrewrite.java.ChangePackage:
       oldPackageName: javax.resource
       newPackageName: jakarta.resource
-
----
-type: specs.openrewrite.org/v1beta/recipe
-name: org.jboss.windup.JavaxRmiToJakartaRmi
-displayName: Change type example
-recipeList:
-  - org.openrewrite.java.ChangePackage:
-      oldPackageName: javax.rmi
-      newPackageName: jakarta.rmi
-
----
-type: specs.openrewrite.org/v1beta/recipe
-name: org.jboss.windup.JavaxScriptToJakartaScript
-displayName: Change type example
-recipeList:
-  - org.openrewrite.java.ChangePackage:
-      oldPackageName: javax.script
-      newPackageName: jakarta.script
 
 ---
 type: specs.openrewrite.org/v1beta/recipe
@@ -236,39 +248,13 @@ recipeList:
 
 ---
 type: specs.openrewrite.org/v1beta/recipe
-name: org.jboss.windup.JavaxSoundToJakartaSound
-displayName: Change type example
-recipeList:
-  - org.openrewrite.java.ChangePackage:
-      oldPackageName: javax.sound
-      newPackageName: jakarta.sound
+name: org.jboss.windup.JavaxTransactionToJakartaTransaction
+displayName: `javax.transaction` to `jakarta.transaction`
 
----
-type: specs.openrewrite.org/v1beta/recipe
-name: org.jboss.windup.JavaxSqlToJakartaSql
-displayName: Change type example
 recipeList:
   - org.openrewrite.java.ChangePackage:
-      oldPackageName: javax.sql
-      newPackageName: jakarta.sql
-
----
-type: specs.openrewrite.org/v1beta/recipe
-name: org.jboss.windup.JavaxSwingToJakartaSwing
-displayName: Change type example
-recipeList:
-  - org.openrewrite.java.ChangePackage:
-      oldPackageName: javax.swing
-      newPackageName: jakarta.swing
-
----
-type: specs.openrewrite.org/v1beta/recipe
-name: org.jboss.windup.JavaxToolsToJakartaTools
-displayName: Change type example
-recipeList:
-  - org.openrewrite.java.ChangePackage:
-      oldPackageName: javax.tools
-      newPackageName: jakarta.tools
+      oldPackageName: javax.transaction
+      newPackageName: jakarta.transaction
 
 ---
 type: specs.openrewrite.org/v1beta/recipe
@@ -296,6 +282,16 @@ recipeList:
   - org.openrewrite.java.ChangePackage:
       oldPackageName: javax.ws
       newPackageName: jakarta.ws
+
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jboss.windup.JavaxXmlBindToJakartaXmlBind
+displayName: javax.xml.bind` to `jakarta.xml.bind`
+
+recipeList:
+  - org.openrewrite.java.ChangePackage:
+      oldPackageName: javax.xml.bind
+      newPackageName: jakarta.xml.bind
 
 ---
 type: specs.openrewrite.org/v1beta/recipe
@@ -368,6 +364,15 @@ recipeList:
   - org.openrewrite.java.ChangePackage:
       oldPackageName: javax.xml.validation
       newPackageName: jakarta.xml.validation
+
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jboss.windup.JavaxXmlWsToJakartaXmlWs
+displayName: `javax.xml.ws` to `jakarta.xml.ws`
+recipeList:
+  - org.openrewrite.java.ChangePackage:
+      oldPackageName: javax.xml.ws
+      newPackageName: jakarta.xml.ws
 
 ---
 type: specs.openrewrite.org/v1beta/recipe
