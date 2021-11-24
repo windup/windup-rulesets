@@ -521,5 +521,51 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="javaee-to-jakarta-namespaces-00033">
+            <when>
+                <xmlfile matches="p:persistence[@version='2.1']" as="xml-file">
+                    <namespace prefix="p" uri="http://xmlns.jcp.org/xml/ns/persistence" />
+                </xmlfile>
+                <filecontent pattern="version={quotes}2.1{quotes}" from="xml-file" as="result"/>
+            </when>
+            <perform>
+                <iteration over="result">
+                    <hint title="Replace the Java EE version with the Jakarta equivalent" effort="1" category-id="mandatory">
+                        <message>In the root tag, replace the `version` attribute value `2.1` with `3.0`</message>
+                        <link title="Jakarta Persistence XML Schemas" href="https://jakarta.ee/xml/ns/persistence/#3" />
+                        <quickfix type="REPLACE" name="javaee-namespaces-replace-persistence-version">
+                            <replacement>3.0</replacement>
+                            <search>2.1</search>
+                        </quickfix>
+                    </hint>
+                </iteration>
+            </perform>
+            <where param="quotes">
+                <matches pattern="(&quot;|')" />
+            </where>
+        </rule>
+        <rule id="javaee-to-jakarta-namespaces-00034">
+            <when>
+                <xmlfile matches="p:permissions[@version='7']" as="xml-file">
+                    <namespace prefix="p" uri="http://xmlns.jcp.org/xml/ns/javaee" />
+                </xmlfile>
+                <filecontent pattern="version={quotes}7{quotes}" from="xml-file" as="result"/>
+            </when>
+            <perform>
+                <iteration over="result">
+                    <hint title="Replace the Java EE version with the Jakarta equivalent" effort="1" category-id="mandatory">
+                        <message>In the root tag, replace the `version` attribute value `7` with `9`</message>
+                        <link title="Jakarta Permissions XML Schemas" href="https://jakarta.ee/xml/ns/jakartaee/#9" />
+                        <quickfix type="REPLACE" name="javaee-namespaces-replace-permissions-version">
+                            <replacement>9</replacement>
+                            <search>7</search>
+                        </quickfix>
+                    </hint>
+                </iteration>
+            </perform>
+            <where param="quotes">
+                <matches pattern="(&quot;|')" />
+            </where>
+        </rule>
     </rules>
 </ruleset>
