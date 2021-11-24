@@ -114,6 +114,29 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="javaee-to-jakarta-namespaces-00006_version">
+            <when>
+                <xmlfile matches="p:beans[@version='1.1']" as="xml-file">
+                    <namespace prefix="p" uri="http://xmlns.jcp.org/xml/ns/javaee" />
+                </xmlfile>
+                <filecontent pattern="version={quotes}1.1{quotes}" from="xml-file" as="result"/>
+            </when>
+            <perform>
+                <iteration over="result">
+                    <hint title="Replace the Java EE version with the Jakarta equivalent" effort="1" category-id="mandatory">
+                        <message>`beans_1_1.xsd`: In the root tag, replace the `version` attribute value with `3.0`</message>
+                        <link title="Jakarta XML Schemas" href="https://jakarta.ee/xml/ns/jakartaee/#9" />
+                        <quickfix type="REPLACE" name="javaee-namespaces-replace-beans_1_1-version">
+                            <replacement>3.0</replacement>
+                            <search>1.1</search>
+                        </quickfix>
+                    </hint>
+                </iteration>
+            </perform>
+            <where param="quotes">
+                <matches pattern="(&quot;|')" />
+            </where>
+        </rule>
         <rule id="javaee-to-jakarta-namespaces-00007">
             <when>
                 <filecontent filename="{*}.xml" pattern="beans_2_0.xsd" />
@@ -128,6 +151,29 @@
                     </quickfix>
                 </hint>
             </perform>
+        </rule>
+        <rule id="javaee-to-jakarta-namespaces-00007_version">
+            <when>
+                <xmlfile matches="p:beans[@version='2.0']" as="xml-file">
+                    <namespace prefix="p" uri="http://xmlns.jcp.org/xml/ns/javaee" />
+                </xmlfile>
+                <filecontent pattern="version={quotes}2.0{quotes}" from="xml-file" as="result"/>
+            </when>
+            <perform>
+                <iteration over="result">
+                    <hint title="Replace the Java EE version with the Jakarta equivalent" effort="1" category-id="mandatory">
+                        <message>`beans_2_0.xsd`: In the root tag, replace the `version` attribute value with `3.0`</message>
+                        <link title="Jakarta XML Schemas" href="https://jakarta.ee/xml/ns/jakartaee/#9" />
+                        <quickfix type="REPLACE" name="javaee-namespaces-replace-beans_2_0-version">
+                            <replacement>3.0</replacement>
+                            <search>2.0</search>
+                        </quickfix>
+                    </hint>
+                </iteration>
+            </perform>
+            <where param="quotes">
+                <matches pattern="(&quot;|')" />
+            </where>
         </rule>
 
         <rule id="javaee-to-jakarta-namespaces-00008">
@@ -144,6 +190,29 @@
                     </quickfix>
                 </hint>
             </perform>
+        </rule>
+        <rule id="javaee-to-jakarta-namespaces-00008_version">
+            <when>
+                <xmlfile matches="p:job[@version='1.0']" as="xml-file">
+                    <namespace prefix="p" uri="http://xmlns.jcp.org/xml/ns/javaee" />
+                </xmlfile>
+                <filecontent pattern="version={quotes}1.0{quotes}" from="xml-file" as="result"/>
+            </when>
+            <perform>
+                <iteration over="result">
+                    <hint title="Replace the Java EE version with the Jakarta equivalent" effort="1" category-id="mandatory">
+                        <message>`jobXML_1_0.xsd`: In the root tag, replace the `version` attribute value with `2.0`</message>
+                        <link title="Jakarta XML Schemas" href="https://jakarta.ee/xml/ns/jakartaee/#9" />
+                        <quickfix type="REPLACE" name="javaee-namespaces-replace-jobXML_1_0-version">
+                            <replacement>2.0</replacement>
+                            <search>1.0</search>
+                        </quickfix>
+                    </hint>
+                </iteration>
+            </perform>
+            <where param="quotes">
+                <matches pattern="(&quot;|')" />
+            </where>
         </rule>
 
         <rule id="javaee-to-jakarta-namespaces-00009">
@@ -521,6 +590,7 @@
                 </hint>
             </perform>
         </rule>
+
         <rule id="javaee-to-jakarta-namespaces-00033">
             <when>
                 <xmlfile matches="p:persistence[@version='2.1']" as="xml-file">
