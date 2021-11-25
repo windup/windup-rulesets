@@ -29,6 +29,31 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="removed-javaee-modules-00010">
+            <when>
+                <or>
+                    <javaclass references="javax.activity.{*}">
+                        <location>IMPORT</location>
+                    </javaclass>
+                    <javaclass references="javax.rmi.{*}">
+                        <location>IMPORT</location>
+                    </javaclass>
+                    <javaclass references="com.sun.corba.{*}">
+                        <location>IMPORT</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="The java.corba module has been removed from OpenJDK 11" effort="1" category-id="mandatory">
+                    <message>
+                        The `java.corba` (CORBA) module has been removed from OpenJDK 11.  
+                        If you wish to continue using CORBA within your application consider using the GlassFish implementation of CORBA and RMI-IIOP.
+                    </message>
+                    <link title="GlassFish implementation of CORBA and RMI-IIOP" href="https://javaee.github.io/glassfish-corba/index.html"/>
+                    <link title="Removed Java EE modules" href="https://www.oracle.com/java/technologies/javase/11-relnote-issues.html#JDK-8190378"/>
+                </hint>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
 
