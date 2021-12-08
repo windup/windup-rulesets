@@ -54,6 +54,23 @@
                 </hint>
             </perform>
         </rule>
+                <rule id="removed-javaee-modules-00020">
+            <when>
+            	<javaclass references="javax.annotation{*}">
+            		<location>IMPORT</location>
+            	</javaclass>
+            </when>            
+            <perform>
+                <hint title="The java.annotation (Common Annotations) module has been removed from OpenJDK 11" effort="1" category-id="mandatory">
+                    <message>
+                        Add the `jakarta.annotation` dependency to your application's `pom.xml`.&#xa;
+                        `&lt;groupId&gt;jakarta.annotation&lt;/groupId&gt;`&#xa;
+                        `&lt;artifactId&gt;jakarta.annotation-api&lt;/artifactId&gt;`
+                    </message>
+                    <link title="Removed Java EE modules" href="https://www.oracle.com/java/technologies/javase/11-relnote-issues.html#JDK-8190378"/>
+                </hint>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
 
