@@ -29,7 +29,19 @@
               <perform>
                   <fail message="removed-javaee-modules-00010-test - has failed"/>
               </perform>
-        </rule>
+          </rule>
+          <rule id="removed-javaee-modules-00020-test">
+              <when>
+                  <not>
+                      <iterable-filter size="1">
+                          <hint-exists message="Add the `jakarta.annotation` dependency to your application's `pom.xml`. *" />
+                      </iterable-filter>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="removed-javaee-modules-00020-test - has failed"/>
+              </perform>
+          </rule>
       </rules>
     </ruleset>
 </ruletest>
