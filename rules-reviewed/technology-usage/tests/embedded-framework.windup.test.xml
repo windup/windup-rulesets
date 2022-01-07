@@ -593,6 +593,17 @@
                <fail message="Expected data not found for rule embedded-framework-08300"/>
             </perform>
          </rule>
+         <rule id="embedded-framework-08400-test">
+            <when>
+               <not>
+                   <classification-exists classification="Embedded framework - Spring Web"/>
+                   <technology-tag-exists technology-tag="Spring Web"/>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule embedded-framework-08400"/>
+            </perform>
+         </rule>
       </rules>
    </ruleset>
 </ruletest>
