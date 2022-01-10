@@ -965,6 +965,20 @@
                <fail message="Expected data not found for rule technology-usage-embedded-framework-08300"/>
             </perform>
          </rule>
+         <rule id="technology-usage-embedded-framework-08400-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Spring Web" number-found="1"> 
+                     <tag name="View"/>
+                     <tag name="Web"/>
+                     <tag name="Embedded"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-08400"/>
+            </perform>
+         </rule>
       </rules>
    </ruleset>
 </ruletest>
