@@ -279,5 +279,23 @@
                 <technology-tag level="INFORMATIONAL">SwarmCache (embedded)</technology-tag>
             </perform>
         </rule>
+        <rule id="embedded-cache-libraries-15000">
+            <when>
+                <or>
+                    <dependency groupId="org.springframework.boot" artifactId="spring-boot-starter-cache"/>
+                    <project>
+                        <artifact groupId="org.springframework.boot" artifactId="spring-boot-starter-cache"/>
+                    </project>
+                </or>
+            </when>
+            <perform>
+                <classification title="Caching - Spring Boot Cache library" category-id="information" effort="0">
+                    <description>
+                        The application embeds the Spring Boot Cache library.
+                    </description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Spring Boot Cache</technology-tag>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
