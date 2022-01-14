@@ -1,4 +1,4 @@
-package quarkus.narayana
+package quarkus.springboot
 
 import org.jboss.windup.config.GraphRewrite
 import org.jboss.windup.config.metadata.TechnologyReference
@@ -19,7 +19,7 @@ import org.ocpsoft.rewrite.context.EvaluationContext
 
 final IssueCategory mandatoryIssueCategory = new IssueCategoryRegistry().getByID(IssueCategoryRegistry.MANDATORY)
 
-ruleSet("springboot-web-to-quarkus-groovy")
+ruleSet("springboot-web-shaded-to-quarkus")
         .addSourceTechnology(new TechnologyReference("springboot", null))
         .addTargetTechnology(new TechnologyReference("quarkus", null))
         .addRule()
@@ -45,13 +45,15 @@ ruleSet("springboot-web-to-quarkus-groovy")
                 folderLocationModel.setLength(1)
                 folderLocationModel.setSourceSnippit("Folder Match")
                 ((Hint) Hint.titled("Replace the 'spring-web' dependency with Quarkus 'quarkus-spring-web' extension")
-                        .withText("""A folder path related to a package from the `org.springframework:spring-web` dependency has been found.  
+                        .withText("""
+                                    A folder path related to a package from the `org.springframework:spring-web` dependency has been found.  
                                     Replace the `org.springframework:spring-web` dependency with the Quarkus dependency `io.quarkus:quarkus-spring-web` and either `io.quarkus:quarkus-resteasy-jackson` or `io.quarkus:quarkus-resteasy-reactive-jackson` in the application's dependencies management system (Maven, Gradle).  
-                                    Further information in the link below.""")
+                                    Further information in the link below.
+                                    """)
                         .withIssueCategory(mandatoryIssueCategory)
                         .with(Link.to("Quarkus - Guide", "https://quarkus.io/guides/spring-web"))
                         .withEffort(1)
                 ).performParameterized(event, context, folderLocationModel)
             }
         })
-        .withId("quarkus-springboot-web-groovy-00000")
+        .withId("springboot-web-shaded-to-quarkus-groovy-00000")
