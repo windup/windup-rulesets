@@ -55,4 +55,4 @@ ruleSet("springboot-web-shaded-to-quarkus")
                         .withEffort(1))
             }
         })
-        .withId("springboot-web-shaded-to-quarkus-groovy-00000")
+        .withId("springboot-web-shaded-to-quarkus-00000")
