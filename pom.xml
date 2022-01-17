@@ -21,8 +21,8 @@
         <windup.scm.url>http://github.com/windup/windup-rulesets</windup.scm.url>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
         <version.windup>5.2.2-SNAPSHOT</version.windup>
     </properties>
 
@@ -92,7 +92,6 @@
             <groupId>org.jboss.windup.graph</groupId>
             <artifactId>windup-graph</artifactId>
             <classifier>forge-addon</classifier>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.windup.config</groupId>
@@ -170,6 +169,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Workaround for addon dependency issue - see WINDUP-3229 -->
+        <dependency>
+            <groupId>org.jboss.windup.graph</groupId>
+            <artifactId>windup-graph-impl</artifactId>
+            <scope>test</scope>
+        </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -222,6 +228,9 @@
             <activation>
                 <jdk>[9,)</jdk>
             </activation>
+            <properties>
+                <arguments>-Xms512m -Xmx4096m -XX:ReservedCodeCacheSize=128m</arguments>
+            </properties>
             <build>
                 <plugins>
                     <plugin>
