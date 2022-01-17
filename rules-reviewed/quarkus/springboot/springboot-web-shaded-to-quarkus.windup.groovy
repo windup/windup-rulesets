@@ -32,11 +32,6 @@ ruleSet("springboot-web-shaded-to-quarkus")
                 final String sourceBasePath = payload.getFilePath().replaceAll("/org/springframework/web\$", "")
                 final String dependencyJarName = sourceBasePath.substring(sourceBasePath.lastIndexOf("/") + 1)
                 WindupConfigurationModel windupConfigurationModel = WindupConfigurationService.getConfigurationModel(event.getGraphContext())
-                boolean packageComesFromAnalyzedApplication = false
-                windupConfigurationModel.getInputPaths().each {
-                    if (!packageComesFromAnalyzedApplication && it.filePath.endsWith(dependencyJarName)) packageComesFromAnalyzedApplication = true
-                }
-                if (!packageComesFromAnalyzedApplication) return
                 final GraphService<FileLocationModel> fileLocationService = new GraphService<>(event.getGraphContext(), FileLocationModel.class)
                 final FileLocationModel folderLocationModel = fileLocationService.create()
                 folderLocationModel.setFile(payload)
@@ -52,7 +47,7 @@ ruleSet("springboot-web-shaded-to-quarkus")
                                     """)
                         .withIssueCategory(mandatoryIssueCategory)
                         .with(Link.to("Quarkus - Guide", "https://quarkus.io/guides/spring-web"))
-                        .withEffort(1))
+                        .withEffort(1)).performParameterized(event, context, folderLocationModel)
             }
         })
         .withId("springboot-web-shaded-to-quarkus-00000")
