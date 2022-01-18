@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="configuration-management" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset generates tags for configuration-management related technologies 
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final"/>
+        </dependencies>
+    </metadata>
+    <rules>
+        <rule id="configuration-management-0100">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.springframework.cloud" artifactId="spring-cloud-config-client" />
+                    </project>
+                    <dependency groupId="org.springframework.cloud" artifactId="spring-cloud-config-client" />
+                </or>
+            </when>
+            <perform>
+                <classification title="Embedded library - Spring Cloud Config" category-id="information" effort="0">
+                    <description>The application embeds Spring Cloud Config.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Spring Cloud Config</technology-tag>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
