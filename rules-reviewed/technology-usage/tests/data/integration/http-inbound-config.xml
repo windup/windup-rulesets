@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-http="http://www.springframework.org/schema/integration/http"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-4.0.xsd
+		http://www.springframework.org/schema/integration/http http://www.springframework.org/schema/integration/http/spring-integration-http-4.1.xsd">
+
+
+	<context:component-scan base-package="xpadro.spring.integration.server"/>
+	
+	<int:channel id="responseChannel"/>
+	<context:channel id="responseChannel"/>
+	
+	<!-- GET -->
+	<int-http:inbound-gateway request-channel="httpGetChannel"
+		reply-channel="responseChannel"
+		supported-methods="GET" 
+		path="/persons/{personId}"
+		payload-expression="#pathVariables.personId">
+
+		<int-http:request-mapping consumes="application/json" produces="application/json"/>
+	</int-http:inbound-gateway>
+	
+	<int:service-activator ref="personEndpoint" method="get" input-channel="httpGetChannel" output-channel="responseChannel"/>
+	
+	
+	<!-- POST, PUT --> 
+	<int-http:inbound-channel-adapter channel="routeRequest" 
+		status-code-expression="T(org.springframework.http.HttpStatus).NO_CONTENT"
+		supported-methods="POST, PUT" 
+		path="/persons, /persons/{personId}"
+		request-payload-type="xpadro.spring.integration.server.model.ServerPerson">
+	
+		<int-http:request-mapping consumes="application/json"/>
+	</int-http:inbound-channel-adapter>
+	
+	<int:router input-channel="routeRequest" expression="headers.http_requestMethod">
+	    <int:mapping value="PUT" channel="httpPutChannel"/>
+	    <int:mapping value="POST" channel="httpPostChannel"/>
+	</int:router>
+	
+	<int:service-activator ref="personEndpoint" method="put" input-channel="httpPutChannel"/>
+	<int:service-activator ref="personEndpoint" method="post" input-channel="httpPostChannel"/>
+	
+	
+	<!-- DELETE -->
+	<int-http:inbound-channel-adapter channel="httpDeleteChannel" 
+		status-code-expression="T(org.springframework.http.HttpStatus).NO_CONTENT"
+		supported-methods="DELETE" 
+		path="/persons/{personId}" 
+		payload-expression="#pathVariables.personId">
+	
+		<int-http:request-mapping consumes="application/json"/>
+	</int-http:inbound-channel-adapter>
+	
+	<int:service-activator ref="personEndpoint" method="delete" input-channel="httpDeleteChannel"/>
+</beans>
