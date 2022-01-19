@@ -650,5 +650,22 @@
                 <technology-tag level="INFORMATIONAL">Spring Web</technology-tag>
             </perform>
         </rule>
+        <rule id="embedded-framework-05400">
+            <when>
+                <filecontent pattern="{prefixes}flo-editor" filename="{*}.{extensions}" />
+            </when>
+            <perform>
+                <classification title="Embedded framework - Spring Boot Flo" category-id="information" effort="0">
+                    <description>The application embeds Spring Boot Flo.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Spring Boot Flo</technology-tag>
+            </perform>
+            <where param="prefixes">
+                <matches pattern="(&lt;|')"/>
+             </where>
+             <where param="extensions">
+                 <matches pattern="(html|ts)"/>
+             </where>
+        </rule>
     </rules>
 </ruleset>
