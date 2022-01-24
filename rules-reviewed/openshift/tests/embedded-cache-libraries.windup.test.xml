@@ -145,6 +145,16 @@
                     <fail message="SwarmCache classification not found!" />
                 </perform>
             </rule>
+            <rule id="embedded-cache-libraries-test-15000">
+                <when>
+                    <not>
+                        <classification-exists classification="Caching - Spring Boot Cache library"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Spring Boot Cache classification not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
