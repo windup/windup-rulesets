@@ -57,7 +57,7 @@
                       <classification title="Embedded framework - Spring Integration" category-id="information" effort="0">
                           <description>The application embeds the Spring Integration framework.</description>
                       </classification>
-                      <technology-tag level="INFORMATIONAL">Spring Integration (embedded)</technology-tag>
+                      <technology-tag level="INFORMATIONAL">Spring Integration</technology-tag>
                   </perform>
               </iteration>
           </perform>
@@ -193,6 +193,32 @@
               </classification>
               <technology-tag level="INFORMATIONAL">Talend ESB (embedded)</technology-tag>
           </perform>
+      </rule>
+      <rule id="integration-00016">
+        <when>
+            <xmlfile matches="//*/int:channel">
+                <namespace prefix="int" uri="http://www.springframework.org/schema/integration"/>
+            </xmlfile>
+        </when>
+        <perform>
+            <classification title="Embedded framework - Spring Integration" category-id="information" effort="0">
+                <description>The application embeds the Spring Integration framework.</description>
+            </classification>
+            <technology-tag level="INFORMATIONAL">Spring Integration</technology-tag>
+        </perform>
+      </rule>
+      <rule id="integration-00017">
+        <when>
+            <javaclass references="org.springframework.integration.dsl.IntegrationFlow">
+                <location>IMPORT</location>
+            </javaclass>
+        </when>
+        <perform>
+            <classification title="Embedded framework - Spring Integration" category-id="information" effort="0">
+                <description>The application embeds the Spring Integration framework.</description>
+            </classification>
+            <technology-tag level="INFORMATIONAL">Spring Integration</technology-tag>
+        </perform>
       </rule>
     </rules>
 </ruleset>
