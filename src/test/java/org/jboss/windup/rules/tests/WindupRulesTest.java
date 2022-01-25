@@ -251,6 +251,8 @@ public class WindupRulesTest
             {
                 e.printStackTrace();
                 errors.put(ruleTestFile.toString(), e);
+            } finally {
+                factory.closeAll();
             }
         }
     }
