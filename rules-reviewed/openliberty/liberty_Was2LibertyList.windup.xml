@@ -1,0 +1,1384 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="liberty_Was2LibertyList">
+    <metadata>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final"/>
+        </dependencies>
+        <sourceTechnology id="websphere"/>
+        <targetTechnology id="openliberty"/>
+    </metadata>
+    <rules>
+        <rule id="ActivitySessionRule">
+            <when>
+                <or>
+                    <javaclass references="{ActivitySessionRule_0_packages}"/>
+                    <filecontent pattern="{ActivitySessionRule_1_stringLiterals}" filename="{*}.java"/>
+                    <xmlfile matches="//*[local-name()='bean-cache']/@activation-policy[windup:matches(self::node(), '{ActivitySessionRule_2_xpath_attributeValue}')]" in="{ActivitySessionRule_2_filesFilter}"/>
+                    <xmlfile matches="//*[local-name()='local-transaction']/@boundary[windup:matches(self::node(), '{ActivitySessionRule_3_xpath_attributeValue}')]" in="{ActivitySessionRule_3_filesFilter}"/>
+                    <xmlfile matches="//*[local-name()='beanCache']/@activateAt[windup:matches(self::node(), '{ActivitySessionRule_4_xpath_attributeValue}')]" in="{ActivitySessionRule_4_filesFilter}"/>
+                    <xmlfile matches="//*[local-name()='localTransaction']/@boundary[windup:matches(self::node(), '{ActivitySessionRule_5_xpath_attributeValue}')]" in="{ActivitySessionRule_5_filesFilter}"/>
+                    <xmlfile matches="//*[local-name()='activity-sessions']" in="{ActivitySessionRule_6_filesFilter}"/>
+                    <xmlfile matches="//*[local-name()='activitySessionWebAppExtension']" in="{ActivitySessionRule_7_filesFilter}"/>
+                    <xmlfile matches="//*[local-name()='activitySessionEJBJarExtension']" in="{ActivitySessionRule_8_filesFilter}"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="The Activity Session service is unavailable" category-id="mandatory" effort="3">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; The Activity Session service is unavailable on Liberty. This rule flags the following items: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;References to APIs in the &lt;code&gt;com.ibm.websphere.ActivitySession&lt;/code&gt; package&lt;/li&gt; 
+  &lt;li&gt;The activity session JNDI name &lt;code&gt;java:comp/websphere/UserActivitySession&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;Elements that are related to activity sessions in Java Platform, Enterprise Edition (Java EE) extension deployment descriptors&lt;/li&gt; 
+ &lt;/ul&gt;  
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="ActivitySessionRule_0_packages">
+                <matches pattern="com.ibm.websphere.ActivitySession\.[^.]+"/>
+            </where>
+            <where param="ActivitySessionRule_1_stringLiterals">
+                <matches pattern="\&quot;[^\&quot;]*java\:comp/websphere/UserActivitySession[^\&quot;]*\&quot;"/>
+            </where>
+            <where param="ActivitySessionRule_2_filesFilter">
+                <matches pattern="ibm-ejb-jar-ext.xml"/>
+            </where>
+            <where param="ActivitySessionRule_2_xpath_attributeValue">
+                <matches pattern="ACTIVITY_SESSION"/>
+            </where>
+            <where param="ActivitySessionRule_3_filesFilter">
+                <matches pattern="ibm-ejb-jar-ext.xml"/>
+            </where>
+            <where param="ActivitySessionRule_3_xpath_attributeValue">
+                <matches pattern="ACTIVITY_SESSION"/>
+            </where>
+            <where param="ActivitySessionRule_4_filesFilter">
+                <matches pattern="ibm-ejb-jar-ext.xmi"/>
+            </where>
+            <where param="ActivitySessionRule_4_xpath_attributeValue">
+                <matches pattern="ACTIVITY_SESSION"/>
+            </where>
+            <where param="ActivitySessionRule_5_filesFilter">
+                <matches pattern="ibm-ejb-jar-ext.xmi"/>
+            </where>
+            <where param="ActivitySessionRule_5_xpath_attributeValue">
+                <matches pattern="ActivitySession"/>
+            </where>
+            <where param="ActivitySessionRule_6_filesFilter">
+                <matches pattern="(ibm-ejb-jar-ext-pme.xml)|(ibm-web-ext-pme.xml)"/>
+            </where>
+            <where param="ActivitySessionRule_7_filesFilter">
+                <matches pattern="ibm-web-ext-pme.xmi"/>
+            </where>
+            <where param="ActivitySessionRule_8_filesFilter">
+                <matches pattern="ibm-ejb-jar-ext-pme.xmi"/>
+            </where>
+        </rule>
+        <rule id="AppProfileRule">
+            <when>
+                <javaclass references="com.ibm.websphere.appprofile{*}"/>
+            </when>
+            <perform>
+                <hint title="The WebSphere Application Profiling APIs are unavailable" category-id="mandatory" effort="1">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; The following WebSphere Application Profiling APIs are not available on Liberty: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.appprofile&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.appprofile.accessintent&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt;You must modify the application so that it can run on Liberty.&lt;/p&gt;   
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="AsyncBeansSchedulerRule">
+            <when>
+                <javaclass references="{AsyncBeansSchedulerRule_0_packages}"/>
+            </when>
+            <perform>
+                <hint title="The WebSphere Asynchronous Beans API was superseded by a newer implementation" category-id="mandatory" effort="5">
+                    <message>&lt;span class="SubHeader"&gt;WebSphere Asynchronous Beans API&lt;/span&gt; 
+&lt;div class="Text"&gt; 
+ &lt;p&gt; This rule flags APIs from the &lt;code&gt;com.ibm.websphere.asynchbeans&lt;/code&gt; package. These APIs are not provided on Liberty and are marked as deprecated in WebSphere Application Server traditional V9.0. The WebSphere Asynchronous Beans API are replaced by JSR 236, Concurrency Utilities for Java EE. &lt;/p&gt; 
+ &lt;p&gt; &lt;b&gt;Note:&lt;/b&gt; Concurrency Utilities for Java EE provides no replacement for the &lt;code&gt;com.ibm.websphere.asynchbeans.pool&lt;/code&gt; APIs. &lt;/p&gt;  
+ &lt;p&gt; For information and examples about how to use Concurrency Utilities for Java EE instead of Asynchronous beans in WebSphere traditional, see &lt;a href="http://www14.software.ibm.com/webapp/wsbroker/redirect?version=cord&amp;amp;product=was-nd-mp&amp;amp;topic=rasb_migrate_to_eeconcurrency" title="Opens a new window" onclick="javascript:helpWindow('http://www14.software.ibm.com/webapp/wsbroker/redirect?version=cord&amp;amp;product=was-nd-mp&amp;amp;topic=rasb_migrate_to_eeconcurrency'); return false;"&gt; Examples to migrate to EE Concurrency from Asynchronous beans and CommonJ&lt;/a&gt;. &lt;/p&gt; 
+ &lt;p&gt; For information about the Concurrency Utilities for Java EE feature &lt;code&gt;concurrent-1.0&lt;/code&gt; in Liberty, see the &lt;a href="http://www14.software.ibm.com/webapp/wsbroker/redirect?version=phil&amp;amp;product=was-nd-dist&amp;amp;topic=rwlp_feature_concurrent-1.0" title="Opens a new window" onclick="javascript:helpWindow('http://www14.software.ibm.com/webapp/wsbroker/redirect?version=phil&amp;amp;product=was-nd-dist&amp;amp;topic=rwlp_feature_concurrent-1.0'); return false;"&gt; Concurrency Utilities for Java EE 1.0&lt;/a&gt; documentation. &lt;/p&gt;  
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="AsyncBeansSchedulerRule_0_packages">
+                <matches pattern="(com.ibm.websphere.asynchbeans\.[^.]+|com.ibm.websphere.asynchbeans.pool\.[^.]+)"/>
+            </where>
+        </rule>
+        <rule id="BatchFeaturePackRule">
+            <when>
+                <or>
+                    <javaclass references="{BatchFeaturePackRule_0_packages}"/>
+                    <xmlfile matches="//*[local-name()='local' or local-name()='local-home']/text()[windup:matches(self::node(), '{BatchFeaturePackRule_1_xpath_value}')]" in="{BatchFeaturePackRule_1_filesFilter}"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="The WebSphere Batch API and SPI are unavailable" category-id="mandatory" effort="1">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt;WebSphere Batch API and SPI are unavailable on Liberty. This rule flags the following packages:&lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.batch*&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.ci&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.grid.spi&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.longrun&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.batch*&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt; For information on Liberty Batch, see &lt;a href="http://www.ibm.com/support/techdocs/atsmastr.nsf/WebIndex/WP102544" title="Opens a new window" onclick="javascript:helpWindow('http://www.ibm.com/support/techdocs/atsmastr.nsf/WebIndex/WP102544'); return false;"&gt; IBM WebSphere Liberty Java Batch&lt;/a&gt;. &lt;/p&gt; 
+ &lt;p&gt; For information on transitioning to WebSphere Liberty Batch, see the &lt;a href="http://www.ibm.com/support/techdocs/atsmastr.nsf/WebIndex/WP102638" title="Opens a new window" onclick="javascript:helpWindow('http://www.ibm.com/support/techdocs/atsmastr.nsf/WebIndex/WP102638'); return false;"&gt; WebSphere Liberty Batch Migration&lt;/a&gt; documentation. &lt;/p&gt;  
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="BatchFeaturePackRule_0_packages">
+                <matches pattern="(com.ibm.websphere.batch*\.[^.]+|com.ibm.wsspi.batch*\.[^.]+|com.ibm.websphere.ci\.[^.]+|com.ibm.websphere.grid.spi\.[^.]+|com.ibm.websphere.longrun\.[^.]+)"/>
+            </where>
+            <where param="BatchFeaturePackRule_1_filesFilter">
+                <matches pattern="ejb-jar.xml"/>
+            </where>
+            <where param="BatchFeaturePackRule_1_xpath_value">
+                <matches pattern="com\.ibm\.websphere\.batch\..*"/>
+            </where>
+        </rule>
+        <rule id="DetectPolicySetAndWsSecurity">
+            <when>
+                <file filename="{DetectPolicySetAndWsSecurity_0_filenames}"/>
+            </when>
+            <perform>
+                <hint title="Web Services Policy Sets are unavailable in Liberty" category-id="mandatory" effort="1">
+                    <message>&lt;div class="Text"&gt; &lt;span class="SubHeader"&gt;Web Services Policy Sets are unavailable in Liberty.&lt;/span&gt; 
+ &lt;p&gt; This rule detects the following generated files when using web services Policy Sets in WebSphere traditional: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;policySet.xml&lt;/li&gt; 
+  &lt;li&gt;policyAttachments.xml&lt;/li&gt; 
+  &lt;li&gt;clientPolicyAttachments.xml&lt;/li&gt; 
+  &lt;li&gt;policy.xml&lt;/li&gt; 
+  &lt;li&gt;bindings.xml&lt;/li&gt; 
+  &lt;li&gt;bindingDefinition.xml&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt; In Liberty, web services Policy Sets are no longer used. Changes are needed to migrate an application to the Web Services Policy implementation on Liberty. For more information on using WS-Policy in Liberty see &lt;a href="https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/twlp_dep_policyattach.html" title="Opens a new window" onclick="javascript:helpWindow('https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/twlp_dep_policyattach.html'); return false;"&gt; Defining web service policy via policy attachment&lt;/a&gt;. &lt;/p&gt; 
+ &lt;p&gt; The web services security implementation for Liberty is different than WebSphere traditional. If an application is using the WebSphere traditional web services security adhering to the OASIS specification changes may not be necessary. Review the &lt;a href="https://www.ibm.com/support/knowledgecenter/SS7K4U_liberty/com.ibm.websphere.wlp.zseries.doc/ae/cwlp_wssec_cxf_diff.html" title="Opens a new window" onclick="javascript:helpWindow('https://www.ibm.com/support/knowledgecenter/SS7K4U_liberty/com.ibm.websphere.wlp.zseries.doc/ae/cwlp_wssec_cxf_diff.html'); return false;"&gt; WS-Security behavior differences between traditional and Liberty&lt;/a&gt; for more information about behavior differences that may require changes in your application. &lt;/p&gt; 
+ &lt;p&gt; For more information on the OASIS specification see &lt;a href="https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/cwlp_wssec_specs.html" title="Opens a new window" onclick="https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/cwlp_wssec_specs.html'); return false;"&gt; Web Services Security specifications and standards&lt;/a&gt;. &lt;/p&gt; 
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="DetectPolicySetAndWsSecurity_0_filenames">
+                <matches pattern="policySet\.xml|policyAttachments\.xml|clientPolicyAttachments\.xml|policy\.xml|bindings\.xml|bindingDefinition\.xml"/>
+            </where>
+        </rule>
+        <rule id="DetectWSATXML">
+            <when>
+                <or>
+                    <xmlfile matches="//*[local-name()='globalTransaction']/@sendWSAT[windup:matches(self::node(), '{DetectWSATXML_0_xpath_attributeValue}')]" in="{DetectWSATXML_0_filesFilter}"/>
+                    <xmlfile matches="//*[local-name()='webGlobalTransaction']/@supportsWSAT[windup:matches(self::node(), '{DetectWSATXML_1_xpath_attributeValue}')]" in="{DetectWSATXML_1_filesFilter}"/>
+                    <xmlfile matches="//*[local-name()='global-transaction']/@send-wsat-context[windup:matches(self::node(), '{DetectWSATXML_2_xpath_attributeValue}')]" in="{DetectWSATXML_2_filesFilter}"/>
+                    <xmlfile matches="//*[local-name()='web-global-transaction']/@execute-using-wsat[windup:matches(self::node(), '{DetectWSATXML_3_xpath_attributeValue}')]" in="{DetectWSATXML_3_filesFilter}"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Web Services Atomic Transaction (WS-AT) Version 1.2 is available" category-id="optional" effort="0">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; Web Services Atomic Transaction (WS-AT) Version 1.2 is now available on Liberty. This rule flags the following unsupported WS-AT attributes in IBM deployment descriptor extensions: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;execute-using-wsat="true"&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;sendWSAT="true"&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;send-wsat-context="true"&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;supportsWSAT="true"&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt; Liberty does not provide support for WS-AT with EJB global transactions, but Liberty applications can use the WS-AT Version 1.2 specification. &lt;/p&gt; 
+ &lt;p&gt; For more information, see the knowledge center topics starting at &lt;a href="http://www14.software.ibm.com/webapp/wsbroker/redirect?version=cord&amp;amp;product=was-nd-mp&amp;amp;topic=twlp_dep_wsat_lib" title="Opens a new window" onclick="javascript:helpWindow('http://www14.software.ibm.com/webapp/wsbroker/redirect?version=cord&amp;amp;product=was-nd-mp&amp;amp;topic=twlp_dep_wsat_lib'); return false;"&gt; Web Services Atomic Transaction in Liberty&lt;/a&gt;. &lt;/p&gt;
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="DetectWSATXML_0_filesFilter">
+                <matches pattern="(ibm-web-ext.xmi)|(ibm-ejb-jar-ext.xmi)"/>
+            </where>
+            <where param="DetectWSATXML_0_xpath_attributeValue">
+                <matches pattern="(?i:true)"/>
+            </where>
+            <where param="DetectWSATXML_1_filesFilter">
+                <matches pattern="ibm-web-ext.xmi"/>
+            </where>
+            <where param="DetectWSATXML_1_xpath_attributeValue">
+                <matches pattern="(?i:true)"/>
+            </where>
+            <where param="DetectWSATXML_2_filesFilter">
+                <matches pattern="(ibm-web-ext.xml)|(ibm-eb-jar-ext.xml)"/>
+            </where>
+            <where param="DetectWSATXML_2_xpath_attributeValue">
+                <matches pattern="(?i:true)"/>
+            </where>
+            <where param="DetectWSATXML_3_filesFilter">
+                <matches pattern="ibm-web-ext.xml"/>
+            </where>
+            <where param="DetectWSATXML_3_xpath_attributeValue">
+                <matches pattern="(?i:true)"/>
+            </where>
+        </rule>
+        <rule id="DetectWSBAJava">
+            <when>
+                <or>
+                    <javaclass references="com.ibm.websphere.wsba{*}"/>
+                    <filecontent pattern="{DetectWSBAJava_1_stringLiterals}" filename="{*}.java"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Web Services Business Activity (WS-BA) is unavailable" category-id="mandatory" effort="5">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; Web Services Business Activity (WS-BA) is unavailable on Liberty. This rule flags references to APIs in the com.ibm.websphere.wsba package and the business activity JNDI name &lt;code&gt;java:comp/websphere/UserBusinessActivity&lt;/code&gt;. &lt;/p&gt;  
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="DetectWSBAJava_1_stringLiterals">
+                <matches pattern="\&quot;[^\&quot;]*java\:comp/websphere/UserBusinessActivity[^\&quot;]*\&quot;"/>
+            </where>
+        </rule>
+        <rule id="DynamicCacheRule">
+            <when>
+                <javaclass references="{DynamicCacheRule_0_packages}"/>
+            </when>
+            <perform>
+                <hint title="Review use of the dynamic cache service" category-id="optional" effort="1">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; On Liberty, the dynamic cache service is provided by the Distributed Map Interface for Dynamic Caching feature, &lt;code&gt;distributedMap-1.0&lt;/code&gt;, and the Web Response Cache feature, &lt;code&gt;webCache-1.0&lt;/code&gt;. The implementation has the following restrictions: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;No cache replication&lt;/li&gt; 
+  &lt;li&gt;Only the high-performance disk caching mode is supported with random and size eviction techniques&lt;/li&gt; 
+  &lt;li&gt;There is no support for Web Services client and server side caching as well as portlet caching in the cachespec.xml file&lt;/li&gt; 
+  &lt;li&gt;Portlet caching and Web Services client and server side caching are not supported in the cachespec.xml file&lt;/li&gt; 
+  &lt;li&gt;Servlet caching of SingleThreadModel servlets is not supported&lt;/li&gt; 
+  &lt;li&gt;Defining cache configuration by using properties files is not supported for JAR files that contain only Enterprise JavaBeans&lt;/li&gt; 
+  &lt;li&gt;Limiting the memory cache sizes in megabytes works only for 32-bit Java Virtual Machines&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt; This rule flags Java code that has references to the following packages: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.cache&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.ws.cache&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.cache&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.servlet.cache&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt;  
+ &lt;p&gt; The following APIs and SPIs are not available in Liberty: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.cache.ServletCache&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.cache.CacheInstanceResourceBinder&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.cache.CacheMonitor&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.cache.ESIStats&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.cache.ESIStats$ESIServerStats&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.cache.ESIStats$ESIServerStats$ESIProcessorStats&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.cache.ESIStats$ESIServerStats$ESIProcessorStats$ESICacheEntryStats&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt;  
+ &lt;p&gt; For detailed information about dynamic cache on Liberty, see the following resources: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt; &lt;a href="http://www14.software.ibm.com/webapp/wsbroker/redirect?version=phil&amp;amp;product=was-nd-mp&amp;amp;topic=rwlp_restrict#rwlp_restrict__dynacache-restrict" title="Opens a new window" onclick="javascript:helpWindow('http://www14.software.ibm.com/webapp/wsbroker/redirect?version=phil&amp;amp;product=was-nd-mp&amp;amp;topic=rwlp_restrict#rwlp_restrict__dynacache-restrict'); return false;"&gt; Liberty:Runtime environment known issues and restrictions&lt;/a&gt; &lt;/li&gt; 
+  &lt;li&gt; &lt;a href="ftp://ftp.software.ibm.com/software/iea/content/com.ibm.iea.was_v8/was/8.5.5.0/content/WAS855_LibertyDynacache.pdf" title="Opens a new window" onclick="javascript:helpWindow('ftp://ftp.software.ibm.com/software/iea/content/com.ibm.iea.was_v8/was/8.5.5.0/content/WAS855_LibertyDynacache.pdf'); return false;"&gt; Dynamic cache in Liberty&lt;/a&gt; document &lt;/li&gt; 
+  &lt;li&gt; &lt;a href="http://www14.software.ibm.com/webapp/wsbroker/redirect?version=phil&amp;amp;product=was-nd-mp&amp;amp;topic=rwlp_feature_distributedMap-1.0" title="Opens a new window" onclick="javascript:helpWindow('http://www14.software.ibm.com/webapp/wsbroker/redirect?version=phil&amp;amp;product=was-nd-mp&amp;amp;topic=rwlp_feature_distributedMap-1.0'); return false;"&gt; Distributed Map interface for Dynamic Caching&lt;/a&gt; feature documentation &lt;/li&gt; 
+  &lt;li&gt; &lt;a href="http://www14.software.ibm.com/webapp/wsbroker/redirect?version=phil&amp;amp;product=was-nd-mp&amp;amp;topic=rwlp_feature_webCache-1.0" title="Opens a new window" onclick="javascript:helpWindow('http://www14.software.ibm.com/webapp/wsbroker/redirect?version=phil&amp;amp;product=was-nd-mp&amp;amp;topic=rwlp_feature_webCache-1.0'); return false;"&gt; Web Response Cache&lt;/a&gt; feature documentation &lt;/li&gt; 
+ &lt;/ul&gt; 
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="DynamicCacheRule_0_packages">
+                <matches pattern="(com.ibm.websphere.cache*\.[^.]+|com.ibm.websphere.servlet.cache*\.[^.]+|com.ibm.ws.cache*\.[^.]+|com.ibm.wsspi.cache*\.[^.]+)"/>
+            </where>
+        </rule>
+        <rule id="DynamicQueryRule">
+            <when>
+                <or>
+                    <javaclass references="{DynamicQueryRule_0_packages}"/>
+                    <xmlfile matches="//*[local-name()='home' or local-name()='remote']/text()[windup:matches(self::node(), '{DynamicQueryRule_1_xpath_value}')]" in="{DynamicQueryRule_1_filesFilter}"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="The WebSphere EJB Query API is unavailable" category-id="mandatory" effort="1">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; The WebSphere Enterprise JavaBeans (EJB) query service is not available on Liberty. &lt;/p&gt; 
+ &lt;p&gt; This rule flags Java code that has references to the &lt;code&gt;com.ibm.websphere.ejbquery&lt;/code&gt; package. &lt;/p&gt; 
+ &lt;p&gt; WebSphere EJB query service is used to query entity beans, which are not available on Liberty. &lt;/p&gt; 
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="DynamicQueryRule_0_packages">
+                <matches pattern="com.ibm.websphere.ejbquery\.[^.]+"/>
+            </where>
+            <where param="DynamicQueryRule_1_filesFilter">
+                <matches pattern="ejb-jar.xml"/>
+            </where>
+            <where param="DynamicQueryRule_1_xpath_value">
+                <matches pattern="com\.ibm\.websphere\.ejbquery\..*"/>
+            </where>
+        </rule>
+        <rule id="I18nRule">
+            <when>
+                <javaclass references="{I18nRule_0_packages}"/>
+            </when>
+            <perform>
+                <hint title="The WebSphere i18n APIs and SPIs are unavailable" category-id="mandatory" effort="1">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; The following WebSphere i18n APIs and SPIs are not available on Liberty: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.i18n.context&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.i18n.context.util&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt;You must modify the application so that it can run on Liberty.&lt;/p&gt;   
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="I18nRule_0_packages">
+                <matches pattern="(com.ibm.websphere.i18n.context\.[^.]+|com.ibm.wsspi.i18n.context.util\.[^.]+)"/>
+            </where>
+        </rule>
+        <rule id="MTOMRule">
+            <when>
+                <javaclass references="javax.activation.DataHandler.writeTo(java.io.OutputStream)">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Review use of the javax.activation.DataHandler object" category-id="optional" effort="1">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; On Liberty, each DataHandler object can be written to an output stream only once. Writing a DataHandler object to an OutputStream object more than once results in an empty file. After you call the &lt;code&gt;javax.activation.DataHandler.writeTo(OutputStream)&lt;/code&gt; method, you cannot pass the DataHandler object to another method, return it, or store it for later use. &lt;/p&gt; 
+ &lt;p&gt; As a workaround, you can create a new DataHandler object and initialize the DataHandler object with the content that was already retrieved from the existing DataHandler object using the &lt;code&gt;writeTo&lt;/code&gt; method. For example: &lt;/p&gt; 
+ &lt;table class="code"&gt; 
+  &lt;tbody&gt;
+   &lt;tr&gt; 
+    &lt;td&gt; &lt;span class="Code"&gt; &lt;span class="JavaType"&gt;File&lt;/span&gt; f = &lt;span class="JavaKeyword"&gt;new&lt;/span&gt; File("received_image");&lt;br&gt; &lt;span class="JavaKeyword"&gt;if&lt;/span&gt; (f.exists()) {&lt;br&gt; &lt;span class="indent"&gt;&lt;/span&gt;f.delete();&lt;br&gt; }&lt;br&gt; &lt;br&gt; &lt;span class="JavaType"&gt;FileOutputStream&lt;/span&gt; fos = &lt;span class="JavaKeyword"&gt;new&lt;/span&gt; FileOutputStream(f);&lt;br&gt; &lt;br&gt; // Write the DataHandler object to the output stream.&lt;br&gt; img_in.writeTo(fos);&lt;br&gt; &lt;br&gt; // Create a new DataHandler object and initialize it with&lt;br&gt; // the content that was retrieved using the writeTo method above.&lt;br&gt; &lt;br&gt; &lt;span class="JavaType"&gt;FileDataSource&lt;/span&gt; fos_out = &lt;span class="JavaKeyword"&gt;new&lt;/span&gt; FileDataSource(f);&lt;br&gt; &lt;br&gt; &lt;span class="JavaType"&gt;DataHandler&lt;/span&gt; img_out = &lt;span class="JavaKeyword"&gt;new&lt;/span&gt; DataHandler(fos_out);&lt;br&gt; &lt;br&gt; &lt;br&gt; &lt;span class="JavaKeyword"&gt;return&lt;/span&gt; img_out; &lt;/span&gt; &lt;/td&gt;
+   &lt;/tr&gt;
+  &lt;/tbody&gt;
+ &lt;/table&gt; 
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="ServerName">
+            <when>
+                <or>
+                    <javaclass references="com.ibm.websphere.management.AdminService.getProcessName({*})">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                    <javaclass references="com.ibm.ejs.ras.RasHelper.getServerName({*})">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                    <javaclass references="com.ibm.websphere.runtime.ServerName.{ServerName_2_methodNames}({*})">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="Getting the server name on Liberty" category-id="mandatory" effort="1">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; This rule flags references to the following methods: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.management.AdminService.getProcessName()&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.ejs.ras.RasHelper.getServerName()&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.runtime.ServerName.getDisplayName()&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.runtime.ServerName.getFullName()&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt; These methods are not available on Liberty. &lt;/p&gt; 
+ &lt;p&gt; The source scanner has a quick fix to change any reference to the methods mentioned earlier to &lt;code&gt;java.lang.System.getProperty("wlp.server.name")&lt;/code&gt; which retrieves the name of your Liberty server. This solution does not work on WebSphere Application Server traditional. &lt;/p&gt;
+ &lt;p&gt; For alternative solutions, see the &lt;a href="https://www.ibm.com/support/knowledgecenter/SSEQTP_liberty/com.ibm.websphere.wlp.nd.multiplatform.doc/ae/rwlp_dirs.html#d132906e961" title="Opens a new window" onclick="javascript:helpWindow('https://www.ibm.com/support/knowledgecenter/SSEQTP_liberty/com.ibm.websphere.wlp.nd.multiplatform.doc/ae/rwlp_dirs.html#d132906e961'); return false;"&gt; Programmatic access to location properties&lt;/a&gt; section in the Knowledge Center. &lt;/p&gt; 
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="ServerName_2_methodNames">
+                <matches pattern="(getDisplayName|getFullName)"/>
+            </where>
+        </rule>
+        <rule id="SOAPOverJMSRule">
+            <when>
+                <or>
+                    <javaclass references="javax.xml.ws.BindingType">
+                        <location>ANNOTATION</location>
+                        <annotation-literal name="value" pattern="{SOAPOverJMSRule_annotation_fields}"/>
+                    </javaclass>
+                    <xmlfile matches="//*[local-name()='binding']/@transport[windup:matches(self::node(), '{SOAPOverJMSRule_1_xpath_attributeValue}')]" in="{SOAPOverJMSRule_1_filesFilter}"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="SOAP over Java Message Service (JMS) is unavailable" category-id="mandatory" effort="5">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; Liberty does not support Simple Object Access Protocol (SOAP) over Java Message Service (JMS). References to the following namespaces indicate usage of SOAP over JMS: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;http://www.w3.org/2010/soapjms/&lt;/li&gt; 
+  &lt;li&gt;http://www.w3.org/2010/soapjms/soap1.1&lt;/li&gt; 
+  &lt;li&gt;http://www.w3.org/2010/soapjms/soap1.2&lt;/li&gt; 
+ &lt;/ul&gt; This rule flags the following items: 
+ &lt;p&gt;&lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;javax.xml.ws.BindingType&lt;/code&gt; annotations with a &lt;code&gt;value&lt;/code&gt; attribute that references one of the described namespaces&lt;/li&gt; 
+  &lt;li&gt;WSDL files with a &lt;code&gt;transport&lt;/code&gt; attribute on the &lt;span class="XmlDefinition"&gt;&amp;lt;binding&amp;gt;&lt;/span&gt; element that references one of the described namespaces&lt;/li&gt; 
+ &lt;/ul&gt; 
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="SOAPOverJMSRule_annotation_fields">
+                <matches pattern=".*/soapjms(/.*)?"/>
+            </where>
+            <where param="SOAPOverJMSRule_1_filesFilter">
+                <matches pattern=".*\.(?i:wsdl)"/>
+            </where>
+            <where param="SOAPOverJMSRule_1_xpath_attributeValue">
+                <matches pattern=".*/soapjms(/.*)?"/>
+            </where>
+        </rule>
+        <rule id="StartupBeanRule">
+            <when>
+                <or>
+                    <javaclass references="{StartupBeanRule_0_packages}"/>
+                    <xmlfile matches="//*[local-name()='home' or local-name()='remote']/text()[windup:matches(self::node(), '{StartupBeanRule_1_xpath_value}')]" in="{StartupBeanRule_1_filesFilter}"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="The WebSphere Startup Beans Service API was superseded by a newer implementation" category-id="mandatory" effort="5">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; The WebSphere startup bean service was superseded by the startup beans in Enterprise JavaBeans (EJB) 3.1. The service is deprecated in WebSphere Application Server traditional V8.0 and is not available on Liberty. &lt;/p&gt; 
+ &lt;p&gt; This rule flags Java code that has references to the &lt;code&gt;com.ibm.websphere.startupservice&lt;/code&gt; package. &lt;/p&gt; 
+ &lt;p&gt; For information about EJB 3.1 startup beans, see the following resources: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt; &lt;a href="https://www.ibm.com/support/knowledgecenter/en/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/asyncbns/tasks/tasb_confstb.html" title="Opens a new window" onclick="javascript:helpWindow('https://www.ibm.com/support/knowledgecenter/en/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/asyncbns/tasks/tasb_confstb.html'); return false;"&gt; Using startup beans&lt;/a&gt; IBM knowledge center documentation &lt;/li&gt; 
+  &lt;li&gt; &lt;a href="http://docs.oracle.com/javaee/6/api/javax/ejb/Startup.html" title="Opens a new window" onclick="javascript:helpWindow('http://docs.oracle.com/javaee/6/api/javax/ejb/Startup.html'); return false;"&gt; javax.ejb.Startup&lt;/a&gt; annotation Java documentation &lt;/li&gt; 
+  &lt;li&gt; &lt;a href="http://www.redbooks.ibm.com/abstracts/redp4885.html" title="Opens a new window" onclick="javascript:helpWindow('http://www.redbooks.ibm.com/abstracts/redp4885.html'); return false;"&gt; Developing Enterprise JavaBeans Applications&lt;/a&gt; Redpaper &lt;/li&gt; 
+ &lt;/ul&gt; 
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="StartupBeanRule_0_packages">
+                <matches pattern="com.ibm.websphere.startupservice\.[^.]+"/>
+            </where>
+            <where param="StartupBeanRule_1_filesFilter">
+                <matches pattern="ejb-jar.xml"/>
+            </where>
+            <where param="StartupBeanRule_1_xpath_value">
+                <matches pattern="com\.ibm\.websphere\.startupservice\..*"/>
+            </where>
+        </rule>
+        <rule id="WebSphereSdoRule">
+            <when>
+                <javaclass references="{WebSphereSdoRule_0_packages}"/>
+            </when>
+            <perform>
+                <hint title="The WebSphere Service Data Objects (SDO) APIs are unavailable" category-id="mandatory" effort="1">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; The following WebSphere Service Data Objects (SDO) APIs are not available on Liberty: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.sdo&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.sdox&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt;You must modify the application so that it can run on Liberty.&lt;/p&gt;   
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="WebSphereSdoRule_0_packages">
+                <matches pattern="(com.ibm.websphere.sdo*\.[^.]+|com.ibm.websphere.sdox*\.[^.]+)"/>
+            </where>
+        </rule>
+        <rule id="WebSphereSchedulerRule">
+            <when>
+                <or>
+                    <javaclass references="{WebSphereSchedulerRule_0_packages}"/>
+                    <xmlfile matches="//*[local-name()='home' or local-name()='remote']/text()[windup:matches(self::node(), '{WebSphereSchedulerRule_1_xpath_value}')]" in="{WebSphereSchedulerRule_1_filesFilter}"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="The WebSphere Scheduler API was superseded by a newer implementation" category-id="mandatory" effort="5">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; The WebSphere Scheduler API was superseded by Enterprise JavaBeans Persistent Timers 3.2, which is enabled by the ejbPersistentTimer-3.2 Liberty feature. &lt;/p&gt; 
+ &lt;p&gt; This rule flags references to the &lt;code&gt;com.ibm.websphere.scheduler&lt;/code&gt; package because it is not available on Liberty. &lt;/p&gt;  
+ &lt;p&gt; For information about the Enterprise JavaBeans Persistent Timers feature, see the &lt;a href="http://www14.software.ibm.com/webapp/wsbroker/redirect?version=phil&amp;amp;product=was-nd-dist&amp;amp;topic=rwlp_feature_ejbPersistentTimer-3.2" title="Opens a new window" onclick="javascript:helpWindow('http://www14.software.ibm.com/webapp/wsbroker/redirect?version=phil&amp;amp;product=was-nd-dist&amp;amp;topic=rwlp_feature_ejbPersistentTimer-3.2'); return false;"&gt; Enterprise JavaBeans Persistent Timers 3.2&lt;/a&gt; documentation. &lt;/p&gt;  
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="WebSphereSchedulerRule_0_packages">
+                <matches pattern="com.ibm.websphere.scheduler\.[^.]+"/>
+            </where>
+            <where param="WebSphereSchedulerRule_1_filesFilter">
+                <matches pattern="ejb-jar.xml"/>
+            </where>
+            <where param="WebSphereSchedulerRule_1_xpath_value">
+                <matches pattern="com\.ibm\.websphere\.scheduler\..*"/>
+            </where>
+        </rule>
+        <rule id="WebSphereServletRule">
+            <when>
+                <or>
+                    <javaclass references="{WebSphereServletRule_0_packages}"/>
+                    <javaclass references="{WebSphereServletRule_1_classes}"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="The WebSphere Servlet API was superseded by a newer implementation" category-id="mandatory" effort="1">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; The WebSphere Servlet API was superseded by standard Servlet 3.0 functionality. &lt;/p&gt; 
+ &lt;p&gt; This rule flags Java code that has references to the following classes and packages because they are not available on Liberty. &lt;/p&gt;
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.servlet.ClientList&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.servlet.ClientListElement&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.servlet.MLNotFoundException&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.servlet.PageListServlet&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.servlet.PageNotFoundException&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.servlet.filter.ChainedRequest&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.servlet.filter.ChainedResponse&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.servlet.filter.ChainerServlet&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.servlet.filter.ServletChain&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.servlet.response.IResponse&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.servlet.response.StoredResponseCompat&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.servlet.response.HttpServletResponseProxy&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.servlet.response.ResponseUtils&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.servlet.response.ServletOutputStreamAdapter&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.servlet.response.ResponseErrorReport&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.servlet.request&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.webcontainer.async&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt;  
+ &lt;p&gt; For information about the Java EE Servlet APIs, see the &lt;a href="http://docs.oracle.com/javaee/6/api/?javax/servlet/package-summary.html" title="Opens a new window" onclick="javascript:helpWindow('http://docs.oracle.com/javaee/6/api/?javax/servlet/package-summary.html'); return false;"&gt; javax.servlet&lt;/a&gt; package Java documentation. &lt;/p&gt; 
+ &lt;p&gt; For information about the WebSphere Servlet APIs, see the &lt;a href="http://www.ibm.com/support/knowledgecenter/SSAW57_8.5.5/com.ibm.websphere.javadoc.doc/web/apidocs/overview-summary.html" title="Opens a new window" onclick="javascript:helpWindow('http://www.ibm.com/support/knowledgecenter/SSAW57_8.5.5/com.ibm.websphere.javadoc.doc/web/apidocs/overview-summary.html'); return false;"&gt; IBM WebSphere Application Server, Release 8.5 API Specification&lt;/a&gt;. &lt;/p&gt; 
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="WebSphereServletRule_0_packages">
+                <matches pattern="(com.ibm.websphere.servlet.request\.[^.]+|com.ibm.websphere.webcontainer.async\.[^.]+)"/>
+            </where>
+            <where param="WebSphereServletRule_1_classes">
+                <matches pattern="(com.ibm.servlet.ClientList|com.ibm.servlet.ClientListElement|com.ibm.servlet.MLNotFoundException|com.ibm.servlet.PageListServlet|com.ibm.servlet.PageNotFoundException|com.ibm.websphere.servlet.filter.ChainedRequest|com.ibm.websphere.servlet.filter.ChainedResponse|com.ibm.websphere.servlet.filter.ChainerServlet|com.ibm.websphere.servlet.filter.ServletChain|com.ibm.websphere.servlet.response.IResponse|com.ibm.websphere.servlet.response.StoredResponseCompat|com.ibm.websphere.servlet.response.HttpServletResponseProxy|com.ibm.websphere.servlet.response.ResponseUtils|com.ibm.websphere.servlet.response.ServletOutputStreamAdapter|com.ibm.websphere.servlet.response.ResponseErrorReport)"/>
+            </where>
+        </rule>
+        <rule id="WebSphereUnavailableAPIsAppClient">
+            <when>
+                <javaclass references="{WebSphereUnavailableAPIsAppClient_0_packages}"/>
+            </when>
+            <perform>
+                <hint title="The WebSphere Application Client APIs are unavailable" category-id="mandatory" effort="3">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; The following WebSphere Application Client APIs are not available on Liberty: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.client.applicationclient&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt;You must modify the application so that it can run on Liberty.&lt;/p&gt;   
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="WebSphereUnavailableAPIsAppClient_0_packages">
+                <matches pattern="com.ibm.websphere.client.applicationclient\.[^.]+"/>
+            </where>
+        </rule>
+        <rule id="WebSphereUnavailableAPIsConnectorArchitecture">
+            <when>
+                <javaclass references="{WebSphereUnavailableAPIsConnectorArchitecture_0_packages}"/>
+            </when>
+            <perform>
+                <hint title="The WebSphere Connector Architecture APIs are unavailable" category-id="mandatory" effort="1">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; The following WebSphere Connector Architecture APIs are not available on Liberty: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.j2c&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt;You must modify the application so that it can run on Liberty.&lt;/p&gt;   
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="WebSphereUnavailableAPIsConnectorArchitecture_0_packages">
+                <matches pattern="com.ibm.websphere.j2c\.[^.]+"/>
+            </where>
+        </rule>
+        <rule id="WebSphereUnavailableAPIsEnterpriseJavaBeans">
+            <when>
+                <javaclass references="{WebSphereUnavailableAPIsEnterpriseJavaBeans_0_packages}"/>
+            </when>
+            <perform>
+                <hint title="The WebSphere Enterprise JavaBeans APIs and SPIs are unavailable" category-id="mandatory" effort="1">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; The following WebSphere Enterprise JavaBeans APIs and SPIs are not available on Liberty: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.ejbcontainer&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.ejbpersistence&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.csi&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.ejbpersistence&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt;You must modify the application so that it can run on Liberty.&lt;/p&gt;   
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="WebSphereUnavailableAPIsEnterpriseJavaBeans_0_packages">
+                <matches pattern="(com.ibm.websphere.ejbcontainer*\.[^.]+|com.ibm.websphere.ejbpersistence*\.[^.]+|com.ibm.wsspi.ejbpersistence\.[^.]+|com.ibm.websphere.csi\.[^.]+)"/>
+            </where>
+        </rule>
+        <rule id="WebSphereUnavailableAPIsExceptions">
+            <when>
+                <or>
+                    <javaclass references="{WebSphereUnavailableAPIsExceptions_0_classes}"/>
+                    <javaclass references="{WebSphereUnavailableAPIsExceptions_1_packages}"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Some WebSphere Exception APIs and SPIs are unavailable" category-id="mandatory" effort="1">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; The following WebSphere Exception APIs and SPIs are not available on Liberty: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.exception.DistributedEJBCreateException&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.exception.DistributedEJBRemoveException&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.ws.exception&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt;You must modify the application so that it can run on Liberty.&lt;/p&gt;   
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="WebSphereUnavailableAPIsExceptions_0_classes">
+                <matches pattern="(com.ibm.websphere.exception.DistributedEJBCreateException|com.ibm.websphere.exception.DistributedEJBRemoveException)"/>
+            </where>
+            <where param="WebSphereUnavailableAPIsExceptions_1_packages">
+                <matches pattern="com.ibm.ws.exception\.[^.]+"/>
+            </where>
+        </rule>
+        <rule id="WebSphereUnavailableAPIsExtensionRegistry">
+            <when>
+                <javaclass references="com.ibm.workplace.extension{*}"/>
+            </when>
+            <perform>
+                <hint title="The Extension Registry APIs are unavailable" category-id="mandatory" effort="1">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; The following Extension Registry APIs are not available on Liberty: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.workplace.extension&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt;You must modify the application so that it can run on Liberty.&lt;/p&gt;   
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="WebSphereUnavailableAPIsISC">
+            <when>
+                <javaclass references="com.ibm.isc.api.platform{*}"/>
+            </when>
+            <perform>
+                <hint title="The Integrated Solutions Console (ISC) APIs are unavailable" category-id="mandatory" effort="1">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; The following Integrated Solutions Console (ISC) APIs are not available on Liberty: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.isc.api.platform&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt;You must modify the application so that it can run on Liberty.&lt;/p&gt;   
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="WebSphereUnavailableAPIsLoggingAndRAS">
+            <when>
+                <or>
+                    <javaclass references="{WebSphereUnavailableAPIsLoggingAndRAS_0_packages}"/>
+                    <javaclass references="{WebSphereUnavailableAPIsLoggingAndRAS_1_classes}"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="The WebSphere logging and RAS APIs and SPIs are unavailable" category-id="mandatory" effort="1">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; The following WebSphere logging and RAS APIs and SPIs are not available on Liberty: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.logging.RawTraceList&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.logging.RawTraceList$PatternLevel&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.logging.MessageConverter&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.logging.WsLevel&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.ejs.ras&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.ffdc&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.ras&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.als&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.logging.cbe&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.ras&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.rasdiag&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.xct&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt;You must modify the application so that it can run on Liberty.&lt;/p&gt;   
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="WebSphereUnavailableAPIsLoggingAndRAS_0_packages">
+                <matches pattern="(com.ibm.ejs.ras*\.[^.]+|com.ibm.ffdc*\.[^.]+|com.ibm.ras*\.[^.]+|com.ibm.websphere.als*\.[^.]+|com.ibm.websphere.logging.cbe*\.[^.]+|com.ibm.websphere.ras*\.[^.]+|com.ibm.wsspi.rasdiag*\.[^.]+|com.ibm.wsspi.xct*\.[^.]+)"/>
+            </where>
+            <where param="WebSphereUnavailableAPIsLoggingAndRAS_1_classes">
+                <matches pattern="(com.ibm.websphere.logging.MessageConverter|com.ibm.websphere.logging.RawTraceList|com.ibm.websphere.logging.RawTraceList$PatternLevel|com.ibm.websphere.logging.WsLevel)"/>
+            </where>
+        </rule>
+        <rule id="WebSphereUnavailableAPIsManagement">
+            <when>
+                <javaclass references="{WebSphereUnavailableAPIsManagement_0_packages}"/>
+            </when>
+            <perform>
+                <hint title="The WebSphere Management APIs and SPIs are unavailable" category-id="mandatory" effort="1">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; The following WebSphere Management APIs and SPIs are not available on Liberty: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.ant.tasks&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.hamanager.jmx&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.interrupt&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.management&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.naming&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.product&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.management.metadata&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt;You must modify the application so that it can run on Liberty.&lt;/p&gt;   
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="WebSphereUnavailableAPIsManagement_0_packages">
+                <matches pattern="(com.ibm.websphere.ant.tasks*\.[^.]+|com.ibm.websphere.hamanager.jmx*\.[^.]+|com.ibm.websphere.interrupt*\.[^.]+|com.ibm.websphere.management*\.[^.]+|com.ibm.websphere.naming*\.[^.]+|com.ibm.websphere.product*\.[^.]+|com.ibm.wsspi.management.metadata\.[^.]+)"/>
+            </where>
+        </rule>
+        <rule id="WebSphereUnavailableAPIsORB">
+            <when>
+                <javaclass references="{WebSphereUnavailableAPIsORB_0_packages}"/>
+            </when>
+            <perform>
+                <hint title="The WebSphere ORB Extensions APIs are unavailable" category-id="mandatory" effort="1">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; The following WebSphere ORB Extensions APIs are not available on Liberty: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.orbext&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.ejs.oa.EJSORB&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt;You must modify the application so that it can run on Liberty.&lt;/p&gt;   
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="WebSphereUnavailableAPIsORB_0_packages">
+                <matches pattern="(com.ibm.websphere.orbext*\.[^.]+|com.ibm.ejs.oa.EJSORB*\.[^.]+)"/>
+            </where>
+        </rule>
+        <rule id="WebSphereUnavailableAPIsPMI">
+            <when>
+                <javaclass references="{WebSphereUnavailableAPIsPMI_0_packages}"/>
+            </when>
+            <perform>
+                <hint title="The WebSphere Performance Monitoring Infrastructure (PMI) APIs and SPIs are unavailable" category-id="mandatory" effort="1">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; The following WebSphere Performance Monitoring Infrastructure (PMI) APIs and SPIs are not available on Liberty: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.pmi&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.pmi&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.ws.performance.tuning.rule&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.ws.pmi.server&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt;You must modify the application so that it can run on Liberty.&lt;/p&gt;   
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="WebSphereUnavailableAPIsPMI_0_packages">
+                <matches pattern="(com.ibm.websphere.pmi*\.[^.]+|com.ibm.wsspi.pmi*\.[^.]+|com.ibm.ws.pmi.server\.[^.]+|com.ibm.ws.performance.tuning.rule\.[^.]+)"/>
+            </where>
+        </rule>
+        <rule id="WebSphereUnavailableAPIsPortal">
+            <when>
+                <javaclass references="com.ibm.portal{*}"/>
+            </when>
+            <perform>
+                <hint title="The WebSphere Portal APIs are unavailable" category-id="mandatory" effort="3">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; The following WebSphere Portal APIs are not available on Liberty: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.portal&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt;You must modify the application so that it can run on Liberty.&lt;/p&gt;   
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="WebSphereUnavailableAPIsResourceAdapter">
+            <when>
+                <javaclass references="{WebSphereUnavailableAPIsResourceAdapter_0_packages}"/>
+            </when>
+            <perform>
+                <hint title="The WebSphere Resource Adapter APIs and SPIs are unavailable" category-id="mandatory" effort="1">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; The following WebSphere Resource Adapter APIs and SPIs are not available on Liberty: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.rsadapter&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.rsadapter&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.rawrapper&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt;You must modify the application so that it can run on Liberty.&lt;/p&gt;   
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="WebSphereUnavailableAPIsResourceAdapter_0_packages">
+                <matches pattern="(com.ibm.websphere.rsadapter*\.[^.]+|com.ibm.wsspi.rsadapter\.[^.]+|com.ibm.wsspi.rawrapper\.[^.]+)"/>
+            </where>
+        </rule>
+        <rule id="WebSphereUnavailableAPIsSecurity">
+            <when>
+                <or>
+                    <javaclass references="{WebSphereUnavailableAPIsSecurity_0_packages}"/>
+                    <javaclass references="{WebSphereUnavailableAPIsSecurity_1_classes}"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Some WebSphere Security APIs and SPIs are unavailable" category-id="mandatory" effort="1">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; The following WebSphere Security APIs and SPIs are not available on Liberty: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.crypto.KeyGenerator&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.crypto.KeyPair&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.crypto.KeyPairGenerator&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.crypto.KeySetHelper&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.security.auth.WSPrincipal&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.security.auth.IdentityPrincipal&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.security.auth.MappingAuthData&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.security.auth.AuthenticationFailedException&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.security.auth.AuthenticationNotSupportedException&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.security.auth.MapCredentialFailedException&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.security.auth.MapCredentialNotSupportedException&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.security.auth.UnsupportedRealmException&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.security.auth.ValidationFailedException&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.security.auth.ValidationNotSupportedException&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.security.auth.callback.NonPromptCallbackHandler&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.security.auth.callback.WSCcacheCallBackHandlerImpl&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.security.auth.callback.WSGUICallbackHandlerImpl&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.security.auth.callback.WSStdinCallbackHandlerImpl&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.security.DistributedUserMappingFailedException&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.security.oidc.util&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.security.ProviderFailureException&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.security.SAFRoleMapper&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.security.TrustAssociationInterceptor&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.security.UserMapping&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.security.UserMappingException&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.security.WebSphereBaseTrustAssociationInterceptor&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.ssl.protocol&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.ws.security.core.SecurityContext&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.ws.security.util.LoginHelper&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.ws.security.util.ByteArray&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.security.audit&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.security.auth.callback.WSIdentityCallback&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.security.auth.callback.WSMappingCallbackHandlerFactory&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.security.auth.callback.WSProtocolPolicyCallback&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.security.auth.callback.WSTokenHolderCallback&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.security.auth.WSSubjectWrapper&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.security.authorization&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.security.context&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.security.crypto.aes&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.security.csiv2&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.security.ltpa&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.security.policy&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.security.securitydomain&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.security.spnego&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.security.tai.NegotiateTrustAssociationInterceptor&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.security.tai.NegotiateTrustAssociationInterceptorImpl&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.security.tai.TrustAssociationInterceptorExt&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.security.token.AuthenticationToken&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.security.token.AuthorizationToken&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.security.token.KerberosToken&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.security.token.PropagationToken&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.security.token.TokenHolder&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.security.token.WSOpaqueTokenHelper&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.security.web.saml&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.ssl.RetrieveSignersHelper&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.ssl.WSPKIClient&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.IExtendedSecurity&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt;You must modify the application so that it can run on Liberty.&lt;/p&gt;   
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="WebSphereUnavailableAPIsSecurity_0_packages">
+                <matches pattern="(com.ibm.websphere.ssl.protocol\.[^.]+|com.ibm.IExtendedSecurity*\.[^.]+|com.ibm.websphere.security.oidc.util\.[^.]+|com.ibm.wsspi.security.audit\.[^.]+|com.ibm.wsspi.security.authorization\.[^.]+|com.ibm.wsspi.security.context\.[^.]+|com.ibm.wsspi.security.crypto.aes\.[^.]+|com.ibm.wsspi.security.csiv2\.[^.]+|com.ibm.wsspi.security.ltpa\.[^.]+|com.ibm.wsspi.security.policy\.[^.]+|com.ibm.wsspi.security.securitydomain\.[^.]+|com.ibm.wsspi.security.spnego\.[^.]+|com.ibm.wsspi.security.web.saml\.[^.]+)"/>
+            </where>
+            <where param="WebSphereUnavailableAPIsSecurity_1_classes">
+                <matches pattern="(com.ibm.websphere.security.auth.WSPrincipal|com.ibm.websphere.security.auth.IdentityPrincipal|com.ibm.websphere.security.auth.MappingAuthData|com.ibm.websphere.security.auth.AuthenticationFailedException|com.ibm.websphere.security.auth.AuthenticationNotSupportedException|com.ibm.websphere.security.auth.MapCredentialFailedException|com.ibm.websphere.security.auth.MapCredentialNotSupportedException|com.ibm.websphere.security.auth.UnsupportedRealmException|com.ibm.websphere.security.auth.ValidationFailedException|com.ibm.websphere.security.auth.ValidationNotSupportedException|com.ibm.websphere.security.auth.callback.NonPromptCallbackHandler|com.ibm.websphere.security.auth.callback.WSCcacheCallBackHandlerImpl|com.ibm.websphere.security.auth.callback.WSGUICallbackHandlerImpl|com.ibm.websphere.security.auth.callback.WSStdinCallbackHandlerImpl|com.ibm.websphere.security.DistributedUserMappingFailedException|com.ibm.websphere.security.ProviderFailureException|com.ibm.websphere.security.SAFRoleMapper|com.ibm.websphere.security.TrustAssociationInterceptor|com.ibm.websphere.security.UserMapping|com.ibm.websphere.security.UserMappingException|com.ibm.websphere.security.WebSphereBaseTrustAssociationInterceptor|com.ibm.ws.security.core.SecurityContext|com.ibm.ws.security.util.LoginHelper|com.ibm.ws.security.util.ByteArray|com.ibm.websphere.crypto.KeyGenerator|com.ibm.websphere.crypto.KeyPair|com.ibm.websphere.crypto.KeyPairGenerator|com.ibm.websphere.crypto.KeySetHelper|com.ibm.wsspi.ssl.RetrieveSignersHelper|com.ibm.wsspi.ssl.WSPKIClient|com.ibm.wsspi.security.auth.callback.WSIdentityCallback|com.ibm.wsspi.security.auth.callback.WSMappingCallbackHandlerFactory|com.ibm.wsspi.security.auth.callback.WSProtocolPolicyCallback|com.ibm.wsspi.security.auth.callback.WSTokenHolderCallback|com.ibm.wsspi.security.auth.WSSubjectWrapper|com.ibm.wsspi.security.tai.NegotiateTrustAssociationInterceptor|com.ibm.wsspi.security.tai.NegotiateTrustAssociationInterceptorImpl|com.ibm.wsspi.security.tai.TrustAssociationInterceptorExt|com.ibm.wsspi.security.token.AuthenticationToken|com.ibm.wsspi.security.token.AuthorizationToken|com.ibm.wsspi.security.token.KerberosToken|com.ibm.wsspi.security.token.PropagationToken|com.ibm.wsspi.security.token.TokenHolder|com.ibm.wsspi.security.token.WSOpaqueTokenHelper)"/>
+            </where>
+        </rule>
+        <rule id="WebSphereUnavailableAPIsSIB">
+            <when>
+                <javaclass references="com.ibm.websphere.sib{*}"/>
+            </when>
+            <perform>
+                <hint title="The WebSphere Service Integration Bus (SIB) APIs are unavailable" category-id="mandatory" effort="1">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; The following WebSphere Service Integration Bus (SIB) APIs are not available on Liberty: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.sib&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt;You must modify the application so that it can run on Liberty.&lt;/p&gt;   
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="WebSphereUnavailableAPIsSMF">
+            <when>
+                <javaclass references="com.ibm.websphere.smf{*}"/>
+            </when>
+            <perform>
+                <hint title="The WebSphere SMF recording APIs are unavailable" category-id="mandatory" effort="1">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; The following WebSphere SMF recording APIs are not available on Liberty: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.smf&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt;You must modify the application so that it can run on Liberty.&lt;/p&gt;   
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="WebSphereUnavailableAPIsTPV">
+            <when>
+                <javaclass references="com.ibm.ws.tpv{*}"/>
+            </when>
+            <perform>
+                <hint title="The Tivoli Performance Viewer SPIs are unavailable" category-id="mandatory" effort="1">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; The following Tivoli Performance Viewer SPIs are not available on Liberty: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.ws.tpv&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt;You must modify the application so that it can run on Liberty.&lt;/p&gt;   
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="WebSphereUnavailableAPIsExtHelper">
+            <when>
+                <javaclass references="com.ibm.ws.extensionhelper{*}"/>
+            </when>
+            <perform>
+                <hint title="Some WebSphere Extension Helper SPIs are unavailable" category-id="mandatory" effort="3">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; The following WebSphere Extension Helper SPIs are not available on Liberty: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.ws.extensionhelper&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt;You must modify the application so that it can run on Liberty.&lt;/p&gt;   
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="WebSphereUnavailableAPIsUDDI">
+            <when>
+                <javaclass references="com.ibm.uddi{*}"/>
+            </when>
+            <perform>
+                <hint title="The Universal Description, Discovery and Integration (UDDI) APIs are unavailable" category-id="mandatory" effort="1">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; The following Universal Description, Discovery and Integration (UDDI) APIs are not available on Liberty: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.uddi&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt;You must modify the application so that it can run on Liberty.&lt;/p&gt;   
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="WebSphereUnavailableAPIsWLM">
+            <when>
+                <javaclass references="{WebSphereUnavailableAPIsWLM_0_packages}"/>
+            </when>
+            <perform>
+                <hint title="The WebSphere Workload Manager APIs are unavailable" category-id="mandatory" effort="1">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; The following WebSphere Workload Manager APIs are not available on Liberty: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.wlm&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.wlm.exception&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt;You must modify the application so that it can run on Liberty.&lt;/p&gt;   
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="WebSphereUnavailableAPIsWLM_0_packages">
+                <matches pattern="(com.ibm.websphere.wlm*\.[^.]+|com.ibm.websphere.wlm.exception*\.[^.]+)"/>
+            </where>
+        </rule>
+        <rule id="WebSphereUnavailableAPIsWSADIE">
+            <when>
+                <or>
+                    <javaclass references="{WebSphereUnavailableAPIsWSADIE_0_packages}"/>
+                    <javaclass references="{WebSphereUnavailableAPIsWSADIE_1_classes}"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="The WebSphere Studio Application Developer Integration Edition APIs are unavailable" category-id="mandatory" effort="1">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; The following WebSphere Studio Application Developer Integration Edition APIs are not available on Liberty: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.webtools.runtime.AbstractStudioServlet&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.webtools.runtime.BuildNumber&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.webtools.runtime.NoDataException&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.webtools.runtime.StudioPervasiveServlet&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.webtools.runtime.TransactionFailureException&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.webtools.runtime.WSUtilities&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.etools.ctc.physicalrep&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.etools.ctc.plugin.binding.connector&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.etools.ctc.wsdl.extensions.physicalrep&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.etools.logging&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.etools.xsltypeconverter&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.jca.importservice&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsdl.extensions.physicalrep&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsdl.extensions.transformer&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsif.format.jca&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsif.format.literal&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsif.format.transformer&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsif.jca&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsif.providers.ejb.proxy&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsif.providers.transformer&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsif.providers.transformerrt&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;org.xmlsoap.schemas.wsdl.wsadie.messages&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt;You must modify the application so that it can run on Liberty.&lt;/p&gt;   
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="WebSphereUnavailableAPIsWSADIE_0_packages">
+                <matches pattern="(com.ibm.etools.ctc.plugin.binding.connector*\.[^.]+|com.ibm.etools.ctc.physicalrep*\.[^.]+|com.ibm.etools.ctc.wsdl.extensions.physicalrep*\.[^.]+|com.ibm.etools.logging*\.[^.]+|com.ibm.etools.xsltypeconverter*\.[^.]+|com.ibm.jca.importservice*\.[^.]+|com.ibm.wsdl.extensions.physicalrep*\.[^.]+|com.ibm.wsdl.extensions.transformer*\.[^.]+|com.ibm.wsif.format.jca*\.[^.]+|com.ibm.wsif.format.literal*\.[^.]+|com.ibm.wsif.format.transformer*\.[^.]+|com.ibm.wsif.jca*\.[^.]+|com.ibm.wsif.providers.ejb.proxy*\.[^.]+|com.ibm.wsif.providers.transformer*\.[^.]+|com.ibm.wsif.providers.transformerrt*\.[^.]+|org.xmlsoap.schemas.wsdl.wsadie.messages*\.[^.]+)"/>
+            </where>
+            <where param="WebSphereUnavailableAPIsWSADIE_1_classes">
+                <matches pattern="(com.ibm.webtools.runtime.AbstractStudioServlet|com.ibm.webtools.runtime.BuildNumber|com.ibm.webtools.runtime.NoDataException|com.ibm.webtools.runtime.StudioPervasiveServlet|com.ibm.webtools.runtime.TransactionFailureException|com.ibm.webtools.runtime.WSUtilities)"/>
+            </where>
+        </rule>
+        <rule id="WebSphereUnavailableAPIsWSSecurityHelper">
+            <when>
+                <javaclass references="com.ibm.websphere.security.WSSecurityHelper.{WebSphereUnavailableAPIsWSSecurityHelper_0_methodNames}({*})">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Some WSSecurityHelper methods are unavailable" category-id="mandatory" effort="1">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; The following WSSecurityHelper methods are not available on Liberty: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;getCallerList&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;getFirstCaller&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;getFirstServer&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;getServerList&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;addPropagationAttribute&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;getPropagationAttributes&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;convertCookieStringToBytes&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;revokeSSOCookies&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;revokeSSOCookiesForPortlets&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;getLTPACookieFromSSOToken&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt;You must modify the application so that it can run on Liberty.&lt;/p&gt;  
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="WebSphereUnavailableAPIsWSSecurityHelper_0_methodNames">
+                <matches pattern="(getFirstCaller|getFirstServer|getCallerList|getServerList|getPropagationAttributes|addPropagationAttribute|convertCookieStringToBytes|revokeSSOCookiesForPortlets)"/>
+            </where>
+        </rule>
+        <rule id="WebSphereUnavailableSPIsRRD">
+            <when>
+                <javaclass references="com.ibm.wsspi.rrd{*}"/>
+            </when>
+            <perform>
+                <hint title="The WebSphere Remote Request Dispatcher (RRD) SPIs are unavailable" category-id="mandatory" effort="3">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; The following WebSphere Remote Request Dispatcher (RRD) SPIs are not available on Liberty: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.rrd&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt;You must modify the application so that it can run on Liberty.&lt;/p&gt;   
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="WebSphereUnavailableSSOCookieMethod">
+            <when>
+                <javaclass references="com.ibm.websphere.security.WSSecurityHelper.revokeSSOCookies({*})">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Do not use the WSSecurityHelper revokeSSOCookies method" category-id="mandatory" effort="1">
+                    <message>&lt;div class="Text"&gt; &lt;span class="SubHeader"&gt;Avoid using the deprecated WSSecurityHelper revokeSSOCookies method&lt;/span&gt; 
+ &lt;p&gt; This rule flags the following deprecated method from the &lt;span class="Code"&gt;com.ibm.websphere.security.WSSecurityHelper&lt;/span&gt; class: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;span class="Code"&gt;revokeSSOCookies(HttpServletRequest req, HttpServletResponse res)&lt;/span&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt;This method is deprecated in traditional WebSphere Application Server Version 8.5 and might be removed in a future release. It is not available on Liberty. &lt;/p&gt; 
+ &lt;p&gt; The functionality provided by &lt;span class="Code"&gt;WSSecurityHelper.revokeSSOCookies(HttpServletRequest req, HttpServletResponse res)&lt;/span&gt; is replaced by the Java Servlet-3.0 specification's &lt;span class="Code"&gt;logout()&lt;/span&gt; method. The Java Servlet-3.0 &lt;span class="Code"&gt;logout()&lt;/span&gt; method will perform all of the work that &lt;span class="Code"&gt;WSSecurityHelper.revokeSSOCookies(HttpServletRequest req, HttpServletResponse res)&lt;/span&gt; performs as well as doing additional state clean up, such as invalidating the session and clearing the security &lt;span class="Code"&gt;Subject&lt;/span&gt; from the thread. &lt;/p&gt; 
+ &lt;p&gt; Use the new method to be compatible on both WebSphere Application Server traditional and Liberty. Also note that with the &lt;span class="Code"&gt;logout()&lt;/span&gt; method in use, the application requires WebSphere Application Server V8.0 or later. &lt;/p&gt; 
+ &lt;p&gt; In the source scanner, the quick fix replaces calls to &lt;span class="Code"&gt;revokeSSOCookies(HttpServletRequest req, HttpServletResponse res)&lt;/span&gt; with calls to the &lt;span class="Code"&gt;logout()&lt;/span&gt; method. For example, the following code &lt;/p&gt; 
+ &lt;table bgcolor="#F7F8F9" border="1" cellpadding="2px"&gt; 
+  &lt;tbody&gt;
+   &lt;tr&gt; 
+    &lt;td&gt; import javax.servlet.http.HttpServletRequest; &lt;br&gt; &lt;span class="indent2"&gt;&lt;/span&gt;... &lt;br&gt; &lt;span class="indent2"&gt;&lt;/span&gt;WSSecurityHelper.revokeSSOCookies(req, res); &lt;/td&gt; 
+   &lt;/tr&gt; 
+  &lt;/tbody&gt;
+ &lt;/table&gt; 
+ &lt;p&gt;is replaced by &lt;/p&gt; 
+ &lt;table bgcolor="#F7F8F9" border="1" cellpadding="2px"&gt; 
+  &lt;tbody&gt;
+   &lt;tr&gt; 
+    &lt;td&gt; import javax.servlet.http.HttpServletRequest; &lt;br&gt; &lt;span class="indent2"&gt;&lt;/span&gt;...&lt;br&gt; &lt;span class="indent2"&gt;&lt;/span&gt;req.logout(); &lt;/td&gt; 
+   &lt;/tr&gt; 
+  &lt;/tbody&gt;
+ &lt;/table&gt; 
+ &lt;p&gt; For additional information, see &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;a href="https://www.ibm.com/docs/en/was-nd/8.5.5?topic=providers-java-servlet-30-support-security" title="Opens a new window" onclick="javascript:helpWindow('https://www.ibm.com/docs/en/was-nd/8.5.5?topic=providers-java-servlet-30-support-security'); return false;"&gt; Java Servlet 3.0 support for security&lt;/a&gt; Knowledge Center documentation. &lt;/li&gt; 
+  &lt;li&gt;&lt;a href="https://www.ibm.com/support/knowledgecenter/SSEQTP_9.0.5/com.ibm.websphere.javadoc.doc/web/apidocs/com/ibm/websphere/security/WSSecurityHelper.html" title="Opens a new window" onclick="javascript:helpWindow('https://www.ibm.com/support/knowledgecenter/SSEQTP_9.0.5/com.ibm.websphere.javadoc.doc/web/apidocs/com/ibm/websphere/security/WSSecurityHelper.html'); return false;"&gt; Class WSSecurityHelper&lt;/a&gt; Java documentation. &lt;/li&gt; 
+  &lt;li&gt;&lt;a href="https://www.ibm.com/docs/en/was-nd/8.5.5?topic=applications-servlet-security-methods" title="Opens a new window" onclick="javascript:helpWindow('https://www.ibm.com/docs/en/was-nd/8.5.5?topic=applications-servlet-security-methods'); return false;"&gt; Servlet security methods&lt;/a&gt; Knowledge Center documentation. &lt;/li&gt; 
+ &lt;/ul&gt; 
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="WebSphereUnavailableSSOTokenMethod">
+            <when>
+                <javaclass references="com.ibm.websphere.security.WSSecurityHelper.getLTPACookieFromSSOToken({*})">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Do not use the WSSecurityHelper getLTPACookieFromSSOToken method" category-id="mandatory" effort="1">
+                    <message>&lt;div class="Text"&gt;  
+ &lt;p&gt; This rule flags the following method from the &lt;span class="Code"&gt;com.ibm.websphere.security.WSSecurityHelper&lt;/span&gt; class: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;span class="Code"&gt;getLTPACookieFromSSOToken()&lt;/span&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt;This method is deprecated in traditional WebSphere Application Server Version 8.5 and might be removed in a future release. It is not available on Liberty. &lt;/p&gt; 
+ &lt;p&gt; The functionality provided by &lt;span class="Code"&gt;WSSecurityHelper.getLTPACookieFromSSOToken()&lt;/span&gt; is replaced by the new method &lt;span class="Code"&gt;com.ibm.websphere.security.web.WebSecurityHelper.getSSOCookieFromSSOToken().&lt;/span&gt; Note that this new method is in the class &lt;span class="Code"&gt;com.ibm.websphere.security.web.WebSecurityHelper,&lt;/span&gt; not &lt;span class="Code"&gt;com.ibm.websphere.security.WSSecurityHelper.&lt;/span&gt; This method will extract the SSO token from the subject of current thread and builds an SSO cookie out of it for use on downstream web invocations. &lt;/p&gt; 
+ &lt;p&gt; Use the new method to be compatible on both WebSphere Application Server traditional and Liberty. Also note that with the &lt;span class="Code"&gt;getSSOCookieFromSSOToken()&lt;/span&gt; method in use, the application requires WebSphere Application Server V8.0 or later. &lt;/p&gt; 
+ &lt;p&gt; In the source scanner, the quick fix replaces calls to &lt;span class="Code"&gt;WSSecurityHelper.getLTPACookieFromSSOToken()&lt;/span&gt; with calls to the &lt;span class="Code"&gt;WebSecurityHelper.getSSOCookieFromSSOToken()&lt;/span&gt; method. An import statement for &lt;span class="Code"&gt;com.ibm.websphere.security.web.WebSecurityHelper&lt;/span&gt; is added if needed. For example, the following code &lt;/p&gt; 
+ &lt;table bgcolor="#F7F8F9" border="1" cellpadding="2px"&gt; 
+  &lt;tbody&gt;
+   &lt;tr&gt; 
+    &lt;td&gt; import javax.servlet.http.Cookie;&lt;br&gt; import com.ibm.websphere.security.WSSecurityHelper; &lt;br&gt; &lt;span class="indent2"&gt;&lt;/span&gt;... &lt;br&gt; &lt;span class="indent2"&gt;&lt;/span&gt;Cookie ltpaCookie = WSSecurityHelper.getLTPACookieFromSSOToken(); &lt;/td&gt; 
+   &lt;/tr&gt; 
+  &lt;/tbody&gt;
+ &lt;/table&gt; 
+ &lt;p&gt;is replaced by &lt;/p&gt; 
+ &lt;table bgcolor="#F7F8F9" border="1" cellpadding="2px"&gt; 
+  &lt;tbody&gt;
+   &lt;tr&gt; 
+    &lt;td&gt; import javax.servlet.http.Cookie;&lt;br&gt; import com.ibm.websphere.security.WSSecurityHelper;&lt;br&gt; import com.ibm.websphere.security.web.WebSecurityHelper; &lt;br&gt; &lt;span class="indent2"&gt;&lt;/span&gt;...&lt;br&gt; &lt;span class="indent2"&gt;&lt;/span&gt;Cookie ltpaCookie = WebSecurityHelper.getSSOCookieFromSSOToken(); &lt;/td&gt; 
+   &lt;/tr&gt; 
+  &lt;/tbody&gt;
+ &lt;/table&gt; 
+ &lt;p&gt; For additional information, see &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;a href="https://www.ibm.com/support/knowledgecenter/SSAW57_8.5.5/com.ibm.websphere.javadoc.doc/web/apidocs/com/ibm/websphere/security/web/WebSecurityHelper.html" title="Opens a new window" onclick="javascript:helpWindow('https://www.ibm.com/support/knowledgecenter/SSAW57_8.5.5/com.ibm.websphere.javadoc.doc/web/apidocs/com/ibm/websphere/security/web/WebSecurityHelper.html'); return false;"&gt; Class WebSecurityHelper&lt;/a&gt; Java documentation. &lt;/li&gt; 
+  &lt;li&gt;&lt;a href="https://www.ibm.com/docs/en/SSAW57_8.5.5/com.ibm.websphere.javadoc.doc/web/apidocs/com/ibm/websphere/security/WSSecurityHelper.html" title="Opens a new window" onclick="javascript:helpWindow('https://www.ibm.com/docs/en/SSAW57_8.5.5/com.ibm.websphere.javadoc.doc/web/apidocs/com/ibm/websphere/security/WSSecurityHelper.html'); return false;"&gt; Class WSSecurityHelper&lt;/a&gt; Java documentation. &lt;/li&gt; 
+  &lt;li&gt;&lt;a href="https://www.ibm.com/docs/en/was-nd/8.5.5?topic=ssa-using-websphere-application-server-api-achieve-downstream-web-single-sign-ltpatoken2-cookie" title="Opens a new window" onclick="javascript:helpWindow('https://www.ibm.com/docs/en/was-nd/8.5.5?topic=ssa-using-websphere-application-server-api-achieve-downstream-web-single-sign-ltpatoken2-cookie'); return false;"&gt; Using a WebSphere Application Server API to achieve downstream web single sign-on with an LtpaToken2 cookie&lt;/a&gt; Knowledge Center documentation. &lt;/li&gt; 
+ &lt;/ul&gt; 
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="WOLAMissingClassesRule">
+            <when>
+                <or>
+                    <javaclass references="{WOLAMissingClassesRule_0_classes}"/>
+                    <javaclass references="javax.ejb.RemoteHome">
+                        <location>ANNOTATION</location>
+                        <annotation-literal name="value" pattern="{WOLAMissingClassesRule_annotation_fields}"/>
+                    </javaclass>
+                    <xmlfile matches="//*[local-name()='home' or local-name()='remote']/text()[windup:matches(self::node(), '{WOLAMissingClassesRule_2_xpath_value}')]" in="{WOLAMissingClassesRule_2_filesFilter}"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Some WebSphere z/OS Optimized Local Adapters APIs are unavailable" category-id="optional" effort="3">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; Liberty supports a subset of the WebSphere Optimized Local Adapters (WOLA) APIs. This rule flags the use of APIs that are unsupported on Liberty. &lt;/p&gt; 
+ &lt;p&gt; The Java™ rule flags the following classes related to MBean functions that are unavailable on Liberty: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.ola.OLAConnectionHandle&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.ola.OLAHeader&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.ola.OLARGE&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.ola.OLARGEInformation&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.ola.OLARGEList&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.ola.OLASearchObject&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.ola.OLAStatusInformation&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt; The Java rule also flags &lt;code&gt;RemoteHome&lt;/code&gt; annotations with &lt;code&gt;com.ibm.websphere.ola.ExecuteHome.class&lt;/code&gt; as the remote interface. Liberty ignores the &lt;code&gt;@RemoteHome&lt;/code&gt; interface. To host this EJB on Liberty, modify your application to also provide a business local EJB bean that implements com.ibm.websphere.ola.ExecuteLocalBusiness. &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;@RemoteHome(com.ibm.websphere.ola.ExecuteHome.class)&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt; The XML rule flags &lt;code&gt;&amp;lt;remote&amp;gt;&lt;/code&gt; and &lt;code&gt;&amp;lt;home&amp;gt;&lt;/code&gt; elements that contain references to &lt;code&gt;com.ibm.websphere.ola&lt;/code&gt; classes. To use WOLA with EJB beans on Liberty, you need to migrate your EJB beans to use EJB 3.0 &lt;code&gt;&amp;lt;business-local&amp;gt;&lt;/code&gt; interfaces, and your EJB class must implement &lt;code&gt;com.ibm.websphere.ola.ExecuteLocalBusiness&lt;/code&gt;. &lt;/p&gt; 
+ &lt;p&gt; For example, the tool flags the use of WOLA on the remote and home interfaces: &lt;/p&gt; 
+ &lt;table class="code"&gt; 
+  &lt;tbody&gt;
+   &lt;tr&gt; 
+    &lt;td&gt; &lt;span class="Code"&gt; &lt;span class="indent"&gt;&lt;/span&gt;&amp;lt;session id="wola_sample"&amp;gt;&lt;br&gt; &lt;span class="indent3"&gt;&lt;/span&gt;&amp;lt;ejb-name&amp;gt;WOLA&amp;lt;/ejb-name&amp;gt;&lt;br&gt; &lt;span class="indent3"&gt;&lt;/span&gt;&lt;span style="font-weight:bolder;"&gt;&amp;lt;home&amp;gt;com.ibm.websphere.ola.ExecuteHome&amp;lt;/home&amp;gt;&lt;/span&gt;&lt;br&gt; &lt;span class="indent3"&gt;&lt;/span&gt;&lt;span style="font-weight:bolder;"&gt;&amp;lt;remote&amp;gt;com.ibm.websphere.ola.Execute&amp;lt;/remote&amp;gt;&lt;/span&gt;&lt;br&gt; &lt;span class="indent3"&gt;&lt;/span&gt;&amp;lt;ejb-class&amp;gt;com.ibm.Hello&amp;lt;/ejb-class&amp;gt;&lt;br&gt; &lt;span class="indent3"&gt;&lt;/span&gt;&amp;lt;session-type&amp;gt;Stateless&amp;lt;/session-type&amp;gt;&lt;br&gt; &lt;span class="indent3"&gt;&lt;/span&gt;&amp;lt;transaction-type&amp;gt;Container&amp;lt;/transaction-type&amp;gt;&lt;br&gt; &lt;span class="indent"&gt;&lt;/span&gt;&amp;lt;/session&amp;gt;&lt;br&gt; &lt;/span&gt; &lt;/td&gt;
+   &lt;/tr&gt;
+  &lt;/tbody&gt;
+ &lt;/table&gt; 
+ &lt;p&gt; To use WOLA in this application on Liberty, migrate the EJB classes to use the local business interface and update the &lt;span class="FilePath"&gt;ejb-jar.xml&lt;/span&gt; file as follows: &lt;/p&gt;
+ &lt;table class="code"&gt; 
+  &lt;tbody&gt;
+   &lt;tr&gt; 
+    &lt;td&gt; &lt;span class="Code"&gt; &lt;span class="indent"&gt;&lt;/span&gt;&amp;lt;session id="wola_sample"&amp;gt;&lt;br&gt; &lt;span class="indent3"&gt;&lt;/span&gt;&amp;lt;ejb-name&amp;gt;WOLA&amp;lt;/ejb-name&amp;gt;&lt;br&gt; &lt;span class="indent3"&gt;&lt;/span&gt;&lt;span style="font-weight:bolder;"&gt;&amp;lt;business-local&amp;gt;com.ibm.websphere.ola.ExecuteLocalBusiness&amp;lt;/business-local&amp;gt;&lt;/span&gt;&lt;br&gt; &lt;span class="indent3"&gt;&lt;/span&gt;&amp;lt;ejb-class&amp;gt;com.ibm.Hello&amp;lt;/ejb-class&amp;gt;&lt;br&gt; &lt;span class="indent3"&gt;&lt;/span&gt;&amp;lt;session-type&amp;gt;Stateless&amp;lt;/session-type&amp;gt;&lt;br&gt; &lt;span class="indent3"&gt;&lt;/span&gt;&amp;lt;transaction-type&amp;gt;Container&amp;lt;/transaction-type&amp;gt;&lt;br&gt; &lt;span class="indent"&gt;&lt;/span&gt;&amp;lt;/session&amp;gt;&lt;br&gt; &lt;/span&gt; &lt;/td&gt;
+   &lt;/tr&gt;
+  &lt;/tbody&gt;
+ &lt;/table&gt; 
+ &lt;p&gt; Also note that Java Naming and Directory Interface (JNDI) names of target EJB beans on Liberty use &lt;code&gt;java:&lt;/code&gt; naming. Start the Liberty server and check the server log for messages that display the JNDI of the target EJB beans. &lt;/p&gt; 
+ &lt;p&gt; For detailed information about WOLA on Liberty, see the &lt;a href="http://www.ibm.com/support/knowledgecenter/SS7K4U_liberty/com.ibm.websphere.wlp.zseries.doc/ae/container_wlp_ola_developing.html" title="Opens a new window" onclick="javascript:helpWindow('http://www.ibm.com/support/knowledgecenter/SS7K4U_liberty/com.ibm.websphere.wlp.zseries.doc/ae/container_wlp_ola_developing.html'); return false;"&gt; Developing applications that use optimized local adapters on Liberty&lt;/a&gt; documentation. &lt;/p&gt;  
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="WOLAMissingClassesRule_0_classes">
+                <matches pattern="(com.ibm.websphere.ola.OLAConnectionHandle|com.ibm.websphere.ola.OLAHeader|com.ibm.websphere.ola.OLARGE|com.ibm.websphere.ola.OLARGEInformation|com.ibm.websphere.ola.OLARGEList|com.ibm.websphere.ola.OLASearchObject|com.ibm.websphere.ola.OLAStatusInformation)"/>
+            </where>
+            <where param="WOLAMissingClassesRule_annotation_fields">
+                <matches pattern="com\.ibm\.websphere\.ola\.ExecuteHome"/>
+            </where>
+            <where param="WOLAMissingClassesRule_2_filesFilter">
+                <matches pattern="ejb-jar.xml"/>
+            </where>
+            <where param="WOLAMissingClassesRule_2_xpath_value">
+                <matches pattern="com\.ibm\.websphere\.ola\..*"/>
+            </where>
+        </rule>
+        <rule id="WOLARule">
+            <when>
+                <javaclass references="{WOLARule_0_packages}"/>
+            </when>
+            <perform>
+                <hint title="Review differences in the WebSphere z/OS Optimized Local Adapters API" category-id="mandatory" effort="1">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; Liberty supports some com.ibm.websphere.ola APIs, but there are differences from the support provided on WebSphere Application Server traditional. Review your use of the WOLA APIs to see if the differences affect your application. &lt;/p&gt; 
+ &lt;p&gt; Differences include the WOLA support for global transactions, Enterprise JavaBeans (EJB) support, and Java Naming and Directory Interface (JNDI). For detailed information about WOLA on Liberty, see the &lt;a href="http://www.ibm.com/support/knowledgecenter/SS7K4U_liberty/com.ibm.websphere.wlp.zseries.doc/ae/container_wlp_ola_developing.html" title="Opens a new window" onclick="javascript:helpWindow('http://www.ibm.com/support/knowledgecenter/SS7K4U_liberty/com.ibm.websphere.wlp.zseries.doc/ae/container_wlp_ola_developing.html'); return false;"&gt; Developing applications that use optimized local adapters on Liberty&lt;/a&gt; documentation. &lt;/p&gt; 
+ &lt;p&gt; WOLA support for IBM Information Management Systems (IMS) is introduced in Liberty 16.0.0.3. &lt;/p&gt;  
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="WOLARule_0_packages">
+                <matches pattern="com.ibm.websphere.ola\.[^.]+"/>
+            </where>
+        </rule>
+        <rule id="WorkAreaRule">
+            <when>
+                <javaclass references="{WorkAreaRule_0_packages}"/>
+            </when>
+            <perform>
+                <hint title="The WebSphere Work Area APIs and SPIs are unavailable" category-id="mandatory" effort="1">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; The following WebSphere Work Area APIs and SPIs are not available on Liberty: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.workarea&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.wsspi.workarea&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt;You must modify the application so that it can run on Liberty.&lt;/p&gt;   
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="WorkAreaRule_0_packages">
+                <matches pattern="(com.ibm.websphere.workarea\.[^.]+|com.ibm.wsspi.workarea\.[^.]+)"/>
+            </where>
+        </rule>
+        <rule id="WSNotificationRuleJava">
+            <when>
+                <javaclass references="com.ibm.websphere.sib.wsn{*}"/>
+            </when>
+            <perform>
+                <hint title="Web Services Notification (WS-Notification) is unavailable" category-id="mandatory" effort="0">
+                    <message>&lt;span class="SubHeader"&gt;The WebSphere Web Services Notification (WS-Notification) APIs are unavailable&lt;/span&gt; 
+&lt;div class="Text"&gt; 
+ &lt;p&gt; The following WebSphere Web Services Notification (WS-Notification) APIs are not available on Liberty: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;com.ibm.websphere.sib.wsn&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt;You must modify the application so that it can run on Liberty.&lt;/p&gt;   
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="XMLFeaturePackRule">
+            <when>
+                <javaclass references="com.ibm.xml.xapi{*}"/>
+            </when>
+            <perform>
+                <hint title="The use of the WebSphere XPath, XQuery, and XSLT API requires configuration" category-id="mandatory" effort="1">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt; To use the WebSphere XPath, XQuery, and XSLT API, applications must be configured to use the XML thin client JAR file provided by the WebSphere Application Server Feature Pack for XML. &lt;!--  How do they get this feature pack? How do they configure their applications to use it? --&gt; &lt;/p&gt;  
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="WebSphereWebServicesRule">
+            <when>
+                <javaclass references="{WebSphereWebServicesRule_0_packages}" in="{WebSphereWebServicesRule_0_files}"/>
+            </when>
+            <perform>
+                <hint title="The WebSphere web services APIs and SPIs are unavailable" category-id="mandatory" effort="3">
+                    <message>&lt;div class="Text"&gt;
+                        &lt;p&gt;
+                        The following WebSphere web services APIs and SPIs are not available on Liberty:
+                        &lt;/p&gt;
+                        &lt;ul&gt;
+                        &lt;li&gt;&lt;code&gt;com.ibm.websphere.webservices&lt;/code&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;code&gt;com.ibm.websphere.websvcs.rm&lt;/code&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;code&gt;com.ibm.websphere.wssecurity&lt;/code&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;code&gt;com.ibm.websphere.cache.webservices&lt;/code&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;code&gt;com.ibm.ws.webservices&lt;/code&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;code&gt;com.ibm.ws.websvcs&lt;/code&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;code&gt;com.ibm.ws.wssecurity&lt;/code&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;code&gt;com.ibm.websphere.wsaddressing&lt;/code&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;code&gt;com.ibm.websphere.wsrf&lt;/code&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;code&gt;com.ibm.wsspi.soapcontainer&lt;/code&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;code&gt;com.ibm.wsspi.webservices&lt;/code&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;code&gt;com.ibm.wsspi.wssecurity&lt;/code&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;code&gt;com.ibm.wsspi.wsaddressing&lt;/code&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;code&gt;com.ibm.wsspi.wsrm&lt;/code&gt;&lt;/li&gt;
+                        &lt;/ul&gt;
+                        &lt;p&gt;You must modify the application so that it can run on Liberty.&lt;/p&gt;
+                        &lt;p&gt;
+                        For information about other APIs and SPIs that are not supported on Liberty, see &lt;a href="UnavailableAPIsSPIs.html"&gt;Some APIs and SPIs are not available on Liberty&lt;/a&gt;.
+                        &lt;/p&gt;
+                        &lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="WebSphereWebServicesRule_0_packages">
+                <matches pattern="(com.ibm.websphere.webservices\.[^.]+|com.ibm.websphere.websvcs.rm\.[^.]+|com.ibm.websphere.wsaddressing\.[^.]+|com.ibm.websphere.wsrf\.[^.]+|com.ibm.websphere.wssecurity\.[^.]+|com.ibm.websphere.cache.webservices\.[^.]+|com.ibm.ws.webservices\.[^.]+|com.ibm.ws.websvcs\.[^.]+|com.ibm.ws.wssecurity\.[^.]+|com.ibm.wsspi.soapcontainer\.[^.]+|com.ibm.wsspi.webservices\.[^.]+|com.ibm.wsspi.wssecurity\.[^.]+|com.ibm.wsspi.wsaddressing\.[^.]+|com.ibm.wsspi.wsrm\.[^.]+)"/>
+            </where>
+            <where param="WebSphereWebServicesRule_0_files">
+                <matches pattern="^(?>(?!(\_Deser|\_Helper|\_Ser|Stub|Locator|Information)).)*$"/>
+            </where>
+        </rule>
+        <rule id="WebSphereWebServicesGeneratedClassesRule">
+            <when>
+                <javaclass references="{WebSphereWebServicesGeneratedClassesRule_0_packages}" in="{WebSphereWebServicesGeneratedClassesRule_0_files}"/>
+            </when>
+            <perform>
+                <hint title="Application contains WSDL2Java generated classes" category-id="optional" effort="0">
+                    <message>&lt;div class="Text"&gt;
+                        &lt;p&gt;
+                        The WSDL2Java emitter generates Java classes from JAX-RPC WSDL files. These generated classes are used with JAX-RPC web
+                        services that is not supported on Liberty. These classes can be removed when converting from JAX-RPC to JAX-WS.
+                        &lt;/p&gt;
+                        &lt;p&gt;
+                        This rule flags the following WSDL2Java emitter generated classes:
+                        &lt;/p&gt;
+                        &lt;ul&gt;
+                        &lt;li&gt;&lt;code&gt;*_Deser.class&lt;/code&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;code&gt;*_Helper.class&lt;/code&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;code&gt;*_Ser.class&lt;/code&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;code&gt;*Stub.class&lt;/code&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;code&gt;*Locator.class&lt;/code&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;code&gt;*Information.class&lt;/code&gt;&lt;/li&gt;
+                        &lt;/ul&gt;
+                        &lt;p&gt;
+                        For example, if your WSDL file contains an element named Book the WSDL2Java emitter may generate any of the following classes
+                        to be flagged by this rule:
+                        &lt;/p&gt;
+                        &lt;ul&gt;
+                        &lt;li&gt;&lt;code&gt;Book_Deser.class&lt;/code&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;code&gt;Book_Helper.class&lt;/code&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;code&gt;Book_Ser.class&lt;/code&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;code&gt;BookStub.class&lt;/code&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;code&gt;BookBindingStub.class&lt;/code&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;code&gt;BookLocator.class&lt;/code&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;code&gt;BookServiceLocator.class&lt;/code&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;code&gt;Book_ServiceLocator.class&lt;/code&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;code&gt;BookInformation.class&lt;/code&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;code&gt;BookServiceInformation.class&lt;/code&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;code&gt;Book_ServiceInformation.class&lt;/code&gt;&lt;/li&gt;
+                        &lt;/ul&gt;
+                        &lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="WebSphereWebServicesGeneratedClassesRule_0_packages">
+                <matches pattern="(com.ibm.websphere.webservices\.[^.]+|com.ibm.websphere.websvcs.rm\.[^.]+|com.ibm.websphere.wsaddressing\.[^.]+|com.ibm.websphere.wsrf\.[^.]+|com.ibm.websphere.wssecurity\.[^.]+|com.ibm.websphere.cache.webservices\.[^.]+|com.ibm.ws.webservices\.[^.]+|com.ibm.ws.websvcs\.[^.]+|com.ibm.ws.wssecurity\.[^.]+|com.ibm.wsspi.soapcontainer\.[^.]+|com.ibm.wsspi.webservices\.[^.]+|com.ibm.wsspi.wssecurity\.[^.]+|com.ibm.wsspi.wsaddressing\.[^.]+|com.ibm.wsspi.wsrm\.[^.]+)"/>
+            </where>
+            <where param="WebSphereWebServicesGeneratedClassesRule_0_files">
+                <matches pattern=".*(\_Deser|\_Helper|\_Ser|Stub|Locator|Information)"/>
+            </where>
+        </rule>
+    </rules>
+</ruleset>

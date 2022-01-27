@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="liberty_LibertyList">
+    <metadata>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final"/>
+        </dependencies>
+        <sourceTechnology id="websphere"/>
+        <targetTechnology id="openliberty"/>
+    </metadata>
+    <rules>
+        <rule id="DetectJavaApplicationDeploymentJava">
+            <when>
+                <javaclass references="javax.enterprise.deploy.{*}"/>
+            </when>
+            <perform>
+                <hint title="Java EE Application Deployment API is unavailable" category-id="mandatory" effort="5">
+                    <message>&lt;div class="Text"&gt; &lt;span class="SubHeader"&gt;Java EE Application Deployment API&lt;/span&gt; 
+ &lt;p&gt; This rule flags Java code that references the &lt;code&gt;javax.enterprise.deploy&lt;/code&gt; package. &lt;/p&gt; 
+ &lt;p&gt; The Java EE Application Deployment API is not supported on Liberty or Liberty Core. The technology is deprecated in WebSphere Application Server traditional V9.0. If your application uses the Java EE Application Deployment API, you can deploy this part of your application on WebSphere Application Server traditional but the capability might be removed in a later version. &lt;/p&gt; 
+ &lt;p&gt; Use another way to deploy applications to the server, such as wsadmin scripting and JMX MBeans. The closest method to using the Java EE Deployment API is to use WebSphere JMX MBeans. For more information, see &lt;a href="https://www.ibm.com/support/knowledgecenter/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/ae/crun_app_install.html" title="Opens a new window" onclick="javascript:helpWindow('https://www.ibm.com/support/knowledgecenter/SSAW57_9.0.5/com.ibm.websphere.nd.multiplatform.doc/ae/crun_app_install.html');return false"&gt; Ways to install enterprise applications or modules. &lt;/a&gt; &lt;/p&gt; 
+ &lt;p&gt; For Liberty, see &lt;a href="https://www.ibm.com/docs/en/was-liberty/base?topic=SSEQTP_liberty/com.ibm.websphere.wlp.nd.multiplatform.doc/ae/twlp_dep.html" title="Opens a new window" onclick="javascript:helpWindow('https://www.ibm.com/docs/en/was-liberty/base?topic=SSEQTP_liberty/com.ibm.websphere.wlp.nd.multiplatform.doc/ae/twlp_dep.html');return false"&gt; Deploying applications in Liberty. &lt;/a&gt; &lt;/p&gt; 
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="DetectJavaPortlet">
+            <when>
+                <javaclass references="{DetectJavaPortlet_0_packages}"/>
+            </when>
+            <perform>
+                <hint title="Java Portlet is unsupported" category-id="mandatory" effort="5">
+                    <message>&lt;div class="Text"&gt;  
+ &lt;p&gt; This rule flags Java code that has references to the following packages: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;javax.portlet&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;javax.portlet.filter&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt;This rule also flags the following references in the portlet.xml file: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;&amp;lt;portlet-app&amp;gt;&amp;lt;/portlet-app&amp;gt;&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt;The Java Portlet API and its deployment descriptors are not supported on Liberty. Deploy this part of your application on WebSphere Application Server traditional. &lt;/p&gt; 
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="DetectJavaPortlet_0_packages">
+                <matches pattern="(javax.portlet\.[^.]+|javax.portlet.filter\.[^.]+)"/>
+            </where>
+        </rule>
+        <rule id="DetectJAXRJava">
+            <when>
+                <javaclass references="{DetectJAXRJava_0_packages}"/>
+            </when>
+            <perform>
+                <hint title="Java API for XML Registries (JAXR) is unavailable" category-id="mandatory" effort="3">
+                    <message>&lt;div class="Text"&gt; &lt;span class="SubHeader"&gt;Java API for XML Registries (JAXR)&lt;/span&gt; 
+ &lt;p&gt; This rule flags Java code that has references to the following packages: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;javax.xml.registry&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;javax.xml.registry.infomodel&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt;The Java API for XML Registries (JAXR) is not supported on Liberty or Liberty Core. The API is deprecated in WebSphere Application Server traditional V9.0. If your application uses the JAXR API, you can deploy this part of your application on WebSphere Application Server traditional but the capability might be removed in a later version. It is recommended to migrate to using UDDI Version 3 to replace JAXR technologies. &lt;/p&gt; 
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="DetectJAXRJava_0_packages">
+                <matches pattern="(javax.xml.registry\.[^.]+|javax.xml.registry.infomodel\.[^.]+)"/>
+            </where>
+        </rule>
+        <rule id="DetectRemoteBundleRepositoriesJava">
+            <when>
+                <javaclass references="{DetectRemoteBundleRepositoriesJava_0_packages}"/>
+            </when>
+            <perform>
+                <hint title="The OSGI remote bundle repository service API is unavailable" category-id="mandatory" effort="1">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt;The OSGI repository service APIs is not supported in Liberty or Liberty Core.&lt;/p&gt; 
+ &lt;p&gt;This rule flags java references to APIs in the &lt;code&gt;org.osgi.service.repository&lt;/code&gt; package.&lt;/p&gt; 
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="DetectRemoteBundleRepositoriesJava_0_packages">
+                <matches pattern="org.osgi.service.repository\.[^.]+"/>
+            </where>
+        </rule>
+        <rule id="DetectRemoteServicesJava">
+            <when>
+                <javaclass references="{DetectRemoteServicesJava_0_packages}"/>
+            </when>
+            <perform>
+                <hint title="The OSGI Remote Service Admin API is unavailable" category-id="mandatory" effort="1">
+                    <message>&lt;div class="Text"&gt; 
+ &lt;p&gt;The OSGI Remote Service Admin is not supported in Liberty or Liberty Core.&lt;/p&gt; 
+ &lt;p&gt;This rule flags java references to APIs in the &lt;code&gt;org.osgi.service.remoteserviceadmin&lt;/code&gt; package.&lt;/p&gt; 
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="DetectRemoteServicesJava_0_packages">
+                <matches pattern="org.osgi.service.remoteserviceadmin\.[^.]+"/>
+            </where>
+        </rule>
+        <rule id="DetectWSNotificationJava">
+            <when>
+                <javaclass references="org.oasis_open.docs.wsn.{*}"/>
+            </when>
+            <perform>
+                <hint title="Web Services Notification (WS-Notification) is unavailable" category-id="mandatory" effort="5">
+                    <message>&lt;div class="Text"&gt;  
+ &lt;p&gt; This rule flags Java code that has references to the &lt;code&gt;org.oasis_open.docs.wsn&lt;/code&gt; package. &lt;/p&gt; 
+ &lt;p&gt;This rule also flags the following references in WSDL files: &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;&amp;lt;import location="http://docs.oasis-open.org/wsn/*.wsdl"&amp;gt;&amp;lt;/import&amp;gt;&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt;Web Services Notification (WS-Notification) is not supported on Liberty or Liberty Core. If your application uses WS-Notification, you can deploy this part of your application on WebSphere Application Server traditional. &lt;/p&gt; 
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="DetectEJBEntityBeansXML">
+            <when>
+                <xmlfile matches="//*[local-name()='entity']" in="{DetectEJBEntityBeansXML_0_filesFilter}"/>
+            </when>
+            <perform>
+                <hint title="Entity Enterprise JavaBeans (EJB) are unavailable" category-id="mandatory" effort="13">
+                    <message>&lt;div class="Text"&gt; &lt;span class="SubHeader"&gt;Entity Enterprise JavaBeans (EJB)&lt;/span&gt; 
+ &lt;p&gt; This rule flags &lt;code&gt;entity&lt;/code&gt; elements in &lt;span class="FilePath"&gt;ejb-jar.xml&lt;/span&gt; files. &lt;/p&gt; 
+ &lt;p&gt; Entity beans are optional in the EJB 3.2 specification and are not supported on Liberty or Liberty Core. The entity bean API is deprecated in WebSphere Application Server traditional V8.5.5 and V9.0 and might be removed in a later version.&lt;/p&gt; 
+ &lt;p&gt; The EJBDeploy tool used to deploy applications with entity beans has also been deprecated and may be removed in the future, either at the same time entity beans are removed or prior. &lt;/p&gt; 
+ &lt;p&gt;The Java Persistence API (JPA) is an alternative to using EJB entity beans for new database and other persistence-related operations. &lt;/p&gt; 
+ &lt;p&gt; Upgrading entity beans can be difficult, but it can be simplified if your application uses design patterns such as DTO, Session Facade, and DAO. &lt;/p&gt; 
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="DetectEJBEntityBeansXML_0_filesFilter">
+                <matches pattern="ejb-jar.xml"/>
+            </where>
+        </rule>
+        <rule id="DetectTransactionPropagationEJBRemote">
+            <when>
+                <or>
+                    <javaclass references="{DetectTransactionPropagationEJBRemote_0_classes}"/>
+                    <xmlfile matches="//*[local-name()='remote' or local-name()='business-remote']" in="{DetectTransactionPropagationEJBRemote_1_filesFilter}"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Transaction propagation is not supported for Enterprise JavaBeans (EJB) remote interfaces" category-id="mandatory" effort="1">
+                    <message>&lt;div class="Text"&gt;  
+ &lt;p&gt; Liberty does not support outbound or inbound transaction propagation for EJB remote interfaces. By default, EJB beans are container-managed and use the &lt;code&gt;Required&lt;/code&gt; transaction attribute. As a result, existing EJB definitions that do not specify any &lt;code&gt;container-transaction&lt;/code&gt; properties are configured by default to use transactions although they are not supported. &lt;/p&gt; 
+ &lt;p&gt;This rule flags Java code that references the following EJB annotations that indicate the use of remote business or home interfaces:&lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;javax.ejb.Remote&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;javax.ejb.RemoteHome&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt;This rule also flags the following references in the &lt;span class="FilePath"&gt;ejb-jar.xml&lt;/span&gt; file:&lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;code&gt;&amp;lt;remote/&amp;gt;&lt;/code&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;code&gt;&amp;lt;business-remote/&amp;gt;&lt;/code&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+ &lt;p&gt; The EJB specification requires products that support outbound transaction propagation to still send a null transaction context. This context must be rejected by EJB components that use the &lt;code&gt;Required&lt;/code&gt; (default), &lt;code&gt;Mandatory&lt;/code&gt; , or &lt;code&gt;Supports&lt;/code&gt; transaction attributes. A client with an active global transaction cannot start an EJB bean with default transaction attributes if either the client or server is on Liberty. &lt;/p&gt; 
+ &lt;p&gt; To enable the client to start the EJB bean, change the EJB bean to use either the &lt;code&gt;RequiresNew&lt;/code&gt; or &lt;code&gt;NotSupported&lt;/code&gt; transaction attribute. Although these attributes will allow the EJB bean to start, the transactional work that is done by the EJB bean is not committed as part of the client transactions. &lt;/p&gt; 
+ &lt;p&gt; Note that transaction propagation is supported for EJB remote interfaces that are running in the same JVM, however this may only be determined with further investigation of the application behavior. &lt;/p&gt; 
+ &lt;h4&gt;Make sure remote EJB interfaces are needed&lt;/h4&gt; 
+ &lt;p&gt; Often EJB 2.x beans configure the remote interfaces in ejb-jar.xml even when they are not used. You only need remote interfaces if you have code running across two different JVMs. In WebSphere terms, this is either between two different application servers or between a client application and an application server running in different JVMs. CORBA information, such as an &lt;code&gt;iiop://&lt;/code&gt; provider URL, in an EJB lookup is also an indicator that remote EJB beans are being used. &lt;/p&gt; 
+ &lt;p&gt; If you are referencing EJB beans using a remote interface that are running in the same JVM, the Local interface can be used and will perform better. Where possible, change annotations from @Remote to @Local and from @RemoteHome to @LocalHome and test all your code scenarios. Likewise for ejb-jar.xml configuration, remove the &lt;code&gt;&amp;lt;remote/&amp;gt;&lt;/code&gt; and &lt;code&gt;&amp;lt;business-remote/&amp;gt;&lt;/code&gt; definitions and test all scenarios. While transaction propagation is supported for this scenario, the best practice is to convert to using local interfaces to improve performance and remove the perception that methods can be called externally from the same JVM. &lt;/p&gt; 
+ &lt;h4&gt;If you really need remote interfaces&lt;/h4&gt; 
+ &lt;h5&gt;Wrap the EJB beans in a web service (JAX-WS)&lt;/h5&gt; 
+ &lt;p&gt; For those EJB beans that require remote access, best practice is to wrap them in a web service. Refer to &lt;a href="https://www.ibm.com/docs/en/wasdtfe?topic=annotations-annotating-ejb-bean-create-web-service" title="Opens a new window" onclick="javascript:helpWindow('https://www.ibm.com/docs/en/wasdtfe?topic=annotations-annotating-ejb-bean-create-web-service'); return false;"&gt; Annotating an EJB bean to create a web service&lt;/a&gt; for instructions on using WebSphere Application Server Developer Tools for Eclipse to make these code changes. After wrapping the EJB beans in web services, use the web service client to call the EJB web service. After testing, you can remove the EJB remote annotations or configuration. &lt;/p&gt; 
+ &lt;h5&gt;Handling Transaction Propagation&lt;/h5&gt; Liberty provides Web Services Atomic Transaction (WS-AT) support which enables distributed global transactions. When your EJB are deployed as web services, WS-AT can be used to manage the transactions. See &lt;a href="https://www.ibm.com/docs/en/was-liberty/base?topic=liberty-web-services-atomic-transaction-overview" title="Opens a new window" onclick="javascript:helpWindow('https://www.ibm.com/docs/en/was-liberty/base?topic=liberty-web-services-atomic-transaction-overview'); return false;"&gt; Web Services Atomic Transaction overview&lt;/a&gt; for more information. 
+ &lt;p&gt; For more information on related topics, see &lt;/p&gt; 
+ &lt;ul&gt; 
+  &lt;li&gt;&lt;a href="https://www.ibm.com/docs/en/was-liberty/nd?topic=liberty-using-enterprise-javabeans-remote-interfaces" title="Opens a new window" onclick="javascript:helpWindow('https://www.ibm.com/docs/en/was-liberty/nd?topic=liberty-using-enterprise-javabeans-remote-interfaces'); return false;"&gt; Using enterprise JavaBeans with remote interfaces on Liberty&lt;/a&gt;&lt;/li&gt; 
+  &lt;li&gt;&lt;a href="https://www.ibm.com/docs/en/was-liberty/core?topic=deal-using-enterprise-javabeans-applications-that-call-local-ejb-components-in-another-application" title="Opens a new window" onclick="javascript:helpWindow('https://www.ibm.com/docs/en/was-liberty/core?topic=deal-using-enterprise-javabeans-applications-that-call-local-ejb-components-in-another-application'); return false;"&gt; Using enterprise JavaBeans applications that call local EJB components in another application&lt;/a&gt;&lt;/li&gt; 
+ &lt;/ul&gt; 
+&lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="DetectTransactionPropagationEJBRemote_0_classes">
+                <matches pattern="(javax.ejb.Remote|javax.ejb.RemoteHome)"/>
+            </where>
+            <where param="DetectTransactionPropagationEJBRemote_1_filesFilter">
+                <matches pattern="ejb-jar.xml"/>
+            </where>
+        </rule>
+        <rule id="DetectJAXRPC">
+            <when>
+                <or>
+                    <javaclass references="javax.xml.rpc{*}"/>
+                    <file filename="{DetectJAXRPC_1_files}"/>
+                    <xmlfile matches="//*[local-name()='jaxrpc-mapping-file']" in="{DetectJAXRPC_2_filesFilter}"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Java API for XML-based RPC (JAX-RPC) is unavailable" category-id="mandatory" effort="5">
+                    <message>&lt;div class="Text"&gt;&lt;p&gt;This rule flags the use of any JAX-RPC specific packages and configuration files. Also, this rule will flag any use of the
+                        &lt;code&gt;jaxrpc-mapping-file&lt;/code&gt; tag in XML Mapping files. The following table lists Java packages, configuration files and
+                        XML mapping files impacted by this rule:&lt;/p&gt;
+
+                        &lt;h3&gt;Packages&lt;/h3&gt;
+                        &lt;ul&gt;
+                        &lt;li&gt;javax.xml.rpc&lt;/li&gt;
+                        &lt;li&gt;javax.xml.rpc.encoding&lt;/li&gt;
+                        &lt;li&gt;javax.xml.rpc.handler&lt;/li&gt;
+                        &lt;li&gt;javax.xml.rpc.handler.soap&lt;/li&gt;
+                        &lt;li&gt;javax.xml.rpc.holders&lt;/li&gt;
+                        &lt;li&gt;javax.xml.rpc.server&lt;/li&gt;
+                        &lt;li&gt;javax.xml.rpc.soap&lt;/li&gt;
+                        &lt;/ul&gt;
+                        &lt;h3&gt;Configuration Files&lt;/h3&gt;
+                        &lt;ul&gt;
+                        &lt;li&gt;ibm-webservices-ext.xmi&lt;/li&gt;
+                        &lt;li&gt;ibm-webservices-bnd.xmi&lt;/li&gt;
+                        &lt;li&gt;ibm-webservicesclient-ext.xmi&lt;/li&gt;
+                        &lt;li&gt;ibm-webservicesclient-bnd.xmi&lt;/li&gt;
+                        &lt;li&gt;ws-security.xml&lt;/li&gt;
+                        &lt;/ul&gt;
+                        &lt;h3&gt;XML Mapping Files&lt;/h3&gt;
+                        &lt;ul&gt;
+                        &lt;li&gt;webservices.xml&lt;/li&gt;
+                        &lt;li&gt;web.xml&lt;/li&gt;
+                        &lt;li&gt;ejb-jar.xml&lt;/li&gt;
+                        &lt;li&gt;ibm-webservicesclient-bnd.xmi&lt;/li&gt;
+                        &lt;li&gt;application.xml&lt;/li&gt;
+                        &lt;/ul&gt;
+
+                        &lt;p&gt;
+                        The Java API for XML-based RPC (JAX-RPC) is not supported on Liberty or Liberty Core.
+                        The technology is deprecated in WebSphere Application Server traditional V9.0 and might be removed in a later version.
+                        If your application uses JAX-RPC, the preferred migration path is to use JAX-WS, but here are the alternatives:&lt;/p&gt;
+
+                        &lt;ul&gt;
+                        &lt;li&gt;Option 1: Migrate JAX-RPC web services to JAX-WS web services&lt;/li&gt;
+                        &lt;li&gt;Option 2: Use the Apache Axis 1 JAX-RPC engine on Liberty&lt;/li&gt;
+                        &lt;li&gt;Option 3: Use WebSphere Application Server traditional with its native JAX-RPC engine&lt;/li&gt;
+                        &lt;/ul&gt;
+
+                        &lt;/div&gt;</message>
+                </hint>
+            </perform>
+            <where param="DetectJAXRPC_1_files">
+                <matches pattern="(ibm-webservices(client)?-(ext|bnd)\.xmi)|(ws-security.xml)"/>
+            </where>
+            <where param="DetectJAXRPC_2_filesFilter">
+                <matches pattern="webservices.xml|web.xml|ejb-jar.xml|application.xml"/>
+            </where>
+        </rule>
+    </rules>
+</ruleset>
