@@ -244,6 +244,39 @@
                 </plugins>
             </build>
         </profile>
+
+        <profile>
+            <id>mta</id>
+            <activation>
+                <property>
+                    <name>!community</name>
+                </property>
+            </activation>
+            <build>
+                <resources>
+                    <resource>
+                        <filtering>false</filtering>
+                        <directory>rules-reviewed-mta</directory>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+        <profile>
+            <id>windup</id>
+            <activation>
+                <property>
+                    <name>community</name>
+                </property>
+            </activation>
+            <build>
+                <resources>
+                    <resource>
+                        <filtering>false</filtering>
+                        <directory>rules-reviewed-windup</directory>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
     </profiles>
 
 
