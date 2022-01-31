@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <ruletest id="technology-usage-markup-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset">
-    <testDataPath>data/markup/</testDataPath>
+    
+    <testDataPath>data</testDataPath>
+    <rulePath>../embedded-framework.windup.xml</rulePath>
     <rulePath>../markup-technology-usage.windup.xml</rulePath>
     <ruleset>
         <rules>
@@ -44,6 +46,20 @@
                 </when>
                 <perform>
                     <fail message="JavaScript Technology Statistic Not Found" />
+                </perform>
+            </rule>
+            <rule id="technology-usage-markup-01300-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="Spring Boot Flo" number-found="1">
+                            <tag name="View"/>
+                            <tag name="Embedded"/>
+                            <tag name="Markup"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="technology-usage-markup-01300-test failed!" />
                 </perform>
             </rule>
         </rules>

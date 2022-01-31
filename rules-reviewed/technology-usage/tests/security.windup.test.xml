@@ -13,7 +13,7 @@
             <when>
                <not>
                   <classification-exists classification="Embedded library - Spring Security"/>
-                  <technology-tag-exists technology-tag="Spring Security \(embedded\)"/>
+                  <technology-tag-exists technology-tag="Spring Security"/>
                </not>
             </when>
             <perform>
@@ -282,6 +282,17 @@
             </when>
             <perform>
                <fail message="Expected data not found for rule security-03500"/>
+            </perform>
+         </rule>
+         <rule id="security-03600-test">
+            <when>
+               <not>
+                  <classification-exists classification="Embedded library - Spring Security"/>
+                  <technology-tag-exists technology-tag="Spring Security"/>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule security-03600"/>
             </perform>
          </rule>
       </rules>
