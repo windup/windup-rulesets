@@ -1,0 +1,2062 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>
+            data -
+        Technologies
+    </title>
+    <link href="resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="resources/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="resources/css/windup.css" rel="stylesheet" media="screen">
+    <link href="resources/css/windup.java.css" rel="stylesheet" media="screen">
+    <link href="resources/css/jquery-ui.min.css" rel="stylesheet" media="screen">
+    <link href="resources/img/mta-icon.png" rel="shortcut icon" type="image/x-icon"/>
+    <style>
+        /* Colors. */
+        .sectorView    div { background-color: #1155CC; color: white; }
+        .sectorConnect div { background-color: #38761D; color: white; }
+        .sectorStore   div { background-color: #F4B400; color: white; }
+        .sectorSustain div { background-color: #DB4437; color: white; }
+        .sectorExecute div { background-color: #674EA7; color: white; }
+        .sectorStats   div { background-color: white; color: black; }
+
+        /* Partition, sector, group */
+
+        table.technologiesBoxCard { border-collapse: collapse; width: 90%; margin: 10pt auto; }
+        table.technologiesBoxCard td,
+        table.technologiesBoxCard th { border: 0px solid silver; }
+        table.technologiesBoxCard td.heading { border-bottom-width: 1px; border-bottom-color:  #d9d9d9; }
+
+        /* Sector headers */
+        tr.sectorsHeaders { font-size: 20pt; font-weight: bold; }
+        tr.sectorsHeaders > td { text-align: center; padding: 10pt 20pt 0; } /* Around the sector header box. */
+        tr.rowSectors > td { padding: 2ex 2em; }
+        tr.sectorsHeaders > td div { text-align: center; padding: 1ex 2em; }
+
+        /* Partitions = gray areas */
+        tr.rowHeader { font-size: 14pt; font-weight: bold; }
+        tr.rowHeader > td > div { background-color: #D9D9D9; padding: 1ex 20pt 0; margin-top: 18pt; }
+        /*tr.rowHeader td,*/
+        tr.rowSectors > td { background-color: #D9D9D9; padding: 1ex 2em; vertical-align: top; }
+        tr.rowSectors > td  > div.box { padding: 8pt 18pt 8pt 12pt; margin-bottom: 10pt; }
+        tr.rowSectors > td  > div.box > h4 { font-size: 12pt; font-weight: bold; }
+
+        tr.rowSectors .box h4  { font-size: 12pt; font-weight: bold; text-align: right; }
+        tr.rowSectors .box ul li  { font-size: 12px; }
+
+        tr.rowSectors .box .icon {
+            float: left;
+            width: 70px; height: 70px;
+            background-image: url("resources/icons/techreport/Object_Shield-CoatOfArms.png");
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+        }
+        tr.rowSectors .box .content { margin-left: 62px; }
+        tr.rowSectors .box .content ul { list-style: none; margin: 0; -webkit-padding-start: 10px; }
+        tr.rowSectors .box .content ul li { margin: 0; text-align: right; }
+        tr.rowSectors .box .content ul li b { width: 3ex; display: inline-block; }
+        tr.headersGroup { height: 215px; }
+    </style>
+
+    <script src="resources/js/jquery-3.3.1.min.js"></script>
+</head>
+
+<body role="document">
+    <!-- Navbar -->
+    <div id="main-navbar" class="navbar navbar-inverse navbar-fixed-top">
+        <div class="wu-navbar-header navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="wu-navbar-header">
+              <strong class="wu-navbar-header">Migration Toolkit for Applications</strong><img align="right" class="wu-navbar-header" src="resources/img/Logo-RedHat-A-Reverse-RGB.png" />
+            </span>        </div>
+
+            <div class="navbar-collapse collapse navbar-responsive-collapse">
+    <ul class="nav navbar-nav">
+            <li class="">
+                <a href="../index.html"><i class="glyphicon glyphicon-home"></i> All Applications</a>
+            </li>
+
+
+
+                <li class="">
+                    <a href="report_index_data.html">
+                        <i class="glyphicon glyphicon-dashboard"></i>
+                      Dashboard
+                    </a>
+                </li>
+
+
+                <li class="">
+                    <a href="migration_issues.html">
+                        <i class="glyphicon glyphicon-warning-sign"></i>
+                      Issues
+                    </a>
+                </li>
+
+
+                <li class="">
+                    <a href="ApplicationDetails_data.html">
+                        <i class="glyphicon glyphicon-th-list"></i>
+                      Application Details
+                    </a>
+                </li>
+
+
+                <li class="active">
+                    <a href="#">
+                        <i class="fa fa-rocket"></i>
+                      Technologies
+                    </a>
+                </li>
+
+
+                <li class="">
+                    <a href="dependency_report_data.html">
+                        <i class="glyphicon glyphicon-retweet"></i>
+                      Dependencies
+                    </a>
+                </li>
+
+
+                <li class="">
+                    <a href="Unparsable_data.html">
+                        <i class="glyphicon glyphicon-warning-sign"></i>
+                      Unparsable
+                    </a>
+                </li>
+
+
+                <li class="">
+                    <a href="remotereport_data.html">
+                        <i class="glyphicon service-nav-logo"></i>
+                      Remote Services
+                    </a>
+                </li>
+
+
+                <li class="">
+                    <a href="ejbreport_data.html">
+                        <i class="glyphicon ejb-nav-logo"></i>
+                      EJBs
+                    </a>
+                </li>
+
+
+                <li class="">
+                    <a href="jpa_data.html">
+                        <i class="glyphicon jpa-nav-logo"></i>
+                      JPA
+                    </a>
+                </li>
+
+
+                <li class="">
+                    <a href="server_resources_data.html">
+                        <i class="glyphicon server-resource-nav-logo"></i>
+                      Server Resources
+                    </a>
+                </li>
+
+
+                <li class="">
+                    <a href="hibernate_data.html">
+                        <i class="glyphicon hibernate-nav-logo"></i>
+                      Hibernate
+                    </a>
+                </li>
+
+
+                <li class="">
+                    <a href="springbeans_data.html">
+                        <i class="glyphicon glyphicon-leaf"></i>
+                      Spring Beans
+                    </a>
+                </li>
+
+
+                <li class="">
+                    <a href="tattletale_data.html">
+                        <i class="glyphicon tattletale-nav-logo"></i>
+                      Tattletale
+                    </a>
+                </li>
+
+
+                <li class="">
+                    <a href="ignoredfiles_data.html">
+                        <i class="glyphicon glyphicon-eye-close"></i>
+                      Ignored Files
+                    </a>
+                </li>
+
+
+                <li class="">
+                    <a href="about_data.html">
+                        <i class="fa fa-question-circle"></i>
+                      About
+                    </a>
+                </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+<li>
+    <a href="#" class="feedback-nav-btn jiraFeedbackTrigger"><i class="glyphicon glyphicon-comment"></i> Send Feedback </a>
+</li>
+
+
+    <script type="text/javascript" src="https://issues.redhat.com/s/f215932e68571747ac58d0f5d554396f-T/en_US-r7luaf/6346/82/1.4.16/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-US&amp;collectorId=8b9e338b"></script>
+
+    <script type="text/javascript">
+
+    var FEEDBACK_JS_ADDED = false;
+    var FEEDBACK_FORM_TRIGGER = null;
+
+    function displayFeedbackForm() {
+        FEEDBACK_FORM_TRIGGER();
+    }
+
+    window.ATL_JQ_PAGE_PROPS = {
+        "triggerFunction": function(showCollectorDialog) {
+            FEEDBACK_FORM_TRIGGER = showCollectorDialog;
+        }
+    };
+
+    document.addEventListener("DOMContentLoaded", function(event) {
+            jQuery(".jiraFeedbackTrigger").click(function(e) {
+                e.preventDefault();
+                displayFeedbackForm();
+            });
+    });
+    </script>
+    </ul>
+    <script type="text/javascript">
+        var script   = document.createElement("script");
+        script.type  = "text/javascript";
+            script.src   = "resources/js/navbar.js";
+        document.body.appendChild(script);
+    </script>
+            </div><!-- /.nav-collapse -->
+    </div>
+    <!-- / Navbar -->
+
+    <div class="container-fluid" role="main">
+        <div class="row">
+            <div class="page-header page-header-no-border">
+                <h1>
+                    <div class="main">Technologies
+                    <i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement=right title="This report is a statistic of technologies occurrences in the input applications. It is an overview of what technologies are found in given project or a set of projects."></i></div>
+                        <div class="path">data</div>
+                </h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="container-fluid theme-showcase" role="main">
+
+
+                <table class="technologiesBoxCard">
+                    <tr class="sectorsHeaders">
+                            <td class="sectorView"><div>View</div></td>
+                            <td class="sectorConnect"><div>Connect</div></td>
+                            <td class="sectorStore"><div>Store</div></td>
+                            <td class="sectorSustain"><div>Sustain</div></td>
+                            <td class="sectorExecute"><div>Execute</div></td>
+                    </tr>
+
+                    <!-- For each gray row group... -->
+                     
+                        <tr class="rowHeader row-techrow:java-ee">
+                            <td class="heading" colspan="5"><div>Java EE</div></td>
+                        </tr>
+                        <tr class="rowSectors">
+                                <td class="sectorView">
+                                                <div class="box box-techbox:rich" id="box5759064">
+                                                    <div class="icon icon-Laptop_Webinar-A-White-RGB"
+                                                         style="background-image: url('resources/icons/techreport/Laptop_Webinar-A-White-RGB.png');"></div>
+                                                    <div class="content">
+                                                        <h4>Rich</h4>
+                                                        <ul>
+                                                                <li>
+                                                                    Applet
+                                                                        <b>3</b>
+                                                                </li>
+                                                                <li>
+                                                                    JNLP
+                                                                        <b>1</b>
+                                                                </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div style="clear: both;"></div>
+                                                </div>
+                                                <div class="box box-techbox:web" id="box5746776">
+                                                    <div class="icon icon-Network-A-White-RGB"
+                                                         style="background-image: url('resources/icons/techreport/Network-A-White-RGB.png');"></div>
+                                                    <div class="content">
+                                                        <h4>Web</h4>
+                                                        <ul>
+                                                                <li>
+                                                                    JSP Page
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    JBoss Web XML
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Web XML File
+                                                                        <b>5</b>
+                                                                </li>
+                                                                <li>
+                                                                    Orion Web XML
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    JSF Page
+                                                                        <b>2</b>
+                                                                </li>
+                                                                <li>
+                                                                    WebSocket
+                                                                        <b>1</b>
+                                                                </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div style="clear: both;"></div>
+                                                </div>
+                                </td>
+                                <td class="sectorConnect">
+                                                <div class="box box-techbox:binding" id="box5980160">
+                                                    <div class="icon icon-Link_broken-A-White-RGB"
+                                                         style="background-image: url('resources/icons/techreport/Link_broken-A-White-RGB.png');"></div>
+                                                    <div class="content">
+                                                        <h4>Binding</h4>
+                                                        <ul>
+                                                                <li>
+                                                                    JSON-B
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Java EE JAXB
+                                                                        <b>1</b>
+                                                                </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div style="clear: both;"></div>
+                                                </div>
+                                                <div class="box box-techbox:ejb" id="box2912488">
+                                                    <div class="icon icon-Data-A-White-RGB"
+                                                         style="background-image: url('resources/icons/techreport/Data-A-White-RGB.png');"></div>
+                                                    <div class="content">
+                                                        <h4>EJB</h4>
+                                                        <ul>
+                                                                <li>
+                                                                    Stateless (SLSB)
+                                                                        <b>3</b>
+                                                                </li>
+                                                                <li>
+                                                                    Management EJB
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    EJB XML
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Stateful (SFSB)
+                                                                        <b>2</b>
+                                                                </li>
+                                                                <li>
+                                                                    Message (MDB)
+                                                                        <b>6</b>
+                                                                </li>
+                                                                <li>
+                                                                    JBoss EJB XML
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Orion EJB XML
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Entity Bean
+                                                                        <b>1</b>
+                                                                </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div style="clear: both;"></div>
+                                                </div>
+                                                <div class="box box-techbox:http" id="box5673064">
+                                                    <div class="icon icon-Website-A-White-RGB"
+                                                         style="background-image: url('resources/icons/techreport/Website-A-White-RGB.png');"></div>
+                                                    <div class="content">
+                                                        <h4>HTTP</h4>
+                                                        <ul>
+                                                                <li>
+                                                                    Servlet
+                                                                        <b>2</b>
+                                                                </li>
+                                                                <li>
+                                                                    JAX-WS
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Web Services Metadata
+                                                                        <b>1</b>
+                                                                </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div style="clear: both;"></div>
+                                                </div>
+                                                <div class="box box-techbox:messaging" id="box5754968">
+                                                    <div class="icon icon-Envelope-A-White-RGB"
+                                                         style="background-image: url('resources/icons/techreport/Envelope-A-White-RGB.png');"></div>
+                                                    <div class="content">
+                                                        <h4>Messaging</h4>
+                                                        <ul>
+                                                                <li>
+                                                                    JMS Connection Factory
+                                                                        <b>2</b>
+                                                                </li>
+                                                                <li>
+                                                                    JMS Topic
+                                                                        <b>2</b>
+                                                                </li>
+                                                                <li>
+                                                                    JMS Queue
+                                                                        <b>2</b>
+                                                                </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div style="clear: both;"></div>
+                                                </div>
+                                                <div class="box box-techbox:other" id="box5750872">
+                                                    <div class="icon icon-Telecommunications-A-White-RGB"
+                                                         style="background-image: url('resources/icons/techreport/Telecommunications-A-White-RGB.png');"></div>
+                                                    <div class="content">
+                                                        <h4>Other</h4>
+                                                        <ul>
+                                                                <li>
+                                                                    Java EE JAXR
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Mail
+                                                                        <b>18</b>
+                                                                </li>
+                                                                <li>
+                                                                    JNI
+                                                                        <b>5</b>
+                                                                </li>
+                                                                <li>
+                                                                    JCA
+                                                                        <b>17</b>
+                                                                </li>
+                                                                <li>
+                                                                    EAR Deployment
+                                                                        <b>2</b>
+                                                                </li>
+                                                                <li>
+                                                                    JNA
+                                                                        <b>7</b>
+                                                                </li>
+                                                                <li>
+                                                                    RMI
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Common Annotations
+                                                                        <b>1</b>
+                                                                </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div style="clear: both;"></div>
+                                                </div>
+                                                <div class="box box-techbox:rest" id="box5668968">
+                                                    <div class="icon icon-API-A-White-RGB"
+                                                         style="background-image: url('resources/icons/techreport/API-A-White-RGB.png');"></div>
+                                                    <div class="content">
+                                                        <h4>REST</h4>
+                                                        <ul>
+                                                                <li>
+                                                                    JAX-RS
+                                                                        <b>5</b>
+                                                                </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div style="clear: both;"></div>
+                                                </div>
+                                </td>
+                                <td class="sectorStore">
+                                                <div class="box box-techbox:jdbc" id="box6000640">
+                                                    <div class="icon icon-Storage_stack-A-White-RGB"
+                                                         style="background-image: url('resources/icons/techreport/Storage_stack-A-White-RGB.png');"></div>
+                                                    <div class="content">
+                                                        <h4>Database</h4>
+                                                        <ul>
+                                                                <li>
+                                                                    JDBC datasources
+                                                                        <b>2</b>
+                                                                </li>
+                                                                <li>
+                                                                    JDBC (embedded)
+                                                                        <b>5</b>
+                                                                </li>
+                                                                <li>
+                                                                    JDBC XA datasources
+                                                                        <b>5</b>
+                                                                </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div style="clear: both;"></div>
+                                                </div>
+                                                <div class="box box-techbox:persistence" id="box5996544">
+                                                    <div class="icon icon-Save-A-White-RGB"
+                                                         style="background-image: url('resources/icons/techreport/Save-A-White-RGB.png');"></div>
+                                                    <div class="content">
+                                                        <h4>Persistence</h4>
+                                                        <ul>
+                                                                <li>
+                                                                    Persistence units
+                                                                        <b>3</b>
+                                                                </li>
+                                                                <li>
+                                                                    JPA XML
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    JPA named queries
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    JPA entities
+                                                                        <b>3</b>
+                                                                </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div style="clear: both;"></div>
+                                                </div>
+                                                <div class="box box-techbox:validation" id="box5652584">
+                                                    <div class="icon icon-Clipboard_Checklist-A-White-RGB"
+                                                         style="background-image: url('resources/icons/techreport/Clipboard_Checklist-A-White-RGB.png');"></div>
+                                                    <div class="content">
+                                                        <h4>Validation</h4>
+                                                        <ul>
+                                                                <li>
+                                                                    Bean Validation
+                                                                        <b>1</b>
+                                                                </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div style="clear: both;"></div>
+                                                </div>
+                                </td>
+                                <td class="sectorSustain">
+                                                <div class="box box-techbox:clustering" id="box5976064">
+                                                    <div class="icon icon-Cluster-A-White-RGB"
+                                                         style="background-image: url('resources/icons/techreport/Cluster-A-White-RGB.png');"></div>
+                                                    <div class="content">
+                                                        <h4>Clustering</h4>
+                                                        <ul>
+                                                                <li>
+                                                                    Web Session
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    EJB
+                                                                        <b>1</b>
+                                                                </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div style="clear: both;"></div>
+                                                </div>
+                                                <div class="box box-techbox:security" id="box3002536">
+                                                    <div class="icon icon-Shield-A-White-RGB"
+                                                         style="background-image: url('resources/icons/techreport/Shield-A-White-RGB.png');"></div>
+                                                    <div class="content">
+                                                        <h4>Security</h4>
+                                                        <ul>
+                                                                <li>
+                                                                    Java EE JACC
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Security Realm
+                                                                        <b>4</b>
+                                                                </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div style="clear: both;"></div>
+                                                </div>
+                                                <div class="box box-techbox:transactions" id="box5992448">
+                                                    <div class="icon icon-Game_Plan-A-White-RGB"
+                                                         style="background-image: url('resources/icons/techreport/Game_Plan-A-White-RGB.png');"></div>
+                                                    <div class="content">
+                                                        <h4>Transactions</h4>
+                                                        <ul>
+                                                                <li>
+                                                                    JTA
+                                                                        <b>19</b>
+                                                                </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div style="clear: both;"></div>
+                                                </div>
+                                </td>
+                                <td class="sectorExecute">
+                                                <div class="box box-techbox:processing" id="box2998440">
+                                                    <div class="icon icon-GPU-A-White-RGB"
+                                                         style="background-image: url('resources/icons/techreport/GPU-A-White-RGB.png');"></div>
+                                                    <div class="content">
+                                                        <h4>Processing</h4>
+                                                        <ul>
+                                                                <li>
+                                                                    Java EE Batch API
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    CDI
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Java EE JSON-P
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Java EE Batch
+                                                                        <b>1</b>
+                                                                </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div style="clear: both;"></div>
+                                                </div>
+                                </td>
+                        </tr>
+ 
+                        <tr class="rowHeader row-techrow:embedded">
+                            <td class="heading" colspan="5"><div>Embedded</div></td>
+                        </tr>
+                        <tr class="rowSectors">
+                                <td class="sectorView">
+                                                <div class="box box-techbox:markup" id="box3014824">
+                                                    <div class="icon icon-Code-A-White-RGB"
+                                                         style="background-image: url('resources/icons/techreport/Code-A-White-RGB.png');"></div>
+                                                    <div class="content">
+                                                        <h4>Markup</h4>
+                                                        <ul>
+                                                                <li>
+                                                                    Spring Boot Flo
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    CSS
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    JavaScript
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    HTML
+                                                                        <b>6</b>
+                                                                </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div style="clear: both;"></div>
+                                                </div>
+                                                <div class="box box-techbox:mvc" id="box5767256">
+                                                    <div class="icon icon-Orchestration-A-White-RGB"
+                                                         style="background-image: url('resources/icons/techreport/Orchestration-A-White-RGB.png');"></div>
+                                                    <div class="content">
+                                                        <h4>MVC</h4>
+                                                        <ul>
+                                                                <li>
+                                                                    BootsFaces
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    ButterFaces
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Portlet
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Handlebars
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Mixer
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Rythm Template Engine
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    MyFaces
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Scalate
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    DVSL
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    FreeMarker
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    BabbageFaces
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    TieFaces
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Chunk Templates
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Jamon
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    RichFaces
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Apache Tapestry
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Vaadin
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    UberFire
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    OpenFaces
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Thymeleaf
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    LiferayFaces
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    JMustache
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Webmacro
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    JSF
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    OmniFaces
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    JSilver
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Water Template Engine
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Wicket
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Ickenham
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    JSTL
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Spring MVC
+                                                                        <b>2</b>
+                                                                </li>
+                                                                <li>
+                                                                    Jetbrick Template
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    GWT
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Trimou
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Grails
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    PrimeFaces
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    HighFaces
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Snippetory Template Engine
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Oracle ADF
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Anakia
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Stripes
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    AngularFaces
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    ICEfaces
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Velocity
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    ANTLR StringTemplate
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    JFreeChart
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Play
+                                                                        <b>3</b>
+                                                                </li>
+                                                                <li>
+                                                                    Twirl
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Struts
+                                                                        <b>1</b>
+                                                                </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div style="clear: both;"></div>
+                                                </div>
+                                                <div class="box box-techbox:rich" id="box5759064">
+                                                    <div class="icon icon-Laptop_Webinar-A-White-RGB"
+                                                         style="background-image: url('resources/icons/techreport/Laptop_Webinar-A-White-RGB.png');"></div>
+                                                    <div class="content">
+                                                        <h4>Rich</h4>
+                                                        <ul>
+                                                                <li>
+                                                                    JavaFX
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    JGoodies
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Swing
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Standard Widget Toolkit (SWT)
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    FormLayoutMaker
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    JNLP
+                                                                        <b>2</b>
+                                                                </li>
+                                                                <li>
+                                                                    Eclipse RCP
+                                                                        <b>4</b>
+                                                                </li>
+                                                                <li>
+                                                                    MiGLayout
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Magicgrouplayout
+                                                                        <b>1</b>
+                                                                </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div style="clear: both;"></div>
+                                                </div>
+                                                <div class="box box-techbox:web" id="box5746776">
+                                                    <div class="icon icon-Network-A-White-RGB"
+                                                         style="background-image: url('resources/icons/techreport/Network-A-White-RGB.png');"></div>
+                                                    <div class="content">
+                                                        <h4>Web</h4>
+                                                        <ul>
+                                                                <li>
+                                                                    Seam (embedded)
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    WebSphere Web XML
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Spring Web
+                                                                        <b>6</b>
+                                                                </li>
+                                                                <li>
+                                                                    WebLogic Web XML
+                                                                        <b>1</b>
+                                                                </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div style="clear: both;"></div>
+                                                </div>
+                                </td>
+                                <td class="sectorConnect">
+                                                <div class="box box-techbox:other" id="box5750872">
+                                                    <div class="icon icon-Telecommunications-A-White-RGB"
+                                                         style="background-image: url('resources/icons/techreport/Telecommunications-A-White-RGB.png');"></div>
+                                                    <div class="content">
+                                                        <h4>Other</h4>
+                                                        <ul>
+                                                                <li>
+                                                                    RocketMQ Client
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    JBossMQ client
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Spring Messaging Client
+                                                                        <b>3</b>
+                                                                </li>
+                                                                <li>
+                                                                    SNMP4J
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    HornetQ Client
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Resource Adapter
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    AMQP Client
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    ActiveMQ library
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Properties
+                                                                        <b>38</b>
+                                                                </li>
+                                                                <li>
+                                                                    RabbitMQ Client
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    0MQ Client
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Camel Messaging Client
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Zbus Client
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Qpid Client
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Amazon SQS Client
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    HTTP Client
+                                                                        <b>1</b>
+                                                                </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div style="clear: both;"></div>
+                                                </div>
+                                                <div class="box box-techbox:rest" id="box5668968">
+                                                    <div class="icon icon-API-A-White-RGB"
+                                                         style="background-image: url('resources/icons/techreport/API-A-White-RGB.png');"></div>
+                                                    <div class="content">
+                                                        <h4>REST</h4>
+                                                        <ul>
+                                                                <li>
+                                                                    Unirest
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Jersey
+                                                                        <b>1</b>
+                                                                </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div style="clear: both;"></div>
+                                                </div>
+                                                <div class="box box-techbox:webservice" id="box6008832">
+                                                    <div class="icon icon-Website_system-A-White-RGB"
+                                                         style="background-image: url('resources/icons/techreport/Website_system-A-White-RGB.png');"></div>
+                                                    <div class="content">
+                                                        <h4>WebService</h4>
+                                                        <ul>
+                                                                <li>
+                                                                    CXF
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    XFire
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    WSDL
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Axis2
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    WebSphere WS Extension
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    WebSphere WS Binding
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Axis
+                                                                        <b>2</b>
+                                                                </li>
+                                                                <li>
+                                                                    OpenWS
+                                                                        <b>1</b>
+                                                                </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div style="clear: both;"></div>
+                                                </div>
+                                </td>
+                                <td class="sectorStore">
+                                                <div class="box box-techbox:database-driver" id="box3018920">
+                                                    <div class="icon icon-Car-A-White-RGB"
+                                                         style="background-image: url('resources/icons/techreport/Car-A-White-RGB.png');"></div>
+                                                    <div class="content">
+                                                        <h4>Database Driver</h4>
+                                                        <ul>
+                                                                <li>
+                                                                    HSQLDB Driver
+                                                                        <b>2</b>
+                                                                </li>
+                                                                <li>
+                                                                    Oracle DB Driver
+                                                                        <b>2</b>
+                                                                </li>
+                                                                <li>
+                                                                    MySQL Driver
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Derby Driver
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    MongoDB Client
+                                                                        <b>6</b>
+                                                                </li>
+                                                                <li>
+                                                                    SQLite Driver
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    MckoiSQLDB Driver
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Apache HBase Client
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Microsoft SQL Driver
+                                                                        <b>2</b>
+                                                                </li>
+                                                                <li>
+                                                                    Axion Driver
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    LevelDB Client
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Apache Accumulo Client
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    H2 Driver
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Cassandra Client
+                                                                        <b>8</b>
+                                                                </li>
+                                                                <li>
+                                                                    PostgreSQL Driver
+                                                                        <b>1</b>
+                                                                </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div style="clear: both;"></div>
+                                                </div>
+                                                <div class="box box-techbox:object-mapping" id="box2752640">
+                                                    <div class="icon icon-Gateway-A-White-RGB"
+                                                         style="background-image: url('resources/icons/techreport/Gateway-A-White-RGB.png');"></div>
+                                                    <div class="content">
+                                                        <h4>Object Mapping</h4>
+                                                        <ul>
+                                                                <li>
+                                                                    Hibernate Mapping
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Hibernate OGM
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Hibernate Cfg
+                                                                        <b>2</b>
+                                                                </li>
+                                                                <li>
+                                                                    Hibernate
+                                                                        <b>4</b>
+                                                                </li>
+                                                                <li>
+                                                                    Morphia
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Spring Data
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    EclipseLink
+                                                                        <b>1</b>
+                                                                </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div style="clear: both;"></div>
+                                                </div>
+                                </td>
+                                <td class="sectorSustain">
+                                                <div class="box box-techbox:configuration-management" id="box2920680">
+                                                    <div class="icon icon-Gear_group-A-White-RGB"
+                                                         style="background-image: url('resources/icons/techreport/Gear_group-A-White-RGB.png');"></div>
+                                                    <div class="content">
+                                                        <h4>Configuration Management</h4>
+                                                        <ul>
+                                                                <li>
+                                                                    Spring Cloud Config
+                                                                        <b>3</b>
+                                                                </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div style="clear: both;"></div>
+                                                </div>
+                                                <div class="box box-techbox:logging" id="box5693544">
+                                                    <div class="icon icon-Notepad-A-White-RGB"
+                                                         style="background-image: url('resources/icons/techreport/Notepad-A-White-RGB.png');"></div>
+                                                    <div class="content">
+                                                        <h4>Logging</h4>
+                                                        <ul>
+                                                                <li>
+                                                                    Logging Utils
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    NLOG4J
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Log4s
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    tinylog
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Airlift Log Manager
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    OCPsoft Logging Utils
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    JBoss logging
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Monolog
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    KLogger
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Log.io
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Kotlin Logging
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    GFC Logging
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    SLF4J
+                                                                        <b>4</b>
+                                                                </li>
+                                                                <li>
+                                                                    Logback
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    OPS4J Pax Logging Service
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Log4J
+                                                                        <b>4</b>
+                                                                </li>
+                                                                <li>
+                                                                    Commons Logging
+                                                                        <b>4</b>
+                                                                </li>
+                                                                <li>
+                                                                    Jcabi Log
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Apache Flume
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Blitz4j
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Scribe
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Lumberjack
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Twitter Util Logging
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    MinLog
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Avalon Logkit
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    OW2 Log Util
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Composite Logging JCL
+                                                                        <b>1</b>
+                                                                </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div style="clear: both;"></div>
+                                                </div>
+                                                <div class="box box-techbox:security" id="box3002536">
+                                                    <div class="icon icon-Shield-A-White-RGB"
+                                                         style="background-image: url('resources/icons/techreport/Shield-A-White-RGB.png');"></div>
+                                                    <div class="content">
+                                                        <h4>Security</h4>
+                                                        <ul>
+                                                                <li>
+                                                                    Apache Commons Validator
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Trunk JGuard
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    OWASP CSRF Guard
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    OTR4J
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Keyczar
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    OWASP ESAPI
+                                                                        <b>2</b>
+                                                                </li>
+                                                                <li>
+                                                                    Acegi Security
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    SAML
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Hdiv
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Bouncy Castle
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    SSL
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    XACML
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    OAUTH
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Vlad
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    OpenSAML
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Jasypt
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Shiro
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    OACC
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Santuario
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    PicketBox
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    WSS4J
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    PicketLink
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    JSecurity
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    AcrIS Security
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Spring Security
+                                                                        <b>2</b>
+                                                                </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div style="clear: both;"></div>
+                                                </div>
+                                                <div class="box box-techbox:test" id="box5681256">
+                                                    <div class="icon icon-Progression_linear-A-White-RGB"
+                                                         style="background-image: url('resources/icons/techreport/Progression_linear-A-White-RGB.png');"></div>
+                                                    <div class="content">
+                                                        <h4>Test</h4>
+                                                        <ul>
+                                                                <li>
+                                                                    PowerMock
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Guava Testing
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    JFunk
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    JMock
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Akka Testkit
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Concordion
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    OpenPojo
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Mule Functional Test Framework
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Arquillian
+                                                                        <b>2</b>
+                                                                </li>
+                                                                <li>
+                                                                    Test Interface
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    JCunit
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    RandomizedTesting Runner
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Restito
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    DbUnit
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    JUnit
+                                                                        <b>2</b>
+                                                                </li>
+                                                                <li>
+                                                                    Cactus
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    HttpUnit
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    JMockit
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    REST Assured
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    MultithreadedTC
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Unitils
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Jukito
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Spring Test
+                                                                        <b>5</b>
+                                                                </li>
+                                                                <li>
+                                                                    JPA Matchers
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    EasyMock
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Mockito
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Needle
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    TestNG
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    JBehave
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    HavaRunner
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Specsy
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Hamcrest
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    EtlUnit
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    XMLUnit
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Spock
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Play Test
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Cucumber
+                                                                        <b>1</b>
+                                                                </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div style="clear: both;"></div>
+                                                </div>
+                                                <div class="box box-techbox:transactions" id="box5992448">
+                                                    <div class="icon icon-Game_Plan-A-White-RGB"
+                                                         style="background-image: url('resources/icons/techreport/Game_Plan-A-White-RGB.png');"></div>
+                                                    <div class="content">
+                                                        <h4>Transactions</h4>
+                                                        <ul>
+                                                                <li>
+                                                                    Evo JTA
+                                                                        <b>2</b>
+                                                                </li>
+                                                                <li>
+                                                                    Nuxeo JTA/JCA
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    WF Core JTA
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Demoiselle JTA
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    AKKA JTA
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    KumuluzEE JTA
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Lift JTA
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Java Transaction API
+                                                                        <b>4</b>
+                                                                </li>
+                                                                <li>
+                                                                    Narayana Arjuna
+                                                                        <b>3</b>
+                                                                </li>
+                                                                <li>
+                                                                    Everit JTA
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    OW2 JTA
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    JBoss Transactions
+                                                                        <b>9</b>
+                                                                </li>
+                                                                <li>
+                                                                    Mycontainer JTA
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Geronimo JTA
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Atomikos JTA
+                                                                        <b>3</b>
+                                                                </li>
+                                                                <li>
+                                                                    Apache Sirona JTA
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    GlassFish JTA
+                                                                        <b>3</b>
+                                                                </li>
+                                                                <li>
+                                                                    Spring Transactions
+                                                                        <b>2</b>
+                                                                </li>
+                                                                <li>
+                                                                    Ignite JTA
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Apache Meecrowave JTA
+                                                                        <b>1</b>
+                                                                </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div style="clear: both;"></div>
+                                                </div>
+                                </td>
+                                <td class="sectorExecute">
+                                                <div class="box box-techbox:3rd-party" id="box3010728">
+                                                    <div class="icon icon-Pricetag-A-White-RGB"
+                                                         style="background-image: url('resources/icons/techreport/Pricetag-A-White-RGB.png');"></div>
+                                                    <div class="content">
+                                                        <h4>3rd party</h4>
+                                                        <ul>
+                                                                <li>
+                                                                    Kibana
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Apache Karaf
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Tomcat
+                                                                        <b>2</b>
+                                                                </li>
+                                                                <li>
+                                                                    Cloudera
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Spring Boot
+                                                                        <b>4</b>
+                                                                </li>
+                                                                <li>
+                                                                    Logstash
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Apache Geronimo
+                                                                        <b>2</b>
+                                                                </li>
+                                                                <li>
+                                                                    Weka
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Apache Hadoop
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Apache Mahout
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    MapR
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Neo4j
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Elasticsearch
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Spark
+                                                                        <b>4</b>
+                                                                </li>
+                                                                <li>
+                                                                    Apache Aries
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Jetty
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Liferay
+                                                                        <b>8</b>
+                                                                </li>
+                                                                <li>
+                                                                    TensorFlow
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Oracle Forms
+                                                                        <b>2</b>
+                                                                </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div style="clear: both;"></div>
+                                                </div>
+                                                <div class="box box-techbox:integration" id="box5689448">
+                                                    <div class="icon icon-Interoperability-A-White-RGB"
+                                                         style="background-image: url('resources/icons/techreport/Interoperability-A-White-RGB.png');"></div>
+                                                    <div class="content">
+                                                        <h4>Integration</h4>
+                                                        <ul>
+                                                                <li>
+                                                                    Ikasan
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    ServiceMix
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Mule
+                                                                        <b>2</b>
+                                                                </li>
+                                                                <li>
+                                                                    Apiman
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Istio
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Camel
+                                                                        <b>2</b>
+                                                                </li>
+                                                                <li>
+                                                                    Apache Synapse
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    SwitchYard
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Talend ESB
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Petals EIP
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    WSO2
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Swagger
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Micrometer
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Teiid
+                                                                        <b>2</b>
+                                                                </li>
+                                                                <li>
+                                                                    3scale
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Spring Integration
+                                                                        <b>2</b>
+                                                                </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div style="clear: both;"></div>
+                                                </div>
+                                                <div class="box box-techbox:ioc" id="box3006632">
+                                                    <div class="icon icon-Hierarchy-A-White-RGB"
+                                                         style="background-image: url('resources/icons/techreport/Hierarchy-A-White-RGB.png');"></div>
+                                                    <div class="content">
+                                                        <h4>Inversion of Control</h4>
+                                                        <ul>
+                                                                <li>
+                                                                    Iroh
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    BeanInject
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    SubCut
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    JayWire
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Polyforms DI
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    CDI
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Plexus Container
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Weld
+                                                                        <b>2</b>
+                                                                </li>
+                                                                <li>
+                                                                    Micro DI
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Winter
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Grapht DI
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    KouInject
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    AspectJ
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Ka DI
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Scaldi
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Cfg Engine
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Peaberry
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Sticky Configured
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Silk DI
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    AOP Alliance
+                                                                        <b>2</b>
+                                                                </li>
+                                                                <li>
+                                                                    Google Guice
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Kodein
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Spring
+                                                                        <b>26</b>
+                                                                </li>
+                                                                <li>
+                                                                    Macros
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    GIN
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Injekt for Kotlin
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Javax Inject
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Airframe
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    PicoContainer
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Syringe
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Dagger
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Spring DI
+                                                                        <b>2</b>
+                                                                </li>
+                                                                <li>
+                                                                    Tornado Inject
+                                                                        <b>1</b>
+                                                                </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div style="clear: both;"></div>
+                                                </div>
+                                                <div class="box box-techbox:processing" id="box2998440">
+                                                    <div class="icon icon-GPU-A-White-RGB"
+                                                         style="background-image: url('resources/icons/techreport/GPU-A-White-RGB.png');"></div>
+                                                    <div class="content">
+                                                        <h4>Processing</h4>
+                                                        <ul>
+                                                                <li>
+                                                                    Spring Batch
+                                                                        <b>1</b>
+                                                                </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div style="clear: both;"></div>
+                                                </div>
+                                                <div class="box box-techbox:rules" id="box6004736">
+                                                    <div class="icon icon-Flowchart-A-White-RGB"
+                                                         style="background-image: url('resources/icons/techreport/Flowchart-A-White-RGB.png');"></div>
+                                                    <div class="content">
+                                                        <h4>Rules & Processes</h4>
+                                                        <ul>
+                                                                <li>
+                                                                    Easy Rules
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Drools
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    MRules
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Blaze
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    JBPM
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Pega
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    Camunda
+                                                                        <b>1</b>
+                                                                </li>
+                                                                <li>
+                                                                    iLog
+                                                                        <b>1</b>
+                                                                </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div style="clear: both;"></div>
+                                                </div>
+                                </td>
+                        </tr>
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+
+    <script src="resources/js/bootstrap.min.js"></script>
+    <script>$(document).ready(function(){$('[data-toggle="tooltip"]').tooltip();});</script>
+</body>
+</html>

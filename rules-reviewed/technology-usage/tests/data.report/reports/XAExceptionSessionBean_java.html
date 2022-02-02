@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>Source Report for XAExceptionSessionBean.java</title>
+    <link href="resources/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="resources/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="resources/css/windup.css" rel="stylesheet" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="resources/libraries/snippet/jquery.snippet.min.css" />
+    <link rel="stylesheet" type="text/css" href="resources/css/windup-source.css" />
+    <link rel="stylesheet" type="text/css" href="resources/libraries/sausage/sausage.css" />
+    <link rel="shortcut icon" href="resources/img/mta-icon.png" type="image/x-icon"/>
+
+    <script src="resources/js/jquery-3.3.1.min.js"></script>
+</head>
+<body role="document" class="source-report">
+
+    <div class="navbar navbar-inverse navbar-fixed-top" id="main-navbar" style="display: none">
+        <div class="wu-navbar-header navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span class="wu-navbar-header">
+              <strong class="wu-navbar-header">Migration Toolkit for Applications</strong><img align="right" class="wu-navbar-header" src="resources/img/Logo-RedHat-A-Reverse-RGB.png" />
+            </span>        </div>
+
+
+                <div class="navbar-collapse collapse navbar-responsive-collapse project-specific" data-project-id="1585384">
+    <ul class="nav navbar-nav">
+            <li class="">
+                <a href="../index.html"><i class="glyphicon glyphicon-home"></i> All Applications</a>
+            </li>
+
+
+
+                <li class="">
+                    <a href="report_index_data.html">
+                        <i class="glyphicon glyphicon-dashboard"></i>
+                      Dashboard
+                    </a>
+                </li>
+
+
+                <li class="">
+                    <a href="migration_issues.html">
+                        <i class="glyphicon glyphicon-warning-sign"></i>
+                      Issues
+                    </a>
+                </li>
+
+
+                <li class="">
+                    <a href="ApplicationDetails_data.html">
+                        <i class="glyphicon glyphicon-th-list"></i>
+                      Application Details
+                    </a>
+                </li>
+
+
+                <li class="">
+                    <a href="techReport_data.html">
+                        <i class="fa fa-rocket"></i>
+                      Technologies
+                    </a>
+                </li>
+
+
+                <li class="">
+                    <a href="dependency_report_data.html">
+                        <i class="glyphicon glyphicon-retweet"></i>
+                      Dependencies
+                    </a>
+                </li>
+
+
+                <li class="">
+                    <a href="Unparsable_data.html">
+                        <i class="glyphicon glyphicon-warning-sign"></i>
+                      Unparsable
+                    </a>
+                </li>
+
+
+                <li class="">
+                    <a href="remotereport_data.html">
+                        <i class="glyphicon service-nav-logo"></i>
+                      Remote Services
+                    </a>
+                </li>
+
+
+                <li class="">
+                    <a href="ejbreport_data.html">
+                        <i class="glyphicon ejb-nav-logo"></i>
+                      EJBs
+                    </a>
+                </li>
+
+
+                <li class="">
+                    <a href="jpa_data.html">
+                        <i class="glyphicon jpa-nav-logo"></i>
+                      JPA
+                    </a>
+                </li>
+
+
+                <li class="">
+                    <a href="server_resources_data.html">
+                        <i class="glyphicon server-resource-nav-logo"></i>
+                      Server Resources
+                    </a>
+                </li>
+
+
+                <li class="">
+                    <a href="hibernate_data.html">
+                        <i class="glyphicon hibernate-nav-logo"></i>
+                      Hibernate
+                    </a>
+                </li>
+
+
+                <li class="">
+                    <a href="springbeans_data.html">
+                        <i class="glyphicon glyphicon-leaf"></i>
+                      Spring Beans
+                    </a>
+                </li>
+
+
+                <li class="">
+                    <a href="tattletale_data.html">
+                        <i class="glyphicon tattletale-nav-logo"></i>
+                      Tattletale
+                    </a>
+                </li>
+
+
+                <li class="">
+                    <a href="ignoredfiles_data.html">
+                        <i class="glyphicon glyphicon-eye-close"></i>
+                      Ignored Files
+                    </a>
+                </li>
+
+
+                <li class="">
+                    <a href="about_data.html">
+                        <i class="fa fa-question-circle"></i>
+                      About
+                    </a>
+                </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+<li>
+    <a href="#" class="feedback-nav-btn jiraFeedbackTrigger"><i class="glyphicon glyphicon-comment"></i> Send Feedback </a>
+</li>
+
+
+    <script type="text/javascript" src="https://issues.redhat.com/s/f215932e68571747ac58d0f5d554396f-T/en_US-r7luaf/6346/82/1.4.16/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?locale=en-US&amp;collectorId=8b9e338b"></script>
+
+    <script type="text/javascript">
+
+    var FEEDBACK_JS_ADDED = false;
+    var FEEDBACK_FORM_TRIGGER = null;
+
+    function displayFeedbackForm() {
+        FEEDBACK_FORM_TRIGGER();
+    }
+
+    window.ATL_JQ_PAGE_PROPS = {
+        "triggerFunction": function(showCollectorDialog) {
+            FEEDBACK_FORM_TRIGGER = showCollectorDialog;
+        }
+    };
+
+    document.addEventListener("DOMContentLoaded", function(event) {
+            jQuery(".jiraFeedbackTrigger").click(function(e) {
+                e.preventDefault();
+                displayFeedbackForm();
+            });
+    });
+    </script>
+    </ul>
+                </div><!-- /.nav-collapse -->
+    </div>
+
+
+    <div class="container-fluid" role="main">
+        <div class="row">
+            <div class="page-header page-header-no-border">
+                <h1>
+                    <div class="main">Source Report
+                    <i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement=right title="This report displays what Migration Toolkit for Applications by Red Hat found in individual files. Each item is shown below the line it was found on, and next to it, you may find a link to the rule which it was found by."></i></div>
+
+                        <div class="path project-specific" data-project-id="1585384">
+                            data/connect/XAExceptionSessionBean.java
+                        </div>
+                </h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="container-fluid theme-showcase" role="main">
+
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Information</h3>
+                    </div>
+                    <div class="panel-body" style="overflow: auto;">
+
+                        <!--<div style="height: 120pt; float:left;"></div> Keeps the minimal height. -->
+                        <div class="points" style="text-align: center; color: #00254b; padding-bottom: 1ex;">
+                            <div class="number">8</div>
+                            <div>Story Points</div>
+                        </div>
+
+                        <div class="info" style="margin-left: 95pt;">
+
+
+                                <h4>Technologies</h4>
+                                <div class="technologies" style="overflow: auto"><!-- "auto" to contain all the tags. -->
+                                        <span class="label label-info" title="INFORMATIONAL">Java Source</span>
+                                        <span class="label label-info" title="catchall">catchall</span>
+                                        <span class="label label-info" title="jboss">jboss</span>
+                                        <span class="label label-info" title="jmx">jmx</span>
+                                        <span class="label label-info" title="jndi">jndi</span>
+                                </div>
+
+                                <ul class="classifications">
+                                            <li>
+                                                <div class="title">
+                                                    <em>JCA usage</em>
+<a title='View Rule: technology-usage-connect-01300' href='windup_ruleproviders.html#technology-usage-connect-01300'><span class='glyphicon glyphicon-link rule-link'></span></a>                                                </div>
+                                                <div class="desc">JCA is used in the application</div>
+                                            </li>
+                                </ul>
+
+
+                            <div style="clear: both;"/><!-- Snaps under the height keeper. Yes, the same effect could be achieved by a table. -->
+                        </div><!-- .info -->
+                    </div>
+                </div>
+
+
+
+                <pre id="source">
+/*
+ * JBoss, Home of Professional Open Source. 
+ * Copyright 2008, Red Hat Middleware LLC, and individual contributors 
+ * as indicated by the @author tags. See the copyright.txt file in the 
+ * distribution for a full listing of individual contributors. 
+ * 
+ * This is free software; you can redistribute it and/or modify it 
+ * under the terms of the GNU Lesser General Public License as 
+ * published by the Free Software Foundation; either version 2.1 of 
+ * the License, or (at your option) any later version. 
+ * 
+ * This software is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
+ * Lesser General Public License for more details. 
+ * 
+ * You should have received a copy of the GNU Lesser General Public 
+ * License along with this software; if not, write to the Free 
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org. 
+ */
+package org.jboss.test.jca.ejb;
+
+import javax.ejb.EJBException;
+import javax.ejb.SessionBean;
+import javax.ejb.SessionContext;
+import javax.management.MBeanServer;
+import javax.management.ObjectName;
+import javax.naming.InitialContext;
+import javax.resource.ResourceException;
+import javax.resource.cci.Connection;
+import javax.resource.cci.ConnectionFactory;
+import javax.transaction.xa.XAException;
+
+import org.jboss.logging.Logger;
+import org.jboss.mx.util.MBeanServerLocator;
+import org.jboss.test.jca.adapter.TestConnection;
+import org.jboss.test.jca.adapter.TestConnectionFactory;
+
+/**
+ * XAExceptionSessionBean.java 
+ *
+ * @author &lt;a href=&quot;mailto:d_jencks@users.sourceforge.net&quot;&gt;David Jencks&lt;/a&gt; 
+ * @author &lt;a href=&quot;mailto:adrian@jboss.com&quot;&gt;Adrian Brock&lt;/a&gt; 
+ * @version &lt;tt&gt;$Revision: 81036 $&lt;/tt&gt; 
+ *
+ * @ejb:bean   name=&quot;XAExceptionSession&quot; 
+ *             jndi-name=&quot;test/XAExceptionSessionHome&quot; 
+ *             local-jndi-name=&quot;test/XAExceptionSessionLocalHome&quot; 
+ *             view-type=&quot;both&quot; 
+ *             type=&quot;Stateless&quot; 
+ * @ejb.transaction type=&quot;Required&quot; 
+ *
+ */
+public class XAExceptionSessionBean implements SessionBean
+{
+    /** The serialVersionUID */
+    private static final long serialVersionUID = 1L;
+
+    private Logger log = Logger.getLogger(XAExceptionSessionBean.class);
+
+    private SessionContext sessionContext;
+
+    /**
+     * Describe &lt;code&gt;ejbCreate&lt;/code&gt; method here.
+     * @ejb.interface-method
+     */
+    public void ejbCreate()
+    {
+    }
+
+
+    /**
+     * Describe &lt;code&gt;testXAException&lt;/code&gt; method here.
+     * @ejb.interface-method
+     */
+    public void testXAExceptionToTransactionRolledbackException()
+    {
+        try
+        {
+
+            InitialContext ctx = new InitialContext();
+            ConnectionFactory cf1 = (ConnectionFactory) ctx.lookup(&quot;java:/JBossTestCF&quot;);
+            ConnectionFactory cf2 = (ConnectionFactory) ctx.lookup(&quot;java:/JBossTestCF2&quot;);
+            Connection c1 = cf1.getConnection();
+            try
+            {
+                TestConnection c2 = (TestConnection) cf2.getConnection();
+                try
+                {
+                    c2.setFailInPrepare(true, XAException.XA_RBROLLBACK);
+                }
+                finally
+                {
+                    c2.close();
+                }
+            }
+            finally
+            {
+                c1.close();
+            }
+        }
+        catch (Exception e)
+        {
+            log.warn(&quot;Unexpected: &quot;, e);
+            throw new EJBException(&quot;unexpected exception: &quot; + e);
+        }
+    }
+
+    /**
+     * Describe &lt;code&gt;testXAException&lt;/code&gt; method here.
+     * @ejb.interface-method
+     */
+    public void testRMERRInOnePCToTransactionRolledbackException()
+    {
+        try
+        {
+
+            InitialContext ctx = new InitialContext();
+            ConnectionFactory cf1 = (ConnectionFactory) ctx.lookup(&quot;java:/JBossTestCF&quot;);
+            TestConnection c1 = (TestConnection) cf1.getConnection();
+            try
+            {
+                c1.setFailInCommit(true, XAException.XAER_RMERR);
+
+            }
+            finally
+            {
+                c1.close();
+            }
+
+        }
+        catch (Exception e)
+        {
+            log.warn(&quot;Unexpected: &quot;, e);
+            throw new EJBException(&quot;unexpected exception: &quot; + e);
+        }
+    }
+
+    /**
+     * Similate a connection failure
+     *
+     * @ejb.interface-method
+     */
+    public void simulateConnectionError()
+    {
+        log.info(&quot;Simulating connection error&quot;);
+        try
+        {
+            InitialContext ctx = new InitialContext();
+            ConnectionFactory cf = (ConnectionFactory) ctx.lookup(&quot;java:/JBossTestCF&quot;);
+            TestConnection c = (TestConnection) cf.getConnection();
+            try
+            {
+                c.simulateConnectionError();
+            }
+            finally
+            {
+                c.close();
+            }
+        }
+        catch (Exception e)
+        {
+            if (e.getMessage().equals(&quot;Simulated exception&quot;) == false)
+            {
+                log.warn(&quot;Unexpected: &quot;, e);
+                throw new EJBException(e.getMessage());
+            }
+            else
+            {
+                sessionContext.setRollbackOnly();
+            }
+        }
+    }
+
+    /**
+     * Similate a connection failure
+     *
+     * @ejb.interface-method
+     */
+    public void simulateConnectionErrorWithTwoHandles()
+    {
+        log.info(&quot;Simulating connection error with two handles&quot;);
+        try
+        {
+            InitialContext ctx = new InitialContext();
+            ConnectionFactory cf = (ConnectionFactory) ctx.lookup(&quot;java:/JBossTestCFByTx&quot;);
+            TestConnection c1 = (TestConnection) cf.getConnection();
+            TestConnection c2 = (TestConnection) cf.getConnection();
+            try
+            {
+                c2.simulateConnectionError();
+            }
+            finally
+            {
+                try
+                {
+                    c1.close();
+                }
+                catch (Throwable ignored)
+                {
+                }
+                try
+                {
+                    c2.close();
+                }
+                catch (Throwable ignored)
+                {
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            if (e.getMessage().equals(&quot;Simulated exception&quot;) == false)
+            {
+                log.warn(&quot;Unexpected: &quot;, e);
+                throw new EJBException(e.getMessage());
+            }
+            else
+            {
+                sessionContext.setRollbackOnly();
+            }
+        }
+    }
+
+    /**
+     * Similate an exception
+     *
+     * @ejb.interface-method
+     */
+    public void simulateError(String failure, int count)
+    {
+        log.info(failure + &quot; teststart&quot;);
+        try
+        {
+            long available = getAvailableConnections();
+            InitialContext ctx = new InitialContext();
+            TestConnectionFactory cf = (TestConnectionFactory) ctx.lookup(&quot;java:/JBossTestCF&quot;);
+            for (int i = 0; i &lt; count; ++i)
+            {
+                try
+                {
+                    TestConnection c = (TestConnection) cf.getConnection(failure);
+                    c.close();
+                }
+                catch (ResourceException expected)
+                {
+                }
+            }
+            if (available != getAvailableConnections())
+                throw new EJBException(&quot;Expected &quot; + available + &quot; got &quot; + getAvailableConnections() + &quot; connections&quot;);
+        }
+        catch (Exception e)
+        {
+            log.warn(&quot;Unexpected: &quot;, e);
+            throw new EJBException(e.getMessage());
+        }
+    }
+
+    /**
+     * Similate an exception
+     *
+     * @ejb.interface-method
+     */
+    public void simulateFactoryError(String failure, int count)
+    {
+        log.info(failure + &quot; start&quot;);
+        TestConnectionFactory cf = null;
+        try
+        {
+            long available = getAvailableConnections();
+            InitialContext ctx = new InitialContext();
+            cf = (TestConnectionFactory) ctx.lookup(&quot;java:/JBossTestCF&quot;);
+            cf.setFailure(failure);
+            for (int i = 0; i &lt; count; ++i)
+            {
+                try
+                {
+                    TestConnection c = (TestConnection) cf.getConnection(failure);
+                    c.close();
+                }
+                catch (ResourceException expected)
+                {
+                }
+            }
+            if (available != getAvailableConnections())
+                throw new EJBException(&quot;Expected &quot; + available + &quot; got &quot; + getAvailableConnections() + &quot; connections&quot;);
+        }
+        catch (Exception e)
+        {
+            log.warn(&quot;Unexpected: &quot;, e);
+            throw new EJBException(e.getMessage());
+        }
+        finally
+        {
+            sessionContext.setRollbackOnly();
+            if (cf != null)
+                cf.setFailure(null);
+        }
+    }
+
+    public long getAvailableConnections() throws Exception
+    {
+        MBeanServer server = MBeanServerLocator.locateJBoss();
+        return ((Long) server.getAttribute(new ObjectName(&quot;jboss.jca:service=ManagedConnectionPool,name=JBossTestCF&quot;),
+                &quot;AvailableConnectionCount&quot;)).longValue();
+    }
+
+    public void ejbActivate()
+    {
+    }
+
+    public void ejbPassivate()
+    {
+    }
+
+    public void ejbRemove()
+    {
+    }
+
+    public void setSessionContext(SessionContext ctx)
+    {
+        sessionContext = ctx;
+    }
+
+    public void unsetSessionContext()
+    {
+        sessionContext = null;
+    }
+
+}
+</pre>
+            </div> <!-- /container -->
+        </div><!-- /row-->
+    </div><!-- /container main-->
+
+
+<div style="text-align: left; font-size: small; color: gray; font-style: italic;">Page generated: Feb 2, 2022, 9:45:02 AM</div>
+
+    <script src="resources/js/jquery-migrate-1.4.1.min.js"></script>
+    <script src="resources/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="resources/libraries/jquery-ui/jquery.ui.widget.js"></script>
+    <script type="text/javascript" src="resources/libraries/snippet/jquery.snippet.min.js"></script>
+    <script type="text/javascript" src="resources/libraries/snippet/jquery.snippet.java-properties.js"></script>
+    <script type="text/javascript" src="resources/libraries/snippet/jquery.snippet.java-manifest.js"></script>
+    <script type="text/javascript" src="resources/libraries/sausage/jquery.sausage.min.js"></script>
+
+    <script type="text/javascript">
+        var script   = document.createElement("script");
+        script.type  = "text/javascript";
+            script.src   = "resources/js/navbar.js";
+        document.body.appendChild(script);
+    </script>
+
+    <script type="text/javascript">
+        $(window).on("hashchange", function () {
+            window.scrollTo(window.scrollX, window.scrollY - 50);
+        });
+        function offsetAnchor() {
+            if(location.hash.length !== 0) {
+                window.scrollTo(window.scrollX, window.scrollY - 50);
+            }
+        }
+        window.setTimeout(function() {
+            offsetAnchor();
+        }, 1);
+        $(document).ready(function(){
+            $("pre").snippet("java",{style:"ide-eclipse", showNum:true,boxFill:"#ffeeb9", box: "151,120,40,238,152,188,37,88,273,187,305,238,84,83,35,36,189,38,121,243,279,60,268" });
+
+            $("<div id='151-inlines' class='inline-source-hint-group'/>").appendTo('ol.snippet-num li:nth-child(151)');
+            $("<div id='120-inlines' class='inline-source-hint-group'/>").appendTo('ol.snippet-num li:nth-child(120)');
+            $("<div id='40-inlines' class='inline-source-hint-group'/>").appendTo('ol.snippet-num li:nth-child(40)');
+            $("<div id='238-inlines' class='inline-source-hint-group'/>").appendTo('ol.snippet-num li:nth-child(238)');
+            $("<div id='152-inlines' class='inline-source-hint-group'/>").appendTo('ol.snippet-num li:nth-child(152)');
+            $("<div id='188-inlines' class='inline-source-hint-group'/>").appendTo('ol.snippet-num li:nth-child(188)');
+            $("<div id='37-inlines' class='inline-source-hint-group'/>").appendTo('ol.snippet-num li:nth-child(37)');
+            $("<div id='88-inlines' class='inline-source-hint-group'/>").appendTo('ol.snippet-num li:nth-child(88)');
+            $("<div id='273-inlines' class='inline-source-hint-group'/>").appendTo('ol.snippet-num li:nth-child(273)');
+            $("<div id='187-inlines' class='inline-source-hint-group'/>").appendTo('ol.snippet-num li:nth-child(187)');
+            $("<div id='305-inlines' class='inline-source-hint-group'/>").appendTo('ol.snippet-num li:nth-child(305)');
+            $("<div id='238-inlines' class='inline-source-hint-group'/>").appendTo('ol.snippet-num li:nth-child(238)');
+            $("<div id='84-inlines' class='inline-source-hint-group'/>").appendTo('ol.snippet-num li:nth-child(84)');
+            $("<div id='83-inlines' class='inline-source-hint-group'/>").appendTo('ol.snippet-num li:nth-child(83)');
+            $("<div id='35-inlines' class='inline-source-hint-group'/>").appendTo('ol.snippet-num li:nth-child(35)');
+            $("<div id='36-inlines' class='inline-source-hint-group'/>").appendTo('ol.snippet-num li:nth-child(36)');
+            $("<div id='189-inlines' class='inline-source-hint-group'/>").appendTo('ol.snippet-num li:nth-child(189)');
+            $("<div id='38-inlines' class='inline-source-hint-group'/>").appendTo('ol.snippet-num li:nth-child(38)');
+            $("<div id='121-inlines' class='inline-source-hint-group'/>").appendTo('ol.snippet-num li:nth-child(121)');
+            $("<div id='243-inlines' class='inline-source-hint-group'/>").appendTo('ol.snippet-num li:nth-child(243)');
+            $("<div id='279-inlines' class='inline-source-hint-group'/>").appendTo('ol.snippet-num li:nth-child(279)');
+            $("<div id='60-inlines' class='inline-source-hint-group'/>").appendTo('ol.snippet-num li:nth-child(60)');
+            $("<div id='268-inlines' class='inline-source-hint-group'/>").appendTo('ol.snippet-num li:nth-child(268)');
+
+
+$("<a name='2543848' class='windup-file-location'></a><div class='inline-source-comment green tag-jndi'><div class='inline-comment'><div class='inline-comment-heading'><strong class='notification warning'>Call of JNDI lookup</strong><a title='View Rule: environment-dependent-calls-02000' href='windup_ruleproviders.html#environment-dependent-calls-02000'><span class='glyphicon glyphicon-link rule-link floatRight'></span></a></div><div class='inline-comment-body'><p>This method lookups an object using a JNDI String. During the migration process, some entity JNDI bindings may change. Ensure that the JNDI Name does not need to change for JBoss EAP.<\/p><p><em>For Example:<\/em><\/p>\n<pre><code class=\"java\">(ConnectionFactory)initialContext.lookup(&quot;weblogic.jms.ConnectionFactory&quot;);\n<\/code><\/pre><p><em>should become:<\/em><\/p>\n<pre><code class=\"java\">(ConnectionFactory)initialContext.lookup(&quot;/ConnectionFactory&quot;);\n<\/code><\/pre><ul><li><a href='https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/migration_guide/#sect-JNDI_Changes' target='_blank'>JNDI Changes</a></li><li><a href='https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/development_guide/#chap-Remote_JNDI_Lookup' target='_blank'>JBoss EAP 6 - JNDI Reference</a></li></ul></div></div></div>").appendTo('#151-inlines');
+
+$("<a name='2556136' class='windup-file-location'></a><div class='inline-source-comment green tag-jndi'><div class='inline-comment'><div class='inline-comment-heading'><strong class='notification warning'>Call of JNDI lookup</strong><a title='View Rule: environment-dependent-calls-02000' href='windup_ruleproviders.html#environment-dependent-calls-02000'><span class='glyphicon glyphicon-link rule-link floatRight'></span></a></div><div class='inline-comment-body'><p>This method lookups an object using a JNDI String. During the migration process, some entity JNDI bindings may change. Ensure that the JNDI Name does not need to change for JBoss EAP.<\/p><p><em>For Example:<\/em><\/p>\n<pre><code class=\"java\">(ConnectionFactory)initialContext.lookup(&quot;weblogic.jms.ConnectionFactory&quot;);\n<\/code><\/pre><p><em>should become:<\/em><\/p>\n<pre><code class=\"java\">(ConnectionFactory)initialContext.lookup(&quot;/ConnectionFactory&quot;);\n<\/code><\/pre><ul><li><a href='https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/migration_guide/#sect-JNDI_Changes' target='_blank'>JNDI Changes</a></li><li><a href='https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/development_guide/#chap-Remote_JNDI_Lookup' target='_blank'>JBoss EAP 6 - JNDI Reference</a></li></ul></div></div></div>").appendTo('#120-inlines');
+
+$("<a name='2621512' class='windup-file-location'></a><div class='inline-source-comment green tag-catchall tag-jboss'><div class='inline-comment'><div class='inline-comment-heading'><strong class='notification info'>JBoss API reference</strong><a title='View Rule: generic-catchall-00700' href='windup_ruleproviders.html#generic-catchall-00700'><span class='glyphicon glyphicon-link rule-link floatRight'></span></a></div><div class='inline-comment-body'><p><code>org.jboss.test.jca.ejb.XAExceptionSessionBean<\/code> reference found. No specific details available.<\/p></div></div></div>").appendTo('#40-inlines');
+
+$("<a name='2654336' class='windup-file-location'></a><div class='inline-source-comment green tag-catchall tag-jboss'><div class='inline-comment'><div class='inline-comment-heading'><strong class='notification info'>JBoss API reference</strong><a title='View Rule: generic-catchall-00700' href='windup_ruleproviders.html#generic-catchall-00700'><span class='glyphicon glyphicon-link rule-link floatRight'></span></a></div><div class='inline-comment-body'><p><code>org.jboss.test.jca.adapter.TestConnectionFactory<\/code> reference found. No specific details available.<\/p></div></div></div>").appendTo('#238-inlines');
+
+$("<a name='2658432' class='windup-file-location'></a><div class='inline-source-comment green tag-catchall tag-jboss'><div class='inline-comment'><div class='inline-comment-heading'><strong class='notification info'>JBoss API reference</strong><a title='View Rule: generic-catchall-00700' href='windup_ruleproviders.html#generic-catchall-00700'><span class='glyphicon glyphicon-link rule-link floatRight'></span></a></div><div class='inline-comment-body'><p><code>org.jboss.test.jca.adapter.TestConnection<\/code> reference found. No specific details available.<\/p></div></div></div>").appendTo('#152-inlines');
+
+$("<a name='2863336' class='windup-file-location'></a><div class='inline-source-comment green tag-catchall tag-jboss'><div class='inline-comment'><div class='inline-comment-heading'><strong class='notification info'>JBoss API reference</strong><a title='View Rule: generic-catchall-00700' href='windup_ruleproviders.html#generic-catchall-00700'><span class='glyphicon glyphicon-link rule-link floatRight'></span></a></div><div class='inline-comment-body'><p><code>org.jboss.test.jca.adapter.TestConnection<\/code> reference found. No specific details available.<\/p></div></div></div>").appendTo('#188-inlines');
+
+$("<a name='2871464' class='windup-file-location'></a><div class='inline-source-comment green tag-catchall tag-jboss'><div class='inline-comment'><div class='inline-comment-heading'><strong class='notification info'>JBoss API reference</strong><a title='View Rule: generic-catchall-00700' href='windup_ruleproviders.html#generic-catchall-00700'><span class='glyphicon glyphicon-link rule-link floatRight'></span></a></div><div class='inline-comment-body'><p><code>org.jboss.test.jca.adapter.TestConnection<\/code> reference found. No specific details available.<\/p></div></div></div>").appendTo('#37-inlines');
+
+$("<a name='2875560' class='windup-file-location'></a><div class='inline-source-comment green tag-catchall tag-jboss'><div class='inline-comment'><div class='inline-comment-heading'><strong class='notification info'>JBoss API reference</strong><a title='View Rule: generic-catchall-00700' href='windup_ruleproviders.html#generic-catchall-00700'><span class='glyphicon glyphicon-link rule-link floatRight'></span></a></div><div class='inline-comment-body'><p><code>org.jboss.test.jca.adapter.TestConnection<\/code> reference found. No specific details available.<\/p></div></div></div>").appendTo('#88-inlines');
+
+$("<a name='4927592' class='windup-file-location'></a><div class='inline-source-comment green tag-jndi'><div class='inline-comment'><div class='inline-comment-heading'><strong class='notification warning'>Call of JNDI lookup</strong><a title='View Rule: environment-dependent-calls-02000' href='windup_ruleproviders.html#environment-dependent-calls-02000'><span class='glyphicon glyphicon-link rule-link floatRight'></span></a></div><div class='inline-comment-body'><p>This method lookups an object using a JNDI String. During the migration process, some entity JNDI bindings may change. Ensure that the JNDI Name does not need to change for JBoss EAP.<\/p><p><em>For Example:<\/em><\/p>\n<pre><code class=\"java\">(ConnectionFactory)initialContext.lookup(&quot;weblogic.jms.ConnectionFactory&quot;);\n<\/code><\/pre><p><em>should become:<\/em><\/p>\n<pre><code class=\"java\">(ConnectionFactory)initialContext.lookup(&quot;/ConnectionFactory&quot;);\n<\/code><\/pre><ul><li><a href='https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/migration_guide/#sect-JNDI_Changes' target='_blank'>JNDI Changes</a></li><li><a href='https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/development_guide/#chap-Remote_JNDI_Lookup' target='_blank'>JBoss EAP 6 - JNDI Reference</a></li></ul></div></div></div>").appendTo('#273-inlines');
+
+$("<a name='4931688' class='windup-file-location'></a><div class='inline-source-comment green tag-jndi'><div class='inline-comment'><div class='inline-comment-heading'><strong class='notification warning'>Call of JNDI lookup</strong><a title='View Rule: environment-dependent-calls-02000' href='windup_ruleproviders.html#environment-dependent-calls-02000'><span class='glyphicon glyphicon-link rule-link floatRight'></span></a></div><div class='inline-comment-body'><p>This method lookups an object using a JNDI String. During the migration process, some entity JNDI bindings may change. Ensure that the JNDI Name does not need to change for JBoss EAP.<\/p><p><em>For Example:<\/em><\/p>\n<pre><code class=\"java\">(ConnectionFactory)initialContext.lookup(&quot;weblogic.jms.ConnectionFactory&quot;);\n<\/code><\/pre><p><em>should become:<\/em><\/p>\n<pre><code class=\"java\">(ConnectionFactory)initialContext.lookup(&quot;/ConnectionFactory&quot;);\n<\/code><\/pre><ul><li><a href='https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/development_guide/#chap-Remote_JNDI_Lookup' target='_blank'>JBoss EAP 6 - JNDI Reference</a></li><li><a href='https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/migration_guide/#sect-JNDI_Changes' target='_blank'>JNDI Changes</a></li></ul></div></div></div>").appendTo('#187-inlines');
+
+$("<a name='4935784' class='windup-file-location'></a><div class='inline-source-comment green tag-jmx'><div class='inline-comment'><div class='inline-comment-heading'><strong class='notification warning'>JMX MBean object name (javax.management.ObjectName)</strong><a title='View Rule: environment-dependent-calls-04000' href='windup_ruleproviders.html#environment-dependent-calls-04000'><span class='glyphicon glyphicon-link rule-link floatRight'></span></a></div><div class='inline-comment-body'><p>After migration, some of the JMX beans provided by the previous server may not be present anymore. Ensure that the <code>javax.management.ObjectName<\/code> does not need to change for JBoss EAP.<\/p></div></div></div>").appendTo('#305-inlines');
+
+$("<a name='5013592' class='windup-file-location'></a><div class='inline-source-comment green tag-jndi'><div class='inline-comment'><div class='inline-comment-heading'><strong class='notification warning'>Call of JNDI lookup</strong><a title='View Rule: environment-dependent-calls-02000' href='windup_ruleproviders.html#environment-dependent-calls-02000'><span class='glyphicon glyphicon-link rule-link floatRight'></span></a></div><div class='inline-comment-body'><p>This method lookups an object using a JNDI String. During the migration process, some entity JNDI bindings may change. Ensure that the JNDI Name does not need to change for JBoss EAP.<\/p><p><em>For Example:<\/em><\/p>\n<pre><code class=\"java\">(ConnectionFactory)initialContext.lookup(&quot;weblogic.jms.ConnectionFactory&quot;);\n<\/code><\/pre><p><em>should become:<\/em><\/p>\n<pre><code class=\"java\">(ConnectionFactory)initialContext.lookup(&quot;/ConnectionFactory&quot;);\n<\/code><\/pre><ul><li><a href='https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/migration_guide/#sect-JNDI_Changes' target='_blank'>JNDI Changes</a></li><li><a href='https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/development_guide/#chap-Remote_JNDI_Lookup' target='_blank'>JBoss EAP 6 - JNDI Reference</a></li></ul></div></div></div>").appendTo('#238-inlines');
+
+$("<a name='5197824' class='windup-file-location'></a><div class='inline-source-comment green tag-jndi'><div class='inline-comment'><div class='inline-comment-heading'><strong class='notification warning'>Call of JNDI lookup</strong><a title='View Rule: environment-dependent-calls-02000' href='windup_ruleproviders.html#environment-dependent-calls-02000'><span class='glyphicon glyphicon-link rule-link floatRight'></span></a></div><div class='inline-comment-body'><p>This method lookups an object using a JNDI String. During the migration process, some entity JNDI bindings may change. Ensure that the JNDI Name does not need to change for JBoss EAP.<\/p><p><em>For Example:<\/em><\/p>\n<pre><code class=\"java\">(ConnectionFactory)initialContext.lookup(&quot;weblogic.jms.ConnectionFactory&quot;);\n<\/code><\/pre><p><em>should become:<\/em><\/p>\n<pre><code class=\"java\">(ConnectionFactory)initialContext.lookup(&quot;/ConnectionFactory&quot;);\n<\/code><\/pre><ul><li><a href='https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/development_guide/#chap-Remote_JNDI_Lookup' target='_blank'>JBoss EAP 6 - JNDI Reference</a></li><li><a href='https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/migration_guide/#sect-JNDI_Changes' target='_blank'>JNDI Changes</a></li></ul></div></div></div>").appendTo('#84-inlines');
+
+$("<a name='5206016' class='windup-file-location'></a><div class='inline-source-comment green tag-jndi'><div class='inline-comment'><div class='inline-comment-heading'><strong class='notification warning'>Call of JNDI lookup</strong><a title='View Rule: environment-dependent-calls-02000' href='windup_ruleproviders.html#environment-dependent-calls-02000'><span class='glyphicon glyphicon-link rule-link floatRight'></span></a></div><div class='inline-comment-body'><p>This method lookups an object using a JNDI String. During the migration process, some entity JNDI bindings may change. Ensure that the JNDI Name does not need to change for JBoss EAP.<\/p><p><em>For Example:<\/em><\/p>\n<pre><code class=\"java\">(ConnectionFactory)initialContext.lookup(&quot;weblogic.jms.ConnectionFactory&quot;);\n<\/code><\/pre><p><em>should become:<\/em><\/p>\n<pre><code class=\"java\">(ConnectionFactory)initialContext.lookup(&quot;/ConnectionFactory&quot;);\n<\/code><\/pre><ul><li><a href='https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/development_guide/#chap-Remote_JNDI_Lookup' target='_blank'>JBoss EAP 6 - JNDI Reference</a></li><li><a href='https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/migration_guide/#sect-JNDI_Changes' target='_blank'>JNDI Changes</a></li></ul></div></div></div>").appendTo('#83-inlines');
+
+$("<a name='5480552' class='windup-file-location'></a><div class='inline-source-comment green tag-catchall tag-jboss'><div class='inline-comment'><div class='inline-comment-heading'><strong class='notification info'>JBoss API reference</strong><a title='View Rule: generic-catchall-00700' href='windup_ruleproviders.html#generic-catchall-00700'><span class='glyphicon glyphicon-link rule-link floatRight'></span></a></div><div class='inline-comment-body'><p><code>org.jboss.logging.Logger<\/code> reference found. No specific details available.<\/p></div></div></div>").appendTo('#35-inlines');
+
+$("<a name='5484648' class='windup-file-location'></a><div class='inline-source-comment green tag-catchall tag-jboss'><div class='inline-comment'><div class='inline-comment-heading'><strong class='notification info'>JBoss API reference</strong><a title='View Rule: generic-catchall-00700' href='windup_ruleproviders.html#generic-catchall-00700'><span class='glyphicon glyphicon-link rule-link floatRight'></span></a></div><div class='inline-comment-body'><p><code>org.jboss.mx.util.MBeanServerLocator<\/code> reference found. No specific details available.<\/p></div></div></div>").appendTo('#36-inlines');
+
+$("<a name='5488744' class='windup-file-location'></a><div class='inline-source-comment green tag-catchall tag-jboss'><div class='inline-comment'><div class='inline-comment-heading'><strong class='notification info'>JBoss API reference</strong><a title='View Rule: generic-catchall-00700' href='windup_ruleproviders.html#generic-catchall-00700'><span class='glyphicon glyphicon-link rule-link floatRight'></span></a></div><div class='inline-comment-body'><p><code>org.jboss.test.jca.adapter.TestConnection<\/code> reference found. No specific details available.<\/p></div></div></div>").appendTo('#189-inlines');
+
+$("<a name='5492840' class='windup-file-location'></a><div class='inline-source-comment green tag-catchall tag-jboss'><div class='inline-comment'><div class='inline-comment-heading'><strong class='notification info'>JBoss API reference</strong><a title='View Rule: generic-catchall-00700' href='windup_ruleproviders.html#generic-catchall-00700'><span class='glyphicon glyphicon-link rule-link floatRight'></span></a></div><div class='inline-comment-body'><p><code>org.jboss.test.jca.adapter.TestConnectionFactory<\/code> reference found. No specific details available.<\/p></div></div></div>").appendTo('#38-inlines');
+
+$("<a name='5603416' class='windup-file-location'></a><div class='inline-source-comment green tag-catchall tag-jboss'><div class='inline-comment'><div class='inline-comment-heading'><strong class='notification info'>JBoss API reference</strong><a title='View Rule: generic-catchall-00700' href='windup_ruleproviders.html#generic-catchall-00700'><span class='glyphicon glyphicon-link rule-link floatRight'></span></a></div><div class='inline-comment-body'><p><code>org.jboss.test.jca.adapter.TestConnection<\/code> reference found. No specific details available.<\/p></div></div></div>").appendTo('#121-inlines');
+
+$("<a name='5607512' class='windup-file-location'></a><div class='inline-source-comment green tag-catchall tag-jboss'><div class='inline-comment'><div class='inline-comment-heading'><strong class='notification info'>JBoss API reference</strong><a title='View Rule: generic-catchall-00700' href='windup_ruleproviders.html#generic-catchall-00700'><span class='glyphicon glyphicon-link rule-link floatRight'></span></a></div><div class='inline-comment-body'><p><code>org.jboss.test.jca.adapter.TestConnection<\/code> reference found. No specific details available.<\/p></div></div></div>").appendTo('#243-inlines');
+
+$("<a name='5611608' class='windup-file-location'></a><div class='inline-source-comment green tag-catchall tag-jboss'><div class='inline-comment'><div class='inline-comment-heading'><strong class='notification info'>JBoss API reference</strong><a title='View Rule: generic-catchall-00700' href='windup_ruleproviders.html#generic-catchall-00700'><span class='glyphicon glyphicon-link rule-link floatRight'></span></a></div><div class='inline-comment-body'><p><code>org.jboss.test.jca.adapter.TestConnection<\/code> reference found. No specific details available.<\/p></div></div></div>").appendTo('#279-inlines');
+
+$("<a name='5615704' class='windup-file-location'></a><div class='inline-source-comment green tag-catchall tag-jboss'><div class='inline-comment'><div class='inline-comment-heading'><strong class='notification info'>JBoss API reference</strong><a title='View Rule: generic-catchall-00700' href='windup_ruleproviders.html#generic-catchall-00700'><span class='glyphicon glyphicon-link rule-link floatRight'></span></a></div><div class='inline-comment-body'><p><code>org.jboss.logging.Logger<\/code> reference found. No specific details available.<\/p></div></div></div>").appendTo('#60-inlines');
+
+$("<a name='5791744' class='windup-file-location'></a><div class='inline-source-comment green tag-catchall tag-jboss'><div class='inline-comment'><div class='inline-comment-heading'><strong class='notification info'>JBoss API reference</strong><a title='View Rule: generic-catchall-00700' href='windup_ruleproviders.html#generic-catchall-00700'><span class='glyphicon glyphicon-link rule-link floatRight'></span></a></div><div class='inline-comment-body'><p><code>org.jboss.test.jca.adapter.TestConnectionFactory<\/code> reference found. No specific details available.<\/p></div></div></div>").appendTo('#268-inlines');
+
+
+            $('code[class]').each(function(){
+                 var codeSyntax = ($(this).attr('class'));
+                 if(codeSyntax) {
+                    $(this).parent().snippet(codeSyntax,{style:'ide-eclipse', menu:false, showNum:false});
+                 }
+            });
+            $(window).sausage({ page: 'li.box' });
+            $(window).resize(function () {
+                $('div.sausage-set').css('top', parseInt($('#main-navbar').css("height")));
+            });
+
+            // Deprecated
+            // $(window).load(function () {
+            //     $('div.sausage-set').css('top', parseInt($('#main-navbar').css("height")));
+            // });
+            $(window).on('load', function () {
+                $('div.sausage-set').css('top', parseInt($('#main-navbar').css("height")));
+            });
+        });
+
+        function qs(key) {
+            key = key.replace(/[*+?^$.\[\]{}()|\\\/]/g, "\\$&"); // escape RegEx meta chars
+            var match = location.search.match(new RegExp("[?&]"+key+"=([^&]+)(&|$)"));
+            return match && decodeURIComponent(match[1].replace(/\+/g, " "));
+        }
+
+        $(document).ready(function() {
+            var defaultProjectID = 1585384;
+            var selectedProject = qs("project");
+            if (!selectedProject)
+                selectedProject = defaultProjectID;
+
+            $(".project-specific").each(function(index, element) {
+                var currentProject = $(element).data("project-id");
+
+                if (currentProject == selectedProject)
+                    $(element).show();
+                else
+                    $(element).remove();
+            });
+            $("#main-navbar").show();
+        });
+    </script>
+    <script>$(document).ready(function(){$('[data-toggle="tooltip"]').tooltip();});</script>
+</body>
+</html>
