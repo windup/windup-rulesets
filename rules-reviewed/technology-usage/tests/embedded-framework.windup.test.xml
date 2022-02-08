@@ -607,12 +607,34 @@
          <rule id="embedded-framework-08500-test">
             <when>
                <not>
+                   <classification-exists classification="Embedded framework - Spring Shell"/>
+                   <technology-tag-exists technology-tag="Spring Shell"/>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule embedded-framework-08500"/>
+            </perform>
+         </rule>
+         <rule id="embedded-framework-08600-test">
+            <when>
+               <not>
                    <classification-exists classification="Embedded framework - Spring Boot Flo"/>
                    <technology-tag-exists technology-tag="Spring Boot Flo"/>
                </not>
             </when>
             <perform>
-               <fail message="Expected data not found for rule embedded-framework-08500"/>
+               <fail message="Expected data not found for rule embedded-framework-08600"/>
+            </perform>
+         </rule>
+         <rule id="embedded-framework-09000-test">
+            <when>
+               <not>
+                   <classification-exists classification="Embedded framework - Spring"/>
+                   <technology-tag-exists technology-tag="Spring \(embedded\)"/>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule embedded-framework-00900"/>
             </perform>
          </rule>
       </rules>

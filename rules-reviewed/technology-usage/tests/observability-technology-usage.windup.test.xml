@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruletest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:windupfunctions="windupcustomfunctions"
+          xmlns:windup="http://windup.jboss.org/schema/jboss-ruleset"
+          id="observability-technology-usage-test"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <testDataPath>data/observability</testDataPath>
+    <rulePath>../observability.windup.xml</rulePath>
+    <rulePath>../observability-technology-usage.windup.xml</rulePath>
+   <ruleset>
+      <rules>
+         <rule id="observability-technology-usage-0100-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Spring Boot Actuator" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Observability"/>
+                     <tag name="Embedded"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule observability-technology-usage-0100"/>
+            </perform>
+         </rule>
+       </rules>
+   </ruleset>
+</ruletest>

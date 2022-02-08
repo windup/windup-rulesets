@@ -584,17 +584,6 @@
                 <technology-tag level="INFORMATIONAL">SubCut</technology-tag>
             </perform>
         </rule>
-        <rule id="embedded-framework-08300">
-            <when>
-                <dependency groupId="io.micrometer" artifactId="micrometer-core"/>
-            </when>
-            <perform>
-                <classification title="Embedded framework - Micrometer" category-id="information" effort="0">
-                    <description>The application embeds a Micrometer library.</description>
-                </classification>
-                <technology-tag level="INFORMATIONAL">Micrometer</technology-tag>
-            </perform>
-        </rule>
         <rule id="embedded-framework-08200">
             <when>
                 <dependency groupId="org.springframework" artifactId="spring-beans"/>
@@ -606,29 +595,18 @@
                 <technology-tag level="INFORMATIONAL">Spring DI</technology-tag>
             </perform>
         </rule>
-        <!-- this rule has to be always the last one in order to effectively checks for classifications added from previous rules in this ruleset-->
-        <rule id="embedded-framework-05200">
+        <rule id="embedded-framework-08300">
             <when>
-                <file filename="spring{*}.jar"/>
+                <dependency groupId="io.micrometer" artifactId="micrometer-core"/>
             </when>
             <perform>
-                <iteration>
-                    <when>
-                        <not>
-                            <has-classification title="Embedded framework - Spring {pattern}"/>
-                        </not>
-                    </when>
-                    <classification title="Embedded framework - Spring" category-id="information" effort="0">
-                        <description>The application embeds the Spring framework.</description>
-                    </classification>
-                    <technology-tag level="INFORMATIONAL">Spring</technology-tag>
-                </iteration>
+                <classification title="Embedded framework - Micrometer" category-id="information" effort="0">
+                    <description>The application embeds a Micrometer library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Micrometer</technology-tag>
             </perform>
-            <where param="pattern">
-                <matches pattern="(Integration|Data|Security|MVC|Batch|Boot|Test|DI)"/>
-            </where>
         </rule>
-        <rule id="embedded-framework-05300">
+        <rule id="embedded-framework-08400">
             <when>
                 <or>
                     <!-- Spring component declared in source code condition -->
@@ -650,7 +628,20 @@
                 <technology-tag level="INFORMATIONAL">Spring Web</technology-tag>
             </perform>
         </rule>
-        <rule id="embedded-framework-05400">
+        <rule id="embedded-framework-08500">
+            <when>
+                <project>
+                    <artifact groupId="org.springframework.shell" artifactId="spring-shell-core"/>
+                </project>
+            </when>    
+            <perform>
+                <classification title="Embedded framework - Spring Shell" category-id="information" effort="0">
+                    <description>The application embeds a Spring Shell library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Spring Shell</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-08600">
             <when>
                 <filecontent pattern="{prefixes}flo-editor" filename="{*}.{extensions}" />
             </when>
@@ -667,5 +658,28 @@
                  <matches pattern="(html|ts)"/>
              </where>
         </rule>
+        <!-- this rule has to be always the last one in order to effectively checks for classifications added from previous rules in this ruleset-->
+        <rule id="embedded-framework-09000">
+            <when>
+                <file filename="spring{*}.jar"/>
+            </when>
+            <perform>
+                <iteration>
+                    <when>
+                        <not>
+                            <has-classification title="Embedded framework - Spring {pattern}"/>
+                        </not>
+                    </when>
+                    <classification title="Embedded framework - Spring" category-id="information" effort="0">
+                        <description>The application embeds the Spring framework.</description>
+                    </classification>
+                    <technology-tag level="INFORMATIONAL">Spring</technology-tag>
+                </iteration>
+            </perform>
+            <where param="pattern">
+                <matches pattern="(Integration|Data|Security|MVC|Batch|Boot|Test|DI)"/>
+            </where>
+        </rule>
+        <!-- the rule above has to be always the last one in order to effectively checks for classifications added from previous rules in this ruleset-->
     </rules>
 </ruleset>
