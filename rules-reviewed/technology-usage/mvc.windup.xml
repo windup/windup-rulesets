@@ -20,7 +20,7 @@
                 <classification title="Embedded library - Apache Wicket" category-id="information" effort="0">
                     <description>The application embeds an Apache Wicket library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">Apache Wicket (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">Apache Wicket</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-01100">
@@ -31,7 +31,7 @@
                 <classification title="Embedded library - Apache Struts" category-id="information" effort="0">
                     <description>The application embeds an Apache Struts library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">Apache Struts (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">Apache Struts</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-01200">
@@ -42,7 +42,45 @@
                 <classification title="Embedded library - Spring MVC" category-id="information" effort="0">
                     <description>The application embeds a Spring MVC library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">Spring MVC (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">Spring MVC</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-01210">
+            <when>
+                <javaclass references="org.springframework.web.servlet.mvc.Controller">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <classification title="Embedded library - Spring MVC" category-id="information" effort="0">
+                    <description>The application embeds a Spring MVC library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Spring MVC</technology-tag>
+            </perform>
+        </rule>
+        <rule id="mvc-01220">
+            <when>
+                <or>
+                    <!-- Spring component declared in source code condition -->
+                    <project>
+                        <artifact groupId="org.springframework" artifactId="spring-webmvc"/>
+                    </project>    
+                    <project>
+                        <artifact groupId="org.springframework" artifactId="spring-webflux"/>
+                    </project>
+                    <!-- Spring Boot component declared in source code condition -->
+                    <project>
+                        <artifact groupId="org.springframework.boot" artifactId="spring-boot-starter-webflux"/>
+                    </project>
+                    <!-- Spring component in compiled application condition -->
+                    <dependency groupId="org.springframework" artifactId="spring-webflux"/>
+                </or>
+            </when>
+            <perform>
+                <classification title="Embedded library - Spring MVC" category-id="information" effort="0">
+                    <description>The application embeds a Spring MVC library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Spring MVC</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-01300">
@@ -53,7 +91,7 @@
                 <classification title="Embedded library - GWT" category-id="information" effort="0">
                     <description>The application embeds a GWT library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">GWT (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">GWT</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-01400">
@@ -64,7 +102,7 @@
                 <classification title="Embedded library - MyFaces" category-id="information" effort="0">
                     <description>The application embeds a MyFaces library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">MyFaces (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">MyFaces</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-01500">
@@ -75,7 +113,7 @@
                 <classification title="Embedded library - RichFaces" category-id="information" effort="0">
                     <description>The application embeds a RichFaces library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">RichFaces (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">RichFaces</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-01600">
@@ -86,7 +124,7 @@
                 <classification title="Embedded library - JSF" category-id="information" effort="0">
                     <description>The application embeds a JSF library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">JSF (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">JSF</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-01700">
@@ -97,7 +135,7 @@
                 <classification title="Embedded library - Apache Tapestry" category-id="information" effort="0">
                     <description>The application embeds an Apache Tapestry library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">Apache Tapestry (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">Apache Tapestry</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-01800">
@@ -108,7 +146,7 @@
                 <classification title="Embedded library - Stripes" category-id="information" effort="0">
                     <description>The application embeds a Stripes library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">Stripes (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">Stripes</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-01900">
@@ -119,7 +157,7 @@
                 <classification title="Embedded library - Spark" category-id="information" effort="0">
                     <description>The application embeds a Spark library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">Spark (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">Spark</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-02000">
@@ -130,7 +168,7 @@
                 <classification title="Embedded library - Vaadin" category-id="information" effort="0">
                     <description>The application embeds a Vaadin library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">Vaadin (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">Vaadin</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-02100">
@@ -141,7 +179,7 @@
                 <classification title="Embedded library - Grails" category-id="information" effort="0">
                     <description>The application embeds a Grails library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">Grails (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">Grails</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-02200">
@@ -152,7 +190,7 @@
                 <classification title="Embedded library - Play" category-id="information" effort="0">
                     <description>The application embeds a Play library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">Play (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">Play</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-02300">
@@ -166,7 +204,7 @@
                 <classification title="Embedded library - Oracle ADF" category-id="information" effort="0">
                     <description>The application embeds an Oracle ADF library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">Oracle ADF (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">Oracle ADF</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-02400">
@@ -177,7 +215,7 @@
                 <classification title="Embedded library - PrimeFaces" category-id="information" effort="0">
                     <description>The application embeds a PrimeFaces library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">PrimeFaces (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">PrimeFaces</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-02500">
@@ -188,7 +226,7 @@
                 <classification title="Embedded library - JSTL" category-id="information" effort="0">
                     <description>The application embeds a JSTL library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">JSTL (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">JSTL</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-02600">
@@ -199,7 +237,7 @@
                 <classification title="Embedded library - OpenFaces" category-id="information" effort="0">
                     <description>The application embeds an OpenFaces library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">OpenFaces (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">OpenFaces</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-02700">
@@ -210,7 +248,7 @@
                 <classification title="Embedded library - JFreeChart" category-id="information" effort="0">
                     <description>The application embeds a JFreeChart library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">JFreeChart (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">JFreeChart</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-02800">
@@ -221,7 +259,7 @@
                 <classification title="Embedded library - BootsFaces" category-id="information" effort="0">
                     <description>The application embeds a BootsFaces library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">BootsFaces (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">BootsFaces</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-02900">
@@ -232,7 +270,7 @@
                 <classification title="Embedded library - ICEfaces" category-id="information" effort="0">
                     <description>The application embeds an ICEfaces library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">ICEfaces (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">ICEfaces</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-03000">
@@ -243,7 +281,7 @@
                 <classification title="Embedded library - BabbageFaces" category-id="information" effort="0">
                     <description>The application embeds a BabbageFaces library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">BabbageFaces (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">BabbageFaces</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-03100">
@@ -254,7 +292,7 @@
                 <classification title="Embedded library - Portlet" category-id="information" effort="0">
                     <description>The application embeds a Portlet library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">Portlet (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">Portlet</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-03200">
@@ -265,7 +303,7 @@
                 <classification title="Embedded library - AngularFaces" category-id="information" effort="0">
                     <description>The application embeds an AngularFaces library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">AngularFaces (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">AngularFaces</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-03300">
@@ -276,7 +314,7 @@
                 <classification title="Embedded library - LiferayFaces" category-id="information" effort="0">
                     <description>The application embeds a LiferayFaces library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">LiferayFaces (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">LiferayFaces</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-03400">
@@ -287,7 +325,7 @@
                 <classification title="Embedded library - Liferay" category-id="information" effort="0">
                     <description>The application embeds a Liferay library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">Liferay (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">Liferay</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-03500">
@@ -299,7 +337,7 @@
                 <classification title="Embedded library - ButterFaces" category-id="information" effort="0">
                     <description>The application embeds a Larmic ButterFaces library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">ButterFaces (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">ButterFaces</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-03600">
@@ -310,7 +348,7 @@
                 <classification title="Embedded library - HighFaces" category-id="information" effort="0">
                     <description>The application embeds a HighFaces library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">HighFaces (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">HighFaces</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-03700">
@@ -321,7 +359,7 @@
                 <classification title="Embedded library - TieFaces" category-id="information" effort="0">
                     <description>The application embeds a TieFaces library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">TieFaces (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">TieFaces</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-03800">
@@ -332,7 +370,7 @@
                 <classification title="Embedded library - OmniFaces" category-id="information" effort="0">
                     <description>The application embeds an OmniFaces library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">OmniFaces (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">OmniFaces</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-03900">
@@ -343,7 +381,7 @@
                 <classification title="Embedded library - UberFire" category-id="information" effort="0">
                     <description>The application embeds an UberFire library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">UberFire (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">UberFire</technology-tag>
             </perform>
         </rule>
         <!-- Template engines (not really MVC) -->
@@ -355,7 +393,7 @@
                 <classification title="Embedded library - Apache Velocity" category-id="information" effort="0">
                     <description>The application embeds an Apache Velocity library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">Velocity (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">Velocity</technology-tag>
             </perform>
         </rule>
 
@@ -367,7 +405,7 @@
                 <classification title="Embedded library - Thymeleaf" category-id="information" effort="0">
                     <description>The application embeds a Thymeleaf library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">Thymeleaf (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">Thymeleaf</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-04200">
@@ -378,7 +416,7 @@
                 <classification title="Embedded library - Apache FreeMarker" category-id="information" effort="0">
                     <description>The application embeds an Apache FreeMarker library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">FreeMarker (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">FreeMarker</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-04300">
@@ -389,7 +427,7 @@
                 <classification title="Embedded library - ANTLR StringTemplate" category-id="information" effort="0">
                     <description>The application embeds an ANTLR StringTemplate library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">ANTLR StringTemplate (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">ANTLR StringTemplate</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-04400">
@@ -400,7 +438,7 @@
                 <classification title="Embedded library - Handlebars" category-id="information" effort="0">
                     <description>The application embeds a Handlebars library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">Handlebars (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">Handlebars</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-04500">
@@ -411,7 +449,7 @@
                 <classification title="Embedded library - JMustache" category-id="information" effort="0">
                     <description>The application embeds a JMustache library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">JMustache (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">JMustache</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-04600">
@@ -422,7 +460,7 @@
                 <classification title="Embedded library - Jamon" category-id="information" effort="0">
                     <description>The application embeds a Jamon library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">Jamon (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">Jamon</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-04700">
@@ -433,7 +471,7 @@
                 <classification title="Embedded library - Twirl" category-id="information" effort="0">
                     <description>The application embeds a Twirl library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">Twirl (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">Twirl</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-04800">
@@ -444,7 +482,7 @@
                 <classification title="Embedded library - Scalate" category-id="information" effort="0">
                     <description>The application embeds a Scalate library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">Scalate (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">Scalate</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-04900">
@@ -455,7 +493,7 @@
                 <classification title="Embedded library - Rythm Template Engine" category-id="information" effort="0">
                     <description>The application embeds a Rythm Template Engine library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">Rythm Template Engine (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">Rythm Template Engine</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-05000">
@@ -466,7 +504,7 @@
                 <classification title="Embedded library - Trimou" category-id="information" effort="0">
                     <description>The application embeds a Trimou library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">Trimou (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">Trimou</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-05100">
@@ -477,7 +515,7 @@
                 <classification title="Embedded library - Jetbrick Template" category-id="information" effort="0">
                     <description>The application embeds a Jetbrick Template library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">Jetbrick Template (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">Jetbrick Template</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-05200">
@@ -488,7 +526,7 @@
                 <classification title="Embedded library - Chunk Templates" category-id="information" effort="0">
                     <description>The application embeds a Chunk Templates library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">Chunk Templates (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">Chunk Templates</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-05300">
@@ -499,7 +537,7 @@
                 <classification title="Embedded library - JSilver" category-id="information" effort="0">
                     <description>The application embeds a JSilver library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">JSilver (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">JSilver</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-05400">
@@ -510,7 +548,7 @@
                 <classification title="Embedded library - Water Template Engine" category-id="information" effort="0">
                     <description>The application embeds a Water Template Engine library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">Water Template Engine (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">Water Template Engine</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-05500">
@@ -521,7 +559,7 @@
                 <classification title="Embedded library - Ickenham" category-id="information" effort="0">
                     <description>The application embeds an Ickenham library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">Ickenham (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">Ickenham</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-05600">
@@ -532,7 +570,7 @@
                 <classification title="Embedded library - Mixer" category-id="information" effort="0">
                     <description>The application embeds a Mixer library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">Mixer (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">Mixer</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-05700">
@@ -543,7 +581,7 @@
                 <classification title="Embedded library - Webmacro" category-id="information" effort="0">
                     <description>The application embeds a Webmacro library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">Webmacro (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">Webmacro</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-05800">
@@ -554,7 +592,7 @@
                 <classification title="Embedded library - DVSL" category-id="information" effort="0">
                     <description>The application embeds a DVSL library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">DVSL (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">DVSL</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-05900">
@@ -565,7 +603,7 @@
                 <classification title="Embedded library - Snippetory Template Engine" category-id="information" effort="0">
                     <description>The application embeds a Snippetory Template Engine library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">Snippetory Template Engine (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">Snippetory Template Engine</technology-tag>
             </perform>
         </rule>
         <rule id="mvc-06000">
@@ -576,7 +614,7 @@
                 <classification title="Embedded library - Anakia" category-id="information" effort="0">
                     <description>The application embeds an Anakia library.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">Anakia (embedded)</technology-tag>
+                <technology-tag level="INFORMATIONAL">Anakia</technology-tag>
             </perform>
         </rule>
     </rules>
