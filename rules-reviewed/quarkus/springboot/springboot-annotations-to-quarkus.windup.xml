@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="springboot-annotations-to-quarkus"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints to migrate from Spring Scheduled to Quarkus spring-scheduled extension
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="springboot" />
+        <targetTechnology id="quarkus" />
+    </metadata>
+    <rules>
+        <rule id="springboot-annotations-to-quarkus-00000">
+            <when>
+                <javaclass references="org.springframework.boot.autoconfigure.SpringBootApplication">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Remove the SpringBoot @SpringBootApplication annotation" effort="1" category-id="mandatory">
+                    <message>
+                        Remove the SpringBoot @SpringBootApplication annotation.
+
+                        A Spring Boot application contains a "main" class with the @SpringBootApplication annotation. A Quarkus application does not have such a class. Two different alternatives can be followed - either
+                        to remove the "main" class associated with the annotation, or adding the `org.springframework.boot:spring-boot-autoconfigure` dependency as an `optional` Maven dependency.
+                    </message>
+<!--                    <link title="Quarkus Spring Scheduled Guide" href="https://quarkus.io/guides/spring-scheduled" />-->
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

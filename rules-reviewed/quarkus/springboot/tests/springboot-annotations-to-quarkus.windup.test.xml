@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ruletest id="springboot-annotations-to-quarkus-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/springboot-annotations</testDataPath>
+    <rulePath>../springboot-annotations-to-quarkus.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="springboot-annotations-to-quarkus-00000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Remove the SpringBoot @SpringBootApplication annotation"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-annotations-to-quarkus-extension] 'Remove the SpringBoot @SpringBootApplication annotation' was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
