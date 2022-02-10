@@ -18,6 +18,18 @@
                     <fail message="[springboot-web-to-quarkus-extension] Spring Web artifact replaced by Quarkus extension was not found!" />
                 </perform>
             </rule>
+            <rule id="springboot-web-to-quarkus-00010-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="Add the Quarkus 'quarkus-resteasy-reactive-jackson' dependency"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-web-to-quarkus-extension-00000-test] Add the Quarkus 'quarkus-resteasy-reactive-jackson' dependency was not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
