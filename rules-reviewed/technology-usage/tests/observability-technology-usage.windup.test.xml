@@ -25,6 +25,20 @@
                <fail message="Expected data not found for rule observability-technology-usage-0100"/>
             </perform>
          </rule>
+         <rule id="observability-technology-usage-0200-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Spring JMX" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Observability"/>
+                     <tag name="Embedded"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule observability-technology-usage-0200"/>
+            </perform>
+         </rule>
        </rules>
    </ruleset>
 </ruletest>

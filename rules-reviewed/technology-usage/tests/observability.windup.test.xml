@@ -20,6 +20,17 @@
                <fail message="Expected data not found for rule observability-0100"/>
             </perform>
          </rule>
+         <rule id="observability-0200-test">
+            <when>
+               <not>
+                  <classification-exists classification="Spring JMX configuration detected"/>
+                  <technology-tag-exists technology-tag="Spring JMX"/>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule observability-0200"/>
+            </perform>
+         </rule>
       </rules>
    </ruleset>
 </ruletest>

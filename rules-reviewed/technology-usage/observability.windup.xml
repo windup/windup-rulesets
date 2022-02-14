@@ -33,5 +33,23 @@
                 <technology-tag level="INFORMATIONAL">Spring Boot Actuator</technology-tag>
             </perform>
         </rule>
+        <rule id="observability-0200">
+            <when>
+                <or>
+                    <xmlfile matches="//*/c:bean/@class[windup:matches(self::node(), 'org.springframework.jmx.export.MBeanExporter')]">
+                        <namespace prefix="c" uri="http://www.springframework.org/schema/beans"/>
+                    </xmlfile>
+                    <javaclass references="org.springframework.jmx.{*}"  >
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <classification title="Spring JMX configuration detected" category-id="information" effort="0">
+                    <description>The application uses Spring JMX.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Spring JMX</technology-tag>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
