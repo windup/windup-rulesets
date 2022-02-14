@@ -5,8 +5,8 @@
           xmlns:windup="http://windup.jboss.org/schema/jboss-ruleset"
           id="jta-test"
           xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
-    <testDataPath>data/configuration-management</testDataPath>
-    <rulePath>../configuration-management.windup.xml</rulePath>
+   <testDataPath>data/configuration-management</testDataPath>
+   <rulePath>../configuration-management.windup.xml</rulePath>
    <ruleset>
       <rules>
          <rule id="configuration-management-0100-test">
@@ -18,6 +18,50 @@
             </when>
             <perform>
                <fail message="Expected data not found for rule configuration-management-0100"/>
+            </perform>
+         </rule>
+         <rule id="configuration-management-0200-test">
+            <when>
+               <not>
+                  <classification-exists classification="Spring application properties detected"/>
+                  <technology-tag-exists technology-tag="Spring Properties"/>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule configuration-management-0200"/>
+            </perform>
+         </rule>
+         <rule id="configuration-management-0300-test">
+            <when>
+               <not>
+                  <classification-exists classification="Spring datasource properties detected"/>
+                  <technology-tag-exists technology-tag="Spring Properties"/>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule configuration-management-0300"/>
+            </perform>
+         </rule>
+         <rule id="configuration-management-0400-test">
+            <when>
+               <not>
+                  <classification-exists classification="Spring logging properties detected"/>
+                  <technology-tag-exists technology-tag="Spring Properties"/>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule configuration-management-0400"/>
+            </perform>
+         </rule>
+         <rule id="configuration-management-0500-test">
+            <when>
+               <not>
+                  <classification-exists classification="Spring configuration properties annotation detected"/>
+                  <technology-tag-exists technology-tag="Spring Properties"/>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule configuration-management-0500"/>
             </perform>
          </rule>
       </rules>

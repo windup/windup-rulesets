@@ -27,5 +27,69 @@
                 <technology-tag level="INFORMATIONAL">Spring Cloud Config</technology-tag>
             </perform>
         </rule>
+        <rule id="configuration-management-0200">
+            <when>
+                <file filename="application-{profile}.{extension}"   />
+            </when>
+            <perform>
+                <classification title="Spring application properties detected" category-id="information" effort="0">
+                    <description>Spring application properties detected</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Spring Properties</technology-tag>
+            </perform>
+            <where param="profile">
+                <matches pattern=".+" />
+            </where>
+            <where param="extension">
+                <matches pattern="(properties|yml|yaml)" />
+            </where>
+        </rule>
+        <rule id="configuration-management-0300">
+            <when>
+                <filecontent filename="application{profile}.{extension}" pattern="spring.datasource" />
+            </when>
+            <perform>
+                <classification title="Spring datasource properties detected" category-id="information" effort="0">
+                    <description>Spring datasource properties detected</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Spring Properties</technology-tag>
+            </perform>
+            <where param="profile">
+                <matches pattern=".*" />
+            </where>
+            <where param="extension">
+                <matches pattern="(properties|yml|yaml)" />
+            </where>
+        </rule>
+        <rule id="configuration-management-0400">
+            <when>
+                <filecontent filename="application{profile}.{extension}" pattern="logging.level.org.springframework" />
+            </when>
+            <perform>
+                <classification title="Spring logging properties detected" category-id="information" effort="0">
+                    <description>Spring logging properties detected</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Spring Properties</technology-tag>
+            </perform>
+            <where param="profile">
+                <matches pattern=".*" />
+            </where>
+            <where param="extension">
+                <matches pattern="(properties|yml|yaml)" />
+            </where>
+        </rule>
+        <rule id="configuration-management-0500">
+            <when>
+                <javaclass references="org.springframework.boot.context.properties.ConfigurationProperties"  >
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <classification title="Spring configuration properties annotation detected" category-id="information" effort="0">
+                    <description>Spring configuration properties annotation detected</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Spring Properties</technology-tag>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
