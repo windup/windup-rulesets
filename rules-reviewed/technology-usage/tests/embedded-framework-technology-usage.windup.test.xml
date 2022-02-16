@@ -1007,6 +1007,20 @@
                <fail message="Expected data not found for rule technology-usage-embedded-framework-08600"/>
             </perform>
          </rule>
+         <rule id="technology-usage-embedded-framework-08700-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Spring Scheduled" number-found="1"> 
+                     <tag name="Execute"/>
+                     <tag name="Processing"/>
+                     <tag name="Embedded"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-08700"/>
+            </perform>
+         </rule>
       </rules>
    </ruleset>
 </ruletest>
