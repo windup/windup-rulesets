@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="liberty-websphere-unavailable-technologies-test">
+    <testDataPath>data</testDataPath>
+    <rulePath>../liberty-websphere-unavailable-technologies.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="ActivitySessionRule-test">
+                <when>
+                    <not>
+                        <iterable-filter size="8">
+                            <hint-exists message="The Activity Session service is unavailable"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for ActivitySessionRule"/>
+                </perform>
+            </rule>
+            <rule id="AppProfileRule-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="WebSphere Application Profiling APIs are not available on Liberty"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for AppProfileRule"/>
+                </perform>
+            </rule>
+            <rule id="AsyncBeansSchedulerRule-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="WebSphere Asynchronous Beans API"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for AsyncBeansSchedulerRule"/>
+                </perform>
+            </rule>
+            <rule id="BatchFeaturePackRule-test">
+                <when>
+                    <not>
+                        <iterable-filter size="10">
+                            <hint-exists message="WebSphere Batch API and SPI are unavailable on Liberty"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for BatchFeaturePackRule"/>
+                </perform>
+            </rule>
+            <rule id="DetectPolicySetAndWsSecurity-test">
+                <when>
+                    <not>
+                        <iterable-filter size="6">
+                            <hint-exists message="web services Policy Sets in WebSphere traditional"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for DetectPolicySetAndWsSecurity"/>
+                </perform>
+            </rule>
+            <rule id="DetectWSATXML-test">
+                <when>
+                    <not>
+                        <iterable-filter size="4">
+                            <hint-exists
+                                    message="This rule flags the following unsupported WS-AT attributes in IBM deployment descriptor extensions"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for DetectWSATXML"/>
+                </perform>
+            </rule>
+            <rule id="DetectWSBAJava-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="Web Services Business Activity \(WS\-BA\) is unavailable"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for DetectWSBAJava"/>
+                </perform>
+            </rule>
+            <rule id="DynamicCacheRule-test">
+                <when>
+                    <not>
+                        <iterable-filter size="4">
+                            <hint-exists
+                                    message="On Liberty, the dynamic cache service is provided by the Distributed Map Interface for Dynamic Caching feature"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for DynamicCacheRule"/>
+                </perform>
+            </rule>
+            <rule id="DynamicQueryRule-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists
+                                    message="The WebSphere Enterprise JavaBeans \(EJB\) query service is not available"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for DynamicQueryRule"/>
+                </perform>
+            </rule>
+            <rule id="I18nRule-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="WebSphere i18n APIs and SPIs are not available"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for I18nRule"/>
+                </perform>
+            </rule>
+            <rule id="MTOMRule-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="DataHandler object can be written to an output stream only once"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for MTOMRule"/>
+                </perform>
+            </rule>
+            <rule id="ServerName-test">
+                <when>
+                    <not>
+                        <iterable-filter size="3">
+                            <hint-exists message="com\.ibm\.websphere\.management\.AdminService\.getProcessName"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for ServerName"/>
+                </perform>
+            </rule>
+            <rule id="SOAPOverJMSRule-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1"> <!-- TODO should be matching 2; bug in scanner? -->
+                            <hint-exists message="Liberty does not support Simple Object Access Protocol"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for SOAPOverJMSRule"/>
+                </perform>
+            </rule>
+            <rule id="StartupBeanRule-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists
+                                    message="The WebSphere startup bean service was superseded by the startup beans"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for StartupBeanRule"/>
+                </perform>
+            </rule>
+            <rule id="WebSphereSdoRule-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="The following WebSphere Service Data Objects"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for WebSphereSdoRule"/>
+                </perform>
+            </rule>
+            <rule id="WebSphereSchedulerRule-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="The WebSphere Scheduler API was superseded by"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for WebSphereSchedulerRule"/>
+                </perform>
+            </rule>
+            <rule id="WebSphereServletRule-test">
+                <when>
+                    <not>
+                        <iterable-filter
+                                size="3"> <!-- Is this supposed to hit every class? It only hits the two packages + 1 class -->
+                            <hint-exists message="The WebSphere Servlet API was superseded by standard"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for WebSphereServletRule"/>
+                </perform>
+            </rule>
+            <rule id="WebSphereUnavailableAPIsAppClient-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists
+                                    message="The following WebSphere Application Client APIs are not available on Liberty"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for WebSphereUnavailableAPIsAppClient"/>
+                </perform>
+            </rule>
+            <rule id="WebSphereUnavailableAPIsConnectorArchitecture-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists
+                                    message="The following WebSphere Connector Architecture APIs are not available on Liberty"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for WebSphereUnavailableAPIsConnectorArchitecture"/>
+                </perform>
+            </rule>
+            <rule id="WebSphereUnavailableAPIsEnterpriseJavaBeans-test">
+                <when>
+                    <not>
+                        <iterable-filter size="4">
+                            <hint-exists
+                                    message="The following WebSphere Enterprise JavaBeans APIs and SPIs are not available on Liberty"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for WebSphereUnavailableAPIsEnterpriseJavaBeans"/>
+                </perform>
+            </rule>
+            <rule id="WebSphereUnavailableAPIsExceptions-test">
+                <when>
+                    <not>
+                        <iterable-filter size="3">
+                            <hint-exists
+                                    message="The following WebSphere Exception APIs and SPIs are not available on Liberty"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for WebSphereUnavailableAPIsExceptions"/>
+                </perform>
+            </rule>
+            <rule id="WebSphereUnavailableAPIsExtensionRegistry-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The following Extension Registry APIs are not available on Liberty"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for WebSphereUnavailableAPIsExtensionRegistry"/>
+                </perform>
+            </rule>
+            <rule id="WebSphereUnavailableAPIsISC-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The following Integrated Solutions Console"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for WebSphereUnavailableAPIsISC"/>
+                </perform>
+            </rule>
+            <rule id="WebSphereUnavailableAPIsLoggingAndRAS-test">
+                <when>
+                    <not>
+                        <iterable-filter size="10"> <!-- Only flags one of the classes to flag + all packages -->
+                            <hint-exists
+                                    message="The following WebSphere logging and RAS APIs and SPIs are not available on Liberty"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for WebSphereUnavailableAPIsLoggingAndRAS"/>
+                </perform>
+            </rule>
+            <rule id="WebSphereUnavailableAPIsManagement-test">
+                <when>
+                    <not>
+                        <iterable-filter size="8">
+                            <hint-exists
+                                    message="he following WebSphere Management APIs and SPIs are not available on Liberty"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for WebSphereUnavailableAPIsManagement"/>
+                </perform>
+            </rule>
+            <rule id="WebSphereUnavailableAPIsORB-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists
+                                    message="The following WebSphere ORB Extensions APIs are not available on Liberty"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for WebSphereUnavailableAPIsORB"/>
+                </perform>
+            </rule>
+            <rule id="WebSphereUnavailableAPIsPMI-test">
+                <when>
+                    <not>
+                        <iterable-filter size="4">
+                            <hint-exists message="he following WebSphere Performance Monitoring Infrastructure"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for WebSphereUnavailableAPIsPMI"/>
+                </perform>
+            </rule>
+            <rule id="WebSphereUnavailableAPIsPortal-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The following WebSphere Portal APIs are not available on Liberty"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for WebSphereUnavailableAPIsPortal"/>
+                </perform>
+            </rule>
+            <rule id="WebSphereUnavailableAPIsResourceAdapter-test">
+                <when>
+                    <not>
+                        <iterable-filter size="3">
+                            <hint-exists
+                                    message="The following WebSphere Resource Adapter APIs and SPIs are not available on Liberty"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for WebSphereUnavailableAPIsResourceAdapter"/>
+                </perform>
+            </rule>
+            <rule id="WebSphereUnavailableAPIsSecurity-test">
+                <when>
+                    <not>
+                        <iterable-filter size="14">
+                            <hint-exists
+                                    message="The following WebSphere Security APIs and SPIs are not available on Liberty"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for WebSphereUnavailableAPIsSecurity"/>
+                </perform>
+            </rule>
+            <rule id="WebSphereUnavailableAPIsSIB-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists
+                                    message="The following WebSphere Service Integration Bus \(SIB\) APIs are not available on Liberty"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for WebSphereUnavailableAPIsSIB"/>
+                </perform>
+            </rule>
+            <rule id="WebSphereUnavailableAPIsSMF-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists
+                                    message="The following WebSphere SMF recording APIs are not available on Liberty"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for WebSphereUnavailableAPIsSMF"/>
+                </perform>
+            </rule>
+            <rule id="WebSphereUnavailableAPIsTPV-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists
+                                    message="The following Tivoli Performance Viewer SPIs are not available on Liberty"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for WebSphereUnavailableAPIsTPV"/>
+                </perform>
+            </rule>
+            <rule id="WebSphereUnavailableAPIsExtHelper-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists
+                                    message="The following WebSphere Extension Helper SPIs are not available on Liberty"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for WebSphereUnavailableAPIsExtHelper"/>
+                </perform>
+            </rule>
+            <rule id="WebSphereUnavailableAPIsUDDI-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The following Universal Description, Discovery and Integration"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for WebSphereUnavailableAPIsUDDI"/>
+                </perform>
+            </rule>
+            <rule id="WebSphereUnavailableAPIsWLM-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists
+                                    message="The following WebSphere Workload Manager APIs are not available on Liberty"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for WebSphereUnavailableAPIsWLM"/>
+                </perform>
+            </rule>
+            <rule id="WebSphereUnavailableAPIsWSADIE-test">
+                <when>
+                    <not>
+                        <iterable-filter size="16">
+                            <hint-exists
+                                    message="The following WebSphere Studio Application Developer Integration Edition APIs are not available on Liberty"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for WebSphereUnavailableAPIsWSADIE"/>
+                </perform>
+            </rule>
+            <rule id="WebSphereUnavailableAPIsWSSecurityHelper-test">
+                <when>
+                    <not>
+                        <iterable-filter size="8">
+                            <hint-exists message="The following WSSecurityHelper methods are not available on Liberty"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for WebSphereUnavailableAPIsWSSecurityHelper"/>
+                </perform>
+            </rule>
+            <rule id="WebSphereUnavailableSPIsRRD-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The following WebSphere Remote Request Dispatcher"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for WebSphereUnavailableSPIsRRD"/>
+                </perform>
+            </rule>
+            <rule id="WebSphereUnavailableSSOCookieMethod-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="revokeSSOCookies\(HttpServletRequest req, HttpServletResponse res\)"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for WebSphereUnavailableSSOCookieMethod"/>
+                </perform>
+            </rule>
+            <rule id="WebSphereUnavailableSSOTokenMethod-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="getLTPACookieFromSSOToken\(\)"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for WebSphereUnavailableSSOTokenMethod"/>
+                </perform>
+            </rule>
+            <rule id="WOLAMissingClassesRule-test">
+                <when>
+                    <not>
+                        <iterable-filter size="15"> <!-- Flags 7 hits in ejb-jar.xml when there should be only 4 -->
+                            <hint-exists message="Liberty supports a subset of the WebSphere Optimized Local Adapters \(WOLA\) APIs. This rule flags the use of APIs that are unsupported on Liberty."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for WOLAMissingClassesRule"/>
+                </perform>
+            </rule>
+            <rule id="WOLARule-test">
+                <when>
+                    <not>
+                        <iterable-filter size="8">
+                            <hint-exists
+                                    message="Liberty supports some com.ibm.websphere.ola APIs, but there are differences from the support provided on WebSphere Application Server traditional"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for WOLARule"/>
+                </perform>
+            </rule>
+            <rule id="WorkAreaRule-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="The following WebSphere Work Area APIs and SPIs are not available on Liberty"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for WorkAreaRule"/>
+                </perform>
+            </rule>
+            <rule id="WSNotificationRuleJava-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The following WebSphere Web Services Notification \(WS-Notification\) APIs are not available on Liberty"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for WSNotificationRuleJava"/>
+                </perform>
+            </rule>
+            <rule id="XMLFeaturePackRule-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists
+                                    message="To use the WebSphere XPath, XQuery, and XSLT API, applications must be configured to use the XML thin client JAR file"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for XMLFeaturePackRule"/>
+                </perform>
+            </rule>
+            <rule id="WebSphereWebServicesRule-test">
+                <when>
+                    <not>
+                        <iterable-filter size="14">
+                            <hint-exists
+                                    message="The following WebSphere web services APIs and SPIs are not available on Liberty"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for WebSphereWebServicesRule"/>
+                </perform>
+            </rule>
+            <rule id="WebSphereWebServicesGeneratedClassesRule-test">
+                <when>
+                    <not>
+                        <iterable-filter size="14">
+                            <hint-exists
+                                    message="The WSDL2Java emitter generates Java classes from JAX-RPC WSDL files"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for WebSphereWebServicesGeneratedClassesRule"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

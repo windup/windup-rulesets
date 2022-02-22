@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ejb-jar version="3.1" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd">
+    <display-name>Quartz_to_TimerAPI_Migrated</display-name>
+    <enterprise-beans>
+        <session>
+            <ejb-name>myStartupBean</ejb-name>
+            <remote>test.MySessionBeanRemote</remote>
+            <business-remote>test.MySsessionBeanRemote</business-remote>
+            <session-type>Stateless</session-type>
+            <init-on-startup>false</init-on-startup>
+            <transaction-type>Container</transaction-type>
+        </session>
+
+        <session>
+            <ejb-name>TimerBean</ejb-name>
+            <ejb-class>
+                test.NotificationScheduler
+            </ejb-class>
+            <timer>
+                <schedule/>
+                <timeout-method>
+                    <method-name/>
+                </timeout-method>
+            </timer>
+        </session>
+
+    </enterprise-beans>
+
+</ejb-jar>

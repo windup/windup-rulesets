@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapjms="http://www.w3.org/2010/soapjms"
+                  xmlns:tns="http://test.org/"  targetNamespace="http://test.org/">
+    <wsdl:binding name="SOAPOverJMS" type="tns:HelloWorldSoap">
+        <soapjms:binding style="document" transport="http://www.w3.org/2010/soapjms/soap1.2"/>
+        <soapjms:operation name="SayHelloWorld">
+            <soapjms:operation soapAction="http://test.org/SayHelloWorld" style="rpc" />
+        </soapjms:operation>
+    </wsdl:binding>
+</wsdl:definitions>
