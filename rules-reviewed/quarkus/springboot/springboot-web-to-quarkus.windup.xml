@@ -41,5 +41,38 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="springboot-web-to-quarkus-00010">
+            <when>
+                <or>
+                    <and>
+                        <project>
+                            <artifact groupId="io.quarkus" artifactId="quarkus-spring-web"/>
+                        </project>
+                        <not>
+                            <project>
+                                <artifact groupId="io.quarkus" artifactId="quarkus-resteasy-reactive-jackson"/>
+                            </project>
+                        </not>
+                    </and>
+                    <and>
+                        <dependency groupId="io.quarkus" artifactId="quarkus-spring-web"/>
+                        <not>
+                            <dependency groupId="io.quarkus" artifactId="quarkus-resteasy-reactive-jackson"/>
+                        </not>
+                    </and>
+                </or>
+            </when>
+            <perform>
+                <hint title="Add the Quarkus 'quarkus-resteasy-reactive-jackson' dependency" effort="1" category-id="mandatory">
+                    <message>
+                        Add the Quarkus 'quarkus-resteasy-reactive-jackson' dependency.
+
+                        Starting with Quarkus version 2.5, the underlying JAX-RS engine must be chosen. For performance reasons,
+                        the quarkus-resteasy-reactive-jackson dependency should be used."
+                    </message>
+                    <link title="Quarkus Migration Guide 2.5" href="https://github.com/quarkusio/quarkus/wiki/Migration-Guide-2.5#spring-web" />
+                </hint>
+            </perform>
+        </rule>
     </rules>
 </ruleset>

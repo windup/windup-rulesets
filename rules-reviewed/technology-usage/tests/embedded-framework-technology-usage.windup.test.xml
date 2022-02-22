@@ -983,7 +983,7 @@
             <when>
                <not>
                   <technology-statistics-exists name="Spring Boot Cache" number-found="1"> 
-                     <tag name="Connect"/>
+                     <tag name="Store"/>
                      <tag name="Caching"/>
                      <tag name="Embedded"/>
                   </technology-statistics-exists>
@@ -991,6 +991,34 @@
             </when>
             <perform>
                <fail message="Expected data not found for rule technology-usage-embedded-framework-08500"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-08600-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Spring Shell" number-found="1"> 
+                     <tag name="Execute"/>
+                     <tag name="Utilities"/>
+                     <tag name="Embedded"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-08600"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-embedded-framework-08700-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Spring Scheduled" number-found="1"> 
+                     <tag name="Execute"/>
+                     <tag name="Processing"/>
+                     <tag name="Embedded"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-08700"/>
             </perform>
          </rule>
       </rules>

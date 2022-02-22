@@ -146,7 +146,7 @@
             <when>
                <not>
                   <classification-exists classification="Embedded framework - Spring Data"/>
-                  <technology-tag-exists technology-tag="Spring Data \(embedded\)"/>
+                  <technology-tag-exists technology-tag="Spring Data"/>
                </not>
             </when>
             <perform>
@@ -195,6 +195,17 @@
             </when>
             <perform>
                <fail message="Expected data not found for rule database-03100"/>
+            </perform>
+         </rule>
+         <rule id="database-03200-test">
+            <when>
+               <not>
+                  <classification-exists classification="Embedded Spring Data JPA"/>
+                  <technology-tag-exists technology-tag="Spring Data JPA"/>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule database-03200"/>
             </perform>
          </rule>
       </rules>

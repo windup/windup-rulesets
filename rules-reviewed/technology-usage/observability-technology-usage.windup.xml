@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<ruleset id="observability-technology-usage" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset adds tags the Observability technologies so are appropriately categorized on the technology reports.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <phase>PostMigrationRulesPhase</phase>
+    </metadata>
+    <rules>
+        <rule id="observability-technology-usage-0100">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Spring Boot Actuator</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Spring Boot Actuator">
+                    <tag name="Sustain"/>
+                    <tag name="Observability"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

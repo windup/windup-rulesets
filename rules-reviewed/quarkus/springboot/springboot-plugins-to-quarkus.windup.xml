@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="springboot-plugins-to-quarkus" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints to migrate Spring Boot's plugins to Quarkus
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final"/>
+        </dependencies>
+        <sourceTechnology id="springboot"/>
+        <targetTechnology id="quarkus"/>
+    </metadata>
+    <rules>
+        <rule id="springboot-plugins-to-quarkus-0000">
+            <when>
+                <xmlfile matches="/m:project/m:build/m:plugins/m:plugin[m:artifactId = 'spring-boot-maven-plugin']" in="pom.xml">
+                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Replace the spring-boot-maven-plugin dependency" effort="2" category-id="mandatory">
+                    <message>
+                        Replace the `spring-boot-maven-plugin` dependency.
+                        The `spring-boot-maven-plugin` dependency needs to be replaced so that the application is built with Quarkus, both for running on the JVM and in native mode.
+                        Replace the `spring-boot-maven-plugin` dependency with `quarkus-maven-plugin`, so that the application is built with Quarkus, both for running on the JVM and in native mode.
+                    </message>
+                    <link title="Building Quarkus with maven" href="https://quarkus.io/guides/maven-tooling#build-tool-maven"/>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

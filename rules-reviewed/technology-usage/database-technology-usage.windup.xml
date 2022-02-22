@@ -248,7 +248,7 @@
         <rule id="technology-usage-database-02600">
             <when>
                 <graph-query discriminator="TechnologyTagModel">
-                    <property name="name">Spring Data (embedded)</property>
+                    <property name="name">Spring Data</property>
                 </graph-query>
             </when>
             <perform>
@@ -311,6 +311,20 @@
                 <technology-identified name="Apache Accumulo Client">
                     <tag name="Store"/>
                     <tag name="Database Driver"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-database-03200">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Spring Data JPA</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Spring Data JPA">
+                    <tag name="Store"/>
+                    <tag name="Persistence"/>
                     <tag name="Embedded"/>
                 </technology-identified>
             </perform>

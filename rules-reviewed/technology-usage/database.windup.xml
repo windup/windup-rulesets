@@ -210,7 +210,7 @@
                             <link title="Red Hat JBoss Enterprise Application Platform (EAP) 6 Supported Configurations" href="https://access.redhat.com/articles/111663" />
                             <link title="Red Hat JBoss Enterprise Application Platform (EAP) 7 Supported Configurations" href="https://access.redhat.com/articles/2026253" />
                         </classification>
-                        <technology-tag level="INFORMATIONAL">Spring Data (embedded)</technology-tag>
+                        <technology-tag level="INFORMATIONAL">Spring Data</technology-tag>
                     </perform>
                 </iteration>
             </perform>
@@ -266,6 +266,25 @@
                     <link title="Red Hat JBoss Enterprise Application Platform (EAP) 7 Supported Configurations" href="https://access.redhat.com/articles/2026253" />
                 </classification>
                 <technology-tag level="INFORMATIONAL">Apache Accumulo Client</technology-tag>
+            </perform>
+        </rule>
+        <rule id="database-03200">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.springframework.data" artifactId="spring-data-jpa"/>
+                    </project>
+                    <project>
+                        <artifact groupId="org.springframework.boot" artifactId="spring-boot-starter-data-jpa"/>
+                    </project>
+                    <dependency groupId="org.springframework.data" artifactId="spring-data-jpa"/>
+                </or>
+            </when>
+            <perform>
+                <classification title="Embedded Spring Data JPA" category-id="information" effort="0">
+                    <description>The application embeds Spring Data JPA</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Spring Data JPA</technology-tag>
             </perform>
         </rule>
     </rules>

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="springboot-devtools-to-quarkus" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints to migrate from SpringBoot devtools to Quarkus
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final"/>
+        </dependencies>
+        <sourceTechnology id="springboot"/>
+        <targetTechnology id="quarkus"/>
+    </metadata>
+    <rules>
+        <rule id="springboot-devtools-to-quarkus-0000">
+            <when>
+                <xmlfile matches="/m:project/m:dependencies/m:dependency[m:artifactId = 'spring-boot-devtools']" in="pom.xml">
+                   <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Remove spring-boot-devtools dependency" effort="1" category-id="optional">
+                    <message>
+                        Remove the spring-boot-devtools dependency.
+                        Quarkus has its own set of development tools integrated by default.
+                    </message>
+                    <link title="Quarkus development tools" href="https://quarkus.io/guides/tooling"/>
+                </hint>
+            </perform>
+        </rule>
+   </rules>
+</ruleset>
