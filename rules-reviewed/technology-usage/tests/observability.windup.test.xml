@@ -23,8 +23,10 @@
          <rule id="observability-0200-test">
             <when>
                <not>
-                  <classification-exists classification="Spring JMX configuration detected"/>
-                  <technology-tag-exists technology-tag="Spring JMX"/>
+                  <classification-exists classification="Spring JMX configuration detected" in="springboot-jmx-configuration.xml"/>
+                  <classification-exists classification="Spring JMX configuration detected" in="SpringbootAnnotationConfiguration.java"/>
+                  <technology-tag-exists technology-tag="Spring JMX" in="springboot-jmx-configuration.xml"/>
+                  <technology-tag-exists technology-tag="Spring JMX" in="SpringbootAnnotationConfiguration.java"/>
                </not>
             </when>
             <perform>
