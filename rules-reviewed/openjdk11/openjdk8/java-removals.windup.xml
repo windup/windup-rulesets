@@ -27,5 +27,40 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="java-removals-00010">
+            <when>
+                <javaclass references="sun.reflect.Reflection{*}">
+                    <location>IMPORT</location>
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="sun.reflect.Reflection class was deprecated in Java 9" effort="1" category-id="mandatory">
+                    <message>
+                        Java 9 introduced the `StackWalker API` to replace `sun.reflect.Reflection`. 
+                        As such, the use of `sun.reflect.Reflection` class and particular the `getCallerClass` method should no longer be needed. 
+                        Refer to the example changeset linked below.
+                    </message>
+                    <link title="Example changeset" href="https://hg.openjdk.java.net/openjfx/9-dev/rt/rev/70f6fa01a32c"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-removals-00020">
+            <when>
+                <javaclass references="sun.reflect.CallerSensitive{*}">
+                    <location>IMPORT</location>
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="sun.reflect.CallerSensitive annotation was deprecated in Java 9" effort="1" category-id="mandatory">
+                    <message>
+                        `sun.reflect.CallerSensitive` annotation was deprecated in Java 9.
+                        Refer to the example changeset linked below. 
+                    </message>
+                    <link title="Example changeset" href="https://hg.openjdk.java.net/openjfx/9-dev/rt/rev/70f6fa01a32c"/>
+                </hint>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
