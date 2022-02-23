@@ -1,0 +1,15 @@
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jboss.windup.sb-quarkus.Properties
+displayName: migrate spring boot properties to quarkus
+recipeList:
+  - org.openrewrite.properties.ChangePropertyValue:
+      propertyKey: spring.jpa.hibernate.ddl-auto
+      newValue: drop-and-create
+      relaxedBinding: true
+      fileMatcher: "**/application*.properties"
+  - org.openrewrite.properties.ChangePropertyKey:
+        oldPropertyKey: spring.jpa.hibernate.ddl-auto
+        newPropertyKey: quarkus.hibernate-orm.database.generation
+        relaxedBinding: true
+        fileMatcher: "**/application*.properties"
