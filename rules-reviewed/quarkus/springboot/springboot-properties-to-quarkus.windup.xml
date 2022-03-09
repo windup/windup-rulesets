@@ -95,5 +95,24 @@
                 <matches pattern="(properties|yml|yaml)" />
             </where>
         </rule>
+        <rule id="springboot-properties-to-quarkus-00004">
+            <when>
+                <filecontent filename="application{profile}.{extension}" pattern="spring.jpa.hibernate.ddl-auto=create-drop" />
+            </when>
+            <perform>
+                <hint title="Replace Spring JPA Hiberate property with Quarkus property" effort="1" category-id="mandatory">
+                    <message>
+                        Replace `spring.jpa.hibernate.ddl-auto=create-drop` with `quarkus.hibernate-orm.database.generation=drop-and-create`
+                    </message>
+                    <link title="Quarkus Hibernate ORM and JPA Guide" href="https://quarkus.io/guides/hibernate-orm" />
+                </hint>
+            </perform>
+            <where param="profile">
+                <matches pattern=".*" />
+            </where>
+            <where param="extension">
+                <matches pattern="(properties|yml|yaml)" />
+            </where>
+        </rule>
     </rules>
 </ruleset>
