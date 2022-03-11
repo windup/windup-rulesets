@@ -59,6 +59,16 @@
                     <fail message="[springboot-log-level-to-quarkus-properties] SpringBoot log level property replaced by Quarkus property was not found!" />
                 </perform>
             </rule>
+            <rule id="springboot-properties-to-quarkus-00004-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace `spring.jpa.hibernate.ddl-auto=create-drop` with `quarkus.hibernate-orm.database.generation=drop-and-create`"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-properties-to-quarkus-00004-test] SpringBoot JPA Hibernate property rule failed!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
