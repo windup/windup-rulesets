@@ -29,6 +29,16 @@
                     <fail message="[springboot-metrics-to-quarkus-0200] Micrometer code replaced by Microprofile Metrics code was not found!" />
                 </perform>
             </rule>
-        </rules>
+            <rule id="springboot-metrics-to-quarkus-0300-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace `management.endpoints.web.exposure.include=prometheus`"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-metrics-to-quarkus-0300] Replace `management.endpoints.web.exposure.include=prometheus` not found!" />
+                </perform>
+            </rule>
+      </rules>
     </ruleset>
 </ruletest>

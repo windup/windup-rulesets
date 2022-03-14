@@ -47,5 +47,29 @@
                 </iteration>
             </perform>
         </rule>
+        <rule id="springboot-metrics-to-quarkus-0300">
+            <when>
+                <filecontent filename="application{profile}.{extension}" pattern="management.endpoints.web.exposure.include{wildcards}prometheus" />
+                <!--<filecontent filename="application{profile}.{extension}" pattern="management.endpoints.web.exposure.include" /> -->
+            </when>
+            <perform>
+                <hint title="Replace Spring Prometheus Metrics endpoint mapping" effort="1" category-id="mandatory">
+                    <message>
+                        Replace `management.endpoints.web.exposure.include=prometheus` with `quarkus.micrometer.export.prometheus.path=/actuator/prometheus`
+                    </message>
+                    <link title="Quarkus Guide - Micrometer Metrics" href="https://quarkus.io/guides/micrometer" />
+                </hint>
+            </perform>
+            <where param="profile">
+                <matches pattern=".*" />
+            </where>
+            <where param="extension">
+                <matches pattern="(properties|yml|yaml)" />
+            </where>
+            <where param="wildcards">
+                <matches pattern=".*" />
+            </where>
+
+        </rule>
     </rules>
 </ruleset>
