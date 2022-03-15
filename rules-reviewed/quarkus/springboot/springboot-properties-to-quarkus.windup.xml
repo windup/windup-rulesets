@@ -114,5 +114,55 @@
                 <matches pattern="(properties|yml|yaml)" />
             </where>
         </rule>
+        <rule id="springboot-properties-to-quarkus-00005">
+            <when>
+                <filecontent filename="application{profile}.{extension}" pattern="springdoc.swagger-ui.path" />
+            </when>
+            <perform>
+                <hint title="Replace Spring Swagger endpoint mapping" effort="1" category-id="mandatory">
+                    <message>
+                        Replace `springdoc.swagger-ui.path` with `quarkus.swagger-ui.path`
+                        
+                        By adding `quarkus.swagger-ui.always-include=true` Quarkus will always expose the Swagger UI endpoint. 
+                        It is only exposed in Dev mode by default.
+                    </message>
+                    <link title="Quarkus Guide - using OpenAPI and Swagger" href="https://quarkus.io/guides/openapi-swaggerui" />
+                    <quickfix type="REPLACE" name="swagger-ui-replace">
+                        <replacement>quarkus.swagger-ui.path</replacement>
+                        <search>springdoc.swagger-ui.path</search>
+                    </quickfix>
+                </hint>
+            </perform>
+            <where param="profile">
+                <matches pattern=".*" />
+            </where>
+            <where param="extension">
+                <matches pattern="(properties|yml|yaml)" />
+            </where>
+        </rule>
+        <rule id="springboot-properties-to-quarkus-00006">
+            <when>
+                <filecontent filename="application{profile}.{extension}" pattern="springdoc.api-docs.path" />
+            </when>
+            <perform>
+                <hint title="Replace Spring OpenAPI endpoint mapping" effort="1" category-id="mandatory">
+                    <message>
+                        Replace `springdoc.api-docs.path` with `quarkus.smallrye-openapi.path`
+                        
+                    </message>
+                    <link title="Quarkus Guide - using OpenAPI and Swagger" href="https://quarkus.io/guides/openapi-swaggerui" />
+                    <quickfix type="REPLACE" name="openapi-replace">
+                        <replacement>quarkus.smallrye-openapi.path</replacement>
+                        <search>springdoc.api-docs.path</search>
+                    </quickfix>
+                </hint>
+            </perform>
+            <where param="profile">
+                <matches pattern=".*" />
+            </where>
+            <where param="extension">
+                <matches pattern="(properties|yml|yaml)" />
+            </where>
+        </rule>
     </rules>
 </ruleset>

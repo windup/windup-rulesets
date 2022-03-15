@@ -69,6 +69,26 @@
                     <fail message="[springboot-properties-to-quarkus-00004-test] SpringBoot JPA Hibernate property rule failed!" />
                 </perform>
             </rule>
+            <rule id="springboot-properties-to-quarkus-00005-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace `springdoc.swagger-ui.path` with `quarkus.swagger-ui.path`*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-properties-to-quarkus-00005-test] SpringBoot Swagger endpoint property rule failed!" />
+                </perform>
+            </rule>
+            <rule id="springboot-properties-to-quarkus-00006-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace `springdoc.api-docs.path` with `quarkus.smallrye-openapi.path`*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-properties-to-quarkus-00006-test] SpringBoot OpenAPI endpoint property rule failed!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
