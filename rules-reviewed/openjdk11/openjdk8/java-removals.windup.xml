@@ -62,5 +62,31 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="java-removals-00040">
+            <when>
+                <javaclass references="java.lang.SecurityManager.{method-name}({*})"></javaclass>
+            </when>
+            <perform>
+                <hint title="AWT SecurityManager method java.lang.SecurityManager.{method-name} has been removed in Java 11" effort="1" category-id="mandatory">
+                    <message>
+                        Due to modularisation, the methods java.lang.SecurityManager.checkAwtEventQueueAccess(),
+                        java.lang.SecurityManager.checkSystemClipboardAccess() and
+                        java.lang.SecurityManager.checkTopLevelWindow(java.lang.Object)
+                        have been removed, so that the core SecurityManager class does not depend on the AWT stack.
+
+                        Replace with a call to java.lang.SecurityManager.checkPermission(java.security.Permission) as follows:
+
+                        java.lang.SecurityManager.checkAwtEventQueueAccess() --> java.lang.SecurityManager.checkPermission(new AWTPermission("accessEventQueue"))
+                        java.lang.SecurityManager.checkSystemClipboardAccess() --> java.lang.SecurityManager.checkPermission(new AWTPermission("accessClipboard"))
+                        java.lang.SecurityManager.checkTopLevelWindow(java.lang.Object) --> java.lang.SecurityManager.checkPermission(new AWTPermission("showWindowWithoutWarningBanner"))
+                    </message>
+                    <link title="Java 11 SecurityManager api" href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/SecurityManager.html"/>
+                    <link title="Java 11 AWTPermission api" href="https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/java/awt/AWTPermission.html"/>
+                </hint>
+            </perform>
+            <where param="method-name">
+               <matches pattern="(checkAwtEventQueueAccess|checkSystemClipboardAccess|checkTopLevelWindow)"/>
+            </where>
+        </rule>
     </rules>
 </ruleset>
