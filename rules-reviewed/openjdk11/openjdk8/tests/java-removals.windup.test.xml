@@ -44,6 +44,7 @@
                     <fail message="[java-removals] `java-removals-00020-test failed"/>
                 </perform>
             </rule>
+
             <rule id="java-removals-00030-test">
                 <when>
                     <not>
@@ -54,6 +55,30 @@
                 </when>
                 <perform>
                     <fail message="[java-removals] `java-removals-00030-test failed"/>
+                </perform>
+            </rule>
+            <rule id="java-removals-00050-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="java.util.logging.LogManager.addPropertyChangeListener()*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-removals-00040-test] Hint not found"/>
+                </perform>
+            </rule>
+            <rule id="java-removals-00060-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="java.util.logging.LogManager.removePropertyChangeListener()*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-removals-00050-test] Hint not found"/>
                 </perform>
             </rule>
             <rule id="java-removals-00101-test">

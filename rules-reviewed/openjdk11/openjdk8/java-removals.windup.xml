@@ -83,7 +83,7 @@
         </rule>
         <rule id="java-removals-00040">
             <when>
-                <javaclass references="java.lang.SecurityManager.{method-name}({*})"></javaclass>
+                <javaclass references="java.lang.SecurityManager.{method-name}({*})"/>
             </when>
             <perform>
                 <hint title="AWT SecurityManager method java.lang.SecurityManager.{method-name} has been removed in Java 11" effort="1" category-id="mandatory">
@@ -168,6 +168,34 @@
             <where param="encoder-decoder">
                 <matches pattern="(Encoder|Decoder)"/>
             </where>
+        </rule>
+        <rule id="java-removals-00050">
+            <when>
+                <javaclass references="java.util.logging.LogManager.addPropertyChangeListener({*})"/>
+            </when>
+            <perform>
+                <hint title="The java.util.logging.LogManager.addPropertyChangeListener() method was removed in Java 9" effort="1" category-id="mandatory">
+                    <message>
+                        `java.util.logging.LogManager.addPropertyChangeListener()` method was removed in Java 9.
+                        In order to listen to property change events, please consider overriding the `java.util.logging.LogManager.readConfiguration` methods.
+                    </message>
+                    <link href="https://docs.oracle.com/en/java/javase/16/migrate/removed-apis.html#GUID-B96BD00F-12A4-493A-9907-2FFE8DA6748C" title="APIs removed in JDK 9"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-removals-00060">
+            <when>
+                <javaclass references="java.util.logging.LogManager.removePropertyChangeListener({*})"/>
+            </when>
+            <perform>
+                <hint title="The java.util.logging.LogManager.removePropertyChangeListener() method was removed in Java 9" effort="1" category-id="mandatory">
+                    <message>
+                        `java.util.logging.LogManager.removePropertyChangeListener()` method was removed in Java 9.
+                        In order to listen to property change events, please consider overriding the `java.util.logging.LogManager.readConfiguration` methods.
+                    </message>
+                    <link href="https://docs.oracle.com/en/java/javase/16/migrate/removed-apis.html#GUID-B96BD00F-12A4-493A-9907-2FFE8DA6748C" title="APIs removed in JDK 9"/>
+                </hint>
+            </perform>
         </rule>
     </rules>
 </ruleset>
