@@ -91,6 +91,18 @@
                   <fail message="[java-removals-00100] Test failed: hint not found"/>
               </perform>
           </rule>
-      </rules>
-    </ruleset>
-</ruletest>
+        <rule id="java-removals-00101-test">
+            <when>
+                <not>
+                    <iterable-filter size="4">
+                        <hint-exists message="The `sun.misc.Base64Encoder/Decoder` classes have been removed*" />
+                    </iterable-filter>
+                </not>
+            </when>
+            <perform>
+                <fail message="[java-removals] `java-removals-00101-test failed"/>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
+        </ruletest>
