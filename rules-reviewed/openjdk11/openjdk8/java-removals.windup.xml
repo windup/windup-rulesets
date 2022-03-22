@@ -105,6 +105,27 @@
                <matches pattern="(checkAwtEventQueueAccess|checkSystemClipboardAccess|checkTopLevelWindow)"/>
             </where>
         </rule>
+        <rule id="java-removals-00100">
+            <when>
+                <or>
+                    <javaclass references="java.util.jar.Pack200.Packer.addPropertyChangeListener({*})"/>
+                    <javaclass references="java.util.jar.Pack200.Packer.removePropertyChangeListener({*})"/>
+                    <javaclass references="java.util.jar.Pack200.Unpacker.addPropertyChangeListener({*})"/>
+                    <javaclass references="java.util.jar.Pack200.Unpacker.removePropertyChangeListener({*})"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Property listener methods on `Pack200.Packer` and `Pack200.Unpacker` have been removed" effort="3" category-id="mandatory">
+                    <message>
+                        Property listener methods on `Pack200.Packer` and `Pack200.Unpacker` have been removed.
+                        Instead, a strategy based on polling the `PROGRESS` value maintained by `java.util.jar.Pack200.Packer`
+                        or `java.util.jar.Pack200.Unpacker` is recommended.
+                    </message>
+                    <link title="java.util.jar.Packer API" href="https://docs.oracle.com/javase/8/docs/api/java/util/jar/Pack200.Packer.html"/>
+                    <link title="java.util.jar.Unpacker API" href="https://docs.oracle.com/javase/8/docs/api/java/util/jar/Pack200.Unpacker.html"/>
+                </hint>
+            </perform>
+        </rule>
         <rule id="java-removals-00110">
             <when>
                 <javaclass references="sun.misc.Unsafe.{method-name}({*})"/>
