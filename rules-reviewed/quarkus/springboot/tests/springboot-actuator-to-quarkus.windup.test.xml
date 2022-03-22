@@ -21,6 +21,18 @@
                         <fail message="[springboot-actuator-to-quarkus-0100] Spring Boot Actuator Dependency artifact replaced by Quarkus artifact was not found!" />
                 </perform>
             </rule>
+            <rule id="springboot-actuator-to-quarkus-0200-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                             <hint-exists message="Replace `management.endpoints.web.exposure.include=health`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                        <fail message="[springboot-actuator-to-quarkus-0200] Spring Boot Actuator Configuration was not found" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
