@@ -34,9 +34,31 @@
                         Replace the Spring Boot Actuator dependency with Quarkus Smallrye Health extension.  
                         It has to be replaced by `io.quarkus:quarkus-smallrye-health` artifact.
                     </message>
-                    <link title="Quarkus - Microprofile Health" href="https://quarkus.io/guides/microprofile-health"/>
+                    <link title="Quarkus - Smallrye Health" href="https://quarkus.io/guides/smallrye-health"/>
                 </hint>
             </perform>
+        </rule>
+        <rule id="springboot-actuator-to-quarkus-0200">
+            <when>
+                <filecontent filename="application{profile}.{extension}" pattern="management.endpoints.web.exposure.include{wildcard}health" />
+            </when>
+            <perform>
+                <hint title="Replace Spring Health endpoint mapping" effort="1" category-id="mandatory">
+                    <message>
+                        Replace `management.endpoints.web.exposure.include=health` with `quarkus.smallrye-health.root-path=/actuator/health`
+                    </message>
+                    <link title="Quarkus Guide - Smallrye Health" href="https://quarkus.io/guides/smallrye-health" />
+                </hint>
+            </perform>
+            <where param="profile">
+                <matches pattern=".*" />
+            </where>
+            <where param="extension">
+                <matches pattern="(properties|yml|yaml)" />
+            </where>
+            <where param="wildcard">
+                <matches pattern=".*" />
+            </where>
         </rule>
     </rules>
 </ruleset>
