@@ -105,5 +105,29 @@
                <matches pattern="(checkAwtEventQueueAccess|checkSystemClipboardAccess|checkTopLevelWindow)"/>
             </where>
         </rule>
+        <rule id="java-removals-00110">
+            <when>
+                <javaclass references="sun.misc.Unsafe.{method-name}({*})"/>
+            </when>
+            <perform>
+                <hint title="Methods in `sun.misc.Unsafe` have been removed" effort="2" category-id="mandatory">
+                    <message>
+                        The `sun.misc.Unsafe` API is scheduled for removal in the long term, and some of its methods have been removed. In short term, please consider the following:
+
+                        - The `get` and `put` methods have equivalents that take long offsets (OpenJDK 8's version of the removed methods just casts the int offsets and used the long versions).
+                        - `fieldOffset(Field)` should be replaced by `staticFieldOffset(Field)` and `ObjectFieldOffset(Field)`.
+                        - `staticFieldBase(Class)` should be replaced by asking for a specific field with `staticFieldBase(Field)`. The removed method only returned the address of the first static field in the class and relied on the assumption that the JVM stored all statics together, which may not be true.
+                        - `tryMonitorEnter(Object)` and `monitorExit(Object)` can be replaced with use of the Java synchronized primitives, as illustrated in the test changes for JDK-8054494 (see links below).
+
+                        In the long term, please consider using Variable Handles (see the link below)
+                    </message>
+                    <link href="https://hg.openjdk.java.net/jdk9/jdk9/jdk/rev/0a0a0986400e#l2.19" title="Test changes for JDK-8054494"/>
+                    <link href="https://openjdk.java.net/jeps/193" title="Variable Handles"/>
+                </hint>
+            </perform>
+            <where param="method-name">
+                <matches pattern="(getInt|putInt|getFloat|putFloat|getDouble|putDouble|getBoolean|putBoolean|getObject|putObject|getByte|putByte|getChar|putChar|getShort|putShort|getLong|putLong|fieldOffset|staticFieldBase|tryMonitorEnter|monitorEnter|monitorExit)"/>
+            </where>
+        </rule>
     </rules>
 </ruleset>

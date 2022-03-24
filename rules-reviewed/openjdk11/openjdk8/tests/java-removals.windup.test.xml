@@ -4,6 +4,7 @@
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <testDataPath>data/java-removals</testDataPath>
     <rulePath>../java-removals.windup.xml</rulePath>
+    <target>openjdk:11</target>
     <ruleset>
       <rules>
         <rule id="java-removals-00000-test">
@@ -66,6 +67,18 @@
                   <fail message="[java-removals] `java-removals-00040-test failed"/>
               </perform>
         </rule>
+        <rule id="java-removals-00110-test">
+            <when>
+                <not>
+                    <iterable-filter size="24">
+                        <hint-exists message="The `sun.misc.Unsafe` API is scheduled for removal*"/>
+                    </iterable-filter>
+                </not>
+            </when>
+            <perform>
+                <fail message="[java-removals-00110-test] Hint was not found"/>
+            </perform>
+          </rule>
       </rules>
     </ruleset>
 </ruletest>
