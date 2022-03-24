@@ -42,6 +42,30 @@
 	          <fail message="[java-removals] `java-removals-00020-test failed"/>
           </perform>
         </rule>
+        <rule id="java-removals-00030-test">
+              <when>
+                  <not>
+                      <iterable-filter size="2">
+                          <hint-exists message="The `javax.security.auth.Policy` class has been removed*" />
+                      </iterable-filter>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[java-removals] `java-removals-00030-test failed"/>
+              </perform>
+        </rule>
+        <rule id="java-removals-00040-test">
+              <when>
+                  <not>
+                      <iterable-filter size="3">
+                          <hint-exists message="Due to modularisation, the methods `java.lang.SecurityManager.checkAwtEventQueueAccess()`*" />
+                      </iterable-filter>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[java-removals] `java-removals-00040-test failed"/>
+              </perform>
+        </rule>
       </rules>
     </ruleset>
 </ruletest>

@@ -62,5 +62,48 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="java-removals-00030">
+            <when>
+                <javaclass references="javax.security.auth.Policy"/>
+            </when>
+            <perform>
+                <hint title="The `javax.security.auth.Policy` class has been removed" effort="3" category-id="mandatory">
+                    <message>
+                        The `javax.security.auth.Policy` class has been removed.
+                        It should be replaced by the use of `java.security.Policy` and `java.security.ProtectionDomain`.
+                        Usage of `policy.getPermissions(subject,codeSource)` should be  replaced with
+                        `policy.getPermissions(new ProtectionDomain(codeSource, null, null, new Principal[] { subject })`.
+                    </message>
+                    <link title="Java 10 javax.security.auth.Policy api" href="https://docs.oracle.com/javase/10/docs/api/javax/security/auth/Policy.html"/>
+                    <link title="Java 11 java.security.Policy api" href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/security/Policy.html"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-removals-00040">
+            <when>
+                <javaclass references="java.lang.SecurityManager.{method-name}({*})"></javaclass>
+            </when>
+            <perform>
+                <hint title="AWT SecurityManager method java.lang.SecurityManager.{method-name} has been removed in Java 11" effort="1" category-id="mandatory">
+                    <message>
+                        Due to modularisation, the methods `java.lang.SecurityManager.checkAwtEventQueueAccess()`,
+                        `java.lang.SecurityManager.checkSystemClipboardAccess()` and
+                        `java.lang.SecurityManager.checkTopLevelWindow(java.lang.Object)`
+                        have been removed, so that the core SecurityManager class does not depend on the AWT stack.
+
+                        Replace with a call to `java.lang.SecurityManager.checkPermission(java.security.Permission)` as follows:
+
+                        `java.lang.SecurityManager.checkAwtEventQueueAccess()` --> `java.lang.SecurityManager.checkPermission(new AWTPermission("accessEventQueue"))`
+                        `java.lang.SecurityManager.checkSystemClipboardAccess()` --> `java.lang.SecurityManager.checkPermission(new AWTPermission("accessClipboard"))`
+                        `java.lang.SecurityManager.checkTopLevelWindow(java.lang.Object) --> java.lang.SecurityManager.checkPermission(new AWTPermission("showWindowWithoutWarningBanner"))`
+                    </message>
+                    <link title="Java 11 SecurityManager api" href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/SecurityManager.html"/>
+                    <link title="Java 11 AWTPermission api" href="https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/java/awt/AWTPermission.html"/>
+                </hint>
+            </perform>
+            <where param="method-name">
+               <matches pattern="(checkAwtEventQueueAccess|checkSystemClipboardAccess|checkTopLevelWindow)"/>
+            </where>
+        </rule>
     </rules>
 </ruleset>
