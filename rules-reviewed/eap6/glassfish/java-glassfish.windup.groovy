@@ -2,11 +2,11 @@ import org.jboss.windup.config.GraphRewrite
 import org.jboss.windup.config.operation.Iteration;
 import org.jboss.windup.config.parameters.ParameterizedIterationOperation;
 import org.jboss.windup.config.metadata.TechnologyReference
+import org.jboss.windup.graph.model.FileReferenceModel
 import org.jboss.windup.rules.apps.java.scan.ast.annotations.JavaAnnotationTypeReferenceModel;
 import org.ocpsoft.rewrite.context.EvaluationContext;
 import org.ocpsoft.rewrite.param.ParameterStore;
 
-import org.jboss.windup.graph.model.FileLocationModel;
 import org.jboss.windup.ast.java.data.TypeReferenceLocation;
 import org.jboss.windup.rules.apps.java.scan.ast.JavaTypeReferenceModel;
 import org.jboss.windup.reporting.config.Hint
@@ -17,12 +17,17 @@ ruleSet("java-glassfish-groovy")
 .addSourceTechnology(new TechnologyReference("glassfish", null))
 .addTargetTechnology(new TechnologyReference("eap", "[6,)"))
 .addRule()
+    // this rule is required for references to 'MessageListener' to be taken into account when evaluating
+    // useful information to be inserted into the graph.
+    // In this way, the next rule will be able to have the expected results when invoking 'getAllTypeReferences' method.
+    .when(JavaClass.references("javax.jms.MessageListener").at(TypeReferenceLocation.IMPLEMENTS_TYPE))
+    .withId("java-glassfish-groovy-placeholder")
+.addRule()
     .when(
-        JavaClass.references("javax.jms.MessageListener").at(TypeReferenceLocation.IMPLEMENTS_TYPE).as("discard")
-        .or(JavaClass.references("javax.ejb.MessageDriven").at(TypeReferenceLocation.ANNOTATION).as("default"))
+        JavaClass.references("javax.ejb.MessageDriven").at(TypeReferenceLocation.ANNOTATION)
     )
     .perform(
-        Iteration.over("default").as(Iteration.DEFAULT_SINGLE_VARIABLE_STRING)
+        Iteration.over()
         .perform(
             new ParameterizedIterationOperation<JavaTypeReferenceModel> () {
                 Hint hint = Hint
@@ -45,7 +50,7 @@ ruleSet("java-glassfish-groovy")
                     boolean implementsMessageListener = false;
                     boolean hasMessageListenerAttribute = ((JavaAnnotationTypeReferenceModel)locationModel).annotationValues.get("messageListenerInterface") != null;
 
-                    for (FileLocationModel otherLocation : locationModel.getFile().getAllTypeReferences()) {
+                    for (FileReferenceModel otherLocation : locationModel.getFile().getAllTypeReferences()) {
                         if (!(otherLocation instanceof JavaTypeReferenceModel))
                             continue;
 
@@ -58,5 +63,6 @@ ruleSet("java-glassfish-groovy")
                 }
             }
         )
+        .endIteration()
     )
     .withId("java-glassfish-groovy-01000")
