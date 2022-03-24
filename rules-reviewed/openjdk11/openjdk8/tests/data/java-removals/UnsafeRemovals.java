@@ -29,5 +29,6 @@ public class UnsafeRemovals {
         getUnsafe().staticFieldBase(obj.getClass());
         getUnsafe().tryMonitorEnter(obj);
         getUnsafe().monitorExit(obj);
+        getUnsafe().monitorEnter(obj);
     }
 }

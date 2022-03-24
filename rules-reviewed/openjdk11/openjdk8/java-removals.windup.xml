@@ -115,7 +115,7 @@
                         The `sun.misc.Unsafe` API is scheduled for removal in the long term, and some of its methods have been removed. In short term, please consider the following:
 
                         - The `get` and `put` methods have equivalents that take long offsets (OpenJDK 8's version of the removed methods just casts the int offsets and used the long versions).
-                        - `staticFieldOffset(Field)` and `ObjectFieldOffset(Field)` should replace `fieldOffset(Field)` (which the 8 version delegated to already).
+                        - `fieldOffset(Field)` should be replaced by `staticFieldOffset(Field)` and `ObjectFieldOffset(Field)`.
                         - `staticFieldBase(Class)` should be replaced by asking for a specific field with `staticFieldBase(Field)`. The removed method only returned the address of the first static field in the class and relied on the assumption that the JVM stored all statics together, which may not be true.
                         - `tryMonitorEnter(Object)` and `monitorExit(Object)` can be replaced with use of the Java synchronized primitives, as illustrated in the test changes for JDK-8054494 (see links below).
 
@@ -126,7 +126,7 @@
                 </hint>
             </perform>
             <where param="method-name">
-                <matches pattern="(getInt|putInt|getFloat|putFloat|getDouble|putDouble|getBoolean|putBoolean|getObject|putObject|getByte|putByte|getChar|putChar|getShort|putShort|getLong|putLong|fieldOffset|staticFieldBase|tryMonitorEnter|monitorExit)"/>
+                <matches pattern="(getInt|putInt|getFloat|putFloat|getDouble|putDouble|getBoolean|putBoolean|getObject|putObject|getByte|putByte|getChar|putChar|getShort|putShort|getLong|putLong|fieldOffset|staticFieldBase|tryMonitorEnter|monitorEnter|monitorExit)"/>
             </where>
         </rule>
     </rules>
