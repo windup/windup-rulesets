@@ -69,10 +69,12 @@
             <perform>
                 <hint title="The `javax.security.auth.Policy` class has been removed" effort="3" category-id="mandatory">
                     <message>
+                        <![CDATA[
                         The `javax.security.auth.Policy` class has been removed.
                         It should be replaced by the use of `java.security.Policy` and `java.security.ProtectionDomain`.
-                        Usage of `policy.getPermissions(subject,codeSource)` should be  replaced with
-                        `policy.getPermissions(new ProtectionDomain(codeSource, null, null, new Principal[] { subject })`.
+                        Usage of `policy.getPermissions(subject,codeSource)` should be  replaced with a call to
+                        policy.getPermissions passing in a new ProtectionDomain (see links below for details)
+                        ]]>
                     </message>
                     <link title="Java 10 javax.security.auth.Policy api" href="https://docs.oracle.com/javase/10/docs/api/javax/security/auth/Policy.html"/>
                     <link title="Java 11 java.security.Policy api" href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/security/Policy.html"/>
