@@ -11,5 +11,6 @@ public class ThreadStop {
 	    }, "Test Thread");
 	t1.start();
 	t1.stop(new ArrayIndexOutOfBoundsException());
+	t1.destroy();
     }
 }

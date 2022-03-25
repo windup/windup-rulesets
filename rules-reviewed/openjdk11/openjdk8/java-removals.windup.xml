@@ -14,14 +14,20 @@
     <rules>
         <rule id="java-removals-00000">
             <when>
+                <or>
                 <javaclass references="java.lang.Thread.stop({.+})">
                     <location>METHOD_CALL</location>
                 </javaclass>
+                <javaclass references="java.lang.Thread.destroy({*})">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+                </or>
             </when>
             <perform>
-                <hint title="The `java.lang.Thread.stop(Throwable)` method has been removed" effort="3" category-id="mandatory">
+                <hint title="Methods in `java.lang.Thread` have been removed" effort="3" category-id="mandatory">
                     <message>
                         The `java.lang.Thread.stop(Throwable)` method has been removed, as it is dangerous for a thread to not only be able to directly stop another thread, but with an exception it may not expect. Instead, the thread should be notified to stop using a shared variable or `interrupt()`.
+                        The `java.lang.Thread.destroy()` method was never even implemented and just throws `NoSuchMethodError`.
                     </message>
                     <link title="Java Thread Primitive Deprecation" href="https://docs.oracle.com/javase/7/docs/technotes/guides/concurrency/threadPrimitiveDeprecation.html"/>
                 </hint>
