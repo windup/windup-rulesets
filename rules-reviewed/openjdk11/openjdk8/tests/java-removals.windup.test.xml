@@ -95,7 +95,7 @@
             <when>
                 <not>
                     <iterable-filter size="4">
-                        <hint-exists message="The `sun.misc.Base64Encoder/Decoder` classes have been removed*" />
+                        <hint-exists message="The `sun.misc.BASE64Encoder` class has been removed*" />
                     </iterable-filter>
                 </not>
             </when>
@@ -103,6 +103,18 @@
                 <fail message="[java-removals] `java-removals-00101-test failed"/>
             </perform>
         </rule>
+          <rule id="java-removals-00101-test-2">
+              <when>
+                  <not>
+                      <iterable-filter size="4">
+                          <hint-exists message="The `sun.misc.BASE64Decoder` class has been removed*" />
+                      </iterable-filter>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[java-removals] `java-removals-00101-test-2 failed"/>
+              </perform>
+          </rule>
     </rules>
 </ruleset>
         </ruletest>
