@@ -158,5 +158,22 @@
                 <matches pattern="(getInt|putInt|getFloat|putFloat|getDouble|putDouble|getBoolean|putBoolean|getObject|putObject|getByte|putByte|getChar|putChar|getShort|putShort|getLong|putLong|fieldOffset|staticFieldBase|tryMonitorEnter|monitorEnter|monitorExit)"/>
             </where>
         </rule>
+        <rule id="java-removals-00101">
+            <when>
+                <javaclass references="sun.misc.BASE64{encoder-decoder}{*}"/>
+            </when>
+            <perform>
+                <hint title="The `sun.misc.BASE64{encoder-decoder}` class has been removed" effort="1" category-id="mandatory">
+                    <message>
+                        The `sun.misc.BASE64{encoder-decoder}` class has been removed. Replace with `java.util.Base64.getMime{encoder-decoder}`.
+                    </message>
+                    <link title="Code example" href="https://hg.openjdk.java.net/jdk8/jdk8/jdk/rev/9078c34437ab"/>
+                    <link title="Original enhancement request" href="https://bugs.openjdk.java.net/browse/JDK-8006182"/>
+                </hint>
+            </perform>
+            <where param="encoder-decoder">
+                <matches pattern="(Encoder|Decoder)"/>
+            </where>
+        </rule>
     </rules>
 </ruleset>

@@ -1,96 +1,85 @@
 <?xml version="1.0"?>
 <ruletest id="java-removals-tests"
           xmlns="http://windup.jboss.org/schema/jboss-ruleset"
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <testDataPath>data/java-removals</testDataPath>
     <rulePath>../java-removals.windup.xml</rulePath>
     <target>openjdk:11</target>
     <ruleset>
-      <rules>
-        <rule id="java-removals-00000-test">
-          <when>
-	          <not>
-	            <iterable-filter size="2">
-		            <hint-exists message="The `java.lang.Thread.stop(Throwable)*" />
-	            </iterable-filter>
-	          </not>
-          </when>
-          <perform>
-	          <fail message="[java-removals] `java.lang.Thread.stop(Throwable)` removal hint was not found."/>
-          </perform>
-        </rule>
-        <rule id="java-removals-00010-test">
-          <when>
-	          <not>
-	            <iterable-filter size="2">
-		            <hint-exists message="Java 9 introduced the `StackWalker API`*" />
-	            </iterable-filter>
-	          </not>
-          </when>
-          <perform>
-	          <fail message="[java-removals] `java-removals-00010-test failed"/>
-          </perform>
-        </rule>
-        <rule id="java-removals-00020-test">
-          <when>
-	          <not>
-	            <iterable-filter size="2"> 
-		            <hint-exists message="`sun.reflect.CallerSensitive` annotation was deprecated in Java 9*" />
-	            </iterable-filter>
-	          </not>
-          </when>
-          <perform>
-	          <fail message="[java-removals] `java-removals-00020-test failed"/>
-          </perform>
-        </rule>
-        <rule id="java-removals-00030-test">
-              <when>
-                  <not>
-                      <iterable-filter size="2">
-                          <hint-exists message="The `javax.security.auth.Policy` class has been removed*" />
-                      </iterable-filter>
-                  </not>
-              </when>
-              <perform>
-                  <fail message="[java-removals] `java-removals-00030-test failed"/>
-              </perform>
-        </rule>
-        <rule id="java-removals-00040-test">
-              <when>
-                  <not>
-                      <iterable-filter size="3">
-                          <hint-exists message="Due to modularisation, the methods `java.lang.SecurityManager.checkAwtEventQueueAccess()`*" />
-                      </iterable-filter>
-                  </not>
-              </when>
-              <perform>
-                  <fail message="[java-removals] `java-removals-00040-test failed"/>
-              </perform>
-        </rule>
-        <rule id="java-removals-00110-test">
-            <when>
-                <not>
-                    <iterable-filter size="24">
-                        <hint-exists message="The `sun.misc.Unsafe` API is scheduled for removal*"/>
-                    </iterable-filter>
-                </not>
-            </when>
-            <perform>
-                <fail message="[java-removals-00110-test] Hint was not found"/>
-            </perform>
-          </rule>
-          <rule id="java-removals-00100-test">
-              <when>
-                  <not>
-                      <iterable-filter size="4">
-                          <hint-exists message="Property listener methods on `Pack200.Packer` and `Pack200.Unpacker` have been removed*"/>
-                      </iterable-filter>
-                  </not>
-              </when>
-              <perform>
-                  <fail message="[java-removals-00100] Test failed: hint not found"/>
-              </perform>
-          </rule>
-      </rules>
+        <rules>
+            <rule id="java-removals-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="The `java.lang.Thread.stop(Throwable)*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-removals] `java.lang.Thread.stop(Throwable)` removal hint was not found."/>
+                </perform>
+            </rule>
+            <rule id="java-removals-00010-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="Java 9 introduced the `StackWalker API`*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-removals] `java-removals-00010-test failed"/>
+                </perform>
+            </rule>
+            <rule id="java-removals-00020-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="`sun.reflect.CallerSensitive` annotation was deprecated in Java 9*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-removals] `java-removals-00020-test failed"/>
+                </perform>
+            </rule>
+            <rule id="java-removals-00030-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="The `javax.security.auth.Policy` class has been removed*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-removals] `java-removals-00030-test failed"/>
+                </perform>
+            </rule>
+            <rule id="java-removals-00101-test">
+                <when>
+                    <not>
+                        <iterable-filter size="4">
+                            <hint-exists message="The `sun.misc.BASE64Encoder` class has been removed*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-removals] `java-removals-00101-test failed"/>
+                </perform>
+            </rule>
+            <rule id="java-removals-00101-test-2">
+                <when>
+                    <not>
+                        <iterable-filter size="4">
+                            <hint-exists message="The `sun.misc.BASE64Decoder` class has been removed*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-removals] `java-removals-00101-test-2 failed"/>
+                </perform>
+            </rule>
+        </rules>
     </ruleset>
 </ruletest>
