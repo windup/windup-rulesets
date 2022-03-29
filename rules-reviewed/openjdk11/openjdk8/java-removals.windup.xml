@@ -194,6 +194,26 @@
                 <matches pattern="(Encoder|Decoder)"/>
             </where>
         </rule>
+        <rule id="java-removals-00130">
+            <when>
+                <or>
+                    <javaclass references="java.lang.System.runFinalizersOnExit({*})"/>
+                    <javaclass references="java.lang.Runtime.runFinalizersOnExit({*})"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="The `runFinalizersOnExit` methods have been removed" effort="1" category-id="mandatory">
+                    <message>
+                        The `java.lang.System.runFinalizersOnExit(boolean value)` and `java.lang.Runtime.runFinalizersOnExit(boolean value)`
+                        have been removed as they are regarded as inherently unsafe. Running finalizers on exit was disabled by default
+                        and enabling it could result in finalizers being called on live objects which are still being manipulated by other threads.
+
+                        Remove these method calls.
+                    </message>
+                    <link title="JDK 11 removed APIs" href="https://docs.oracle.com/en/java/javase/11/migrate/index.html#JSMIG-GUID-4B613B7E-B150-4D0A-835C-2393C60BE1F8"/>
+                </hint>
+            </perform>
+        </rule>
         <rule id="java-removals-00050">
             <when>
                 <javaclass references="java.util.logging.LogManager.addPropertyChangeListener({*})"/>

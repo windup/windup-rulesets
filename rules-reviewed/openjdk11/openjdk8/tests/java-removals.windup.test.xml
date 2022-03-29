@@ -128,6 +128,18 @@
                     <fail message="[java-removals] sun.misc.BASE64Decoder hints not found"/>
                 </perform>
             </rule>
+            <rule id="java-removals-00130-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="The `java.lang.System.runFinalizersOnExit"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-removals-00130-test] Could not find hint"/>
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
