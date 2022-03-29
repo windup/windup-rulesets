@@ -158,17 +158,20 @@
                 <matches pattern="(getInt|putInt|getFloat|putFloat|getDouble|putDouble|getBoolean|putBoolean|getObject|putObject|getByte|putByte|getChar|putChar|getShort|putShort|getLong|putLong|fieldOffset|staticFieldBase|tryMonitorEnter|monitorEnter|monitorExit)"/>
             </where>
         </rule>
-        <rule id="java-removals-00101">
+        <rule id="java-removals-00120">
             <when>
                 <javaclass references="sun.misc.BASE64{encoder-decoder}{*}"/>
             </when>
             <perform>
                 <hint title="The `sun.misc.BASE64{encoder-decoder}` class has been removed" effort="1" category-id="mandatory">
                     <message>
-                        The `sun.misc.BASE64{encoder-decoder}` class has been removed. Replace with `java.util.Base64.getMime{encoder-decoder}`.
+                        The `sun.misc.BASE64{encoder-decoder}` class has been removed.  
+                        It can be replaced with `Base64.{encoder-decoder}` class instantiated using `java.util.Base64.getMime{encoder-decoder}()` method.  
+                        For further examples on how to replace the `BASE64{encoder-decoder}` class with `Base64.{encoder-decoder}` one, refer to the "Code example" link below.  
                     </message>
+                    <link title="java.util.Base64 - Javadoc" href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Base64.html"/>
                     <link title="Code example" href="https://hg.openjdk.java.net/jdk8/jdk8/jdk/rev/9078c34437ab"/>
-                    <link title="Original enhancement request" href="https://bugs.openjdk.java.net/browse/JDK-8006182"/>
+                    <link title="OpenJDK - Original enhancement request" href="https://bugs.openjdk.java.net/browse/JDK-8006182"/>
                 </hint>
             </perform>
             <where param="encoder-decoder">
