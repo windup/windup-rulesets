@@ -113,6 +113,22 @@
                <matches pattern="(checkAwtEventQueueAccess|checkSystemClipboardAccess|checkTopLevelWindow)"/>
             </where>
         </rule>
+        <rule id="java-removals-00041">
+            <when>
+                <javaclass references="java.lang.SecurityManager.checkMemberAccess({*})"/>
+            </when>
+            <perform>
+                <hint title="SecurityManager method java.lang.SecurityManager.checkMemberAccess has been removed" effort="1" category-id="mandatory">
+                    <message>
+                        The implementation of `java.lang.SecurityManager.checkMemberAccess(java.lang.Class, int)` relies on an assumption
+                        that the caller is at a stack depth of 4, which is not something that can be enforced, making the code error-prone.
+
+                        Replace with a call to `java.lang.SecurityManager.checkPermission(new RuntimePermission("accessDeclaredMembers"))`.
+                    </message>
+                    <link title="Java 11 SecurityManager api" href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/SecurityManager.html"/>
+                </hint>
+            </perform>
+        </rule>
         <rule id="java-removals-00100">
             <when>
                 <or>

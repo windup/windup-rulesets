@@ -44,7 +44,6 @@
                     <fail message="[java-removals] `java-removals-00020-test failed"/>
                 </perform>
             </rule>
-
             <rule id="java-removals-00030-test">
                 <when>
                     <not>
@@ -55,6 +54,30 @@
                 </when>
                 <perform>
                     <fail message="[java-removals] `java-removals-00030-test failed"/>
+                </perform>
+            </rule>
+            <rule id="java-removals-00040-test">
+                <when>
+                    <not>
+                        <iterable-filter size="3">
+                            <hint-exists message="Due to modularisation, the methods `java.lang.SecurityManager.checkAwtEventQueueAccess()`*" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-removals] `java-removals-00040-test failed"/>
+                </perform>
+            </rule>
+            <rule id="java-removals-00041-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The implementation of `java.lang.SecurityManager.checkMemberAccess*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-removals-00041-test] Could not find hint"/>
                 </perform>
             </rule>
             <rule id="java-removals-00050-test">

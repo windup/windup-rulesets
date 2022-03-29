@@ -6,10 +6,12 @@ import java.lang.SecurityManager
 public class AWTSecurityManagement {
     public boolean checkAWTSecurityPermissions()
     {
-        SecurityManager security = System.getSecurityManager();
+        SecurityManager securityManager = System.getSecurityManager();
 
-        return security.checkAwtEventQueueAccess() &&
-                security.checkSystemClipboardAccess() &&
-                security.checkTopLevelWindow(new Object());
+        securityManager.checkMemberAccess(AWTSecurityManagement.class, 3);
+
+        return securityManager.checkAwtEventQueueAccess() &&
+                securityManager.checkSystemClipboardAccess() &&
+                securityManager.checkTopLevelWindow(new Object());
     }
 }
