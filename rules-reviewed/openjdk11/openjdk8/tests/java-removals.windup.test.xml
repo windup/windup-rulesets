@@ -104,7 +104,7 @@
                     <fail message="[java-removals-00050-test] Hint not found"/>
                 </perform>
             </rule>
-            <rule id="java-removals-00101-test">
+            <rule id="java-removals-00120-test-1">
                 <when>
                     <not>
                         <iterable-filter size="3">
@@ -116,7 +116,7 @@
                     <fail message="[java-removals] sun.misc.BASE64Encoder hints not found"/>
                 </perform>
             </rule>
-            <rule id="java-removals-00120-test-1">
+            <rule id="java-removals-00120-test-2">
                 <when>
                     <not>
                         <iterable-filter size="3">
@@ -139,8 +139,20 @@
                 <perform>
                     <fail message="[java-removals-00130-test] Could not find hint"/>
                 </perform>
-            </rule>                 
+            </rule>
             <rule id="java-removals-00140-test">
+                <when>
+                    <not>
+                        <!-- <iterable-filter size="1"> -->
+                        <hint-exists message="The `java.awt.Font.getPeer\(\)` and `java.awt.Component.getPeer\(\)` methods*" />
+                        <!-- </iterable-filter> -->
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-removals-00140-test] The `java.awt.Font.getPeer()` method has been removed hint was not found."/>
+                </perform>
+            </rule>
+            <rule id="java-removals-00150-test">
                 <when>
                     <not>
                         <iterable-filter size="2">
@@ -149,7 +161,7 @@
                     </not>
                 </when>
                 <perform>
-                    <fail message="[java-removals] java-removals-00140 failed"/>
+                    <fail message="[java-removals] java-removals-00150 failed"/>
                 </perform>
             </rule>
         </rules>
