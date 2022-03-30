@@ -12,7 +12,6 @@ public class ComponentGetPeer {
          {
             Component comp = c.getComponent(0);
             java.awt.ComponentPeer peer1 = comp.getPeer();
-            String peer1Name = comp.getPeer().toString();  
          }
    }
 }
