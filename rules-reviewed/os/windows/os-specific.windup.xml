@@ -30,5 +30,16 @@
                 <matches pattern="[A-z]:([\\][^\n\t]+)+|(\\\\([^\\\,\n\t]+)\\\S+)+" />
             </where>
         </rule>
+        <rule id="os-specific-00002">
+            <when>
+                <file filename="{*}.dll"/>
+            </when>
+            <perform>
+                <hint title="Dynamic-Link Library (DLL)" effort="3" category-id="mandatory">
+                    <message>This Dynamic-Link Library is Microsoft Windows platform dependent. It needs to be replaced with a Linux-style shared library.</message>
+                    <tag>ms-windows</tag>
+                </hint>
+            </perform>
+        </rule>
     </rules>
 </ruleset>

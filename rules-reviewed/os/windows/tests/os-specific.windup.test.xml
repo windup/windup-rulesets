@@ -17,6 +17,18 @@
                     <fail message="Windows platform dependent hint was not found!" />
                 </perform>
             </rule>
+            <rule id="os-specific-test-00002">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="This Dynamic-Link Library is Microsoft Windows platform dependent.*" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Dynamic-Link Library hint was not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
