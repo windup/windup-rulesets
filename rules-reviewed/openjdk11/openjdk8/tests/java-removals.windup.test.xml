@@ -139,6 +139,18 @@
                 <perform>
                     <fail message="[java-removals-00130-test] Could not find hint"/>
                 </perform>
+            </rule>                 
+            <rule id="java-removals-00140-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="The changes that were implemented in JDK 9 may impact code that creates class loaders with null"/>
+                          </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-removals] java-removals-00140 failed"/>
+                </perform>
             </rule>
         </rules>
     </ruleset>

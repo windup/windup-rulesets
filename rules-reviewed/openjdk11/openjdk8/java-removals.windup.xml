@@ -244,5 +244,21 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="java-removals-00140">
+            <when>
+                <javaclass references="java.lang.ClassLoader"/>
+            </when>
+            <perform>
+                <hint title="Changes in ClassLoader hierarchy in JDK 11 may impact code" effort="1" category-id="potential">
+                    <message>
+                        The changes that were implemented in JDK 9 may impact code that creates class loaders with null (that is, the bootstrap class loader)
+                        as the parent class loader and assumes that all platform classes are visible to the parent.
+                        Such code may need to be changed to use the platform class loader as the parent (see the links below)
+                    </message>
+                    <link href="https://docs.oracle.com/en/java/javase/11/migrate/index.html#JSMIG-GUID-A868D0B9-026F-4D46-B979-901834343F9E" title="JDK11 New Classloader Implementations"/>
+                    <link href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/ClassLoader.html#%3Cinit%3E(java.lang.ClassLoader)" title="ClassLoader Constructor API"/>
+                </hint>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
