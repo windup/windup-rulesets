@@ -19,12 +19,12 @@
         <rule id="springboot-00001">
             <!-- rule condition, when it could be fired -->
             <when>
-                <dependency groupId="org.springframework.boot" artifactId="{*}" toVersion="1.6.0" />
+                <dependency groupId="org.springframework.boot" artifactId="{*}" toVersion="2.2.5.RELEASE" />
             </when>
             <!-- rule operation, what to do if it is fired -->
             <perform>
                 <hint title="Unsupported version of Spring Boot" effort="3" category-id="mandatory">
-                    <message>Spring Boot has to be updated to Spring Boot 2.0 before being able to be migrated to a version supported by Red Hat Runtimes</message>
+                    <message>Spring Boot has to be updated to Spring Boot 2.2.6 before being able to be migrated to a version supported by Red Hat Runtimes</message>
                     <link href="https://access.redhat.com/articles/3349341" title="RHOAR Spring Boot Supported Configurations" />
                     <link href="https://access.redhat.com/articles/3348731" title="RHOAR Component Details Overview" />
                     <link href="https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.0-Migration-Guide"
@@ -35,7 +35,16 @@
         <rule id="springboot-00002">
             <!-- rule condition, when it could be fired -->
             <when>
-                <dependency groupId="org.springframework.boot" artifactId="{*}" fromVersion="2.0.0" toVersion="2.1.1.RELEASE" />
+                <or>
+                    <dependency groupId="org.springframework.boot" artifactId="{*}" fromVersion="2.0.0"          toVersion="2.1.1.RELEASE" />
+                    <dependency groupId="org.springframework.boot" artifactId="{*}" fromVersion="2.2.7.RELEASE"  toVersion="2.2.9.RELEASE" />
+                    <dependency groupId="org.springframework.boot" artifactId="{*}" fromVersion="2.2.12.RELEASE" toVersion="2.3.3.RELEASE" />
+                    <dependency groupId="org.springframework.boot" artifactId="{*}" fromVersion="2.3.5.RELEASE"  toVersion="2.3.5.RELEASE" />
+                    <dependency groupId="org.springframework.boot" artifactId="{*}" fromVersion="2.3.7.RELEASE"  toVersion="2.3.9.RELEASE" />
+                    <dependency groupId="org.springframework.boot" artifactId="{*}" fromVersion="2.3.11.RELEASE" toVersion="2.3.13.RELEASE" />
+                    <dependency groupId="org.springframework.boot" artifactId="{*}" fromVersion="2.4.0"          toVersion="2.4.8" />
+                    <dependency groupId="org.springframework.boot" artifactId="{*}" fromVersion="2.4.10"         toVersion="2.6.5" />
+                </or>
             </when>
             <!-- rule operation, what to do if it is fired -->
             <perform>
