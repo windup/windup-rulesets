@@ -222,8 +222,8 @@
                 <hint title="The java.util.logging.LogManager.addPropertyChangeListener() method was removed in Java 9" effort="1" category-id="mandatory">
                     <message>
                         `java.util.logging.LogManager.addPropertyChangeListener()` method was removed in Java 9.
-                        In order to listen to property change events, please consider overriding the `java.util.logging.LogManager.readConfiguration` methods,
-                        which previously triggered property change events for the registered listeners.
+                        In order to listen to property change events, please substitute `java.util.logging.LogManager.addPropertyChangeListener()` with `java.util.logging.LogManager.addConfigurationListener(Runnable)`,
+                        which will be invoked at the end of both `readConfiguration()` and `updateConfiguration()` methods.
                     </message>
                     <link href="https://docs.oracle.com/en/java/javase/16/migrate/removed-apis.html#GUID-B96BD00F-12A4-493A-9907-2FFE8DA6748C" title="APIs removed in JDK 9"/>
                 </hint>
@@ -237,8 +237,8 @@
                 <hint title="The java.util.logging.LogManager.removePropertyChangeListener() method was removed in Java 9" effort="1" category-id="mandatory">
                     <message>
                         `java.util.logging.LogManager.removePropertyChangeListener()` method was removed in Java 9.
-                        In order to listen to property change events, please consider overriding the `java.util.logging.LogManager.readConfiguration` methods,
-                        which previously triggered property change events for the registered listeners.
+                        In order to listen to property change events, please substitute `java.util.logging.LogManager.removePropertyChangeListener()` with  `java.util.logging.LogManager.removeConfigurationListener(Runnable)`,
+                        which will be invoked at the end of both `readConfiguration()` and `updateConfiguration()` methods.
                     </message>
                     <link href="https://docs.oracle.com/en/java/javase/16/migrate/removed-apis.html#GUID-B96BD00F-12A4-493A-9907-2FFE8DA6748C" title="APIs removed in JDK 9"/>
                 </hint>
