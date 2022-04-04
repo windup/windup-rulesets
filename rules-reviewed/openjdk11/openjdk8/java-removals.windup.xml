@@ -129,6 +129,36 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="java-removals-00050">
+            <when>
+                <javaclass references="java.util.logging.LogManager.addPropertyChangeListener({*})"/>
+            </when>
+            <perform>
+                <hint title="The java.util.logging.LogManager.addPropertyChangeListener() method was removed in Java 9" effort="1" category-id="mandatory">
+                    <message>
+                        `java.util.logging.LogManager.addPropertyChangeListener()` method was removed in Java 9.
+                        In order to listen to property change events, please consider overriding the `java.util.logging.LogManager.readConfiguration` methods,
+                        which previously triggered property change events for the registered listeners.
+                    </message>
+                    <link href="https://docs.oracle.com/en/java/javase/16/migrate/removed-apis.html#GUID-B96BD00F-12A4-493A-9907-2FFE8DA6748C" title="APIs removed in JDK 9"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-removals-00060">
+            <when>
+                <javaclass references="java.util.logging.LogManager.removePropertyChangeListener({*})"/>
+            </when>
+            <perform>
+                <hint title="The java.util.logging.LogManager.removePropertyChangeListener() method was removed in Java 9" effort="1" category-id="mandatory">
+                    <message>
+                        `java.util.logging.LogManager.removePropertyChangeListener()` method was removed in Java 9.
+                        In order to listen to property change events, please consider overriding the `java.util.logging.LogManager.readConfiguration` methods,
+                        which previously triggered property change events for the registered listeners.
+                    </message>
+                    <link href="https://docs.oracle.com/en/java/javase/16/migrate/removed-apis.html#GUID-B96BD00F-12A4-493A-9907-2FFE8DA6748C" title="APIs removed in JDK 9"/>
+                </hint>
+            </perform>
+        </rule>
         <rule id="java-removals-00100">
             <when>
                 <or>
@@ -214,37 +244,32 @@
                 </hint>
             </perform>
         </rule>
-        <rule id="java-removals-00050">
-            <when>
-                <javaclass references="java.util.logging.LogManager.addPropertyChangeListener({*})"/>
-            </when>
-            <perform>
-                <hint title="The java.util.logging.LogManager.addPropertyChangeListener() method was removed in Java 9" effort="1" category-id="mandatory">
-                    <message>
-                        `java.util.logging.LogManager.addPropertyChangeListener()` method was removed in Java 9.
-                        In order to listen to property change events, please substitute `java.util.logging.LogManager.addPropertyChangeListener()` with `java.util.logging.LogManager.addConfigurationListener(Runnable)`,
-                        which will be invoked at the end of both `readConfiguration()` and `updateConfiguration()` methods.
-                    </message>
-                    <link href="https://docs.oracle.com/en/java/javase/16/migrate/removed-apis.html#GUID-B96BD00F-12A4-493A-9907-2FFE8DA6748C" title="APIs removed in JDK 9"/>
-                </hint>
-            </perform>
-        </rule>
-        <rule id="java-removals-00060">
-            <when>
-                <javaclass references="java.util.logging.LogManager.removePropertyChangeListener({*})"/>
-            </when>
-            <perform>
-                <hint title="The java.util.logging.LogManager.removePropertyChangeListener() method was removed in Java 9" effort="1" category-id="mandatory">
-                    <message>
-                        `java.util.logging.LogManager.removePropertyChangeListener()` method was removed in Java 9.
-                        In order to listen to property change events, please substitute `java.util.logging.LogManager.removePropertyChangeListener()` with  `java.util.logging.LogManager.removeConfigurationListener(Runnable)`,
-                        which will be invoked at the end of both `readConfiguration()` and `updateConfiguration()` methods.
-                    </message>
-                    <link href="https://docs.oracle.com/en/java/javase/16/migrate/removed-apis.html#GUID-B96BD00F-12A4-493A-9907-2FFE8DA6748C" title="APIs removed in JDK 9"/>
-                </hint>
-            </perform>
-        </rule>
         <rule id="java-removals-00140">
+            <when>
+                <or>
+                    <javaclass references="java.awt.Font.getPeer({*})">
+                        <location>METHOD_CALL</location> 
+                    </javaclass>
+                    <javaclass references="java.awt.Component.getPeer({*})">
+                        <location>METHOD_CALL</location> 
+                    </javaclass>
+                </or>
+            </when>
+                <perform>
+                    <hint title="The `java.awt.Font.getPeer()` and `java.awt.Component.getPeer()` methods have been removed" effort="3" category-id="mandatory">
+                        <message>
+                            The `java.awt.Font.getPeer()` and `java.awt.Component.getPeer()` methods have been removed.  
+                            The `java.awt.peer` and `java.awt.dnd.peer` are no longer accessible and are considered
+                            internal implementation details, the API may be removed without notice or changed in non
+                            compatible ways.  
+                            Methods exposing this API, such as `java.awt.Font.getPeer()` have been removed since JDK 9.     
+                            Since Font rendering is platform independent, there are no substitutes for this method.
+                        </message>              
+                    <link title="java.awt.peer Not Accessible" href="https://docs.oracle.com/en/java/javase/11/migrate/index.html#JSMIG-GUID-0C350BAB-F2C8-409E-AD3E-63831C684A55"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-removals-00150">
             <when>
                 <javaclass references="java.lang.ClassLoader"/>
             </when>
