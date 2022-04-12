@@ -42,7 +42,7 @@ The encoding change for dates is important and can have a big impact on applicat
 a query that targets a field that was previously string-encoded, but is now encoded numerically, you must update the query.
 You must also make sure that all fields targeted by faceting are string encoded.
 If you use the Search query DSL, the correct query should be created automatically for you.""")
-                    .with(Link.to("Number and Date Index Formatting Changes in Hibernate Search 5.x", "https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/single/migration_guide/#migrate_hibernate_search_number_and_date_index_formatting_changes"))
+                    .with(Link.to("Number and Date Index Formatting Changes in Hibernate Search 5.x", "https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_hibernate_search_number_and_date_index_formatting_changes"))
                     .with(Link.to("Number and date index format", "http://hibernate.org/search/documentation/migrate/5.0/#number-and-date-index-format"))
                     .with(Link.to("Javadoc API for org.hibernate.search.bridge.builtin package", "http://docs.jboss.org/hibernate/search/5.5/api/org/hibernate/search/bridge/builtin/package-summary.html"))
                     .withTags(new HashSet<>(Arrays.asList("hibernate-search")))
