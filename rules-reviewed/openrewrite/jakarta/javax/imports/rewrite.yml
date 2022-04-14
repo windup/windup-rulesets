@@ -132,7 +132,7 @@ recipeList:
       groupId: jakarta.batch
       artifactId: jakarta.batch-api
       version: 2.x
-      onlyIfUsing: javax.batch.*
+      onlyIfUsing: javax.batch.+
 
   # Upgrade the dependency to use the jakarta namespace if an older version already exists.
   - org.openrewrite.maven.UpgradeDependencyVersion:
@@ -607,13 +607,13 @@ recipeList:
   - org.openrewrite.maven.AddDependency:
       groupId: jakarta.validation
       artifactId: jakarta.validation-api
-      version: 2.x
-      onlyIfUsing: javax.validation.*
+      version: 3.0.1
+      onlyIfUsing: javax.validation.+
 
   - org.openrewrite.maven.UpgradeDependencyVersion:
       groupId: jakarta.validation
       artifactId: jakarta.validation-api
-      newVersion: 2.x
+      newVersion: 3.0.1
 
   - org.openrewrite.java.ChangePackage:
       oldPackageName: javax.validation
