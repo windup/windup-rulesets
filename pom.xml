@@ -246,10 +246,27 @@
         </profile>
 
         <profile>
+            <id>windup</id>
+            <activation>
+                <property>
+                    <name>!downstream</name>
+                </property>
+            </activation>
+            <build>
+                <resources>
+                    <resource>
+                        <filtering>false</filtering>
+                        <directory>labels/windup</directory>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+        <profile>
             <id>mta</id>
             <activation>
                 <property>
-                    <name>!community</name>
+                    <name>downstream</name>
+                    <value>mta</value>
                 </property>
             </activation>
             <build>
@@ -262,17 +279,35 @@
             </build>
         </profile>
         <profile>
-            <id>windup</id>
+            <id>tackle</id>
             <activation>
                 <property>
-                    <name>community</name>
+                    <name>downstream</name>
+                    <value>tackle</value>
                 </property>
             </activation>
             <build>
                 <resources>
                     <resource>
                         <filtering>false</filtering>
-                        <directory>labels/windup</directory>
+                        <directory>labels/tackle</directory>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+        <profile>
+            <id>mtr</id>
+            <activation>
+                <property>
+                    <name>downstream</name>
+                    <value>mtr</value>
+                </property>
+            </activation>
+            <build>
+                <resources>
+                    <resource>
+                        <filtering>false</filtering>
+                        <directory>labels/mtr</directory>
                     </resource>
                 </resources>
             </build>
