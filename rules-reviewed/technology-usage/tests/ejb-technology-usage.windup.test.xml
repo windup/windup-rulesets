@@ -2,6 +2,7 @@
 <ruletest id="technology-usage-ejb-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset">
     <testDataPath>data/ejb/</testDataPath>
     <rulePath>../ejb-technology-usage.windup.xml</rulePath>
+    <rulePath>../ejb-technology-usage.windup.groovy</rulePath>
     <ruleset>
         <rules>
             <rule id="technology-usage-ejb-01000-test">
@@ -58,6 +59,18 @@
                 </when>
                 <perform>
                     <fail message="Entity Bean Technology Statistic Not Found" />
+                </perform>
+            </rule>
+            <rule id="ejb-technology-usage-groovy-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <technology-tag-exists technology-tag="Enterprise Java Bean"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="'Enterprise Java Bean' Technology Tag Not Found" />
                 </perform>
             </rule>
         </rules>
