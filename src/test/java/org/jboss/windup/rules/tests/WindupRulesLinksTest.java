@@ -1,6 +1,7 @@
 package org.jboss.windup.rules.tests;
 
 import org.apache.commons.lang3.StringUtils;
+import org.awaitility.core.ConditionTimeoutException;
 import org.jboss.windup.util.file.FileSuffixPredicate;
 import org.jboss.windup.util.file.FileVisit;
 import org.junit.AfterClass;
@@ -22,6 +23,8 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.file.Path;
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -33,6 +36,8 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static org.awaitility.Awaitility.with;
+
 /**
  * This tests all the href attribute in ALL the rules every time the tests are executed (PR and nightly builds)
  * Helpful to ensure we have always links that points to something so that links are really helpful for the user
@@ -43,6 +48,12 @@ import java.util.stream.IntStream;
  * To change the connection timeout use the standard "-Dsun.net.client.defaultConnectTimeout=<value>" property
  * from https://docs.oracle.com/javase/8/docs/technotes/guides/net/properties.html
  * 
+ * The default poll interval for the same link in case of connection timeout is 200 milliseconds.
+ * To change it use the property "-DpollInterval=<value>" with <value> specified in milliseconds.
+ * 
+ * The default poll duration for the same link in case of connection timeout is 30000 milliseconds.
+ * To change it use the property "-DpollAtMost=<value>" with <value> specified in milliseconds.
+ * 
  * To quickly see the debug log, execute the test with the property "-Dorg.slf4j.simpleLogger.log.org.jboss.windup=debug"
  */
 @RunWith(Parameterized.class)
@@ -50,6 +61,10 @@ public class WindupRulesLinksTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(WindupRulesLinksTest.class);
     private static final String RUN_TEST_MATCHING = "runTestsMatching";
+    private static final String LINK_POLL_INTERVAL = "pollInterval";
+    private static final Duration LINK_POLL_INTERVAL_DURATION = Duration.of(Long.getLong(LINK_POLL_INTERVAL, 200L), ChronoUnit.MILLIS);
+    private static final String LINK_POLL_AT_MOST = "pollAtMost";
+    private static final Duration LINK_POLL_AT_MOST_DURATION = Duration.of(Long.getLong(LINK_POLL_AT_MOST, 30000L), ChronoUnit.MILLIS);
     private static final List<Integer> ACCEPTED_RESPONSE_CODE = Arrays.asList(
             HttpURLConnection.HTTP_OK,
             HttpURLConnection.HTTP_MOVED_PERM,
@@ -153,14 +168,29 @@ public class WindupRulesLinksTest {
                 final HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
                 // property name from https://docs.oracle.com/javase/8/docs/technotes/guides/net/properties.html
                 urlConn.setConnectTimeout(Integer.getInteger("sun.net.client.defaultConnectTimeout", 5000));
-                urlConn.connect();
+                with()
+                    .pollDelay(Duration.ZERO)
+                    .pollInterval(LINK_POLL_INTERVAL_DURATION)
+                    .await()
+                    .atMost(LINK_POLL_AT_MOST_DURATION)
+                    .until(() -> {
+                        try {
+                            urlConn.connect();
+                            return true;
+                        } catch (IOException e) {
+                            LOG.warn(String.format("'%s' exception connecting to %s", e.getMessage(), link));
+                            return false;
+                        } finally {
+                            urlConn.disconnect();
+                        }
+                    });
                 CACHE_ANALYZED_LINKS.put(link, urlConn.getResponseCode());
             }
             final boolean validLink = ACCEPTED_RESPONSE_CODE.contains(CACHE_ANALYZED_LINKS.get(link));
             if (validLink) LOG.debug(String.format("Response code %d for %s [%dms]", CACHE_ANALYZED_LINKS.get(link), link, System.currentTimeMillis() - starTime));
             else LOG.error(String.format("Response code %d for %s [%dms]", CACHE_ANALYZED_LINKS.get(link), link, System.currentTimeMillis() - starTime));
             return validLink;
-        } catch (IOException e) {
+        } catch (IOException | ConditionTimeoutException e) {
             LOG.error(String.format("'%s' exception connecting to %s", e.getMessage(), link));
             return false;
         }
