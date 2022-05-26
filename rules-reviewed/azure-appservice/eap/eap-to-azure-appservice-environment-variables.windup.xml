@@ -19,18 +19,18 @@
     <rules>
         <rule id="eap-to-azure-appservice-environment-variables-001">
             <when>
-				<or>
-					<!-- as compiled code -->
-					<javaclass references="java.lang.System.getenv({*})">
-						<location>METHOD_CALL</location>
-					</javaclass>
-					<javaclass references="java.lang.System.getProperty({*})">
-						<location>METHOD_CALL</location>
-					</javaclass>
-					<!-- as source code -->
-					<filecontent filename="{*}.java" pattern="System.getenv"/>
-					<filecontent filename="{*}.java" pattern="System.getProperty"/>
-				</or>
+                <or>
+                    <!-- as compiled code -->
+                    <javaclass references="java.lang.System.getenv({*})">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                    <javaclass references="java.lang.System.getProperty({*})">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                    <!-- as source code -->
+                    <filecontent filename="{*}.java" pattern="System.getenv"/>
+                    <filecontent filename="{*}.java" pattern="System.getProperty"/>
+                </or>
             </when>
             <perform>
                 <hint title="App Service - The application reads environment variables" category-id="optional" effort="1">
@@ -45,9 +45,9 @@
                     </message>
 
                     <link title="Customization and tuning"
-						href="https://docs.microsoft.com/en-us/azure/app-service/configure-language-java?pivots=platform-linux#customization-and-tuning"/>
+                        href="https://docs.microsoft.com/en-us/azure/app-service/configure-language-java?pivots=platform-linux#customization-and-tuning"/>
                     <link title="Environment variables and app settings in Azure App Service"
-						href="https://docs.microsoft.com/en-us/azure/app-service/reference-app-settings?tabs=kudu%2Cjava"/>
+                        href="https://docs.microsoft.com/en-us/azure/app-service/reference-app-settings?tabs=kudu%2Cjava"/>
                 </hint>
                 <technology-tag level="INFORMATIONAL">Azure</technology-tag>
             </perform>
