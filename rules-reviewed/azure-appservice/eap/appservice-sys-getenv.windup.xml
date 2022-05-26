@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<ruleset id="eap-to-azure-appservice-environment-variables"
+         xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            Validate that all usages of System.getenv and System.getProperty are captured
+            as App Settings when migrating to Azure App Service.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,2.0.0.Final" />
+        </dependencies>
+        <targetTechnology id="azure-appservice"/>
+        <!--
+        <targetTechnology id="eap" versionRange="[7,8)" />
+        -->
+        <targetTechnology id="eap" />
+            <tag>JBoss EAP</tag>
+            <tag>Azure</tag>
+    </metadata>
+    <rules>
+        <rule id="eap-to-azure-appservice-environment-variables-001">
+            <when>
+				<or>
+					<!-- as compiled code -->
+					<javaclass references="java.lang.System.getenv({*})">
+						<location>METHOD_CALL</location>
+					</javaclass>
+					<javaclass references="java.lang.System.getProperty({*})">
+						<location>METHOD_CALL</location>
+					</javaclass>
+					<!-- as source code -->
+					<filecontent filename="{*}.java" pattern="System.getenv"/>
+					<filecontent filename="{*}.java" pattern="System.getProperty"/>
+				</or>
+            </when>
+            <perform>
+                <hint title="App Service - application reads environment variables" category-id="optional" effort="1">
+                    <message>App Service - The application reads environment variables</message>
+                    <link title="Customization and tuning"
+						href="https://docs.microsoft.com/en-us/azure/app-service/configure-language-java?pivots=platform-linux#customization-and-tuning"/>
+                    <link title="Environment variables and app settings in Azure App Service"
+						href="https://docs.microsoft.com/en-us/azure/app-service/reference-app-settings?tabs=kudu%2Cjava"/>
+                </hint>
+                <technology-tag level="INFORMATIONAL">Azure</technology-tag>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
