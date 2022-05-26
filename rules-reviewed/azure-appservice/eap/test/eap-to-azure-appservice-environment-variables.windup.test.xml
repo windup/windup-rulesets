@@ -5,19 +5,19 @@
     <testDataPath>data/appservice-sys-getenv</testDataPath>
     <!-- By default sourceMode is True, so it will only consider .java files, not .jar binaries -->
     <sourceMode>true</sourceMode>
-    <rulePath>../appservice-sys-getenv.windup.xml</rulePath>
+    <rulePath>../eap-to-azure-appservice-environment-variables.windup.xml</rulePath>
     <ruleset>
         <rules>
             <rule id="eap-to-azure-appservice-environment-variables-001">
                 <when>
                     <not>
-                        <iterable-filter size="2">
-                             <hint-exists message="App Service - The application reads environment variables"/>
+                        <iterable-filter size="3">
+                             <hint-exists message="App Service - The application reads environment variables*"/>
                         </iterable-filter>
                     </not>
                 </when>
                 <perform>
-                        <fail message="[eap-to-azure-appservice-environment-variables-001] &quot;App Service - application reads environment variables&quot; was not found!" />
+                        <fail message="[eap-to-azure-appservice-environment-variables-001] The assertion for the rule &quot;App Service - The application reads environment variables&quot; failed!" />
                 </perform>
             </rule>
         </rules>

@@ -12,12 +12,9 @@
             <addon id="org.jboss.windup.rules,windup-rules-java,2.0.0.Final" />
         </dependencies>
         <targetTechnology id="azure-appservice"/>
-        <!--
         <targetTechnology id="eap" versionRange="[7,8)" />
-        -->
-        <targetTechnology id="eap" />
-            <tag>JBoss EAP</tag>
-            <tag>Azure</tag>
+        <tag>JBoss EAP</tag>
+        <tag>Azure</tag>
     </metadata>
     <rules>
         <rule id="eap-to-azure-appservice-environment-variables-001">
@@ -37,7 +34,16 @@
             </when>
             <perform>
                 <hint title="App Service - The application reads environment variables" category-id="optional" effort="1">
-                    <message>App Service - The application reads environment variables</message>
+                    <message>
+                        App Service - The application reads environment variables.
+
+                        Any environment variables used in the code will need to be defined as App Settings, which are exposed
+                        as environment variables in App Service.
+    
+                        Any System properties that the code depends will need to be provided either in a custom Startup Script
+                        or by defining an App Setting with the name JAVA_OPTS and include any system properties in it.
+                    </message>
+
                     <link title="Customization and tuning"
 						href="https://docs.microsoft.com/en-us/azure/app-service/configure-language-java?pivots=platform-linux#customization-and-tuning"/>
                     <link title="Environment variables and app settings in Azure App Service"
