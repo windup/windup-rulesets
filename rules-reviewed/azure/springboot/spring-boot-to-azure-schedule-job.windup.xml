@@ -18,14 +18,9 @@
     <rules>
         <rule id="spring-boot-to-azure-schedule-job-01000">
             <when>
-                <or>
-                    <project>
-                        <artifact groupId="org.quartz-scheduler" artifactId="{*}"/>
-                    </project>
-                    <project>
-                        <artifact groupId="org.springframework.boot" artifactId="spring-boot-starter-quartz"/>
-                    </project>
-                </or>
+                <project>
+                    <artifact groupId="org.quartz-scheduler" artifactId="quartz"/>
+                </project>
             </when>
             <perform>
                 <hint title="The application uses Quartz to scheduled jobs" category-id="mandatory" effort="7">
