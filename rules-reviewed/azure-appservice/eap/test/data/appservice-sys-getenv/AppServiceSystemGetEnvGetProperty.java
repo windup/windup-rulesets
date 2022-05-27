@@ -2,7 +2,7 @@
 //
 // eap-to-azure-appservice-environment-variables-001
 
-public class AppServiceSysExample {
+public class AppServiceSystemGetEnvGetProperty {
 
     public static void main(String[] args) {
         int PORT = -1;
