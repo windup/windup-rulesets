@@ -18,19 +18,27 @@
     <rules>
         <rule id="spring-boot-to-azure-schedule-job-01000">
             <when>
-                <project>
-                    <artifact groupId="org.quartz-scheduler" artifactId="quartz"/>
-                </project>
+                <or>
+                    <project>
+                        <artifact groupId="org.quartz-scheduler" artifactId="{*}"/>
+                    </project>
+                    <project>
+                        <artifact groupId="org.springframework.boot" artifactId="spring-boot-starter-quartz"/>
+                    </project>
+                </or>
             </when>
             <perform>
                 <hint title="The application uses Quartz to scheduled jobs" category-id="mandatory" effort="7">
                     <message>
+                        <![CDATA[
                         Scheduled jobs, such as Quartz Scheduler tasks or cron jobs, can't be used with App Service.
                         App Service won't prevent you from deploying an application containing scheduled tasks internally.
                         However, if your application is scaled out, the same scheduled job may run more than once per scheduled period.
                         This situation can lead to unintended consequences.
 
-                        Inventory any scheduled jobs, inside or outside the application process.</message>
+                        Inventory any scheduled jobs, inside or outside the application process.
+                        ]]>
+                    </message>
                     <link title="The application uses Quartz to scheduled jobs" href="https://docs.microsoft.com/en-us/azure/developer/java/migration/migrate-spring-boot-to-app-service#determine-whether-application-relies-on-scheduled-jobs"/>
                     <tag>quartz</tag>
                 </hint>
