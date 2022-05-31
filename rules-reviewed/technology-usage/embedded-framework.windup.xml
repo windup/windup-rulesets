@@ -687,6 +687,17 @@
                 <technology-tag level="INFORMATIONAL">Spring Cloud Function</technology-tag>
             </perform>
         </rule>
+        <rule id="embedded-framework-08900">
+            <when>
+                <file filename="{*}quartz{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Quartz" category-id="information" effort="0">
+                    <description>The application embeds the Quartz framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Quartz</technology-tag>
+            </perform>
+        </rule>
         <!-- this rule has to be always the last one in order to effectively checks for classifications added from previous rules in this ruleset-->
         <rule id="embedded-framework-09000">
             <when>
