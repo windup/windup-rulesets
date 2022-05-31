@@ -9,7 +9,7 @@
             as App Settings when migrating to Azure App Service.
         </description>
         <dependencies>
-            <addon id="org.jboss.windup.rules,windup-rules-java,2.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final"/>
         </dependencies>
         <sourceTechnology id="eap" versionRange="[7,8)" />
         <targetTechnology id="azure-appservice"/>
@@ -35,6 +35,7 @@
             <perform>
                 <hint title="App Service - The application reads environment variables" category-id="optional" effort="1">
                     <message>
+                        <![CDATA[
                         App Service - The application reads environment variables.
 
                         Any environment variables used in the code will need to be defined as App Settings, which are exposed
@@ -42,6 +43,7 @@
     
                         Any System properties that the code depends on will need to be provided either in a custom Startup Script
                         or by defining an App Setting with the name JAVA_OPTS and include any system properties in it.
+                        ]]>
                     </message>
 
                     <link title="Customization and tuning"
