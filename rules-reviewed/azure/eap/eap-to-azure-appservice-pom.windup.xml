@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+
+<ruleset id="eap-to-azure-appservice-pom"
+         xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            Show how to deploy an application to JBoss on App Service
+        </description>
+        <dependencies>
+             <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final"/>
+        </dependencies>
+        <sourceTechnology id="eap" versionRange="[7,8)" />
+        <targetTechnology id="azure-appservice"/>
+        <tag>Azure</tag>
+    </metadata>
+    <rules>
+        <rule id="eap-to-azure-appservice-pom-001">
+            <when>
+                <file filename="pom.xml" />
+            </when>
+            <perform>
+                <hint title="Get started with JBoss EAP on App Service" category-id="optional" effort="1">
+                    <message>
+                        <![CDATA[
+                        Get started with JBoss EAP on App Service with the CLI commands below. Don't have the Azure CLI installed? Go to https://aka.ms/azure-cli
+
+                        $resourceGroup=jboss-rg
+                        $location=eastus
+                        $appName=jboss-app
+                        $appServicePlan=jboss-asp
+
+                        az group create --resource-group $resourceGroup --location $location
+
+                        Then build your app with: mvn package
+
+                        To deploy WAR files run:
+                        az webapp deploy --resource-group $resourceGroup --plan $appServicePlan --name $appName --type war --src-path app.war
+
+                        To deploy EAR files run:
+                        az webapp deploy --resource-group $resourceGroup --plan $appServicePlan --name $appName --type ear --src-path app.ear
+                        ]]>
+                    </message>
+                    
+                    <link title="Configure a Java app for Azure App Service - Deploying your app"
+                        href="https://aka.ms/webapps-deployment-apis"/>
+
+                    <link title="Migrate JBoss EAP applications to JBoss EAP on Azure App Service"
+                        href="https://aka.ms/webapps-jboss-migrate-guide"/>
+
+                </hint>
+                <technology-tag level="INFORMATIONAL">Azure</technology-tag>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
