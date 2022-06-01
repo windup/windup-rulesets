@@ -20,16 +20,12 @@
         <rule id="eap-to-azure-appservice-environment-variables-001">
             <when>
                 <or>
-                    <!-- as compiled code -->
                     <javaclass references="java.lang.System.getenv({*})">
                         <location>METHOD_CALL</location>
                     </javaclass>
                     <javaclass references="java.lang.System.getProperty({*})">
                         <location>METHOD_CALL</location>
                     </javaclass>
-                    <!-- as source code -->
-                    <filecontent filename="{*}.java" pattern="System.getenv"/>
-                    <filecontent filename="{*}.java" pattern="System.getProperty"/>
                 </or>
             </when>
             <perform>
@@ -40,7 +36,7 @@
 
                         Any environment variables used in the code will need to be defined as App Settings, which are exposed
                         as environment variables in App Service.
-    
+
                         Any System properties that the code depends on will need to be provided either in a custom Startup Script
                         or by defining an App Setting with the name JAVA_OPTS and include any system properties in it.
                         ]]>
@@ -49,7 +45,6 @@
                     <link title="Customization and tuning" href="https://aka.ms/webapps-java-perf"/>
                     <link title="Environment variables and app settings in Azure App Service" href="https://aka.ms/webapps-env-vars"/>
                 </hint>
-                <technology-tag level="INFORMATIONAL">Azure</technology-tag>
             </perform>
         </rule>
     </rules>
