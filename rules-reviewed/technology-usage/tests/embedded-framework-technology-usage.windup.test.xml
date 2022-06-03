@@ -1049,6 +1049,20 @@
                <fail message="Expected data not found for rule technology-usage-embedded-framework-08900"/>
             </perform>
          </rule>
+         <rule id="technology-usage-embedded-framework-08905-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Zipkin" number-found="1"> 
+                     <tag name="Execute"/>
+                     <tag name="Tracing"/>
+                     <tag name="Embedded"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-08905"/>
+            </perform>
+         </rule>
       </rules>
    </ruleset>
 </ruletest>
