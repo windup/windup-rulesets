@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ruletest id="spring-boot-to-azure-cache-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/spring-boot-to-azure-cache</testDataPath>
+    <rulePath>../spring-boot-to-azure-cache.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="spring-boot-to-azure-cache-redis-test-01000">
+                <when>
+                    <not>
+                        <iterable-filter size="4">
+                            <hint-exists message="The application uses a Redis Cache." />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Redis Cache hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
