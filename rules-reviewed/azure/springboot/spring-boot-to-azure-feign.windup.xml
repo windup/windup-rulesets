@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<ruleset id="spring-boot-to-azure-feign"
+         xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            Recommend OpenFeign instead of Feign.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final"/>
+        </dependencies>
+        <sourceTechnology id="springboot"/>
+        <targetTechnology id="azure-appservice"/>
+        <targetTechnology id="azure-aks"/>
+        <tag>feign</tag>
+    </metadata>
+    <rules>
+        <rule id="spring-boot-to-azure-feign-01000">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="com.netflix.feign" artifactId="{*}"/>
+                    </project>
+                    <project>
+                        <artifact groupId="org.springframework.cloud" artifactId="spring-cloud-starter-feign"/>
+                    </project>
+                </or>
+            </when>
+            <perform>
+                <hint title="Feign" category-id="mandatory" effort="3">
+                    <message>
+                        <![CDATA[
+                        The application uses Feign. Spring Cloud Service Registry uses OpenFeign instead. When migrating to Spring Cloud Service Registry, the Feign invocations will no longer be possible.
+                        
+                        Update the clients to use Spring Cloud OpenFeign instead.
+                        ]]>
+                    </message>
+                    <link title="Migrate clients bypassing the service registry" href="https://docs.microsoft.com/azure/developer/java/migration/migrate-spring-cloud-to-azure-spring-cloud?pivots=sc-standard-tier#identify-clients-that-bypass-the-service-registry"/>
+                    <link title="Spring Cloud OpenFeign" href="https://spring.io/projects/spring-cloud-openfeign"/>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
