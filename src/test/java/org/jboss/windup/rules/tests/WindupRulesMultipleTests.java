@@ -386,6 +386,7 @@ public class WindupRulesMultipleTests {
         windupConfiguration.addDefaultUserRulesDirectory(baseRuleDirectory.toPath());
         windupConfiguration.setOptionValue(SourceModeOption.NAME, sourceMode);
         windupConfiguration.setOptionValue(KeepWorkDirsOption.NAME, true);
+        windupConfiguration.setOptionValue(AnalyzeKnownLibrariesOption.NAME, true);
 
         windupConfiguration.setOnline(false);
         if (StringUtils.isNotBlank(source))

@@ -22,10 +22,7 @@ ruleSet("springboot-generic-catchall-groovy")
         .addTargetTechnology(new TechnologyReference("quarkus", null))
         .setPhase(PostMigrationRulesPhase.class)
         .addRule()
-        .when(And.all(
-                SourceMode.isEnabled(), 
-                Project.dependsOnArtifact(Artifact.withGroupId("{group}").andArtifactId("{artifact}")).as("dependency"))
-        )
+        .when(Project.dependsOnArtifact(Artifact.withGroupId("{group}").andArtifactId("{artifact}")).as("dependency"))
         .perform(
             Iteration.over("dependency")
                 .when(Not.any(new HasHint()))
