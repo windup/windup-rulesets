@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ruletest id="spring-boot-to-azure-feign-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/spring-boot-to-azure-feign</testDataPath>
+    <rulePath>../spring-boot-to-azure-feign.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="spring-boot-to-azure-feign-test-01000">
+                <when>
+                    <not>
+                        <iterable-filter size="3">
+                            <hint-exists message="The application uses Feign." />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Feign hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest> 
