@@ -673,12 +673,23 @@
          <rule id="embedded-framework-09000-test">
             <when>
                <not>
+                  <classification-exists classification="Embedded framework - Feign"/>
+                  <technology-tag-exists technology-tag="Feign"/>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule embedded-framework-09000"/>
+            </perform>
+         </rule>
+         <rule id="embedded-framework-90000-test">
+            <when>
+               <not>
                    <classification-exists classification="Embedded framework - Spring"/>
                    <technology-tag-exists technology-tag="Spring \(embedded\)"/>
                </not>
             </when>
             <perform>
-               <fail message="Expected data not found for rule embedded-framework-00900"/>
+               <fail message="Expected data not found for rule embedded-framework-90000"/>
             </perform>
          </rule>
       </rules>
