@@ -18,13 +18,15 @@
     <rules>
         <rule id="eap-to-azure-appservice-pom-001">
             <when>
-                <file filename="pom.xml" />
+                <project>
+                    <artifact groupId="org.jboss.bom" artifactId="eap-runtime-artifacts" fromVersion="7.3.0.Final"/>
+                </project>
             </when>
             <perform>
                 <hint title="Get started with JBoss EAP on App Service" category-id="optional" effort="1">
                     <message>
                         <![CDATA[
-                        Get started with JBoss EAP on App Service with the CLI commands below. Don't have the Azure CLI installed? Go to https://aka.ms/azure-cli
+                        Get started with JBoss EAP on App Service with the CLI commands below. Don't have the Azure CLI installed? Go to [https://aka.ms/azure-cli](https://aka.ms/azure-cli)
                         
                         <pre>
                         # Customize these variables
