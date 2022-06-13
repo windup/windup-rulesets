@@ -101,9 +101,7 @@ public class RuleTest
      * @deprecated
      */
     public void setSourceMode(boolean value)
-    {
-        sourceMode = false;
-    }
+    {}
 
     /**
      * Contains the ids of the rules that will be executed by this test.
