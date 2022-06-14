@@ -1063,6 +1063,20 @@
                <fail message="Expected data not found for rule technology-usage-embedded-framework-08950"/>
             </perform>
          </rule>
+         <rule id="technology-usage-embedded-framework-09000-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Feign" number-found="1"> 
+                     <tag name="Execute"/>
+                     <tag name="Processing"/>
+                     <tag name="Embedded"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-09000"/>
+            </perform>
+         </rule>
       </rules>
    </ruleset>
 </ruletest>
