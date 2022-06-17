@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<ruleset id="eap-to-azure-appservice-certificates"
+         xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            Creating and loading Keystores will require uploading the certificates and updating the path to the certificates in the filesystem.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final"/>
+        </dependencies>
+        <sourceTechnology id="eap" versionRange="[7,8)" />
+        <targetTechnology id="azure-appservice"/>
+    </metadata>
+    <rules>
+        <rule id="azure-java-sec-keystore-001">
+            <when>
+				<or>
+					<javaclass references="java.security.KeyStore.getInstance({*})">
+						<location>METHOD_CALL</location>
+					</javaclass>
+					<javaclass references="java.security.KeyStore.load({*})">
+						<location>METHOD_CALL</location>
+					</javaclass>
+				</or>
+            </when>
+            <perform>
+                <hint title="Azure - The application loads certificates into a KeyStore" category-id="optional" effort="5">
+                    <message>Azure - The application loads certificates into a KeyStore</message>
+
+                    <link title="Configure a Java app for Azure App Service - Initialize the Java Key Store"
+						href="https://docs.microsoft.com/en-us/azure/app-service/configure-language-java?pivots=platform-linux#initialize-the-java-key-store"/>
+
+                        <link title="Migrate JBoss EAP applications to JBoss EAP on Azure App Service - Inventory all certificates"
+						href="https://docs.microsoft.com/en-us/azure/developer/java/migration/migrate-jboss-eap-to-jboss-eap-on-azure-app-service#inventory-all-certificates"/>
+                </hint>
+                <technology-tag level="INFORMATIONAL">Azure</technology-tag>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
