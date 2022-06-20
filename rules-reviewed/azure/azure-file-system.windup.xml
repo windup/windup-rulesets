@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset id="spring-boot-to-azure-file-system"
+<ruleset id="azure-file-system"
          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
@@ -11,13 +11,14 @@
             <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final"/>
             <addon id="org.jboss.windup.rules,windup-rules-java,2.4.0.Final"/>
         </dependencies>
+        <sourceTechnology id="eap" versionRange="[7,8)" />
         <sourceTechnology id="springboot"/>
         <targetTechnology id="azure-appservice"/>
         <targetTechnology id="azure-aks"/>
         <tag>file system</tag>
     </metadata>
     <rules>
-        <rule id="spring-boot-to-azure-file-system-01000">
+        <rule id="azure-file-system-01000">
             <when>
                 <or>
                     <javaclass references="java.io.{*}"/>
@@ -39,7 +40,7 @@
                 </hint>
             </perform>
         </rule>
-        <rule id="spring-boot-to-azure-file-system-02000">
+        <rule id="azure-file-system-02000">
             <when>
                 <filecontent filename="{*}.{extensions}" pattern="{path}"/>
             </when>
@@ -62,7 +63,7 @@
                 <matches pattern="\.\/."/>
             </where>
         </rule>
-        <rule id="spring-boot-to-azure-file-system-03000">
+        <rule id="azure-file-system-03000">
             <when>
                 <filecontent filename="{*}.{extensions}" pattern="{path}"/>
             </when>
