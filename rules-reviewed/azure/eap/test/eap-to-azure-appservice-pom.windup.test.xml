@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          id="eap-to-azure-appservice-pom-test" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/eap-to-azure-appservice-pom</testDataPath>
+    <!-- By default sourceMode is True, so it will only consider .java files, not .jar binaries -->
+    <sourceMode>true</sourceMode>
+    <rulePath>../eap-to-azure-appservice-pom.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="eap-to-azure-appservice-pom-001-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Get started with JBoss EAP on App Service*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                        <fail message="[eap-to-azure-appservice-pom-001-test] The assertion for the rule &quot;Get started with JBoss EAP on App Service&quot; failed!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
