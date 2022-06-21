@@ -1091,6 +1091,20 @@
                <fail message="Expected data not found for rule technology-usage-embedded-framework-09200"/>
             </perform>
          </rule>
+         <rule id="technology-usage-embedded-framework-09300-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Eureka" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Processing"/>
+                     <tag name="Embedded"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-embedded-framework-09300"/>
+            </perform>
+         </rule>
       </rules>
    </ruleset>
 </ruletest>
