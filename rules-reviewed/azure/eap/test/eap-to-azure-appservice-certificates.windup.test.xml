@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          id="eap-to-azure-appservice-certificates-test" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/eap-to-azure-appservice-certificates</testDataPath>
+    <!-- By default sourceMode is True, so it will only consider .java files, not .jar binaries -->
+    <sourceMode>true</sourceMode>
+    <rulePath>../eap-to-azure-appservice-certificates.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="eap-to-azure-appservice-certificates-001-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                             <hint-exists message="Azure - The application loads certificates into a KeyStore*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                        <fail message="[eap-to-azure-appservice-certificates-001-test] The assertion for the rule &quot;Azure - The application loads certificates into a KeyStore&quot; failed!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
