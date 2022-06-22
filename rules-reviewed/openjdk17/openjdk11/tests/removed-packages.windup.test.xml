@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ruletest id="removed-packages-test"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/removed-packages</testDataPath>
+    <rulePath>../removed-packages.windup.xml</rulePath>
+    <ruleset>
+      <rules>
+          <rule id="removed-packages-test-00000">
+              <when>
+                  <not>
+                       <iterable-filter size="2">
+                          <hint-exists message="RMI activation and its associated daemon, rmid, and code package*" />
+                       </iterable-filter>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="removed-packages-test-00000 - has failed"/>
+              </perform>
+          </rule>
+      </rules>
+    </ruleset>
+</ruletest>
