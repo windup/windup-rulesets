@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="security-manager-deprecation"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis Security Manager classes and methods deprecated between OpenJDK 11 to 17.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="openjdk" versionRange="(,11]"/>
+        <targetTechnology id="openjdk" versionRange="[17,)"/>
+    </metadata>
+    <rules>
+        <rule id="security-manager-deprecation-00000">
+            <when>
+            	<javaclass references="java.security.{class-name}"/>
+            </when>
+            <perform>
+                <hint title="The java.security.{class-name} class has been deprecated" effort="5" category-id="mandatory">
+                    <message>
+                        The Java Security Manager API is deprecated in Java 17. Any references to it should be removed. 
+                        See the link for further information.
+                    </message>
+                    <link title="JEP 411: Deprecate the Security Manager for Removal" href="https://openjdk.org/jeps/411"/>
+                </hint>
+            </perform>
+            <where param="class-name">
+                <matches pattern="(AccessController|AccessControlContext|AccessControlException|DomainCombiner|Policy|PolicySpi|Policy.Parameters)"/>
+             </where>
+        </rule>
+        <rule id="security-manager-deprecation-00010">
+            <when>
+                <javaclass references="{fqcn}"/>  
+            </when>
+            <perform>
+                <hint title="The {fqcn} class has been deprecated" effort="5" category-id="mandatory">
+                    <message>
+                        References to Java Security Manager API classes deprecated in Java 17. Any references to it should be removed. 
+                        See the link for further information.
+                    </message>
+                    <link title="JEP 411: Deprecate the Security Manager for Removal" href="https://openjdk.org/jeps/411"/>
+                </hint>
+            </perform>
+            <where param="fqcn">
+                <matches pattern="(java.lang.SecurityManager|java.rmi.RMISecurityManager|javax.security.auth.SubjectDomainCombiner)"/>
+             </where>
+        </rule>
+        <rule id="security-manager-deprecation-00020">
+            <when>
+            	<javaclass references="java.lang.System.{method-name}({*})"/>
+            </when>
+            <perform>
+                <hint title="The java.lang.System.{method-name} method has been deprecated" effort="5" category-id="mandatory">
+                    <message>
+                        The java.lang.System::getSecurityManager and java.lang.System::setSecurityManager methods have been deprecated in Java 17. 
+                        See the link for further information.
+                    </message>
+                    <link title="JEP 411: Deprecate the Security Manager for Removal" href="https://openjdk.org/jeps/411"/>
+                </hint>
+            </perform>
+            <where param="method-name">
+                <matches pattern="(getSecurityManager|setSecurityManager)"/>
+             </where>
+        </rule>
+        <rule id="security-manager-deprecation-00030">
+            <when>
+            	<javaclass references="java.lang.Thread.checkAccess({*})"/>
+            </when>
+            <perform>
+                <hint title="java.lang.Thread.checkAccess method has been deprecated" effort="5" category-id="mandatory">
+                    <message>
+                        The java.lang.Thread::checkAccess method has been deprecated in Java 17. 
+                        See the link for further information.
+                    </message>
+                    <link title="JEP 411: Deprecate the Security Manager for Removal" href="https://openjdk.org/jeps/411"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="security-manager-deprecation-00040">
+            <when>
+            	<javaclass references="java.lang.ThreadGroup.checkAccess({*})"/>
+            </when>
+            <perform>
+                <hint title="java.lang.ThreadGroup.checkAccess method has been deprecated" effort="5" category-id="mandatory">
+                    <message>
+                        The java.lang.ThreadGroup::checkAccess method has been deprecated in Java 17. 
+                        See the link for further information.
+                    </message>
+                    <link title="JEP 411: Deprecate the Security Manager for Removal" href="https://openjdk.org/jeps/411"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="security-manager-deprecation-00050">
+            <when>
+            	<javaclass references="java.util.logging.LogManager.checkAccess({*})"/>
+            </when>
+            <perform>
+                <hint title="java.util.logging.LogManager.checkAccess method has been deprecated" effort="5" category-id="mandatory">
+                    <message>
+                        The java.util.logging.LogManager::checkAccess method has been deprecated in Java 17. 
+                        See the link for further information.
+                    </message>
+                    <link title="JEP 411: Deprecate the Security Manager for Removal" href="https://openjdk.org/jeps/411"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="security-manager-deprecation-00060">
+            <when>
+            	<javaclass references="java.util.concurrent.Executors.{method-names}({*})"/>
+            </when>
+            <perform>
+                <hint title="The java.util.concurrent.Executors.{method-names} method has been deprecated" effort="5" category-id="mandatory">
+                    <message>
+                        The java.util.concurrent.Executors::{method-names} method has been deprecated in Java 17. 
+                        See the link for further information.
+                    </message>
+                    <link title="JEP 411: Deprecate the Security Manager for Removal" href="https://openjdk.org/jeps/411"/>
+                </hint>
+            </perform>
+            <where param="method-names">
+                <matches pattern="(privilegedCallable|privilegedCallableUsingCurrentClassLoader|privilegedThreadFactory)"/>
+             </where>
+        </rule>
+        <rule id="security-manager-deprecation-00070">
+            <when>
+            	<javaclass references="javax.security.auth.Subject.{meth-name}({*})"/>
+            </when>
+            <perform>
+                <hint title="javax.security.auth.Subject.{meth-name} method has been deprecated" effort="5" category-id="mandatory">
+                    <message>
+                        The javax.security.auth.Subject::{meth-name} method has been deprecated in Java 17. 
+                        See the link for further information.
+                    </message>
+                    <link title="JEP 411: Deprecate the Security Manager for Removal" href="https://openjdk.org/jeps/411"/>
+                </hint>
+            </perform>
+            <where param="meth-name">
+                <matches pattern="(doAsPrivileged|getSubject)"/>
+             </where>
+        </rule>
+    </rules>
+</ruleset>
