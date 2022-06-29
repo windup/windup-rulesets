@@ -698,7 +698,29 @@
                 <technology-tag level="INFORMATIONAL">Quartz</technology-tag>
             </perform>
         </rule>
-        <rule id="embedded-framework-08950">
+        <rule id="embedded-framework-09100">
+            <when>
+                <file filename="{*}zipkin{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Zipkin" category-id="information" effort="0">
+                    <description>The application embeds the Zipkin framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Zipkin</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-09000">
+            <when>
+                <file filename="feign-{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Feign" category-id="information" effort="0">
+                    <description>The application embeds the Feign framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Feign</technology-tag>
+            </perform>
+        </rule>
+        <rule id="embedded-framework-09200">
             <when>
                 <file filename="{*}redis{*}.jar"/>
             </when>
@@ -709,8 +731,19 @@
                 <technology-tag level="INFORMATIONAL">Redis</technology-tag>
             </perform>
         </rule>
+        <rule id="embedded-framework-09300">
+            <when>
+                <file filename="{*}eureka{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Eureka" category-id="information" effort="0">
+                    <description>The application embeds the Eureka client.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Eureka</technology-tag>
+            </perform>
+        </rule>
         <!-- this rule has to be always the last one in order to effectively checks for classifications added from previous rules in this ruleset-->
-        <rule id="embedded-framework-09000">
+        <rule id="embedded-framework-90000">
             <when>
                 <file filename="spring{*}.jar"/>
             </when>

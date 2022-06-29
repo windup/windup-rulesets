@@ -659,7 +659,29 @@
                <fail message="Expected data not found for rule embedded-framework-08900"/>
             </perform>
          </rule>
-         <rule id="embedded-framework-08950-test">
+         <rule id="embedded-framework-09100-test">
+            <when>
+               <not>
+                  <classification-exists classification="Embedded framework - Zipkin"/>
+                  <technology-tag-exists technology-tag="Zipkin"/>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule embedded-framework-09100"/>
+            </perform>
+         </rule>
+         <rule id="embedded-framework-09000-test">
+            <when>
+               <not>
+                  <classification-exists classification="Embedded framework - Feign"/>
+                  <technology-tag-exists technology-tag="Feign"/>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule embedded-framework-09000"/>
+            </perform>
+         </rule>
+         <rule id="embedded-framework-09200-test">
             <when>
                <not>
                   <classification-exists classification="Embedded framework - Redis"/>
@@ -667,10 +689,21 @@
                </not>
             </when>
             <perform>
-               <fail message="Expected data not found for rule embedded-framework-08950"/>
+               <fail message="Expected data not found for rule embedded-framework-09200"/>
             </perform>
          </rule>
-         <rule id="embedded-framework-09000-test">
+         <rule id="embedded-framework-09300-test">
+            <when>
+               <not>
+                  <classification-exists classification="Embedded framework - Eureka"/>
+                  <technology-tag-exists technology-tag="Eureka"/>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule embedded-framework-09300"/>
+            </perform>
+         </rule>
+         <rule id="embedded-framework-90000-test">
             <when>
                <not>
                    <classification-exists classification="Embedded framework - Spring"/>
@@ -678,7 +711,7 @@
                </not>
             </when>
             <perform>
-               <fail message="Expected data not found for rule embedded-framework-00900"/>
+               <fail message="Expected data not found for rule embedded-framework-90000"/>
             </perform>
          </rule>
       </rules>
