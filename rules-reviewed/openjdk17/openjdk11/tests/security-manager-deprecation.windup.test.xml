@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<ruletest id="security-manager-deprecation-test"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/security-manager-deprecation</testDataPath>
+    <rulePath>../security-manager-deprecation.windup.xml</rulePath>
+    <ruleset>
+      <rules>
+          <rule id="security-manager-deprecation-test-00000">
+              <when>
+                  <not>
+                       <iterable-filter size="7"> 
+                          <hint-exists message="The Java Security Manager API is deprecated in Java 17*" />
+                       </iterable-filter> 
+                  </not>
+              </when>
+              <perform>
+                  <fail message="security-manager-deprecation-test-00000 - has failed"/>
+              </perform>
+          </rule>
+          <rule id="security-manager-deprecation-test-00010">
+            <when>
+                <not>
+                     <iterable-filter size="3"> 
+                        <hint-exists message="References to Java Security Manager API classes deprecated in Java 17*" />
+                     </iterable-filter> 
+                </not>
+            </when>
+            <perform>
+                <fail message="security-manager-deprecation-test-00010 - has failed"/>
+            </perform>
+        </rule>
+        <rule id="security-manager-deprecation-test-00020">
+            <when>
+                <not>
+                     <iterable-filter size="2"> 
+                        <hint-exists message="The java.lang.System::getSecurityManager*" />
+                     </iterable-filter>  
+                </not>
+            </when>
+            <perform>
+                <fail message="security-manager-deprecation-test-00020 - has failed"/>
+            </perform>
+        </rule>
+        <rule id="security-manager-deprecation-test-00030">
+            <when>
+                <not>
+                     <iterable-filter size="1"> 
+                        <hint-exists message="The java.lang.Thread::checkAccess method*" />
+                     </iterable-filter>  
+                </not>
+            </when>
+            <perform>
+                <fail message="security-manager-deprecation-test-00030 - has failed"/>
+            </perform>
+        </rule>
+        <rule id="security-manager-deprecation-test-00040">
+            <when>
+                <not>
+                     <iterable-filter size="2"> 
+                        <hint-exists message="The java.lang.ThreadGroup::checkAccess method*" />
+                     </iterable-filter>   
+                </not>
+            </when>
+            <perform>
+                <fail message="security-manager-deprecation-test-00040 - has failed"/>
+            </perform>
+        </rule>
+        <rule id="security-manager-deprecation-test-00050">
+            <when>
+                <not>
+                     <iterable-filter size="1"> 
+                        <hint-exists message="The java.util.logging.LogManager::checkAccess method*" />
+                     </iterable-filter>    
+                </not>
+            </when>
+            <perform>
+                <fail message="security-manager-deprecation-test-00050 - has failed"/>
+            </perform>
+        </rule>
+        <rule id="security-manager-deprecation-test-00060">
+            <when>
+                <not>
+                     <iterable-filter size="3"> 
+                        <hint-exists message="The java.util.concurrent.Executors*" />
+                     </iterable-filter>     
+                </not>
+            </when>
+            <perform>
+                <fail message="security-manager-deprecation-test-00060 - has failed"/>
+            </perform>
+        </rule>
+        <rule id="security-manager-deprecation-test-00070">
+            <when>
+                <not>
+                     <iterable-filter size="2"> 
+                        <hint-exists message="The javax.security.auth.Subject*" />
+                     </iterable-filter>    
+                </not>
+            </when>
+            <perform>
+                <fail message="security-manager-deprecation-test-00070 - has failed"/>
+            </perform>
+        </rule>
+      </rules>
+    </ruleset>
+</ruletest>
