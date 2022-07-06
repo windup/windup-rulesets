@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<ruleset id="eap-to-azure-appservice-datasource-driver"
+         xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            External resources such as data sources are injected via Java Naming and Directory Interface (JNDI). Some such resources may require migration or reconfiguration.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="eap" versionRange="[7,8)" />
+        <targetTechnology id="azure-appservice"/>
+        <targetTechnology id="azure-aks"/>
+        <tag>password</tag>
+        <tag>security</tag>
+    </metadata>
+    <rules>
+        <rule id="eap-to-azure-appservice-datasource-driver-01000">
+            <when>
+                <xmlfile matches="//driver" />
+            </when>
+            <perform>
+                <hint title="Datasource driver found in configuration file" category-id="potential" effort="3">
+                    <message>
+                        <![CDATA[
+                        A datasource driver was found in a configuration file.
+
+                        There are three core steps when registering a data source with JBoss EAP in Azure App Service: uploading the JDBC driver, adding the JDBC driver as a module, and registering the module.
+
+                        App Service is a stateless hosting service, so the configuration commands for adding and registering the data source module must be scripted and applied as the container starts.
+                        
+                        For more information, see Datasource Management in the JBoss EAP documentation.                        
+                        ]]>
+                    </message>
+                    <link title="Migrate JBoss EAP applications to JBoss EAP on Azure App Service - Datasources" href="https://docs.microsoft.com/en-us/azure/developer/java/migration/migrate-jboss-eap-to-jboss-eap-on-azure-app-service#datasources"/>
+                    <link title="Migrate JBoss EAP applications to JBoss EAP on Azure App Service - Set up data sources" href="https://docs.microsoft.com/en-us/azure/developer/java/migration/migrate-jboss-eap-to-jboss-eap-on-azure-app-service#set-up-data-sources"/>
+                    <link title="Datasource Management" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/configuration_guide/datasource_management" />
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
