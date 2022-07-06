@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ruletest id="removed-classes-test"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/removed-classes</testDataPath>
+    <rulePath>../removed-classes.windup.xml</rulePath>
+    <ruleset>
+      <rules>
+          <rule id="removed-classes-test-00000">
+              <when>
+                  <not>
+                    <iterable-filter size="7">
+                        <hint-exists message="After being deprecated in OpenJDK 11, the pack200*" />
+                    </iterable-filter>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="removed-classes-test-00000 - has failed"/>
+              </perform>
+          </rule>
+      </rules>
+    </ruleset>
+</ruletest>
