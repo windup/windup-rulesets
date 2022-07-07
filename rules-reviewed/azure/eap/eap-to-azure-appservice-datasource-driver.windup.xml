@@ -19,7 +19,20 @@
     <rules>
         <rule id="eap-to-azure-appservice-datasource-driver-01000">
             <when>
-                <xmlfile matches="//driver" />
+                <or>
+                    <xmlfile matches="/datasources/datasource/connection-url[contains(text(),'jdbc:db2')]" in="{*}-ds.xml"/>
+                    <xmlfile matches="/datasources/drivers/driver/xa-datasource-class[contains(text(),'db2')]" in="{*}-ds.xml"/>
+                    <xmlfile matches="/datasources/datasource/connection-url[contains(text(),'jdbc:mysql')]" in="{*}-ds.xml"/>
+                    <xmlfile matches="/datasources/drivers/driver/xa-datasource-class[contains(text(),'mysql')]" in="{*}-ds.xml"/>
+                    <xmlfile matches="/datasources/datasource/connection-url[contains(text(),'jdbc:oracle')]" in="{*}-ds.xml"/>
+                    <xmlfile matches="/datasources/drivers/driver/xa-datasource-class[contains(text(),'oracle')]" in="{*}-ds.xml"/>
+                    <xmlfile matches="/datasources/datasource/connection-url[contains(text(),'jdbc:postgres')]" in="{*}-ds.xml"/>
+                    <xmlfile matches="/datasources/drivers/driver/xa-datasource-class[contains(text(),'postgres')]" in="{*}-ds.xml"/>
+                    <xmlfile matches="/datasources/datasource/connection-url[contains(text(),'jdbc:microsoft:sqlserver')]" in="{*}-ds.xml"/>
+                    <xmlfile matches="/datasources/drivers/driver/xa-datasource-class[contains(text(),'sqlserver')]" in="{*}-ds.xml"/>
+                    <xmlfile matches="/datasources/datasource/connection-url[contains(text(),'jdbc:sybase')]" in="{*}-ds.xml"/>
+                    <xmlfile matches="/datasources/drivers/driver/xa-datasource-class[contains(text(),'sybase')]" in="{*}-ds.xml"/>
+                </or>
             </when>
             <perform>
                 <hint title="Datasource driver found in configuration file" category-id="potential" effort="3">
