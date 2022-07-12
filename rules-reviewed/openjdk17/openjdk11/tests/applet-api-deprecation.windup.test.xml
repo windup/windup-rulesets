@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ruletest id="applet-api-deprecation-test"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/applet-api-deprecation</testDataPath>
+    <rulePath>../applet-api-deprecation.windup.xml</rulePath>
+    <ruleset>
+      <rules>
+          <rule id="applet-api-deprecation-test-00000">
+              <when>
+                  <not>
+                       <iterable-filter size="10">
+                          <hint-exists message="The Java Applet API has been deprecated and will be removed in future releases*" />
+                       </iterable-filter>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="applet-api-deprecation-test-00000 - has failed"/>
+              </perform>
+          </rule>
+      </rules>
+    </ruleset>
+</ruletest>

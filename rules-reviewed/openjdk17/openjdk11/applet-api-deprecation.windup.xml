@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="applet-api-deprecation"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis with respect to applet-api deprecation between OpenJDK 11 to 17.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="openjdk" versionRange="(,11]"/>
+        <targetTechnology id="openjdk" versionRange="[17,)"/>
+    </metadata>
+    <rules>
+        <rule id="applet-api-deprecation-00000">
+            <when>
+                <or>
+            	    <javaclass references="java.applet.{*}"></javaclass>
+                    <javaclass references="java.beans.AppletInitializer"></javaclass>
+            	    <javaclass references="javax.swing.JApplet"></javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="The Java Applet API has been deprecated" effort="3" category-id="mandatory">
+                    <message>
+                        The Java Applet API has been deprecated and will be removed in future releases, since modern web browsers no longer support Java applets any references to it should be removed.
+                    </message>
+                    <link title="JEP 398: Deprecate the Applet API for Removal" href="https://openjdk.org/jeps/398"/>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
