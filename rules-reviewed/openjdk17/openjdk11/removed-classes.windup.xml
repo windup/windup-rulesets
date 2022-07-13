@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="removed-classes"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            After being deprecated in OpenJDK 11, the pack200, unpack200 and corresponding java.util.jar.Pack200* classes were removed in OpenJDK 14.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="openjdk" versionRange="(,11]"/>
+        <targetTechnology id="openjdk" versionRange="[17,)"/>
+    </metadata>
+    <rules>
+        <rule id="removed-classes-00000">
+            <when>
+            	<javaclass references="java.util.jar.{class-name}"/>
+            </when>
+            <perform>
+                <hint title="The java.util.jar.{class-name} class has been removed" effort="3" category-id="mandatory">
+                    <message>
+                        After being deprecated in OpenJDK 11, the pack200, 
+                        unpack200 and corresponding java.util.jar.Pack200* classes were removed in OpenJDK 14. 
+                        Please look into switching to either the jlink tool or the jpackage tool to create 
+                        application-specific runtimes with an optimized factor.
+                    </message>
+                    <link title="JEP 367: Remove the Pack200 Tools and API" href="https://openjdk.org/jeps/367"/>
+                    <link title="JEP 392: Packaging Tool (jpackage tool)" href="https://openjdk.org/jeps/392"/>
+                </hint>
+            </perform>
+            <where param="class-name">
+                <matches pattern="(Pack200|Pack200.Packer|Pack200.Unpacker)"/>
+             </where>
+        </rule>
+    </rules>
+</ruleset>
