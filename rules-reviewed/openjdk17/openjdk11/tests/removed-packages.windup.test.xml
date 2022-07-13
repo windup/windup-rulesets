@@ -18,6 +18,18 @@
                   <fail message="removed-packages-test-00000 - has failed"/>
               </perform>
           </rule>
+          <rule id="removed-packages-test-00010">
+            <when>
+                <not>
+                     <iterable-filter size="4"> 
+                        <hint-exists message="The Nashorn scripting implementation*" />
+                     </iterable-filter> 
+                </not>
+            </when>
+            <perform>
+                <fail message="removed-packages-test-00010 - has failed"/>
+            </perform>
+        </rule>
       </rules>
     </ruleset>
 </ruletest>
