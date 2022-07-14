@@ -1,0 +1,23 @@
+<datasources>
+    <xa-datasource jndi-name="java:/MSSQLXADS" pool-name="MSSQLXADS">
+      <driver>sqlserver</driver>
+      <xa-datasource-property name="ServerName">localhost</xa-datasource-property>
+      <xa-datasource-property name="DatabaseName">mssqldb</xa-datasource-property>
+      <xa-datasource-property name="SelectMethod">cursor</xa-datasource-property>
+      <security>
+        <user-name>admin</user-name>
+        <password>admin</password>
+      </security>
+      <xa-pool>
+        <is-same-rm-override>false</is-same-rm-override>
+      </xa-pool>
+      <validation>
+        <valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.mssql.MSSQLValidConnectionChecker"></valid-connection-checker>
+      </validation>
+    </xa-datasource>
+    <drivers>
+      <driver name="sqlserver" module="com.microsoft">
+        <xa-datasource-class>com.microsoft.sqlserver.jdbc.SQLServerXADataSource</xa-datasource-class>
+      </driver>
+    </drivers>
+  </datasources>
