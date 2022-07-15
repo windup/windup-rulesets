@@ -1,0 +1,18 @@
+<datasources>
+    <datasource jndi-name="java:/MSSQLDS" pool-name="MSSQLDS">
+      <connection-url>jdbc:microsoft:sqlserver://localhost:1433;DatabaseName=MyDatabase</connection-url>
+      <driver>sqlserver</driver>
+      <security>
+        <user-name>admin</user-name>
+        <password>admin</password>
+      </security>
+      <validation>
+        <valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.mssql.MSSQLValidConnectionChecker"></valid-connection-checker>
+      </validation>
+    </datasource>
+    <drivers>
+      <driver name="sqlserver" module="com.microsoft">
+        <xa-datasource-class>com.microsoft.sqlserver.jdbc.SQLServerXADataSource</xa-datasource-class>
+      </driver>
+    </drivers>
+</datasources>

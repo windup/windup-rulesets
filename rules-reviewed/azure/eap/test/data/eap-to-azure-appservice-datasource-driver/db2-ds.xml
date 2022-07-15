@@ -1,0 +1,24 @@
+<datasources>
+    <datasource jndi-name="java:/DB2DS" pool-name="DB2DS">
+      <connection-url>jdbc:db2:ibmdb2db</connection-url>
+      <driver>ibmdb2</driver>
+      <pool>
+        <min-pool-size>0</min-pool-size>
+        <max-pool-size>50</max-pool-size>
+      </pool>
+      <security>
+        <user-name>admin</user-name>
+        <password>admin</password>
+      </security> 
+      <validation>
+        <valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.db2.DB2ValidConnectionChecker"></valid-connection-checker>
+        <stale-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.db2.DB2StaleConnectionChecker"></stale-connection-checker>
+        <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.db2.DB2ExceptionSorter"></exception-sorter>
+      </validation>
+    </datasource>
+    <drivers>
+      <driver name="ibmdb2" module="com.ibm">
+        <xa-datasource-class>com.ibm.db2.jdbc.DB2XADataSource</xa-datasource-class>
+      </driver>
+    </drivers>
+  </datasources>
