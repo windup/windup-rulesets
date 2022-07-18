@@ -1,0 +1,20 @@
+<datasources>
+    <xa-datasource jndi-name="java:jboss/MysqlXADS" pool-name="MysqlXADS">
+    <driver>mysql</driver>
+      <xa-datasource-property name="ServerName">localhost</xa-datasource-property>
+      <xa-datasource-property name="DatabaseName">mysqldb</xa-datasource-property>
+      <security>
+        <user-name>admin</user-name>
+        <password>admin</password>
+      </security>
+      <validation>
+        <valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLValidConnectionChecker"></valid-connection-checker>
+        <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLExceptionSorter"></exception-sorter>
+      </validation>
+    </xa-datasource>
+    <drivers>
+      <driver name="mysql" module="com.mysql">
+        <xa-datasource-class>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</xa-datasource-class>
+      </driver>
+    </drivers>
+  </datasources>
