@@ -27,6 +27,23 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="removed-packages-00010">
+            <when>
+                <or>
+            	    <javaclass references="jdk.nashorn.api.scripting.{*}"></javaclass>
+                    <javaclass references="jdk.nashorn.api.tree.{*}"></javaclass>
+                </or>        
+            </when>
+            <perform>
+                <hint title="The jdk.nashorn.api.scripting and jdk.nashorn.api.tree packages have been removed" effort="3" category-id="mandatory">
+                    <message>
+                        The Nashorn scripting implementation has been removed from OpenJDK 15 onwards. 
+                        The javax.script API is still present and third party implementations, such as Rhino or Nashorn itself, can be installed if needed. Any references to its packages should be removed or substituted with the third party implementations.
+                    </message>
+                    <link title="JEP 372: Remove RMI Activation" href="https://openjdk.org/jeps/372"/>
+                    <link title="openjdk/nashorn" href="https://github.com/openjdk/nashorn"/>
+                </hint>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
-
