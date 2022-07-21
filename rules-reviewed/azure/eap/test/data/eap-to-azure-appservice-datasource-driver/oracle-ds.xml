@@ -1,0 +1,20 @@
+<datasources>
+    <datasource jndi-name="java:/OracleDS" pool-name="OracleDS">
+      <connection-url>jdbc:oracle:thin:@localhost:1521:XE</connection-url>
+      <driver>oracle</driver>
+      <security>
+        <user-name>admin</user-name>
+        <password>admin</password>
+      </security> 
+      <validation>
+        <valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.oracle.OracleValidConnectionChecker"></valid-connection-checker>
+        <stale-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.oracle.OracleStaleConnectionChecker"></stale-connection-checker>
+        <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.oracle.OracleExceptionSorter"></exception-sorter>
+      </validation>
+    </datasource>
+    <drivers>
+      <driver name="oracle" module="com.oracle">
+        <xa-datasource-class>oracle.jdbc.xa.client.OracleXADataSource</xa-datasource-class>
+      </driver>
+    </drivers>
+  </datasources>

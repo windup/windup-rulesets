@@ -1,0 +1,23 @@
+<datasources>
+    <xa-datasource jndi-name="java:jboss/PostgresXADS" pool-name="PostgresXADS">
+      <driver>postgresql</driver>
+      <xa-datasource-property name="ServerName">localhost</xa-datasource-property>
+      <xa-datasource-property name="PortNumber">5432</xa-datasource-property>
+      <xa-datasource-property name="DatabaseName">postgresdb</xa-datasource-property>
+      <security>
+        <user-name>admin</user-name>
+        <password>admin</password>
+      </security>
+      <validation>
+        <valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLValidConnectionChecker">
+        </valid-connection-checker>
+        <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLExceptionSorter">
+        </exception-sorter>
+      </validation>
+    </xa-datasource>
+    <drivers>
+      <driver name="postgresql" module="org.postgresql">
+        <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
+      </driver>
+    </drivers>
+  </datasources>
