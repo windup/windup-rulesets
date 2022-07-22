@@ -18,10 +18,7 @@ ruleSet("springboot-generic-unsupported-groovy")
         .addSourceTechnology(new TechnologyReference("springboot", null))
         .addTargetTechnology(new TechnologyReference("quarkus", null))
         .addRule()
-        .when(And.all(
-                SourceMode.isEnabled(), 
-                Project.dependsOnArtifact(Artifact.withGroupId("{group}").andArtifactId("{artifact}")).as("dependency"))
-        )
+        .when(Project.dependsOnArtifact(Artifact.withGroupId("{group}").andArtifactId("{artifact}")).as("dependency"))
         .perform(
                 Iteration.over("dependency")
                     .perform(
