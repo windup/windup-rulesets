@@ -18,6 +18,18 @@
                     <fail message="[springboot-di-to-quarkus-extension] SpringBoot Dependency artifact replaced by Quarkus extension was not found!" />
                 </perform>
             </rule>
+            <rule id="springboot-di-to-quarkus-00003-test">
+                <when>
+                    <not>
+                        <iterable-filter size="9">
+                            <hint-exists message="Spring infrastructure classes*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-di-to-quarkus-extension] SpringBoot infrastructure classes hint was not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
