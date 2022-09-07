@@ -5,6 +5,7 @@ import org.jboss.windup.reporting.category.IssueCategoryRegistry
 import org.jboss.windup.reporting.model.QuickfixType
 import org.jboss.windup.reporting.quickfix.Quickfix
 import org.jboss.windup.rules.apps.java.model.JavaClassModel
+import org.jboss.windup.config.metadata.RuleMetadataType
 import org.ocpsoft.rewrite.context.EvaluationContext;
 import org.ocpsoft.rewrite.param.ParameterStore;
 
@@ -120,6 +121,7 @@ ruleSet("hibernate51-53-groovy")
 .addSourceTechnology(new TechnologyReference("hibernate", "(,5.1]"))
 .addTargetTechnology(new TechnologyReference("hibernate", "[5.3,)"))
 .addTargetTechnology(new TechnologyReference("eap", "[7,8)"))
+.addTag("hibernate")
 .addRule()
     .when(
         JavaClass.references("{*}.$methodParam({*}org.hibernate.engine.spi.SessionImplementor{*})").at(TypeReferenceLocation.METHOD)
