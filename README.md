@@ -9,7 +9,7 @@ Follow the [Get Involved](https://github.com/windup/windup/wiki/Get-Involved) in
 Directory structure
 -----------
 
-This repository is organized in subdirectories:
+The `rules` module repository is organized in subdirectories:
 
 * `rules-reviewed`: this is where you can make contribution and add new rules 
 * `rules-generated`: these rules are automatically generated (from the Quarkus main git repo) and you should not add new rules here
