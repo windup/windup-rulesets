@@ -1,0 +1,616 @@
+﻿<?xml version="1.0"?>
+<ruleset id="seam-java" xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <metadata>
+        <description>
+            This ruleset provides generic migration knowledge from the Seam 2 API to pure Java EE/CDI API.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final"/>
+        </dependencies>
+        <sourceTechnology id="java-ee"/>
+        <sourceTechnology id="eap" versionRange="[4,6)"/>
+        <sourceTechnology id="seam" versionRange="[2.0,2.1,2.2,2.3]"/>
+        <targetTechnology id="eap" versionRange="[6,8)"/>
+        <tag>seam</tag>
+    </metadata>
+    <rules>
+        <rule id="seam-java-00000">
+            <when>
+                <javaclass references="org.jboss.seam.{*}" />
+            </when>
+            <perform>
+                <classification title="Seam API" effort="5" category-id="mandatory">
+                    <description>
+                        Seam 2.2 and earlier is not supported on JBoss EAP 6 and above.
+                        Consider migration to Context Dependency Injection (CDI) standard which covers most of Seam 2 core functionalities in
+                        a standardized, type safe and extensible way.
+                        
+                        Seam 2.3 still could work on EAP 6.x, but is not maintained and officially supported on new EAP 6.x patched releases or EAP 7.x.
+
+                        There are two options available:
+                        
+                        1. Continue using Seam 2.x on EAP 6 but expect there are bugs or glitches and you need to fix it yourself.
+                        This approach is sometimes lower effort but the application will not use a tested and supported library and some Seam framework features doesn't have to work as expected.
+                        2. The similar approach as for point 1 but for Seam 2.3 runtime on EAP7 is not verified and therefore not recommended. Some Seam 2.3 features could work on EAP7,
+                        but the expected behavior can differ based on what your application uses and how.
+                        2. Switch to standard CDI beans and migrate to JSF 2.2 if your server platform is EAP 7+. This will require significant migration effort.
+                    </description>
+                    <link href="https://access.redhat.com/documentation/en-us/Red_Hat_JBoss_Web_Framework_Kit/2.7/html-single/Seam_Guide/index.html#idm54350960"
+                        title="Migration from Seam 2 to Java EE and Alternatives"/>
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/Red_Hat_JBoss_Web_Framework_Kit/2.7/html-single/Seam_Guide/index.html#booking"
+                        title="JSF Web Application Example"/>
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html/development_guide/sect-use_cdi#sect-Contexts_Scopes_and_Dependencies"
+                        title="JBoss EAP 6 - Contexts, Scopes, and Dependencies"/>
+                    <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/migration_guide/index#sect-JSF_changes" title="Enable Applications To Use Older Versions of JSF"/>
+                    <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate-eap5-component-upgrade-reference"
+                          title="JBoss EAP 5 Component Upgrade Reference"/>
+                    <link href="https://access.redhat.com/solutions/2773121" title="How to use JSF 1.2 with EAP 7?"/>
+                    <tag>cdi</tag>
+                    <tag>seam</tag>
+                    <tag>jsf</tag>
+                </classification>
+            </perform>
+        </rule>
+        <rule id="seam-java-00010">
+            <when>
+                <javaclass references="org.jboss.seam.core.Conversation"/>
+            </when>
+            <perform>
+                <hint title="Seam API - org.jboss.seam.core.Conversation" effort="1" category-id="mandatory">
+                    <message>
+                    You can use Java EE `javax.enterprise.context.Conversation` interface like:
+                    
+                    ```java
+                    @Inject Conversation conversation;
+                    ```
+                    </message>
+                    <link href="http://docs.oracle.com/javaee/7/api/javax/enterprise/context/Conversation.html" title="Java EE API - Conversation"/>
+                    <tag>seam</tag>
+                    <tag>cdi</tag>
+                </hint>
+            </perform>
+        </rule>
+<!--         <rule id="seam-java-00020"> -->
+<!--             <when> -->
+<!--                 <javaclass references="org.jboss.seam.core.Context"> -->
+<!--                     <location>IMPORT</location> -->
+<!--                 </javaclass> -->
+<!--             </when> -->
+<!--             <perform> -->
+<!--                 <hint title="Seam Context API class" effort="1" category-id="mandatory"> -->
+<!--                     <message>Seam 2 provides a fixed set of contexts. CDI provides a similar set of contexts. -->
+<!--                     For most cases you can inject `javax.enterprise.context.spi.Context` and do the same as in Seam 2 or with similar interfaces in the `javax.enterprise.context.spi` package. -->
+<!--                     </message> -->
+<!--                     <link href="https://access.redhat.com/documentation/en-us/Red_Hat_JBoss_Web_Framework_Kit/2.7/html-single/Seam_Guide/index.html#_scopes_and_contexts" title="Seam 2 Scopes and Contexts"/> -->
+<!--                     <link href="http://docs.oracle.com/javaee/7/api/javax/enterprise/context/spi/package-summary.html" title="Java EE API - javax.enterprise.context.spi package"></link> -->
+<!--                     <link href="http://docs.oracle.com/javaee/7/api/javax/enterprise/context/spi/Context.html" title="Java EE API - Context interface"/> -->
+<!--                     <tag>seam</tag> -->
+<!--                     <tag>cdi</tag> -->
+<!--                 </hint> -->
+<!--             </perform> -->
+<!--         </rule> -->
+        <rule id="seam-java-00030">
+            <when>
+                <javaclass references="org.jboss.seam.Seam.{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Seam API - org.jboss.seam.Seam" effort="1" category-id="mandatory">
+                    <message>There is no direct replacement for this Seam API. The `org.jboss.seam.Seam` contains methods for accessing annotated information
+                    about Seam component classes. For majority cases you can replace this Seam API with standard CDI's `javax.enterprise.inject.spi.BeanManager`.</message>
+                    <link href="http://docs.oracle.com/javaee/7/api/javax/enterprise/inject/spi/BeanManager.html" title="Java EE API - BeanManager"/>
+                    <link href="https://access.redhat.com/documentation/en-us/Red_Hat_JBoss_Web_Framework_Kit/2.7/html-single/Seam_API_Documentation/files/api/org/jboss/seam/Seam.html" title="Seam API - org.jboss.seam.Seam"/>
+                    <tag>seam</tag>
+                    <tag>cdi</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-java-00040">
+            <when>
+                <javaclass references="org.jboss.seam.annotations.Name">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Seam API - org.jboss.seam.annotations.Name" category-id="mandatory" effort="1">
+                    <message>CDI supports static injection in comparison to Seam 2 dynamic injection. So you don't need to have `@Named` annotation on every Seam component you would like to migrate. 
+                    Remove that annotation or change to `@javax.inject.Named` only if you need to access managed bean in Expression Language (EL).</message>
+                    <link href="http://docs.oracle.com/javaee/7/tutorial/cdi-basic009.htm#GJBAK" title="Java EE 7 tutorial - Giving Beans EL Name"/>
+                    <link href="https://access.redhat.com/documentation/en-us/Red_Hat_JBoss_Web_Framework_Kit/2.7/html-single/Seam_Guide/index.html#_seam_2_components" title="Seam 2 Components"/>
+                    <tag>seam</tag>
+                    <tag>cdi</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-java-00050">
+            <when>
+                <javaclass references="org.jboss.seam.annotations.Scope">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Seam API - org.jboss.seam.annotations.Scope" category-id="mandatory" effort="1">
+                    <message>Convert to a valid CDI scope. CDI scopes has its own annotation.
+                     See linked documentation link for CDI alternatives. For example, `@Scope(ScopeType.SESSION)` should be `@javax.enterprise.context.SessionScoped`. 
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-us/Red_Hat_JBoss_Web_Framework_Kit/2.7/html-single/Seam_Guide/index.html#_scopes_and_contexts" title="Scopes and contexts"/>
+                    <link href="http://docs.oracle.com/javaee/7/tutorial/cdi-basic008.htm#GJBBK" title="Java EE 7 Tutorial - Using Scopes"/>
+                    <tag>seam</tag>
+                    <tag>cdi</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-java-00060">
+            <when>
+                <javaclass references="org.jboss.seam.annotations.In">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Seam API - org.jboss.seam.annotations.In" effort="1" category-id="mandatory">
+                    <message>Convert Seam annotation `@In` to CDI `@javax.inject.Inject`.</message>
+                    <link href="http://docs.oracle.com/javaee/7/tutorial/cdi-basic007.htm#GJBAN" title="Java EE Tutorial - Injecting Beans"/>
+                    <tag>seam</tag>
+                    <tag>cdi</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-java-00061">
+            <when>
+                <javaclass references="org.jboss.seam.annotations.AutoCreate">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Seam API - org.jboss.seam.annotations.AutoCreate" effort="1" category-id="mandatory">
+                    <message>Remove this Seam annotation `@AutoCreate` as in CDI it is no longer needed since a bean will always be created when needed.</message>
+                    <link href="http://docs.oracle.com/javaee/7/tutorial/cdi-basic007.htm#GJBAN" title="Java EE Tutorial - Injecting Beans"/>
+                    <tag>seam</tag>
+                    <tag>cdi</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-java-00070">
+            <when>
+                <javaclass references="org.jboss.seam.annotations.Out">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Seam API - org.jboss.seam.annotations.Out" effort="3" category-id="mandatory">
+                    <message>
+                        CDI does not support bijection and does a static injection in comparison to Seam 2, where it is performed dynamically 
+                            via interceptor every time a component is invoked. 
+                        CDI performs the static injection only once per component life cycle.
+                        
+                        Refactor such Seam API usage with `@javax.enterprise.inject.Produces`.
+                    </message>
+                    <link href="http://docs.oracle.com/javaee/7/tutorial/cdi-adv003.htm#GKGKV" title="Java EE Tutorial - Producers"></link>
+                    <link href="https://access.redhat.com/documentation/en-us/Red_Hat_JBoss_Web_Framework_Kit/2.7/html-single/Seam_Guide/index.html#_bijection" title="Seam Outjection"/>
+                    <link href="http://docs.oracle.com/javaee/7/api/javax/enterprise/inject/Produces.html" title="Java EE API - Annotation Type Produces"/>
+                    <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/development_guide/#Use_a_Producer_Method" title="JBoss EAP 6 - Use a Producer Method"/>
+                    <tag>seam</tag>
+                    <tag>cdi</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-java-00071">
+            <when>
+                <javaclass references="org.jboss.seam.annotations.Factory">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Seam API - org.jboss.seam.annotations.Factory" effort="3" category-id="mandatory">
+                    <message>
+                        Seam Factory annotation was used for binding non Seam component methods into Seam context life cycle.
+                        
+                        Replace it with `@javax.enterprise.inject.Produces` and add additional annotation for context scope if you used `scope = ScopeType.*` enum like for instance
+                        `@Factory(scope = ScopeType.APPLICATION)` use:
+                        
+                        ```java
+                        @Produces @ApplicationScoped ...
+                        ```
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-us/Red_Hat_JBoss_Web_Framework_Kit/2.7/html-single/Seam_Guide/index.html#idp227074592" title="WFK Seam Guide - Seam Factory and Managers components"/>
+                    <link href="http://docs.oracle.com/javaee/7/tutorial/cdi-adv003.htm#GKGKV" title="Java EE Tutorial - Producers"></link>
+                    <link href="http://docs.oracle.com/javaee/7/api/javax/enterprise/inject/Produces.html" title="Java EE API - Annotation Type Produces"/>
+                    <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html-single/development_guide/#Use_a_Producer_Method" title="JBoss EAP 6 - Use a Producer Method"/>
+                    <tag>seam</tag>
+                    <tag>cdi</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-java-00080">
+            <when>
+                <javaclass references="org.jboss.seam.annotations.Startup">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Seam API - org.jboss.seam.annotations.Startup" effort="1" category-id="mandatory">
+                    <message>Java EE uses for such use case `@javax.ejb.Singleton` and `@javax.ejb.Startup` annotations.</message>
+                    <link href="http://docs.oracle.com/javaee/7/api/javax/ejb/Startup.html" title="Java EE 7 - Startup annotation"/>
+                    <link href="http://docs.oracle.com/javaee/7/api/javax/ejb/Singleton.html" title="Java EE 7 - Singleton annotation"/>
+                    <link href="https://access.redhat.com/documentation/en-us/Red_Hat_JBoss_Web_Framework_Kit/2.7/html-single/Seam_Guide/index.html#_startup" title="WFK Seam Guide - Migration of @Install"/>
+                    <tag>seam</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-java-00090">
+            <when>
+                <javaclass references="org.jboss.seam.annotations.Create">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Seam API - org.jboss.seam.annotations.Create" effort="1" category-id="mandatory">
+                    <message>Seam 2 provided along to standard Java EE `javax.annotation.PostConstruct` also Seam specific annotation `@Create`.
+                     You can use `@javax.annotation.PostConstruct` as one to one replacement.</message>
+                     <link href="http://docs.oracle.com/javaee/7/api/javax/annotation/PostConstruct.html" title="Java EE API - javax.annotation.PostConstruct"/>
+                    <tag>seam</tag>
+                    <tag>javaee</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-java-00091">
+            <when>
+                <javaclass references="org.jboss.seam.annotations.Destroy">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Seam API - org.jboss.seam.annotations.Destroy" effort="1" category-id="mandatory">
+                    <message>Seam 2 provided along to standard Java EE `javax.annotation.PreDestroy` also Seam specific annotation `@Destroy`.
+                     You can use `@javax.annotation.PreDestroy` as one to one replacement.</message>
+                     <link href="http://docs.oracle.com/javaee/7/api/javax/annotation/PreDestroy.html" title="Java EE API - javax.annotation.PreDestroy"/>
+                    <tag>seam</tag>
+                    <tag>javaee</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-java-00100">
+            <when>
+                <javaclass references="org.jboss.seam.faces.Switcher" />
+            </when>
+            <perform>
+                <hint title="Seam API - org.jboss.seam.faces.Switcher" effort="1" category-id="mandatory">
+                    <message>There is no direct replacement, but it can be implemented with CDI Conversation support.</message>
+                    <link href="http://www.andygibson.net/blog/tutorial/cdi-conversations-part-2/" title="CDI Conversations  Blog post"></link>
+                    <tag>seam</tag>
+                    <tag>cdi</tag>
+                    <tag>conversation</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-java-00110">
+            <when>
+                <javaclass references="org.jboss.seam.Component.{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Seam API - org.jboss.seam.Component calls" effort="1" category-id="mandatory">
+                    <message><![CDATA[
+                    If you need to keep programmatic lookup use `javax.enterprise.inject.Instance` with injection. 
+                    Like getting instance of `PaymentProcessor`:
+                    
+                    ```java
+                    @Inject Instance<PaymentProcessor> paymentProcessor;
+                    ```
+                    
+                    The second approach is to use `javax.enterprise.inject.spi.BeanManager` like
+                    
+                    ```java
+                    @Inject BeanManager manager;
+                    ```
+                    ]]>
+                    </message>
+                    <link href="http://docs.oracle.com/javaee/7/api/javax/enterprise/inject/Instance.html" title="Java EE API - Interface Instance"/>
+                    <link href="http://docs.oracle.com/javaee/7/api/javax/enterprise/inject/spi/BeanManager.html" title="Java EE API - BeanManager"/>
+                    <tag>seam</tag>
+                    <tag>cdi</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-java-00120">
+            <when>
+                <javaclass references="org.jboss.seam.annotations.exception.Redirect">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Seam API - org.jboss.seam.annotations.Redirect" effort="3" category-id="mandatory">
+                    <message>Refactor to have annotated error handler which redirect to a viewID page for displaying error page.</message>
+                    <tag>seam</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-java-00130">
+            <when>
+                <javaclass references="org.jboss.seam.annotations.Install" >
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Seam API - org.jboss.seam.annotations.Install" effort="1" category-id="mandatory">
+                    <message>Seam 2 offers the `@Install` annotation for controlling whether a given bean should be installed or not together with configurable functionality.
+                    Explicit prevention from installation is in CDI done by `@Vetoed` annotation.
+                    If you need to use Bean specialization there are `@javax.enterprise.inject.Alternative` or `@javax.enterprise.inject.Specializes` instead of precedence.</message>
+                    <link href="https://access.redhat.com/documentation/en-us/Red_Hat_JBoss_Web_Framework_Kit/2.7/html-single/Seam_Guide/index.html#_install" title="WFK Seam Guide - Component installation"/>
+                    <link href="http://docs.oracle.com/javaee/7/api/javax/enterprise/inject/Vetoed.html" title="Java EE 7 - Vetoed Annotation"/>
+                    <link href="http://docs.oracle.com/javaee/7/api/javax/enterprise/inject/Specializes.html" title="Java EE 7 - Specializes annotation"></link>
+                    <link href="http://docs.oracle.com/javaee/7/api/javax/enterprise/inject/Alternative.html" title="Java EE 7 - Alternative annotation"></link>
+                    <tag>seam</tag>
+                    <tag>cdi</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-java-00140">
+            <when>
+                <javaclass references="org.jboss.seam.web.AbstractFilter"/>
+            </when>
+            <perform>
+                <hint title="Seam API - org.jboss.seam.web.AbstractFilter" effort="1" category-id="mandatory">
+                    <message>Rework code with a default Java Servlet `javax.servlet.Filter` or different filter interface.</message>
+                    <link href="https://docs.oracle.com/javaee/7/tutorial/servlets006.htm#BNAGB" title="Java EE Tutorial - Filtering Requests and Responses"/>
+                    <tag>seam</tag>
+                    <tag>javaee</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-java-00150">
+            <when>
+                <javaclass references="org.jboss.seam.annotations.web.Filter">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Seam API - org.jboss.seam.annotations.web.Filter" effort="1" category-id="mandatory">
+                    <message>Replace this Seam annotation with default Java Servlet `javax.servlet.Filter` or different filter interface.</message>
+                    <link href="https://docs.oracle.com/javaee/7/tutorial/servlets006.htm#BNAGB" title="Java EE Tutorial - Filtering Requests and Responses"/>
+                    <tag>seam</tag>
+                    <tag>javaee</tag>
+                    <tag>servlet</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-java-00160">
+            <when>
+                <javaclass references="org.jboss.seam.contexts.Contexts.{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Seam API - org.jboss.seam.contexts.Contexts" effort="1" category-id="mandatory">
+                    <message>Rework using CDI's injected concrete context.</message>
+                    <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/6.4/html/development_guide/sect-use_cdi#sect-Contexts_Scopes_and_Dependencies"
+                    title="JBoss EAP 6 - Contexts, Scopes, and Dependencies"/>
+                    <tag>seam</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-java-00170">
+            <when>
+                <javaclass references="org.jboss.seam.annotations.bpm.{*}">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <classification title="Seam integration with jBPM" effort="5" category-id="mandatory">
+                    <description>Seam integration with jBPM should be migrated with help of CDI integration presented directly in Drools - jBPM</description>
+                    <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_bpm_suite/6.4/html-single/development_guide/index#sect_cdi_integration" title="JBoss BPM Suite 6 - CDI integration"/>
+                    <tag>cdi</tag>
+                    <tag>seam</tag>
+                    <tag>jbpm</tag>
+                </classification>
+            </perform>
+        </rule>
+        <rule id="seam-java-00180">
+            <when>
+                <javaclass references="org.jboss.seam.core.ConversationEntry" />
+            </when>
+            <perform>
+                <hint title="Seam API - org.jboss.seam.core.ConversationEntry" effort="1" category-id="mandatory">
+                    <message>Rework with CDI conversation context `javax.enterprise.context.Conversation`.</message>
+                    <link href="http://docs.oracle.com/javaee/7/api/javax/enterprise/context/Conversation.html" title="Java EE API - Conversation"/>
+                    <tag>seam</tag>
+                    <tag>cdi</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-java-00190">
+            <when>
+                <javaclass references="org.jboss.seam.annotations.Begin">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Seam API - org.jboss.seam.annotations.Begin" effort="1" category-id="mandatory">
+                    <message>Rework with `javax.enterprise.context.Conversation.begin()`.</message>
+                    <link href="http://docs.oracle.com/javaee/7/api/javax/enterprise/context/Conversation.html#begin--" title="Java EE API - Conversation.begin()"/>
+                    <tag>cdi</tag>
+                    <tag>seam</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-java-00200">
+            <when>
+                <javaclass references="org.jboss.seam.annotations.End">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Seam API - org.jboss.seam.annotations.End" effort="1" category-id="mandatory">
+                    <message>Rework with `javax.enterprise.context.Conversation.end()`.</message>
+                    <link href="http://docs.oracle.com/javaee/7/api/javax/enterprise/context/Conversation.html#end--" title="Java EE API - Conversation.begin()"/>
+                    <tag>cdi</tag>
+                    <tag>seam</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-java-00210">
+            <when>
+                <javaclass references="org.jboss.seam.annotations.web.RequestParameter">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Seam API - org.jboss.seam.annotations.web.RequestParameter" effort="1" category-id="mandatory">
+                    <message>
+                    The `@RequestParameter` annotation triggers injection of an HTTP request parameter. 
+                    The parameter name can be set explicitly as a value of the annotation or can be implied from the name of an injection point.
+                    
+                    Java EE 6 does not have an annotation for this, however, the JSF 2 spec now has `&lt;f:viewParam /&gt;` which can be used instead. </message>
+                    <link href="https://access.redhat.com/documentation/en-us/Red_Hat_JBoss_Web_Framework_Kit/2.7/html-single/Seam_Guide/index.html#_requestparameter" title="WFK Seam Guide - Migration of @RequestParam"/>
+                    <link href="https://docs.oracle.com/javaee/7/javaserver-faces-2-2/vdldocs-facelets/toc.htm" title="JSF 2.2 VDL - Tag viewParam"/>
+                    <tag>seam</tag>
+                    <tag>jsf</tag>
+                </hint>
+            </perform>
+        </rule>
+                <rule id="seam-java-00220">
+            <when>
+                <javaclass references="org.jboss.seam.annotations.Logger">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Seam API - org.jboss.seam.annotations.Logger" effort="1" category-id="mandatory">
+                    <message>
+                        Seam 2 provides a built-in logger implementation. It is a thin wrapper that delegates to an available logging framework (log4j or JDK logging). 
+                        Additionally, it provides extra features such as EL expression evaluation.
+                        
+                        Java SE or EE does not have anything that correlates to this, but you can your own Logger with simple producer for this case like:
+                        
+                        ```java
+                        import javax.enterprise.inject.Produces;  
+                        import javax.enterprise.inject.spi.InjectionPoint; 
+                        
+                        @Singleton
+                        public class LoggerProducer {
+                            
+                            @Produces Logger createLogger(final InjectionPoint ip){
+                                return LoggerFactory.getLogger(ip.getMember().getDeclaringClass());
+                            }
+                        
+                        }
+                        ```
+                        
+                        and use it in your code like:
+                        
+                        ```java
+                        @Inject private transient Logger logger;
+                        ```
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-us/Red_Hat_JBoss_Web_Framework_Kit/2.7/html-single/Seam_Guide/index.html#_logger" title="WFK Seam Guide - Migration of @Logger"/>
+                    <link href="http://docs.oracle.com/javaee/7/api/javax/enterprise/inject/Produces.html" title="Java EE 7 - Produces annotation"></link>
+                    <tag>seam</tag>
+                    <tag>cdi</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-java-00230">
+            <when>
+                <javaclass references="org.jboss.seam.annotations.datamodel.DataModel{*}">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Seam API - org.jboss.seam.annotations.datamodel.DataModel{*}" effort="1" category-id="mandatory">
+                    <message>In Java EE, the Expression Language Specification has evolved and allows parameters to be passed to EL method expressions. 
+                    This approach should be used as a replacement for the `@DataModel*` functionality. 
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-us/Red_Hat_JBoss_Web_Framework_Kit/2.7/html-single/Seam_Guide/index.html#idm40851856" title="WFK Seam Guide - Annotations for use with dataTable"/>
+                    <link href="http://docs.oracle.com/javaee/7/tutorial/jsf-custom012.htm#BNATI" title="Java EE - Binding Component Values and Instances to Managed Bean Properties"/>
+                    <tag>seam</tag>
+                    <tag>jsf</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-java-00240">
+            <when>
+                <or>
+                    <javaclass references="org.jboss.seam.annotations.Observer">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                    <javaclass references="org.jboss.seam.core.Events.{*}">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="Seam API - firing and observing events">
+                    <message>
+                    Both Seam 2 and CDI beans may produce and consume events in order to communicate with other beans. Unlike method invocation, events allow for decoupled architecture with no compile-time dependency.
+                    
+                    In Seam 2, the type of an event is represented by a string value. Observer methods may observe one or more event types.
+                    
+                    Unlike Seam 2, the process of observer method resolution is type-safe in CDI. A CDI event is represented by a payload (any Java object) and a set of qualifiers. The Java types of the event payload together with qualifiers determine which observer methods are notified of the event 
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-us/Red_Hat_JBoss_Web_Framework_Kit/2.7/html-single/Seam_Guide/index.html#_events" title="WFK Seam Guide - Migrating Events"/>
+                    <link href="http://docs.oracle.com/javaee/7/tutorial/cdi-adv005.htm#GKHIC" title="Java EE - Using Events in CDI Applications"></link>
+                    <tag>seam</tag>
+                    <tag>cdi</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-java-00250">
+            <when>
+                <javaclass references="org.jboss.seam.annotations.intercept.{*}">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Seam API - Interceptors">
+                    <message>
+                    In the Java EE, the concept of interceptors was extracted into a separate specification. As a result, not only EJBs but any CDI managed beans can benefit from this facility.
+
+                    If you used interceptors in Seam 2, migration is straightforward. The names and semantics of most of the annotations remain unchanged. If you used meta-annotations to bind interceptors to your beans in Seam 2, this idea (slightly modified) made it into the specification and is now know as an Interceptor binding. 
+                    </message>
+                    <link href="http://docs.oracle.com/javaee/7/tutorial/cdi-adv006.htm#GKHJX" title="Java EE - Interceptor binding"/>
+                    <link href="http://docs.oracle.com/javaee/7/tutorial/interceptors001.htm#GKIGQ" title="Using Java EE Interceptors"/>
+                    <tag>seam</tag>
+                    <tag>javaee</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-java-00260">
+            <when>
+                <javaclass references="org.jboss.seam.annotations.async.Asynchronous">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Seam API - Asynchronous annotation" effort="3" category-id="mandatory">
+                    <message>Replace with Java EE annotation `@javax.ejb.Asynchronous`.</message>
+                    <link href="http://docs.oracle.com/javaee/7/api/javax/ejb/Asynchronous.html" title="Java EE API - javax.ejb.Asynchronous"/>
+                    <tag>seam</tag>
+                    <tag>javaee</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="seam-java-00270">
+            <when>
+                <javaclass references="org.jboss.seam.annotations.Transactional">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Seam API - org.jboss.seam.annotations.Transactional annotation" effort="1" category-id="mandatory">
+                    <message>Replace with Java EE annotation `@javax.transaction.Transactional`. The usage and transaction types are the same like in Seam API.</message>
+                    <link href="http://docs.oracle.com/javaee/7/api/javax/transaction/Transactional.html" title="Java EE API - javax.transaction.Transactional"/>
+                    <tag>seam</tag>
+                    <tag>javaee</tag>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

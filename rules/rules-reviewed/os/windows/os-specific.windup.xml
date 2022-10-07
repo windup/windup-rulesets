@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<ruleset id="os-specific" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This is a ruleset for Windows operating system specific rules while migrating to Linux operating system.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,2.4.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,2.4.0.Final" />
+        </dependencies>
+        <!-- version ranges applied to from and to technologies -->
+        <targetTechnology id="linux" />
+        <tag>ms-windows</tag>
+    </metadata>
+    <rules>
+        <rule id="os-specific-00001">
+            <when>
+                <filecontent filename="{*}.{extensions}" pattern="{pattern}" />
+            </when>
+            <perform>
+                <hint title="Windows file system path" effort="1" category-id="mandatory">
+                    <message>This file system path is Microsoft Windows platform dependent. It needs to be replaced with a Linux-style path.</message>
+                    <tag>ms-windows</tag>
+                </hint>
+            </perform>
+            <where param="extensions">
+                <matches pattern="(java|properties|jsp|jspf|tag|xml|txt)" />
+            </where>
+            <where param="pattern">
+                <matches pattern="[A-z]:([\\][^\n\t]+)+|(\\\\([^\\\,\n\t]+)\\\S+)+" />
+            </where>
+        </rule>
+        <rule id="os-specific-00002">
+            <when>
+                <file filename="{*}.dll"/>
+            </when>
+            <perform>
+                <hint title="Dynamic-Link Library (DLL)" effort="5" category-id="mandatory">
+                    <message>This Dynamic-Link Library is Microsoft Windows platform dependent. It needs to be replaced with a Linux-style shared library.</message>
+                    <tag>ms-windows</tag>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

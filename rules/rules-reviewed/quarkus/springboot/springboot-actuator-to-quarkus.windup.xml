@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="springboot-actuator-to-quarkus" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints to migrate from SpringBoot Actuator to Quarkus Smallrye Health extension
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final"/>
+        </dependencies>
+        <sourceTechnology id="springboot"/>
+        <targetTechnology id="quarkus"/>
+    </metadata>
+    <rules>
+        <rule id="springboot-actuator-to-quarkus-0100">
+            <when>
+                <or>
+                    <dependency groupId="org.springframework.boot" artifactId="spring-boot-actuator"/>
+                    <project>
+                        <artifact groupId="org.springframework.boot" artifactId="spring-boot-starter-actuator"/>
+                    </project>
+                    <project>
+                        <artifact groupId="org.springframework.boot" artifactId="spring-boot-actuator"/>
+                    </project>
+                    <project>
+                        <artifact groupId="org.springframework.boot" artifactId="spring-boot-actuator-autoconfigure"/>
+                    </project>
+                </or>
+            </when>
+            <perform>
+                <hint title="Replace the Spring Boot Actuator dependency with Quarkus Smallrye Health extension" effort="5" category-id="mandatory">
+                    <message>
+                        Replace the Spring Boot Actuator dependency with Quarkus Smallrye Health extension.  
+                        It has to be replaced by `io.quarkus:quarkus-smallrye-health` artifact.
+                    </message>
+                    <link title="Quarkus - Smallrye Health" href="https://quarkus.io/guides/smallrye-health"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="springboot-actuator-to-quarkus-0200">
+            <when>
+                <filecontent filename="application{profile}.{extension}" pattern="management.endpoints.web.exposure.include{wildcard}health" />
+            </when>
+            <perform>
+                <hint title="Replace Spring Health endpoint mapping" effort="1" category-id="mandatory">
+                    <message>
+                        Replace `management.endpoints.web.exposure.include=health` with `quarkus.smallrye-health.root-path=/actuator/health`
+                    </message>
+                    <link title="Quarkus Guide - Smallrye Health" href="https://quarkus.io/guides/smallrye-health" />
+                </hint>
+            </perform>
+            <where param="profile">
+                <matches pattern=".*" />
+            </where>
+            <where param="extension">
+                <matches pattern="(properties|yml|yaml)" />
+            </where>
+            <where param="wildcard">
+                <matches pattern=".*" />
+            </where>
+        </rule>
+    </rules>
+</ruleset>

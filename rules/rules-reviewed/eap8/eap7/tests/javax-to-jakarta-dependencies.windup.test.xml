@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<ruletest id="javax-to-jakarta-dependencies-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/dependencies/pom.xml</testDataPath>
+    <rulePath>../javax-to-jakarta-dependencies.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="javax-to-jakarta-dependencies-00001-test">
+                <when>
+                    <not>
+                        <iterable-filter size="26">   
+                            <hint-exists message="Update the group dependency by replacing the `javax."/>
+                        </iterable-filter> 
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javax-to-jakarta-dependencies-00001] The hint was not found!" />
+                </perform>
+            </rule>
+            <!-- javax-xml-bind jaxb-api artifact not covered by this rule-->
+            <rule id="javax-to-jakarta-dependencies-00002-test">
+                <when>
+                    <not>
+                        <iterable-filter size="26">  
+                            <hint-exists message="Update artifact dependency by replacing the `javax."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javax-to-jakarta-dependencies-00002] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="javax-to-jakarta-dependencies-00003-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">   
+                            <hint-exists message="Replace the `jaxb-api`"/>
+                        </iterable-filter> 
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javax-to-jakarta-dependencies-00003] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="javax-to-jakarta-dependencies-00004-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">   
+                            <hint-exists message="Replace dependency groupId `javax.activation`"/>
+                        </iterable-filter> 
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javax-to-jakarta-dependencies-00004] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="javax-to-jakarta-dependencies-00005-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">   
+                            <hint-exists message="Replace the `javax.faces`"/>
+                        </iterable-filter> 
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javax-to-jakarta-dependencies-00005] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="javax-to-jakarta-dependencies-00006-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">  
+                            <hint-exists message="Update group dependency by replacing the `javax` groupId with `jakarta.platform`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javax-to-jakarta-dependencies-00006] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="javax-to-jakarta-dependencies-00007-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">  
+                            <hint-exists message="Update artifact dependency by replacing the `javaee-api` artifactId with `jakarta.jakartaee-api"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javax-to-jakarta-dependencies-00007] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="javax-to-jakarta-dependencies-00008-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">  
+                            <hint-exists message="Update artifact dependency by replacing the `javaee-web-api` artifactId"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javax-to-jakarta-dependencies-00008] The hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

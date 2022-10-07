@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<ruleset id="java-rmi" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset detects the Java Remote Method Invocation (RMI), which may be problematic when migrating an application to a cloud environment.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,2.7.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,2.7.0.Final" />
+        </dependencies>
+        <sourceTechnology id="java" />
+        <sourceTechnology id="rmi" />
+        <targetTechnology id="cloud-readiness" />
+        <tag>cloud-readiness</tag>
+        <tag>rmi</tag>
+    </metadata>
+    <rules>
+        <rule id="java-rmi-00000">
+            <when>
+                <javaclass references="java.rmi.Remote">
+                    <location>INHERITANCE</location>
+                </javaclass>
+            </when>
+            <perform>
+                <classification issue-display-mode="detail-only" title="Java Remote Method Invocation (RMI) service" effort="0" category-id="cloud-mandatory">
+                </classification>
+                <hint title="Java Remote Method Invocation (RMI) service" effort="1" category-id="cloud-mandatory">
+                    <message>
+                    Java RMI is a tightly coupled service. Tight coupling is not suitable in a cloud environment because of scalability problems.
+
+                    Recommendations
+
+                    Use Java EE standard or loosely coupled protocols for backing service interactions:
+
+                    ** Message-based communication (JMS) for asynchronous use cases
+                    ** HTTP-based protocol or API (JAX-RS and JAX-WS) for synchronous use cases
+
+                    When used with load-balancing, both options ensure scalability and high availability.
+                    </message>
+                    <link href="https://12factor.net/backing-services" title="Twelve-factor app - Backing services"/>
+                    <tag>rmi</tag>
+                    <tag>cloud-readiness</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-rmi-00001">
+            <when>
+                <javaclass references="java.rmi.{*}" />
+            </when>
+            <perform>
+                <iteration>
+                    <when>
+                        <not>
+                            <has-classification title="Java Remote Method Invocation (RMI) service" />
+                        </not>
+                    </when>
+                    <perform>
+                        <classification issue-display-mode="all" title="Java Remote Method Invocation (RMI) API" effort="3" category-id="cloud-mandatory">
+                            <description>
+                            The Java RMI API is tightly coupled. Tight coupling is not suitable in a cloud environment because of scalability problems.
+
+                            Use a RESTful API or a message queue.
+                            </description>
+                            <tag>rmi</tag>
+                        </classification>
+                    </perform>
+                </iteration>
+            </perform>
+        </rule>
+
+    </rules>
+</ruleset>

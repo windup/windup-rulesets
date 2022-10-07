@@ -1,0 +1,722 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="replace_thorntail_fractions"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of Maven built applications that depends on Thorntail Fractions,
+            which should be replaced by the related Eclipse MicroProfile and/or Jakarta EE artifacts, when migrating to JBoss EAP XP.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="thorntail" />
+        <targetTechnology id="eapxp" versionRange="[2,)" />
+        <tag>JBossEAP</tag>
+        <tag>Thorntail</tag>
+    </metadata>
+    <rules>
+        <!-- https://issues.jboss.org/browse/WINDUPRULE-741 -->
+        <rule id="replace_thorntail_fractions-01">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="bean-validation" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:bean-validation" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:bean-validation` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-02">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="cdi-config" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:cdi-config" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:cdi-config` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-03">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="cdi" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:cdi" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:cdi` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-04">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="config-api-runtime" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:config-api-runtime" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:config-api-runtime` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-05">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="datasources" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:datasources" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:datasources` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-06">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="ee-security" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:ee-security" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:ee-security` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-07">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="ejb-mdb" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:ejb-mdb" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:ejb-mdb` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-08">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="ejb" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:ejb" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:ejb` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-09">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="elytron" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:elytron" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:elytron` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-10">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="fraction-metadata" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:fraction-metadata" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:fraction-metadata` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-11">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="hibernate-validator" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:hibernate-validator" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:hibernate-validator` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-12">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="hibernate" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:hibernate" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:hibernate` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-13">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="hystrix" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:hystrix" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:hystrix` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-14">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="infinispan" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:infinispan" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:infinispan` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-15">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="jaeger" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:jaeger" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:jaeger` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-16">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="jaxrs-jaxb" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:jaxrs-jaxb" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:jaxrs-jaxb` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-17">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="jaxrs-jsonb" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:jaxrs-jsonb" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:jaxrs-jsonb` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-18">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="jaxrs-jsonp" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:jaxrs-jsonp" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:jaxrs-jsonp` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-19">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="jaxrs-multipart" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:jaxrs-multipart" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:jaxrs-multipart` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-20">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="jaxrs-validator" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:jaxrs-validator" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:jaxrs-validator` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-21">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="jaxrs" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:jaxrs" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:jaxrs` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-22">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="jca" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:jca" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:jca` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-23">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="jmx" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:jmx" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:jmx` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-24">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="jpa" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:jpa" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:jpa` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-25">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="jsf" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:jsf" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:jsf` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-26">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="jsonb" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:jsonb" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:jsonb` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-27">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="jsonp" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:jsonp" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:jsonp` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-28">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="keycloak" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:keycloak" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:keycloak` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-29">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="logging" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:logging" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:logging` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-30">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="management" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:management" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:management` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-31">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="microprofile-config" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:microprofile-config" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:microprofile-config` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-32">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="microprofile-fault-tolerance" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:microprofile-fault-tolerance" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:microprofile-fault-tolerance` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-33">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="microprofile-health" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:microprofile-health" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:microprofile-health` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-34">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="microprofile-jwt" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:microprofile-jwt" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:microprofile-jwt` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-35">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="microprofile-metrics" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:microprofile-metrics" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:microprofile-metrics` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-36">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="microprofile-openapi" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:microprofile-openapi" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:microprofile-openapi` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-37">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="microprofile-opentracing" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:microprofile-opentracing" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:microprofile-opentracing` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-38">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="microprofile-restclient" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:microprofile-restclient" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:microprofile-restclient` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-39">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="microprofile" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:microprofile" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:microprofile` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-40">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="opentracing" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:opentracing" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:opentracing` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-41">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="remoting" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:remoting" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:remoting` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-42">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="resource-adapters" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:resource-adapters" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:resource-adapters` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-43">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="spi" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:spi" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:spi` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-44">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="topology-openshift" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:topology-openshift" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:topology-openshift` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-45">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="topology-webapp" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:topology-webapp" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:topology-webapp` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-46">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="transactions" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:transactions" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:transactions` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-47">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="undertow" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:undertow" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:undertow` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-48">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="web" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:web" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:web` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-49">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="archaius" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:archaius" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:archaius` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="replace_thorntail_fractions-50">
+            <when>
+                <project>
+                    <artifact groupId="io.thorntail" artifactId="monitor" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Fractions - io.thorntail:monitor" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Fraction `io.thorntail:monitor` with the related Eclipse MicroProfile and/or Jakarta EE artifacts.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

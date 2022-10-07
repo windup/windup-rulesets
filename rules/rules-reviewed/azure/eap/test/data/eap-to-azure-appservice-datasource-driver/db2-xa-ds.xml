@@ -1,0 +1,30 @@
+<datasources>
+    <xa-datasource jndi-name="java:/DB2XADS" pool-name="DB2XADS">
+      <driver>ibmdb2</driver>
+      <xa-datasource-property name="DatabaseName">ibmdb2db</xa-datasource-property>
+      <security>
+        <user-name>admin</user-name>
+        <password>admin</password>
+      </security>
+      <xa-pool>
+        <is-same-rm-override>false</is-same-rm-override>
+      </xa-pool>
+      <validation>
+        <valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.db2.DB2ValidConnectionChecker"></valid-connection-checker>
+        <stale-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.db2.DB2StaleConnectionChecker"></stale-connection-checker>
+        <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.db2.DB2ExceptionSorter"></exception-sorter>
+      </validation>
+      <recovery>
+        <recovery-plugin class-name="org.jboss.jca.core.recovery.ConfigurableRecoveryPlugin">
+          <config-property name="EnableIsValid">false</config-property>
+          <config-property name="IsValidOverride">false</config-property>
+          <config-property name="EnableClose">false</config-property>
+        </recovery-plugin>
+      </recovery>
+    </xa-datasource>
+    <drivers>
+      <driver name="ibmdb2" module="com.ibm">
+        <xa-datasource-class>com.ibm.db2.jcc.DB2XADataSource</xa-datasource-class>
+      </driver>
+    </drivers>
+  </datasources>

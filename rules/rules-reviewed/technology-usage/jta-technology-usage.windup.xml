@@ -1,0 +1,316 @@
+<?xml version="1.0"?>
+<ruleset id="technology-usage-jta" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides statistical summaries of the JTA items that were found during the analysis.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <phase>PostMigrationRulesPhase</phase>
+    </metadata>
+    <rules>
+        <rule id="technology-usage-jta-00010">
+            <when>
+                <or>
+                    <graph-query discriminator="DataSourceModel">
+                        <property name="isXA" type="BOOLEAN">true</property>
+                    </graph-query>
+                    <!-- any usage of JMS expects using JTA -->
+                    <graph-query discriminator="JmsDestinationModel"/>
+                    <graph-query discriminator="JmsConnectionFactoryModel"/>
+                    <graph-query discriminator="EjbMessageDrivenModel"/>
+                </or>
+            </when>
+            <perform>
+                <technology-identified name="JTA">
+                    <tag name="Sustain"/>
+                    <tag name="Transaction"/>
+                    <tag name="Java EE"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-jta-00020">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Mycontainer JTA</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Mycontainer JTA">
+                    <tag name="Sustain"/>
+                    <tag name="Transaction"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-jta-00030">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Geronimo JTA</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Geronimo JTA">
+                    <tag name="Sustain"/>
+                    <tag name="Transaction"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-jta-00040">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">OW2 JTA</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="OW2 JTA">
+                    <tag name="Sustain"/>
+                    <tag name="Transaction"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-jta-00050">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Evo JTA</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Evo JTA">
+                    <tag name="Sustain"/>
+                    <tag name="Transaction"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-jta-00060">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">AKKA JTA</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="AKKA JTA">
+                    <tag name="Sustain"/>
+                    <tag name="Transaction"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-jta-00070">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">KumuluzEE JTA</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="KumuluzEE JTA">
+                    <tag name="Sustain"/>
+                    <tag name="Transaction"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-jta-00080">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Ignite JTA</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Ignite JTA">
+                    <tag name="Sustain"/>
+                    <tag name="Transaction"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-jta-00090">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Nuxeo JTA/JCA</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Nuxeo JTA/JCA">
+                    <tag name="Sustain"/>
+                    <tag name="Transaction"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-jta-00100">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Everit JTA</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Everit JTA">
+                    <tag name="Sustain"/>
+                    <tag name="Transaction"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-jta-00110">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Demoiselle JTA</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Demoiselle JTA">
+                    <tag name="Sustain"/>
+                    <tag name="Transaction"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-jta-00120">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Apache Meecrowave JTA</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Apache Meecrowave JTA">
+                    <tag name="Sustain"/>
+                    <tag name="Transaction"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-jta-00130">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Apache Sirona JTA</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Apache Sirona JTA">
+                    <tag name="Sustain"/>
+                    <tag name="Transaction"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-jta-00140">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Lift JTA</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Lift JTA">
+                    <tag name="Sustain"/>
+                    <tag name="Transaction"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-jta-00150">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">WF Core JTA</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="WF Core JTA">
+                    <tag name="Sustain"/>
+                    <tag name="Transaction"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-jta-00160">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Java Transaction API</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Java Transaction API">
+                    <tag name="Sustain"/>
+                    <tag name="Transaction"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-jta-00170">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">JBoss Transactions</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="JBoss Transactions">
+                    <tag name="Sustain"/>
+                    <tag name="Transaction"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-jta-00180">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">GlassFish JTA</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="GlassFish JTA">
+                    <tag name="Sustain"/>
+                    <tag name="Transaction"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-jta-00190">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Atomikos JTA</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Atomikos JTA">
+                    <tag name="Sustain"/>
+                    <tag name="Transaction"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-jta-00200">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Narayana Arjuna</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Narayana Arjuna">
+                    <tag name="Sustain"/>
+                    <tag name="Transaction"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-jta-00210">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Spring Transactions</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Spring Transactions">
+                    <tag name="Sustain"/>
+                    <tag name="Transaction"/>
+                    <tag name="Embedded"/>
+                </technology-identified>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

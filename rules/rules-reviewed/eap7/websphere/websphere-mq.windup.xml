@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset id="websphere-mq-eap7" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <metadata>
+        <description>
+            Provides analysis of WebSphere MQ proprietary classes and configuration that may require individual attention when migrating to
+            JBoss EAP 7+.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,2.3.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,2.3.0.Final" />
+        </dependencies>
+        <sourceTechnology id="websphere" />
+        <targetTechnology id="eap" versionRange="[7,)" />
+        <targetTechnology id="java-ee" versionRange="[7,)" />
+        <tag>jms</tag>
+        <tag>messaging</tag>
+        <tag>websphere</tag>
+    </metadata>
+
+    <rules>
+        <rule id="websphere-mq-eap7-00000">
+            <when>
+                <javaclass references="{package}.{type}" />
+            </when>
+            <perform>
+                <classification issue-display-mode="all" title="IBM MQ client API" effort="3" category-id="mandatory">
+                    <description>WebSphere MQ client API is used to communicate with the MQ server from client-side applications.
+                        For JBoss EAP 7, this needs to be replaced with standard Java EE 6 JMS API, or with ActiveMQ Artemis client API.
+                    </description>
+                    <link title="Java EE 7 JMS Tutorial" href="https://docs.oracle.com/javaee/7/tutorial/jms-concepts003.htm#BNCEH" />
+                    <link title="WebSphere MQ JavaDoc" href="http://www-01.ibm.com/support/knowledgecenter/SSVHEW_6.2.0/com.ibm.mqe.javadoc/java/overview-summary.html" />
+                    <tag>jms</tag>
+                    <tag>websphere</tag>
+                </classification>
+            </perform>
+            <where param="package">
+                <matches pattern="com.ibm(\..*)?\.(mq|wmq).*" />
+            </where>
+            <where param="type">
+                <matches pattern="[^.]+" />
+            </where>
+        </rule>
+
+        <rule id="websphere-mq-eap7-01000">
+            <when>
+                <!-- https://issues.jboss.org/browse/WINDUP-615 -->
+                <filecontent filename="{*}.{ext}" pattern="com.ibm.mq.jms.context.WMQInitialContextFactory" />
+            </when>
+            <perform>
+                <classification issue-display-mode="detail-only" title="IBM MQ Configuration">
+                    <description>The WebSphere MQ client API is used to communicate with the MQ server from client-side applications.
+                        For JBoss EAP 7, this needs to be replaced with standard Java EE 7 JMS API, or with ActiveMQ Artemis client API.
+                    </description>
+                </classification>
+                <hint title="IBM JMS implementation of WMQInitialContextFactory" category-id="mandatory" effort="3">
+                    <message>`WMQInitialContextFactory` is an implementation of `InitialContextFactory`
+                        used to get object instances from JNDI. The
+                        equivalent functionality needs to be configured on JBoss EAP 7 using ActiveMQ Artemis.
+                        `InitialContextFactory` is provided
+                        by EAP and you only need to instantiate `InitialContext ctx = new InitialContext();`.
+                    </message>
+                    <link title="The Embedded ActiveMQ Artemis Messaging Broker"
+                          href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/configuring_messaging/#the_integrated_activemq_artemis_messaging_broker" />
+                        <link title="Java EE 7 JMS Tutorial" href="https://docs.oracle.com/javaee/7/tutorial/jms-concepts003.htm#BNCEH" />
+                    <tag>jms</tag>
+                    <tag>messaging</tag>
+                    <tag>configuration</tag>
+                    <tag>websphere</tag>
+                </hint>
+            </perform>
+            <where param="ext">
+                <matches pattern="(java|properties|xml)" />
+            </where>
+        </rule>
+
+        <rule id="websphere-mq-eap7-02000">
+            <!-- https://issues.jboss.org/browse/WINDUPRULE-1 -->
+            <when>
+                <filecontent filename="{*}.scp" pattern="{*}" />
+            </when>
+            <perform>
+                <classification issue-display-mode="detail-only" title="IBM MQ Configuration" />
+                <hint title="IBM WebSphere .scp file" category-id="mandatory" effort="3">
+                    <message>
+                        WebSphere `.scp` files contain scripts for the `jmsadmin` program which is used
+                        to configure the WebSphere MQ destinations
+                        and routing. To configure messaging in JBoss EAP 7 with ActiveMQ Artemis, use either the Management Console or Management CLI with it's
+                        scripting feature.
+                    </message>
+                    <link title="Configuring Single-Node Messaging Systems"
+                          href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/configuring_messaging/#basic_configuration" />
+                        <link title="Java EE 7 JMS Tutorial" href="https://docs.oracle.com/javaee/7/tutorial/jms-concepts003.htm#BNCEH" />
+                    <tag>jms</tag>
+                    <tag>messaging</tag>
+                    <tag>configuration</tag>
+                    <tag>websphere</tag>
+                </hint>
+            </perform>
+        </rule>
+
+    </rules>
+</ruleset>

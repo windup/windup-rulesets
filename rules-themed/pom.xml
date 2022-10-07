@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.jboss.windup.rules</groupId>
+        <artifactId>windup-rulesets-parent</artifactId>
+        <version>6.0.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>windup-rulesets-themed</artifactId>
+    <name>Windup Rulesets Themed Parent</name>
+    <packaging>pom</packaging>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>labels</directory>
+            </resource>
+        </resources>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>3.3.0</version>
+                    <executions>
+                        <execution>
+                            <id>unpack</id>
+                            <goals>
+                                <goal>unpack</goal>
+                            </goals>
+                            <phase>process-sources</phase>
+                            <configuration>
+                                <artifactItems>
+                                     <artifactItem>
+                                         <groupId>org.jboss.windup.rules</groupId>
+                                         <artifactId>windup-rulesets</artifactId>
+                                         <version>${project.version}</version>
+                                         <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+                                     </artifactItem>
+                               </artifactItems>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <!-- This declaration makes sure children get plugin in their lifecycle -->
+                <artifactId>maven-dependency-plugin</artifactId>
+                <!-- Configuration won't be propagated to children -->
+                <inherited>false</inherited>
+                <executions>
+                    <execution>
+                        <!--This matches and thus overrides execution defined above -->
+                        <id>unpack</id>
+                        <!-- Unbind from lifecycle for this POM -->
+                        <phase/>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>windup</id>
+            <activation>
+                <property>
+                    <name>!skipThemeWindup</name>
+                </property>
+            </activation>
+            <modules>
+                <module>rules-windup</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>tackle</id>
+            <modules>
+                <module>rules-tackle</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>mtr</id>
+            <modules>
+                <module>rules-mtr</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>mta</id>
+            <modules>
+                <module>rules-mta</module>
+            </modules>
+        </profile>
+    </profiles>
+
+</project>

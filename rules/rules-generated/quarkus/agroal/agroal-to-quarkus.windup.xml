@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="agroal-to-quarkus"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints to migrate agroal components to Quarkus extension
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="agroal" />
+        <targetTechnology id="quarkus" />
+    </metadata>
+    <rules>
+        <rule id="quarkus-agroal-00000">
+            <when>
+
+                <project>
+                    <artifact groupId="io.agroal" artifactId="agroal-api"/>
+                </project>
+            </when>
+            <perform>
+                <iteration over="default">
+                    <hint title="Replace the 'agroal-api' dependency with Quarkus 'quarkus-agroal' extension" effort="1" category-id="mandatory">
+                        <message>
+                            Replace the `io.agroal:agroal-api` dependency with the Quarkus dependency `io.quarkus:quarkus-agroal`  
+                            Further information in the link below.
+                        </message>
+                        <link title="Quarkus - Guide" href="https://quarkus.io/guides/datasource" />
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="quarkus-agroal-00010">
+            <when>
+                <dependency groupId="io.agroal" artifactId="agroal-api"/>
+            </when>
+            <perform>
+                <hint title="Replace the 'agroal-api' dependency with Quarkus 'quarkus-agroal' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `io.agroal:agroal-api` dependency with the Quarkus dependency `io.quarkus:quarkus-agroal`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/datasource" />
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

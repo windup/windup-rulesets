@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="observability" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset generates tags for observability related technologies 
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final"/>
+        </dependencies>
+    </metadata>
+    <rules>
+        <rule id="observability-0100">
+            <when>
+                <or>
+                    <dependency groupId="org.springframework.boot" artifactId="spring-boot-actuator"/>
+                    <project>
+                        <artifact groupId="org.springframework.boot" artifactId="spring-boot-starter-actuator"/>
+                    </project>
+                    <project>
+                        <artifact groupId="org.springframework.boot" artifactId="spring-boot-actuator"/>
+                    </project>
+                    <project>
+                        <artifact groupId="org.springframework.boot" artifactId="spring-boot-actuator-autoconfigure"/>
+                    </project>
+                </or>
+            </when>
+            <perform>
+                <classification title="Embedded library - Spring Boot Actuator" category-id="information" effort="0">
+                    <description>The application embeds Spring Boot Actuator.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Spring Boot Actuator</technology-tag>
+            </perform>
+        </rule>
+        <rule id="observability-0200">
+            <when>
+                <or>
+                    <xmlfile matches="//*/c:bean/@class[windup:matches(self::node(), 'org.springframework.jmx.export.MBeanExporter')]">
+                        <namespace prefix="c" uri="http://www.springframework.org/schema/beans"/>
+                    </xmlfile>
+                    <javaclass references="org.springframework.jmx.{*}"  >
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <classification title="Spring JMX configuration detected" category-id="information" effort="0">
+                    <description>The application uses Spring JMX.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Spring JMX</technology-tag>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

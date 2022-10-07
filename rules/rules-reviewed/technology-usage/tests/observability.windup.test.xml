@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruletest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:windupfunctions="windupcustomfunctions"
+          xmlns:windup="http://windup.jboss.org/schema/jboss-ruleset"
+          id="observability-test"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/observability</testDataPath>
+    <rulePath>../observability.windup.xml</rulePath>
+   <ruleset>
+      <rules>
+         <rule id="observability-0100-test">
+            <when>
+               <not>
+                  <classification-exists classification="Embedded library - Spring Boot Actuator"/>
+                  <technology-tag-exists technology-tag="Spring Boot Actuator"/>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule observability-0100"/>
+            </perform>
+         </rule>
+         <rule id="observability-0200-test">
+            <when>
+               <not>
+                  <classification-exists classification="Spring JMX configuration detected" in="springboot-jmx-configuration.xml"/>
+                  <classification-exists classification="Spring JMX configuration detected" in="SpringbootAnnotationConfiguration.java"/>
+                  <technology-tag-exists technology-tag="Spring JMX" in="springboot-jmx-configuration.xml"/>
+                  <technology-tag-exists technology-tag="Spring JMX" in="SpringbootAnnotationConfiguration.java"/>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule observability-0200"/>
+            </perform>
+         </rule>
+      </rules>
+   </ruleset>
+</ruletest>

@@ -1,0 +1,181 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="eap6"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <metadata>
+        <description>
+            This ruleset provides analysis of JBoss EAP 6 xml files that may require
+            individual attention when migrating to JBoss EAP 7+.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,2.3.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,2.3.0.Final" />
+        </dependencies>
+        <sourceTechnology id="eap" versionRange="[6,7)" />
+        <targetTechnology id="eap" versionRange="[7,)" />
+    </metadata>
+
+    <rules>
+        <rule id="eap6-08000">
+            <when>
+                <filecontent pattern="remote://{node}:{port}" filename="{*}.{extension}" />
+            </when>
+            <perform>
+                <hint title="Remote JNDI Provider URL has changed in EAP 7" effort="1" category-id="mandatory">
+                    <message>
+                        Default Remote JNDI Provider URL has changed in EAP 7. External applications using JNDI to lookup remote resources, for instance an EJB or a JMS Queue,
+                        may need to change the value for the JNDI InitialContext environment's property named `java.naming.provider.url`.
+                        The default URL scheme is now **http-remoting** instead of **remote**, and the default URL port is now **8080** instead of **4447**.
+
+                        As an example, consider the application server host is localhost, then clients previously accessing EAP 6 would use
+
+                        ```
+                        java.naming.factory.initial=org.jboss.naming.remote.client.InitialContextFactory
+                        java.naming.provider.url=remote://localhost:4447
+                        ```
+
+                        while clients now accessing EAP 7 should use instead
+
+                        ```
+                        java.naming.factory.initial=org.jboss.naming.remote.client.InitialContextFactory
+                        java.naming.provider.url=http-remoting://localhost:8080
+                        ```
+
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_default_remote_url_connector_and_port_changes" title="Remote JNDI URL in EAP 7" />
+                    <tag>jndi</tag>
+                    <tag>configuration</tag>
+                    <tag>ejb</tag>
+                </hint>
+            </perform>
+            <where param="node">
+                <matches pattern=".*"/>
+            </where>
+            <where param="port">
+               <matches pattern="\d*"/>
+            </where>
+            <where param="extension">
+                <matches pattern="(java|properties|xml)"/>
+            </where>
+        </rule>
+        <rule id="eap6-08001">
+            <when>
+                    <filecontent pattern="remote.connection.{*}.port{portnumber}" filename="jboss-ejb-client.properties" />
+            </when>
+            <perform>
+                <hint title="jboss-ejb-client.properties - Default Remote Connection Port changes" effort="1" category-id="mandatory">
+                    <message>
+                        The default remote connection port has changed in **jboss-ejb-client.properties** from '4447' to '8080'.
+
+                        In EAP 6, the jboss-ejb-client.properties file looked similar to the following:
+
+                        ```
+                        remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED=false
+                        remote.connections=default
+                        remote.connection.default.host=localhost
+                        remote.connection.default.port=4447
+                        remote.connection.default.connect.options.org.xnio.Options.SASL_POLICY_NOANONYMOUS=false
+                        ```
+
+                        In EAP 7, the properties file looks like this:
+
+                        ```
+                        remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED=false
+                        remote.connections=default
+                        remote.connection.default.host=localhost
+                        remote.connection.default.port=8080
+                        remote.connection.default.connect.options.org.xnio.Options.SASL_POLICY_NOANONYMOUS=false
+                        ```
+
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#update_the_default_remote_connection_port" title="Remote JNDI URL in EAP 7" />
+                    <tag>jndi</tag>
+                    <tag>configuration</tag>
+                    <tag>ejb</tag>
+                </hint>
+            </perform>
+            <where param="portnumber">
+               <matches pattern='(.*(?!8080)\d{4})'/>
+            </where>
+        </rule>
+        <rule id="eap6-08002">
+            <when>
+                    <filecontent pattern="remote.connection.{*}.port{portnumber}" filename="{*}.java" />
+            </when>
+            <perform>
+                <hint title="Java - Default Remote Connection Port has changed in EAP 7" effort="1" category-id="mandatory">
+                    <message>
+                        The default remote connection port has changed from '4447' to '8080'.
+
+                        In EAP 6, Remote EJB client Java code looks like the following:
+
+                        ```java
+                        Properties properties = new Properties();
+                        properties.put("remote.connection.default.port", "4447");
+                        ```
+
+                        In EAP 7, the Java client code looks like this:
+
+                        ```java
+                        Properties properties = new Properties();
+                        properties.put("remote.connection.default.port", "8080");
+                        ```
+
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#update_the_default_remote_connection_port" title="Remote JNDI URL in EAP 7" />
+                    <tag>jndi</tag>
+                    <tag>configuration</tag>
+                    <tag>ejb</tag>
+                </hint>
+            </perform>
+            <where param="portnumber">
+               <matches pattern='(.*(?!8080)\d{4})'/>
+            </where>
+        </rule>
+        <rule id="eap6-11000">
+            <when>
+                <or>
+                    <!-- when analyzing compiled classes -->
+                    <filecontent filename="{*}.java" pattern="com.sun.faces.facelets.FACELET_CONTEXT"/>
+                    <!-- when analyzing Java sources -->
+                    <filecontent filename="{*}.java" pattern="FaceletContext.FACELET_CONTEXT_KEY"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="JSF FaceletContext.FACELET_CONTEXT_KEY changed value" effort="1" category-id="mandatory">
+                    <message>
+                        The value of JSF constant `FaceletContext.FACELET_CONTEXT_KEY` has changed between JSF 2.1 and 2.2.
+                        The variable is a compile-time constant expression, so when the program was originally compiled,
+                        the reference to `FACELET_CONTEXT_KEY` was replaced by its value during compilation.
+                        The application must be recompiled so that the reference to `FACELET_CONTEXT_KEY` is replaced by its new value.
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#compatibility_issue_between_jsf_2_1_and_jsf_2_2" title="Compatibility Issue Between JSF 2.1 and JSF 2.2"/>
+                    <tag>jsf</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="eap6-12000">
+            <when>
+                <filecontent pattern="org.jboss.security.ignoreHttpsHost" filename="{*}.{extension}"/>
+            </when>
+            <perform>
+                <hint title="HTTPS URL hostname check against a service’s Common Name (CN) changed" effort="1" category-id="mandatory">
+                    <message>In EAP 6, you could disable the HTTPS URL hostname check against a service’s Common Name (CN) given in its certificate by setting the system property `org.jboss.security.ignoreHttpsHost` to `true`. This system property name has been replaced with `cxf.tls-client.disableCNCheck` in EAP 7. 
+                    </message>
+                    <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#changes_to_set_cookie_behavior"
+                        title="IgnoreHttpsHost CN Check Change"/>
+                    <tag>certificate</tag>
+                    <tag>https</tag>
+                    <quickfix name="ignoreHttpsCheck" type="REPLACE">
+                        <replacement>cxf.tls-client.disableCNCheck</replacement>
+                        <search>org.jboss.security.ignoreHttpsHost</search>
+                    </quickfix>
+                </hint>
+            </perform>
+            <where param="extension">
+                <matches pattern="(java|properties|xml|cmd|sh|bat)"/>
+            </where>
+        </rule>
+    </rules>
+</ruleset>

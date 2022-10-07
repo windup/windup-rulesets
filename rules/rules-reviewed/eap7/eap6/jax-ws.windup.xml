@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="jax-ws"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <metadata>
+        <description>
+            This ruleset provides analysis of applications that use JAX-WS and may require
+            individual attention when migrating to JBoss EAP 7+.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <targetTechnology id="eap" versionRange="[7,)" />
+        <tag>jax-ws</tag>
+    </metadata>
+    <rules>
+        <rule id="jax-ws-00000">
+            <when>
+                <javaclass references="javax.xml.ws.Service" as="step1">
+                    <location>INHERITANCE</location>
+                </javaclass>
+                <javaclass references="{*}(java.net.URL, javax.xml.namespace.QName)" from="step1" as="step2">
+                    <location>METHOD</location>
+                </javaclass>
+            </when>
+            <perform>
+                <iteration over="step2">
+                    <when>
+                        <not>
+                            <javaclass references="{*}(java.net.URL, javax.xml.namespace.QName, javax.xml.ws.WebServiceFeature{*})">
+                                <location>METHOD</location>
+                            </javaclass>
+                        </not>
+                    </when>
+                    <perform>
+                        <hint title="JAX-WS 2.2 Requirements for WebServiceRef" effort="1" category-id="mandatory">
+                            <message>
+                                <![CDATA[
+                                EAP 7 uses JAX-WS 2.2 style constructors with the `javax.xml.ws.WebServiceFeature` class to build clients that are injected into web service references (i.e. using the `@WebServiceRef` annotation).  
+                                This means that user provided service classes injected by the container must implement JAX-WS 2.2 or later.  
+                                The class must be changed to add the constructor [`Service(URL wsdlDocumentLocation, QName serviceName, WebServiceFeature... features)`](https://docs.oracle.com/javase/7/docs/api/javax/xml/ws/Service.html#Service&#40;java.net.URL,%20javax.xml.namespace.QName,%20javax.xml.ws.WebServiceFeature...&#41;)
+                                ]]>
+                            </message>
+                            <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_jax_ws_2_2_requirements_for_webserviceref" title="JAX-WS 2.2 Requirements for WebServiceRef"/>
+                            <tag>jax-ws</tag>
+                        </hint>
+                    </perform>
+                </iteration>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<ruletest id="springboot-properties-to-quarkus-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/springboot-properties</testDataPath>
+    <rulePath>../springboot-properties-to-quarkus.windup.xml</rulePath>
+    <rulePath>../springboot-properties-to-quarkus.windup.groovy</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="springboot-properties-to-quarkus-00000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace the SpringBoot artifact with Quarkus `spring-boot-properties` extension"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-properties-to-quarkus-extension] SpringBoot artifact replaced by Quarkus extension was not found!" />
+                </perform>
+            </rule>
+            <rule id="springboot-properties-to-quarkus-groovy-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Please add the Quarkus dependency `io.quarkus:quarkus-spring-boot-properties` to successfully use the Spring Configuration Properties"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-properties-to-quarkus-extension] Add Quarkus extension was not found!" />
+                </perform>
+            </rule>
+            <rule id="springboot-properties-to-quarkus-00001-test">
+                <when>
+                    <not>
+                        <hint-exists message="Spring property profile in separate file"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-properties-profiles-to-quarkus-properties] SpringBoot property profiles replaced by Quarkus property profiles was not found!" />
+                </perform>
+            </rule>
+            <rule id="springboot-properties-to-quarkus-00002-test">
+                <when>
+                    <not>
+                        <hint-exists message="Spring datasource property key/value pairs have been detected in the application property file."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-properties-to-quarkus-properties] SpringBoot datasource property replaced by Quarkus property was not found!" />
+                </perform>
+            </rule>
+            <rule id="springboot-properties-to-quarkus-00003-test">
+                <when>
+                    <not>
+                        <hint-exists message="Spring log level property configuration have been detected in the application property file"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-log-level-to-quarkus-properties] SpringBoot log level property replaced by Quarkus property was not found!" />
+                </perform>
+            </rule>
+            <rule id="springboot-properties-to-quarkus-00004-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace `spring.jpa.hibernate.ddl-auto=create-drop` with `quarkus.hibernate-orm.database.generation=drop-and-create`"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-properties-to-quarkus-00004-test] SpringBoot JPA Hibernate property rule failed!" />
+                </perform>
+            </rule>
+            <rule id="springboot-properties-to-quarkus-00005-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace `springdoc.swagger-ui.path` with `quarkus.swagger-ui.path`*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-properties-to-quarkus-00005-test] SpringBoot Swagger endpoint property rule failed!" />
+                </perform>
+            </rule>
+            <rule id="springboot-properties-to-quarkus-00006-test">
+                <when>
+                    <not>
+                        <hint-exists message="Replace `springdoc.api-docs.path` with `quarkus.smallrye-openapi.path`*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-properties-to-quarkus-00006-test] SpringBoot OpenAPI endpoint property rule failed!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

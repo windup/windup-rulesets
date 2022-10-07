@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="liberty-java-unavailable-technologies-test">
+    <testDataPath>data</testDataPath>
+    <rulePath>../liberty-java-unavailable-technologies.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="DetectJavaApplicationDeploymentJava-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The Java EE Application Deployment API is not supported on Liberty or Liberty Core"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for DetectJavaApplicationDeploymentJava"/>
+                </perform>
+            </rule>
+            <rule id="DetectJavaPortlet-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="The Java Portlet API and its deployment descriptors are not supported on Liberty"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for DetectJavaPortlet"/>
+                </perform>
+            </rule>
+            <rule id="DetectJAXRJava-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="The Java API for XML Registries \(JAXR\) is not supported on Liberty or Liberty Core"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for DetectJAXRJava"/>
+                </perform>
+            </rule>
+            <rule id="DetectRemoteBundleRepositoriesJava-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The OSGI repository service APIs is not supported in Liberty or Liberty Core"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for DetectRemoteBundleRepositoriesJava"/>
+                </perform>
+            </rule>
+            <rule id="DetectRemoteServicesJava-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The OSGI Remote Service Admin is not supported in Liberty or Liberty Core"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for DetectRemoteServicesJava"/>
+                </perform>
+            </rule>
+            <rule id="DetectWSNotificationJava-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Web Services Notification \(WS-Notification\) is not supported on Liberty or Liberty Core"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for DetectWSNotificationJava"/>
+                </perform>
+            </rule>
+            <rule id="DetectEJBEntityBeansXML-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Entity beans are optional in the EJB 3\.2 specification and are not supported on Liberty or Liberty Core"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for DetectEJBEntityBeansXML"/>
+                </perform>
+            </rule>
+            <rule id="DetectTransactionPropagationEJBRemote-test">
+                <when>
+                    <not>
+                        <iterable-filter size="32">
+                            <hint-exists message="Liberty does not support outbound or inbound transaction propagation for EJB remote interfaces"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for DetectTransactionPropagationEJBRemote"/>
+                </perform>
+            </rule>
+            <rule id="DetectJAXRPC-test">
+                <when>
+                    <not>
+                        <iterable-filter size="6"> <!-- Should be 11 but doesn't flag the files by name in this test -->
+                            <hint-exists message="This rule flags the use of any JAX-RPC specific packages and configuration files"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Correct count of hints not found for DetectJAXRPC"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

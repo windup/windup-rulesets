@@ -6,6 +6,14 @@ Rules and rulesets contributed by community.
 Follow the [Get Involved](https://github.com/windup/windup/wiki/Get-Involved) in Windup wiki.
 
 
+Directory structure
+-----------
+
+The `rules` module repository is organized in subdirectories:
+
+* `rules-reviewed`: this is where you can make contribution and add new rules 
+* `rules-generated`: these rules are automatically generated (from the Quarkus main git repo) and you should not add new rules here
+
 Testing the rules
 -----------
 

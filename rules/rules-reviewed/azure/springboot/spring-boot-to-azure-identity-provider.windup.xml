@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<ruleset id="spring-boot-to-azure-identity-provider"
+         xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            Identify any identity provider(s) used by the application.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="springboot"/>
+        <targetTechnology id="azure-appservice"/>
+        <targetTechnology id="azure-aks"/>
+        <tag>security</tag>
+    </metadata>
+    <rules>
+        <rule id="spring-boot-to-azure-identity-provider-01000">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.springframework.boot" artifactId="spring-boot-starter-security"/>
+                    </project>
+                    <project>
+                        <artifact groupId="org.springframework.security" artifactId="{*}"/>
+                    </project>
+                </or>
+            </when>
+            <perform>
+                <hint title="Spring Security-related dependencies" category-id="information" effort="5">
+                    <message>
+                        <![CDATA[
+                        The application uses Spring security.
+
+                        Checkout Azure Active Directory as an identity provider.
+                        ]]>
+                    </message>
+                    <link title="Spring Security-related dependencies found in the project" href="https://docs.microsoft.com/en-us/azure/developer/java/migration/migrate-spring-boot-to-app-service#identity-providers"/>
+                    <link title="Azure Active Directory (Azure AD) identity provider for External Identities" href="https://docs.microsoft.com/azure/active-directory/external-identities/azure-ad-account"/>
+                    <link title="Spring Security" href="https://docs.spring.io/spring-security/reference/index.html"/>
+                    <link title="Spring Boot API: Authorization" href="https://auth0.com/docs/quickstart/backend/java-spring-security5/01-authorization"/>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

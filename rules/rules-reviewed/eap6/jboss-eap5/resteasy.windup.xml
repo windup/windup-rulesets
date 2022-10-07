@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="resteasy-eap5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of JBoss EAP 5 which needs to be replaced when migrating to JBoss EAP 6.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-xml,2.3.0.Final" />
+        </dependencies>
+        <sourceTechnology id="eap" versionRange="[5,6)" />
+        <targetTechnology id="eap" versionRange="[6,7)" />
+        <tag>resteasy</tag>
+    </metadata>
+    <rules>
+        <rule id="resteasy-eap5-000001">
+            <when>
+                <javaclass references="org.jboss.resteasy.plugins.cache.server.SimpleServerCache" />
+            </when>
+            <perform>
+                <hint title="Deprecated class SimpleServerCache in RESTEasy 2" effort="1" category-id="optional">
+                    <message>Use of `org.jboss.resteasy.plugins.cache.server.SimpleServerCache` is not supported in JBoss EAP 6.</message>
+                    <link href="https://access.redhat.com/solutions/2982101" title="How to implement JAX-RS RestEASY client and server caching in EAP 6?" />
+                    <link title="JBoss EAP 6 - JAX-RS and RESTEasy Changes"
+                        href="https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform/6/html-single/migration_guide/#sect-JAX-RS_and_RESTEasy_Changes" />
+                    <link title="RestEasy javadoc for SimpleServerCache" href="https://docs.jboss.org/resteasy/docs/2.3.3.Final/javadocs/org/jboss/resteasy/plugins/cache/server/SimpleServerCache.html" />
+                    <link title="JBoss EAP 5 - Local Server-Side Response Cache" href="https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform/5/html/resteasy_reference_guide/server_cache" />
+                    <tag>resteasy</tag>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
+

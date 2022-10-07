@@ -1,0 +1,1268 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="hsearch" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis for migration from Hibernate Search 4.x to Hibernate Search 5.x.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,2.4.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,2.4.0.Final" />
+        </dependencies>
+        <sourceTechnology id="hibernate-search" versionRange="[4,5)" />
+        <sourceTechnology id="eap" versionRange="[6,7)" />
+        <targetTechnology id="hibernate-search" versionRange="[5,)" />
+        <targetTechnology id="eap" versionRange="[7,8)" />
+        <tag>hibernate-search</tag>
+        <tag>hibernate</tag>
+    </metadata>
+    <rules>
+        <rule id="hsearch-00000">
+            <when>
+                <javaclass references="org.hibernate.search.{*}" />
+            </when>
+            <perform>
+                <classification issue-display-mode="detail-only" title="Hibernate Search - API usage" effort="0" category-id="optional">
+                    <description>Hibernate Search library API used in application.</description>
+                    <tag>hibernate-search</tag>
+                </classification>
+            </perform>
+        </rule>
+        <rule id="hsearch-00001">
+            <when>
+                <javaclass references="org.hibernate.search.impl.SearchMappingBuilder" />
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Renamed class SearchMappingBuilder" effort="1" category-id="optional">
+                    <message>The class `org.hibernate.search.impl.SearchMappingBuilder` was replaced by `org.hibernate.search.engine.spi.SearchMappingHelper` class.</message>
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_hibernate_search_advanced_integrator_changes"
+                        title="Advanced Integrator Changes in Hibernate Search 5.x" />
+                    <tag>hibernate-search</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hsearch-00002">
+            <when>
+                <javaclass references="org.hibernate.search.Environment" />
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Package change for Environment" effort="1" category-id="optional">
+                    <message>The class `org.hibernate.search.Environment` was replaced by `org.hibernate.search.cfg.Environment` class.</message>
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_hibernate_search_changes"
+                        title="Changes in Hibernate Search 5.x" />
+                    <tag>hibernate-search</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hsearch-00003">
+            <when>
+                <javaclass references="org.hibernate.search.FullTextFilter" />
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Package change for FullTextFilter" effort="1" category-id="optional">
+                    <message>The class `org.hibernate.search.FullTextFilter` was replaced by `org.hibernate.search.filter.FullTextFilter` class.</message>
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_hibernate_search_changes"
+                        title="Changes in Hibernate Search 5.x" />
+                    <tag>hibernate-search</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hsearch-00004">
+            <when>
+                <javaclass references="org.hibernate.search.indexes.impl.DirectoryBasedIndexManager" />
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Package change for DirectoryBasedIndexManager" effort="1" category-id="optional">
+                    <message>The class `org.hibernate.search.indexes.impl.DirectoryBasedIndexManager` was replaced by `org.hibernate.search.indexes.spi.DirectoryBasedIndexManager` class.</message>
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_hibernate_search_advanced_integrator_changes"
+                        title="Advanced Integrator Changes in Hibernate Search 5.x" />
+                    <tag>hibernate-search</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hsearch-00005">
+            <when>
+                <javaclass references="org.hibernate.search.infinispan.impl.InfinispanDirectoryProvider" />
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Package change for InfinispanDirectoryProvider" effort="1" category-id="optional">
+                    <message>The class `org.hibernate.search.infinispan.impl.InfinispanDirectoryProvider` was replaced by `org.hibernate.search.infinispan.spi.InfinispanDirectoryProvider` class.</message>
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_hibernate_search_changes"
+                        title="Changes in Hibernate Search 5.x" />
+                    <tag>hibernate-search</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hsearch-00006">
+            <when>
+                <javaclass references="org.hibernate.search.ProjectionConstants" />
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Package change for ProjectionConstants" effort="1" category-id="optional">
+                    <message>The class `org.hibernate.search.ProjectionConstants` was replaced by `org.hibernate.search.engine.ProjectionConstants` class.</message>
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_hibernate_search_changes"
+                        title="Changes in Hibernate Search 5.x" />
+                    <tag>hibernate-search</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hsearch-00007">
+            <when>
+                <javaclass references="org.hibernate.search.SearchException" />
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Package change for SearchException" effort="1" category-id="optional">
+                    <message>The class `org.hibernate.search.SearchException` was replaced by `org.hibernate.search.exception.SearchException` class.</message>
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_hibernate_search_changes"
+                        title="Changes in Hibernate Search 5.x" />
+                    <tag>hibernate-search</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hsearch-00008">
+            <when>
+                <javaclass references="org.hibernate.search.spi.MassIndexerFactory" />
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Package change for MassIndexerFactory" effort="1" category-id="optional">
+                    <message>The class `org.hibernate.search.spi.MassIndexerFactory` was replaced by `org.hibernate.search.batchindexing.spi.MassIndexerFactory` class.</message>
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_hibernate_search_advanced_integrator_changes"
+                        title="Advanced Integrator Changes in Hibernate Search 5.x" />
+                    <tag>hibernate-search</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hsearch-00009">
+            <when>
+                <javaclass references="org.hibernate.search.spi.SearchFactoryBuilder" />
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Deprecated interface org.hibernate.search.spi.SearchFactoryBuilder" effort="1" category-id="optional">
+                    <message>The class `org.hibernate.search.spi.SearchFactoryBuilder` was replaced by `org.hibernate.search.spi.SearchIntegratorBuilder` class.</message>
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_hibernate_search_advanced_integrator_changes"
+                        title="Advanced Integrator Changes in Hibernate Search 5.x" />
+                    <link href="http://docs.jboss.org/hibernate/search/5.5/api/org/hibernate/search/spi/SearchIntegratorBuilder.html" title="SearchIntegrationBuilder javadoc" />
+                    <tag>hibernate-search</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hsearch-00010">
+            <when>
+                <javaclass references="org.hibernate.search.spi.SearchFactoryIntegrator" />
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Deprecated interface org.hibernate.search.spi.SearchFactoryIntegrator" effort="1" category-id="optional">
+                    <message>Do not use `org.hibernate.search.spi.SearchFactoryIntegrator`. You should migrate all code to use `org.hibernate.search.spi.SearchIntegrator`.
+                    This interface is a temporary placeholder and will be removed at the next micro release!</message>
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_hibernate_search_advanced_integrator_changes"
+                        title="Advanced Integrator Changes in Hibernate Search 5.x" />
+                    <link href="https://docs.jboss.org/hibernate/search/5.5/api/org/hibernate/search/spi/SearchIntegrator.html"
+                        title="Hibernate Search javadoc for SearchIntegrator" />
+                    <tag>hibernate-search</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hsearch-00011">
+            <when>
+                <javaclass references="org.hibernate.search.Version" />
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Package change for Version" effort="1" category-id="optional">
+                    <message>The class `org.hibernate.search.Version` was replaced by `org.hibernate.search.engine.Version` class.</message>
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_hibernate_search_changes"
+                        title="Changes in Hibernate Search 5.x" />
+                    <tag>hibernate-search</tag>
+                </hint>
+            </perform>
+        </rule>
+        <!-- Deprecated things -->
+        <rule id="hsearch-00100">
+            <when>
+                <javaclass references="org.hibernate.search.cfg.NumericFieldMapping(org.hibernate.search.cfg.PropertyDescriptor, org.hibernate.search.cfg.EntityDescriptor, org.hibernate.search.cfg.SearchMapping)">
+                    <location>CONSTRUCTOR_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Deprecated constructor NumericFieldMapping.NumericFieldMapping" effort="1" category-id="optional">
+                    <message>Use `NumericFieldMapping.NumericFieldMapping(String, PropertyDescriptor, EntityDescriptor, SearchMapping)` instead.</message>
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_hibernate_search_deprecated_constructors"
+                        title="Hibernate Search 5.x Deprecated Constructors" />
+                    <link
+                        href="https://docs.jboss.org/hibernate/search/5.5/api/org/hibernate/search/cfg/NumericFieldMapping.html#NumericFieldMapping-org.hibernate.search.cfg.PropertyDescriptor-org.hibernate.search.cfg.EntityDescriptor-org.hibernate.search.cfg.SearchMapping-"
+                        title="Hibernate Search javadoc" />
+                    <tag>hibernate-search</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hsearch-00101">
+            <when>
+                <javaclass references="org.hibernate.search.store.IndexShardingStrategy" />
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Deprecated interface org.hibernate.search.store.IndexShardingStrategy" effort="1" category-id="optional">
+                    <message>`org.hibernate.search.store.IndexShardingStrategy` interface is deprecated as of Hibernate Search 4.4. Might be removed in Hibernate Search 5.
+                    Use `org.hibernate.search.store.ShardIdentifierProvider` instead.</message>
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_hibernate_search_changes"
+                        title="Changes in Hibernate Search 5.x" />
+                    <link
+                        href="https://docs.jboss.org/hibernate/search/5.5/api/org/hibernate/search/store/ShardIdentifierProvider.html"
+                        title="Hibernate Search javadoc" />
+                    <tag>hibernate-search</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hsearch-00103">
+            <when>
+                <javaclass references="org.hibernate.search.store.Workspace" />
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Deprecated interface org.hibernate.search.store.Workspace" effort="1" category-id="optional">
+                    <message>`org.hibernate.search.store.Workspace` interface will be moved and considered as non-public API.</message>
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_hibernate_search_changes"
+                        title="Changes in Hibernate Search 5.x" />
+                    <tag>hibernate-search</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hsearch-00104">
+            <when>
+                <javaclass references="org.hibernate.search.filter.FilterKey" />
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Deprecated interface org.hibernate.search.filter.FilterKey" effort="1" category-id="optional">
+                    <message>Custom filter keys are deprecated and are scheduled for removal in Hibernate Search 6. As of Hibernate Search 5.1, keys for caching Lucene filters are calculated automatically based on the given filter parameters.</message>
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_hibernate_search_changes"
+                        title="Changes in Hibernate Search 5.x" />
+                    <link href="http://hibernate.org/search/documentation/migrate/5.1/#api-changes" title="Hibernate Search 5.1 API changes" />
+                    <tag>hibernate-search</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hsearch-00106">
+            <when>
+                <javaclass references="org.hibernate.search.filter.StandardFilterKey" />
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Deprecated class org.hibernate.search.filter.StandardFilterKey" effort="1" category-id="optional">
+                    <message>Custom filter keys `StandardFilterKey` are deprecated and are scheduled for removal in Hibernate Search 6.
+                    As of Hibernate Search 5.1, keys for caching Lucene filters are calculated automatically based on the given filter parameters.</message>
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_hibernate_search_changes"
+                        title="Changes in Hibernate Search 5.x" />
+                    <link href="http://hibernate.org/search/documentation/migrate/5.1/#api-changes" title="Hibernate Search 5.1 API changes" />
+                    <link
+                        href="https://docs.jboss.org/hibernate/search/5.5/api/index.html?org/hibernate/search/filter/StandardFilterKey.html"
+                        title="hibernate Search javadoc" />
+                    <tag>hibernate-search</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hsearch-00107">
+            <when>
+                <javaclass references="org.hibernate.search.annotations.FieldCacheType" />
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Deprecated enum FieldCacheType" effort="1" category-id="optional">
+                    <message>Remove the `@FieldCacheType` annotation. No alternative replacement necessary as the Field Cache in Apache Lucene feature does no longer exist.</message>
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_hibernate_search_changes"
+                        title="Changes in Hibernate Search 5.x" />
+                    <link href="https://docs.jboss.org/hibernate/search/5.5/api/org/hibernate/search/annotations/FieldCacheType.html"
+                        title="hibernate Search javadoc" />
+                    <tag>hibernate-search</tag>
+                    <tag>annotation</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hsearch-00108">
+            <when>
+                <javaclass references="org.hibernate.search.annotations.CacheFromIndex">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Deprecated annotation CacheFromIndex" effort="1" category-id="optional">
+                    <message>Remove the `@CacheFromIndex` annotation. No alternative replacement necessary.</message>
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_hibernate_search_changes"
+                        title="Changes in Hibernate Search 5.x" />
+                    <link href="https://docs.jboss.org/hibernate/search/5.5/api/org/hibernate/search/annotations/CacheFromIndex.html"
+                        title="hibernate Search javadoc for @CacheFromIndex" />
+                    <tag>hibernate-search</tag>
+                    <quickfix name="CacheFromIndex" type="DELETE_LINE">
+                        <search>@CacheFromIndex</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hsearch-00109">
+            <when>
+                <javaclass references="org.hibernate.search.annotations.Key">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Deprecated annotation Key" effort="1" category-id="optional">
+                    <message>Custom filter cache keys are a deprecated feature and are scheduled to be removed in Hibernate Search 6.
+                     As of Hibernate Search 5.1, the filter cache keys are determined automatically based on the filter parameters so it is no longer required to provide a key object. </message>
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_miscellaneous_hibernate_search_changes"
+                        title="Miscelanous Changes in Hibernate Search 5.x" />
+                    <link href="http://hibernate.org/search/documentation/migrate/5.1/#api-changes" title="Hibernate Search 5.1 API changes" />
+                    <link href="https://docs.jboss.org/hibernate/search/5.5/api/index.html?org/hibernate/search/annotations/Key.html"
+                        title="Hibernate Search javadoc for @Key" />
+                    <tag>hibernate-search</tag>
+                    <quickfix name="Key" type="DELETE_LINE">
+                        <search>@Key</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hsearch-00110">
+            <when>
+                <javaclass references="org.hibernate.search.backend.configuration.impl.IndexWriterSetting.{constant}">
+                    <location>ENUM_CONSTANT</location>
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Deprecated enum constant in IndexWriterSetting" effort="1" category-id="optional">
+                    <message>The `IndexWriterSetting.MAX_THREAD_STATES` and `IndexWriterSetting.TERM_INDEX_INTERVAL` enum constants are deprecated.
+                    They affect which properties are read from the configuration, so the fact they they are missing means that configuration properties such as `hibernate.search.Animals.2.indexwriter.term_index_interval = default` are now ignored.
+                    The only side effect is that the property is not applied.</message>
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_hibernate_search_advanced_integrator_changes"
+                        title="Advanced Integrator Changes in Hibernate Search 5.x" />
+                    <tag>hibernate-search</tag>
+                </hint>
+            </perform>
+            <where param="constant">
+                <matches pattern="(MAX_THREAD_STATES|TERM_INDEX_INTERVAL)" />
+            </where>
+        </rule>
+        <rule id="hsearch-00111">
+            <when>
+                <javaclass references="org.hibernate.search.annotations.Spatial" >
+                    <location>ANNOTATION</location>
+                    <annotation-literal name="spatialMode" pattern="SpatialMode.GRID"/>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Renamed SpatialMode.GRID to HASH" effort="1" category-id="optional">
+                    <message>The enum value `SpatialMode.GRID` for `@Spatial` annotation was renamed to `SpatialMode.HASH`.</message>
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_miscellaneous_hibernate_search_changes"
+                        title="Miscelanous Changes in Hibernate Search 5.x" />
+                    <tag>hibernate-search</tag>
+                    <quickfix name="SpatialGridRename" type="REPLACE">
+                        <replacement>SpatialMode.HASH</replacement>
+                        <search>SpatialMode.GRID</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hsearch-00112">
+            <when>
+                <javaclass references="org.hibernate.search.event.impl.FullTextIndexEventListener">
+                    <location>INHERITANCE</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - FullTextIndexEventListener class is now final" effort="1" category-id="optional">
+                    <message>The class `FullTextIndexEventListener` is now a final class. If you currently extend this class, you must find an alternate solution to achieve the same functionality. You could in some cases use an `EntityIndexingInterceptor`.</message>
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_miscellaneous_hibernate_search_changes"
+                        title="Miscelanous Changes in Hibernate Search 5.x" />
+                    <link href="http://hibernate.org/search/documentation/migrate/5.0/#fulltextindexeventlistener-now-final" title="FullTextIndexEventListener now final" />
+                    <tag>hibernate-search</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hsearch-00113">
+            <when>
+                <javaclass references="org.hibernate.search.backend.impl.jms.AbstractJMSHibernateSearchController">
+                    <location>INHERITANCE</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Internal AbstractJMSHibernateSearchController class used" effort="1"
+                    category-id="optional">
+                    <message>The JMS backend was depending to Hibernate ORM. This dependency was removed, so that the backend can be used in other (non ORM) environments as well.
+                    A consequence is that implementors of `org.hibernate.search.backend.impl.jms.AbstractJMSHibernateSearchController` will need to adjust to the new signature.
+                     This class is really considered internal. We suggest to take this class as an example instead of extending it.</message>
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_miscellaneous_hibernate_search_changes"
+                        title="Miscelanous Changes in Hibernate Search 5.x" />
+                    <link href="http://hibernate.org/search/documentation/migrate/5.0/#jms-controller-api-changed" title="JMS Controller API changed" />
+
+                    <tag>hibernate-search</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hsearch-00114">
+            <when>
+                <javaclass references="org.hibernate.search.spi.ServiceProvider">
+                    <location>IMPLEMENTS_TYPE</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - ServiceProvider implementation" effort="1" category-id="optional">
+                    <message>The `org.hibernate.search.spi.ServiceProvider` SPI has been refactored.
+                    If you where integrating with the old service contract, refer to the javadoc of `ServiceManager`, `Service`, `Startable` and `Stoppable` for details about the new contract.</message>
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_miscellaneous_hibernate_search_changes"
+                        title="Miscelanous Changes in Hibernate Search 5.x" />
+                    <link
+                        href="http://docs.jboss.org/hibernate/search/5.0/api/org/hibernate/search/engine/service/spi/ServiceManager.html"
+                        title="Hibernate Search javadoc for ServiceManager" />
+                    <link href="http://docs.jboss.org/hibernate/search/5.0/api/org/hibernate/search/engine/service/spi/Service.html"
+                        title="Hibernate Search javadoc for Service" />
+                    <link
+                        href="http://docs.jboss.org/hibernate/search/5.0/api/org/hibernate/search/engine/service/spi/Stoppable.html"
+                        title="Hibernate Search javadoc for Stoppable" />
+                    <link
+                        href="http://docs.jboss.org/hibernate/search/5.0/api/org/hibernate/search/engine/service/spi/Startable.html"
+                        title="Hibernate Search javadoc for Startable" />
+                    <tag>hibernate-search</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hsearch-00115">
+            <when>
+                <javaclass references="org.hibernate.search.annotations.IndexedEmbedded">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Indexing of id fields of Embedded Relations" effort="1" category-id="optional">
+                    <message><![CDATA[
+                     When using an `@IndexedEmbedded` annotation to include fields from a related entity,
+                     the id of the related entity is no longer included.
+
+                     You can enable the inclusion of the id by using the `includeEmbeddedObjectId` attribute of the `@IndexedEmbedded` annotation.
+
+                     ```java
+                     @IndexedEmbedded(includeEmbeddedObjectId=true)
+                     ```
+
+                    ]]></message>
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_miscellaneous_hibernate_search_changes"
+                        title="Miscelanous Changes in Hibernate Search 5.x" />
+                    <link
+                        href="https://docs.jboss.org/hibernate/search/5.5/api/index.html?org/hibernate/search/annotations/IndexedEmbedded.html"
+                        title="Hibernate Search javadoc for IndexedEmbedded" />
+                    <tag>hibernate-search</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hsearch-00116">
+            <when>
+                <or>
+                    <javaclass references="org.hibernate.search.annotations.Field">
+                        <location>ANNOTATION</location>
+                        <annotation-literal name="index" pattern="Index.YES"/>
+                        <annotation-type pattern="org.hibernate.search.annotations.NumericFields"/>
+                    </javaclass>
+                    <javaclass references="org.hibernate.search.annotations.Field">
+                        <location>ANNOTATION</location>
+                        <annotation-literal name="index" pattern="Index.YES"/>
+                        <annotation-type pattern="org.hibernate.search.annotations.NumericField"/>
+                    </javaclass>
+                    <javaclass references="java.util.{date}">
+                        <annotation-type pattern="org.hibernate.search.annotations.Field" />
+                        <annotation-type pattern="org.hibernate.search.annotations.Fields"/>
+                    </javaclass>
+                    <javaclass references="java.lang.{wrapper}">
+                        <annotation-type pattern="org.hibernate.search.annotations.Field" />
+                        <annotation-type pattern="org.hibernate.search.annotations.Fields"/>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Changes in indexing numeric and date values" effort="1" category-id="optional">
+                    <message><![CDATA[
+            Numbers and dates are now indexed as numeric fields by default. Properties of type int, long, float, double, and their
+            corresponding wrapper classes are no longer indexed as strings. Instead, they are now indexed using Lucene’s appropriate numeric
+            encoding. The id fields are an exception to this rule. Even when they are represented by a numeric type, they are still indexed as
+            a string keyword by default. The use of `@NumericField` is now obsolete unless you want to specify a custom precision for the numeric
+            encoding. You can keep the old string-based index format by explicitly specifying a string encoding field bridge. In the case of
+            integers, this is the `org.hibernate.search.bridge.builtin.IntegerBridge`. Check the `org.hibernate.search.bridge.builtin` package for
+            other publicly available field bridges.
+
+            Date and Calendar are no longer indexed as strings. Instead, instances are encoded as long values representing the number
+            of milliseconds since January 1, 1970, 00:00:00 GMT. You can switch the indexing format by using the new EncodingType enum. For example:
+
+            ```java
+            @DateBridge(encoding=EncodingType.STRING)
+            @CalendarBridge(encoding=EncodingType.STRING)
+            ```
+
+            The encoding change for numbers and dates is important and can have a big impact on application behavior. If you have
+            a query that targets a field that was previously string-encoded, but is now encoded numerically, you must update the query. Numeric
+             fields must be searched with a NumericRangeQuery. You must also make sure that all fields targeted by faceting are string encoded.
+            If you use the Search query DSL, the correct query should be created automatically for you.
+            ]]></message>
+                    <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_hibernate_search_number_and_date_index_formatting_changes"
+                        title="Number and Date Index Formatting Changes in Hibernate Search 5.x" />
+                    <link href="http://hibernate.org/search/documentation/migrate/5.0/#number-and-date-index-format" title="Number and date index format" />
+                    <link href="http://docs.jboss.org/hibernate/search/5.5/api/org/hibernate/search/bridge/builtin/package-summary.html" title="Javadoc API for org.hibernate.search.bridge.builtin package" />
+                    <link href="http://docs.jboss.org/hibernate/search/5.5/api/org/hibernate/search/bridge/builtin/IntegerBridge.html" title="Javadoc API for IntegerBridge" />
+                    <tag>hibernate-search</tag>
+                </hint>
+            </perform>
+            <where param="wrapper">
+                <matches pattern="(Integer|Long|Float|Double)" />
+            </where>
+            <where param="date">
+                <matches pattern="(Calendar|Date)" />
+            </where>
+        </rule>
+        <!-- When using @Field(indexNullAs=) to encode a null marker value in the index, -->
+        <!-- the type of the marker must be compatible with all other values that are indexed in that same field. -->
+        <!-- For example, it was previously possible to encode a null value for numeric fields using a string "null". -->
+        <!-- This is no longer allowed. Instead, you must choose a number to represent the null value, such as -1. -->
+        <rule id="hsearch-00117">
+            <when>
+                <javaclass references="org.hibernate.search.annotations.Field">
+                    <location>ANNOTATION</location>
+                    <annotation-literal name="indexNullAs" pattern="{*}" />
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Changes in indexing null values" effort="1" category-id="optional">
+                    <message>When using `@Field(indexNullAs=)` to encode a null marker value in the index, the type of the marker must be compatible with all other values that are indexed in that same field.
+                    For example, it was previously possible to encode a null value for numeric fields using a string _null_.
+                    This is no longer allowed. Instead, you must choose a number to represent the null value, such as -1. </message>
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_miscellaneous_hibernate_search_changes"
+                        title="Miscellaneous Changes in Hibernate Search 5.x" />
+                    <link href="http://hibernate.org/search/documentation/migrate/5.5/#null-value-tokens-for-numeric-fields" title="Null value tokens for numeric fields" />
+                    <tag>hibernate-search</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hsearch-00118">
+            <when>
+                <or>
+                    <javaclass references="org.hibernate.search.query.dsl.QueryBuilder.facet{*}">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                    <javaclass references="org.hibernate.search.FullTextQuery.getFacetManager{*}">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                    <javaclass references="org.hibernate.search.query.facet.{class}" />
+                </or>
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Improvements in Faceting Engine" effort="1" category-id="optional">
+                    <message>Significant improvements were made to the faceting engine. Most of the changes do not affect the API. The one notable exception is that you must now annotate any fields you intend to use for faceting with the `@Facet` or `@Facets` annotation.</message>
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_miscellaneous_hibernate_search_changes"
+                        title="Miscellaneous Changes in Hibernate Search 5.x" />
+                    <link href="http://in.relation.to/2015/05/11/hibernate-search-530-beta-1-with-native-lucene-faceting" title="Lucene native faceting" />
+                    <link href="http://docs.jboss.org/hibernate/search/5.5/reference/en-US/html_single/#query-faceting" title="Query faceting" />
+                    <tag>hibernate-search</tag>
+                </hint>
+            </perform>
+            <where param="class">
+                <matches pattern="(Facet|FacetingRequest|FacetSelection|FacetSortOrder|RangeFacet)" />
+            </where>
+        </rule>
+        <rule id="hsearch-00119">
+            <when>
+                <or>
+                    <javaclass references="java.util.{date}">
+                        <annotation-type pattern="org.hibernate.search.annotations.Field" />
+                    </javaclass>
+                    <javaclass references="java.lang.{wrapper}">
+                        <annotation-type pattern="org.hibernate.search.annotations.Field" />
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Changes in indexing numeric values" effort="1" category-id="optional">
+                    <message>Numbers and dates now indexed as numeric fields by default.
+Properties of type `Date`, `Calendar` as well as `int`, `long`, `float`, `double` and their corresponding wrappers, are no longer indexed as strings. Instead, they are now indexed using Lucene’s appropriate numeric encoding.
+
+The `id` fields are an exception to this rule: even when these are represented by a numeric type, they will still be indexed as a string keyword by default..</message>
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_miscellaneous_hibernate_search_changes"
+                        title="Miscellaneous Changes in Hibernate Search 5.x" />
+                    <link href="http://hibernate.org/search/documentation/migrate/5.5/#number-and-date-index-format" title="Numeric and Date index format" />
+                    <tag>hibernate-search</tag>
+                </hint>
+            </perform>
+            <where param="wrapper">
+                <matches pattern="(Integer|Long|Float|Double)" />
+            </where>
+            <where param="date">
+                <matches pattern="(Calendar|Date)" />
+            </where>
+        </rule>
+        <rule id="hsearch-00200">
+            <when>
+                <project>
+                    <artifact artifactId="hibernate-search-analyzers" groupId="org.hibernate" />
+                </project>
+            </when>
+            <perform>
+                <lineitem message="Maven artifact org.hibernate:hibernate-search-analyzers was removed from Hibernate Search 5. We recommend to depend on the appropriate Lucene artifact directly, for example org.apache.lucene:lucene-analyzers-common." />
+            </perform>
+        </rule>
+        <rule id="hsearch-00201">
+            <when>
+                <xmlfile in="pom.xml" matches="//*[local-name() = 'artifactId' and text() = 'hibernate-search-analyzers']" />
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Dropped hibernate-search-analyzers maven artifact" effort="1" category-id="optional">
+                    <message>The hibernate-search-analyzers module was removed. The recommended approach is to directly use the appropriate Lucene artifact,
+                     for example org.apache.lucene:lucene-analyzers-common.</message>
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_miscellaneous_hibernate_search_changes"
+                        title="Miscelanous Changes in Hibernate Search 5.x" />
+                    <tag>hibernate-search</tag>
+                    <tag>maven</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hsearch-00210">
+            <when>
+                <javaclass references="org.apache.lucene.search.SortField({*})">
+                    <location>CONSTRUCTOR_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Lucene 4.x - Changed constructor for org.apache.lucene.search.SortField" effort="1" category-id="optional">
+                    <message>
+                    The Lucene SortField API requires the following application code change. In the previous release of JBoss EAP, you set the type of the sort field in the query as follows.
+
+```java
+fulltextQuery.setSort(new Sort(new SortField("title", SortField.STRING)));
+```
+
+The following is an example of how you set it in JBoss EAP 7.
+
+```java
+fulltextQuery.setSort(new Sort(new SortField("title", SortField.Type.STRING)))
+```
+
+                     </message>
+                    <link href="http://hibernate.org/search/documentation/migrate/5.5/#sorting-options" title="Hibernate Search 5.4 to 5.5 migration" />
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_miscellaneous_hibernate_search_changes"
+                        title="Miscellaneous Hibernate Search Changes" />
+                    <tag>hibernate-search</tag>
+                    <tag>lucene</tag>
+                </hint>
+
+            </perform>
+        </rule>
+        <rule id="hsearch-00211">
+            <when>
+                <javaclass references="org.hibernate.search.cfg.ContainedInMapping.numericField{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Deprecated method ContainedInMapping#numericField" effort="1" category-id="optional">
+                    <message>Method `ContainedInMapping#numericField()` has been deprecated and is scheduled for removal. Invoke `ContainedInMapping#field().numericField()` instead.</message>
+                    <link href="http://hibernate.org/search/documentation/migrate/5.5/#api-changes" title="Hibernate Search 5.4 to 5.5 migration" />
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_hibernate_search_deprecated_methods"
+                        title="Hibernate Search Deprecated Methods" />
+                    <tag>hibernate-search</tag>
+                </hint>
+            </perform>
+        </rule>
+        <!-- org.hibernate.search.FullTextSharedSessionBuilder.autoClose() -->
+        <!-- org.hibernate.search.FullTextSharedSessionBuilder.autoClose(boolean) -->
+        <rule id="hsearch-00213">
+            <when>
+                <javaclass references="org.hibernate.search.FullTextSharedSessionBuilder.autoClose{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Deprecated method FullTextSharedSessionBuilder#autoClose" effort="1" category-id="optional">
+                    <message>Don't use `FullTextSharedSessionBuilder#autoclose()` and `FullTextSharedSessionBuilder#autoclose(boolean)` method. There is no replacement.</message>
+                    <link href="http://hibernate.org/search/documentation/migrate/5.5/#api-changes" title="Hibernate Search 5.4 to 5.5 migration" />
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_hibernate_search_deprecated_methods"
+                        title="Hibernate Search Deprecated Methods" />
+                    <tag>hibernate-search</tag>
+                </hint>
+            </perform>
+        </rule>
+        <!-- org.hibernate.search.cfg.IndexedMapping.cacheFromIndex(FieldCacheType...) -->
+        <rule id="hsearch-00214">
+            <when>
+                <javaclass references="org.hibernate.search.cfg.IndexedMapping.cacheFromIndex{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Deprecated method IndexedMapping#cacheFromIndex" effort="1" category-id="optional">
+                    <message>This will be removed with no replacement.</message>
+                    <link href="http://hibernate.org/search/documentation/migrate/5.5/#api-changes" title="Hibernate Search 5.4 to 5.5 migration" />
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_hibernate_search_deprecated_methods"
+                        title="Hibernate Search Deprecated Methods" />
+                    <tag>hibernate-search</tag>
+                </hint>
+            </perform>
+        </rule>
+        <!-- org.hibernate.search.cfg.EntityDescriptor.getCacheInMemory() -->
+        <!-- This will be removed with no replacement. -->
+        <rule id="hsearch-00215">
+            <when>
+                <javaclass references="org.hibernate.search.cfg.EntityDescriptor.getCacheInMemory{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Deprecated method EntityDescriptor#getCacheInMemory" effort="1" category-id="optional">
+                    <message>This will be removed with no replacement.</message>
+                    <link href="http://hibernate.org/search/documentation/migrate/5.5/#api-changes" title="Hibernate Search 5.4 to 5.5 migration" />
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_hibernate_search_deprecated_methods"
+                        title="Hibernate Search Deprecated Methods" />
+                    <tag>hibernate-search</tag>
+                </hint>
+            </perform>
+        </rule>
+        <!-- org.hibernate.search.query.engine.spi.HSQuery.getExtendedSearchIntegrator() -->
+        <!-- should be at most SearchIntegrator, preferably removed altogether -->
+        <rule id="hsearch-00216">
+            <when>
+                <javaclass references="org.hibernate.search.query.engine.spi.HSQuery.getExtendedSearchIntegrator{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Deprecated method HSQuery#getExtendedSearchIntegrator" effort="1" category-id="optional">
+                    <message>should be at most SearchIntegrator, preferably removed altogether</message>
+                    <link href="http://hibernate.org/search/documentation/migrate/5.5/#api-changes" title="Hibernate Search 5.4 to 5.5 migration" />
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_hibernate_search_advanced_integrator_changes"
+                        title="Advanced Integrator Changes in Hibernate Search 5.x" />
+                    <tag>hibernate-search</tag>
+                </hint>
+            </perform>
+        </rule>
+        <!-- org.hibernate.search.engine.spi.DocumentBuilderIndexedEntity.getFieldCacheOption() -->
+        <rule id="hsearch-00217">
+            <when>
+                <javaclass references="org.hibernate.search.engine.spi.DocumentBuilderIndexedEntity.getFieldCacheOption{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Deprecated method DocumentBuilderIndexedEntity#getFieldCacheOption" effort="1" category-id="optional">
+                    <message>The `DocumentBuilderIndexedEntity#getFieldCacheOption()` method has been deprecated. There is no replacement.</message>
+                    <link href="http://hibernate.org/search/documentation/migrate/5.5/#api-changes" title="Hibernate Search 5.4 to 5.5 migration" />
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_hibernate_search_advanced_integrator_changes"
+                        title="Advanced Integrator Changes in Hibernate Search 5.x" />
+                    <tag>hibernate-search</tag>
+                </hint>
+            </perform>
+        </rule>
+        <!-- org.hibernate.search.spi.BuildContext.getIndexingStrategy() -->
+        <!-- Scheduled for removal. Use BuildContext.getIndexingMode() instead. -->
+        <rule id="hsearch-00218">
+            <when>
+                <javaclass references="org.hibernate.search.spi.BuildContext.getIndexingStrategy{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Deprecated method BuildContext#getIndexingStrategy" effort="1" category-id="optional">
+                    <message>The `BuildContext#getIndexingStrategy()` method is deprecated. Use `BuildContext#getIndexingMode()` instead.</message>
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_hibernate_search_advanced_integrator_changes"
+                        title="Advanced Integrator Changes in Hibernate Search 5.x" />
+                    <tag>hibernate-search</tag>
+                </hint>
+            </perform>
+        </rule>
+        <!-- org.hibernate.search.store.spi.DirectoryHelper.getVerifiedIndexDir(String, Properties, boolean) -->
+        <!-- use DirectoryHelper.getVerifiedIndexPath(java.lang.String, java.util.Properties, boolean) -->
+        <rule id="hsearch-00219">
+            <when>
+                <javaclass references="org.hibernate.search.store.spi.DirectoryHelper.getVerifiedIndexDir{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Deprecated method DirectoryHelper#getVerifiedIndexDir" effort="1" category-id="optional">
+                    <message>The `DirectoryHelper#getVerifiedIndexDir(String, Properties, boolean)` method is deprecated. Use `DirectoryHelper#getVerifiedIndexPath(java.lang.String, java.util.Properties, boolean)` instead. </message>
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_hibernate_search_advanced_integrator_changes"
+                        title="Advanced Integrator Changes in Hibernate Search 5.x" />
+                    <tag>hibernate-search</tag>
+                </hint>
+            </perform>
+        </rule>
+        <!-- org.hibernate.search.cfg.EntityDescriptor.setCacheInMemory(Map<String, Object>) -->
+        <!-- This will be removed with no replacement. -->
+        <rule id="hsearch-00220">
+            <when>
+                <javaclass references="org.hibernate.search.cfg.EntityDescriptor.setCacheInMemory{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Deprecated method EntityDescriptor#setCacheInMemory" effort="1" category-id="optional">
+                    <message>Method `org.hibernate.search.cfg.EntityDescriptor.setCacheInMemory` is deprecated and there is no replacement.</message>
+                    <link href="http://hibernate.org/search/documentation/migrate/5.5/#api-changes" title="Hibernate Search 5.4 to 5.5 migration" />
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_miscellaneous_hibernate_search_changes"
+                        title="Miscellaneous Hibernate Search Changes" />
+                    <tag>hibernate-search</tag>
+                </hint>
+            </perform>
+        </rule>
+        <!-- org.hibernate.search.MassIndexer.threadsForSubsequentFetching(int) -->
+        <!-- Being ignored: this method will be removed. -->
+        <rule id="hsearch-00221">
+            <when>
+                <javaclass references="org.hibernate.search.MassIndexer.threadsForSubsequentFetching{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Deprecated method MassIndexer#threadsForSubsequentFetching" effort="1" category-id="optional">
+                    <message>Method `org.hibernate.search.MassIndexer.threadsForSubsequentFetching(int)` is deprecated and will be removed.</message>
+                    <link href="http://hibernate.org/search/documentation/migrate/5.5/#api-changes" title="Hibernate Search 5.4 to 5.5 migration" />
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_hibernate_search_deprecated_methods"
+                        title="Hibernate Search Deprecated Methods" />
+                    <tag>hibernate-search</tag>
+                </hint>
+            </perform>
+        </rule>
+        <!-- org.hibernate.search.query.dsl.FuzzyContext.withThreshold(float) -->
+        <!-- use FuzzyContext.withEditDistanceUpTo(int) -->
+        <rule id="hsearch-00222">
+            <when>
+                <javaclass references="org.hibernate.search.query.dsl.FuzzyContext.withThreshold{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Deprecated method FuzzyContext#withThreshold" effort="1" category-id="optional">
+                    <message>Use `FuzzyContext.withEditDistanceUpTo(int)` instead.</message>
+                    <link href="http://hibernate.org/search/documentation/migrate/5.5/#api-changes" title="Hibernate Search 5.4 to 5.5 migration" />
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_hibernate_search_deprecated_methods"
+                        title="Hibernate Search Deprecated Methods" />
+                    <tag>hibernate-search</tag>
+                </hint>
+            </perform>
+        </rule>
+        <!-- Lucene's core o.a.l.queryParser QueryParsers have been consolidated into lucene/queryparser, where other QueryParsers
+            from the codebase will also be placed. The following classes were moved: -->
+        <!-- o.a.l.queryParser.CharStream -> o.a.l.queryparser.classic.CharStream -->
+        <!-- o.a.l.queryParser.FastCharStream -> o.a.l.queryparser.classic.FastCharStream -->
+        <!-- o.a.l.queryParser.MultiFieldQueryParser -> o.a.l.queryparser.classic.MultiFieldQueryParser -->
+        <!-- o.a.l.queryParser.ParseException -> o.a.l.queryparser.classic.ParseException -->
+        <!-- o.a.l.queryParser.QueryParser -> o.a.l.queryparser.classic.QueryParser -->
+        <!-- o.a.l.queryParser.QueryParserBase -> o.a.l.queryparser.classic.QueryParserBase -->
+        <!-- o.a.l.queryParser.QueryParserConstants -> o.a.l.queryparser.classic.QueryParserConstants -->
+        <!-- o.a.l.queryParser.QueryParserTokenManager -> o.a.l.queryparser.classic.QueryParserTokenManager -->
+        <rule id="hsearch-00224">
+            <when>
+                <javaclass references="org.apache.lucene.queryParser.{type}" />
+            </when>
+            <perform>
+                <hint title="Lucene 4.x - Classes repackaged to 'org.apache.lucene.queryparser.classic'" effort="1" category-id="optional">
+                    <message>Lucene's core `org.apache.lucene.queryParser.{type}` have been consolidated into lucene/queryparser, that results in changing package name so it is now named as `org.apache.lucene.queryparser.classic.{type}`.</message>
+                    <link href="http://lucene.apache.org/core/4_10_2/MIGRATE.html" title="Apache Lucene Migration Guide" />
+                    <link href="http://hibernate.org/search/documentation/migrate/5.0/#within-apache-lucene" title="Renamed classes within Apache Lucene" />
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_hibernate_search_advanced_integrator_changes"
+                        title="Changes Impacting Advanced Integrators" />
+                    <tag>hibernate-search</tag>
+                    <tag>lucene</tag>
+                </hint>
+            </perform>
+            <where param="type">
+                <matches pattern="(CharStream|FastCharStream|MultiFieldQueryParser|ParseException|QueryParser|QueryParserBase|QueryParserConstants|QueryParserTokenManager)" />
+            </where>
+        </rule>
+        <!-- o.a.l.queryParser.QueryParserToken -> o.a.l.queryparser.classic.Token -->
+        <rule id="hsearch-00225">
+            <when>
+                <javaclass references="org.apache.lucene.queryParser.QueryParserToken" />
+            </when>
+            <perform>
+                <hint title="Lucene 4.x - Renamed class org.apache.lucene.queryParser.QueryParserToken" effort="1" category-id="optional">
+                    <message>Lucene's core `org.apache.lucene.queryParser.QueryParserToken` have been consolidated into lucene/queryparser, that results in changing package name so it is now named as `org.apache.lucene.queryparser.classic.Token`.</message>
+                    <link href="http://lucene.apache.org/core/4_10_2/MIGRATE.html" title="Apache Lucene Migration Guide" />
+                    <link href="http://hibernate.org/search/documentation/migrate/5.0/#within-apache-lucene" title="Renamed classes within Apache Lucene" />
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_hibernate_search_advanced_integrator_changes"
+                        title="Changes Impacting Advanced Integrators" />
+                    <tag>hibernate-search</tag>
+                    <tag>lucene</tag>
+                </hint>
+            </perform>
+        </rule>
+        <!-- o.a.l.queryParser.QueryParserTokenMgrError -> o.a.l.queryparser.classic.TokenMgrError -->
+        <rule id="hsearch-00226">
+            <when>
+                <javaclass references="org.apache.lucene.queryParser.QueryParserTokenMgrError" />
+            </when>
+            <perform>
+                <hint title="Lucene 4.x - Renamed class org.apache.lucene.queryParser.QueryParserTokenMgrError" effort="1" category-id="optional">
+                    <message>Lucene's core `org.apache.lucene.queryParser.QueryParserTokenMgrError` have been consolidated into lucene/queryparser, that results in changing package name so it is now named as `org.apache.lucene.queryparser.classic.TokenMgrError`.</message>
+                    <link href="http://lucene.apache.org/core/4_10_2/MIGRATE.html" title="Apache Lucene Migration Guide" />
+                    <link href="http://hibernate.org/search/documentation/migrate/5.0/#within-apache-lucene" title="Renamed classes within Apache Lucene" />
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_hibernate_search_advanced_integrator_changes"
+                        title="Changes Impacting Advanced Integrators" />
+                    <tag>hibernate-search</tag>
+                    <tag>lucene</tag>
+                </hint>
+            </perform>
+        </rule>
+<!--     o.a.l.analysis.KeywordAnalyzer -> o.a.l.analysis.core.KeywordAnalyzer -->
+<!--     o.a.l.analysis.KeywordTokenizer -> o.a.l.analysis.core.KeywordTokenizer -->
+<!--     o.a.l.analysis.LetterTokenizer -> o.a.l.analysis.core.LetterTokenizer -->
+<!--     o.a.l.analysis.LowerCaseFilter -> o.a.l.analysis.core.LowerCaseFilter -->
+<!--     o.a.l.analysis.LowerCaseTokenizer -> o.a.l.analysis.core.LowerCaseTokenizer -->
+<!--     o.a.l.analysis.SimpleAnalyzer -> o.a.l.analysis.core.SimpleAnalyzer -->
+<!--     o.a.l.analysis.StopAnalyzer -> o.a.l.analysis.core.StopAnalyzer -->
+<!--     o.a.l.analysis.StopFilter -> o.a.l.analysis.core.StopFilter -->
+<!--     o.a.l.analysis.WhitespaceAnalyzer -> o.a.l.analysis.core.WhitespaceAnalyzer -->
+<!--     o.a.l.analysis.WhitespaceTokenizer -> o.a.l.analysis.core.WhitespaceTokenizer -->
+        <rule id="hsearch-00227">
+            <when>
+                <javaclass references="org.apache.lucene.analysis.{type}" />
+            </when>
+            <perform>
+                <hint title="Lucene 4.x - Classes repackaged to 'org.apache.lucene.analysis.core'" effort="1" category-id="optional">
+                    <message>Lucene's core and contrib analyzers, along with Solr's analyzers, were consolidated into lucene/analysis module.
+                     During the refactoring package name have changed for `org.apache.lucene.analysis.{type}` to `org.apache.lucene.analysis.core.{type}`.</message>
+                    <link href="http://lucene.apache.org/core/4_10_2/MIGRATE.html" title="Apache Lucene Migration Guide" />
+                    <link href="http://hibernate.org/search/documentation/migrate/5.0/#within-apache-lucene" title="Renamed classes within Apache Lucene" />
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_lucene_renamed_and_repackaged_classes"
+                        title="Lucene - Renamed and Repackaged Classes" />
+                    <tag>hibernate-search</tag>
+                    <tag>lucene</tag>
+                </hint>
+            </perform>
+            <where param="type">
+                <matches pattern="(KeywordAnalyzer|KeywordTokenizer|LetterTokenizer|LowerCaseFilter|LowerCaseTokenizer|SimpleAnalyzer|StopAnalyzer|StopFilter|WhitespaceAnalyzer|WhitespaceTokenizer)" />
+            </where>
+        </rule>
+<!--     o.a.l.analysis.PorterStemFilter -> o.a.l.analysis.en.PorterStemFilter -->
+        <rule id="hsearch-00228">
+            <when>
+                <javaclass references="org.apache.lucene.analysis.PorterStemFilter" />
+            </when>
+            <perform>
+                <hint title="Lucene 4.x - Class 'PorterStemFilter' repackaged to 'org.apache.lucene.analysis.en'" effort="1" category-id="optional">
+                    <message>Lucene's core and contrib analyzers, along with Solr's analyzers, were consolidated into lucene/analysis module.
+                     During the refactoring package name have changed for `org.apache.lucene.analysis.PorterStemFilter` to `org.apache.lucene.analysis.en.PorterStemFilter`.</message>
+                    <link href="http://lucene.apache.org/core/4_10_2/MIGRATE.html" title="Apache Lucene Migration Guide" />
+                    <link href="http://hibernate.org/search/documentation/migrate/5.0/#within-apache-lucene" title="Renamed classes within Apache Lucene" />
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_lucene_renamed_and_repackaged_classes"
+                        title="Lucene - Renamed and Repackaged Classes" />
+                    <tag>hibernate-search</tag>
+                    <tag>lucene</tag>
+                </hint>
+            </perform>
+        </rule>
+<!--     o.a.l.analysis.ASCIIFoldingFilter -> o.a.l.analysis.miscellaneous.ASCIIFoldingFilter -->
+<!--     o.a.l.analysis.ISOLatin1AccentFilter -> o.a.l.analysis.miscellaneous.ISOLatin1AccentFilter -->
+<!--     o.a.l.analysis.KeywordMarkerFilter -> o.a.l.analysis.miscellaneous.KeywordMarkerFilter -->
+<!--     o.a.l.analysis.LengthFilter -> o.a.l.analysis.miscellaneous.LengthFilter -->
+<!--     o.a.l.analysis.PerFieldAnalyzerWrapper -> o.a.l.analysis.miscellaneous.PerFieldAnalyzerWrapper -->
+        <rule id="hsearch-00229">
+            <when>
+                <javaclass references="org.apache.lucene.analysis.{type}" />
+            </when>
+            <perform>
+                <hint title="Lucene 4.x - Classes repackaged to 'org.apache.lucene.analysis.miscellaneous'" effort="1" category-id="optional">
+                    <message>Lucene's core and contrib analyzers, along with Solr's analyzers, were consolidated into lucene/analysis module.
+                     During the refactoring package name have changed for `org.apache.lucene.analysis.{type}` to `org.apache.lucene.analysis.miscellaneous.{type}`.</message>
+                    <link href="http://lucene.apache.org/core/4_10_2/MIGRATE.html" title="Apache Lucene Migration Guide" />
+                    <link href="http://hibernate.org/search/documentation/migrate/5.0/#within-apache-lucene" title="Renamed classes within Apache Lucene" />
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_lucene_renamed_and_repackaged_classes"
+                        title="Lucene - Renamed and Repackaged Classes" />
+                    <tag>hibernate-search</tag>
+                    <tag>lucene</tag>
+                </hint>
+            </perform>
+            <where param="type">
+                <matches pattern="(ASCIIFoldingFilter|ISOLatin1AccentFilter|KeywordMarkerFilter|LengthFilter|PerFieldAnalyzerWrapper)" />
+            </where>
+        </rule>
+<!--     o.a.l.analysis.TeeSinkTokenFilter -> o.a.l.analysis.sinks.TeeSinkTokenFilter -->
+        <rule id="hsearch-00230">
+            <when>
+                <javaclass references="org.apache.lucene.analysis.TeeSinkTokenFilter" />
+            </when>
+            <perform>
+                <hint title="Lucene 4.x - Class 'TeeSinkTokenFilter' repackaged to 'org.apache.lucene.analysis.sinks'" effort="1" category-id="optional">
+                    <message>Lucene's core and contrib analyzers, along with Solr's analyzers, were consolidated into lucene/analysis module.
+                     During the refactoring package name have changed for `org.apache.lucene.analysis.TeeSinkTokenFilter` to `org.apache.lucene.analysis.sinks.TeeSinkTokenFilter`.</message>
+                    <link href="http://lucene.apache.org/core/4_10_2/MIGRATE.html" title="Apache Lucene Migration Guide" />
+                    <link href="http://hibernate.org/search/documentation/migrate/5.0/#within-apache-lucene" title="Renamed classes within Apache Lucene" />
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_lucene_renamed_and_repackaged_classes"
+                        title="Lucene - Renamed and Repackaged Classes" />
+                    <tag>hibernate-search</tag>
+                    <tag>lucene</tag>
+                </hint>
+            </perform>
+        </rule>
+<!--     o.a.l.analysis.CharFilter -> o.a.l.analysis.charfilter.CharFilter -->
+<!--     o.a.l.analysis.BaseCharFilter -> o.a.l.analysis.charfilter.BaseCharFilter -->
+<!--     o.a.l.analysis.MappingCharFilter -> o.a.l.analysis.charfilter.MappingCharFilter -->
+<!--     o.a.l.analysis.NormalizeCharMap -> o.a.l.analysis.charfilter.NormalizeCharMap -->
+        <rule id="hsearch-00231">
+            <when>
+                <javaclass references="org.apache.lucene.analysis.{type}" />
+            </when>
+            <perform>
+                <hint title="Lucene 4.x - Classes repackaged to 'org.apache.lucene.analysis.charfilter'" effort="1" category-id="optional">
+                    <message>Lucene's core and contrib analyzers, along with Solr's analyzers, were consolidated into lucene/analysis module.
+                     During the refactoring package name have changed for `org.apache.lucene.analysis.{type}` to `org.apache.lucene.analysis.charfilter.{type}`.</message>
+                    <link href="http://lucene.apache.org/core/4_10_2/MIGRATE.html" title="Apache Lucene Migration Guide" />
+                    <link href="http://hibernate.org/search/documentation/migrate/5.0/#within-apache-lucene" title="Renamed classes within Apache Lucene" />
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_lucene_renamed_and_repackaged_classes"
+                        title="Lucene - Renamed and Repackaged Classes" />
+                    <tag>hibernate-search</tag>
+                    <tag>lucene</tag>
+                </hint>
+            </perform>
+            <where param="type">
+                <matches pattern="(CharFilter|BaseCharFilter|MappingCharFilter|NormalizeCharMap)" />
+            </where>
+        </rule>
+<!--     o.a.l.analysis.CharArraySet -> o.a.l.analysis.util.CharArraySet -->
+<!--     o.a.l.analysis.CharArrayMap -> o.a.l.analysis.util.CharArrayMap -->
+<!--     o.a.l.analysis.StopwordAnalyzerBase -> o.a.l.analysis.util.StopwordAnalyzerBase -->
+<!--     o.a.l.analysis.WordListLoader -> o.a.l.analysis.util.WordListLoader -->
+<!--     o.a.l.analysis.CharTokenizer -> o.a.l.analysis.util.CharTokenizer -->
+        <rule id="hsearch-00232">
+            <when>
+                <javaclass references="org.apache.lucene.analysis.{type}" />
+            </when>
+            <perform>
+                <hint title="Lucene 4.x - Classes repackaged to 'org.apache.lucene.analysis.util'" effort="1" category-id="optional">
+                    <message>Lucene's core and contrib analyzers, along with Solr's analyzers, were consolidated into lucene/analysis module.
+                     During the refactoring package name have changed for `org.apache.lucene.analysis.{type}` to `org.apache.lucene.analysis.util.{type}`.</message>
+                    <link href="http://lucene.apache.org/core/4_10_2/MIGRATE.html" title="Apache Lucene Migration Guide" />
+                    <link href="http://hibernate.org/search/documentation/migrate/5.0/#within-apache-lucene" title="Renamed classes within Apache Lucene" />
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_lucene_renamed_and_repackaged_classes"
+                        title="Lucene - Renamed and Repackaged Classes" />
+                    <tag>hibernate-search</tag>
+                    <tag>lucene</tag>
+                </hint>
+            </perform>
+            <where param="type">
+                <matches pattern="(CharArraySet|CharArrayMap|StopwordAnalyzerBase|WordlistLoader|CharTokenizer)" />
+            </where>
+        </rule>
+<!--     o.a.l.analysis.ReusableAnalyzerBase -> o.a.l.analysis.Analyzer -->
+        <rule id="hsearch-00233">
+            <when>
+                <javaclass references="org.apache.lucene.analysis.ReusableAnalyzerBase" />
+            </when>
+            <perform>
+                <hint title="Lucene 4.x - Class 'ReusableAnalyzerBase' renamed to 'org.apache.lucene.analysis.Analyzer'" effort="1" category-id="optional">
+                    <message>Lucene's core and contrib analyzers, along with Solr's analyzers, were consolidated into lucene/analysis module.
+                     During the refactoring class name have changed for `org.apache.lucene.analysis.ReusableAnalyzerBase` to `org.apache.lucene.analysis.Analyzer`.</message>
+                    <link href="http://lucene.apache.org/core/4_10_2/MIGRATE.html" title="Apache Lucene Migration Guide" />
+                    <link href="http://hibernate.org/search/documentation/migrate/5.0/#within-apache-lucene" title="Renamed classes within Apache Lucene" />
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_lucene_renamed_and_repackaged_classes"
+                        title="Lucene - Renamed and Repackaged Classes" />
+                    <tag>hibernate-search</tag>
+                    <tag>lucene</tag>
+                </hint>
+            </perform>
+        </rule>
+<!--     o.a.l.util.CharacterUtils -> o.a.l.analysis.util.CharacterUtils -->
+        <rule id="hsearch-00234">
+            <when>
+                <javaclass references="org.apache.lucene.util.CharacterUtils" />
+            </when>
+            <perform>
+                <hint title="Lucene 4.x - Class 'CharacterUtils' repackaged to 'org.apache.lucene.analysis.util'" effort="1" category-id="optional">
+                    <message>Lucene's core and contrib analyzers, along with Solr's analyzers, were consolidated into lucene/analysis module.
+                     During the refactoring package name have changed for `org.apache.lucene.util.CharacterUtils` to `org.apache.lucene.analysis.util.CharacterUtils`.</message>
+                    <link href="http://lucene.apache.org/core/4_10_2/MIGRATE.html" title="Apache Lucene Migration Guide" />
+                    <link href="http://hibernate.org/search/documentation/migrate/5.0/#within-apache-lucene" title="Renamed classes within Apache Lucene" />
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_lucene_renamed_and_repackaged_classes"
+                        title="Lucene - Renamed and Repackaged Classes" />
+                    <tag>hibernate-search</tag>
+                    <tag>lucene</tag>
+                </hint>
+            </perform>
+        </rule>
+<!--         LUCENE-2883: ValueSource changes -->
+<!-- Lucene's o.a.l.search.function ValueSource based functionality, was consolidated into lucene/queries along with Solr's similar functionality. The following classes were moved: -->
+<!--     o.a.l.search.function.CustomScoreQuery -> o.a.l.queries.CustomScoreQuery -->
+<!--     o.a.l.search.function.CustomScoreProvider -> o.a.l.queries.CustomScoreProvider -->
+        <rule id="hsearch-00235">
+            <when>
+                <javaclass references="org.apache.lucene.search.function.{type}" />
+            </when>
+            <perform>
+                <hint title="Lucene 4.x - Classes repackaged to 'org.apache.lucene.queries'" effort="1" category-id="optional">
+                    <message>Lucene's core and contrib analyzers, along with Solr's analyzers, were consolidated into lucene/analysis module.
+                     During the refactoring package name have changed for `org.apache.lucene.search.function.{type}` to `org.apache.lucene.queries.{type}`.</message>
+                    <link href="http://lucene.apache.org/core/4_10_2/MIGRATE.html" title="Apache Lucene Migration Guide" />
+                    <link href="http://hibernate.org/search/documentation/migrate/5.0/#within-apache-lucene" title="Renamed classes within Apache Lucene" />
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_lucene_renamed_and_repackaged_classes"
+                        title="Lucene - Renamed and Repackaged Classes" />
+                    <tag>hibernate-search</tag>
+                    <tag>lucene</tag>
+                </hint>
+            </perform>
+            <where param="type">
+                <matches pattern="(CustomScoreQuery|CustomScoreProvider)" />
+            </where>
+        </rule>
+<!--     o.a.l.search.function.NumericIndexDocValueSource -> o.a.l.queries.function.valuesource.NumericIndexDocValueSource -->
+        <rule id="hsearch-00236">
+            <when>
+                <javaclass references="org.apache.lucene.search.function.NumericIndexDocValueSource" />
+            </when>
+            <perform>
+                <hint title="Lucene 4.x - Class 'NumericIndexDocValueSource' repackaged to 'org.apache.lucene.queries.function.valuesource'" effort="1" category-id="optional">
+                    <message>Lucene's core and contrib analyzers, along with Solr's analyzers, were consolidated into lucene/analysis module.
+                     During the refactoring package name have changed for `org.apache.lucene.search.function.NumericIndexDocValueSource` to `org.apache.lucene.queries.function.valuesource.NumericIndexDocValueSource`.</message>
+                    <link href="http://lucene.apache.org/core/4_10_2/MIGRATE.html" title="Apache Lucene Migration Guide" />
+                    <link href="http://hibernate.org/search/documentation/migrate/5.0/#within-apache-lucene" title="Renamed classes within Apache Lucene" />
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_lucene_renamed_and_repackaged_classes"
+                        title="Lucene - Renamed and Repackaged Classes" />
+                    <tag>hibernate-search</tag>
+                    <tag>lucene</tag>
+                </hint>
+            </perform>
+        </rule>
+<!-- The following lists the replacement classes for those removed: -->
+<!--     o.a.l.search.function.DocValues -> o.a.l.queries.function.DocValues -->
+<!--     o.a.l.search.function.FieldScoreQuery ->o.a.l.queries.function.FunctionQuery -->
+<!--     o.a.l.search.function.ValueSource -> o.a.l.queries.function.ValueSource -->
+<!--     o.a.l.search.function.ValueSourceQuery -> o.a.l.queries.function.FunctionQuery -->
+        <rule id="hsearch-00237">
+            <when>
+                <javaclass references="org.apache.lucene.search.function.{type}" />
+            </when>
+            <perform>
+                <hint title="Lucene 4.x - Classes repackaged to 'org.apache.lucene.queries.function'" effort="1" category-id="optional">
+                    <message>Lucene's core and contrib analyzers, along with Solr's analyzers, were consolidated into lucene/analysis module.
+                     During the refactoring package name have changed for `org.apache.lucene.search.function.{type}` to `org.apache.lucene.queries.function.{type}`.</message>
+                    <link href="http://lucene.apache.org/core/4_10_2/MIGRATE.html" title="Apache Lucene Migration Guide" />
+                    <link href="http://hibernate.org/search/documentation/migrate/5.0/#within-apache-lucene" title="Renamed classes within Apache Lucene" />
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_lucene_renamed_and_repackaged_classes"
+                        title="Lucene - Renamed and Repackaged Classes" />
+                    <tag>hibernate-search</tag>
+                    <tag>lucene</tag>
+                </hint>
+            </perform>
+            <where param="type">
+                <matches pattern="(DocValues|FieldScoreQuery|ValueSource|ValueSourceQuery)" />
+            </where>
+        </rule>
+<!--     o.a.l.search.function.ByteFieldSource -> o.a.l.queries.function.valuesource.ByteFieldSource -->
+<!--     o.a.l.search.function.FieldCacheSource -> o.a.l.queries.function.valuesource.FieldCacheSource -->
+<!--     o.a.l.search.function.FloatFieldSource -> o.a.l.queries.function.valuesource.FloatFieldSource -->
+<!--     o.a.l.search.function.IntFieldSource -> o.a.l.queries.function.valuesource.IntFieldSource -->
+<!--     o.a.l.search.function.OrdFieldSource -> o.a.l.queries.function.valuesource.OrdFieldSource -->
+<!--     o.a.l.search.function.ReverseOrdFieldSource -> o.a.l.queries.function.valuesource.ReverseOrdFieldSource -->
+<!--     o.a.l.search.function.ShortFieldSource -> o.a.l.queries.function.valuesource.ShortFieldSource -->
+         <rule id="hsearch-00238">
+            <when>
+                <javaclass references="org.apache.lucene.search.function.{type}" />
+            </when>
+            <perform>
+                <hint title="Lucene 4.x - Classes repackaged to 'org.apache.lucene.queries.function.valuesources'" effort="1" category-id="optional">
+                    <message>Lucene's core and contrib analyzers, along with Solr's analyzers, were consolidated into lucene/analysis module.
+                     During the refactoring package name have changed for `org.apache.lucene.search.function.{type}` to `org.apache.lucene.queries.function.valuesources.{type}`.</message>
+                    <link href="http://lucene.apache.org/core/4_10_2/MIGRATE.html" title="Apache Lucene Migration Guide" />
+                    <link href="http://hibernate.org/search/documentation/migrate/5.0/#within-apache-lucene" title="Renamed classes within Apache Lucene" />
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_lucene_renamed_and_repackaged_classes"
+                        title="Lucene - Renamed and Repackaged Classes" />
+                    <tag>hibernate-search</tag>
+                    <tag>lucene</tag>
+                </hint>
+            </perform>
+            <where param="type">
+                <matches pattern="(ByteFieldSource|FieldCacheSource|FloatFieldSource|IntFieldSource|OrdFieldSource|ReverseOrdFieldSource|ShortFieldSource)" />
+            </where>
+        </rule>
+<!-- Solr utilities classes, for example TokenizerFactory or TokenFilterFactory, were moved into Apache Lucene.
+ For this reason we could remove the dependency to Apache Solr. Good news is a simplified dependency graph!
+ The bad news, if you depend on some of these utilities or custom analyzers, you’ll need to find the new (package) name -->
+         <rule id="hsearch-00239">
+            <when>
+                <javaclass references="org.apache.solr.analysis.{type}" />
+            </when>
+            <perform>
+                <hint title="Lucene 4.x - Solr classes repackaged to 'org.apache.lucene.analysis.util'" effort="1" category-id="optional">
+                    <message>Solr utilities class `org.apache.solr.analysis.{type}` was moved into Apache Lucene so you can use `org.apache.lucene.analysis.util.{type}`.</message>
+                    <link href="http://lucene.apache.org/core/4_10_2/MIGRATE.html" title="Apache Lucene Migration Guide" />
+                    <link href="http://hibernate.org/search/documentation/migrate/5.0/#within-apache-lucene" title="Renamed classes within Apache Lucene" />
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_hibernate_search_advanced_integrator_changes"
+                        title="Changes Impacting Advanced Integrators" />
+                    <tag>hibernate-search</tag>
+                    <tag>lucene</tag>
+                </hint>
+            </perform>
+            <where param="type">
+                <matches pattern="(TokenizerFactory|TokenFilterFactory)" />
+            </where>
+        </rule>
+        <!-- org.hibernate.search.MassIndexer.threadsForIndexWriter(int) -->
+        <rule id="hsearch-00240">
+            <when>
+                <javaclass references="org.hibernate.search.MassIndexer.threadsForIndexWriter{*}">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Hibernate Search 5 - Removed method MassIndexer#threadsForIndexWriter" effort="1" category-id="optional">
+                    <message>Method `org.hibernate.search.MassIndexer#threadsForIndexWriter(int)` was removed in Hibernate Search 5.</message>
+                    <link
+                        href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.0/html-single/migration_guide/#migrate_hibernate_search_deprecated_methods"
+                        title="Hibernate Search Removed Methods" />
+                    <tag>hibernate-search</tag>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

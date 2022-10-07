@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<ruletest id="azure-file-system-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/azure-file-system</testDataPath>
+    <rulePath>../azure-file-system.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="azure-file-system-test-01000">
+                <when>
+                    <not>
+                        <iterable-filter size="3">
+                            <hint-exists message="The application uses Java APIs to read/write from the file system." />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Java APIs to read/write hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="azure-file-system-test-02000">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="Relative path found." />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Relative path hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="azure-file-system-test-03000">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Home path found." />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Home path hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest> 

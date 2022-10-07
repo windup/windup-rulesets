@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruletest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:windupfunctions="windupcustomfunctions"
+          xmlns:windup="http://windup.jboss.org/schema/jboss-ruleset"
+          id="configuration-management-technology-usage-test"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <testDataPath>data/configuration-management</testDataPath>
+    <rulePath>../configuration-management.windup.xml</rulePath>
+    <rulePath>../configuration-management-technology-usage.windup.xml</rulePath>
+   <ruleset>
+      <rules>
+         <rule id="configuration-management-technology-usage-0100-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Spring Cloud Config" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Configuration Management"/>
+                     <tag name="Embedded"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule configuration-management-technology-usage-0100"/>
+            </perform>
+         </rule>
+         <rule id="configuration-management-technology-usage-0200-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Spring Properties" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Configuration Management"/>
+                     <tag name="Embedded"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule configuration-management-technology-usage-0200"/>
+            </perform>
+         </rule>
+       </rules>
+   </ruleset>
+</ruletest>

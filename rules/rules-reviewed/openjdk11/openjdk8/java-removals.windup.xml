@@ -1,0 +1,289 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="java-removals"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis with respect to API removals between OpenJDK 8 and 11.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="openjdk" versionRange="(,8]"/>
+        <targetTechnology id="openjdk" versionRange="[11,)"/>
+    </metadata>
+    <rules>
+        <rule id="java-removals-00000">
+            <when>
+                <or>
+                <javaclass references="java.lang.Thread.stop({.+})">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+                <javaclass references="java.lang.Thread.destroy({*})">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="Methods in `java.lang.Thread` have been removed" effort="3" category-id="mandatory">
+                    <message>
+                        The `java.lang.Thread.stop(Throwable)` method has been removed, as it is dangerous for a thread to not only be able to directly stop another thread, but with an exception it may not expect. Instead, the thread should be notified to stop using a shared variable or `interrupt()`.
+                        The `java.lang.Thread.destroy()` method was never even implemented and just throws `NoSuchMethodError`.
+                    </message>
+                    <link title="Java Thread Primitive Deprecation" href="https://docs.oracle.com/javase/7/docs/technotes/guides/concurrency/threadPrimitiveDeprecation.html"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-removals-00010">
+            <when>
+                <javaclass references="sun.reflect.Reflection{*}">
+                    <location>IMPORT</location>
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="sun.reflect.Reflection class was deprecated in Java 9" effort="1" category-id="mandatory">
+                    <message>
+                        Java 9 introduced the `StackWalker API` to replace `sun.reflect.Reflection`. 
+                        As such, the use of `sun.reflect.Reflection` class and particular the `getCallerClass` method should no longer be needed. 
+                        Refer to the example changeset linked below.
+                    </message>
+                    <link title="Example changeset" href="https://hg.openjdk.java.net/openjfx/9-dev/rt/rev/70f6fa01a32c"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-removals-00020">
+            <when>
+                <javaclass references="sun.reflect.CallerSensitive{*}">
+                    <location>IMPORT</location>
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="sun.reflect.CallerSensitive annotation was deprecated in Java 9" effort="1" category-id="mandatory">
+                    <message>
+                        `sun.reflect.CallerSensitive` annotation was deprecated in Java 9.
+                        Refer to the example changeset linked below. 
+                    </message>
+                    <link title="Example changeset" href="https://hg.openjdk.java.net/openjfx/9-dev/rt/rev/70f6fa01a32c"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-removals-00030">
+            <when>
+                <javaclass references="javax.security.auth.Policy"/>
+            </when>
+            <perform>
+                <hint title="The `javax.security.auth.Policy` class has been removed" effort="3" category-id="mandatory">
+                    <message>
+                        <![CDATA[
+                        The `javax.security.auth.Policy` class has been removed.
+                        It should be replaced by the use of `java.security.Policy` and `java.security.ProtectionDomain`.
+                        Usage of `policy.getPermissions(subject,codeSource)` should be  replaced with a call to
+                        policy.getPermissions passing in a new ProtectionDomain (see links below for details)
+                        ]]>
+                    </message>
+                    <link title="Java 10 javax.security.auth.Policy api" href="https://docs.oracle.com/javase/10/docs/api/javax/security/auth/Policy.html"/>
+                    <link title="Java 11 java.security.Policy api" href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/security/Policy.html"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-removals-00040">
+            <when>
+                <javaclass references="java.lang.SecurityManager.{method-name}({*})"/>
+            </when>
+            <perform>
+                <hint title="AWT SecurityManager method java.lang.SecurityManager.{method-name} has been removed in Java 11" effort="1" category-id="mandatory">
+                    <message>
+                        Due to modularisation, the methods `java.lang.SecurityManager.checkAwtEventQueueAccess()`,
+                        `java.lang.SecurityManager.checkSystemClipboardAccess()` and
+                        `java.lang.SecurityManager.checkTopLevelWindow(java.lang.Object)`
+                        have been removed, so that the core SecurityManager class does not depend on the AWT stack.
+
+                        Replace with a call to `java.lang.SecurityManager.checkPermission(java.security.Permission)` as follows:
+
+                        `java.lang.SecurityManager.checkAwtEventQueueAccess()` --> `java.lang.SecurityManager.checkPermission(new AWTPermission("accessEventQueue"))`
+                        `java.lang.SecurityManager.checkSystemClipboardAccess()` --> `java.lang.SecurityManager.checkPermission(new AWTPermission("accessClipboard"))`
+                        `java.lang.SecurityManager.checkTopLevelWindow(java.lang.Object) --> java.lang.SecurityManager.checkPermission(new AWTPermission("showWindowWithoutWarningBanner"))`
+                    </message>
+                    <link title="Java 11 SecurityManager api" href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/SecurityManager.html"/>
+                    <link title="Java 11 AWTPermission api" href="https://docs.oracle.com/en/java/javase/11/docs/api/java.desktop/java/awt/AWTPermission.html"/>
+                </hint>
+            </perform>
+            <where param="method-name">
+               <matches pattern="(checkAwtEventQueueAccess|checkSystemClipboardAccess|checkTopLevelWindow)"/>
+            </where>
+        </rule>
+        <rule id="java-removals-00041">
+            <when>
+                <javaclass references="java.lang.SecurityManager.checkMemberAccess({*})"/>
+            </when>
+            <perform>
+                <hint title="SecurityManager method java.lang.SecurityManager.checkMemberAccess has been removed" effort="1" category-id="mandatory">
+                    <message>
+                        The implementation of `java.lang.SecurityManager.checkMemberAccess(java.lang.Class, int)` relies on an assumption
+                        that the caller is at a stack depth of 4, which is not something that can be enforced, making the code error-prone.
+
+                        Replace with a call to `java.lang.SecurityManager.checkPermission(new RuntimePermission("accessDeclaredMembers"))`.
+                    </message>
+                    <link title="Java 11 SecurityManager api" href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/SecurityManager.html"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-removals-00050">
+            <when>
+                <javaclass references="java.util.logging.LogManager.addPropertyChangeListener({*})"/>
+            </when>
+            <perform>
+                <hint title="The java.util.logging.LogManager.addPropertyChangeListener() method was removed in Java 9" effort="1" category-id="mandatory">
+                    <message>
+                        `java.util.logging.LogManager.addPropertyChangeListener()` method was removed in Java 9.
+                        In order to listen to property change events, please consider overriding the `java.util.logging.LogManager.readConfiguration` methods,
+                        which previously triggered property change events for the registered listeners.
+                    </message>
+                    <link href="https://docs.oracle.com/en/java/javase/16/migrate/removed-apis.html#GUID-B96BD00F-12A4-493A-9907-2FFE8DA6748C" title="APIs removed in JDK 9"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-removals-00060">
+            <when>
+                <javaclass references="java.util.logging.LogManager.removePropertyChangeListener({*})"/>
+            </when>
+            <perform>
+                <hint title="The java.util.logging.LogManager.removePropertyChangeListener() method was removed in Java 9" effort="1" category-id="mandatory">
+                    <message>
+                        `java.util.logging.LogManager.removePropertyChangeListener()` method was removed in Java 9.
+                        In order to listen to property change events, please consider overriding the `java.util.logging.LogManager.readConfiguration` methods,
+                        which previously triggered property change events for the registered listeners.
+                    </message>
+                    <link href="https://docs.oracle.com/en/java/javase/16/migrate/removed-apis.html#GUID-B96BD00F-12A4-493A-9907-2FFE8DA6748C" title="APIs removed in JDK 9"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-removals-00100">
+            <when>
+                <or>
+                    <javaclass references="java.util.jar.Pack200.Packer.addPropertyChangeListener({*})"/>
+                    <javaclass references="java.util.jar.Pack200.Packer.removePropertyChangeListener({*})"/>
+                    <javaclass references="java.util.jar.Pack200.Unpacker.addPropertyChangeListener({*})"/>
+                    <javaclass references="java.util.jar.Pack200.Unpacker.removePropertyChangeListener({*})"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Property listener methods on `Pack200.Packer` and `Pack200.Unpacker` have been removed" effort="3" category-id="mandatory">
+                    <message>
+                        Property listener methods on `Pack200.Packer` and `Pack200.Unpacker` have been removed.
+                        Instead, a strategy based on polling the `PROGRESS` value maintained by `java.util.jar.Pack200.Packer`
+                        or `java.util.jar.Pack200.Unpacker` is recommended.
+                    </message>
+                    <link title="java.util.jar.Packer API" href="https://docs.oracle.com/javase/8/docs/api/java/util/jar/Pack200.Packer.html"/>
+                    <link title="java.util.jar.Unpacker API" href="https://docs.oracle.com/javase/8/docs/api/java/util/jar/Pack200.Unpacker.html"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-removals-00110">
+            <when>
+                <javaclass references="sun.misc.Unsafe.{method-name}({*})"/>
+            </when>
+            <perform>
+                <hint title="Methods in `sun.misc.Unsafe` have been removed" effort="2" category-id="mandatory">
+                    <message>
+                        The `sun.misc.Unsafe` API is scheduled for removal in the long term, and some of its methods have been removed. In short term, please consider the following:
+
+                        - The `get` and `put` methods have equivalents that take long offsets (OpenJDK 8's version of the removed methods just casts the int offsets and used the long versions).
+                        - `fieldOffset(Field)` should be replaced by `staticFieldOffset(Field)` and `ObjectFieldOffset(Field)`.
+                        - `staticFieldBase(Class)` should be replaced by asking for a specific field with `staticFieldBase(Field)`. The removed method only returned the address of the first static field in the class and relied on the assumption that the JVM stored all statics together, which may not be true.
+                        - `tryMonitorEnter(Object)` and `monitorExit(Object)` can be replaced with use of the Java synchronized primitives, as illustrated in the test changes for JDK-8054494 (see links below).
+
+                        In the long term, please consider using Variable Handles (see the link below)
+                    </message>
+                    <link href="https://hg.openjdk.java.net/jdk9/jdk9/jdk/rev/0a0a0986400e#l2.19" title="Test changes for JDK-8054494"/>
+                    <link href="https://openjdk.java.net/jeps/193" title="Variable Handles"/>
+                </hint>
+            </perform>
+            <where param="method-name">
+                <matches pattern="(getInt|putInt|getFloat|putFloat|getDouble|putDouble|getBoolean|putBoolean|getObject|putObject|getByte|putByte|getChar|putChar|getShort|putShort|getLong|putLong|fieldOffset|staticFieldBase|tryMonitorEnter|monitorEnter|monitorExit)"/>
+            </where>
+        </rule>
+        <rule id="java-removals-00120">
+            <when>
+                <javaclass references="sun.misc.BASE64{encoder-decoder}{*}"/>
+            </when>
+            <perform>
+                <hint title="The `sun.misc.BASE64{encoder-decoder}` class has been removed" effort="1" category-id="mandatory">
+                    <message>
+                        The `sun.misc.BASE64{encoder-decoder}` class has been removed.  
+                        It can be replaced with `Base64.{encoder-decoder}` class instantiated using `java.util.Base64.getMime{encoder-decoder}()` method.  
+                        For further examples on how to replace the `BASE64{encoder-decoder}` class with `Base64.{encoder-decoder}` one, refer to the "Code example" link below.  
+                    </message>
+                    <link title="java.util.Base64 - Javadoc" href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Base64.html"/>
+                    <link title="Code example" href="https://hg.openjdk.java.net/jdk8/jdk8/jdk/rev/9078c34437ab"/>
+                    <link title="OpenJDK - Original enhancement request" href="https://bugs.openjdk.java.net/browse/JDK-8006182"/>
+                </hint>
+            </perform>
+            <where param="encoder-decoder">
+                <matches pattern="(Encoder|Decoder)"/>
+            </where>
+        </rule>
+        <rule id="java-removals-00130">
+            <when>
+                <or>
+                    <javaclass references="java.lang.System.runFinalizersOnExit({*})"/>
+                    <javaclass references="java.lang.Runtime.runFinalizersOnExit({*})"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="The `runFinalizersOnExit` methods have been removed" effort="1" category-id="mandatory">
+                    <message>
+                        The `java.lang.System.runFinalizersOnExit(boolean value)` and `java.lang.Runtime.runFinalizersOnExit(boolean value)`
+                        have been removed as they are regarded as inherently unsafe. Running finalizers on exit was disabled by default
+                        and enabling it could result in finalizers being called on live objects which are still being manipulated by other threads.
+
+                        Remove these method calls.
+                    </message>
+                    <link title="JDK 11 removed APIs" href="https://docs.oracle.com/en/java/javase/11/migrate/index.html#JSMIG-GUID-4B613B7E-B150-4D0A-835C-2393C60BE1F8"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-removals-00140">
+            <when>
+                <or>
+                    <javaclass references="java.awt.Font.getPeer({*})">
+                        <location>METHOD_CALL</location> 
+                    </javaclass>
+                    <javaclass references="java.awt.Component.getPeer({*})">
+                        <location>METHOD_CALL</location> 
+                    </javaclass>
+                </or>
+            </when>
+                <perform>
+                    <hint title="The `java.awt.Font.getPeer()` and `java.awt.Component.getPeer()` methods have been removed" effort="3" category-id="mandatory">
+                        <message>
+                            The `java.awt.Font.getPeer()` and `java.awt.Component.getPeer()` methods have been removed.  
+                            The `java.awt.peer` and `java.awt.dnd.peer` are no longer accessible and are considered
+                            internal implementation details, the API may be removed without notice or changed in non
+                            compatible ways.  
+                            Methods exposing this API, such as `java.awt.Font.getPeer()` have been removed since JDK 9.     
+                            Since Font rendering is platform independent, there are no substitutes for this method.
+                        </message>              
+                    <link title="java.awt.peer Not Accessible" href="https://docs.oracle.com/en/java/javase/11/migrate/index.html#JSMIG-GUID-0C350BAB-F2C8-409E-AD3E-63831C684A55"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-removals-00150">
+            <when>
+                <javaclass references="java.lang.ClassLoader"/>
+            </when>
+            <perform>
+                <hint title="Changes in ClassLoader hierarchy in JDK 11 may impact code" effort="1" category-id="potential">
+                    <message>
+                        The changes that were implemented in JDK 9 may impact code that creates class loaders with null (that is, the bootstrap class loader)
+                        as the parent class loader and assumes that all platform classes are visible to the parent.
+                        Such code may need to be changed to use the platform class loader as the parent (see the links below)
+                    </message>
+                    <link href="https://docs.oracle.com/en/java/javase/11/migrate/index.html#JSMIG-GUID-A868D0B9-026F-4D46-B979-901834343F9E" title="JDK11 New Classloader Implementations"/>
+                    <link href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/ClassLoader.html#%3Cinit%3E(java.lang.ClassLoader)" title="ClassLoader Constructor API"/>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

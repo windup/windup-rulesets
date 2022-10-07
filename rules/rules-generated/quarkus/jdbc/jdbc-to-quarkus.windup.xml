@@ -1,0 +1,216 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="jdbc-to-quarkus"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints to migrate jdbc components to Quarkus extension
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="jdbc" />
+        <targetTechnology id="quarkus" />
+    </metadata>
+    <rules>
+        <rule id="quarkus-jdbc-db2-00000">
+            <when>
+
+                <project>
+                    <artifact groupId="com.ibm.db2" artifactId="jcc"/>
+                </project>
+            </when>
+            <perform>
+                <iteration over="default">
+                    <hint title="Replace the 'jcc' dependency with Quarkus 'quarkus-jdbc-db2' extension" effort="1" category-id="mandatory">
+                        <message>
+                            Replace the `com.ibm.db2:jcc` dependency with the Quarkus dependency `io.quarkus:quarkus-jdbc-db2`  
+                            Further information in the link below.
+                        </message>
+                        <link title="Quarkus - Guide" href="https://quarkus.io/guides/hibernate-orm" />
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="quarkus-jdbc-db2-00010">
+            <when>
+                <dependency groupId="com.ibm.db2" artifactId="jcc"/>
+            </when>
+            <perform>
+                <hint title="Replace the 'jcc' dependency with Quarkus 'quarkus-jdbc-db2' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `com.ibm.db2:jcc` dependency with the Quarkus dependency `io.quarkus:quarkus-jdbc-db2`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/hibernate-orm" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="quarkus-jdbc-derby-00000">
+            <when>
+
+                <project>
+                    <artifact groupId="org.apache.derby" artifactId="derbyclient"/>
+                </project>
+            </when>
+            <perform>
+                <iteration over="default">
+                    <hint title="Replace the 'derbyclient' dependency with Quarkus 'quarkus-jdbc-derby' extension" effort="1" category-id="mandatory">
+                        <message>
+                            Replace the `org.apache.derby:derbyclient` dependency with the Quarkus dependency `io.quarkus:quarkus-jdbc-derby`  
+                            Further information in the link below.
+                        </message>
+                        <link title="Quarkus - Guide" href="https://quarkus.io/guides/hibernate-orm" />
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="quarkus-jdbc-derby-00010">
+            <when>
+                <dependency groupId="org.apache.derby" artifactId="derbyclient"/>
+            </when>
+            <perform>
+                <hint title="Replace the 'derbyclient' dependency with Quarkus 'quarkus-jdbc-derby' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `org.apache.derby:derbyclient` dependency with the Quarkus dependency `io.quarkus:quarkus-jdbc-derby`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/hibernate-orm" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="quarkus-jdbc-mariadb-00000">
+            <when>
+
+                <project>
+                    <artifact groupId="org.mariadb.jdbc" artifactId="mariadb-java-client"/>
+                </project>
+            </when>
+            <perform>
+                <iteration over="default">
+                    <hint title="Replace the 'mariadb-java-client' dependency with Quarkus 'quarkus-jdbc-mariadb' extension" effort="1" category-id="mandatory">
+                        <message>
+                            Replace the `org.mariadb.jdbc:mariadb-java-client` dependency with the Quarkus dependency `io.quarkus:quarkus-jdbc-mariadb`  
+                            Further information in the link below.
+                        </message>
+                        <link title="Quarkus - Guide" href="https://quarkus.io/guides/hibernate-orm" />
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="quarkus-jdbc-mariadb-00010">
+            <when>
+                <dependency groupId="org.mariadb.jdbc" artifactId="mariadb-java-client"/>
+            </when>
+            <perform>
+                <hint title="Replace the 'mariadb-java-client' dependency with Quarkus 'quarkus-jdbc-mariadb' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `org.mariadb.jdbc:mariadb-java-client` dependency with the Quarkus dependency `io.quarkus:quarkus-jdbc-mariadb`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/hibernate-orm" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="quarkus-jdbc-mysql-00000">
+            <when>
+
+                <project>
+                    <artifact groupId="mysql" artifactId="mysql-connector-java"/>
+                </project>
+            </when>
+            <perform>
+                <iteration over="default">
+                    <hint title="Replace the 'mysql-connector-java' dependency with Quarkus 'quarkus-jdbc-mysql' extension" effort="1" category-id="mandatory">
+                        <message>
+                            Replace the `mysql:mysql-connector-java` dependency with the Quarkus dependency `io.quarkus:quarkus-jdbc-mysql`  
+                            Further information in the link below.
+                        </message>
+                        <link title="Quarkus - Guide" href="https://quarkus.io/guides/hibernate-orm" />
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="quarkus-jdbc-mysql-00010">
+            <when>
+                <dependency groupId="mysql" artifactId="mysql-connector-java"/>
+            </when>
+            <perform>
+                <hint title="Replace the 'mysql-connector-java' dependency with Quarkus 'quarkus-jdbc-mysql' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `mysql:mysql-connector-java` dependency with the Quarkus dependency `io.quarkus:quarkus-jdbc-mysql`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/hibernate-orm" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="quarkus-jdbc-oracle-00000">
+            <when>
+
+                <project>
+                    <artifact groupId="com.oracle.database.jdbc" artifactId="ojdbc11"/>
+                </project>
+            </when>
+            <perform>
+                <iteration over="default">
+                    <hint title="Replace the 'ojdbc11' dependency with Quarkus 'quarkus-jdbc-oracle' extension" effort="1" category-id="mandatory">
+                        <message>
+                            Replace the `com.oracle.database.jdbc:ojdbc11` dependency with the Quarkus dependency `io.quarkus:quarkus-jdbc-oracle`  
+                            Further information in the link below.
+                        </message>
+                        <link title="Quarkus - Guide" href="https://quarkus.io/guides/hibernate-orm" />
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="quarkus-jdbc-oracle-00010">
+            <when>
+                <dependency groupId="com.oracle.database.jdbc" artifactId="ojdbc11"/>
+            </when>
+            <perform>
+                <hint title="Replace the 'ojdbc11' dependency with Quarkus 'quarkus-jdbc-oracle' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `com.oracle.database.jdbc:ojdbc11` dependency with the Quarkus dependency `io.quarkus:quarkus-jdbc-oracle`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/hibernate-orm" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="quarkus-jdbc-postgresql-00000">
+            <when>
+
+                <project>
+                    <artifact groupId="org.postgresql" artifactId="postgresql"/>
+                </project>
+            </when>
+            <perform>
+                <iteration over="default">
+                    <hint title="Replace the 'postgresql' dependency with Quarkus 'quarkus-jdbc-postgresql' extension" effort="1" category-id="mandatory">
+                        <message>
+                            Replace the `org.postgresql:postgresql` dependency with the Quarkus dependency `io.quarkus:quarkus-jdbc-postgresql`  
+                            Further information in the link below.
+                        </message>
+                        <link title="Quarkus - Guide" href="https://quarkus.io/guides/hibernate-orm" />
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="quarkus-jdbc-postgresql-00010">
+            <when>
+                <dependency groupId="org.postgresql" artifactId="postgresql"/>
+            </when>
+            <perform>
+                <hint title="Replace the 'postgresql' dependency with Quarkus 'quarkus-jdbc-postgresql' extension" effort="1" category-id="mandatory">
+                    <message>
+                        Replace the `org.postgresql:postgresql` dependency with the Quarkus dependency `io.quarkus:quarkus-jdbc-postgresql`  
+                        Further information in the link below.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/hibernate-orm" />
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

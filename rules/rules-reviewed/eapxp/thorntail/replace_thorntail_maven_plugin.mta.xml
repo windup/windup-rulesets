@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="replace_thorntail_maven_plugin"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of Maven built applications that use Thorntail Maven Plugin,
+            which should be replaced by JBoss EAP XP Bootable JAR Maven Plugin, when migrating to JBoss EAP XP.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="thorntail" />
+        <targetTechnology id="eapxp" versionRange="[2,)" />
+        <tag>JBossEAP</tag>
+        <tag>Thorntail</tag>
+    </metadata>
+    <rules>
+        <!-- https://issues.jboss.org/browse/WINDUPRULE-739 -->
+        <rule id="replace_thorntail_maven_plugin-1">
+            <when>
+                <xmlfile matches="//m:plugin[m:groupId/text() = 'io.thorntail' and m:artifactId/text() = 'thorntail-maven-plugin']" in="pom.xml">
+                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Replace Thorntail Maven Plugin" effort="1" category-id="potential">
+                    <message>If you migrate your application to JBoss EAP XP 2.0 (or later), and want to ensure its Maven building, running or testing works as expected, replace Thorntail Maven Plugin with JBoss EAP XP Bootable JAR Maven Plugin.</message>
+                    <link title="Red Hat JBoss EAP XP Migration Guide: Thorntail Application Maven Project Migration" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/jboss_eap_xp_upgrade_and_migration_guide/thorntail-application-maven-project-migration_default#migrating-a-thorntail-application-maven-project-into-eap-xp_default"/>
+                    <tag>Thorntail</tag>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

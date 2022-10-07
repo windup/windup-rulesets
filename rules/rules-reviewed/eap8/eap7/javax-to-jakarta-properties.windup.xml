@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="javax-to-jakarta-properties"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset identifies property names prefixed by javax that should be renamed to jakarta
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <targetTechnology id="jakarta-ee" versionRange="[9,)" />      
+    </metadata>
+    <rules>
+        <!-- https://issues.jboss.org/browse/WINDUP-3150 -->
+        <rule id="javax-to-jakarta-properties-00001">
+            <when>
+                <filecontent filename="{*}.xml" pattern="&lt;property name=&quot;javax." />
+            </when>
+            <perform>
+                <hint title="Rename properties prefixed by javax with jakarta " effort="1"
+                          category-id="mandatory">
+                        <message>Rename properties prefixed by `javax` with `jakarta` </message>
+                        <link title="Jakarta EE"
+                              href="https://jakarta.ee/"/>
+                        <quickfix type="REPLACE" name="javax-replace-properties">
+                            <replacement>jakarta</replacement>
+                            <search>javax</search>
+                        </quickfix>
+                </hint>
+            </perform>
+        </rule>    
+    </rules>
+</ruleset>

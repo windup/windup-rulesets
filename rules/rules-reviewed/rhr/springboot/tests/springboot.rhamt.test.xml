@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<ruletest id="springboot-test"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data</testDataPath>
+    <rulePath>../springboot.rhamt.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="springboot-00001-test">
+                <when>
+                    <not>
+                        <iterable-filter size="18">
+                            <hint-exists message="Spring Boot has to be updated to Spring Boot 2.2.6 before being able to be migrated"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-00001] Spring Boot update to v2.0 pre-migration hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="springboot-00002-test">
+                <when>
+                    <not>
+                        <iterable-filter size="3">
+                            <hint-exists message="Spring Boot has to be updated to a version supported by Red Hat Runtimes"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-00002] Spring Boot update for RHR support hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

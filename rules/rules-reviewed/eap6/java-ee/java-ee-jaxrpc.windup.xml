@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<ruleset id="java-ee-jaxrpc" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <metadata>
+        <description>
+            This ruleset provides generic migration knowledge for the Java EE specification
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,2.3.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,2.3.0.Final" />
+        </dependencies>
+        <sourceTechnology id="java-ee" />
+        <targetTechnology id="eap" versionRange="[6,)" />
+        <tag>jax-rpc</tag>
+        <tag>soap</tag>
+    </metadata>
+
+    <rules>
+        <rule id="java-ee-jaxrpc-00000">
+            <when>
+                <javaclass references="javax.xml.rpc.handler.GenericHandler" as="default">
+                    <location>INHERITANCE</location>
+                </javaclass>
+            </when>
+            <perform>
+                <classification issue-display-mode="detail-only" title="JAX-RPC Generic Handler" effort="0" category-id="optional">
+                    <description>
+                    <![CDATA[
+                        The "javax.xml.rpc.handler.GenericHandler" class implements the Handler interface.
+                        SOAP Message Handler developers should typically subclass GenericHandler class unless
+                        the Handler class needs another class as a superclass. It is a convenience abstract
+                        class that makes writing Handlers easy. GenericHandler provides default implementations
+                        of the lifecycle methods init and destroy and also different handle methods.
+                        ]]>
+                    </description>
+                    <link href="http://docs.oracle.com/cd/E17802_01/webservices/webservices/docs/1.6/api/javax/xml/rpc/handler/GenericHandler.html"
+                        title="Java EE RPC Generic Handler API" />
+                    <tag>jax-rpc</tag>
+                    <tag>soap</tag>
+                </classification>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

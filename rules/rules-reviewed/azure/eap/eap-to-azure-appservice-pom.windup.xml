@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+
+<ruleset id="eap-to-azure-appservice-pom"
+         xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            Show how to deploy an application to JBoss on App Service
+        </description>
+        <dependencies>
+             <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final"/>
+        </dependencies>
+        <sourceTechnology id="eap" versionRange="[7,8)" />
+        <targetTechnology id="azure-appservice"/>
+        <tag>Azure</tag>
+    </metadata>
+    <rules>
+        <rule id="eap-to-azure-appservice-pom-001">
+            <when>
+                <project>
+                    <artifact groupId="org.jboss.bom" artifactId="eap-runtime-artifacts" fromVersion="7.3.0.Final"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Get started with JBoss EAP on App Service" category-id="optional" effort="1">
+                    <message>
+                        <![CDATA[
+                        Get started with JBoss EAP on App Service with the CLI commands below. Don't have the Azure CLI installed? Go to [https://aka.ms/azure-cli](https://aka.ms/azure-cli)
+                        
+                        <pre>
+                        # Customize these variables
+                        $resourceGroup=jboss-rg
+                        $location=eastus
+                        $appName=jboss-app
+                        $appServicePlan=jboss-asp
+
+                        az group create --resource-group $resourceGroup --location $location
+
+                        az appservice plan create --resource-group $resourceGroup --name $appServicePlan --is-linux --sku P1V3
+
+                        az webapp create --resource-group $resourceGroup --name $appName --plan $appServicePlan --runtime "JBOSSEAP|7.3-java8"
+
+                        # Build your app with:
+                        mvn package
+
+                        # Run one of the following commands depending on the artifact type
+
+                        # To deploy WAR files:
+                        az webapp deploy --resource-group $resourceGroup --plan $appServicePlan --name $appName --type war --src-path app.war
+
+                        # To deploy EAR files:
+                        az webapp deploy --resource-group $resourceGroup --plan $appServicePlan --name $appName --type ear --src-path app.ear
+                        </pre>
+                        ]]>
+                    </message>
+
+                    <link title="Get the Azure CLI" href="https://aka.ms/azure-cli" />
+                    
+                    <link title="Configure a Java app for Azure App Service - Deploying your app"
+                        href="https://aka.ms/webapps-deployment-apis"/>
+
+                    <link title="Migrate JBoss EAP applications to JBoss EAP on Azure App Service"
+                        href="https://aka.ms/webapps-jboss-migrate-guide"/>
+
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
