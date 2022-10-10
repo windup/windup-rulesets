@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ruletest id="empty-beans-xml-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/empty-beans-xml</testDataPath>
+    <rulePath>../empty-beans-xml.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="empty-beans-xml-00001-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Add a `beans` element with a `bean-discovery-mode='all'` attribute to an empty beans.xml file"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[empty-beans-xml-00001] The hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
