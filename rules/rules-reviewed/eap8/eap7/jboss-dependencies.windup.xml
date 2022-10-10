@@ -1,0 +1,396 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="jboss-dependencies"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of EAP7 dependencies for migrationto EAP8
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="jakarta-ee" versionRange="[7,)" />
+        <targetTechnology id="eap" versionRange="[8,9)" />
+    </metadata>
+    <rules>
+        <!-- https://issues.jboss.org/browse/WINDUPRULE-907 -->
+        <rule id="jboss-dependencies-00001">
+            <when>
+                <project>
+                    <artifact groupId="org.jboss.bom" artifactId="jboss-eap-jakartaee8"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace jboss-eap-jakartaee8 artifact with jboss-eap-ee" effort="1" category-id="mandatory">
+                    <message>Update the dependency by replacing the group `org.jboss.bom` artifact `jboss-eap-jakartaee8` 
+                        with group `org.jboss.bom` artifact `jboss-eap-ee`</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-dependencies-00002">
+            <when>
+                <project>
+                    <artifact groupId="org.jboss.bom" artifactId="jboss-eap-jakartaee8-with-tools"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace jboss-eap-jakartaee8-with-tools artifact with jboss-eap-ee-with-tools" effort="1" category-id="mandatory">
+                    <message>Update the dependency by replacing the group `org.jboss.bom` artifcat `jboss-eap-jakartaee8-with-tools` 
+                        with group `org.jboss.bom` artifact `jboss-eap-ee-with-tools`</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-dependencies-00003">
+            <when>
+                <project>
+                    <artifact groupId="org.jboss.spec" artifactId="jboss-jakartaee-8.0"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace jboss-jakartaee-8.0 artifact with jboss-eap-ee" effort="1" category-id="mandatory">
+                    <message>Update the dependency by replacing the group `org.jboss.spec` artifact `jboss-jakartaee-8.0` 
+                        with group `org.jboss.bom` artifact `jboss-eap-ee`</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-dependencies-00004">
+            <when>
+                <project>
+                    <artifact groupId="org.jboss.spec" artifactId="jboss-jakartaee-web-8.0"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace jboss-jakartaee-web-8.0 artifact with jboss-eap-ee" effort="1" category-id="mandatory">
+                    <message>Update the dependency by replacing the group `org.jboss.spec` artifact `jboss-jakartaee-web-8.0` 
+                        with group `org.jboss.bom` artifact `jboss-eap-ee`</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-dependencies-00005">
+            <when>
+                <project>
+                    <artifact groupId="com.sun.activation" artifactId="jakarta.activation"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace jakarta.activation artifact with jakarta.activation-api" effort="1" category-id="mandatory">
+                    <message>Update the dependency by replacing the group `com.sun.activation` artifact `jakarta.activation`  
+                        with group `jakarta.activation` artifact `jakarta.activation-api`</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-dependencies-00006">
+            <when>
+                <project>
+                    <artifact groupId="org.jboss.spec.javax.annotation" artifactId="jboss-annotations-api_1.3_spec"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace jboss-annotations-api_1.3_spec artifact with jakarta.annotation-api" effort="1" category-id="mandatory">
+                    <message>Update the dependency by replacing the group `org.jboss.spec.javax.annotation` artifact `jboss-annotations-api_1.3_spec`  
+                        with group `jakarta.annotation` artifact `jakarta.annotation-api`</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-dependencies-00007">
+            <when>
+                <project>
+                    <artifact groupId="org.jboss.spec.javax.security.auth.message" artifactId="jboss-jaspi-api_1.0_spec"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace jboss-jaspi-api_1.0_spec artifact with jakarta.authentication-api" effort="1" category-id="mandatory">
+                    <message>Update the dependency by replacing the group `org.jboss.spec.javax.security.auth.message` artifact `jboss-jaspi-api_1.0_spec`  
+                        with group `jakarta.authentication` artifact `jakarta.authentication-api`</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-dependencies-00008">
+            <when>
+                <project>
+                    <artifact groupId="org.jboss.spec.javax.security.jacc" artifactId="jboss-jacc-api_1.5_spec"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace jboss-jacc-api_1.5_spec artifact with jakarta.authorization-api" effort="1" category-id="mandatory">
+                    <message>Update the dependency by replacing the group `org.jboss.spec.javax.security.jacc` artifact `jboss-jacc-api_1.5_spec`  
+                        with group `jakarta.authorization` artifact `jakarta.authorization-api`</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-dependencies-00009">
+            <when>
+                <project>
+                    <artifact groupId="org.jboss.spec.javax.batch" artifactId="jboss-batch-api_1.0_spec"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace jboss-batch-api_1.0_spec artifact with jakarta.batch-api" effort="1" category-id="mandatory">
+                    <message>Update the dependency by replacing the group `org.jboss.spec.javax.batch` artifact `jboss-batch-api_1.0_spec`  
+                        with group `jakarta.batch` artifact `jakarta.batch-api`</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-dependencies-00010">
+            <when>
+                <project>
+                    <artifact groupId="org.jboss.spec.javax.ejb" artifactId="jboss-ejb-api_3.2_spec"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace jboss-ejb-api_3.2_spec artifact with jakarta.ejb-api" effort="1" category-id="mandatory">
+                    <message>Update the dependency by replacing the group `org.jboss.spec.javax.ejb` artifact `jboss-ejb-api_3.2_spec`  
+                        with group `jakarta.ejb` artifact `jakarta.ejb-api`</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-dependencies-00011">
+            <when>
+                <project>
+                    <artifact groupId="org.jboss.spec.javax.el" artifactId="jboss-el-api_3.0_spec"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace jboss-el-api_3.0_spec artifact with jboss-el-api_5.0_spec" effort="1" category-id="mandatory">
+                    <message>Update the dependency by replacing the group `org.jboss.spec.javax.el` artifact `jboss-el-api_3.0_spec`  
+                        with group `org.jboss.spec.jakarta.el` artifact `jboss-el-api_5.0_spec`</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-dependencies-00012">
+            <when>
+                <project>
+                    <artifact groupId="org.jboss.spec.javax.enterprise.concurrent" artifactId="jboss-concurrency-api_1.0_spec"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace jboss-concurrency-api_1.0_spec artifact with akarta.enterprise.concurrent-api" effort="1" category-id="mandatory">
+                    <message>Update the dependency by replacing the group `org.jboss.spec.javax.enterprise.concurrent` artifact `jboss-concurrency-api_1.0_spec`  
+                        with group `jakarta.enterprise.concurrent` artifact `jakarta.enterprise.concurrent-api`</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-dependencies-00013">
+            <when>
+                <project>
+                    <artifact groupId="org.jboss.spec.javax.faces" artifactId="jboss-jsf-api_2.3_spec"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace jboss-jsf-api_2.3_spec artifact with jakarta.faces-api" effort="1" category-id="mandatory">
+                    <message>Update the dependency by replacing the group `org.jboss.spec.javax.faces` artifact `jboss-jsf-api_2.3_spec`  
+                        with group `jakarta.faces` artifact `jakarta.faces-api`</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-dependencies-00014">
+            <when>
+                <project>
+                    <artifact groupId="org.jboss.spec.javax.interceptor" artifactId="jboss-interceptors-api_1.2_spec"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace jboss-interceptors-api_1.2_spec artifact with jakarta.interceptor-api" effort="1" category-id="mandatory">
+                    <message>Update the dependency by replacing the group `org.jboss.spec.javax.interceptor` artifact `jboss-interceptors-api_1.2_spec`  
+                        with group `jakarta.interceptor` artifact `jakarta.interceptor-api`</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-dependencies-00015">
+            <when>
+                <project>
+                    <artifact groupId="org.jboss.spec.javax.jms" artifactId="jboss-jms-api_2.0_spec"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace jboss-jms-api_2.0_spec artifact with jakarta.jms-api" effort="1" category-id="mandatory">
+                    <message>Update the dependency by replacing the group `org.jboss.spec.javax.jms` artifact `jboss-jms-api_2.0_spec`  
+                        with group `jakarta.jms` artifact `jakarta.jms-api`</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-dependencies-00016">
+            <when>
+                <project>
+                    <artifact groupId="com.sun.mail" artifactId="jakarta.mail"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace jakarta.mail artifact with jakarta.mail-api" effort="1" category-id="mandatory">
+                    <message>Update the dependency by replacing the group `com.sun.mail` artifact `jakarta.mail`  
+                        with group `jakarta.mail` artifact `jakarta.mail-api`</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-dependencies-00017">
+            <when>
+                <project>
+                    <artifact groupId="org.jboss.spec.javax.resource" artifactId="jboss-connector-api_1.7_spec"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace jboss-connector-api_1.7_spec artifact with jakarta.resource-api" effort="1" category-id="mandatory">
+                    <message>Update the dependency by replacing the group `org.jboss.spec.javax.resource` artifact `jboss-connector-api_1.7_spec`  
+                        with group `jakarta.resource` artifact `jakarta.resource-api`</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-dependencies-00018">
+            <when>
+                <project>
+                    <artifact groupId="org.jboss.spec.javax.servlet" artifactId="jboss-servlet-api_4.0_spec"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace jboss-servlet-api_4.0_spec artifact with jakarta.servlet-api" effort="1" category-id="mandatory">
+                    <message>Update the dependency by replacing the group `org.jboss.spec.javax.servlet` artifact `jboss-servlet-api_4.0_spec`  
+                        with group `jakarta.servlet` artifact `jakarta.servlet-api`</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-dependencies-00019">
+            <when>
+                <project>
+                    <artifact groupId="org.jboss.spec.javax.servlet.jsp" artifactId="jboss-jsp-api_2.3_spec"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace jboss-jsp-api_2.3_spec artifact with jakarta.servlet.jsp-api" effort="1" category-id="mandatory">
+                    <message>Update the dependency by replacing the group `org.jboss.spec.javax.servlet.jsp` artifact `jboss-jsp-api_2.3_spec`  
+                        with group `jakarta.servlet.jsp` artifact `jakarta.servlet.jsp-api`</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-dependencies-00020">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.taglibs" artifactId="taglibs-standard-spec"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace taglibs-standard-spec artifact with jakarta.servlet.jsp.jstl-api" effort="1" category-id="mandatory">
+                    <message>Update the dependency by replacing the group `org.apache.taglibs` artifact `taglibs-standard-spec`  
+                        with group `jakarta.servlet.jsp.jstl` artifact `jakarta.servlet.jsp.jstl-api`</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-dependencies-00021">
+            <when>
+                <project>
+                    <artifact groupId="org.jboss.spec.javax.transaction" artifactId="jboss-transaction-api_1.3_spec"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace jboss-transaction-api_1.3_spec artifact with jakarta.transaction-api" effort="1" category-id="mandatory">
+                    <message>Update the dependency by replacing the group `org.jboss.spec.javax.transaction` artifact `jboss-transaction-api_1.3_spec`  
+                        with group `jakarta.transaction` artifact `jakarta.transaction-api`</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-dependencies-00022">
+            <when>
+                <project>
+                    <artifact groupId="org.jboss.spec.javax.xml.bind" artifactId="jboss-jaxb-api_2.3_spec"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace jboss-jaxb-api_2.3_spec artifact with jakarta.xml.bind-api" effort="1" category-id="mandatory">
+                    <message>Update the dependency by replacing the group `org.jboss.spec.javax.xml.bind` artifact `jboss-jaxb-api_2.3_spec`  
+                        with group `jakarta.xml.bind` artifact `jakarta.xml.bind-api`</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-dependencies-00023">
+            <when>
+                <project>
+                    <artifact groupId="org.jboss.spec.javax.xml.ws" artifactId="jboss-jaxws-api_2.3_spec"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace jboss-jaxws-api_2.3_spec artifact with jboss-jakarta-xml-ws-api_4.0_spec" effort="1" category-id="mandatory">
+                    <message>Update the dependency by replacing the group `org.jboss.spec.javax.xml.ws` artifact `jboss-jaxws-api_2.3_spec`  
+                        with group `org.jboss.spec.jakarta.xml.ws` artifact `jboss-jakarta-xml-ws-api_4.0_spec`</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-dependencies-00024">
+            <when>
+                <project>
+                    <artifact groupId="org.jboss.spec.javax.websocket" artifactId="jboss-websocket-api_1.1_spec"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace jboss-websocket-api_1.1_spec artifact with jakarta.websocket-api" effort="1" category-id="mandatory">
+                    <message>Update the dependency by replacing the group `org.jboss.spec.javax.websocket` artifact `jboss-websocket-api_1.1_spec`  
+                        with group `jakarta.websocket` artifact `jakarta.websocket-api`</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-dependencies-00025">
+            <when>
+                <project>
+                    <artifact groupId="org.jboss.spec.javax.ws.rs" artifactId="jboss-jaxrs-api_2.1_spec"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace jboss-jaxrs-api_2.1_spec artifact with jakarta.ws.rs-api" effort="1" category-id="mandatory">
+                    <message>Update the dependency by replacing the group `org.jboss.spec.javax.ws.rs` artifact `jboss-jaxrs-api_2.1_spec`  
+                        with group `jakarta.ws.rs` artifact `jakarta.ws.rs-api`</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-dependencies-00026">
+            <when>
+                <project>
+                    <artifact groupId="org.jboss.spec.javax.xml.soap" artifactId="jboss-saaj-api_1.4_spec"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace jboss-saaj-api_1.4_spec artifact with jboss-saaj-api_3.0_spec" effort="1" category-id="mandatory">
+                    <message>Update the dependency by replacing the group `org.jboss.spec.javax.xml.soap` artifact `jboss-saaj-api_1.4_spec`  
+                        with group `org.jboss.spec.jakarta.xml.soap` artifact `jboss-saaj-api_3.0_spec`</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-dependencies-00027">
+            <when>
+                <project>
+                    <artifact groupId="org.hibernate" artifactId="hibernate-core"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace org.hibernate group with org.hibernate.orm" effort="1" category-id="mandatory">
+                    <message>Update the dependency by replacing the group `org.hibernate` artifact `hibernate-core`  
+                        with group `org.hibernate.orm` artifact `hibernate-core`</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-dependencies-00028">
+            <when>
+                <project>
+                    <artifact groupId="org.hibernate" artifactId="hibernate-jpamodelgen"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace org.hibernate group with org.hibernate.orm" effort="1" category-id="mandatory">
+                    <message>Update the dependency by replacing the group `org.hibernate` artifact `hibernate-jpamodelgen`  
+                        with group `org.hibernate.orm` artifact `hibernate-jpamodelgen`</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jboss-dependencies-00029">
+            <when>
+                <project>
+                    <artifact groupId="org.jboss.narayana.xts" artifactId="jbossxts"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Replace jbossxts artifact with jbossxts-jakarta" effort="1" category-id="mandatory">
+                    <message>Update the dependency by replacing the group `org.jboss.narayana.xts` artifact `jbossxts`  
+                        with group `org.jboss.narayana.xts` artifact `jbossxts-jakarta`</message>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
