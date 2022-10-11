@@ -355,7 +355,18 @@
                     <fail message="[jboss-dependencies-00029] The hint was not found!" />
                 </perform>
             </rule>
-
+            <rule id="jboss-dependencies-00030-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">   
+                            <hint-exists message="Update the dependency by replacing the group `org.jboss.bom` artifact `eap-runtime-artifacts`"/>
+                        </iterable-filter> 
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[jboss-dependencies-00030] The hint was not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
