@@ -367,6 +367,18 @@
                     <fail message="[jboss-dependencies-00030] The hint was not found!" />
                 </perform>
             </rule>
+            <rule id="jboss-dependencies-00031-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">   
+                            <hint-exists message="Update the dependency by replacing the group `javax.jws` artifact `jsr181-api`"/>
+                        </iterable-filter> 
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[jboss-dependencies-00031] The hint was not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
