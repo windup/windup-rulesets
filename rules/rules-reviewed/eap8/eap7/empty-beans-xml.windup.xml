@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="empty-beans-xml"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of Java EE applications that need to change their beans.xml deployment descriptor to allow discovery of all CDI beans.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="eap" versionRange="[6,)" />
+        <targetTechnology id="eap" versionRange="[8,)" />
+        <tag>JakartaEE</tag>
+    </metadata>
+    <rules>
+        <!-- https://issues.redhat.com/browse/WINDUPRULE-892 -->
+        <rule id="empty-beans-xml-00001">
+            <when>
+                <!-- Look for a beans1.xml without any 'beans' element -->
+                <and>
+                    <file filename="beans.xml"/>
+                    <not>
+                        <or>
+                           <!-- It is common for a beans1.xml file to not include any namespace information or version attribute, 
+                               so just look for the beans element name, with or without a namespace prefix -->
+                           <xmlfile matches="/j:beans" in="beans.xml">
+                               <namespace prefix="j" uri="http://xmlns.jcp.org/xml/ns/javaee"/>
+                           </xmlfile>
+                           <xmlfile matches="/beans" in="beans.xml">
+                           </xmlfile>
+                        </or>
+                    </not>
+                </and>
+            </when>
+            <perform>
+                <hint title="Use the `all` CDI bean discovery mode if the application has beans without bean defining annotations" effort="1"
+                      category-id="potential">
+                    <message>Add a `beans` element with a `bean-discovery-mode='all'` attribute to an empty beans.xml file if the application has beans without bean defining annotations </message>
+                    <!-- TODO This is a made up link; add a real one once we know the planned URL
+                    <link title="Red Hat JBoss EAP 8.0 Migration Guide: Maven Artifact Changes for Jakarta EE" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/8.0/html-single/migration_guide/index#maven-artifact-changes-for-jakarta-ee_default"/>
+                    -->
+                    <tag>JakartaEE</tag>
+                    <quickfix type="INSERT_LINE" name="empty-beans-xml-bean-discovery-mode-insert">
+                        <newline><![CDATA[<beans bean-discovery-mode="all"></beans>]]></newline>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
