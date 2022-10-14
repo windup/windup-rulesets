@@ -30,5 +30,30 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="springboot-di-to-quarkus-00002">
+            <when>
+                <javaclass references="org.springframework.beans.factory.config.BeanFactoryPostProcessor">
+                    <location>IMPLEMENTS_TYPE</location>
+                </javaclass>
+                <javaclass references="org.springframework.beans.factory.config.BeanPostProcessor">
+                    <location>IMPLEMENTS_TYPE</location>
+                </javaclass>
+                <javaclass references="org.springframework.beans.factory.config.DestructionAwareBeanPostProcessor">
+                    <location>IMPLEMENTS_TYPE</location>
+                </javaclass>
+                <javaclass references="org.springframework.beans.factory.config.InstantiationAwareBeanPostProcessor">
+                    <location>IMPLEMENTS_TYPE</location>
+                </javaclass>
+                <javaclass references="org.springframework.beans.factory.config.SmartInstantiationAwareBeanPostProcessor">
+                    <location>IMPLEMENTS_TYPE</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Spring DI infrastructure classes not supported by Quarkus" effort="3" category-id="mandatory">
+                    <message>Spring infrastructure classes (like `org.springframework.beans.factory.config.BeanPostProcessor` , `org.springframework.context.ApplicationContext` for example) will not be executed.</message>
+                    <link title="Quarkus DI Guide - important technical note" href="https://quarkus.io/guides/spring-di#important-technical-note"/>
+                </hint>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
