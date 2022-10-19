@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="jakarta-cdi"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of Java EE applications that need to change certain CDI-related method calls.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="eap" versionRange="[7,8)" />
+        <targetTechnology id="eap" versionRange="[8,9)" />
+        <tag>JakartaEE</tag>
+    </metadata>
+    <rules>
+        <rule id="jakarta-cdi-00001">
+            <when>
+                <javaclass references="javax.enterprise.inject.spi.Bean.isNullable()">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Method javax.enterprise.inject.spi.Bean.isNullable() has been removed" effort="1" category-id="mandatory">
+                    <message>Replace this method call with `false` (which is the value that CDI implementations have returned for many years now).</message>
+                    <tag>JakartaEE</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jakarta-cdi-00002">
+            <when>
+                <javaclass references="jakarta.enterprise.inject.spi.BeanManager.createInjectionTarget({*})">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Method jakarta.enterprise.inject.spi.BeanManager.createInjectionTarget(AnnotatedType) has been removed." effort="1" category-id="mandatory">
+                    <message>Replace this method call with with BeanManager.getInjectionTargetFactory(AnnotatedType) and use the returned factory to create injection targets.</message>
+                    <link href="https://jakarta.ee/specifications/cdi/3.0/jakarta-cdi-spec-3.0.html#bm_obtain_injectiontarget" title="Obtaining an InjectionTarget for a class"/>
+                    <tag>JakartaEE</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jakarta-cdi-00003">
+            <when>
+                <javaclass references="jakarta.enterprise.inject.spi.BeanManager.fireEvent({*})">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Method jakarta.enterprise.inject.spi.BeanManager.fireEvent(Object, Annotation) has been removed." effort="1" category-id="mandatory">
+                    <message>jakarta.enterprise.inject.spi.BeanManager.fireEvent(Object, Annotation) has been removed. Use BeanManager.getEvent() as an entry point to a similar API.</message>
+                    <link href="https://jakarta.ee/specifications/cdi/3.0/jakarta-cdi-spec-3.0.html#bm_fire_event" title="Firing an event"/>
+                    <tag>JakartaEE</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jakarta-cdi-00004">
+            <when>
+                <javaclass references="javax.enterprise.inject.spi.BeforeBeanDiscovery.addAnnotatedType({*})">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Method javax.enterprise.inject.spi.BeforeBeanDiscovery.addAnnotatedType(AnnotatedType) has been removed" effort="1" category-id="potential">
+                    <message>If you application is calling method BeforeBeanDiscovery.addAnnotatedType(AnnotatedType) replace it with BeforeBeanDiscovery.addAnnotatedType(AnnotatedType, (String) null)</message>
+                    <tag>JakartaEE</tag>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
