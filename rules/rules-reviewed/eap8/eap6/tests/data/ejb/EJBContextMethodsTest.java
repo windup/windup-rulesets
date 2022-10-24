@@ -2,6 +2,7 @@ package data.ejb;
 
 
 import javax.ejb.EJBContext;
+import javax.ejb.SessionContext;
 import javax.annotation.Resource;
 import java.security.Identity;
 import java.util.Properties;
