@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="eap8-faces"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of JSF for migration to JBoss EAP 8.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="eap" versionRange="[6,7)" />
+        <targetTechnology id="eap" versionRange="[8,)" />
+        <tag>eap8</tag>
+    </metadata>
+    <rules>
+        <rule id="eap8-faces-00001">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.jboss.spec.javax.faces" artifactId="{*}"/>
+                    </project>
+                    <project>
+                        <artifact groupId="com.sun.faces" artifactId="{*}"/>
+                    </project>
+                </or>
+            </when>
+            <perform>
+                <hint title="Dependency on JSF artifacts must be updated" effort="1" category-id="mandatory">
+                    <message>Dependency on JSF artifacts must be updated for EAP8 to Jakarta Faces 4.0.
+                        Update dependency to `org.glassfish:jakarta.faces:4.0.0` or greater</message>
+                    <link title="Jakarta Faces 4.0 specification"
+                          href="https://jakarta.ee/specifications/faces/4.0/"/>
+                    <tag>eap8</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="eap8-faces-00002">
+            <when>
+                    <javaclass references="javax.faces.bean.ManagedProperty">
+                        <location>IMPORT</location>
+                        <location>ANNOTATION</location>
+                    </javaclass>
+            </when>
+            <perform>
+                <hint title="Source reference to `javax.faces.bean.ManagedProperty` must be updated" effort="1" category-id="mandatory">
+                    <message>Source reference to `javax.faces.bean.ManagedProperty` must be updated.
+                            Use 'jakarta.faces.annotation.ManagedProperty' along with `@Inject`.</message>
+                    <link title="Jakarta Faces ManagedProperty api"
+                          href="https://jakarta.ee/specifications/platform/9/apidocs/jakarta/faces/bean/managedproperty"/>
+                    <tag>eap8</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="eap8-faces-00003">
+            <when>
+                <or>
+                    <javaclass references="javax.faces.bean.ManagedBean">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                    <xmlfile matches="//*/managed-bean" in="faces-config.xml"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="JSF ManagedBean has been removed" effort="1" category-id="mandatory">
+                    <message>JSF ManagedBean has been removed.
+                        Use CDI's `@jakarta.inject.Named(“foo”)` to replace JSF ManagedBeans.</message>
+                    <link title="Jakarta EE9 Faces ManagedBean api (Deprecated)"
+                          href="https://jakarta.ee/specifications/platform/9/apidocs/jakarta/faces/bean/managedbean"/>
+                    <link title="Jakarta CDI 4.0 Specification"
+                          href="https://jakarta.ee/specifications/cdi/4.0/"/>
+                    <tag>eap8</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="eap8-faces-00004">
+            <when>
+                <javaclass references="javax.faces.bean.ViewScoped">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Annotation `javax.faces.bean.ViewScoped` removed" effort="1" category-id="mandatory">
+                    <message>Annotation `javax.faces.bean.ViewScoped` removed.
+                        Use `jakarta.faces.view.ViewScoped` to replace it.</message>
+                    <link title="Jakarta Faces ViewScoped api"
+                          href="https://jakarta.ee/specifications/faces/3.0/apidocs/jakarta/faces/view/viewscoped"/>
+                    <tag>eap8</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="eap8-faces-00005">
+            <when>
+                <javaclass references="javax.faces.bean.{scope}Scoped">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Annotation `javax.faces.bean.{scope}Scoped` removed" effort="1" category-id="mandatory">
+                    <message>Annotation `javax.faces.bean.{scope}Scoped` removed.
+                        Use `jakarta.enterprise.context.{scope}Scoped` to replace it.</message>
+                    <link title="jakarta.enterprise.context package javadoc"
+                          href="https://jakarta.ee/specifications/cdi/4.0/apidocs/jakarta.cdi/jakarta/enterprise/context/package-summary.html"/>
+                    <tag>eap8</tag>
+                </hint>
+            </perform>
+            <where param="scope">
+                <matches pattern="Application|Request|Session" />
+            </where>
+        </rule>
+        <rule id="eap8-faces-00006">
+            <when>
+                <javaclass references="javax.faces.bean.CustomScoped">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Annotation `javax.faces.bean.CustomScoped` removed" effort="1" category-id="mandatory">
+                    <message>Annotation `javax.faces.bean.CustomScoped` removed.
+                        Use `jakarta.enterprise.context.spi.Context` to replace it.</message>
+                    <link title="jakarta.enterprise.context.spi.Context javadoc"
+                          href="https://jakarta.ee/specifications/cdi/4.0/apidocs/jakarta.cdi/jakarta/enterprise/context/spi/context"/>
+                    <tag>eap8</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="eap8-faces-00007">
+            <when>
+                <javaclass references="javax.faces.bean.NoneScoped">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Annotation `javax.faces.bean.NoneScoped` removed" effort="1" category-id="mandatory">
+                    <message>Annotation `javax.faces.bean.NoneScoped` removed.
+                        Use `jakarta.enterprise.context.Dependent` to replace it.</message>
+                    <link title="jakarta.enterprise.context.Dependent javadoc"
+                          href="https://jakarta.ee/specifications/cdi/4.0/apidocs/jakarta.cdi/jakarta/enterprise/context/dependent"/>
+                    <tag>eap8</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="eap8-faces-00008">
+            <when>
+                <or>
+                    <javaclass references="javax.faces.view.facelets.FaceletsResourceResolver"/>
+                    <javaclass references="javax.faces.view.facelets.ResourceResolver"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="ResourceResolvers have been removed" effort="3" category-id="mandatory">
+                    <message>ResourceResolvers have been removed in eap8.
+                        Instead, implement a jakarta.faces.application.ResourceHandler and register the fully qualified class name via faces-config.xml/application/resource-handler element</message>
+                    <link title="Faces 4.0: remove deprecated ResourceResolver"
+                          href="https://github.com/jakartaee/faces/issues/1583"/>
+                    <tag>eap8</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="eap8-faces-00009">
+            <when>
+                <filecontent pattern="{*}" filename="faces.jsp" />
+            </when>
+            <perform>
+                <hint title="JSP support has been removed in Jakarta EE 10" effort="5" category-id="mandatory">
+                    <message>JSP support has been removed in Jakarta EE 10. 
+                        Facelets will remain as the only default view language, and views can also now be created solely using java.</message>
+                    <link title="Jakarta EE Faces 4.0 Facelets"
+                          href="https://jakarta.ee/specifications/faces/4.0/jakarta-faces-4.0.html#a5476"/>
+                    <link title="Support for creating views in Java"
+                          href="https://github.com/jakartaee/faces/issues/1581"/>
+                    <tag>eap8</tag>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
