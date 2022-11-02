@@ -17,7 +17,9 @@
         <rule id="keycloak-openid-xml-00001">
             <when>
 <!--                <xmlfile matches="/web-app/login-config/auth-method[text()='KEYCLOAK']"/>-->
-                <xmlfile matches="//*/auth-method[text()='KEYCLOAK']" in="web.xml"/>
+                <xmlfile matches="//*/j:auth-method[text()='KEYCLOAK']" in="web.xml">
+                    <namespace prefix="j" uri="http://java.sun.com/xml/ns/javaee"/>
+                </xmlfile>
             </when>
             <perform>
                 <hint title="Update the `auth-method` configuration from KEYCLOAK to OIDC" effort="1" category-id="mandatory">
