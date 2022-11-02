@@ -1,0 +1,395 @@
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jboss.windup.eap8.EAP8Dependencies
+displayName: migrate dependencies required for eap8
+recipeList:
+    - org.jboss.windup.eap8.BomArtifacts
+    - org.jboss.windup.eap8.ActivationArtifacts
+    - org.jboss.windup.eap8.AnnotationArtifacts
+    - org.jboss.windup.eap8.AuthenticationArtifacts
+    - org.jboss.windup.eap8.AuthorizationArtifacts
+    - org.jboss.windup.eap8.BatchArtifacts
+    - org.jboss.windup.eap8.EjbArtifacts
+    - org.jboss.windup.eap8.ElArtifacts
+    - org.jboss.windup.eap8.EnterpriseArtifacts
+    - org.jboss.windup.eap8.FacesArtifacts
+    - org.jboss.windup.eap8.InterceptorArtifacts
+    - org.jboss.windup.eap8.JmsArtifacts
+    - org.jboss.windup.eap8.JakartaMailArtifacts
+    - org.jboss.windup.eap8.ResourceArtifacts
+    - org.jboss.windup.eap8.ServletArtifacts
+    - org.jboss.windup.eap8.JspArtifacts
+    - org.jboss.windup.eap8.TaglibsArtifacts
+    - org.jboss.windup.eap8.TransactionArtifacts
+    - org.jboss.windup.eap8.XmlBindArtifacts
+    - org.jboss.windup.eap8.XmlWsArtifacts
+    - org.jboss.windup.eap8.WebsocketArtifacts
+    - org.jboss.windup.eap8.WsRsArtifacts
+    - org.jboss.windup.eap8.SoapArtifacts
+    - org.jboss.windup.eap8.HibernateArtifacts
+    - org.jboss.windup.eap8.JBossXtsArtifacts
+    - org.jboss.windup.eap8.Jsr181Artifacts
+
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jboss.windup.eap8.BomArtifacts
+displayName: Bom Artifact migration
+recipeList:
+    - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
+          oldGroupId: org.jboss.bom
+          oldArtifactId: jboss-eap-jakartaee8
+          newArtifactId: jboss-eap-ee
+
+    - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
+          oldGroupId: org.jboss.bom
+          oldArtifactId: jboss-eap-jakartaee8-with-tools
+          newArtifactId: jboss-eap-ee-with-tools
+
+    - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
+          oldGroupId: org.jboss.bom
+          oldArtifactId: eap-runtime-artifacts
+          newArtifactId: jboss-eap-ee
+
+    - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
+          oldGroupId: org.jboss.spec
+          oldArtifactId: jboss-jakartaee-8.0
+          newGroupId: org.jboss.bom
+          newArtifactId: jboss-eap-ee
+
+    - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
+          oldGroupId: org.jboss.spec
+          oldArtifactId: jboss-jakartaee-web-8.0
+          newGroupId: org.jboss.bom
+          newArtifactId: jboss-eap-ee
+
+---
+
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jboss.windup.eap8.ActivationArtifacts
+displayName: activation artifact migration
+recipeList:
+    - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
+          oldGroupId: com.sun.activation
+          oldArtifactId: jakarta.activation
+          newGroupId: jakarta.activation
+          newArtifactId: jakarta.activation-api
+          #newVersion: 2.1.X
+
+---
+
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jboss.windup.eap8.AnnotationArtifacts
+displayName: annotation artifact migration
+recipeList:
+    - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
+          oldGroupId: org.jboss.spec.javax.annotation
+          oldArtifactId: jboss-annotations-api_1.3_spec
+          newGroupId: jakarta.annotation
+          newArtifactId: jakarta.annotation-api
+          #newVersion: 2.1.X
+
+---
+
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jboss.windup.eap8.AuthenticationArtifacts
+displayName: authentication artifact migration
+recipeList:
+    - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
+          oldGroupId: org.jboss.spec.javax.security.auth.message
+          oldArtifactId: jboss-jaspi-api_1.0_spec
+          newGroupId: jakarta.authentication
+          newArtifactId: jakarta.authentication-api
+          #newVersion: 3.X
+
+---
+
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jboss.windup.eap8.AuthorizationArtifacts
+displayName: authorization artifact migration
+recipeList:
+    - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
+          oldGroupId: org.jboss.spec.javax.security.jacc
+          oldArtifactId: jboss-jacc-api_1.5_spec
+          newGroupId: jakarta.authorization
+          newArtifactId: jakarta.authorization-api
+          # newVersion: 2.1.X
+
+---
+
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jboss.windup.eap8.BatchArtifacts
+displayName: batch artifact migration
+recipeList:
+    - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
+          oldGroupId: org.jboss.spec.javax.batch
+          oldArtifactId: jboss-batch-api_1.0_spec
+          newGroupId: jakarta.batch
+          newArtifactId: jakarta.batch-api
+          #newVersion: 2.1.X
+
+---
+
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jboss.windup.eap8.EjbArtifacts
+displayName: Ejb artifact migration
+recipeList:
+    - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
+          oldGroupId: org.jboss.spec.javax.ejb
+          oldArtifactId: jboss-ejb-api_3.2_spec
+          newGroupId: jakarta.ejb
+          newArtifactId: jakarta.ejb-api
+          #newVersion:4.X
+
+---
+
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jboss.windup.eap8.ElArtifacts
+displayName: El artifact migration
+recipeList:
+    - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
+          oldGroupId: org.jboss.spec.javax.el
+          oldArtifactId: jboss-el-api_3.0_spec
+          newGroupId: org.jboss.spec.jakarta.el
+          newArtifactId: jboss-el-api_5.0_spec
+          #newVersion:5.X
+
+---
+
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jboss.windup.eap8.EnterpriseArtifacts
+displayName: Enterprise concurrency artifact migration
+recipeList:
+    - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
+          oldGroupId: org.jboss.spec.javax.enterprise.concurrent
+          oldArtifactId: jboss-concurrency-api_1.0_spec
+          newGroupId: jakarta.enterprise.concurrent
+          newArtifactId: jakarta.enterprise.concurrent-api
+          #newVersion: 3.X
+
+---
+
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jboss.windup.eap8.FacesArtifacts
+displayName: Faces artifact migration
+recipeList:
+    - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
+          oldGroupId: org.jboss.spec.javax.faces
+          oldArtifactId: jboss-jsf-api_2.3_spec
+          newGroupId: jakarta.faces
+          newArtifactId: jakarta.faces-api
+          #newVersion: 4.X
+
+---
+
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jboss.windup.eap8.InterceptorArtifacts
+displayName: Interceptor artifact migration
+recipeList:
+    - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
+          oldGroupId: org.jboss.spec.javax.interceptor
+          oldArtifactId: jboss-interceptors-api_1.2_spec
+          newGroupId: jakarta.interceptor
+          newArtifactId: jakarta.interceptor-api
+          #newVersion: 2.X
+
+---
+
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jboss.windup.eap8.JmsArtifacts
+displayName: Jms artifact migration
+recipeList:
+    - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
+          oldGroupId: org.jboss.spec.javax.jms
+          oldArtifactId: jboss-jms-api_2.0_spec
+          newGroupId: jakarta.jms
+          newArtifactId: jakarta.jms-api
+          #newVersion: 3.X
+
+---
+
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jboss.windup.eap8.JakartaMailArtifacts
+displayName: JakartaMail artifact migration
+recipeList:
+    - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
+          oldGroupId: com.sun.mail
+          oldArtifactId: jakarta.mail
+          newGroupId: jakarta.mail
+          newArtifactId: jakarta.mail-api
+          #newVersion: 2.X
+
+---
+
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jboss.windup.eap8.ResourceArtifacts
+displayName: Resource artifact migration
+recipeList:
+    - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
+          oldGroupId: org.jboss.spec.javax.resource
+          oldArtifactId: jboss-connector-api_1.7_spec
+          newGroupId: jakarta.resource
+          newArtifactId: jakarta.resource-api
+          #newVersion: 2.X
+
+---
+
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jboss.windup.eap8.ServletArtifacts
+displayName: Servlet artifact migration
+recipeList:
+    - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
+          oldGroupId: org.jboss.spec.javax.servlet
+          oldArtifactId: jboss-servlet-api_4.0_spec
+          newGroupId: jakarta.servlet
+          newArtifactId: jakarta.servlet-api
+          #newVersion: 6.X
+
+---
+
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jboss.windup.eap8.JspArtifacts
+displayName: Jsp artifact migration
+recipeList:
+    - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
+          oldGroupId: org.jboss.spec.javax.servlet.jsp
+          oldArtifactId: jboss-jsp-api_2.3_spec
+          newGroupId: jakarta.servlet.jsp
+          newArtifactId: jakarta.servlet.jsp-api
+          #newVersion: 3.X
+
+---
+
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jboss.windup.eap8.TaglibsArtifacts
+displayName: Taglibs artifact migration
+recipeList:
+    - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
+          oldGroupId: org.apache.taglibs
+          oldArtifactId: taglibs-standard-spec
+          newGroupId: jakarta.servlet.jsp.jstl
+          newArtifactId: jakarta.servlet.jsp.jstl-api
+          #newVersion: 3.X
+
+---
+
+type: specs.openrewrite.org
+    /v1beta/recipe
+name: org.jboss.windup.eap8.TransactionArtifacts
+displayName: Transaction artifact migration
+recipeList:
+    - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
+          oldGroupId: org.jboss.spec.javax.transaction
+          oldArtifactId: jboss-transaction-api_1.3_spec
+          newGroupId: jakarta.transaction
+          newArtifactId: jakarta.transaction-api
+          #newVersion: 2.X
+
+---
+
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jboss.windup.eap8.XmlBindArtifacts
+displayName: XmlBind artifact migration
+recipeList:
+    - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
+          oldGroupId: org.jboss.spec.javax.xml.bind
+          oldArtifactId: jboss-jaxb-api_2.3_spec
+          newGroupId: jakarta.xml.bind
+          newArtifactId: jakarta.xml.bind-api
+          #newVersion: 4.X
+
+---
+
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jboss.windup.eap8.XmlWsArtifacts
+displayName: XmlWs artifact migration
+recipeList:
+    - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
+          oldGroupId: org.jboss.spec.javax.xml.ws
+          oldArtifactId: jboss-jaxws-api_2.3_spec
+          newGroupId: org.jboss.spec.jakarta.xml.ws
+          newArtifactId: jboss-jakarta-xml-ws-api_4.0_spec
+          #newVersion: 1.X
+
+---
+
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jboss.windup.eap8.WebsocketArtifacts
+displayName: Websocket artifact migration
+recipeList:
+    - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
+          oldGroupId: org.jboss.spec.javax.websocket
+          oldArtifactId: jboss-websocket-api_1.1_spec
+          newGroupId: jakarta.websocket
+          newArtifactId: jakarta.websocket-api
+          #newVersion: 2.X
+
+---
+
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jboss.windup.eap8.WsRsArtifacts
+displayName: WsRs artifact migration
+recipeList:
+    - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
+          oldGroupId: org.jboss.spec.javax.ws.rs
+          oldArtifactId: jboss-jaxrs-api_2.1_spec
+          newGroupId: jakarta.ws.rs
+          newArtifactId: jakarta.ws.rs-api
+          #newVersion: 3.X
+
+---
+
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jboss.windup.eap8.SoapArtifacts
+displayName: Soap artifact migration
+recipeList:
+    - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
+          oldGroupId: org.jboss.spec.javax.xml.soap
+          oldArtifactId: jboss-saaj-api_1.4_spec
+          newGroupId: org.jboss.spec.jakarta.xml.soap
+          newArtifactId: jboss-saaj-api_3.0_spec
+          #newVersion: 1.X
+
+---
+
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jboss.windup.eap8.HibernateArtifacts
+displayName: Hibernate artifact migration
+recipeList:
+    - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
+          oldGroupId: org.hibernate
+          oldArtifactId: hibernate-core
+          newGroupId: org.hibernate.orm
+          newArtifactId: hibernate-core
+          #newVersion: 6.X
+
+    - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
+          oldGroupId: org.hibernate
+          oldArtifactId: hibernate-jpamodelgen
+          newGroupId: org.hibernate.orm
+          newArtifactId: hibernate-jpamodelgen
+          #newVersion: 6.X
+
+---
+
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jboss.windup.eap8.JBossXtsArtifacts
+displayName: JBossXts artifact migration
+recipeList:
+    - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
+          oldGroupId: org.jboss.narayana.xts
+          oldArtifactId: jbossxts
+          newArtifactId: jbossxts-jakarta
+          #newVersion: 5.X
+
+---
+
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jboss.windup.eap8.Jsr181Artifacts
+displayName: Jsr181 artifact migration
+recipeList:
+    - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
+          oldGroupId: javax.jws
+          oldArtifactId: jsr181-api
+          newGroupId: org.jboss.spec.jakarta.xml.ws
+          newArtifactId: jboss-jakarta-xml-ws-api_4.0_spec
+
