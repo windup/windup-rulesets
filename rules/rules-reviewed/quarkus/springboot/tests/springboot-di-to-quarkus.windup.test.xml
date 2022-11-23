@@ -18,7 +18,19 @@
                     <fail message="[springboot-di-to-quarkus-extension] SpringBoot Dependency artifact replaced by Quarkus extension was not found!" />
                 </perform>
             </rule>
-            <rule id="springboot-di-to-quarkus-00003-test">
+            <rule id="springboot-di-to-quarkus-00001-test">
+                <when>
+                    <not>
+                        <iterable-filter size="3"> 
+                            <hint-exists message="Quarkus only supports the java-based configuration of Spring beans"/>
+                        </iterable-filter> 
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-di-to-quarkus-extension] Test failure - springboot-di-to-quarkus-00001-test" />
+                </perform>
+            </rule>
+            <rule id="springboot-di-to-quarkus-00002-test">
                 <when>
                     <not>
                         <iterable-filter size="9">
