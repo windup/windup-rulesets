@@ -1,0 +1,238 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="javax-to-jakarta-servlet"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of Java EE applications that need to change their servlet related code from javax to jakarta.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final"/>
+        </dependencies>
+        <targetTechnology id="jakarta-ee" versionRange="[9,)"/>
+        <targetTechnology id="eap" versionRange="[8,9)"/>
+    </metadata>
+    <rules>
+
+        <rule id="javax-to-jakarta-servlet-00001">
+            <when>
+                <javaclass references="javax.servlet.SingleThreadModel">
+                    <location>IMPLEMENTS_TYPE</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="The `javax.servlet.SingleThreadModel` interface has been removed" effort="2"
+                      category-id="mandatory">
+                    <message>The `javax.servlet.SingleThreadModel` marker interface has been removed and servlets that implement this interface should remove
+                        the interface declaration and ensure that the servlet code properly guards state and other resource access against concurrent access,
+                        for example by avoiding the usage of an instance variable or synchronizing the block of code accessing resources. However, it is
+                        strongly recommended that developers not synchronize the service method (or methods like `doGet` and `doPost` that it dispatches to)
+                        because of the detrimental effect of such synchronization on performance.
+                    </message>
+                    <!-- TODO: to be uncommented once the link article is published <link title="Migration from Jakarta EE 8 to EE 10 - Servlet" href="https://access.redhat.com/articles/6980265#servlet"/> -->
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="javax-to-jakarta-servlet-00002">
+            <when>
+                <or>
+                    <javaclass references="javax.servlet.http.HttpSessionContext">
+                        <location>IMPLEMENTS_TYPE</location>
+                    </javaclass>
+                    <javaclass references="javax.servlet.http.HttpSession.getSessionContext({*})">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="The javax.servlet.http.HttpSessionContext interface and its associated method in `HttpSession` have been removed" effort="1"
+                      category-id="mandatory">
+                    <message>The `javax.servlet.http.HttpSessionContext` interface has been removed,
+                        along with the `javax.servlet.http.HttpSession.getSessionContext()` method. Since Servlet 2.1 there have
+                        been no use cases for this interface as its implementations were required by spec not to provide any usable data.
+                    </message>
+                    <!-- <link title="Migration from Jakarta EE 8 to EE 10 - Servlet" href="https://access.redhat.com/articles/6980265#servlet"/> -->
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="javax-to-jakarta-servlet-00003">
+            <when>
+                <javaclass references="javax.servlet.http.HttpUtils"/>
+            </when>
+            <perform>
+                <hint title="The javax.servlet.http.HttpUtils utility class has been removed" effort="3" category-id="mandatory">
+                    <message>The `javax.servlet.http.HttpUtils` utility class has been removed. Applications should use the ServletRequest
+                        and HttpServletRequest interfaces instead of these methods it provided:
+                        - `parseQueryString(String s)` and `parsePostData(int len, ServletInputStream in)` -- Use `ServletRequest.getParameterMap()`. If an application needs to differentiate between query string parameters and request body parameters it will need to implement code to do that itself, perhaps by parsing the query string itself.
+                        - `getRequestURL(HttpServletRequest req)` -- Use `HttpServletRequest.getRequestURL()`.
+                    </message>
+                    <!-- <link title="Migration from Jakarta EE 8 to EE 10 - Servlet" href="https://access.redhat.com/articles/6980265#servlet"/> -->
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="javax-to-jakarta-servlet-00004">
+            <when>
+                <or>
+                    <javaclass references="javax.servlet.ServletContext.getServlet({*})"/>
+                    <javaclass references="javax.servlet.ServletContext.getServlets()"/>
+                    <javaclass references="javax.servlet.ServletContext.getServletNames()"/>
+                    <javaclass references="javax.servlet.ServletContext.log(java.lang.Exception, java.lang.String)"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="javax.servlet.ServletContext method has been removed" effort="1" category-id="mandatory">
+                    <message>
+                        Some javax.servlet.ServletContext methods have been removed.
+                    </message>
+                    <!-- <link title="Migration from Jakarta EE 8 to EE 10 - Servlet" href="https://access.redhat.com/articles/6980265#servlet"/> -->
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="javax-to-jakarta-servlet-00005">
+            <when>
+                <javaclass references="javax.servlet.ServletRequest.getRealPath({*})">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Method in javax.servlet.ServletRequest has been removed" effort="1" category-id="mandatory">
+                    <message>
+                        Method `getRealPath(String)` in javax.servlet.ServletRequest has been removed. It can be replaced with `ServletContext.getRealPath(String path)`.
+                    </message>
+                    <!-- <link title="Migration from Jakarta EE 8 to EE 10 - Servlet" href="https://access.redhat.com/articles/6980265#servlet"/> -->
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="javax-to-jakarta-servlet-00006">
+            <when>
+                <javaclass references="javax.servlet.ServletRequestWrapper.getRealPath(java.lang.String)"/>
+            </when>
+            <perform>
+                <hint title="Method in javax.servlet.ServletRequestWrapper has been removed" effort="1" category-id="mandatory">
+                    <message>
+                        Method `getRealPath` in javax.servlet.ServletRequestWrapper has been removed. It can be replaced with `ServletContext.getRealPath(String path)`.
+                    </message>
+                    <!-- <link title="Migration from Jakarta EE 8 to EE 10 - Servlet" href="https://access.redhat.com/articles/6980265#servlet"/> -->
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="javax-to-jakarta-servlet-00007">
+            <when>
+                <javaclass references="javax.servlet.UnavailableException.getServlet({*})">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+                <javaclass references="javax.servlet.UnavailableException(javax.servlet.Servlet{*}">
+                    <location>CONSTRUCTOR_CALL</location>
+                </javaclass>
+                <javaclass references="javax.servlet.UnavailableException(int, javax.servlet.Servlet{*}">
+                    <location>CONSTRUCTOR_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Method in javax.servlet.UnavailableException has been removed" effort="1" category-id="mandatory">
+                    <message>
+                        Method in javax.servlet.UnavailableException has been removed
+                    </message>
+                    <!-- <link title="Migration from Jakarta EE 8 to EE 10 - Servlet" href="https://access.redhat.com/articles/6980265#servlet"/> -->
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="javax-to-jakarta-servlet-00008">
+            <when>
+                <javaclass references="javax.servlet.http.HttpServletRequest.isRequestedSessionIdFromUrl({*})">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Method isRequestedSessionIdFromUrl in javax.servlet.http.HttpServletRequest has been removed" effort="1" category-id="mandatory">
+                    <message>
+                        Method `isRequestedSessionIdFromUrl` in javax.servlet.http.HttpServletRequest has been removed. It can be replaced with `isRequestedSessionIdFromURL()`.
+                    </message>
+                    <!-- <link title="Migration from Jakarta EE 8 to EE 10 - Servlet" href="https://access.redhat.com/articles/6980265#servlet"/> -->
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="javax-to-jakarta-servlet-00009">
+            <when>
+                <javaclass references="javax.servlet.http.HttpServletRequestWrapper.isRequestedSessionIdFromUrl({*})">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Method isRequestedSessionIdFromUrl in javax.servlet.http.HttpServletRequestWrapper has been removed" effort="1" category-id="mandatory">
+                    <message>
+                        Method `isRequestedSessionIdFromUrl` in javax.servlet.http.HttpServletRequestWrapper has been removed. It can be replaced with `isRequestedSessionIdFromURL()`.
+                    </message>
+                    <!-- <link title="Migration from Jakarta EE 8 to EE 10 - Servlet" href="https://access.redhat.com/articles/6980265#servlet"/> -->
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="javax-to-jakarta-servlet-00010">
+            <when>
+                <javaclass references="javax.servlet.http.HttpServletResponse.encodeUrl(java.lang.String)"/>
+                <javaclass references="javax.servlet.http.HttpServletResponse.encodeRedirectUrl(java.lang.String)"/>
+                <javaclass references="javax.servlet.http.HttpServletResponse.setStatus(int, java.lang.String)"/>
+            </when>
+            <perform>
+                <hint title="Method in javax.servlet.http.HttpServletResponse has been removed" effort="1" category-id="mandatory">
+                    <message>
+                        Method in javax.servlet.http.HttpServletResponse has been removed
+                    </message>
+                    <!-- <link title="Migration from Jakarta EE 8 to EE 10 - Servlet" href="https://access.redhat.com/articles/6980265#servlet"/> -->
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="javax-to-jakarta-servlet-00011">
+            <when>
+                <javaclass references="javax.servlet.http.HttpServletResponseWrapper.encodeUrl(java.lang.String)"/>
+                <javaclass references="javax.servlet.http.HttpServletResponseWrapper.encodeRedirectUrl(java.lang.String)"/>
+                <javaclass references="javax.servlet.http.HttpServletResponseWrapper.setStatus(int, java.lang.String)"/>
+            </when>
+            <perform>
+                <hint title="Method in javax.servlet.http.HttpServletResponseWrapper has been removed" effort="1" category-id="mandatory">
+                    <message>
+                        Method in javax.servlet.http.HttpServletResponseWrapper has been removed
+                    </message>
+                    <!-- <link title="Migration from Jakarta EE 8 to EE 10 - Servlet" href="https://access.redhat.com/articles/6980265#servlet"/> -->
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="javax-to-jakarta-servlet-00012">
+            <when>
+                <javaclass references="javax.servlet.http.HttpSession.getValue({*})">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+                <javaclass references="javax.servlet.http.HttpSession.getValueNames({*})">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+                <javaclass references="javax.servlet.http.HttpSession.putValue({*})">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+                <javaclass references="javax.servlet.http.HttpSession.removeValue({*})">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Method in javax.servlet.http.HttpSession has been removed" effort="1" category-id="mandatory">
+                    <message>
+                        Method in javax.servlet.http.HttpSession has been removed
+                    </message>
+                    <!-- <link title="Migration from Jakarta EE 8 to EE 10 - Servlet" href="https://access.redhat.com/articles/6980265#servlet"/> -->
+                </hint>
+            </perform>
+        </rule>
+
+    </rules>
+</ruleset>
