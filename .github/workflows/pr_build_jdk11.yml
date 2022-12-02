@@ -26,15 +26,23 @@ jobs:
       - name: Build on JDK 11
         run: mvn -B clean install -DskipTests
 
-  windup-rulesets-build:
+  WindupRulesTest:
     runs-on: ubuntu-latest
     needs: [windup-build]
     strategy:
       fail-fast: false
       matrix:
         jdk-distribution: [ temurin ]
-        ruleset-test: [ WindupRulesTest,  WindupRulesLinksTest]
-        tests-pattern: [ '[a-d]', 'eap6', 'eap7', 'eap8', 'eapxp', '[f-z]']
+        tests-pattern: [ 'rules-reviewed/[a-d]',
+                         'rules-reviewed/eap6',
+                         'rules-reviewed/eap7',
+                         'rules-reviewed/eap8',
+                         'rules-reviewed/eapxp',
+                         'rules-reviewed/[f-s]',
+                         'rules-reviewed/technology-usage/[0-9,a-i]',
+                         'rules-reviewed/technology-usage/[j-z]',
+                         'rules-reviewed/[u-z]',
+                         'rules-generated/' ]
     steps:
       - uses: actions/checkout@v2.3.4
       - name: Set up JDK 11
@@ -47,6 +55,23 @@ jobs:
       - name: Build
         run: mvn -B clean install -DskipTests
       - name: Test
-        run: mvn -B test -f rules/ -DrunTestsMatching=rules-reviewed/${{ matrix.tests-pattern }} -Dtest=${{ matrix.ruleset-test }}
+        run: mvn -B test -f rules/ -DrunTestsMatching=${{ matrix.tests-pattern }} -Dtest=WindupRulesTest
+
+  WindupRulesLinksTest:
+    runs-on: ubuntu-latest
+    needs: [windup-build]
+    steps:
+      - uses: actions/checkout@v2.3.4
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          java-package: jdk
+          cache: 'maven'
+      - name: Build
+        run: mvn -B clean install -DskipTests
+      - name: Test
+        run: mvn -B test -f rules/ -Dtest=WindupRulesLinksTest
 
 
