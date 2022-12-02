@@ -15,6 +15,7 @@ jobs:
         uses: actions/checkout@v2.3.4
         with:
           repository: windup/windup
+          ref: ${{ github.base_ref }}
       - name: Set up JDK 11
         uses: actions/setup-java@v2
         with:
@@ -28,16 +29,24 @@ jobs:
   windup-rulesets-build:
     runs-on: ubuntu-latest
     needs: [windup-build]
+    strategy:
+      fail-fast: false
+      matrix:
+        jdk-distribution: [ temurin ]
+        ruleset-test: [ WindupRulesTest,  WindupRulesLinksTest]
+        tests-pattern: [ [a-d], eap6, eap7, eap8, eapxp, [f-z]]
     steps:
       - uses: actions/checkout@v2.3.4
       - name: Set up JDK 11
         uses: actions/setup-java@v2
         with:
           java-version: '11'
-          distribution: 'temurin'
+          distribution: ${{ matrix.jdk-distribution }}
           java-package: jdk
           cache: 'maven'
       - name: Build
-        run: mvn clean install
+        run: mvn -B clean install -DskipTests
+      - name: Test
+        run: mvn -B test -f rules/ -DrunTestsMatching=rules-reviewed/{{ matrix.tests-pattern }} -Dtest=${{ matrix.ruleset-test }}
 
 
