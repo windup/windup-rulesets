@@ -11,6 +11,7 @@
         </dependencies>
     </metadata>
     <rules>
+        <!-- Threads -->
         <rule id="javase-01000">
             <when>
                 <javaclass references="java.lang.{classes}"/>
@@ -19,10 +20,24 @@
                 <classification title="Threads" category-id="information" effort="0">
                     <description>The application uses Thread APIs.</description>
                 </classification>
-                <technology-tag level="INFORMATIONAL">Threads</technology-tag>
+                <technology-tag level="INFORMATIONAL">Java Threads</technology-tag>
             </perform>
             <where param="classes">
-                <matches pattern="(Thread|ThreadDeath|ThreadGroup|ThreadLocal)"/>
+                <matches pattern="(Thread|ThreadDeath|ThreadGroup|ThreadLocal|Runnable)"/>
+            </where>
+        </rule>
+        <rule id="javase-01100">
+            <when>
+                <javaclass references="java.util.concurrent.{classes}"/>
+            </when>
+            <perform>
+                <classification title="Threads" category-id="information" effort="0">
+                    <description>The application uses Concurrent Executors APIs.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Java Threads</technology-tag>
+            </perform>
+            <where param="classes">
+                <matches pattern="(ExecutorService|Executors|Executor|ScheduledExecutorService)"/>
             </where>
         </rule>
     </rules>
