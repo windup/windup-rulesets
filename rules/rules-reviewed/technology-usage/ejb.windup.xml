@@ -14,17 +14,7 @@
     <rules>
         <rule id="ejb-01000">
             <when>
-                <or>
-                    <javaclass references="javax.ejb.Schedule"/>
-                    <javaclass references="javax.ejb.ScheduleExpression"/>
-                    <javaclass references="javax.ejb.Schedules"/>
-                    <javaclass references="javax.ejb.TimedObject"/>
-                    <javaclass references="javax.ejb.Timeout"/>
-                    <javaclass references="javax.ejb.Timer"/>
-                    <javaclass references="javax.ejb.TimerConfig"/>
-                    <javaclass references="javax.ejb.TimerHandle"/>
-                    <javaclass references="javax.ejb.TimerService"/>
-                </or>
+                <javaclass references="javax.ejb.{classes}"/>
             </when>
             <perform>
                 <classification title="EJB Timer" category-id="information" effort="0">
@@ -32,6 +22,9 @@
                 </classification>
                 <technology-tag level="INFORMATIONAL">EJB Timer</technology-tag>
             </perform>
+            <where param="classes">
+                <matches pattern="(Schedule|ScheduleExpression|Schedules|TimedObject|Timeout|Timer|TimerConfig|TimerHandle|TimerService)" />
+            </where>
         </rule>
     </rules>
 </ruleset>
