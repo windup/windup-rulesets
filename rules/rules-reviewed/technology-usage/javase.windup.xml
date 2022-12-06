@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<ruleset
+    xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="javase"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of the Core Java SE APIs.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final"/>
+        </dependencies>
+    </metadata>
+    <rules>
+        <rule id="javase-01000">
+            <when>
+                <javaclass references="java.lang.{classes}"/>
+            </when>
+            <perform>
+                <classification title="Threads" category-id="information" effort="0">
+                    <description>The application uses Thread APIs.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Threads</technology-tag>
+            </perform>
+            <where param="classes">
+                <matches pattern="(Thread|ThreadDeath|ThreadGroup|ThreadLocal)"/>
+            </where>
+        </rule>
+    </rules>
+</ruleset>

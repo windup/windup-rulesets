@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ruletest id="technology-usage-javase-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+    <testDataPath>data/javase/</testDataPath>
+    <rulePath>../javase.windup.xml</rulePath>
+    <rulePath>../javase-technology-usage.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="javase-technology-usage-01000-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="Threads" number-found="1">
+                            <tag name="Execute"/>
+                            <tag name="Processing"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Java SE Threads Technology Not Found" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
