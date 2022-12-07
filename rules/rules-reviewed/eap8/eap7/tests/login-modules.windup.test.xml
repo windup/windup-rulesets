@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ruletest id="login-modules-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/login-modules</testDataPath>
+    <rulePath>../login-modules.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="login-modules-00001-test">
+                <when>
+                    <not>
+                        <iterable-filter size="4">
+                            <hint-exists message="The legacy custom login modules have been removed. Applications must be changed either use some of the already existing elytron security realms, or implement a custom security realm or migrate to the elytron's jaas realm. The jaas-realm can be used only if the custom login module does not use or depend on Picketbox."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[login-modules-00001] The hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
