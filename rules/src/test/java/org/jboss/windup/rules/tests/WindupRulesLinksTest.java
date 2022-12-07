@@ -67,6 +67,12 @@ public class WindupRulesLinksTest {
     private static int totalAnalyzedRules = 0;
     private static int totalAnalyzedLinks = 0;
 
+    // TODO: see https://issues.redhat.com/browse/WINDUPRULE-913 - find generic solution
+    private static final List<String> CERT_FAILURE_LINKS = new ArrayList<>();
+    static {
+        CERT_FAILURE_LINKS.add("https://oracle.com/technical-resources/articles/java/jaxrs20.html");
+    }
+
     @Parameterized.Parameters(name = "{index}: Test {0}")
     public static Iterable<File> data()
     {
@@ -145,6 +151,9 @@ public class WindupRulesLinksTest {
     
     private boolean isValidLink(final String link)
     {
+        if (CERT_FAILURE_LINKS.contains(link))
+            return true;
+
         try {
             final long starTime = System.currentTimeMillis();
             if (!CACHE_ANALYZED_LINKS.containsKey(link))
