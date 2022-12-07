@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<ruleset id="technology-usage-javase" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides statistical summaries of the Java SE APIs.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <phase>PostMigrationRulesPhase</phase>
+    </metadata>
+    <rules>
+        <!-- Threads -->
+        <rule id="javase-technology-usage-01000">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Java Threads</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Java Threads">
+                    <tag name="Execute"/>
+                    <tag name="Processing"/>
+                    <tag name="Java EE"/>
+                </technology-identified>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
