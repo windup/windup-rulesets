@@ -14,16 +14,25 @@
         <targetTechnology id="eap" versionRange="[8,)" />
     </metadata>
     <rules>
-        <rule id="keycloak-openid-xml-00001">
+        <rule id="keycloak-openid-00001">
             <when>
-<!--                <xmlfile matches="/web-app/login-config/auth-method[text()='KEYCLOAK']"/>-->
                 <xmlfile matches="//*/j:auth-method[text()='KEYCLOAK']" in="web.xml">
                     <namespace prefix="j" uri="http://java.sun.com/xml/ns/javaee"/>
                 </xmlfile>
             </when>
             <perform>
-                <hint title="Update the `auth-method` configuration from KEYCLOAK to OIDC" effort="1" category-id="mandatory">
-                    <message>In order to add support for EAP native OpenID Connect, the auth-method must be updated to OIDC.</message>
+                <hint title="Update the auth-method configuration from KEYCLOAK to OIDC" effort="1" category-id="mandatory">
+                    <message>In order to add support for EAP native OpenID Connect, the `auth-method` must be updated to `OIDC`.</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="keycloak-openid-00002">
+            <when>
+                <file filename="keycloak.json"/>
+            </when>
+            <perform>
+                <hint title="Rename keycloak.json to oidc.json" effort="1" category-id="mandatory">
+                    <message>In order to add support for EAP native OpenID Connect, the `keycloak.json` configuration file in the WEB-INF folder needs to be renamed to `oidc.json`.</message>
                 </hint>
             </perform>
         </rule>

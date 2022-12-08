@@ -7,16 +7,28 @@
     <rulePath>../keycloak-openid.windup.xml</rulePath>
     <ruleset>
         <rules>
-            <rule id="keycloak-openid-xml-00001-test">
+            <rule id="keycloak-openid-00001-test">
                 <when>
                     <not>
                         <iterable-filter size="1">
-                            <hint-exists message="In order to add support for EAP native OpenID Connect, the auth-method must be updated to OIDC."/>
+                            <hint-exists message="In order to add support for EAP native OpenID Connect, the `auth-method` must be updated to `OIDC`."/>
                         </iterable-filter>
                     </not>
                 </when>
                 <perform>
                     <fail message="[keycloak-openid-00001] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="keycloak-openid-00002-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="In order to add support for EAP native OpenID Connect, the `keycloak.json` configuration file in the WEB-INF folder needs to be renamed to `oidc.json`."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[keycloak-openid-00002] The hint was not found!" />
                 </perform>
             </rule>
         </rules>
