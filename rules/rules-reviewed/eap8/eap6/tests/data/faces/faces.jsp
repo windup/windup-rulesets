@@ -1,12 +1,7 @@
-<%@ page import="java.io.*,java.util.*, javax.servlet.*" %>
-<%@ page import="javax.servlet.http.*" %>
-<%@ page import="org.apache.commons.io.output.*" %>
-<%@ page import="com.ibm.weblogic.*" %>
-
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 
 <%@ taglib prefix="some" uri="some.tld" %>
-<%@taglib prefix="testSubstr" uri="/WEB-INF/Substr.taglib.tld"%>
+<%@ taglib prefix="testSubstr" uri="/WEB-INF/Substr.taglib.tld"%>
 
 <%@ attribute name="greeting" required="true" %>
 <%@ attribute name="name" required="true" %>

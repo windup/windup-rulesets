@@ -162,12 +162,11 @@
         </rule>
         <rule id="eap8-faces-00009">
             <when>
-                <filecontent pattern="import={(&quot;&quot;)}" filename="faces.jsp" />
+                <filecontent filename="{*}.jsp" pattern="import={emptyString}"/>
             </when>
             <perform>
                 <hint title="JSP support has been removed in Jakarta EE 10" effort="5" category-id="mandatory">
-                    <message>JSP support has been removed in Jakarta EE 10. 
-                        Facelets will remain as the only default view language, and views can also now be created solely using java.</message>
+                    <message>JSP support has been removed in Jakarta EE 10. Facelets will remain as the only default view language, and views can also now be created solely using java.</message>
                     <link title="Jakarta EE Faces 4.0 Facelets"
                           href="https://jakarta.ee/specifications/faces/4.0/jakarta-faces-4.0.html#a5476"/>
                     <link title="Support for creating views in Java"
@@ -175,6 +174,9 @@
                     <tag>eap8</tag>
                 </hint>
             </perform>
+            <where param="emptyString">
+                <matches pattern="(&quot;&quot;|'')" />
+            </where>
         </rule>
     </rules>
 </ruleset>
