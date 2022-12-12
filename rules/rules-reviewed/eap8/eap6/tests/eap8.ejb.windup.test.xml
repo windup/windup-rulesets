@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<ruletest id="eap8-ejb-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/ejb</testDataPath>
+    <rulePath>../eap8.ejb.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="eap8-ejb-00001-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="Methods relying on `java.security.Identity` have been removed"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[eap8-ejb-00001] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="eap8-ejb-00002-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Method was deprecated and has now been removed"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[eap8-ejb-00002] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="eap8-ejb-00003-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Methods relying on Jakarta XML RPC have been removed from the Jakarta Enterprise Beans 4.0 specification and api."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[eap8-ejb-00003] The hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>    
