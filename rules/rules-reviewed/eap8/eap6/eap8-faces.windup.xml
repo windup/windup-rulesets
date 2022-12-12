@@ -162,7 +162,10 @@
         </rule>
         <rule id="eap8-faces-00009">
             <when>
-                <filecontent filename="{*}.jsp" pattern="import={emptyString}"/>
+                <or>
+                    <filecontent filename="{*}.jsp" pattern="&lt;jsp"/>
+                    <filecontent filename="{*}.jsp" pattern="&lt;%"/>
+                </or>
             </when>
             <perform>
                 <hint title="JSP support has been removed in Jakarta EE 10" effort="5" category-id="mandatory">
@@ -174,9 +177,6 @@
                     <tag>eap8</tag>
                 </hint>
             </perform>
-            <where param="emptyString">
-                <matches pattern="(&quot;&quot;|'')" />
-            </where>
         </rule>
     </rules>
 </ruleset>
