@@ -1,13 +1,14 @@
 <?xml version="1.0"?>
 <ruletest id="technology-usage-ejb-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset">
     <testDataPath>data/ejb/</testDataPath>
+    <rulePath>../ejb.windup.xml</rulePath>
     <rulePath>../ejb-technology-usage.windup.xml</rulePath>
     <ruleset>
         <rules>
             <rule id="technology-usage-ejb-01000-test">
                 <when>
                     <not>
-                        <technology-statistics-exists name="Stateless (SLSB)" number-found="2">
+                        <technology-statistics-exists name="Stateless (SLSB)" number-found="4">
                             <tag name="Connect"/>
                             <tag name="Bean"/>
                             <tag name="Java EE"/>
@@ -58,6 +59,20 @@
                 </when>
                 <perform>
                     <fail message="Entity Bean Technology Statistic Not Found" />
+                </perform>
+            </rule>
+            <rule id="technology-usage-ejb-01400-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="EJB Timer" number-found="1">
+                            <tag name="Execute"/>
+                            <tag name="Processing"/>
+                            <tag name="Java EE"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="EJB Timer Technology Not Found" />
                 </perform>
             </rule>
         </rules>
