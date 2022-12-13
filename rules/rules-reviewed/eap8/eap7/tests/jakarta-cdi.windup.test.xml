@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<ruletest id="jakarta-cdi-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/jakarta-cdi</testDataPath>
+    <rulePath>../jakarta-cdi.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="jakarta-cdi-00001-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Replace this method call with `false` \(which is the value that CDI implementations have returned for many years now\)."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[jakarta-cdi-00001] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="jakarta-cdi-00002-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Replace this method call with with BeanManager.getInjectionTargetFactory\(AnnotatedType\) and use the returned factory to create injection targets."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[jakarta-cdi-00001] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="jakarta-cdi-00003-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="jakarta.enterprise.inject.spi.BeanManager.fireEvent\(Object, Annotation\) has been removed. Use BeanManager.getEvent\(\) as an entry point to a similar API."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[jakarta-cdi-00003] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="jakarta-cdi-00004-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="If you application is calling method BeforeBeanDiscovery.addAnnotatedType\(AnnotatedType\) replace it with BeforeBeanDiscovery.addAnnotatedType\(AnnotatedType, \(String\) null\)"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[jakarta-cdi-00004] The hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
