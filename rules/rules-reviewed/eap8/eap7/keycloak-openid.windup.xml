@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="keycloak-oidc"
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="keycloak-openid"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <metadata>
@@ -9,15 +9,15 @@
         <dependencies>
             <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
             <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
         </dependencies>
         <sourceTechnology id="eap" versionRange="[7,)" />
         <targetTechnology id="eap" versionRange="[8,)" />
     </metadata>
     <rules>
-        <rule id="keycloak-openid-xml-00001">
+        <rule id="keycloak-openid-00001">
             <when>
-<!--                <xmlfile matches="/web-app/login-config/auth-method[text()='KEYCLOAK']"/>-->
-                <xmlfile matches="//*/auth-method[text()='KEYCLOAK']" in="web.xml"/>
+                <xmlfile matches="/web-app/login-config/auth-method[text()='KEYCLOAK']" in="web.xml"/>
             </when>
             <perform>
                 <hint title="Update the `auth-method` configuration from KEYCLOAK to OIDC" effort="1" category-id="mandatory">
