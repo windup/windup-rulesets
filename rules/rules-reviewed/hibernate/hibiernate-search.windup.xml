@@ -293,7 +293,7 @@
                 <filecontent pattern="hibernate.search.{*}.directory_provider" filename="{*}.properties"/>
             </when>
             <perform>
-                <hint title="Property  hibernate.search.*.directory_provider not available anymore" effort="1" category-id="mandatory">
+                <hint title="Property hibernate.search.*.directory_provider not available anymore" effort="1" category-id="mandatory">
                     <message>This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.directory.type` (for global defaults)
                         or `hibernate.search.backend.indexes.&lt;index-name&gt;.directory.type` (per-index).
                     </message>
@@ -589,7 +589,7 @@
                 <filecontent pattern="hibernate.search.filter.cache_docidresults.size" filename="{*}.properties"/>
             </when>
             <perform>
-                <hint title="Property  not available anymore" effort="1" category-id="mandatory">
+                <hint title="Property hibernate.search.filter.cache_docidresults.size not available anymore" effort="1" category-id="mandatory">
                     <message>This property is not available anymore. There's no equivalent for Hibernate Search 6. If you need caching for some of your Lucene queries, consider upgrading directly to Hibernate Search 6.1, which provides configurable Low-level hit caching. See link for more information.</message>
                     <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
                     <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#full-text-filter" title="Hibernate Search 5 to 6 Migration: Full-text filter"/>
@@ -602,7 +602,7 @@
                 <filecontent pattern="hibernate.search.filter.cache_strategy" filename="{*}.properties"/>
             </when>
             <perform>
-                <hint title="Property  not available anymore" effort="1" category-id="mandatory">
+                <hint title="Property hibernate.search.filter.cache_strategy not available anymore" effort="1" category-id="mandatory">
                     <message>This property is not available anymore. There's no equivalent for Hibernate Search 6. If you need caching for some of your Lucene queries, consider upgrading directly to Hibernate Search 6.1, which provides configurable Low-level hit caching. See link for more information.</message>
                     <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
                     <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#full-text-filter" title="Hibernate Search 5 to 6 Migration: Full-text filter"/>
@@ -615,7 +615,7 @@
                 <filecontent pattern="hibernate.search.generate_statistics" filename="{*}.properties"/>
             </when>
             <perform>
-                <hint title="Property  not available anymore" effort="1" category-id="mandatory">
+                <hint title="Property hibernate.search.generate_statistics not available anymore" effort="1" category-id="mandatory">
                     <message>This property is not available anymore. There's no equivalent for Hibernate Search 6. No equivalent in Hibernate Search 6. See links for more information.</message>
                     <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
                     <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#searchfactory-getstatistics" title="Hibernate Search 5 to 6 Migration: Statistics: SearchFactory.getStatistics()"/>
@@ -789,7 +789,7 @@
                 <hint title="Annotation @AnalyzerDef(s) not available anymore" effort="3" category-id="mandatory">
                     <message>
                         Annotation-based analyzer definitions are no longer supported.
-                        Instead, implement an analysis configurer: see links for Lucene and Elastic
+                        Instead, implement an analysis configurer: see links for Lucene and Elasticsearch replacements.
                     </message>
                     <link href="https://docs.jboss.org/hibernate/search/6.0/reference/en-US/html_single/#backend-lucene-analysis-analyzers" title="Hibernate Search 6 Reference: Custom analyzers and normalizers"/>
                     <link href="https://docs.jboss.org/hibernate/search/6.0/reference/en-US/html_single/#backend-elasticsearch-analysis-analyzers" title="Hibernate Search 6 Reference: Elasticsearch analyzers and normalizers"/>
@@ -866,7 +866,7 @@
                 </javaclass>
             </when>
             <perform>
-                <hint title="Annotation @CharFilterDef not available anymore" effort="1" category-id="mandatory">
+                <hint title="Annotation @CharFilterDef not available anymore" effort="3" category-id="mandatory">
                     <message>
                         Annotation-based analyzer definitions are no longer supported. See link for more information.
                     </message>
@@ -1262,8 +1262,6 @@
             </perform>
         </rule>
 
-
-
         <rule id="hibernate-search-00910">
             <when>
                 <or>
@@ -1272,7 +1270,7 @@
                 </or>
             </when>
             <perform>
-                <hint title="FullTextEntityManager and FullTextSession removed" effort="5" category-id="mandatory">
+                <hint title="FullTextEntityManager and FullTextSession removed" effort="3" category-id="mandatory">
                     <message>
                         The equivalent to Hibernate Search 5’s `FullTextEntityManager/FullTextSession` is Hibernate Search 6’s `SearchSession`. Check link for guide
                         to switch implementation to `SearchSession`.
@@ -1289,7 +1287,7 @@
                 </or>
             </when>
             <perform>
-                <hint title="Full text queries now done via SDL - FullTextQueries have changed" effort="5" category-id="mandatory">
+                <hint title="Full text queries now done via SDL - FullTextQueries have changed" effort="3" category-id="mandatory">
                     <message>
                         Search APIs have changed significantly in order to implement several improvements. The recommended way to build search
                         queries in Hibernate Search 6 is through the Hibernate Search DSL. See link for a thorough explanation and examples.
@@ -1303,7 +1301,7 @@
                 <javaclass references="org.apache.lucene.search.Query"/>
             </when>
             <perform>
-                <hint title="Full text queries now done via SDL - Lucene queries replaced with search predicates" effort="5" category-id="mandatory">
+                <hint title="Full text queries now done via SDL - Lucene queries replaced with search predicates" effort="3" category-id="mandatory">
                     <message>
                         Lucene queries are replaced with Lucene-independent "search predicates" in Hibernate Search 6. See link for guide and examples.
                     </message>
@@ -1319,7 +1317,7 @@
                 </or>
             </when>
             <perform>
-                <hint title="Full text queries now done via SDL - Sort fields replaced with search sorts" effort="5" category-id="mandatory">
+                <hint title="Full text queries now done via SDL - Sort fields replaced with search sorts" effort="3" category-id="mandatory">
                     <message>
                         Lucene sort fields are replaced with Lucene-independent "search sorts" in Hibernate Search 6. Follow the link for more info and examples.
                     </message>
@@ -1335,7 +1333,7 @@
                 </or>
             </when>
             <perform>
-                <hint title="ProjectionConstants no longer available" effort="5" category-id="mandatory">
+                <hint title="ProjectionConstants no longer available" effort="3" category-id="mandatory">
                     <message>
                         The `ProjectionConstants` are no longer available, and Hibernate Search 6's DSL must be used instead to build `SearchProjection` objects. Follow link for more information and examples.
                     </message>
@@ -1351,7 +1349,7 @@
                 </or>
             </when>
             <perform>
-                <hint title="Full text queries now done via SDL - Facets now called aggregations" effort="5" category-id="mandatory">
+                <hint title="Full text queries now done via SDL - Facets now called aggregations" effort="3" category-id="mandatory">
                     <message>
                         Facets are now called aggregations, which are a generalization of the concept of faceting. See link for more information and examples.
                     </message>
@@ -1367,7 +1365,7 @@
                 </or>
             </when>
             <perform>
-                <hint title="ErrorHandler API no longer available" effort="5" category-id="mandatory">
+                <hint title="ErrorHandler API no longer available" effort="3" category-id="mandatory">
                     <message>
                         The ErrorHandler interface and API have been replaced with the `FailureHandler` interface, and the related configuration properties changed. See link for more information and examples.
                     </message>
@@ -1416,7 +1414,7 @@
                 </or>
             </when>
             <perform>
-                <hint title="Sharding has changed in Hibernate Search 6" category-id="mandatory" effort="5">
+                <hint title="Sharding has changed in Hibernate Search 6" category-id="mandatory" effort="3">
                     <message>
                         Static sharding is still available in Hibernate Search 6, but it works differently, so the Hibernate Search 5 APIs are no longer available.
                         To implement static sharding in Hibernate Search 6, refer to the link.
