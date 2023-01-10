@@ -1,0 +1,1476 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="hibernate-search" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <metadata>
+        <description>
+            This ruleset provides analysis of deprecated Hibernate Search java constructs and their migration to newer ones.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,2.3.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,2.3.0.Final" />
+        </dependencies>
+        <targetTechnology id="eap" versionRange="[7,8)" />
+        <tag>hibernate</tag>
+    </metadata>
+
+    <rules>
+        <!-- PROPERTIES -->
+        <rule id="hibernate-search-00010">
+            <when>
+                <or>
+                    <javaclass references="org.hibernate.search.cfg.Environment"/>
+                    <javaclass references="org.hibernate.search.elasticsearch.cfg.ElasticsearchEnvironment"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Constants for Hibernate Search configuration property keys have changed" effort="1" category-id="mandatory">
+                    <message>In Hibernate Search 6, constants are provided through classes whose name ends with Settings. Follow link for more details.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#_constants_for_property_keys" title="Hibernate Search 5 to 6 Migration: Constants for Property Keys"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00020">
+            <when>
+                <filecontent pattern="hibernate.search.analyzer" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.analyzer not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. To override the default analyzer, define a custom analyzer named default. See link.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#analysis-definition-provider" title="Analysis Definition Provider"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00030">
+            <when>
+                <filecontent pattern="hibernate.search.autoregister_listeners" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.autoregister_listeners not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.enabled`.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00040">
+            <when>
+                <filecontent pattern="hibernate.search.batch_size" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.batch_size not available anymore" effort="1" category-id="mandatory">
+                    <message>
+                        No direct equivalent in Hibernate Search 6. This property was not documented in Hibernate Search 5. For the specific use case of batch processes, know that upon Hibernate ORM session flushes,
+                        Hibernate Search 6 will automatically turn entities to documents and hold documents in memory until the transaction commit.
+
+                        See links for more information.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/reference/en-US/html_single/#manual-index-changes" title="Hibernate Search 6: Manual Indexing"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00050">
+            <when>
+                <filecontent pattern="hibernate.search.default.elasticsearch.aws.{*}" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="The syntax for configuring AWS authentication changed in Hibernate Search 6." effort="1" category-id="mandatory">
+                    <message>
+                        AWS configuration properties must change from `hibernate.search.default.elasticsearch.aws.*` to `hibernate.search.backend.aws.*`.
+                        See link for more information about credential configuration changes.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00060">
+            <when>
+                <filecontent pattern="hibernate.search.default.elasticsearch.connection_timeout" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.batch_size not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.connection_timeout`.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00070">
+            <when>
+                <filecontent pattern="hibernate.search.default.elasticsearch.discovery.default_scheme" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.default.elasticsearch.discovery.default_scheme not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.default.elasticsearch.discovery.default_scheme`.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00080">
+            <when>
+                <filecontent pattern="hibernate.search.default.elasticsearch.discovery.enabled" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.default.elasticsearch.discovery.enabled not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.discovery.enabled`.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00090">
+            <when>
+                <filecontent pattern="hibernate.search.default.elasticsearch.discovery.refresh_interval" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.default.elasticsearch.discovery.refresh_interval not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.discovery.refresh_interval`.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00100">
+            <when>
+                <filecontent pattern="hibernate.search.{*}.elasticsearch.dynamic_mapping" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.*.elasticsearch.dynamic_mapping not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.dynamic_mapping` (for global defaults)
+                        or `hibernate.search.backend.indexes.&lt;index-name&gt;.dynamic_mapping` (per-index).
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00105">
+            <when>
+                <filecontent pattern="hibernate.search.default.elasticsearch.host" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.default.elasticsearch.host not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.uris`.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00110">
+            <when>
+                <filecontent pattern="hibernate.search.{*}.elasticsearch.index_management_wait_timeout" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.*.elasticsearch.index_management_wait_timeout not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.schema_management.minimal_required_status_wait_timeout` (for global defaults)
+                        or `hibernate.search.backend.indexes.&lt;index-name&gt;.schema_management.minimal_required_status_wait_timeout` (per-index).
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00120">
+            <when>
+                <filecontent pattern="hibernate.search.{*}.elasticsearch.index_schema_management_strategy" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.*.elasticsearch.index_schema_management_strategy not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.schema_management.strategy` (for global defaults). There is no equivalent for per-index configuration.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00140">
+            <when>
+                <filecontent pattern="hibernate.search.default.elasticsearch.max_total_connection_per_route" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.default.elasticsearch.max_total_connection_per_route not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.max_connections_per_route`.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00150">
+            <when>
+                <filecontent pattern="hibernate.search.default.elasticsearch.max_total_connection" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.default.elasticsearch.max_total_connection not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.max_connections`.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00160">
+            <when>
+                <filecontent pattern="hibernate.search.default.elasticsearch.password" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.default.elasticsearch.password not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.password`.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00170">
+            <when>
+                <filecontent pattern="hibernate.search.default.elasticsearch.path_prefix" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.default.elasticsearch.path_prefix not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.password`.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00180">
+            <when>
+                <filecontent pattern="hibernate.search.default.elasticsearch.read_timeout" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.default.elasticsearch.read_timeout not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.read_timeout`.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00190">
+            <when>
+                <filecontent pattern="hibernate.search.{*}.elasticsearch.refresh_after_write" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.*.elasticsearch.refresh_after_write not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.automatic_indexing.synchronization.strategy` (for global defaults). There is no equivalent for per-index configuration.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00200">
+            <when>
+                <filecontent pattern="hibernate.search.default.elasticsearch.request_timeout" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.default.elasticsearch.request_timeout not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.request_timeout`.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00210">
+            <when>
+                <filecontent pattern="hibernate.search.{*}.elasticsearch.required_index_status" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.*.elasticsearch.required_index_status not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.schema_management.minimal_required_status` (for global defaults)
+                        or `hibernate.search.backend.indexes.&lt;index-name&gt;.schema_management.minimal_required_status` (per-index).
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00220">
+            <when>
+                <filecontent pattern="hibernate.search.default.elasticsearch.username" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.default.elasticsearch.username not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.username`.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00230">
+            <when>
+                <filecontent pattern="hibernate.search.{*}.exclusive_index_use" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.*.exclusive_index_use not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. There is no substitute in Hibernate Search 6.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00240">
+            <when>
+                <filecontent pattern="hibernate.search.{*}.directory_provider" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property  hibernate.search.*.directory_provider not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.directory.type` (for global defaults)
+                        or `hibernate.search.backend.indexes.&lt;index-name&gt;.directory.type` (per-index).
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00250">
+            <when>
+                <filecontent pattern="hibernate.search.{*}.indexBase" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.*.indexBase not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.directory.root` (for global defaults)
+                        or `hibernate.search.backend.indexes.&lt;index-name&gt;.directory.root` (per-index).
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00260">
+            <when>
+                <filecontent pattern="hibernate.search.{*}.indexName" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.*.indexName not available anymore" effort="1" category-id="mandatory">
+                    <message>No equivalent in Hibernate Search 6. The name of an index can still be customized in the mapping, using
+                        @Indexed(name = ...), or with the programmatic equivalent.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00270">
+            <when>
+                <filecontent pattern="hibernate.search.{*}.index_flush_interval" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.*.index_flush_interval not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.io.commit_interval` (for global defaults)
+                        or `hibernate.search.backend.indexes.&lt;index name&gt;.io.commit_interval` (per-index).
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00280">
+            <when>
+                <filecontent pattern="hibernate.search.{*}.index_metadata_complete" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.*.index_metadata_complete not available anymore" effort="1" category-id="mandatory">
+                    <message>No equivalent in Hibernate Search 6. This property was not documented in Hibernate Search 5.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00290">
+            <when>
+                <filecontent pattern="hibernate.search.{*}.indexmanager" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.*.indexmanager not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.type` (for global defaults).
+                        No equivalent for the per-index configuration. See link for more information.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00300">
+            <when>
+                <filecontent pattern="hibernate.search.{*}.indexwriter" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.*.indexwriter not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.io.writer` or `hibernate.search.backend.io.merge` (for global defaults)
+                        or `hibernate.search.backend.indexes.&lt;index-name&gt;.io.writer` or `hibernate.search.backend.indexes.&lt;index-name&gt;.io.merge` (per-index).
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00310">
+            <when>
+                <filecontent pattern="hibernate.search.{*}.locking_strategy" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.*.locking_strategy not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.directory.locking.strategy` (for global defaults)
+                        or `hibernate.search.backend.indexes.&lt;index-name&gt;.directory.locking.strategy` (per-index).
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/reference/en-US/html_single/#backend-lucene-configuration-directory-locking-strategy" title="Hibernate Search 6 - Locking Strategy"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00320">
+            <when>
+                <filecontent pattern="hibernate.search.{*}.max_queue_length" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.*.max_queue_length not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.indexing.queue_size` (for global defaults)
+                        or `hibernate.search.backend.indexes.&lt;index-name&gt;.indexing.queue_size` (per-index).
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00330">
+            <when>
+                <filecontent pattern="hibernate.search.default_null_token" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.default_null_token not available anymore" effort="1" category-id="mandatory">
+                    <message>No equivalent in Hibernate Search 6. In most cases, you won’t need to use indexNullAs anymore. Where indexNullAs is still needed, define the token explicitly for each index field. See links for more info.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#field-indexnullas" title="Hibernate Search 5 to 6 Migration - indexNullAs field"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00340">
+            <when>
+                <filecontent pattern="hibernate.search.{*}.reader" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.*.reader not available anymore" effort="1" category-id="mandatory">
+                    <message>
+                        No direct equivalent in Hibernate Search 6. To enable async reader refresh, set hibernate.search.backend.io.refresh_interval or hibernate.search.backend.indexes.&lt;index-name&gt;.io.refresh_interval
+                        to a strictly positive value (in milliseconds). See links for more information. Custom reader strategies are no longer supported.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/reference/en-US/html_single/#backend-lucene-io-refresh" title="Hibernate Search 6 - Reference Documentation"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00350">
+            <when>
+                <filecontent pattern="hibernate.search.{*}.retry_marker_lookup" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.*.retry_marker_lookup not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. The filesystem-slave directory provider is no longer supported. See links for more information.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#search-5-backends" title="Hibernate Search 5 to 6 Migration: Search Backends"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00360">
+            <when>
+                <filecontent pattern="hibernate.search.{*}.sharding_strategy" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.*.sharding_strategy not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. Sharding is configured differently. See links for more information.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#sharding" title="Hibernate Search 5 to 6 Migration: Sharding"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00370">
+            <when>
+                <filecontent pattern="hibernate.search.{*}.similarity" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.*.similarity not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. The similarity is configured through the analysis configurer. See links for more information.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#analysis-definition-provider" title="Hibernate Search 5 to 6 Migration: Analysis Definition Provider"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00380">
+            <when>
+                <filecontent pattern="hibernate.search.{*}.worker.backend" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.*.worker.backend not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. The JMS/JGroups backends are no longer supported. See links for more information.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#search-5-backends" title="Hibernate Search 5 to 6 Migration: Backends"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00390">
+            <when>
+                <filecontent pattern="hibernate.search.{*}.worker.execution" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.*.worker.execution not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. Setting hibernate.search.automatic_indexing.synchronization.strategy to async or sync will produce results similar to setting hibernate.search.&lt;index-name&gt;.worker.execution to the same value. See links for more information.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/reference/en-US/html_single/#mapper-orm-indexing-automatic-synchronization" title="Hibernate Search 6 - Reference Documentation"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00400">
+            <when>
+                <filecontent pattern="hibernate.search.{*}.worker" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.*.worker not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. The JMS/JGroups backends are no longer supported. See links for more information.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#search-5-backends" title="Hibernate Search 5 to 6 Migration: Backends"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00410">
+            <when>
+                <filecontent pattern="hibernate.search.elasticsearch.analysis_definition_provider" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.elasticsearch.analysis_definition_provider not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.analysis.configurer`.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#analysis-definition-provider" title="Hibernate Search 5 to 6 Migration: Analysis definition provider"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00420">
+            <when>
+                <filecontent pattern="hibernate.search.elasticsearch.log.json_pretty_printing" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.elasticsearch.log.json_pretty_printing not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.log.json_pretty_printing`.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00430">
+            <when>
+                <filecontent pattern="hibernate.search.elasticsearch.scroll_backtracking_window_size" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.elasticsearch.scroll_backtracking_window_size not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore: scrolling is forward-only. See links for more information.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#scrolling-forward-only" title="Hibernate Search 5 to 6 Migration: Scrolling is forward-only"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00440">
+            <when>
+                <filecontent pattern="hibernate.search.elasticsearch.scroll_fetch_size" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.elasticsearch.scroll_fetch_size not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. When using Hibernate Search APIs, the "chunk size" is an argument to the scroll method. When using the Hibernate ORM or JPA adapters, the "chunk size" is set to the same value as the fetch size. See links for more information.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/reference/en-US/html_single/#search-dsl-query-fetching-results-scrolling" title="Hibernate Search 6 Reference: Scrolling"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00450">
+            <when>
+                <filecontent pattern="hibernate.search.elasticsearch.scroll_timeout" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.elasticsearch.scroll_timeout not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.scroll_timeout`.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00460">
+            <when>
+                <filecontent pattern="hibernate.search.enable_dirty_check" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.enable_dirty_check not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.automatic_indexing.enable_dirty_check`.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00470">
+            <when>
+                <filecontent pattern="hibernate.search.error_handler" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.error_handler not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.background_failure_handler`. A different interface should be implemented: see links for more information.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#error-handler" title="Hibernate Search 5 to 6 Migration: Error handler"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00480">
+            <when>
+                <filecontent pattern="hibernate.search.filter.cache_docidresults.size" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property  not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. There's no equivalent for Hibernate Search 6. If you need caching for some of your Lucene queries, consider upgrading directly to Hibernate Search 6.1, which provides configurable Low-level hit caching. See link for more information.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#full-text-filter" title="Hibernate Search 5 to 6 Migration: Full-text filter"/>
+                    <link href="https://docs.jboss.org/hibernate/search/6.1/reference/en-US/html_single/#backend-lucene-search-caching" title="Hibernate Search 6 Reference: Low-level hit caching"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00490">
+            <when>
+                <filecontent pattern="hibernate.search.filter.cache_strategy" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property  not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. There's no equivalent for Hibernate Search 6. If you need caching for some of your Lucene queries, consider upgrading directly to Hibernate Search 6.1, which provides configurable Low-level hit caching. See link for more information.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#full-text-filter" title="Hibernate Search 5 to 6 Migration: Full-text filter"/>
+                    <link href="https://docs.jboss.org/hibernate/search/6.1/reference/en-US/html_single/#backend-lucene-search-caching" title="Hibernate Search 6 Reference: Low-level hit caching"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00500">
+            <when>
+                <filecontent pattern="hibernate.search.generate_statistics" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property  not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. There's no equivalent for Hibernate Search 6. No equivalent in Hibernate Search 6. See links for more information.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#searchfactory-getstatistics" title="Hibernate Search 5 to 6 Migration: Statistics: SearchFactory.getStatistics()"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00510">
+            <when>
+                <filecontent pattern="hibernate.search.index_uninverting_allowed" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.index_uninverting_allowed not available anymore" effort="1" category-id="mandatory">
+                    <message>Index uninverting was deprecated in Hibernate Search 5 due to poor performance and is no longer allowed. All index fields that you want to sort on must be marked as sortable. See links for more information.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#sortablefield" title="Hibernate Search 5 to 6 Migration: @SortableField, @SortableFields"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00520">
+            <when>
+                <filecontent pattern="hibernate.search.indexing_strategy" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.indexing_strategy not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.automatic_indexing.strategy`. Set to `none` to get the equivalent of `hibernate.search.indexing_strategy = manual` in Hibernate Search 5.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00530">
+            <when>
+                <filecontent pattern="hibernate.search.jmx_bean_suffix" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.jmx_bean_suffix not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. See links for more information.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#jmx" title="Hibernate Search 5 to 6 Migration: JMX"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00540">
+            <when>
+                <filecontent pattern="hibernate.search.jmx_enabled" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.jmx_enabled not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. See links for more information.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#jmx" title="Hibernate Search 5 to 6 Migration: JMX"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00550">
+            <when>
+                <filecontent pattern="hibernate.search.lucene.analysis_definition_provider" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.error_handler not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.analysis.configurer`. A different interface should be implemented: see links for more information.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#analysis-definition-provider" title="Hibernate Search 5 to 6 Migration: Analysis definition provider"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00560">
+            <when>
+                <filecontent pattern="hibernate.search.lucene_version" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.lucene_version not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.lucene_version`.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00570">
+            <when>
+                <filecontent pattern="hibernate.search.model_mapping" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.model_mapping not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.mapping.configurer`. A different interface should be implemented: see links for more information.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#mapping-programmatic" title="Hibernate Search 5 to 6 Migration: Programmatic mapping"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00580">
+            <when>
+                <filecontent pattern="hibernate.search.query.database_retrieval_method" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.query.database_retrieval_method not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is no available anymore. No equivalent in Hibernate Search 6: entities are always loaded with a query.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00590">
+            <when>
+                <filecontent pattern="hibernate.search.query.object_lookup_method" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.query.object_lookup_method not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.query.loading.cache_lookup.strategy`.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/reference/en-US/html_single/#search-dsl-query-cache-lookup-strategy" title="Hibernate Search 5 to 6 Migration: Cache lookup strategy"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00600">
+            <when>
+                <filecontent pattern="hibernate.search.similarity" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.similarity not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. There is no direct equivalent in Hibernate Search 6: the similarity is configured through the analysis configurer. The default similarity changed when this property is not configured: see links for more information.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#default-similarity" title="Hibernate Search 5 to 6 Migration: Default similarity"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00610">
+            <when>
+                <filecontent pattern="hibernate.search.worker.{*}" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.search.worker.* not available anymore" effort="1" category-id="mandatory">
+                    <message>This property is not available anymore. No equivalent to the concept of "worker" in Hibernate Search 6:
+                        automatic indexing is always performed on transaction commit or, when there is no transaction, on session flush.
+                        Also, transactional backends, for example the JMS backend, are no longer supported. See links for more information.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#configuration-property-reference" title="Hibernate Search 5 to 6 Migration: Configuration Property Reference"/>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/reference/en-US/html_single/#mapper-orm-indexing-automatic-concepts" title="Hibernate Search 6 Reference: How automatic indexing works"/>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#search-5-backends" title="Hibernate Search 5 to 6 Migration: Backends"/>
+                </hint>
+            </perform>
+        </rule>
+
+        <!-- APIs -->
+        <rule id="hibernate-search-00620">
+            <when>
+                <javaclass references="org.hibernate.search.annotations.Analyzer">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Annotation @Analyzer not available anymore" effort="3" category-id="mandatory">
+                    <message>
+                        In Hibernate Search 5, it was possible to apply an @Analyzer annotation to a class or property, so that the corresponding analyzer would be used by default for any index field declared in this scope.
+                        There is no equivalent to that feature in Hibernate Search 6: all fields must specify their analyzer explicitly using @FullTextField(analyzer = "myAnalyzer"), or rely on the (global) default analyzer.
+                        Also, still in Hibernate Search 5, @Analyzer could point directly to a class extending org.apache.lucene.analysis.Analyzer, for example with @Analyzer(impl = StandardAnalyzer.class).
+                        This is no longer possible: analyzers are now always referenced by their name. However, you can assign a name to a given analyzer instance using the Lucene analysis configurer.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/reference/en-US/html_single/#backend-lucene-analysis-analyzers" title="Hibernate Search 6 Reference: Custom analyzers and normalizers"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00630">
+            <when>
+                <or>
+                    <javaclass references="org.hibernate.search.annotations.AnalyzerDef">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                    <javaclass references="org.hibernate.search.annotations.AnalyzerDefs">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="Annotation @AnalyzerDef(s) not available anymore" effort="3" category-id="mandatory">
+                    <message>
+                        Annotation-based analyzer definitions are no longer supported.
+                        Instead, implement an analysis configurer: see links for Lucene and Elastic
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/reference/en-US/html_single/#backend-lucene-analysis-analyzers" title="Hibernate Search 6 Reference: Custom analyzers and normalizers"/>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/reference/en-US/html_single/#backend-elasticsearch-analysis-analyzers" title="Hibernate Search 6 Reference: Elasticsearch analyzers and normalizers"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00640">
+            <when>
+                <javaclass references="org.hibernate.search.annotations.AnalyzerDiscriminator">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Annotation @AnalyzerDiscriminator not available anymore" effort="3" category-id="mandatory">
+                    <message>
+                        `@AnalyzerDiscriminator` has no direct equivalent in Hibernate Search 6: the analyzer assigned to each field is static and cannot change at runtime, because that results in unreliable matches and in scoring issues.
+                        Instead, Hibernate Search 6 allows declaring multiple index fields for a single property, and putting the content of that property in a different field depending on a discriminator. Then, when searching, you can target all fields at once.
+                        See link for more information.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/reference/en-US/html_single/#mapper-orm-alternatives" title="Hibernate Search 6 Reference: Mapping multiple alternatives"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00650">
+            <when>
+                <javaclass references="org.hibernate.search.annotations.Boost">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Annotation @Boost not available anymore" effort="3" category-id="mandatory">
+                    <message>
+                        Index-time boosting was deprecated in Hibernate Search 5. It is no longer available in Hibernate Search 6.
+                        Instead, rely on query-time boosting. See link for more information.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/reference/en-US/html_single/#search-dsl-predicate-common-boost" title="Hibernate Search 6 Reference: Query-time boosting"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00660">
+            <when>
+                <javaclass references="org.hibernate.search.annotations.CacheFromIndex">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Annotation @CacheFromIndex not available anymore" effort="1" category-id="mandatory">
+                    <message>
+                        This annotation was deprecated and non-functional in Hibernate Search 5. It is no longer available in Hibernate Search 6.
+                    </message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00670">
+            <when>
+                <javaclass references="org.hibernate.search.annotations.CalendarBridge">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Annotation @CalendarBridge not available anymore" effort="1" category-id="mandatory">
+                    <message>
+                        `@CalendarBridge` is not necessary to index Calendar values: you can simply apply @GenericField to a property of type Calendar, and an appropriate default bridge will be used.
+                        See link for more information.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#calendarbridge" title="Hibernate Search 5 to 6 Migration: @CalendarBridge"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00680">
+            <when>
+                <javaclass references="org.hibernate.search.annotations.CharFilterDef">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Annotation @CharFilterDef not available anymore" effort="1" category-id="mandatory">
+                    <message>
+                        Annotation-based analyzer definitions are no longer supported. See link for more information.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#charfilterdef" title="Hibernate Search 5 to 6 Migration: @CharFilterDef"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00690">
+            <when>
+                <or>
+                    <javaclass references="org.hibernate.search.annotations.ClassBridge">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                    <javaclass references="org.hibernate.search.annotations.ClassBridges">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="Annotation @ClassBridge(s) not available anymore" effort="3" category-id="mandatory">
+                    <message>
+                        The bridge API was completely reworked in Hibernate Search 6. See link for more information.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#bridges" title="Hibernate Search 5 to 6 Migration: Bridges"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00700">
+            <when>
+                <javaclass references="org.hibernate.search.annotations.ContainedIn">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Annotation @ContainedIn not available anymore" effort="1" category-id="mandatory">
+                    <message>
+                        @ContainedIn is no longer necessary in Hibernate Search 6.
+                        Hibernate Search 6 infers indexing dependencies from the mapping, and raises errors at bootstrap when the equivalent of @ContainedIn cannot be applied automatically (for example an @IndexedEmbedded association with no inverse side).
+                        Thus, the recommended approach when migrating is to simply remove all @ContainedIn annotations, then deal with the bootstrap errors, if any.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#automatic-indexing-across-associations-by-default" title="Hibernate Search 5 to 6 Migration: Automatic indexing across associations by defaults"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00710">
+            <when>
+                <javaclass references="org.hibernate.search.annotations.DateBridge">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Annotation @DateBridge not available anymore" effort="3" category-id="mandatory">
+                    <message>
+                        @DateBridge is not necessary to index Date values: you can simply apply @GenericField to a property of type java.util.Date, java.sql.Date, java.sql.Time or java.sql.Timestamp, and an appropriate default bridge will be used.
+                        See link for more information.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#datebridge" title="Hibernate Search 5 to 6 Migration: @DateBridge"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00720">
+            <when>
+                <javaclass references="org.hibernate.search.annotations.DocumentId">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+            </when>
+            <perform>
+                <hint title="Annotation @DocumentId has moved" effort="1" category-id="mandatory">
+                    <message>
+                        `@DocumentId` is still available in Hibernate Search 6, but moved to a different package: `org.hibernate.search.mapper.pojo.mapping.definition.annotation.DocumentId`.
+                        However, it no longer exposes a name attribute, because the document ID is no longer an index field, and thus it does not need a name.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#documentid" title="Hibernate Search 5 to 6 Migration: @DocumentId"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00730">
+            <when>
+                <javaclass references="org.hibernate.search.annotations.DynamicBoost">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Annotation @DynamicBoost not available anymore" effort="3" category-id="mandatory">
+                    <message>
+                        Index-time boosting was deprecated in Hibernate Search 5. It is no longer available in Hibernate Search 6.
+                        Instead, rely on query-time boosting. See link for more information.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/reference/en-US/html_single/#search-dsl-predicate-common-boost" title="Hibernate Search 6 Reference: Boosting the score of a predicate"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00740">
+            <when>
+                <or>
+                    <javaclass references="org.hibernate.search.annotations.Facet">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                    <javaclass references="org.hibernate.search.annotations.Facets">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="Facets have changed" effort="3" category-id="mandatory">
+                    <message>
+                        Facets are now called aggregations, which are a generalization of the concept of faceting. See link for more information.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#facet" title="Hibernate Search 6 Reference: @Facet(s)"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00750">
+            <when>
+                <or>
+                    <javaclass references="org.hibernate.search.annotations.Field">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                    <javaclass references="org.hibernate.search.annotations.Fields">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="The @Field(s) annotation has been split into multiple annotations" effort="3" category-id="mandatory">
+                    <message>
+                        The @Field annotation was split into multiple annotations, specific to each field type. See link for more information.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#field" title="Hibernate Search 6 Reference: @Field(s)"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00760">
+            <when>
+                <javaclass references="org.hibernate.search.annotations.FieldBridge">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Annotation @FieldBridge not available anymore" effort="1" category-id="mandatory">
+                    <message>
+                        The bridge API was completely reworked in Hibernate Search 6. See link for more information.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#bridges" title="Hibernate Search 5 to 6 Migration: Bridges"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00770">
+            <when>
+                <or>
+                    <javaclass references="org.hibernate.search.annotations.FullTextFilterDef">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                    <javaclass references="org.hibernate.search.annotations.FullTextFilterDefs">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="The @FullTextFilterDef(s) annotation is not available anymore" effort="1" category-id="mandatory">
+                    <message>
+                        Full-text filters have no direct equivalent in Hibernate Search 6. See link for more information.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#full-text-filter" title="Hibernate Search 5 to 6 Migration: Full-text filter"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00780">
+            <when>
+                <javaclass references="org.hibernate.search.annotations.Indexed">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Annotation @Indexed has moved" effort="1" category-id="mandatory">
+                    <message>
+                        `@Indexed` is still available in Hibernate Search 6, but moved to a different package: `org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed`.
+                        However, there are some related changes that must be addressed - see link for more information.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#indexed" title="Hibernate Search 5 to 6 Migration: @Indexed"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00790">
+            <when>
+                <javaclass references="org.hibernate.search.annotations.IndexedEmbedded">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Annotation @IndexedEmbedded has moved" effort="3" category-id="mandatory">
+                    <message>
+                        `@IndexedEmbedded` is still available in Hibernate Search 6, but moved to a different package: `org.hibernate.search.mapper.pojo.mapping.definition.annotation.IndexedEmbedded`.
+                        Some other changes within the annotation have been made. For more information, see the link.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#indexedembeded" title="Hibernate Search 5 to 6 Migration: @IndexedEmbedded"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00800">
+            <when>
+                <javaclass references="org.hibernate.search.annotations.Key">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="The @Key annotation is not available anymore" effort="1" category-id="mandatory">
+                    <message>
+                        `@Key` has no equivalent in Hibernate Search 6.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#full-text-filter" title="Hibernate Search 5 to 6 Migration: Full-text filter"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00810">
+            <when>
+                <javaclass references="org.hibernate.search.annotations.Latitude">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Annotation @Latitude has moved" effort="1" category-id="mandatory">
+                    <message>
+                        `@Latitude` is still available in Hibernate Search 6, but moved to a different package: `org.hibernate.search.annotations.Latitude`.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#latitude" title="Hibernate Search 5 to 6 Migration: @Latitude"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00820">
+            <when>
+                <javaclass references="org.hibernate.search.annotations.Longitude">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Annotation @Longitude has moved" effort="1" category-id="mandatory">
+                    <message>
+                        `@Longitude` is still available in Hibernate Search 6, but moved to a different package: `org.hibernate.search.annotations.Longitude`.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#longitude" title="Hibernate Search 5 to 6 Migration: @Longitude"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00830">
+            <when>
+                <javaclass references="org.hibernate.search.annotations.Normalizer">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Annotation @Longitude has moved" effort="1" category-id="mandatory">
+                    <message>
+                        In Hibernate Search 5, `@Normalizer` could point directly to a class extending `org.apache.lucene.analysis.Analyzer`, for example with `@Normalizer(impl = MyNormalizer.class)`.
+                        This is no longer possible: normalizers are now always referenced by their name. However, you can assign a name to a given normalizer instance using the Lucene analysis configurer.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/reference/en-US/html_single/#backend-lucene-analysis-analyzers" title="Hibernate Search 6 Reference: Lucene analysis configurer"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00840">
+            <when>
+                <or>
+                    <javaclass references="org.hibernate.search.annotations.NormalizerDef">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                    <javaclass references="org.hibernate.search.annotations.NormalizerDefs">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="Annotation @NormalizerDef(s) not available anymore" effort="3" category-id="mandatory">
+                    <message>
+                        Annotation-based analyzer definitions are no longer supported.
+                        Instead, implement an analysis configurer: see links for Lucene and Elasticsearch
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/reference/en-US/html_single/#backend-lucene-analysis-analyzers" title="Hibernate Search 6 Reference: Custom analyzers and normalizers"/>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/reference/en-US/html_single/#backend-elasticsearch-analysis-analyzers" title="Hibernate Search 6 Reference: Elasticsearch analyzers and normalizers"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00850">
+            <when>
+                <or>
+                    <javaclass references="org.hibernate.search.annotations.NumericField">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                    <javaclass references="org.hibernate.search.annotations.NumericFields">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="Annotation @NumericField(s) not available anymore" effort="1" category-id="mandatory">
+                    <message>
+                        @NumericField no longer exists in Hibernate Search 6.
+                        Numeric types are indexed as numeric values by default, so this annotation can simply be removed.
+                    </message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00860">
+            <when>
+                <javaclass references="org.hibernate.search.annotations.ProvidedId">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Annotation @ProvidedId is no longer available" effort="1" category-id="mandatory">
+                    <message>
+                        `@ProvidedId` was deprecated in Hibernate Search 5. It no longer exists in Hibernate Search 6.
+                    </message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00870">
+            <when>
+                <or>
+                    <javaclass references="org.hibernate.search.annotations.SortableField">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                    <javaclass references="org.hibernate.search.annotations.SortableFields">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="Annotation @NumericField(s) not available anymore" effort="1" category-id="mandatory">
+                    <message>
+                        @NumericField no longer exists in Hibernate Search 6.
+                        Numeric types are indexed as numeric values by default, so this annotation can simply be removed.
+                    </message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00880">
+            <when>
+                <or>
+                    <javaclass references="org.hibernate.search.annotations.Spatial">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                    <javaclass references="org.hibernate.search.annotations.Spatials">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="Annotation @Spatial(s) not available anymore" effort="1" category-id="mandatory">
+                    <message>
+                        @Spatial has no direct equivalent in Hibernate Search 6.
+                        Check link for a quick reference of how to convert a @Spatial annotation to Hibernate Search 6.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#spatial" title="Hibernate Search 5 to 6 Migration: @Spatial"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00890">
+            <when>
+                <javaclass references="org.hibernate.search.annotations.TikaBridge">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Annotation @TikaBridge is no longer available" effort="1" category-id="mandatory">
+                    <message>
+                        @TikaBridge has no equivalent in Hibernate Search 6 yet.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#tikabridge" title="Hibernate Search 5 to 6 Migration: @TikaBridge"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00900">
+            <when>
+                <or>
+                    <javaclass references="org.hibernate.search.annotations.TokenFilterDef">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                    <javaclass references="org.hibernate.search.annotations.TokenizerDef">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="Annotation @AnalyzerDef(s) not available anymore" effort="3" category-id="mandatory">
+                    <message>
+                        Annotation-based analyzer definitions are no longer supported.
+                        See links for more information.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#tokenfilterdef" title="Hibernate Search 5 to 6 Migration: @TokenFilterDef"/>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#tokenizerdef" title="Hibernate Search 5 to 6 Migration: @TokenizerDef"/>
+                </hint>
+            </perform>
+        </rule>
+
+
+
+        <rule id="hibernate-search-00910">
+            <when>
+                <or>
+                    <javaclass references="org.hibernate.search.jpa.FullTextEntityManager"/>
+                    <javaclass references="org.hibernate.search.FullTextSession"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="FullTextEntityManager and FullTextSession removed" effort="5" category-id="mandatory">
+                    <message>
+                        The equivalent to Hibernate Search 5’s `FullTextEntityManager/FullTextSession` is Hibernate Search 6’s `SearchSession`. Check link for guide
+                        to switch implementation to `SearchSession`.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#fulltextsession" title="Hibernate Search 5 to 6 Migration: FullTextEntityManager/FullTextSession"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00920">
+            <when>
+                <or>
+                    <javaclass references="org.hibernate.search.FullTextQuery"/>
+                    <javaclass references="org.hibernate.search.jpa.FullTextQuery"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Full text queries now done via SDL - FullTextQueries have changed" effort="5" category-id="mandatory">
+                    <message>
+                        Search APIs have changed significantly in order to implement several improvements. The recommended way to build search
+                        queries in Hibernate Search 6 is through the Hibernate Search DSL. See link for a thorough explanation and examples.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#searching-fulltextquery" title="Hibernate Search 5 to 6 Migration: FullTextQuery"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00930">
+            <when>
+                <javaclass references="org.apache.lucene.search.Query"/>
+            </when>
+            <perform>
+                <hint title="Full text queries now done via SDL - Lucene queries replaced with search predicates" effort="5" category-id="mandatory">
+                    <message>
+                        Lucene queries are replaced with Lucene-independent "search predicates" in Hibernate Search 6. See link for guide and examples.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#queries" title="Hibernate Search 5 to 6 Migration: org.apache.lucene.search.Query -> SearchPredicate"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00940">
+            <when>
+                <or>
+                    <javaclass references="org.apache.lucene.search.Sort"/>
+                    <javaclass references="org.apache.lucene.search.SortField"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Full text queries now done via SDL - Sort fields replaced with search sorts" effort="5" category-id="mandatory">
+                    <message>
+                        Lucene sort fields are replaced with Lucene-independent "search sorts" in Hibernate Search 6. Follow the link for more info and examples.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#sorts" title="Hibernate Search 5 to 6 Migration: org.apache.lucene.search.Sort/SortField -> SearchSort"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00950">
+            <when>
+                <or>
+                    <javaclass references="org.hibernate.search.engine.ProjectionConstants"/>
+                    <javaclass references="org.hibernate.search.elasticsearch.ElasticsearchProjectionConstants"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="ProjectionConstants no longer available" effort="5" category-id="mandatory">
+                    <message>
+                        The `ProjectionConstants` are no longer available, and Hibernate Search 6's DSL must be used instead to build `SearchProjection` objects. Follow link for more information and examples.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#projections" title="Hibernate Search 5 to 6 Migration: Projections"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00960">
+            <when>
+                <or>
+                    <javaclass references="org.hibernate.search.{*}Facet{*}"/>
+                    <javaclass references="org.hibernate.search.{*}facet{*}"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Full text queries now done via SDL - Facets now called aggregations" effort="5" category-id="mandatory">
+                    <message>
+                        Facets are now called aggregations, which are a generalization of the concept of faceting. See link for more information and examples.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#searching-facet" title="Hibernate Search 5 to 6 Migration: Facets"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-00970">
+            <when>
+                <or>
+                    <javaclass references="org.hibernate.search.{*}ErrorHandl{*}"/>
+                    <javaclass references="org.hibernate.search.{*}errorhandl{*}"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="ErrorHandler API no longer available" effort="5" category-id="mandatory">
+                    <message>
+                        The ErrorHandler interface and API have been replaced with the `FailureHandler` interface, and the related configuration properties changed. See link for more information and examples.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#error-handler" title="Hibernate Search 5 to 6 Migration: ErrorHandler"/>
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="hibernate-search-00980">
+            <when>
+                <javaclass references="org.hibernate.search.annotations.Factory">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="The @Factory annotation is not available anymore" effort="3" category-id="mandatory">
+                    <message>
+                        The @Factory annotation does not exist in Hibernate Search 6 anymore. It is encouraged instead to rely on a proper dependency injection framework if such a feature is needed.
+                        This can be done by referencing the bean name instead of referencing the bean class in your Hibernate Search mapping/configuration. See link for more information.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#factory" title="Hibernate Search 5 to 6 Migration: @Factory"/>
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="hibernate-search-00990">
+            <when>
+                <javaclass references="org.hibernate.search.exception.SearchException"/>
+            </when>
+            <perform>
+                <hint title="org.hibernate.search.exception.SearchException has been moved" effort="1" category-id="mandatory">
+                    <message>
+                        `org.hibernate.search.exception.SearchException` has been moved to `org.hibernate.search.util.common.SearchException`.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#searchexception" title="Hibernate Search 5 to 6 Migration: SearchException"/>
+                </hint>
+            </perform>
+        </rule>
+        
+        <rule id="hibernate-search-01000">
+            <when>
+                <or>
+                    <javaclass references="org.hibernate.search.store.IndexShardingStrategy"/>
+                    <javaclass references="org.hibernate.search.store.ShardIdentifierProvider"/>
+                    <javaclass references="org.hibernate.search.store.ShardIdentifierProviderTemplate"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Sharding has changed in Hibernate Search 6" category-id="mandatory" effort="5">
+                    <message>
+                        Static sharding is still available in Hibernate Search 6, but it works differently, so the Hibernate Search 5 APIs are no longer available.
+                        To implement static sharding in Hibernate Search 6, refer to the link.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/reference/en-US/html_single/#concepts-sharding-routing" title="Hibernate Search 6 Reference - Sharding and routing"/>
+                </hint>
+            </perform>
+        </rule>
+        
+        <rule id="hibernate-search-01010">
+            <when>
+                <javaclass references="org.hibernate.search.{*}SearchFactory"/>
+            </when>
+            <perform>
+                <hint title="SearchFactory is no longer available" category-id="mandatory" effort="3">
+                    <message>
+                        The equivalent to Hibernate Search 5’s SearchFactory is Hibernate Search 6’s SearchMapping, but some operations are more conveniently accessible directly from SearchSession.
+                        Check the link for more information and examples.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#_searchfactory" title="Hibernate Search 6 Reference - SearchFactory"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-01020">
+            <when>
+                <javaclass references="org.hibernate.search.MassIndexer"/>
+            </when>
+            <perform>
+                <hint title="MassIndexer has moved" category-id="mandatory" effort="1">
+                    <message>
+                        The MassIndexer mostly stays the same in Hibernate Search 6, but it moved to a different package: `org.hibernate.search.mapper.orm.massindexing.MassIndexer`.
+                        There are some other changes that can be checked by following the link.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#massindexer" title="Hibernate Search 6 Reference - MassIndexer"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-01030">
+            <when>
+                <javaclass references="org.hibernate.search.jsr352.massindexing.MassIndexingJob"/>
+            </when>
+            <perform>
+                <hint title="MassIndexer has moved" category-id="mandatory" effort="1">
+                    <message>
+                        The mass indexing Batch (JSR-352) job mostly stays the same in Hibernate Search 6, but `MassIndexingJob` moved to a different package: `org.hibernate.search.batch.jsr352.core.massindexing.MassIndexingJob`.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.0/migration/html_single/#jsr352" title="Hibernate Search 6 Reference - MassIndexingJob"/>
+                </hint>
+            </perform>
+        </rule>
+        
+        
+
+
+
+    </rules>
+</ruleset>
