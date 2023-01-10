@@ -1465,10 +1465,23 @@
                 </hint>
             </perform>
         </rule>
-        
-        
 
-
+        <!-- DEPENDENCIES -->
+        <rule id="hibernate-search-01040">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.hibernate" artifactId="hibernate-search{*}"/>
+                    </project>
+                    <dependency groupId="org.hibernate" artifactId="hibernate-search{*}"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Dependency must be migrated from Hibernate Search 5 to 6" effort="1" category-id="mandatory">
+                    <message>Hibernate Search 6 uses the groupId `org.hibernate.search` and all dependencies must be updated</message>
+                </hint>
+            </perform>
+        </rule>
 
     </rules>
 </ruleset>

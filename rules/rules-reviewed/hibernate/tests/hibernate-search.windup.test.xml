@@ -2,7 +2,7 @@
 <ruletest id="weblogic-xml-descriptors-tests" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
 
-    <testDataPath>data/hibernate/search</testDataPath>
+    <testDataPath>data/hibernate-search</testDataPath>
     <rulePath>../</rulePath>
     <ruleset>
         <rules>
@@ -633,7 +633,7 @@
             <rule id="hibernate-search-00610-test">
                 <when>
                     <not>
-                        <hint-exists message='This property is not available anymore. No equivalent to the concept of "worker" in Hibernate Search 6: ' />
+                        <hint-exists message='This property is not available anymore. No equivalent to the concept of "worker" in Hibernate Search 6:*' />
                     </not>
                 </when>
                 <perform>
@@ -1081,6 +1081,18 @@
                 </perform>
             </rule>
 
+            <rule id="hibernate-search-01040-test">
+                <when>
+                    <not>
+                        <iterable-filter size="4">
+                            <hint-exists message="Hibernate Search 6 uses the groupId `org.hibernate.search` and all dependencies must be updated" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-01040-test] Hint not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
