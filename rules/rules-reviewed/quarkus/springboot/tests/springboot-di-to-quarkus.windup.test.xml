@@ -30,6 +30,18 @@
                     <fail message="[springboot-di-to-quarkus-extension] Test failure - springboot-di-to-quarkus-00001-test" />
                 </perform>
             </rule>
+            <rule id="springboot-di-to-quarkus-00002-test">
+                <when>
+                    <not>
+                        <iterable-filter size="5">
+                            <hint-exists message="Spring infrastructure classes*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[springboot-di-to-quarkus-extension] SpringBoot infrastructure classes hint was not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
