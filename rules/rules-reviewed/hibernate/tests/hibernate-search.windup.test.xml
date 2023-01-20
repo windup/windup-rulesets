@@ -1,0 +1,1098 @@
+<?xml version="1.0"?>
+<ruletest id="weblogic-xml-descriptors-tests" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <testDataPath>data/hibernate-search</testDataPath>
+    <rulePath>../hibernate-search.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="hibernate-search-00010-test">
+                <when>
+                    <not>
+                        <iterable-filter size="4">
+                            <hint-exists message="In Hibernate Search 6, constants are provided through classes whose name ends with Settings. Follow link for more details." />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00010-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00020-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is not available anymore. To override the default analyzer, define a custom analyzer named default. See link." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00020-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00030-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.enabled`." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00030-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00040-test">
+                <when>
+                    <not>
+                        <hint-exists message="No direct equivalent in Hibernate Search 6. This property was not documented in Hibernate Search 5. For the specific use case of batch processes*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00040-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00050-test">
+                <when>
+                    <not>
+                        <hint-exists message="AWS configuration properties must change from `hibernate.search.default.elasticsearch.aws.*` to `hibernate.search.backend.aws.*`.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00050-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00060-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.connection_timeout`." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00060-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00070-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.default.elasticsearch.discovery.default_scheme`." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00070-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00080-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.discovery.enabled`." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00080-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00090-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.discovery.refresh_interval`." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00090-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00100-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.dynamic_mapping` (for global defaults)*" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00100-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00105-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.uris`." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00100-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00110-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.schema_management.minimal_required_status_wait_timeout` (for global defaults)*" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00110-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00120-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.schema_management.strategy`*" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00120-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00140-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.max_connections_per_route`." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00140-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00150-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.max_connections`." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00150-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00160-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.password`." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00160-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00170-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.password`." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00170-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00180-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.read_timeout`." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00180-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00190-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.schema_management.strategy`*" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00190-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00200-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.request_timeout`." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00200-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00210-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.schema_management.minimal_required_status` (for global defaults)*" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00210-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00220-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.username`." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00220-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00230-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is not available anymore. There is no substitute in Hibernate Search 6." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00230-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00240-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.directory.type` (for global defaults)*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00240-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00250-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.directory.root` (for global defaults)*" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00250-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00260-test">
+                <when>
+                    <not>
+                        <hint-exists message="No equivalent in Hibernate Search 6. The name of an index can still be customized in the mapping, using*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00260-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00270-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.io.commit_interval` (for global defaults)*" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00270-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00280-test">
+                <when>
+                    <not>
+                        <hint-exists message="No equivalent in Hibernate Search 6. This property was not documented in Hibernate Search 5." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00280-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00290-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.type` (for global defaults)*" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00290-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00300-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.io.writer` or `hibernate.search.backend.io.merge` (for global defaults)*" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00300-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00310-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.directory.locking.strategy` (for global defaults)*" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00310-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00320-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.indexing.queue_size` (for global defaults)*" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00320-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00330-test">
+                <when>
+                    <not>
+                        <hint-exists message="No equivalent in Hibernate Search 6. In most cases, you won’t need to use indexNullAs anymore. Where indexNullAs is still needed, define the token explicitly for each index field. See links for more info." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00330-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00340-test">
+                <when>
+                    <not>
+                        <hint-exists message="No direct equivalent in Hibernate Search 6. To enable async reader refresh, set hibernate.search.backend.io.refresh_interval or hibernate.search.backend.indexes.&lt;index-name&gt;.io.refresh_interval*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00340-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00350-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is not available anymore. The filesystem-slave directory provider is no longer supported. See links for more information." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00350-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00360-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is not available anymore. Sharding is configured differently. See links for more information." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00360-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00370-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is not available anymore. The similarity is configured through the analysis configurer. See links for more information." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00370-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00380-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is not available anymore. The JMS/JGroups backends are no longer supported. See links for more information." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00380-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00390-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is not available anymore. Setting hibernate.search.automatic_indexing.synchronization.strategy to async or sync will produce results similar to setting hibernate.search.&lt;index-name&gt;.worker.execution to the same value. See links for more information." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00390-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00400-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is not available anymore. The JMS/JGroups backends are no longer supported. See links for more information." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00400-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00410-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is not available anymore. The JMS/JGroups backends are no longer supported. See links for more information." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00410-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00420-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.log.json_pretty_printing`." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00420-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00430-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is not available anymore: scrolling is forward-only. See links for more information." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00430-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00440-test">
+                <when>
+                    <not>
+                        <hint-exists message='This property is not available anymore. When using Hibernate Search APIs, the \"chunk size\" is an argument to the scroll method. When using the Hibernate ORM or JPA adapters, the "chunk size" is set to the same value as the fetch size. See links for more information.' />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00440-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00450-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.scroll_timeout`." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00450-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00460-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.automatic_indexing.enable_dirty_check`." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00460-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00470-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.background_failure_handler`. A different interface should be implemented: see links for more information." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00470-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00480-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is not available anymore. There's no equivalent for Hibernate Search 6. If you need caching for some of your Lucene queries, consider upgrading directly to Hibernate Search 6.1, which provides configurable Low-level hit caching. See link for more information." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00480-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00490-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is not available anymore. There's no equivalent for Hibernate Search 6. If you need caching for some of your Lucene queries, consider upgrading directly to Hibernate Search 6.1, which provides configurable Low-level hit caching. See link for more information." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00490-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00500-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is not available anymore. There's no equivalent for Hibernate Search 6. No equivalent in Hibernate Search 6. See links for more information." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00500-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00510-test">
+                <when>
+                    <not>
+                        <hint-exists message="Index uninverting was deprecated in Hibernate Search 5 due to poor performance and is no longer allowed. All index fields that you want to sort on must be marked as sortable. See links for more information." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00510-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00520-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.automatic_indexing.strategy`. Set to `none` to get the equivalent of `hibernate.search.indexing_strategy = manual` in Hibernate Search 5." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00520-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00530-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is not available anymore. See links for more information." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00530-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00540-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is not available anymore. See links for more information." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00540-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00550-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.analysis.configurer`. A different interface should be implemented: see links for more information." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00550-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00560-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.backend.lucene_version`." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00560-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00570-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.mapping.configurer`. A different interface should be implemented: see links for more information." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00570-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00580-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is no available anymore. No equivalent in Hibernate Search 6: entities are always loaded with a query." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00580-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00590-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is not available anymore. Substitute with the Hibernate Search 6 equivalent: `hibernate.search.query.loading.cache_lookup.strategy`." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00590-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00600-test">
+                <when>
+                    <not>
+                        <hint-exists message="This property is not available anymore. There is no direct equivalent in Hibernate Search 6: the similarity is configured through the analysis configurer. The default similarity changed when this property is not configured: see links for more information." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00600-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00610-test">
+                <when>
+                    <not>
+                        <hint-exists message='This property is not available anymore. No equivalent to the concept of "worker" in Hibernate Search 6:*' />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00610-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00620-test">
+                <when>
+                    <not>
+                        <hint-exists message="In Hibernate Search 5, it was possible to apply an @Analyzer annotation to a class or property, so that the corresponding analyzer would be used by default for any index field declared in this scope." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00620-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00630-test">
+                <when>
+                    <not>
+                        <hint-exists message="Annotation-based analyzer definitions are no longer supported." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00630-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00640-test">
+                <when>
+                    <not>
+                        <hint-exists message="`@AnalyzerDiscriminator` has no direct equivalent in Hibernate Search 6: the analyzer assigned to each field is static and cannot change at runtime, because that results in unreliable matches and in scoring issues." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00640-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00650-test">
+                <when>
+                    <not>
+                        <hint-exists message="Index-time boosting was deprecated in Hibernate Search 5. It is no longer available in Hibernate Search 6." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00650-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00660-test">
+                <when>
+                    <not>
+                        <hint-exists message="This annotation was deprecated and non-functional in Hibernate Search 5. It is no longer available in Hibernate Search 6." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00660-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00670-test">
+                <when>
+                    <not>
+                        <hint-exists message="`@CalendarBridge` is not necessary to index Calendar values: you can simply apply @GenericField to a property of type Calendar, and an appropriate default bridge will be used." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00670-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00680-test">
+                <when>
+                    <not>
+                        <hint-exists message="Annotation-based analyzer definitions are no longer supported. See link for more information." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00680-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00690-test">
+                <when>
+                    <not>
+                        <hint-exists message="The bridge API was completely reworked in Hibernate Search 6. See link for more information." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00690-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00700-test">
+                <when>
+                    <not>
+                        <hint-exists message="@ContainedIn is no longer necessary in Hibernate Search 6.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00700-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00710-test">
+                <when>
+                    <not>
+                        <hint-exists message="@DateBridge is not necessary to index Date values: you can simply apply @GenericField to a property of type java.util.Date, java.sql.Date, java.sql.Time or java.sql.Timestamp, and an appropriate default bridge will be used." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00710-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00720-test">
+                <when>
+                    <not>
+                        <hint-exists message="`@DocumentId` is still available in Hibernate Search 6, but moved to a different package: `org.hibernate.search.mapper.pojo.mapping.definition.annotation.DocumentId`.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00720-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00730-test">
+                <when>
+                    <not>
+                        <hint-exists message="Index-time boosting was deprecated in Hibernate Search 5. It is no longer available in Hibernate Search 6.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00730-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00740-test">
+                <when>
+                    <not>
+                        <hint-exists message="Facets are now called aggregations, which are a generalization of the concept of faceting. See link for more information." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00740-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00750-test">
+                <when>
+                    <not>
+                        <hint-exists message="The @Field annotation was split into multiple annotations, specific to each field type. See link for more information." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00750-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00760-test">
+                <when>
+                    <not>
+                        <hint-exists message="The bridge API was completely reworked in Hibernate Search 6. See link for more information." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00760-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00770-test">
+                <when>
+                    <not>
+                        <hint-exists message="Full-text filters have no direct equivalent in Hibernate Search 6. See link for more information." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00770-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00780-test">
+                <when>
+                    <not>
+                        <hint-exists message="`@Indexed` is still available in Hibernate Search 6, but moved to a different package: `org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed`.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00780-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00790-test">
+                <when>
+                    <not>
+                        <hint-exists message="`@IndexedEmbedded` is still available in Hibernate Search 6, but moved to a different package: `org.hibernate.search.mapper.pojo.mapping.definition.annotation.IndexedEmbedded`.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00790-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00800-test">
+                <when>
+                    <not>
+                        <hint-exists message="`@Key` has no equivalent in Hibernate Search 6." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00800-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00810-test">
+                <when>
+                    <not>
+                        <hint-exists message="`@Latitude` is still available in Hibernate Search 6, but moved to a different package: `org.hibernate.search.annotations.Latitude`." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00810-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00820-test">
+                <when>
+                    <not>
+                        <hint-exists message="`@Longitude` is still available in Hibernate Search 6, but moved to a different package: `org.hibernate.search.annotations.Longitude`." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00820-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00830-test">
+                <when>
+                    <not>
+                        <hint-exists message="In Hibernate Search 5, `@Normalizer` could point directly to a class extending `org.apache.lucene.analysis.Analyzer`, for example with `@Normalizer\(impl = MyNormalizer.class\)`.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00830-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00840-test">
+                <when>
+                    <not>
+                        <hint-exists message="Annotation-based analyzer definitions are no longer supported.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00840-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00850-test">
+                <when>
+                    <not>
+                        <hint-exists message="@NumericField no longer exists in Hibernate Search 6.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00850-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00860-test">
+                <when>
+                    <not>
+                        <hint-exists message="`@ProvidedId` was deprecated in Hibernate Search 5. It no longer exists in Hibernate Search 6.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00860-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00870-test">
+                <when>
+                    <not>
+                        <hint-exists message="@SortableField\(s\) no longer exists in Hibernate Search 6. Instead, u*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00870-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00880-test">
+                <when>
+                    <not>
+                        <hint-exists message="@Spatial has no direct equivalent in Hibernate Search 6.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00880-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00890-test">
+                <when>
+                    <not>
+                        <hint-exists message="@TikaBridge has no equivalent in Hibernate Search 6 yet." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00890-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00900-test">
+                <when>
+                    <not>
+                        <hint-exists message="Annotation-based analyzer definitions are no longer supported.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00900-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00910-test">
+                <when>
+                    <not>
+                        <iterable-filter size="4">
+                            <hint-exists message="The equivalent to Hibernate Search 5’s `FullTextEntityManager/FullTextSession` is Hibernate Search 6’s `SearchSession`. Check link for guide*" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00910-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00920-test">
+                <when>
+                    <not>
+                        <iterable-filter size="3">
+                            <hint-exists message="Search APIs have changed significantly in order to implement several improvements. The recommended way to build search*" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00920-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00930-test">
+                <when>
+                    <not>
+                        <hint-exists message='Lucene queries are replaced with Lucene-independent "search predicates" in Hibernate Search 6. See link for guide and examples.' />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00930-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00940-test">
+                <when>
+                    <not>
+                        <iterable-filter size="4">
+                            <hint-exists message='Lucene sort fields are replaced with Lucene-independent "search sorts" in Hibernate Search 6. Follow the link for more info and examples.' />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00940-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00950-test">
+                <when>
+                    <not>
+                        <iterable-filter size="4">
+                            <hint-exists message="The `ProjectionConstants` are no longer available, and Hibernate Search 6's DSL must be used instead to build `SearchProjection` objects. Follow link for more information and examples." />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00950-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00960-test">
+                <when>
+                    <not>
+                        <iterable-filter size="6">
+                            <hint-exists message="Facets are now called aggregations, which are a generalization of the concept of faceting. See link for more information and examples." />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00960-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00970-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="The ErrorHandler interface and API have been replaced with the `FailureHandler` interface, and the related configuration properties changed. See link for more information and examples." />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00970-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00980-test">
+                <when>
+                    <not>
+                        <hint-exists message="The @Factory annotation does not exist in Hibernate Search 6 anymore. It is encouraged instead to rely on a proper dependency injection framework if such a feature is needed.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00980-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-00990-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="`org.hibernate.search.exception.SearchException` has been moved to `org.hibernate.search.util.common.SearchException`." />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-00990-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-01000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="6">
+                            <hint-exists message="Static sharding is still available in Hibernate Search 6, but it works differently, so the Hibernate Search 5 APIs are no longer available.*" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-01000-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-01010-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="The equivalent to Hibernate Search 5’s SearchFactory is Hibernate Search 6’s SearchMapping, but some operations are more conveniently accessible directly from SearchSession.*" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-01010-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-01020-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="The MassIndexer mostly stays the same in Hibernate Search 6, but it moved to a different package: `org.hibernate.search.mapper.orm.massindexing.MassIndexer`.*" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-01020-test] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="hibernate-search-01030-test">
+                <when>
+                    <not>
+                        <hint-exists message="The mass indexing Batch \(JSR-352\) job mostly stays the same in Hibernate Search 6, but `MassIndexingJob` moved to a different package: `org.hibernate.search.batch.jsr352.core.massindexing.MassIndexingJob`.*" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-01030-test] Hint not found!" />
+                </perform>
+            </rule>
+
+            <rule id="hibernate-search-01040-test">
+                <when>
+                    <not>
+                        <iterable-filter size="4">
+                            <hint-exists message="Hibernate Search 6 uses the groupId `org.hibernate.search` and all dependencies must be updated" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-01040-test] Hint not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
