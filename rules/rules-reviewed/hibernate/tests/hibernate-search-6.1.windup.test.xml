@@ -1,0 +1,159 @@
+<?xml version="1.0"?>
+<ruletest id="weblogic-xml-descriptors-tests" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <testDataPath>data/hibernate-search-61</testDataPath>
+    <rulePath>../hibernate-search-6.1.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="hibernate-search-6.1-00010-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="Hibernate Search 6.1.7.Final now requires using Hibernate ORM versions from the 5.6.x family."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-6.1-00010-test] Hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="hibernate-search-6.1-00020-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="`org.hibernate.search.engine.cfg.spi.ConfigurationPropertySource` has been moved to `to org.hibernate.search.engine.cfg.ConfigurationPropertySource`."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-6.1-00020-test] Hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="hibernate-search-6.1-00030-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="`org.hibernate.search.backend.elasticsearch.client.spi.ElasticsearchHttpClientConfigurer` moved to `org.hibernate.search.backend.elasticsearch.client.ElasticsearchHttpClientConfigurer` and is now API."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-6.1-00030-test] Hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="hibernate-search-6.1-00040-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="`org.hibernate.search.backend.elasticsearch.client.spi.ElasticsearchHttpClientConfigurationContext` moved to `org.hibernate.search.backend.elasticsearch.client.ElasticsearchHttpClientConfigurationContext` and is now API."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-6.1-00040-test] Hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="hibernate-search-6.1-00050-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="`org.hibernate.search.engine.common.timing.spi.Deadline` moved to `org.hibernate.search.engine.common.timing.Deadline` and is now API."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-6.1-00050-test] Hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="hibernate-search-6.1-00060-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="`org.hibernate.search.engine.backend.work.execution.spi.IndexIndexingPlanExecutionReport` is now `org.hibernate.search.engine.backend.work.execution.spi.MultiEntityOperationExecutionReport`."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-6.1-00060-test] Hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="hibernate-search-6.1-00070-test">
+                <when>
+                    <not>
+                        <hint-exists message="`URLEncodedString#fromJsonString` must be removed."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-6.1-00070-test] Hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="hibernate-search-6.1-00080-test">
+                <when>
+                    <not>
+                        <hint-exists message="`FieldPaths#absolutize\(String, String, String\)` must be removed."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-6.1-00080-test] Hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="hibernate-search-6.1-00090-test">
+                <when>
+                    <not>
+                        <hint-exists message="`IndexManagerImplementor#createIndexingPlan` no longer expects an `EntityReferenceFactory` parameter."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-6.1-00090-test] Hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="hibernate-search-6.1-00100-test">
+                <when>
+                    <not>
+                        <hint-exists message="`IndexIndexingPlan#executeAndReport` now expects an `EntityReferenceFactory` parameter."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-6.1-00100-test] Hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="hibernate-search-6.1-00120-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="`org.hibernate.search.engine.backend.document.model.dsl.spi.IndexSchemaObjectNodeBuilder` is now `org.hibernate.search.engine.backend.document.model.dsl.spi.IndexCompositeNodeBuilder`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-6.1-00120-test] Hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="hibernate-search-6.1-00130-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="`org.hibernate.search.engine.backend.document.model.dsl.spi.IndexSchemaObjectFieldNodeBuilder` is now `org.hibernate.search.engine.backend.document.model.dsl.spi.IndexObjectFieldBuilder`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-6.1-00130-test] Hint not found!"/>
+                </perform>
+            </rule>
+            <rule id="hibernate-search-6.1-00140-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="`org.hibernate.search.engine.backend.document.model.dsl.spi.IndexSchemaRootNodeBuilder` is now `org.hibernate.search.engine.backend.document.model.dsl.spi.IndexRootBuilder`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[hibernate-search-6.1-00140-test] Hint not found!"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
