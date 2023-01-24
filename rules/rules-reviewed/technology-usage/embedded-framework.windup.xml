@@ -742,28 +742,5 @@
                 <technology-tag level="INFORMATIONAL">Eureka</technology-tag>
             </perform>
         </rule>
-        <!-- this rule has to be always the last one in order to effectively checks for classifications added from previous rules in this ruleset-->
-        <rule id="embedded-framework-90000">
-            <when>
-                <file filename="spring{*}.jar"/>
-            </when>
-            <perform>
-                <iteration>
-                    <when>
-                        <not>
-                            <has-classification title="Embedded framework - Spring {pattern}"/>
-                        </not>
-                    </when>
-                    <classification title="Embedded framework - Spring" category-id="information" effort="0">
-                        <description>The application embeds the Spring framework.</description>
-                    </classification>
-                    <technology-tag level="INFORMATIONAL">Spring</technology-tag>
-                </iteration>
-            </perform>
-            <where param="pattern">
-                <matches pattern="(Integration|Data|Security|MVC|Batch|Boot|Test|DI)"/>
-            </where>
-        </rule>
-        <!-- the rule above has to be always the last one in order to effectively checks for classifications added from previous rules in this ruleset-->
     </rules>
 </ruleset>

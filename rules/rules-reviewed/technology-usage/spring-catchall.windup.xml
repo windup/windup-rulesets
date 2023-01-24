@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<ruleset
+    xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="spring-catchall"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of embedded Spring frameworks for which no specific rules exist.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <executeAfter>3rd-party</executeAfter>
+        <executeAfter>database</executeAfter>
+        <executeAfter>embedded-framework</executeAfter>
+        <executeAfter>integration</executeAfter>
+        <executeAfter>mvc</executeAfter>
+        <executeAfter>security</executeAfter>
+        <executeAfter>test-frameworks-usage</executeAfter>
+    </metadata>
+    <rules>
+        <rule id="spring-catchall-00001">
+            <when>
+                <file filename="spring{*}.jar"/>
+            </when>
+            <perform>
+                <iteration>
+                    <when>
+                        <not>
+                            <has-classification title="Embedded framework - Spring {pattern}{*}"/>
+                        </not>
+                    </when>
+                    <classification title="Embedded framework - Spring" category-id="information" effort="0">
+                        <description>The application embeds the Spring framework.</description>
+                    </classification>
+                    <technology-tag level="INFORMATIONAL">Spring</technology-tag>
+                </iteration>
+            </perform>
+            <where param="pattern">
+                <matches pattern="(Integration|Data|Security|MVC|Batch|Boot|Test|DI)"/>
+            </where>
+       </rule>
+    </rules>
+</ruleset>

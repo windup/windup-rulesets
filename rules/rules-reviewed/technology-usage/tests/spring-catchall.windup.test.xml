@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruletest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          id="spring-catchall-test"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+        
+    <testDataPath>data/spring-catchall</testDataPath>
+    <rulePath>../integration.windup.xml</rulePath>
+    <rulePath>../spring-catchall.windup.xml</rulePath>
+   <ruleset>
+      <rules>
+         <rule id="spring-catchall-00001-test-0">
+            <when>
+               <not>
+                   <iterable-filter size="1">
+                       <classification-exists classification="^Embedded framework - Spring$"/>
+                   </iterable-filter>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule embedded-framework-90000"/>
+            </perform>
+         </rule>
+         <rule id="spring-catchall-00001-test-1">
+            <when>
+               <not>
+                   <iterable-filter size="1">
+                      <technology-tag-exists technology-tag="^Spring$"/>
+                   </iterable-filter>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule embedded-framework-90000"/>
+            </perform>
+         </rule>
+      </rules>
+   </ruleset>
+</ruletest>
