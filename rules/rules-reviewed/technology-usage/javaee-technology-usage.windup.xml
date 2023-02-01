@@ -426,5 +426,31 @@
                 <matches pattern="(3.0|3.1)"/>
             </where>
         </rule>
+        <rule id="javaee-technology-usage-00902">
+            <when>
+                <xmlfile matches="//p:entity-mappings/@version[windup:matches(self::node(), '{v}')]" as="xml-file">
+                    <namespace prefix="p" uri="http://xmlns.jcp.org/xml/ns/persistence/orm" />
+                </xmlfile>
+            </when>
+            <perform>
+                <technology-tag level="INFORMATIONAL">JPA {v} Mapping XML Deployment Descriptor</technology-tag>
+            </perform>
+            <where param="v">
+                <matches pattern="(1.0|2.0|2.1|2.2)"/>
+            </where>
+        </rule>
+        <rule id="javaee-technology-usage-00903">
+            <when>
+                <xmlfile matches="//p:entity-mappings/@version[windup:matches(self::node(), '{v}')]" as="xml-file">
+                    <namespace prefix="p" uri="https://jakarta.ee/xml/ns/persistence/orm" />
+                </xmlfile>
+            </when>
+            <perform>
+                <technology-tag level="INFORMATIONAL">JPA {v} Mapping XML Deployment Descriptor</technology-tag>
+            </perform>
+            <where param="v">
+                <matches pattern="(3.0|3.1)"/>
+            </where>
+        </rule>
     </rules>
 </ruleset>
