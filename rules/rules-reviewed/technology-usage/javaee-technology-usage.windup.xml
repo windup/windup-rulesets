@@ -399,43 +399,16 @@
         <!-- Java EE Persistence technology identification through xml descriptor -->
         <rule id="javaee-technology-usage-00300">
             <when>
-                <xmlfile matches="p:persistence[@version='1.0']" as="xml-file">
+                <xmlfile matches="p:persistence[@version='{v}']" as="xml-file">
                     <namespace prefix="p" uri="http://xmlns.jcp.org/xml/ns/persistence" />
                 </xmlfile>
             </when>
             <perform>
-                <technology-tag level="INFORMATIONAL">JPA 1.0 XML Deployment Descriptor</technology-tag>
+                <technology-tag level="INFORMATIONAL">JPA {v} XML Deployment Descriptor</technology-tag>
             </perform>
-        </rule>
-        <rule id="javaee-technology-usage-00301">
-            <when>
-                <xmlfile matches="p:persistence[@version='2.0']" as="xml-file">
-                    <namespace prefix="p" uri="http://xmlns.jcp.org/xml/ns/persistence" />
-                </xmlfile>
-            </when>
-            <perform>
-                <technology-tag level="INFORMATIONAL">JPA 2.0 XML Deployment Descriptor</technology-tag>
-            </perform>
-        </rule>
-        <rule id="javaee-technology-usage-00302">
-            <when>
-                <xmlfile matches="p:persistence[@version='2.1']" as="xml-file">
-                    <namespace prefix="p" uri="http://xmlns.jcp.org/xml/ns/persistence" />
-                </xmlfile>
-            </when>
-            <perform>
-                <technology-tag level="INFORMATIONAL">JPA 2.1 XML Deployment Descriptor</technology-tag>
-            </perform>
-        </rule>
-        <rule id="javaee-technology-usage-00303">
-            <when>
-                <xmlfile matches="p:persistence[@version='2.2']" as="xml-file">
-                    <namespace prefix="p" uri="http://xmlns.jcp.org/xml/ns/persistence" />
-                </xmlfile>
-            </when>
-            <perform>
-                <technology-tag level="INFORMATIONAL">JPA 2.2 XML Deployment Descriptor</technology-tag>
-            </perform>
+            <where param="v">
+                <matches pattern="(1.0|2.0|2.1|2.2)"/>
+            </where>
         </rule>
     </rules>
 </ruleset>
