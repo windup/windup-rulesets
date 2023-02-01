@@ -396,10 +396,13 @@
                 </technology-identified>
             </perform>
         </rule>
-        <!-- Java EE Persistence technology identification through xml descriptor -->
-        <rule id="javaee-technology-usage-00300">
+        <!-- ================================= -->
+        <!-- Java EE XML Deployment Descriptor -->
+        <!-- ================================= -->
+        <!-- JPA -->
+        <rule id="javaee-technology-usage-00900">
             <when>
-                <xmlfile matches="p:persistence[@version='{v}']" as="xml-file">
+                <xmlfile matches="//p:persistence/@version[windup:matches(self::node(), '{v}')]" as="xml-file">
                     <namespace prefix="p" uri="http://xmlns.jcp.org/xml/ns/persistence" />
                 </xmlfile>
             </when>
@@ -408,6 +411,19 @@
             </perform>
             <where param="v">
                 <matches pattern="(1.0|2.0|2.1|2.2)"/>
+            </where>
+        </rule>
+        <rule id="javaee-technology-usage-00901">
+            <when>
+                <xmlfile matches="//p:persistence/@version[windup:matches(self::node(), '{v}')]" as="xml-file">
+                    <namespace prefix="p" uri="https://jakarta.ee/xml/ns/persistence" />
+                </xmlfile>
+            </when>
+            <perform>
+                <technology-tag level="INFORMATIONAL">JPA {v} XML Deployment Descriptor</technology-tag>
+            </perform>
+            <where param="v">
+                <matches pattern="(3.0|3.1)"/>
             </where>
         </rule>
     </rules>
