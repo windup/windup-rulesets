@@ -452,5 +452,32 @@
                 <matches pattern="(3.0|3.1)"/>
             </where>
         </rule>
+        <!-- CDI -->
+        <rule id="javaee-technology-usage-00905">
+            <when>
+                <xmlfile matches="//p:beans/@version[windup:matches(self::node(), '{v}')]" as="xml-file">
+                    <namespace prefix="p" uri="http://xmlns.jcp.org/xml/ns/javaee" />
+                </xmlfile>
+            </when>
+            <perform>
+                <technology-tag level="INFORMATIONAL">CDI {v} XML Deployment Descriptor</technology-tag>
+            </perform>
+            <where param="v">
+                <matches pattern="(1.0|1.1|2.0)"/>
+            </where>
+        </rule>
+        <rule id="javaee-technology-usage-00906">
+            <when>
+                <xmlfile matches="//p:beans/@version[windup:matches(self::node(), '{v}')]" as="xml-file">
+                    <namespace prefix="p" uri="https://jakarta.ee/xml/ns/jakartaee" />
+                </xmlfile>
+            </when>
+            <perform>
+                <technology-tag level="INFORMATIONAL">CDI {v} XML Deployment Descriptor</technology-tag>
+            </perform>
+            <where param="v">
+                <matches pattern="(3.0|4.0)"/>
+            </where>
+        </rule>
     </rules>
 </ruleset>
