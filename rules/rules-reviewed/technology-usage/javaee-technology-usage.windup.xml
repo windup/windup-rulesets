@@ -559,5 +559,45 @@
                 <matches pattern="(9|10)"/>
             </where>
         </rule>
+        <!-- Connector -->
+        <rule id="javaee-technology-usage-00916">
+            <when>
+                <xmlfile matches="//p:connector/@version[windup:matches(self::node(), '{v}')]" as="xml-file">
+                    <namespace prefix="p" uri="http://java.sun.com/xml/ns/javaee" />
+                </xmlfile>
+            </when>
+            <perform>
+                <technology-tag level="INFORMATIONAL">Connector {v} XML Deployment Descriptor</technology-tag>
+            </perform>
+            <where param="v">
+                <matches pattern="(1.6)"/>
+            </where>
+        </rule>
+        <rule id="javaee-technology-usage-00917">
+            <when>
+                <xmlfile matches="//p:connector/@version[windup:matches(self::node(), '{v}')]" as="xml-file">
+                    <namespace prefix="p" uri="http://xmlns.jcp.org/xml/ns/javaee" />
+                </xmlfile>
+            </when>
+            <perform>
+                <technology-tag level="INFORMATIONAL">Connector {v} XML Deployment Descriptor</technology-tag>
+            </perform>
+            <where param="v">
+                <matches pattern="(1.7)"/>
+            </where>
+        </rule>
+        <rule id="javaee-technology-usage-00918">
+            <when>
+                <xmlfile matches="//p:connector/@version[windup:matches(self::node(), '{v}')]" as="xml-file">
+                    <namespace prefix="p" uri="https://jakarta.ee/xml/ns/jakartaee" />
+                </xmlfile>
+            </when>
+            <perform>
+                <technology-tag level="INFORMATIONAL">Connector {v} XML Deployment Descriptor</technology-tag>
+            </perform>
+            <where param="v">
+                <matches pattern="(2.0|2.1)"/>
+            </where>
+        </rule>
     </rules>
 </ruleset>
