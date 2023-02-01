@@ -479,5 +479,45 @@
                 <matches pattern="(3.0|4.0)"/>
             </where>
         </rule>
+        <!-- Java EE -->
+        <rule id="javaee-technology-usage-00910">
+            <when>
+                <xmlfile matches="//p:application/@version[windup:matches(self::node(), '{v}')]" as="xml-file">
+                    <namespace prefix="p" uri="http://java.sun.com/xml/ns/javaee" />
+                </xmlfile>
+            </when>
+            <perform>
+                <technology-tag level="INFORMATIONAL">Java EE {v} XML Deployment Descriptor</technology-tag>
+            </perform>
+            <where param="v">
+                <matches pattern="(5|6)"/>
+            </where>
+        </rule>
+        <rule id="javaee-technology-usage-00911">
+            <when>
+                <xmlfile matches="//p:application/@version[windup:matches(self::node(), '{v}')]" as="xml-file">
+                    <namespace prefix="p" uri="http://xmlns.jcp.org/xml/ns/javaee" />
+                </xmlfile>
+            </when>
+            <perform>
+                <technology-tag level="INFORMATIONAL">Java EE {v} XML Deployment Descriptor</technology-tag>
+            </perform>
+            <where param="v">
+                <matches pattern="(7|8)"/>
+            </where>
+        </rule>
+        <rule id="javaee-technology-usage-00912">
+            <when>
+                <xmlfile matches="//p:application/@version[windup:matches(self::node(), '{v}')]" as="xml-file">
+                    <namespace prefix="p" uri="https://jakarta.ee/xml/ns/jakartaee" />
+                </xmlfile>
+            </when>
+            <perform>
+                <technology-tag level="INFORMATIONAL">Jakarta EE {v} XML Deployment Descriptor</technology-tag>
+            </perform>
+            <where param="v">
+                <matches pattern="(9|10)"/>
+            </where>
+        </rule>
     </rules>
 </ruleset>
