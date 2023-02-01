@@ -679,5 +679,45 @@
                 <matches pattern="(5.0|6.0)"/>
             </where>
         </rule>
+        <!-- JSF -->
+        <rule id="javaee-technology-usage-00926">
+            <when>
+                <xmlfile matches="//p:faces-config/@version[windup:matches(self::node(), '{v}')]" as="xml-file">
+                    <namespace prefix="p" uri="http://java.sun.com/xml/ns/javaee" />
+                </xmlfile>
+            </when>
+            <perform>
+                <technology-tag level="INFORMATIONAL">JSF {v} XML Deployment Descriptor</technology-tag>
+            </perform>
+            <where param="v">
+                <matches pattern="(1.2|2.0)"/>
+            </where>
+        </rule>
+        <rule id="javaee-technology-usage-00927">
+            <when>
+                <xmlfile matches="//p:faces-config/@version[windup:matches(self::node(), '{v}')]" as="xml-file">
+                    <namespace prefix="p" uri="http://xmlns.jcp.org/xml/ns/javaee" />
+                </xmlfile>
+            </when>
+            <perform>
+                <technology-tag level="INFORMATIONAL">JSF {v} XML Deployment Descriptor</technology-tag>
+            </perform>
+            <where param="v">
+                <matches pattern="(2.2|2.3)"/>
+            </where>
+        </rule>
+        <rule id="javaee-technology-usage-00928">
+            <when>
+                <xmlfile matches="//p:faces-config/@version[windup:matches(self::node(), '{v}')]" as="xml-file">
+                    <namespace prefix="p" uri="https://jakarta.ee/xml/ns/jakartaee" />
+                </xmlfile>
+            </when>
+            <perform>
+                <technology-tag level="INFORMATIONAL">JSF {v} XML Deployment Descriptor</technology-tag>
+            </perform>
+            <where param="v">
+                <matches pattern="(3.0|4.0)"/>
+            </where>
+        </rule>
     </rules>
 </ruleset>
