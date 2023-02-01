@@ -599,5 +599,45 @@
                 <matches pattern="(2.0|2.1)"/>
             </where>
         </rule>
+        <!-- EJB -->
+        <rule id="javaee-technology-usage-00920">
+            <when>
+                <xmlfile matches="//p:ejb-jar/@version[windup:matches(self::node(), '{v}')]" as="xml-file">
+                    <namespace prefix="p" uri="http://java.sun.com/xml/ns/javaee" />
+                </xmlfile>
+            </when>
+            <perform>
+                <technology-tag level="INFORMATIONAL">EJB {v} XML Deployment Descriptor</technology-tag>
+            </perform>
+            <where param="v">
+                <matches pattern="(3.0|3.1)"/>
+            </where>
+        </rule>
+        <rule id="javaee-technology-usage-00921">
+            <when>
+                <xmlfile matches="//p:ejb-jar/@version[windup:matches(self::node(), '{v}')]" as="xml-file">
+                    <namespace prefix="p" uri="http://xmlns.jcp.org/xml/ns/javaee" />
+                </xmlfile>
+            </when>
+            <perform>
+                <technology-tag level="INFORMATIONAL">EJB {v} XML Deployment Descriptor</technology-tag>
+            </perform>
+            <where param="v">
+                <matches pattern="(3.2)"/>
+            </where>
+        </rule>
+        <rule id="javaee-technology-usage-00922">
+            <when>
+                <xmlfile matches="//p:ejb-jar/@version[windup:matches(self::node(), '{v}')]" as="xml-file">
+                    <namespace prefix="p" uri="https://jakarta.ee/xml/ns/jakartaee" />
+                </xmlfile>
+            </when>
+            <perform>
+                <technology-tag level="INFORMATIONAL">EJB {v} XML Deployment Descriptor</technology-tag>
+            </perform>
+            <where param="v">
+                <matches pattern="(4.0)"/>
+            </where>
+        </rule>
     </rules>
 </ruleset>
