@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ruletest id="lombok-test"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/lombok</testDataPath>
+    <rulePath>../lombok.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="lombok-incompatibility-00001">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Lombok supports Java 17 since version 1.18.22.*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="lombok-incompatibility-00001 - has failed"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
