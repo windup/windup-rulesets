@@ -1,0 +1,300 @@
+<?xml version="1.0"?>
+<ruletest id="javax-to-jakarta-servlet-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/servlet</testDataPath>
+    <rulePath>../javax-to-jakarta-servlet.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="javax-to-jakarta-servlet-00010-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The `javax.servlet.SingleThreadModel` marker interface has been*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javax-to-jakarta-servlet-00010] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="javax-to-jakarta-servlet-00020-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="The `javax.servlet.http.HttpSessionContext` interface has been removed*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javax-to-jakarta-servlet-00020] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="javax-to-jakarta-servlet-00030-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The `javax.servlet.http.HttpUtils` utility class has"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javax-to-jakarta-servlet-00030] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="javax-to-jakarta-servlet-00040-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Method getServlet in javax.servlet.ServletContext has been removed."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javax-to-jakarta-servlet-00040] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="javax-to-jakarta-servlet-00041-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Method getServlets in javax.servlet.ServletContext has been removed."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javax-to-jakarta-servlet-00041] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="javax-to-jakarta-servlet-00042-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Method getServletNames in javax.servlet.ServletContext has been removed."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javax-to-jakarta-servlet-00042] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="javax-to-jakarta-servlet-00043-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Method log\(Exception, String\) in javax.servlet.ServletContext has been removed. Use log\(String, Throwable\) instead."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javax-to-jakarta-servlet-00043] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="javax-to-jakarta-servlet-00050-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Method `getRealPath\(String\)` in javax.servlet.ServletRequest has been removed"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javax-to-jakarta-servlet-00050] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="javax-to-jakarta-servlet-00060-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Method `getRealPath` in javax.servlet.ServletRequestWrapper has been removed"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javax-to-jakarta-servlet-00060] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="javax-to-jakarta-servlet-00070-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Method getServlet in javax.servlet.UnavailableException has been removed"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javax-to-jakarta-servlet-00070] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="javax-to-jakarta-servlet-00071-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Constructor UnavailableException\(Servlet, String\) in javax.servlet.UnavailableException has been removed. Use UnavailableException\(String\) instead."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javax-to-jakarta-servlet-00071] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="javax-to-jakarta-servlet-00072-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Constructor UnavailableException\(int, Servlet, String\) in javax.servlet.UnavailableException has been removed. Use UnavailableException\(String, int\) instead."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javax-to-jakarta-servlet-00072] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="javax-to-jakarta-servlet-00080-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Method `isRequestedSessionIdFromUrl` in javax.servlet.http.HttpServletRequest has been removed"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javax-to-jakarta-servlet-00080] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="javax-to-jakarta-servlet-00090-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Method `isRequestedSessionIdFromUrl` in javax.servlet.http.HttpServletRequestWrapper has been removed"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javax-to-jakarta-servlet-00090] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="javax-to-jakarta-servlet-00100-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Method encodeURL in javax.servlet.http.HttpServletResponse has been removed. Use encodeURL\(String\) instead."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javax-to-jakarta-servlet-00100] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="javax-to-jakarta-servlet-00101-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Method encodeRedirectUrl\(String\) in javax.servlet.http.HttpServletResponse has been removed. Use encodeRedirectURL\(String\) instead."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javax-to-jakarta-servlet-00101] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="javax-to-jakarta-servlet-00102-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Method setStatus\(int, String\) in javax.servlet.http.HttpServletResponse has been removed. Use sendError\(int, String\) instead."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javax-to-jakarta-servlet-00102] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="javax-to-jakarta-servlet-00110-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Method encodeUrl in javax.servlet.http.HttpServletResponseWrapper has been removed. Use encodeURL instead."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javax-to-jakarta-servlet-00110] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="javax-to-jakarta-servlet-00111-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Method encodeRedirectUrl in javax.servlet.http.HttpServletResponseWrapper has been removed. Use encodeRedirectURL instead."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javax-to-jakarta-servlet-00111] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="javax-to-jakarta-servlet-00112-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Method setStatus\(int, String\) in javax.servlet.http.HttpServletResponseWrapper has been removed. Use sendError\(int, String\) instead."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javax-to-jakarta-servlet-00112] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="javax-to-jakarta-servlet-00120-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Method getValue in javax.servlet.http.HttpSession has been removed. Use getAttribute instead."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javax-to-jakarta-servlet-00120] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="javax-to-jakarta-servlet-00121-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Method getValueNames in javax.servlet.http.HttpSession has been removed. Use getAttributeNames instead."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javax-to-jakarta-servlet-00121] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="javax-to-jakarta-servlet-00122-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Method putValue in javax.servlet.http.HttpSession has been removed. Use setAttribute instead."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javax-to-jakarta-servlet-00122] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="javax-to-jakarta-servlet-00123-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Method removeValue in javax.servlet.http.HttpSession has been removed. Use removeAttribute instead."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javax-to-jakarta-servlet-00123] The hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
