@@ -3,7 +3,7 @@
           xmlns="http://windup.jboss.org/schema/jboss-ruleset"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
-    <testDataPath>data/keycloak-oidc/</testDataPath>
+    <testDataPath>data/keycloak-openid/</testDataPath>
     <rulePath>../keycloak-openid.windup.xml</rulePath>
     <ruleset>
         <rules>
@@ -11,12 +11,24 @@
                 <when>
                     <not>
                         <iterable-filter size="1">
-                            <hint-exists message="In order to add support for EAP native OpenID Connect, the auth-method must be updated to OIDC."/>
+                            <hint-exists message="In order to add support for EAP native OpenID Connect, the `auth-method` must be updated to `OIDC`."/>
                         </iterable-filter>
                     </not>
                 </when>
                 <perform>
                     <fail message="[keycloak-openid-00001] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="keycloak-openid-00010-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="In order to add support for EAP native OpenID Connect, the `WEB-INF/keycloak.json` file must be renamed to `WEB-INF/oidc.json`."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[keycloak-openid-00010] The hint was not found!" />
                 </perform>
             </rule>
         </rules>
