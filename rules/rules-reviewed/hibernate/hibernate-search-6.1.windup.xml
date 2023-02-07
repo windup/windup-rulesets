@@ -206,5 +206,82 @@
                 </hint>
             </perform>
         </rule>
+
+        <!-- DEPRECATED -->
+        <rule id="hibernate-search-6.1-00150">
+            <when>
+                <javaclass references="org.hibernate.search.engine.backend.types.converter.FromDocumentFieldValueConverter">
+                    <location>IMPLEMENTS_TYPE</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="FromDocumentFieldValueConverter has been deprecated" effort="1" category-id="optional">
+                    <message>`FromDocumentFieldValueConverter` has been deprecated - implement `FromDocumentValueConverter` instead.</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-6.1-00160">
+            <when>
+                <javaclass references="org.hibernate.search.engine.backend.types.converter.ToDocumentFieldValueConverter">
+                    <location>IMPLEMENTS_TYPE</location>
+                </javaclass>
+        </when>
+            <perform>
+                <hint title="ToDocumentFieldValueConverter has been deprecated" effort="1" category-id="optional">
+                    <message>`ToDocumentFieldValueConverter` has been deprecated - implement `ToDocumentValueConverter` instead.</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-6.1-00170">
+            <when>
+                <javaclass references="org.hibernate.search.mapper.orm.massindexing.MassIndexingFailureHandler"/>
+            </when>
+            <perform>
+                <hint title="MassIndexingFailureHandler has been deprecated" effort="1" category-id="optional">
+                    <message>`org.hibernate.search.mapper.orm.massindexing.MassIndexingFailureHandler` has been deprecated: implement `org.hibernate.search.mapper.pojo.massindexing.MassIndexingFailureHandler` instead.</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-6.1-00180">
+            <when>
+                <javaclass references="org.hibernate.search.mapper.orm.massindexing.MassIndexingMonitor"/>
+            </when>
+            <perform>
+                <hint title="MassIndexingMonitor has been deprecated" effort="1" category-id="optional">
+                    <message>`org.hibernate.search.mapper.orm.massindexing.MassIndexingMonitor` has been deprecated: implement `org.hibernate.search.mapper.pojo.massindexing.MassIndexingMonitor` instead.</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-6.1-00190">
+            <when>
+                <or>
+                    <javaclass references="org.hibernate.search.mapper.orm.automaticindexing.AutomaticIndexingStrategyName"/>
+<!--                    TODO: static field usage not currently detected by windup - see https://issues.redhat.com/browse/WINDUP-3669 -->
+<!--                    <javaclass references="org.hibernate.search.mapper.orm.cfg.HibernateOrmMapperSettings.AUTOMATIC_INDEXING_STRATEGY"/>-->
+<!--                    <javaclass references="org.hibernate.search.mapper.orm.cfg.HibernateOrmMapperSettings.Radicals.AUTOMATIC_INDEXING_STRATEGY"/>-->
+<!--                    <javaclass references="org.hibernate.search.mapper.orm.cfg.HibernateOrmMapperSettings.AutomaticIndexingRadicals.STRATEGY"/>-->
+<!--                    <javaclass references="org.hibernate.search.mapper.orm.cfg.HibernateOrmMapperSettings.Defaults.AUTOMATIC_INDEXING_STRATEGY"/>-->
+                </or>
+            </when>
+            <perform>
+                <hint title="Deprecated configuration settings" effort="1" category-id="optional">
+                    <message>Property has been deprecated: use the new configuration property that accepts `true`/`false` instead. See `HibernateOrmMapperSettings#AUTOMATIC_INDEXING_ENABLED`.</message>
+                </hint>
+            </perform>
+        </rule>
+<!--        TODO: static field usage not currently detected by windup - see https://issues.redhat.com/browse/WINDUP-3669 -->
+<!--        <rule id="hibernate-search-6.1-00200">-->
+<!--            <when>-->
+<!--                <or>-->
+<!--                    <javaclass references="org.hibernate.search.backend.elasticsearch.cfg.ElasticsearchBackendSettings.Defaults.MULTITENANCY_STRATEGY"/>-->
+<!--                    <javaclass references="org.hibernate.search.backend.lucene.cfg.LuceneBackendSettings.Defaults.MULTITENANCY_STRATEGY"/>-->
+<!--                </or>-->
+<!--            </when>-->
+<!--            <perform>-->
+<!--                <hint title="Default value for these properties is now dynamic" effort="1" category-id="optional">-->
+<!--                    <message>The default for this property is now dynamic. If the multi-tenancy is enabled in the mapper, the default is `MultiTenancyStrategyName#DISCRIMINATOR`; Otherwise, the default is still `MultiTenancyStrategyName#NONE`.</message>-->
+<!--                </hint>-->
+<!--            </perform>-->
+<!--        </rule>-->
     </rules>
 </ruleset>
