@@ -189,7 +189,9 @@
           <rule id="hibernate6-tests-00190">
               <when>
                   <not>
-                      <hint-exists message="Using `NativeQuery` to call SQL functions and procedures is no longer supported. `org.hibernate.procedure.ProcedureCall` or `jakarta.persistence.StoredProcedureQuery` should be used instead. `@NamedNativeQuery` references defining execution of procedure or functions should be migrated to use `@NamedStoredProcedureQuery` instead."/>
+                      <iterable-filter size="2">
+                          <hint-exists message="Using `NativeQuery` to call SQL functions and procedures is no longer supported. `org.hibernate.procedure.ProcedureCall` or `jakarta.persistence.StoredProcedureQuery` should be used instead. `@NamedNativeQuery` references defining execution of procedure or functions should be migrated to use `@NamedStoredProcedureQuery` instead."/>
+                      </iterable-filter>
                   </not>
               </when>
               <perform>

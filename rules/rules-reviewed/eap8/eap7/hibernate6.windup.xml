@@ -228,7 +228,9 @@
         </rule>
         <rule id="hibernate6-00160">
             <when>
-                <xmlfile matches="//*/property[count(column) > 1]" in="hbm.xml"/>
+                <xmlfile matches="//*/h:property[count(h:column) > 1]" in="{*}.hbm.xml">
+                    <namespace prefix="h" uri="http://www.hibernate.org/xsd/hibernate-mapping"/>
+                </xmlfile>
             </when>
             <perform>
                 <hint title="Support for basic property mappings with multiple columns was removed" category-id="mandatory" effort="1">
@@ -270,7 +272,9 @@
                         <location>ANNOTATION</location>
                         <annotation-literal name="callable" pattern="true"/>
                     </javaclass>
-                    <xmlfile matches="sql-query[@callable = 'true']" in="hbm.xml"/>
+                    <xmlfile matches="//*/h:sql-query[@callable = 'true']" in="{*}.hbm.xml">
+                        <namespace prefix="h" uri="http://www.hibernate.org/xsd/hibernate-mapping"/>
+                    </xmlfile>
                 </or>
             </when>
             <perform>
@@ -283,7 +287,7 @@
         <rule id="hibernate6-00200">
             <when>
                 <!-- TODO: equivalent for queries in Java files -->
-                <xmlfile matches="//text()[contains(., 'fetch all properties')]" in="hbm.xml" />
+                <xmlfile matches="//text()[contains(., 'fetch all properties')]" in="{*}.hbm.xml" />
             </when>
             <perform>
                 <hint title="Using NativeQuery to call SQL functions and procedures is no longer supported" category-id="mandatory" effort="1">
