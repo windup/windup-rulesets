@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="jakarta-ws-rs"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis to migrate to jakarta restful webservices 3.1
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <targetTechnology id="eap" versionRange="[8,9)" />
+        <tag>JakartaEE</tag>
+        <tag>eap8</tag>
+    </metadata>
+    <rules>
+        <rule id="jakarta-ws-rs-00001">
+            <when>
+                <javaclass references="jakarta.ws.rs.core.Context">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Annotation @Context has been deprecated" effort="1" category-id="optional">
+                    <message>`@Context` annotation has been deprecated in preparation for better alignment with CDI</message>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
