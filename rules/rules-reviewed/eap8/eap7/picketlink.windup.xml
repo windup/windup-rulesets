@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="picketlink"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of Java EE applications that need to remove their picketlink configuration
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final"/>
+        </dependencies>
+        <targetTechnology id="eap" versionRange="[8,9)"/>
+    </metadata>
+    <rules>
+        <rule id="picketlink-00010">
+            <when>
+                <or>
+                    <file filename="{*}WEB-INF/{*}picketlink.xml"/>
+                    <filecontent pattern="picketlink" filename="{*}.xml"/>
+                    <file filename="picketlink-sts.xml"/>
+                    <filecontent pattern="PicketLinkSTS" filename="picketlink.xml"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Legacy Vault configuration must be removed" effort="1" category-id="mandatory">
+                    <message>
+                        The PicketLink subsystem has been removed. This legacy security system was deprecated in EAP6 and removed in EAP8. All related configuration must be removed.
+                    </message>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

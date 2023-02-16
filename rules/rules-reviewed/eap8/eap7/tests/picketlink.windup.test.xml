@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ruletest id="picketlink-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/picketlink</testDataPath>
+    <rulePath>../picketlink.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="picketlink-00010-test">
+                <when>
+                    <not>
+                        <iterable-filter size="15">
+                            <hint-exists message="The PicketLink subsystem has been removed. This legacy security system was deprecated in EAP6 and removed in EAP8. All related configuration must be removed."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[picketlink-00010] The hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
