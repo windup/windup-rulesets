@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<ruletest id="javax-to-jakarta-package-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/jakarta-el</testDataPath>
+    <rulePath>../jakarta-el.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="jakarta-el-00010-test">
+                <when>
+                    <not>
+                        <hint-exists message="The incorrectly spelled `javax.el.MethodExpression.isParmetersProvided\(\)` method has been removed. Use `MethodExpression.isParametersProvided\(\)` instead."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[jakarta-el-00010] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="jakarta-el-00020-test">
+                <when>
+                    <not>
+                        <hint-exists message="The incorrectly spelled `jakarta.el.MethodExpression.isParmetersProvided\(\)` method has been removed. Use `MethodExpression.isParametersProvided\(\)` instead."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[jakarta-el-00020] The hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
