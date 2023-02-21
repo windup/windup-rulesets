@@ -91,6 +91,18 @@
                     <fail message="[eap8-xml-binding-00007] The hint was not found!" />
                 </perform>
             </rule>
+            <rule id="eap8-xml-binding-00008-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Pom dependency to outdated xml binding version must be updated"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[eap8-xml-binding-00008] The hint was not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
