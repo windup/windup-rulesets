@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="jakarta-soap"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of Java EE applications that need to migrate to Jakarta SOAP with Attachments 3.0.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <targetTechnology id="eap" versionRange="[8,9)" />
+    </metadata>
+    <rules>
+        <rule id="jakarta-soap-00010">
+            <when>
+                <javaclass references="javax.xml.soap.SOAPElementFactory.newInstance({*})"/>
+            </when>
+            <perform>
+                <hint title="javax.xml.soap.SOAPElementFactory.newInstance() must be replaced" effort="1" category-id="mandatory">
+                    <message>`javax.xml.soap.SOAPElementFactory.newInstance()` must be replaced with `jakarta.xml.soap.SOAPFactory.newInstance()`.</message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jakarta-soap-00020">
+            <when>
+                <javaclass references="javax.xml.soap.SOAPElementFactory.create({*})">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="javax.xml.soap.SOAPElementFactory.create() must be replaced" effort="1" category-id="mandatory">
+                    <message>`javax.xml.soap.SOAPElementFactory.create()` must be replaced with `jakarta.xml.soap.SOAPFactory.createElement()`. If `javax.xml.soap.Name` is passed as a parameter, it must be replaced with `jakarta.xml.soap.Name`.</message>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
