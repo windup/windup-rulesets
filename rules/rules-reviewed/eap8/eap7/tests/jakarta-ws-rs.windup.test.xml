@@ -1,22 +1,20 @@
 <?xml version="1.0"?>
-<ruletest id="javax-to-jakarta-package-tests"
+<ruletest id="jakarta-ws-rs-tests"
           xmlns="http://windup.jboss.org/schema/jboss-ruleset"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
-    <testDataPath>data</testDataPath>
-    <rulePath>../javax-to-jakarta-package.windup.xml</rulePath>
+    <testDataPath>data/ws-rs</testDataPath>
+    <rulePath>../jakarta-ws-rs.windup.xml</rulePath>
     <ruleset>
         <rules>
-            <rule id="javax-to-jakarta-import-00001-test">
+            <rule id="jakarta-ws-rs-00001-test">
                 <when>
                     <not>
-                        <iterable-filter size="41">
-                            <hint-exists message="Replace the `javax."/>
-                        </iterable-filter>
+                        <hint-exists message="Future versions of this API will no longer support `@Context`"/>
                     </not>
                 </when>
                 <perform>
-                    <fail message="[javax-to-jakarta-import-00001] The hint was not found!" />
+                    <fail message="[jakarta-ws-rs-00001] The hint was not found!" />
                 </perform>
             </rule>
         </rules>
