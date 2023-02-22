@@ -15,13 +15,14 @@
     <rules>
         <rule id="legacy-vault-00010">
             <when>
-                <or>
-                    <filecontent pattern="$\{VAULT::" filename="{*}.xml"/>
-                    <javaclass references="{*}">
-                        <location>ANNOTATION</location>
-                        <annotation-literal name="{*}" pattern="$\{VAULT::"/>
-                    </javaclass>
-                </or>
+                <!-- TODO: try to fix javaclass condition -->
+                <filecontent pattern="$\{VAULT::" filename="{*}.{filetype}"/>
+                <!--
+                <javaclass references="org.x.Annotation">
+                    <location>ANNOTATION</location>
+                    <annotation-literal name="not-used" pattern="$\{VAULT::{*}"/>
+                </javaclass>
+                -->
             </when>
             <perform>
                 <hint title="Legacy Vault configuration must be removed" effort="1" category-id="mandatory">
@@ -31,6 +32,9 @@
                     <!-- TODO: add migration guide link when is available -->
                 </hint>
             </perform>
+            <where param="filetype">
+                <matches pattern="(xml|java)"/>
+            </where>
         </rule>
     </rules>
 </ruleset>
