@@ -153,13 +153,12 @@
         <rule id="eap8-xml-binding-00007">
             <when>
                 <or>
-                    <javaclass references="javax.xml.bind.Marshaller.setAdapter({*})">
-                    </javaclass>
+                    <javaclass references="javax.xml.bind.Marshaller.setAdapter({*})"/>
                 </or>
             </when>
             <perform>
-                <hint title="Implementation or use by the application of the `javax.xml.bind.Marshaller` `setAdapter()` methods may need to be updated" effort="1" category-id="mandatory">
-                    <message>Implementation or use by the application of the `javax.xml.bind.Marshaller` `setAdapter()` methods may need to be updated
+                <hint title="Implementation or use by the application of the javax.xml.bind.Marshaller setAdapter() method may need to be updated" effort="1" category-id="potential">
+                    <message>Implementation or use by the application of the `javax.xml.bind.Marshaller` `setAdapter()` method may need to be updated
                         to conform to the more fully specified generic type signatures in Jakarta Xml Binding 4.0.</message>
                     <link title="Jakarta XML Binding 4.0 specification"
                           href="https://jakarta.ee/specifications/xml-binding/4.0/jakarta-xml-binding-spec-4.0.html"/>
@@ -175,14 +174,30 @@
                 </project>
             </when>
             <perform>
-                <hint title="Pom dependency to outdated xml binding version" effort="1" category-id="mandatory">
-                    <message>Pom dependency to outdated xml binding version must be updated to Jakarta XML Binding 4.0 for EAP8.
-                        </message>
+                <hint title="Outdated JAXB dependency" effort="1" category-id="mandatory">
+                    <message>Pom dependency to outdated xml binding version must be updated to Jakarta XML Binding 4.0 for EAP8.</message>
                     <link title="Jakarta XML Binding 4.0 specification"
                           href="https://jakarta.ee/specifications/xml-binding/4.0/jakarta-xml-binding-spec-4.0.html"/>
                     <link title="JBoss EAP Application Migration from Jakarta EE 8 to EE 10: Jakarta XML Binding"
                           href="https://access.redhat.com/articles/6980265#jaxb"/>
                     <tag>eap8</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="eap8-xml-binding-00009">
+            <when>
+                <or>
+                    <javaclass references="javax.xml.bind.Marshaller.getAdapter({*})"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Implementation or use by the application of the javax.xml.bind.Marshaller `getAdapter() method may need to be updated" effort="1" category-id="potential">
+                    <message>Implementation or use by the application of the `javax.xml.bind.Marshaller` `getAdapter()` method may need to be updated
+                        to conform to the more fully specified generic type signatures in Jakarta Xml Binding 4.0.</message>
+                    <link title="Jakarta XML Binding 4.0 specification"
+                          href="https://jakarta.ee/specifications/xml-binding/4.0/jakarta-xml-binding-spec-4.0.html"/>
+                    <link title="JBoss EAP Application Migration from Jakarta EE 8 to EE 10: Jakarta XML Binding"
+                          href="https://access.redhat.com/articles/6980265#jaxb"/>
                 </hint>
             </perform>
         </rule>

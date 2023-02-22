@@ -83,7 +83,7 @@
                 <when>
                     <not>
                         <iterable-filter size="1">
-                            <hint-exists message="Implementation or use by the application"/>
+                            <hint-exists message="Implementation or use by the application of the `javax.xml.bind.Marshaller` `setAdapter\(\)` method may need to be updated*"/>
                         </iterable-filter>
                     </not>
                 </when>
@@ -95,7 +95,19 @@
                 <when>
                     <not>
                         <iterable-filter size="1">
-                            <hint-exists message="Pom dependency to outdated xml binding version must be updated"/>
+                            <hint-exists message="Pom dependency to outdated xml binding version must be updated to Jakarta XML Binding 4.0 for EAP8."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[eap8-xml-binding-00008] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="eap8-xml-binding-00009-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Implementation or use by the application of the `javax.xml.bind.Marshaller` `getAdapter\(\)` method may need to be updated*"/>
                         </iterable-filter>
                     </not>
                 </when>

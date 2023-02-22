@@ -28,6 +28,7 @@ public class SunV2PackageTest
         }
         Marshaller m = jc.createMarshaller();
         m.setAdapter(new NormalizedStringAdapter());
+        m.getAdapter(String.class);
         JAXBContext.createValidator();
     }
 }
