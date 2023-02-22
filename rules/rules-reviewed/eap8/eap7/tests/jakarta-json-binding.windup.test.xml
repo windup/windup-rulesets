@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ruletest id="jakarta-json-binding-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/jakarta-json-binding</testDataPath>
+    <rulePath>../jakarta-json-binding.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="jakarta-json-binding-00010-test">
+                <when>
+                    <not>
+                        <hint-exists message="By default, types annotated with the `jakarta.json.bind.annotation.JsonbCreator` annotation no longer require all parameters to be present in the JSON content. Default values will be used if the JSON being parsed is missing one of the parameters.*"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[jakarta-json-binding-00010] The hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
