@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<ruletest id="jakarta-soap-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/jakarta-soap</testDataPath>
+    <rulePath>../jakarta-soap.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="jakarta-soap-00010-test">
+                <when>
+                    <not>
+                        <hint-exists message="`javax.xml.soap.SOAPElementFactory.newInstance\(\)` must be replaced with `jakarta.xml.soap.SOAPFactory.newInstance\(\)`."/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[jakarta-soap-00010] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="jakarta-soap-00020-test">
+                <when>
+                    <not>
+                        <iterable-filter size="3">
+                            <hint-exists message="`javax.xml.soap.SOAPElementFactory.create\(\)` must be replaced with `jakarta.xml.soap.SOAPFactory.createElement\(\)`. If `javax.xml.soap.Name` is passed as a parameter, it must be replaced with `jakarta.xml.soap.Name`."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[jakarta-soap-00020] The hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
