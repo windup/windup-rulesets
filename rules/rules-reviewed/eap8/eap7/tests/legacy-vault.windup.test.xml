@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ruletest id="legacy-vault-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/legacy-vault</testDataPath>
+    <rulePath>../legacy-vault.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="legacy-vault-00010-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="Vault support has been removed in EAP8; migration to Elytron credential store is mandatory."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[legacy-vault-00010] The hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
