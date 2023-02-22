@@ -16,7 +16,6 @@
         <rule id="picketlink-00010">
             <when>
                 <or>
-                    <file filename="{*}WEB-INF/{*}picketlink.xml"/>
                     <filecontent pattern="picketlink" filename="{*}.xml"/>
                     <file filename="picketlink-sts.xml"/>
                     <filecontent pattern="PicketLinkSTS" filename="picketlink.xml"/>
@@ -26,8 +25,30 @@
                 <hint title="Legacy Vault configuration must be removed" effort="1" category-id="mandatory">
                     <message>
                         The PicketLink subsystem has been removed. This legacy security system was deprecated in EAP6 and removed in EAP8. All related configuration must be removed.
+                        In case of Picketlink STS usage, migration to Apache CXF is required.
                     </message>
+                    <link href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html-single/developing_web_services_applications/index#ws_trust_sts_apache_CXF_support" title="Developing Jakarta XML Web Services: Apache CXF Support"/>
                 </hint>
+            </perform>
+        </rule>
+        <rule id="picketlink-00020">
+            <when>
+                <file filename="picketlink.xml" as="file"/>
+            </when>
+            <perform>
+                <iteration over="file">
+                    <when>
+                        <filecontent pattern="saml"/>
+                    </when>
+                    <perform>
+                        <hint title="Replace legacy PicketLink configuration with RH-SSO" effort="1" category-id="mandatory">
+                            <message>
+                                Configure an RH-SSO SAML client and then generate a keycloak-saml.xml file using the RH-SSO admin console. Add the keycloak-saml.xml file to the deployment’s WEB-INF directory. Set the auth-method to KEYCLOAK-SAML in the deployment’s web.xml file.
+                            </message>
+                            <link href="https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.5/html-single/securing_applications_and_services_guide/index#saml_jboss_adapter" title="Securing applications and services guide"/>
+                        </hint>
+                    </perform>
+                </iteration>
             </perform>
         </rule>
     </rules>

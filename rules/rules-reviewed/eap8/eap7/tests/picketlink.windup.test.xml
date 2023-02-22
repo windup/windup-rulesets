@@ -11,12 +11,24 @@
                 <when>
                     <not>
                         <iterable-filter size="15">
-                            <hint-exists message="The PicketLink subsystem has been removed. This legacy security system was deprecated in EAP6 and removed in EAP8. All related configuration must be removed."/>
+                            <hint-exists message="The PicketLink subsystem has been removed. This legacy security system was deprecated in EAP6 and removed in EAP8. All related configuration must be removed.*"/>
                         </iterable-filter>
                     </not>
                 </when>
                 <perform>
                     <fail message="[picketlink-00010] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="picketlink-00020-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Configure an RH-SSO SAML client and then generate a keycloak-saml.xml file using the RH-SSO admin console. Add the keycloak-saml.xml file to the deployment’s WEB-INF directory. Set the auth-method to KEYCLOAK-SAML in the deployment’s web.xml file."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[picketlink-00020] The hint was not found!" />
                 </perform>
             </rule>
         </rules>
