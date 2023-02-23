@@ -63,11 +63,22 @@
             </perform>
         </rule>
         <!-- CDI packages references -->
-        <rule id="javaee-technology-usage-00020">
+        <rule id="javaee-technology-usage-00020-javax">
             <when>
                 <or>
                     <javaclass references="javax.enterprise.inject.{*}"/>
                     <javaclass references="javax.inject.{*}"/>
+                </or>
+            </when>
+            <perform>
+                <technology-tag level="INFORMATIONAL">CDI</technology-tag>
+            </perform>
+        </rule>
+        <rule id="javaee-technology-usage-00020-jakarta">
+            <when>
+                <or>
+                    <javaclass references="jakarta.enterprise.inject.{*}"/>
+                    <javaclass references="jakarta.inject.{*}"/>
                 </or>
             </when>
             <perform>
@@ -83,7 +94,7 @@
             <perform>
                 <technology-identified name="CDI">
                     <tag name="Execute"/>
-                    <tag name="Processing"/>
+                    <tag name="Inversion of Control"/>
                     <tag name="Java EE"/>
                 </technology-identified>
             </perform>

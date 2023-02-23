@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="lombok"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis with respect to Lombok incompatibility between OpenJDK 11 to 17.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final"/>
+        </dependencies>
+        <sourceTechnology id="openjdk" versionRange="(,11]"/>
+        <targetTechnology id="openjdk" versionRange="[17,)"/>
+    </metadata>
+    <rules>
+        <rule id="lombok-incompatibility-00001">
+            <when>
+                <project>
+                    <artifact groupId="org.projectlombok" artifactId="lombok" toVersion="1.18.22"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="The Lombok version is incompatible with Open JDK 17" effort="3" category-id="mandatory">
+                    <message>
+                        Lombok supports Java 17 since version 1.18.22. The version of Lombok used in this project is too old and not compatible with Java 17. You should consider upgrading it.
+                    </message>
+                    <link title="Upgrade Lombok version to support Java 17" href="https://github.com/projectlombok/lombok/issues/2898"/>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
