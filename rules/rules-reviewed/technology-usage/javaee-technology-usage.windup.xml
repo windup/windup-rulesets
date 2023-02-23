@@ -410,33 +410,7 @@
         <!-- ================================= -->
         <!-- Java EE XML Deployment Descriptor -->
         <!-- ================================= -->
-        <!-- JPA -->
-        <rule id="javaee-technology-usage-00900">
-            <when>
-                <xmlfile matches="//p:persistence/@version[windup:matches(self::node(), '{v}')]" as="xml-file">
-                    <namespace prefix="p" uri="http://xmlns.jcp.org/xml/ns/persistence" />
-                </xmlfile>
-            </when>
-            <perform>
-                <technology-tag level="INFORMATIONAL">JPA {v} XML Deployment Descriptor</technology-tag>
-            </perform>
-            <where param="v">
-                <matches pattern="(1.0|2.0|2.1|2.2)"/>
-            </where>
-        </rule>
-        <rule id="javaee-technology-usage-00901">
-            <when>
-                <xmlfile matches="//p:persistence/@version[windup:matches(self::node(), '{v}')]" as="xml-file">
-                    <namespace prefix="p" uri="https://jakarta.ee/xml/ns/persistence" />
-                </xmlfile>
-            </when>
-            <perform>
-                <technology-tag level="INFORMATIONAL">JPA {v} XML Deployment Descriptor</technology-tag>
-            </perform>
-            <where param="v">
-                <matches pattern="(3.0|3.1)"/>
-            </where>
-        </rule>
+        <!-- JPA Mapping-->
         <rule id="javaee-technology-usage-00902">
             <when>
                 <xmlfile matches="//p:entity-mappings/@version[windup:matches(self::node(), '{v}')]" as="xml-file">
@@ -444,7 +418,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <technology-tag level="INFORMATIONAL">JPA {v} Mapping XML Deployment Descriptor</technology-tag>
+                <technology-tag level="INFORMATIONAL" version="{v}">JPA Mapping XML</technology-tag>
             </perform>
             <where param="v">
                 <matches pattern="(1.0|2.0|2.1|2.2)"/>
@@ -457,7 +431,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <technology-tag level="INFORMATIONAL">JPA {v} Mapping XML Deployment Descriptor</technology-tag>
+                <technology-tag level="INFORMATIONAL" version="{v}">JPA Mapping XML</technology-tag>
             </perform>
             <where param="v">
                 <matches pattern="(3.0|3.1)"/>
@@ -471,7 +445,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <technology-tag level="INFORMATIONAL">CDI {v} XML Deployment Descriptor</technology-tag>
+                <technology-tag level="INFORMATIONAL" version="{v}">CDI XML</technology-tag>
             </perform>
             <where param="v">
                 <matches pattern="(1.0|1.1|2.0)"/>
@@ -484,7 +458,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <technology-tag level="INFORMATIONAL">CDI {v} XML Deployment Descriptor</technology-tag>
+                <technology-tag level="INFORMATIONAL" version="{v}">CDI XML </technology-tag>
             </perform>
             <where param="v">
                 <matches pattern="(3.0|4.0)"/>
@@ -498,7 +472,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <technology-tag level="INFORMATIONAL">Java EE {v} XML Deployment Descriptor</technology-tag>
+                <technology-tag level="INFORMATIONAL" version="{v}">Java EE XML</technology-tag>
             </perform>
             <where param="v">
                 <matches pattern="(5|6)"/>
@@ -511,7 +485,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <technology-tag level="INFORMATIONAL">Java EE {v} XML Deployment Descriptor</technology-tag>
+                <technology-tag level="INFORMATIONAL" version="{v}">Java EE XML</technology-tag>
             </perform>
             <where param="v">
                 <matches pattern="(7|8)"/>
@@ -524,7 +498,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <technology-tag level="INFORMATIONAL">Jakarta EE {v} XML Deployment Descriptor</technology-tag>
+                <technology-tag level="INFORMATIONAL" version="{v}">Jakarta EE XML</technology-tag>
             </perform>
             <where param="v">
                 <matches pattern="(9|10)"/>
@@ -538,7 +512,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <technology-tag level="INFORMATIONAL">Java EE {v} Client XML Deployment Descriptor</technology-tag>
+                <technology-tag level="INFORMATIONAL" version="{v}">Java EE Client XML</technology-tag>
             </perform>
             <where param="v">
                 <matches pattern="(5|6)"/>
@@ -551,7 +525,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <technology-tag level="INFORMATIONAL">Java EE {v} Client XML Deployment Descriptor</technology-tag>
+                <technology-tag level="INFORMATIONAL" version="{v}">Java EE Client XML</technology-tag>
             </perform>
             <where param="v">
                 <matches pattern="(7|8)"/>
@@ -564,7 +538,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <technology-tag level="INFORMATIONAL">Jakarta EE {v} Client XML Deployment Descriptor</technology-tag>
+                <technology-tag level="INFORMATIONAL" version="{v}">Jakarta EE Client XML</technology-tag>
             </perform>
             <where param="v">
                 <matches pattern="(9|10)"/>
@@ -578,7 +552,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <technology-tag level="INFORMATIONAL">Connector {v} XML Deployment Descriptor</technology-tag>
+                <technology-tag level="INFORMATIONAL" version="{v}">Connector XML</technology-tag>
             </perform>
             <where param="v">
                 <matches pattern="(1.6)"/>
@@ -591,7 +565,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <technology-tag level="INFORMATIONAL">Connector {v} XML Deployment Descriptor</technology-tag>
+                <technology-tag level="INFORMATIONAL" version="{v}">Connector XML</technology-tag>
             </perform>
             <where param="v">
                 <matches pattern="(1.7)"/>
@@ -604,90 +578,10 @@
                 </xmlfile>
             </when>
             <perform>
-                <technology-tag level="INFORMATIONAL">Connector {v} XML Deployment Descriptor</technology-tag>
+                <technology-tag level="INFORMATIONAL" version="{v}">Connector XML</technology-tag>
             </perform>
             <where param="v">
                 <matches pattern="(2.0|2.1)"/>
-            </where>
-        </rule>
-        <!-- EJB -->
-        <rule id="javaee-technology-usage-00920">
-            <when>
-                <xmlfile matches="//p:ejb-jar/@version[windup:matches(self::node(), '{v}')]" as="xml-file">
-                    <namespace prefix="p" uri="http://java.sun.com/xml/ns/javaee" />
-                </xmlfile>
-            </when>
-            <perform>
-                <technology-tag level="INFORMATIONAL">EJB {v} XML Deployment Descriptor</technology-tag>
-            </perform>
-            <where param="v">
-                <matches pattern="(3.0|3.1)"/>
-            </where>
-        </rule>
-        <rule id="javaee-technology-usage-00921">
-            <when>
-                <xmlfile matches="//p:ejb-jar/@version[windup:matches(self::node(), '{v}')]" as="xml-file">
-                    <namespace prefix="p" uri="http://xmlns.jcp.org/xml/ns/javaee" />
-                </xmlfile>
-            </when>
-            <perform>
-                <technology-tag level="INFORMATIONAL">EJB {v} XML Deployment Descriptor</technology-tag>
-            </perform>
-            <where param="v">
-                <matches pattern="(3.2)"/>
-            </where>
-        </rule>
-        <rule id="javaee-technology-usage-00922">
-            <when>
-                <xmlfile matches="//p:ejb-jar/@version[windup:matches(self::node(), '{v}')]" as="xml-file">
-                    <namespace prefix="p" uri="https://jakarta.ee/xml/ns/jakartaee" />
-                </xmlfile>
-            </when>
-            <perform>
-                <technology-tag level="INFORMATIONAL">EJB {v} XML Deployment Descriptor</technology-tag>
-            </perform>
-            <where param="v">
-                <matches pattern="(4.0)"/>
-            </where>
-        </rule>
-        <!-- Servlets -->
-        <rule id="javaee-technology-usage-00925">
-            <when>
-                <xmlfile matches="//p:web-app/@version[windup:matches(self::node(), '{v}')]" as="xml-file">
-                    <namespace prefix="p" uri="http://java.sun.com/xml/ns/javaee" />
-                </xmlfile>
-            </when>
-            <perform>
-                <technology-tag level="INFORMATIONAL">Servlet {v} XML Deployment Descriptor</technology-tag>
-            </perform>
-            <where param="v">
-                <matches pattern="(2.5|3.0)"/>
-            </where>
-        </rule>
-        <rule id="javaee-technology-usage-00926">
-            <when>
-                <xmlfile matches="//p:web-app/@version[windup:matches(self::node(), '{v}')]" as="xml-file">
-                    <namespace prefix="p" uri="http://xmlns.jcp.org/xml/ns/javaee" />
-                </xmlfile>
-            </when>
-            <perform>
-                <technology-tag level="INFORMATIONAL">Servlet {v} XML Deployment Descriptor</technology-tag>
-            </perform>
-            <where param="v">
-                <matches pattern="(3.1|4.0)"/>
-            </where>
-        </rule>
-        <rule id="javaee-technology-usage-00927">
-            <when>
-                <xmlfile matches="//p:web-app/@version[windup:matches(self::node(), '{v}')]" as="xml-file">
-                    <namespace prefix="p" uri="https://jakarta.ee/xml/ns/jakartaee" />
-                </xmlfile>
-            </when>
-            <perform>
-                <technology-tag level="INFORMATIONAL">Servlet {v} XML Deployment Descriptor</technology-tag>
-            </perform>
-            <where param="v">
-                <matches pattern="(5.0|6.0)"/>
             </where>
         </rule>
         <!-- JSF -->
@@ -698,7 +592,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <technology-tag level="INFORMATIONAL">JSF {v} XML Deployment Descriptor</technology-tag>
+                <technology-tag level="INFORMATIONAL" version="{v}">JSF XML</technology-tag>
             </perform>
             <where param="v">
                 <matches pattern="(1.2|2.0)"/>
@@ -711,7 +605,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <technology-tag level="INFORMATIONAL">JSF {v} XML Deployment Descriptor</technology-tag>
+                <technology-tag level="INFORMATIONAL" version="{v}">JSF XML</technology-tag>
             </perform>
             <where param="v">
                 <matches pattern="(2.2|2.3)"/>
@@ -724,7 +618,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <technology-tag level="INFORMATIONAL">JSF {v} XML Deployment Descriptor</technology-tag>
+                <technology-tag level="INFORMATIONAL" version="{v}">JSF XML</technology-tag>
             </perform>
             <where param="v">
                 <matches pattern="(3.0|4.0)"/>
@@ -738,7 +632,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <technology-tag level="INFORMATIONAL">WebServices {v} XML Deployment Descriptor</technology-tag>
+                <technology-tag level="INFORMATIONAL" version="{v}">WebServices XML</technology-tag>
             </perform>
             <where param="v">
                 <matches pattern="(1.2|1.3)"/>
@@ -751,7 +645,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <technology-tag level="INFORMATIONAL">WebServices {v} XML Deployment Descriptor</technology-tag>
+                <technology-tag level="INFORMATIONAL" version="{v}">WebServices XML</technology-tag>
             </perform>
             <where param="v">
                 <matches pattern="(1.4)"/>
@@ -764,7 +658,7 @@
                 </xmlfile>
             </when>
             <perform>
-                <technology-tag level="INFORMATIONAL">WebServices {v} XML Deployment Descriptor</technology-tag>
+                <technology-tag level="INFORMATIONAL" version="{v}">WebServices XML</technology-tag>
             </perform>
             <where param="v">
                 <matches pattern="(2.0)"/>
