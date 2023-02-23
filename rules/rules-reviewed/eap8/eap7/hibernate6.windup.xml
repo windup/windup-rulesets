@@ -320,12 +320,7 @@
         </rule>
         <rule id="hibernate6-00230">
             <when>
-                <or>
-                    <filecontent pattern="hibernate.classLoader.application"/>
-                    <filecontent pattern="hibernate.classLoader.resources"/>
-                    <filecontent pattern="hibernate.classLoader.hibernate"/>
-                    <filecontent pattern="hibernate.classLoader.environment"/>
-                </or>
+                <filecontent pattern="hibernate.classLoader.{resource}"/>
             </when>
             <perform>
                 <hint title="Removed hibernate classloader properties" category-id="mandatory" effort="1">
@@ -333,6 +328,9 @@
                     <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#previously-deprecated-features" title="Hibernate ORM 6 migration guide - Previously deprecated features"/>
                 </hint>
             </perform>
+            <where param="resource" >
+                <matches pattern="(application|resources|hibernate|environment)" />
+            </where>
         </rule>
         <rule id="hibernate6-00240">
             <when>
@@ -345,12 +343,9 @@
                 </hint>
             </perform>
         </rule>
-
         <rule id="hibernate6-00250">
             <when>
-                <or>
-                    <filecontent pattern="hibernate.ejb.metamodel.population"/>
-                </or>
+                <filecontent pattern="hibernate.ejb.metamodel.population"/>
             </when>
             <perform>
                 <hint title="Renamed hibernate property hibernate.ejb.metamodel.population" category-id="mandatory" effort="1">
@@ -361,9 +356,7 @@
         </rule>
         <rule id="hibernate6-00251">
             <when>
-                <or>
-                    <filecontent pattern="hibernate.ejb.cfgfile"/>
-                </or>
+                <filecontent pattern="hibernate.ejb.cfgfile"/>
             </when>
             <perform>
                 <hint title="Renamed hibernate property hibernate.ejb.cfgfile" category-id="mandatory" effort="1">
@@ -374,9 +367,7 @@
         </rule>
         <rule id="hibernate6-00252">
             <when>
-                <or>
-                    <filecontent pattern="hibernate.ejb.xml_files"/>
-                </or>
+                <filecontent pattern="hibernate.ejb.xml_files"/>
             </when>
             <perform>
                 <hint title="Renamed hibernate property hibernate.ejb.xml_files" category-id="mandatory" effort="1">
@@ -387,9 +378,7 @@
         </rule>
         <rule id="hibernate6-00253">
             <when>
-                <or>
-                    <filecontent pattern="hibernate.hbmxml.files"/>
-                </or>
+               <filecontent pattern="hibernate.hbmxml.files"/>
             </when>
             <perform>
                 <hint title="Renamed hibernate property hibernate.hbmxml.files" category-id="mandatory" effort="1">
@@ -400,9 +389,7 @@
         </rule>
         <rule id="hibernate6-00254">
             <when>
-                <or>
-                    <filecontent pattern="hibernate.ejb.loaded.classes"/>
-                </or>
+                <filecontent pattern="hibernate.ejb.loaded.classes"/>
             </when>
             <perform>
                 <hint title="Renamed hibernate property hibernate.ejb.loaded.classes" category-id="mandatory" effort="1">
@@ -413,35 +400,21 @@
         </rule>
         <rule id="hibernate6-00255">
             <when>
-                <or>
-                    <filecontent pattern="hibernate.ejb.persistenceUnitName"/>
-                </or>
+                <filecontent pattern="hibernate.ejb.{property}"/>
             </when>
             <perform>
-                <hint title="Renamed hibernate property hibernate.ejb.persistenceUnitName" category-id="mandatory" effort="1">
-                    <message>This property has been removed: please use `hibernate.persistenceUnitName` instead</message>
+                <hint title="Renamed hibernate property hibernate.ejb.{property}" category-id="mandatory" effort="1">
+                    <message>This property has been removed: please use `hibernate.{property}` instead</message>
                     <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#configuration-property-renames" title="Hibernate ORM 6 migration guide - Configuration property renames"/>
                 </hint>
             </perform>
-        </rule>
-        <rule id="hibernate6-00256">
-            <when>
-                <or>
-                    <filecontent pattern="hibernate.ejb.discard_pc_on_close"/>
-                </or>
-            </when>
-            <perform>
-                <hint title="Renamed hibernate property hibernate.ejb.discard_pc_on_close" category-id="mandatory" effort="1">
-                    <message>This property has been removed: please use `hibernate.discard_pc_on_close` instead</message>
-                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#configuration-property-renames" title="Hibernate ORM 6 migration guide - Configuration property renames"/>
-                </hint>
-            </perform>
+            <where param="property">
+                <matches pattern="(persistenceUnitName|discard_pc_on_close|session_factory_observer|identifier_generator_strategy_provider|classcache|collectioncache|event)" />
+            </where>
         </rule>
         <rule id="hibernate6-00257">
             <when>
-                <or>
-                    <filecontent pattern="hibernate.ejb.entitymanager_factory_name"/>
-                </or>
+                <filecontent pattern="hibernate.ejb.entitymanager_factory_name"/>
             </when>
             <perform>
                 <hint title="Renamed hibernate property hibernate.ejb.entitymanager_factory_name" category-id="mandatory" effort="1">
@@ -450,72 +423,6 @@
                 </hint>
             </perform>
         </rule>
-        <rule id="hibernate6-00258">
-            <when>
-                <or>
-                    <filecontent pattern="hibernate.ejb.session_factory_observer"/>
-                </or>
-            </when>
-            <perform>
-                <hint title="Renamed hibernate property hibernate.ejb.session_factory_observer" category-id="mandatory" effort="1">
-                    <message>This property has been removed: please use `hibernate.session_factory_observer` instead</message>
-                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#configuration-property-renames" title="Hibernate ORM 6 migration guide - Configuration property renames"/>
-                </hint>
-            </perform>
-        </rule>
-        <rule id="hibernate6-00259">
-            <when>
-                <or>
-                    <filecontent pattern="hibernate.ejb.identifier_generator_strategy_provider"/>
-                </or>
-            </when>
-            <perform>
-                <hint title="Renamed hibernate property hibernate.ejb.identifier_generator_strategy_provider" category-id="mandatory" effort="1">
-                    <message>This property has been removed: please use `hibernate.identifier_generator_strategy_provider` instead</message>
-                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#configuration-property-renames" title="Hibernate ORM 6 migration guide - Configuration property renames"/>
-                </hint>
-            </perform>
-        </rule>
-        <rule id="hibernate6-00260">
-            <when>
-                <or>
-                    <filecontent pattern="hibernate.ejb.classcache"/>
-                </or>
-            </when>
-            <perform>
-                <hint title="Renamed hibernate property hibernate.ejb.classcache" category-id="mandatory" effort="1">
-                    <message>This property has been removed: please use `hibernate.classcache` instead</message>
-                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#configuration-property-renames" title="Hibernate ORM 6 migration guide - Configuration property renames"/>
-                </hint>
-            </perform>
-        </rule>
-        <rule id="hibernate6-00261">
-            <when>
-                <or>
-                    <filecontent pattern="hibernate.ejb.collectioncache"/>
-                </or>
-            </when>
-            <perform>
-                <hint title="Renamed hibernate property hibernate.ejb.collectioncache" category-id="mandatory" effort="1">
-                    <message>This property has been removed: please use `hibernate.collectioncache` instead</message>
-                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#configuration-property-renames" title="Hibernate ORM 6 migration guide - Configuration property renames"/>
-                </hint>
-            </perform>
-        </rule>
-        <rule id="hibernate6-00262">
-            <when>
-                <or>
-                    <filecontent pattern="hibernate.ejb.event"/>
-                </or>
-            </when>
-            <perform>
-                <hint title="Renamed hibernate property hibernate.ejb.event" category-id="mandatory" effort="1">
-                    <message>This property has been removed: please use `hibernate.event` instead</message>
-                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#configuration-property-renames" title="Hibernate ORM 6 migration guide - Configuration property renames"/>
-                </hint>
-            </perform>
-        </rule>
-
         <rule id="hibernate6-00270">
             <when>
                 <javaclass references="org.hibernate.dialect.{class-name}"/>
