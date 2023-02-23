@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<ruletest id="eap8-resteasy-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/resteasy/</testDataPath>
+    <rulePath>../eap8-resteasy.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="eap8-resteasy-00001-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="The `org.jboss.resteasy.resteasy-jettison-provider` module has been removed"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[eap8-resteasy-00001] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="eap8-resteasy-00002-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The `org.jboss.resteasy:resteasy-jettison-provider` artifact has been removed."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[eap8-resteasy-00002] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="eap8-resteasy-00003-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="The `org.jboss.resteasy.resteasy-yaml-provider` module has been removed"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[eap8-resteasy-00003] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="eap8-resteasy-00004-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The `org.jboss.resteasy:resteasy-yaml-provider` artifact has been removed"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[eap8-resteasy-00004] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="eap8-resteasy-00005-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The `org.jboss.resteasy:resteasy-spring` artifact has been renamed to `org.jboss.resteasy.spring:resteasy-spring`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[eap8-resteasy-00005] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="eap8-resteasy-00006-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="`org.jboss.resteasy.spi.StringConverter` has been removed."/>
+                        </iterable-filter>   
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[eap8-resteasy-00006] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="eap8-resteasy-00007-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2"> 
+                            <hint-exists message="`org.jboss.resteasy.spi.AsynchronousResponse` has been removed."/>
+                        </iterable-filter>   
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[eap8-resteasy-00007] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="eap8-resteasy-00008-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2"> 
+                            <hint-exists message="`org.jboss.resteasy.annotations.Suspend` has been removed."/>
+                        </iterable-filter>   
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[eap8-resteasy-00008] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="eap8-resteasy-00009-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.jboss.resteasy.core.ResourceInvoker` interface have been removed."/>
+                        </iterable-filter>  
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[eap9-resteasy-00009] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="eap8-resteasy-00010-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="`org.jboss.resteasy.plugins.interceptors.encoding` classes have been removed."/>
+                        </iterable-filter>  
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[eap8-resteasy-00010] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="eap8-resteasy-00011-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="The `org.jboss.resteasy.resteasy-jaxrs` module has been deprecated"/>
+                        </iterable-filter>  
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[eap8-resteasy-00011] The hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
