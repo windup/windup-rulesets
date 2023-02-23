@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="legacy-vault"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of Java EE applications that need to remove their legacy vault configuration.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final"/>
+        </dependencies>
+        <targetTechnology id="eap" versionRange="[8,9)"/>
+    </metadata>
+    <rules>
+        <rule id="legacy-vault-00010">
+            <when>
+                <!-- TODO: try to fix javaclass condition -->
+                <filecontent pattern="$\{VAULT::" filename="{*}.{filetype}"/>
+                <!--
+                <javaclass references="org.x.Annotation">
+                    <location>ANNOTATION</location>
+                    <annotation-literal name="not-used" pattern="$\{VAULT::{*}"/>
+                </javaclass>
+                -->
+            </when>
+            <perform>
+                <hint title="Legacy Vault configuration must be removed" effort="1" category-id="mandatory">
+                    <message>
+                        Vault support has been removed in EAP8; migration to Elytron credential store is mandatory.
+                    </message>
+                    <!-- TODO: add migration guide link when is available -->
+                </hint>
+            </perform>
+            <where param="filetype">
+                <matches pattern="(xml|java)"/>
+            </where>
+        </rule>
+    </rules>
+</ruleset>

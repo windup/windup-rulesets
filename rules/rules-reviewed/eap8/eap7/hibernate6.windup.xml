@@ -1,0 +1,441 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="hibernate6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <metadata>
+        <description>
+            This ruleset provides migration rules to Hibernate ORM 6.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,2.3.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,2.3.0.Final" />
+        </dependencies>
+        <targetTechnology id="hibernate" versionRange="[6,)" />
+        <targetTechnology id="eap" versionRange="[8,)" />
+        <tag>hibernate</tag>
+    </metadata>
+
+    <rules>
+        <rule id="hibernate-00010">
+            <when>
+                <javaclass references="org.hibernate.annotations.{annotation}"/>
+            </when>
+            <perform>
+                <hint title="String-based approaches for specifying Types to use have been removed" effort="1" category-id="mandatory">
+                    <message>
+                        As part of the Hibernate ORM 6.0 release, mapping annotations have been modernised and made more type-safe. These annotations must be removed. See the User Guide for details about mapping your domain model.
+                    </message>
+                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#type-system" title="Hibernate ORM 6 migration guide - Type System"/>
+                    <link href="https://docs.jboss.org/hibernate/orm/6.0/userguide/html_single/Hibernate_User_Guide.html#domain-model" title="Hibernate ORM 6 user guide - Domain model"/>
+                </hint>
+            </perform>
+            <where param="annotation">
+                <matches pattern="(AnyMetaDef|AnyMetaDefs|TypeDef|TypeDefs)"/>
+            </where> 
+        </rule>
+        <rule id="hibernate6-00020">
+            <when>
+                <javaclass references="org.hibernate.annotations.{annotation}">
+                    <location>ANNOTATION</location>
+                    <annotation-literal name="type" pattern="{*}"/>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="String-based approaches for specifying Types to use have been removed" effort="1" category-id="mandatory">
+                    <message>
+                        As part of the Hibernate ORM 6.0 release, mapping annotations have been modernised and made more type-safe. Annotation attributes accepting types as String have been removed. See the User Guide for details about mapping your domain model.
+                    </message>
+                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#type-system" title="Hibernate ORM 6 migration guide - Type System"/>
+                    <link href="https://docs.jboss.org/hibernate/orm/6.0/userguide/html_single/Hibernate_User_Guide.html#domain-model" title="Hibernate ORM 6 user guide - Domain model"/>
+                </hint>
+            </perform>
+            <where param="annotation">
+                <matches pattern="(CollectionType|ParamDef|Type)"/>
+            </where>
+        </rule>
+        <rule id="hibernate6-00030">
+            <when>
+                <javaclass references="org.hibernate.type.BasicType">
+                    <location>IMPLEMENTS_TYPE</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Basic mappings are no longer configurable through the BasicType contract" category-id="mandatory" effort="1">
+                    <message>Basic mappings are no longer configurable through the BasicType contract. Instead, users configure the different aspects of mapping the basic value to the database. See migration guide for more details.</message>
+                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#basic-types" title="Hibernate ORM 6 migration guide - Type System"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate6-00040">
+            <when>
+                <javaclass references="org.hibernate.type.StandardBasicTypes"/>
+            </when>
+            <perform>
+                <hint title="StandardBasicTypes class now exposes fields of type BasicTypeReference" category-id="mandatory" effort="1">
+                    <message>The `StandardBasicTypes` class previously exposed `BasicType` instance fields, which now have been replaced with fields of the type `BasicTypeReference`.</message>
+                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#basic-types" title="Hibernate ORM 6 migration guide - Basic Types"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate6-00050">
+            <when>
+                <javaclass references="org.hibernate.type.descriptor.java.JavaTypeDescriptor"/>
+            </when>
+            <perform>
+                <hint title="Renaming of JavaTypeDescriptor contract" category-id="mandatory" effort="1">
+                    <message>The interface `org.hibernate.type.descriptor.java.JavaTypeDescriptor` must be renamed to `org.hibernate.type.descriptor.java.JavaType`.</message>
+                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#renaming-of-javatypedescriptor-contract" title="Hibernate ORM 6 migration guide - Type System"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate6-00060">
+            <when>
+                <javaclass references="org.hibernate.type.descriptor.sql.SqlTypeDescriptor"/>
+            </when>
+            <perform>
+                <hint title="Renaming of SqlTypeDescriptor contract" category-id="mandatory" effort="1">
+                    <message>The interface `org.hibernate.type.descriptor.sql.SqlTypeDescriptor` has been renamed to `org.hibernate.type.descriptor.jdbc.JdbcType`.</message>
+                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#renaming-of-sqltypedescriptor-contract" title="Hibernate ORM 6 migration guide - Type System"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate6-00070">
+            <when>
+                <javaclass references="org.hibernate.usertype.CompositeUserType"/>
+            </when>
+            <perform>
+                <hint title="The CompositeUserType interface has been reimplemented" category-id="mandatory" effort="1">
+                    <message>The CompositeUserType interface was re-implemented to be able to model user types as proper embeddable types. See the migration guide for more information.</message>
+                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#compositeusertype-changes" title="Hibernate ORM 6 migration guide - CompositeUserType"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate6-00080">
+            <when>
+                <filecontent pattern="hibernate.hql.bulk_id_strategy"/>
+            </when>
+            <perform>
+                <hint title="Property hibernate.hql.bulk_id_strategy has changed" category-id="mandatory" effort="1">
+                    <message>The configuration property `hibernate.hql.bulk_id_strategy` was changed to `hibernate.query.mutation_strategy` which now refers to classes or objects implementing `org.hibernate.query.sqm.mutation.spi.SqmMultiTableMutationStrategy`.</message>
+                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#multi-table-mutation-queries" title="Hibernate ORM 6 migration guide - Multi-table Mutation Queries"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate6-00090">
+            <when>
+                <or>
+                    <javaclass references="jakarta.persistence.Query.getResultStream({*})">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                    <javaclass references="org.hibernate.query.Query.stream({*})">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="Stream#close() must be called explicitly to close the underlying resources" category-id="mandatory" effort="1">
+                    <message>
+                        `jakarta.persistence.Query#getResultStream()` and `org.hibernate.query.Query#stream()` no longer return a Stream decorator. In order to close the underlying IO resources, it is now necessary to explicitly call the `Stream#close()` method.
+                        This change makes the Streams returned by Hibernate behave as defined in the JDK Stream documentation, which is quite explicit about the need for an explicit call to close by the user to avoid resource leakages.
+                    </message>
+                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#stream" title="Hibernate ORM 6 migration guide - Stream"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate6-00100">
+            <when>
+                <javaclass references="org.hibernate.Interceptor.onSave({*})">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="The signature of the Interceptor#onSave method has been changed" category-id="mandatory" effort="1">
+                    <message>The signature of the `Interceptor#onSave` method has been changed to account for the general change in expected identifier type from `Serializable` to `Object`. See migration guide for more information.</message>
+                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#interceptor" title="Hibernate ORM 6 migration guide - Interceptor"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate6-00110">
+            <when>
+                <javaclass references="org.hibernate.loader.collection.{*}">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="The contents of the loader.collection package have been restructured" category-id="mandatory" effort="1">
+                    <message>The contents of the `loader.collection` package were restructured into `loader.ast.spi` and `loader.ast.internal` as well as adapted to the SQM API.</message>
+                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#restructuring-of-orghibernateloader" title="Hibernate ORM 6 migration guide - Restructuring of org.hibernate.loader"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate6-00120">
+            <when>
+                <javaclass references="org.hibernate.loader.custom.{*}">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="The contents of the loader.custom package have been moved" category-id="mandatory" effort="1">
+                    <message>The contents of the `loader.custom` package were adapted and moved to `query.sql`.</message>
+                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#restructuring-of-orghibernateloader" title="Hibernate ORM 6 migration guide - Restructuring of org.hibernate.loader"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate6-00130">
+            <when>
+                <or>
+                    <javaclass references="org.hibernate.loader.entity.{*}">
+                        <location>IMPORT</location>
+                    </javaclass>
+                    <javaclass references="org.hibernate.loader.plan.{*}">
+                        <location>IMPORT</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="The contents of the loader.entity and loader.plan packages have been removed" category-id="mandatory" effort="1">
+                    <message>The contents of `loader.entity` and `loader.plan` were removed</message>
+                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#restructuring-of-orghibernateloader" title="Hibernate ORM 6 migration guide - Restructuring of org.hibernate.loader"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate6-00140">
+            <when>
+                <javaclass references="org.hibernate.sql.ordering.{*}">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="The contents of sql.ordering have moved" category-id="mandatory" effort="1">
+                    <message>The contents of `sql.ordering` were adapted and moved to `metamodel.mapping.ordering.ast`.</message>
+                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#restructuring-of-the-sql-package" title="Hibernate ORM 6 migration guide - Restructuring of the SQL package"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate6-00150">
+            <when>
+                <javaclass references="org.hibernate.sql.{class-name}"/>
+            </when>
+            <perform>
+                <hint title="Some classes of the sql package that were previously used for building SQL were removed" category-id="mandatory" effort="1">
+                    <message>Classes of the sql package that were previously used for building SQL, but aren’t needed anymore, were removed. The SQL generation is now fully handled through the `SqlAstTranslator` which a `Dialect` exposes a factory for.</message>
+                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#restructuring-of-the-sql-package" title="Hibernate ORM 6 migration guide - Restructuring of the SQL package"/>
+                </hint>
+            </perform>
+            <where param="class-name">
+                <matches pattern="(ANSICaseFragment|ANSIJoinFragment|CacheJoinFragment|CaseFragment|ConditionFragment|DecodeCaseFragment|DerbyCaseFragment|DisjunctionFragment|HSQLCaseFragment|InsertSelect|JoinFragment|JoinType|MckoiCaseFragment|OracleJoinFragment|QueryJoinFragment|QuerySelect|Select|SelectExpression|SelectFragment|SelectValues|Sybase11JoinFragment)"/>
+            </where>
+        </rule>
+        <rule id="hibernate6-00160">
+            <when>
+                <xmlfile matches="//*/h:property[count(h:column) > 1]" in="{*}.hbm.xml">
+                    <namespace prefix="h" uri="http://www.hibernate.org/xsd/hibernate-mapping"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Support for basic property mappings with multiple columns was removed" category-id="mandatory" effort="1">
+                    <message>In Hibernate 6.0 the support for basic property mappings with multiple columns was removed. The only use case for that was when a `CompositeUserType` was in use, which was reworked to now work on top of components.</message>
+                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#hbmxml-multiple-column-now-disallowed" title="Hibernate ORM 6 migration guide - hbm.xml multiple &lt;column/&gt; now disallowed"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate6-00170">
+            <when>
+                <javaclass references="org.hibernate.criterion.{*}">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Legacy Hibernate Criteria API has been removed" category-id="mandatory" effort="1">
+                    <message>The legacy Hibernate Criteria API which was deprecated back in Hibernate 5.x and removed in 6.0. Usually, all queries using the legacy API can be modeled with the JPA Criteria API. In some cases it is necessary to use the Hibernate JPA Criteria extensions.</message>
+                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#legacy-hibernate-criteria-api" title="Hibernate ORM 6 migration guide - Legacy hibernate criteria API"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate6-00180">
+            <when>
+                <javaclass references="org.hibernate.query.Query.iterate({*})">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="The Query#iterate() method has been removed" category-id="mandatory" effort="1">
+                    <message>The Query#iterate() method has been removed. See link for alternatives.</message>
+                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#iterate" title="Hibernate ORM 6 migration guide - Iterate"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate6-00190">
+            <when>
+                <or>
+                    <javaclass references="org.hibernate.annotations.NamedNativeQuery">
+                        <location>ANNOTATION</location>
+                        <annotation-literal name="callable" pattern="true"/>
+                    </javaclass>
+                    <xmlfile matches="//*/h:sql-query[@callable = 'true']" in="{*}.hbm.xml">
+                        <namespace prefix="h" uri="http://www.hibernate.org/xsd/hibernate-mapping"/>
+                    </xmlfile>
+                </or>
+            </when>
+            <perform>
+                <hint title="Using NativeQuery to call SQL functions and procedures is no longer supported" category-id="mandatory" effort="1">
+                    <message>Using `NativeQuery` to call SQL functions and procedures is no longer supported. `org.hibernate.procedure.ProcedureCall` or `jakarta.persistence.StoredProcedureQuery` should be used instead. `@NamedNativeQuery` references defining execution of procedure or functions should be migrated to use `@NamedStoredProcedureQuery` instead.</message>
+                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#callable-via-nativequery" title="Hibernate ORM 6 migration guide - Callable via NativeQuery"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate6-00200">
+            <when>
+                <!-- TODO: equivalent for queries in Java files -->
+                <xmlfile matches="//text()[contains(., 'fetch all properties')]" in="{*}.hbm.xml" />
+            </when>
+            <perform>
+                <hint title="Using NativeQuery to call SQL functions and procedures is no longer supported" category-id="mandatory" effort="1">
+                    <message>The fetch all properties clause was removed from the HQL language without a replacement. See link for replacement info.</message>
+                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#hql-fetch-all-properties-clause" title="Hibernate ORM 6 migration guide - HQL fetch all properties clause"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate6-00210">
+            <when>
+                <javaclass references="org.hibernate.jmx.{*}"/>
+            </when>
+            <perform>
+                <hint title="Hibernate no longer provides built-in support for integrating itself with JMX environments" category-id="mandatory" effort="1">
+                    <message>Hibernate no longer provides built-in support for integrating itself with JMX environments.</message>
+                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#jmx-integration" title="Hibernate ORM 6 migration guide - JMX integration"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate6-00220">
+            <when>
+                <javaclass references="org.hibernate.{*}Jacc{*}"/>
+            </when>
+            <perform>
+                <hint title="Hibernate no longer provides built-in support for integrating itself with JACC environments" category-id="mandatory" effort="1">
+                    <message>Hibernate no longer provides built-in support for integrating itself with JACC environments.</message>
+                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#jacc-integration" title="Hibernate ORM 6 migration guide - JACC integration"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate6-00230">
+            <when>
+                <filecontent pattern="hibernate.classLoader.{resource}"/>
+            </when>
+            <perform>
+                <hint title="Removed hibernate classloader properties" category-id="mandatory" effort="1">
+                    <message>These properties are deprecated: use `hibernate.classLoaders` instead.</message>
+                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#previously-deprecated-features" title="Hibernate ORM 6 migration guide - Previously deprecated features"/>
+                </hint>
+            </perform>
+            <where param="resource" >
+                <matches pattern="(application|resources|hibernate|environment)" />
+            </where>
+        </rule>
+        <rule id="hibernate6-00240">
+            <when>
+                <filecontent pattern="hibernate.hbm2dll.create_namespaces"/>
+            </when>
+            <perform>
+                <hint title="Removed hibernate properties" category-id="mandatory" effort="1">
+                    <message>This property has been removed: use `jakarta.persistence.create-database-schemas` or `hibernate.hbm2ddl.create_namespaces` instead</message>
+                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#previously-deprecated-features" title="Hibernate ORM 6 migration guide - Previously deprecated features"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate6-00250">
+            <when>
+                <filecontent pattern="hibernate.ejb.metamodel.population"/>
+            </when>
+            <perform>
+                <hint title="Renamed hibernate property hibernate.ejb.metamodel.population" category-id="mandatory" effort="1">
+                    <message>This property has been removed: please use `hibernate.jpa.metamodel.population` instead</message>
+                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#configuration-property-renames" title="Hibernate ORM 6 migration guide - Configuration property renames"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate6-00251">
+            <when>
+                <filecontent pattern="hibernate.ejb.cfgfile"/>
+            </when>
+            <perform>
+                <hint title="Renamed hibernate property hibernate.ejb.cfgfile" category-id="mandatory" effort="1">
+                    <message>This property has been removed: please use `hibernate.cfg_xml_file` instead</message>
+                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#configuration-property-renames" title="Hibernate ORM 6 migration guide - Configuration property renames"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate6-00252">
+            <when>
+                <filecontent pattern="hibernate.ejb.xml_files"/>
+            </when>
+            <perform>
+                <hint title="Renamed hibernate property hibernate.ejb.xml_files" category-id="mandatory" effort="1">
+                    <message>This property has been removed: please use `hibernate.orm_xml_files` instead</message>
+                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#configuration-property-renames" title="Hibernate ORM 6 migration guide - Configuration property renames"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate6-00253">
+            <when>
+               <filecontent pattern="hibernate.hbmxml.files"/>
+            </when>
+            <perform>
+                <hint title="Renamed hibernate property hibernate.hbmxml.files" category-id="mandatory" effort="1">
+                    <message>This property has been removed: please use `hibernate.hbm_xml_files` instead</message>
+                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#configuration-property-renames" title="Hibernate ORM 6 migration guide - Configuration property renames"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate6-00254">
+            <when>
+                <filecontent pattern="hibernate.ejb.loaded.classes"/>
+            </when>
+            <perform>
+                <hint title="Renamed hibernate property hibernate.ejb.loaded.classes" category-id="mandatory" effort="1">
+                    <message>This property has been removed: please use `hibernate.loaded_classes` instead</message>
+                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#configuration-property-renames" title="Hibernate ORM 6 migration guide - Configuration property renames"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate6-00255">
+            <when>
+                <filecontent pattern="hibernate.ejb.{property}"/>
+            </when>
+            <perform>
+                <hint title="Renamed hibernate property hibernate.ejb.{property}" category-id="mandatory" effort="1">
+                    <message>This property has been removed: please use `hibernate.{property}` instead</message>
+                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#configuration-property-renames" title="Hibernate ORM 6 migration guide - Configuration property renames"/>
+                </hint>
+            </perform>
+            <where param="property">
+                <matches pattern="(persistenceUnitName|discard_pc_on_close|session_factory_observer|identifier_generator_strategy_provider|classcache|collectioncache|event)" />
+            </where>
+        </rule>
+        <rule id="hibernate6-00257">
+            <when>
+                <filecontent pattern="hibernate.ejb.entitymanager_factory_name"/>
+            </when>
+            <perform>
+                <hint title="Renamed hibernate property hibernate.ejb.entitymanager_factory_name" category-id="mandatory" effort="1">
+                    <message>This property has been removed: please use `hibernate.session_factory_name` instead</message>
+                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#configuration-property-renames" title="Hibernate ORM 6 migration guide - Configuration property renames"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate6-00270">
+            <when>
+                <javaclass references="org.hibernate.dialect.{class-name}"/>
+            </when>
+            <perform>
+                <hint title="Community dialects moved to a separate module" effort="1" category-id="mandatory">
+                    <message>As of Hibernate 6.0, some dialect classes that are maintained by vendors or individuals, as opposed to the Hibernate team. have moved to a separate Maven artifact: `org.hibernate.orm:hibernate-community-dialects`.</message>
+                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#community-dialects-moved-to-a-separate-module" title="Hibernate ORM 6 migration guide - Community dialects"/>
+                </hint>
+            </perform>
+            <where param="class-name">
+                <matches pattern="(Cache71Dialect|CacheDialect|CacheSqlAstTranslator|CockroachLegacyDialect|CockroachLegacySqlAstTranslator|CommunityDatabase|CommunityDialectResolver|CommunityDialectSelector|CUBRIDDialect|CUBRIDSqlAstTranslator|DB2iLegacyDialect|DB2iLegacySqlAstTranslator|DB2LegacyDialect|DB2LegacySqlAstTranslator|DB2zLegacyDialect|DB2zLegacySqlAstTranslator|DerbyLegacyDialect|DerbyLegacySqlAstTranslator|FirebirdDialect|FirebirdSqlAstTranslator|H2LegacyDialect|H2LegacySqlAstTranslator|HSQLLegacyDialect|HSQLLegacySqlAstTranslator|Informix10Dialect|InformixDialect|InformixSqlAstTranslator|InformixSqmToSqlAstConverter|Ingres10Dialect|Ingres9Dialect|IngresDialect|IngresSqlAstTranslator|IngresSqmToSqlAstConverter|MariaDBLegacyDialect|MariaDBLegacySqlAstTranslator|MaxDBDialect|MaxDBSqlAstTranslator|MimerSQLDialect|MimerSQLSqlAstTranslator|MySQLLegacyDialect|MySQLLegacySqlAstTranslator|OracleLegacyDialect|OracleLegacySqlAstTranslator|PostgresPlusLegacyDialect|PostgreSQLLegacyDialect|PostgreSQLLegacySqlAstTranslator|RDMSOS2200Dialect|RDMSOS2200SqlAstTranslator|SAPDBDialect|SQLiteDialect|SQLiteSqlAstTranslator|SQLServerLegacyDialect|SQLServerLegacySqlAstTranslator|SybaseAnywhereDialect|SybaseAnywhereSqlAstTranslator|SybaseASELegacyDialect|SybaseASELegacySqlAstTranslator|SybaseLegacyDialect|SybaseLegacySqlAstTranslator|SybaseLegacySqmToSqlAstConverter|Teradata14Dialect|TeradataDialect|TeradataSqlAstTranslator|TimesTenDialect|TimesTenSqlAstTranslator)"/>
+            </where>
+        </rule>
+    </rules>
+</ruleset>
