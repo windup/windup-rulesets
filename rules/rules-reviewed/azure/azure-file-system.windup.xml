@@ -21,7 +21,7 @@
         <rule id="azure-file-system-01000">
             <when>
                 <or>
-                    <javaclass references="java.io.{*}"/>
+                    <javaclass references="java.io.{ioclasses}"/>
                     <javaclass references="java.nio.{*}"/>
                     <javaclass references="org.apache.commons.io.{*}"/>
                 </or>
@@ -39,6 +39,9 @@
                     <link title="Azure Spring Boot Starter for Azure Storage" href="https://search.maven.org/artifact/com.azure.spring/azure-spring-boot-starter-storage"/>
                 </hint>
             </perform>
+            <where param="ioclasses">
+                <matches pattern="(File|FileWriter|FileReader|FileInputStream|FileOutputStream)"/>
+            </where>
         </rule>
         <rule id="azure-file-system-02000">
             <when>
