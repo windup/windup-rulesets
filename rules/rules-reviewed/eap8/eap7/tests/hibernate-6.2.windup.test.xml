@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<ruletest id="hibernate-6.2-tests" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+   <testDataPath>data/hibernate-62</testDataPath>
+   <rulePath>../hibernate-6.2.windup.xml</rulePath>
+   <ruleset>
+      <rules>
+          <rule id="hibernate-6.2-tests-00010">
+              <when>
+                  <not>
+                      <hint-exists message="This method has changed from `EntityPersister#multiload\(Object\[\] ids, SharedSessionContractImplementor session, MultiIdLoadOptions loadOptions\)` to `EntityPersister#lock\(Object\[\] ids, EventSource session, MultiIdLoadOptions loadOptions\)`.*"/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate-6.2-tests-00010] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate-6.2-tests-00020">
+              <when>
+                  <not>
+                      <hint-exists message="This method has changed from `Executable#afterDeserialize\(SharedSessionContractImplementor session\)` to `Executable#afterDeserialize\(EventSource eventSource\)`.*"/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate-6.2-tests-00020] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate-6.2-tests-00030">
+              <when>
+                  <not>
+                      <hint-exists message="The return type of `JdbcType#getJdbcRecommendedJavaTypeMapping\(\)` was changed from `BasicJavaType` to `JavaType`."/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate-6.2-tests-00030] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate-6.2-tests-00040">
+              <when>
+                  <not>
+                      <iterable-filter size="2">
+                          <hint-exists message="This class within `org.hibernate.cfg` has been moved; see link for more information."/>
+                      </iterable-filter>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate-6.2-tests-00040] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate-6.2-tests-00050">
+              <when>
+                  <not>
+                      <iterable-filter size="2">
+                          <hint-exists message="This class within `org.hibernate.loader` has been moved; see link for more information."/>
+                      </iterable-filter>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate-6.2-tests-00050] Hint not found!"/>
+              </perform>
+          </rule>
+      </rules>
+   </ruleset>
+</ruletest>

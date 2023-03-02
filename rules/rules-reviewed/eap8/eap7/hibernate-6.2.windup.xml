@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="hibernate-6.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <metadata>
+        <description>
+            This ruleset provides migration rules to Hibernate ORM 6.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,2.3.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,2.3.0.Final" />
+        </dependencies>
+        <targetTechnology id="hibernate" versionRange="[6,)" />
+        <targetTechnology id="eap" versionRange="[8,)" />
+        <tag>hibernate</tag>
+    </metadata>
+
+    <rules>
+        <rule id="hibernate-6.2-00010">
+            <when>
+                <javaclass references="org.hibernate.persister.entity.EntityPersister.multiload({*})">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="EntityPersister#multiload method has changed" effort="1" category-id="mandatory">
+                    <message>
+                        This method has changed from `EntityPersister#multiload(Object[] ids, SharedSessionContractImplementor session, MultiIdLoadOptions loadOptions)` to `EntityPersister#lock(Object[] ids, EventSource session, MultiIdLoadOptions loadOptions)`.
+                        Both EventSource and SharedSessionContractImplementor are contracts of `SessionImpl` so they can be easily swapped.
+                        Methods `isEventSource` and `asEventSource` can also be used to ease the transition, available on the `SharedSessionContractImplementor` contract.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/orm/6.2/migration-guide/migration-guide.html#spi-multiLoad" title="Hibernate 6 migration guide - Changes in integration contracts (SPIs)"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-6.2-00020">
+            <when>
+                <javaclass references="org.hibernate.action.spi.Executable.afterDeserialize({*})">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Executable#afterDeserialize method has changed" effort="1" category-id="mandatory">
+                    <message>
+                        This method has changed from `Executable#afterDeserialize(SharedSessionContractImplementor session)` to `Executable#afterDeserialize(EventSource eventSource)`.
+                        Both EventSource and SharedSessionContractImplementor are contracts of `SessionImpl` so they can be easily swapped.
+                        Methods `isEventSource` and `asEventSource` can also be used to ease the transition, available on the `SharedSessionContractImplementor` contract.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/orm/6.2/migration-guide/migration-guide.html#spi-afterDeserialize" title="Hibernate 6 migration guide - Changes in integration contracts (SPIs)"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-6.2-00030">
+            <when>
+                <javaclass references="org.hibernate.type.descriptor.jdbc.JdbcType.getJdbcRecommendedJavaTypeMapping({*})">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="JdbcType#getJdbcRecommendedJavaTypeMapping() method has changed" effort="1" category-id="mandatory">
+                    <message>
+                        The return type of `JdbcType#getJdbcRecommendedJavaTypeMapping()` was changed from `BasicJavaType` to `JavaType`.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/orm/6.2/migration-guide/migration-guide.html#spi-JdbcType" title="Hibernate 6 migration guide - Changes in integration contracts (SPIs)"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-6.2-00040">
+            <when>
+                <javaclass references="org.hibernate.cfg.{class-name}"/>
+            </when>
+            <perform>
+                <hint title="Class {class-name} within the org.hibernate.cfg package has been moved" effort="1" category-id="mandatory">
+                    <message>
+                        This class within `org.hibernate.cfg` has been moved; see link for more information.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/orm/6.2/migration-guide/migration-guide.html#api-internal-cfg" title="Hibernate 6 migration guide - API/SPI/Internal distinction"/>
+                </hint>
+            </perform>
+            <where param="class-name">
+                <matches pattern="(AbstractPropertyHolder|AccessType|AnnotatedClassType|AnnotationBinder|AttributeConversionInfo|AttributeConverterDefinition|BaselineSessionEventsListenerBuilder|BinderHelper|CannotForceNonNullableException|ClassPropertyHolder|CollectionPropertyHolder|ColumnsBuilder|ComponentPropertyHolder|EJB3DTDEntityResolver|Ejb3Column|Ejb3DiscriminatorColumn|Ejb3JoinColumn|ExternalSessionFactoryConfig|IndexColumn|InheritanceState|JPAIndexHolder|NotYetImplementedException|ObjectNameSource|PropertyContainer|PropertyData|PropertyHolder|PropertyHolderBuilder|PropertyInferredData|PropertyPreloadedData|Settings|ToOneBinder|UniqueConstraintHolder|WrappedInferredData|annotations.ArrayBinder|annotations.BagBinder|annotations.CollectionBinder|annotations.CustomizableColumns|annotations.EntityBinder|annotations.HCANNHelper|annotations.IdBagBinder|annotations.ListBinder|annotations.MapBinder|annotations.MapKeyColumnDelegator|annotations.MapKeyJoinColumnDelegator|annotations.NamedEntityGraphDefinition|annotations.NamedProcedureCallDefinition|annotations.Nullability|annotations.PrimitiveArrayBinder|annotations.PropertyBinder|annotations.QueryBinder|annotations.QueryHintDefinition|annotations.SetBinder|annotations.SimpleValueBinder|annotations.TableBinder|annotations.reflection.AttributeConverterDefinitionCollector|annotations.reflection.ClassLoaderAccessLazyImpl|annotations.reflection.PersistentAttributeFilter|annotations.reflection.internal.JPAXMLOverriddenAnnotationReader|annotations.reflection.internal.JPAXMLOverriddenMetadataProvider|annotations.reflection.internal.PropertyMappingElementCollector|annotations.reflection.internal.XMLContext|annotations.reflection.package-info|beanvalidation.ActivationContext|beanvalidation.BeanValidationEventListener|beanvalidation.BeanValidationIntegrator|beanvalidation.DuplicationStrategyImpl|beanvalidation.GroupsPerOperation|beanvalidation.HibernateTraversableResolver|beanvalidation.IntegrationException|beanvalidation.TypeSafeActivator|beanvalidation.ValidationMode)"/>
+            </where>
+        </rule>
+        <rule id="hibernate-6.2-00050">
+            <when>
+                <javaclass references="org.hibernate.loader.{class-name}"/>
+            </when>
+            <perform>
+                <hint title="Class {class-name} within the org.hibernate.loader package has been moved" effort="1" category-id="mandatory">
+                    <message>
+                        This class within `org.hibernate.loader` has been moved; see link for more information.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/orm/6.2/migration-guide/migration-guide.html#api-internal-loader" title="Hibernate 6 migration guide - API/SPI/Internal distinction"/>
+                </hint>
+            </perform>
+            <where param="class-name">
+                <matches pattern="(AbstractEntityJoinWalker|BasicLoader|CollectionAliases|ColumnEntityAliases|DefaultEntityAliases|EntityAliases|GeneratedCollectionAliases|JoinWalker|Loader|OuterJoinLoader|OuterJoinableAssociation|collection.BasicCollectionJoinWalker|collection.BasicCollectionLoader|collection.BatchingCollectionInitializer|collection.BatchingCollectionInitializerBuilder|collection.CollectionInitializer|collection.CollectionJoinWalker|collection.CollectionLoader|collection.DynamicBatchingCollectionInitializerBuilder|collection.LegacyBatchingCollectionInitializerBuilder|collection.OneToManyJoinWalker|collection.OneToManyLoader|collection.PaddedBatchingCollectionInitializerBuilder|collection.SubselectCollectionLoader|collection.SubselectOneToManyLoader|collection.plan.AbstractBatchingCollectionInitializerBuilder|collection.plan.AbstractLoadPlanBasedCollectionInitializer|collection.plan.BatchingCollectionInitializer|collection.plan.CollectionLoader|collection.plan.LegacyBatchingCollectionInitializerBuilder|criteria.ComponentCollectionCriteriaInfoProvider|criteria.CriteriaInfoProvider|criteria.CriteriaJoinWalker|criteria.CriteriaLoader|criteria.CriteriaQueryTranslator|criteria.EntityCriteriaInfoProvider|criteria.ScalarCollectionCriteriaInfoProvider|custom.CollectionFetchReturn|custom.CollectionReturn|custom.ColumnCollectionAliases|custom.ConstructorResultColumnProcessor|custom.ConstructorReturn|custom.CustomLoader|custom.CustomQuery|custom.EntityFetchReturn|custom.FetchReturn|custom.JdbcResultMetadata|custom.NonScalarResultColumnProcessor|custom.NonScalarReturn|custom.NonUniqueDiscoveredSqlAliasException|custom.ResultColumnProcessor|custom.ResultRowProcessor|custom.Return|custom.RootReturn|custom.ScalarResultColumnProcessor|custom.ScalarReturn|custom.sql.NamedParamBinder|custom.sql.PositionalParamBinder|custom.sql.SQLCustomQuery|custom.sql.SQLQueryParser|custom.sql.SQLQueryReturnProcessor|entity.AbstractEntityLoader|entity.BatchingEntityLoaderBuilder|entity.CacheEntityLoaderHelper|entity.CascadeEntityJoinWalker|entity.CascadeEntityLoader|entity.CollectionElementLoader|entity.EntityJoinWalker|entity.EntityLoader|entity.NaturalIdEntityJoinWalker|entity.NaturalIdType|entity.UniqueEntityLoader|entity.plan.AbstractBatchingEntityLoaderBuilder|entity.plan.AbstractLoadPlanBasedEntityLoader|entity.plan.BatchingEntityLoader|entity.plan.DynamicBatchingEntityLoader|entity.plan.DynamicBatchingEntityLoaderBuilder|entity.plan.EntityLoader|entity.plan.LegacyBatchingEntityLoaderBuilder|entity.plan.MultiEntityLoadingSupport|entity.plan.PaddedBatchingEntityLoader|entity.plan.PaddedBatchingEntityLoaderBuilder|hql.QueryLoader|plan.build.internal.AbstractEntityGraphVisitationStrategy|plan.build.internal.AbstractLoadPlanBuildingAssociationVisitationStrategy|plan.build.internal.CascadeStyleLoadPlanBuildingAssociationVisitationStrategy|plan.build.internal.FetchGraphLoadPlanBuildingStrategy|plan.build.internal.FetchStyleLoadPlanBuildingAssociationVisitationStrategy|plan.build.internal.LoadGraphLoadPlanBuildingStrategy|plan.build.internal.LoadPlanImpl|plan.build.internal.returns.AbstractAnyReference|plan.build.internal.returns.AbstractCollectionReference|plan.build.internal.returns.AbstractCompositeEntityIdentifierDescription|plan.build.internal.returns.AbstractCompositeFetch|plan.build.internal.returns.AbstractCompositeReference|plan.build.internal.returns.AbstractEntityReference|plan.build.internal.returns.AbstractExpandingFetchSource|plan.build.internal.returns.AnyAttributeFetchImpl|plan.build.internal.returns.BidirectionalEntityReferenceImpl|plan.build.internal.returns.CollectionAttributeFetchImpl|plan.build.internal.returns.CollectionFetchableElementAnyGraph|plan.build.internal.returns.CollectionFetchableElementCompositeGraph|plan.build.internal.returns.CollectionFetchableElementEntityGraph|plan.build.internal.returns.CollectionFetchableIndexAnyGraph|plan.build.internal.returns.CollectionFetchableIndexCompositeGraph|plan.build.internal.returns.CollectionFetchableIndexEntityGraph|plan.build.internal.returns.CollectionReturnImpl|plan.build.internal.returns.CompositeAttributeFetchImpl|plan.build.internal.returns.EncapsulatedEntityIdentifierDescription|plan.build.internal.returns.EntityAttributeFetchImpl|plan.build.internal.returns.EntityReturnImpl|plan.build.internal.returns.NestedCompositeAttributeFetchImpl|plan.build.internal.returns.NonEncapsulatedEntityIdentifierDescription|plan.build.internal.returns.ScalarReturnImpl|plan.build.internal.returns.SimpleEntityIdentifierDescriptionImpl|plan.build.internal.spaces.AbstractExpandingSourceQuerySpace|plan.build.internal.spaces.AbstractQuerySpace|plan.build.internal.spaces.CollectionQuerySpaceImpl|plan.build.internal.spaces.CompositePropertyMapping|plan.build.internal.spaces.CompositeQuerySpaceImpl|plan.build.internal.spaces.EntityQuerySpaceImpl|plan.build.internal.spaces.JoinHelper|plan.build.internal.spaces.JoinImpl|plan.build.internal.spaces.QuerySpaceHelper|plan.build.internal.spaces.QuerySpacesImpl|plan.build.spi.ExpandingCollectionQuerySpace|plan.build.spi.ExpandingCompositeQuerySpace|plan.build.spi.ExpandingEntityIdentifierDescription|plan.build.spi.ExpandingEntityQuerySpace|plan.build.spi.ExpandingFetchSource|plan.build.spi.ExpandingQuerySpace|plan.build.spi.ExpandingQuerySpaces|plan.build.spi.LoadPlanBuildingAssociationVisitationStrategy|plan.build.spi.LoadPlanBuildingContext|plan.build.spi.LoadPlanTreePrinter|plan.build.spi.MetamodelDrivenLoadPlanBuilder|plan.build.spi.QuerySpaceTreePrinter|plan.build.spi.ReturnGraphTreePrinter|plan.build.spi.TreePrinterHelper|plan.exec.internal.AbstractCollectionLoadQueryDetails|plan.exec.internal.AbstractLoadPlanBasedLoader|plan.exec.internal.AbstractLoadQueryDetails|plan.exec.internal.AliasResolutionContextImpl|plan.exec.internal.BasicCollectionLoadQueryDetails|plan.exec.internal.BatchingLoadQueryDetailsFactory|plan.exec.internal.CollectionReferenceAliasesImpl|plan.exec.internal.EntityLoadQueryDetails|plan.exec.internal.EntityReferenceAliasesImpl|plan.exec.internal.FetchStats|plan.exec.internal.LoadQueryJoinAndFetchProcessor|plan.exec.internal.OneToManyLoadQueryDetails|plan.exec.internal.RootHelper|plan.exec.process.internal.AbstractRowReader|plan.exec.process.internal.CollectionReferenceInitializerImpl|plan.exec.process.internal.CollectionReturnReader|plan.exec.process.internal.EntityReferenceInitializerImpl|plan.exec.process.internal.EntityReturnReader|plan.exec.process.internal.HydratedEntityRegistration|plan.exec.process.internal.ResultSetProcessingContextImpl|plan.exec.process.internal.ResultSetProcessorHelper|plan.exec.process.internal.ResultSetProcessorImpl|plan.exec.process.spi.CollectionReferenceInitializer|plan.exec.process.spi.EntityReferenceInitializer|plan.exec.process.spi.ReaderCollector|plan.exec.process.spi.ResultSetProcessingContext|plan.exec.process.spi.ResultSetProcessor|plan.exec.process.spi.ResultSetProcessorResolver|plan.exec.process.spi.ReturnReader|plan.exec.process.spi.RowReader|plan.exec.process.spi.ScrollableResultSetProcessor|plan.exec.query.internal.QueryBuildingParametersImpl|plan.exec.query.internal.SelectStatementBuilder|plan.exec.query.spi.NamedParameterContext|plan.exec.query.spi.QueryBuildingParameters|plan.exec.spi.AliasResolutionContext|plan.exec.spi.CollectionReferenceAliases|plan.exec.spi.EntityReferenceAliases|plan.exec.spi.LoadQueryDetails|plan.exec.spi.LockModeResolver|plan.spi.AnyAttributeFetch|plan.spi.AttributeFetch|plan.spi.BidirectionalEntityReference|plan.spi.CollectionAttributeFetch|plan.spi.CollectionFetchableElement|plan.spi.CollectionFetchableIndex|plan.spi.CollectionQuerySpace|plan.spi.CollectionReference|plan.spi.CollectionReturn|plan.spi.CompositeAttributeFetch|plan.spi.CompositeFetch|plan.spi.CompositeQuerySpace|plan.spi.EntityFetch|plan.spi.EntityIdentifierDescription|plan.spi.EntityQuerySpace|plan.spi.EntityReference|plan.spi.EntityReturn|plan.spi.Fetch|plan.spi.FetchSource|plan.spi.Join|plan.spi.JoinDefinedByMetadata|plan.spi.LoadPlan|plan.spi.QuerySpace|plan.spi.QuerySpaceUidNotRegisteredException|plan.spi.QuerySpaces|plan.spi.Return|plan.spi.ScalarReturn|spi.AfterLoadAction)"/>
+            </where>
+        </rule>
+        
+    </rules>
+</ruleset>
