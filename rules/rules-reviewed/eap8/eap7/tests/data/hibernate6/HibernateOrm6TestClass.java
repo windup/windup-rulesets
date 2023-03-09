@@ -18,12 +18,14 @@ import org.hibernate.sql.ordering.antlr.ColumnMapper;
 import org.hibernate.jmx.internal.DisabledJmxServiceImpl;
 
 import org.hibernate.criterion.Criterion;
+import javax.persistence.GeneratedValue;
 
 @NamedNativeQuery(callable = true, name = "name", query = "query")
 public class HibernateOrm6TestClass implements BasicType {
     @AnyMetaDef(metaType = "type")
     String hey;
 
+    @GeneratedValue
     @ParamDef(name = "name", type = "type")
     String param;
 
