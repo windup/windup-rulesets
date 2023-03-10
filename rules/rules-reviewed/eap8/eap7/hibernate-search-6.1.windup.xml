@@ -1,0 +1,292 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="hibernate-search-6.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <metadata>
+        <description>
+            This ruleset provides rules to support the migration to hibernate search 6.1.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,2.3.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,2.3.0.Final" />
+        </dependencies>
+        <targetTechnology id="eap" versionRange="[8,)" />
+        <targetTechnology id="hibernate" versionRange="[6.1,)" />
+        <tag>hibernate</tag>
+        <tag>eap8</tag>
+    </metadata>
+
+    <rules>
+        <!-- DEPENDENCIES -->
+        <rule id="hibernate-search-6.1-00010">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.hibernate" artifactId="hibernate-core" toVersion="5.5.9.Final"/>
+                    </project>
+                    <dependency groupId="org.hibernate" artifactId="hibernate-core" toVersion="5.5.9.Final"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Hibernate Search 6.1.* now requires using Hibernate ORM versions from the 5.6.x family." effort="1" category-id="mandatory">
+                    <message>Hibernate Search 6.1.7.Final now requires using Hibernate ORM versions from the 5.6.x family.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.1/migration/html_single/#requirements" title="Hibernate Search 6.1 - Migration Guide from 6.0"/>
+                </hint>
+            </perform>
+        </rule>
+        
+        <!-- SPIs -->
+        <rule id="hibernate-search-6.1-00020">
+            <when>
+                <or>
+                    <javaclass references="org.hibernate.search.engine.cfg.spi.ConfigurationPropertySource"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="org.hibernate.search.engine.cfg.spi.ConfigurationPropertySource has moved" category-id="mandatory" effort="1">
+                    <message>
+                        `org.hibernate.search.engine.cfg.spi.ConfigurationPropertySource` has been moved to `org.hibernate.search.engine.cfg.ConfigurationPropertySource`.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.1/migration/html_single/#spi" title="Hibernate Search 6.1 - Migration Guide from 6.0"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-6.1-00030">
+            <when>
+                <or>
+                    <javaclass references="org.hibernate.search.backend.elasticsearch.client.spi.ElasticsearchHttpClientConfigurer"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="org.hibernate.search.backend.elasticsearch.client.spi.ElasticsearchHttpClientConfigurer has moved" category-id="mandatory" effort="1">
+                    <message>
+                        `org.hibernate.search.backend.elasticsearch.client.spi.ElasticsearchHttpClientConfigurer` moved to `org.hibernate.search.backend.elasticsearch.client.ElasticsearchHttpClientConfigurer` and is now an API.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.1/migration/html_single/#spi" title="Hibernate Search 6.1 - Migration Guide from 6.0"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-6.1-00040">
+            <when>
+                <or>
+                    <javaclass references="org.hibernate.search.backend.elasticsearch.client.spi.ElasticsearchHttpClientConfigurationContext"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="org.hibernate.search.backend.elasticsearch.client.spi.ElasticsearchHttpClientConfigurationContext has moved" category-id="mandatory" effort="1">
+                    <message>
+                        `org.hibernate.search.backend.elasticsearch.client.spi.ElasticsearchHttpClientConfigurationContext` moved to `org.hibernate.search.backend.elasticsearch.client.ElasticsearchHttpClientConfigurationContext` and is now an API.
+                    </message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.1/migration/html_single/#spi" title="Hibernate Search 6.1 - Migration Guide from 6.0"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-6.1-00050">
+            <when>
+                <or>
+                    <javaclass references="org.hibernate.search.engine.common.timing.spi.Deadline"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="org.hibernate.search.engine.common.timing.spi.Deadline has moved" category-id="mandatory" effort="1">
+                    <message>`org.hibernate.search.engine.common.timing.spi.Deadline` moved to `org.hibernate.search.engine.common.timing.Deadline` and is now API.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.1/migration/html_single/#spi" title="Hibernate Search 6.1 - Migration Guide from 6.0"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-6.1-00060">
+            <when>
+                <or>
+                    <javaclass references="org.hibernate.search.engine.backend.work.execution.spi.IndexIndexingPlanExecutionReport"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="org.hibernate.search.engine.backend.work.execution.spi.IndexIndexingPlanExecutionReport has moved" category-id="mandatory" effort="1">
+                    <message>`org.hibernate.search.engine.backend.work.execution.spi.IndexIndexingPlanExecutionReport` is now `org.hibernate.search.engine.backend.work.execution.spi.MultiEntityOperationExecutionReport`.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.1/migration/html_single/#spi" title="Hibernate Search 6.1 - Migration Guide from 6.0"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-6.1-00070">
+            <when>
+                <or>
+                    <javaclass references="org.hibernate.search.backend.elasticsearch.util.spi.URLEncodedString.fromJSon({*})">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="URLEncodedString#fromJsonString was removed" category-id="mandatory" effort="1">
+                    <message>`URLEncodedString#fromJsonString` must be removed.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.1/migration/html_single/#spi" title="Hibernate Search 6.1 - Migration Guide from 6.0"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-6.1-00080">
+            <when>
+                <or>
+                    <javaclass references="org.hibernate.search.engine.backend.common.spi.FieldPaths.absolutize(java.lang.String, java.lang.String, java.lang.String)">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="FieldPaths#absolutize(String, String, String) has been removed" category-id="mandatory" effort="1">
+                    <message>`FieldPaths#absolutize(String, String, String)` must be removed.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.1/migration/html_single/#spi" title="Hibernate Search 6.1 - Migration Guide from 6.0"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-6.1-00090">
+            <when>
+                <or>
+                    <javaclass references="org.hibernate.search.engine.backend.index.spi.IndexManagerImplementor.createIndexingPlan({*})">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="IndexManagerImplementor#createIndexingPlan has changed" category-id="mandatory" effort="1">
+                    <message>`IndexManagerImplementor#createIndexingPlan` no longer expects an `EntityReferenceFactory` parameter.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.1/migration/html_single/#spi" title="Hibernate Search 6.1 - Migration Guide from 6.0"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-6.1-00100">
+            <when>
+                <or>
+                    <javaclass references="org.hibernate.search.engine.backend.work.execution.spi.IndexIndexingPlan.executeAndReport({*}">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="IndexIndexingPlan#executeAndReport has changed" category-id="mandatory" effort="1">
+                    <message>`IndexIndexingPlan#executeAndReport` now expects an `EntityReferenceFactory` parameter.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.1/migration/html_single/#spi" title="Hibernate Search 6.1 - Migration Guide from 6.0"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-6.1-00120">
+            <when>
+                <or>
+                    <javaclass references="org.hibernate.search.engine.backend.document.model.dsl.spi.IndexSchemaObjectNodeBuilder"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="IndexSchemaObjectNodeBuilder has changed" category-id="mandatory" effort="1">
+                    <message>`org.hibernate.search.engine.backend.document.model.dsl.spi.IndexSchemaObjectNodeBuilder` is now `org.hibernate.search.engine.backend.document.model.dsl.spi.IndexCompositeNodeBuilder`</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.1/migration/html_single/#spi" title="Hibernate Search 6.1 - Migration Guide from 6.0"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-6.1-00130">
+            <when>
+                <or>
+                    <javaclass references="org.hibernate.search.engine.backend.document.model.dsl.spi.IndexSchemaObjectFieldNodeBuilder"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="IndexSchemaObjectNodeBuilder has changed" category-id="mandatory" effort="1">
+                    <message>`org.hibernate.search.engine.backend.document.model.dsl.spi.IndexSchemaObjectFieldNodeBuilder` is now `org.hibernate.search.engine.backend.document.model.dsl.spi.IndexObjectFieldBuilder`</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.1/migration/html_single/#spi" title="Hibernate Search 6.1 - Migration Guide from 6.0"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-6.1-00140">
+            <when>
+                <or>
+                    <javaclass references="org.hibernate.search.engine.backend.document.model.dsl.spi.IndexSchemaObjectFieldNodeBuilder"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="IndexSchemaObjectNodeBuilder has changed" category-id="mandatory" effort="1">
+                    <message>`org.hibernate.search.engine.backend.document.model.dsl.spi.IndexSchemaRootNodeBuilder` is now `org.hibernate.search.engine.backend.document.model.dsl.spi.IndexRootBuilder`</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.1/migration/html_single/#spi" title="Hibernate Search 6.1 - Migration Guide from 6.0"/>
+                </hint>
+            </perform>
+        </rule>
+
+        <!-- DEPRECATED -->
+        <rule id="hibernate-search-6.1-00150">
+            <when>
+                <javaclass references="org.hibernate.search.engine.backend.types.converter.FromDocumentFieldValueConverter">
+                    <location>IMPLEMENTS_TYPE</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="FromDocumentFieldValueConverter has been deprecated" effort="1" category-id="optional">
+                    <message>`FromDocumentFieldValueConverter` has been deprecated, implement `FromDocumentValueConverter` instead.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.1/migration/html_single/#api" title="Hibernate Search 6.1 - Migration Guide from 6.0"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-6.1-00160">
+            <when>
+                <javaclass references="org.hibernate.search.engine.backend.types.converter.ToDocumentFieldValueConverter">
+                    <location>IMPLEMENTS_TYPE</location>
+                </javaclass>
+        </when>
+            <perform>
+                <hint title="ToDocumentFieldValueConverter has been deprecated" effort="1" category-id="optional">
+                    <message>`ToDocumentFieldValueConverter` has been deprecated, implement `ToDocumentValueConverter` instead.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.1/migration/html_single/#api" title="Hibernate Search 6.1 - Migration Guide from 6.0"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-6.1-00170">
+            <when>
+                <javaclass references="org.hibernate.search.mapper.orm.massindexing.MassIndexingFailureHandler"/>
+            </when>
+            <perform>
+                <hint title="MassIndexingFailureHandler has been deprecated" effort="1" category-id="optional">
+                    <message>`org.hibernate.search.mapper.orm.massindexing.MassIndexingFailureHandler` has been deprecated, implement `org.hibernate.search.mapper.pojo.massindexing.MassIndexingFailureHandler` instead.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.1/migration/html_single/#api" title="Hibernate Search 6.1 - Migration Guide from 6.0"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-6.1-00180">
+            <when>
+                <javaclass references="org.hibernate.search.mapper.orm.massindexing.MassIndexingMonitor"/>
+            </when>
+            <perform>
+                <hint title="MassIndexingMonitor has been deprecated" effort="1" category-id="optional">
+                    <message>`org.hibernate.search.mapper.orm.massindexing.MassIndexingMonitor` has been deprecated, implement `org.hibernate.search.mapper.pojo.massindexing.MassIndexingMonitor` instead.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.1/migration/html_single/#api" title="Hibernate Search 6.1 - Migration Guide from 6.0"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="hibernate-search-6.1-00190">
+            <when>
+                <or>
+                    <javaclass references="org.hibernate.search.mapper.orm.automaticindexing.AutomaticIndexingStrategyName"/>
+<!--                    TODO: static field usage not currently detected by windup - see https://issues.redhat.com/browse/WINDUP-3669 -->
+<!--                    <javaclass references="org.hibernate.search.mapper.orm.cfg.HibernateOrmMapperSettings.AUTOMATIC_INDEXING_STRATEGY"/>-->
+<!--                    <javaclass references="org.hibernate.search.mapper.orm.cfg.HibernateOrmMapperSettings.Radicals.AUTOMATIC_INDEXING_STRATEGY"/>-->
+<!--                    <javaclass references="org.hibernate.search.mapper.orm.cfg.HibernateOrmMapperSettings.AutomaticIndexingRadicals.STRATEGY"/>-->
+<!--                    <javaclass references="org.hibernate.search.mapper.orm.cfg.HibernateOrmMapperSettings.Defaults.AUTOMATIC_INDEXING_STRATEGY"/>-->
+                </or>
+            </when>
+            <perform>
+                <hint title="Deprecated configuration settings" effort="1" category-id="optional">
+                    <message>Property has been deprecated: use the new configuration property that accepts `true`/`false` instead. See `HibernateOrmMapperSettings#AUTOMATIC_INDEXING_ENABLED`.</message>
+                    <link href="https://docs.jboss.org/hibernate/search/6.1/migration/html_single/#api" title="Hibernate Search 6.1 - Migration Guide from 6.0"/>
+                </hint>
+            </perform>
+        </rule>
+<!--        TODO: static field usage not currently detected by windup - see https://issues.redhat.com/browse/WINDUP-3669 -->
+<!--        <rule id="hibernate-search-6.1-00200">-->
+<!--            <when>-->
+<!--                <or>-->
+<!--                    <javaclass references="org.hibernate.search.backend.elasticsearch.cfg.ElasticsearchBackendSettings.Defaults.MULTITENANCY_STRATEGY"/>-->
+<!--                    <javaclass references="org.hibernate.search.backend.lucene.cfg.LuceneBackendSettings.Defaults.MULTITENANCY_STRATEGY"/>-->
+<!--                </or>-->
+<!--            </when>-->
+<!--            <perform>-->
+<!--                <hint title="Default value for these properties is now dynamic" effort="1" category-id="optional">-->
+<!--                    <message>The default for this property is now dynamic. If the multi-tenancy is enabled in the mapper, the default is `MultiTenancyStrategyName#DISCRIMINATOR`; Otherwise, the default is still `MultiTenancyStrategyName#NONE`.</message>-->
+<!--                </hint>-->
+<!--            </perform>-->
+<!--        </rule>-->
+    </rules>
+</ruleset>
