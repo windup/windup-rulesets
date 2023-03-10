@@ -6,6 +6,16 @@
    <rulePath>../</rulePath>
    <ruleset>
       <rules>
+          <rule id="hibernate6-tests-00005">
+              <when>
+                  <not>
+                      <hint-exists message="The way in which Hibernate determines implicit names for sequences and tables associated with identifier generation has changed in 6.0 which may affect migrating applications*"/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00005] Hint not found!"/>
+              </perform>
+          </rule>
           <rule id="hibernate6-tests-00010">
               <when>
                   <not>
