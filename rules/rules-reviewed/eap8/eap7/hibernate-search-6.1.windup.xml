@@ -20,16 +20,24 @@
         <!-- DEPENDENCIES -->
         <rule id="hibernate-search-6.1-00010">
             <when>
-                <or>
-                    <project>
-                        <artifact groupId="org.hibernate" artifactId="hibernate-core" toVersion="5.5.9.Final"/>
-                    </project>
-                    <dependency groupId="org.hibernate" artifactId="hibernate-core" toVersion="5.5.9.Final"/>
-                </or>
+                <and>
+                    <or>
+                        <project>
+                            <artifact groupId="org.hibernate" artifactId="hibernate-core" toVersion="5.5.9.Final"/>
+                        </project>
+                        <dependency groupId="org.hibernate" artifactId="hibernate-core" toVersion="5.5.9.Final"/>
+                    </or>
+                    <or>
+                        <project>
+                            <artifact groupId="org.hibernate.search" artifactId="hibernate-search-mapper-orm" fromVersion="6.1.0.Final"/>
+                        </project>
+                        <dependency groupId="org.hibernate.search" artifactId="hibernate-search-mapper-orm" fromVersion="6.1.0.Final"/>
+                    </or>
+                </and>
             </when>
             <perform>
                 <hint title="Hibernate Search 6.1.* now requires using Hibernate ORM versions from the 5.6.x family." effort="1" category-id="mandatory">
-                    <message>Hibernate Search 6.1.7.Final now requires using Hibernate ORM versions from the 5.6.x family.</message>
+                    <message>Hibernate Search 6.1.x now requires using Hibernate ORM versions from the 5.6.x family.</message>
                     <link href="https://docs.jboss.org/hibernate/search/6.1/migration/html_single/#requirements" title="Hibernate Search 6.1 - Migration Guide from 6.0"/>
                 </hint>
             </perform>
