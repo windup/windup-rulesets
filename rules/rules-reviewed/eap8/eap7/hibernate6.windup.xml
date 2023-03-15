@@ -18,24 +18,17 @@
     <rules>
         <rule id="hibernate-00005">
             <when>
-                <and>
-                    <javaclass references="javax.persistence.GeneratedValue">
-                        <location>ANNOTATION</location>
-                    </javaclass>
-                    <or>
-                        <dependency groupId="org.hibernate" artifactId="hibernate-core" toVersion="5.6.15.Final"/>
-                        <project>
-                            <artifact groupId="org.hibernate" artifactId="hibernate-core" toVersion="5.6.15.Final"/>
-                        </project>
-                    </or>
-                </and>
+                <javaclass references="javax.persistence.GeneratedValue">
+                    <location>ANNOTATION</location>
+                </javaclass>
             </when>
             <perform>
                 <hint title="Implicit name determination for sequences and tables associated with identifier generation has changed" effort="3" category-id="potential">
                     <message>
-                        The way in which Hibernate determines implicit names for sequences and tables associated with identifier generation has changed in 6.0 which may affect migrating applications.
-                        As of 6.0, Hibernate by default creates a sequence per entity hierarchy instead of a single sequence hibernate_sequence.
-                        Due to this change, users that previously used `@GeneratedValue(strategy = GenerationStrategy.AUTO)` or simply `@GeneratedValue` (since `AUTO` is the default), need to ensure that the database now contains sequences for every entity, named `&lt;entity name&gt;_seq`. For an entity Person, a sequence person_seq is expected to exist. It’s best to run hbm2ddl (e.g. by temporarily setting `hbm2ddl.auto=create`) to obtain a list of DDL statements for the sequences.
+                        The way in which Hibernate determines implicit names for sequences and tables associated with identifier generation has changed in 6.0 which may affect migrating applications.  
+                        As of 6.0, Hibernate by default creates a sequence per entity hierarchy instead of a single sequence hibernate_sequence.  
+                        Due to this change, users that previously used `@GeneratedValue(strategy = GenerationStrategy.AUTO)` or simply `@GeneratedValue` (since `AUTO` is the default), need to ensure that the database now contains sequences for every entity, named `&lt;entity name&gt;_seq`. For an entity Person, a sequence person_seq is expected to exist.  
+                        It’s best to run hbm2ddl (e.g. by temporarily setting `hbm2ddl.auto=create`) to obtain a list of DDL statements for the sequences.
                     </message>
                     <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#implicit-identifier-sequence-and-table-name" title="Hibernate ORM 6 migration guide - Implicit Identifier Sequence and Table Name"/>
                 </hint>
