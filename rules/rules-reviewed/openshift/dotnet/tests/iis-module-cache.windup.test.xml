@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<ruletest id="iis-module-cache-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <testDataPath>data/</testDataPath>
+    <rulePath>../iis-module-cache.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="iis-module-cache-0000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Caches windows security tokens for password based authentication schemes. Ensure compatible configuration." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="iis-module-cache-0000 hint not found." />
+                </perform>
+            </rule>
+            <rule id="iis-module-cache-0100-test">
+                <when>
+                    <not>
+                        <hint-exists message="Implements a generic cache for URL-specific server state; such as configuration. With this module; the server only reads configuration for the first request for a particular URL. And reuse it on subsequent requests until it changes." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="iis-module-cache-0100 hint not found." />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

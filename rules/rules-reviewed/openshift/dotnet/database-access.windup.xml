@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<ruleset id="database-access"
+    xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This is a ruleset for .net database-access topics when migrating an application to cloud environments.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-base" />
+        </dependencies>
+        <sourceTechnology id="dotnet"/>
+        <targetTechnology id="cloud-readiness"/>
+        <tag>database-access</tag>
+    </metadata>
+    <rules>
+        <rule id="database-access-0000">
+            <when>
+                <filecontent filename="{*}.config" pattern="connectionString"/>
+            </when>
+            <perform>
+				<hint title="Database Access" effort="1" category-id="cloud-mandatory">
+					<message>Connection strings should be externally managed</message>
+					<tag>database-access</tag>
+				</hint>
+				<technology-tag level="INFORMATIONAL">.Net</technology-tag>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

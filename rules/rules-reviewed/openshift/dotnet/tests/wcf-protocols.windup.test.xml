@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<ruletest id="wcf-protocols-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <testDataPath>data/</testDataPath>
+    <rulePath>../wcf-protocols.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="wcf-protocols-0000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Non HTTP based protocols are either unsupported or require extensive refactoring on Cloud. TCP binding would require TCP Router to be configured and app to be self hosted" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="wcf-protocols-0000 hint not found." />
+                </perform>
+            </rule>
+            <rule id="wcf-protocols-0100-test">
+                <when>
+                    <not>
+                        <hint-exists message="Many features of WS protocols are problematic in the cloud like distributed transactions and reliable sessions" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="wcf-protocols-0100 hint not found." />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

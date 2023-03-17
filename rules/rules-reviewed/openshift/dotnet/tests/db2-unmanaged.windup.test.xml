@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ruletest id="db2-unmanaged-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <testDataPath>data/</testDataPath>
+    <rulePath>../db2-unmanaged.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="db2-unmanaged-0000-test">
+                <when>
+                    <not>
+                        <hint-exists message="IBM.Data.DB2 can require a special procedure so that the driver's native components are deployed with the application" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="db2-unmanaged-0000 hint not found." />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

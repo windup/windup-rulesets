@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ruletest id="msmq-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <testDataPath>data/</testDataPath>
+    <rulePath>../msmq.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="msmq-0000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Using System.Messaging" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="msmq-0000 hint not found." />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

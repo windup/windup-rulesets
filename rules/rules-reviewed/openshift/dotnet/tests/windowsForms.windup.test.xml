@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ruletest id="windowsForms-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <testDataPath>data/</testDataPath>
+    <rulePath>../windowsForms.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="windowsForms-0000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Windows Forms module is not supported. Refactor to a web application." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="windowsForms-0000 hint not found." />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<ruletest id="file-io-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <testDataPath>data/</testDataPath>
+    <rulePath>../file-io.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="file-io-0000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Relying on the local filesystem to store state is unreliable in a cloud platform" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="file-io-0000 hint not found." />
+                </perform>
+            </rule>
+            <rule id="file-io-01000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Direct construction of FileStream" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="file-io-01000 hint not found." />
+                </perform>
+            </rule>
+            <rule id="file-io-02000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Use of FileSystemWatcher" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="file-io-02000 hint not found." />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

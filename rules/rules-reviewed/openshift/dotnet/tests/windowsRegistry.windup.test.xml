@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ruletest id="windowsRegistry-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <testDataPath>data/</testDataPath>
+    <rulePath>../windowsRegistry.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="windowsRegistry-0000-test">
+                <when>
+                    <not>
+                        <hint-exists message="External configurations should be made available by environment variables or some other external service" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="windowsRegistry-0000 hint not found." />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

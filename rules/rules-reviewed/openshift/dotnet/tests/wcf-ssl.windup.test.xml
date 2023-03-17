@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ruletest id="wcf-ssl-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <testDataPath>data/</testDataPath>
+    <rulePath>../wcf-ssl.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="wcf-ssl-0000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Transport security at the container is not supported.  Disable transport security on the service." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="wcf-ssl-0000 hint not found." />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

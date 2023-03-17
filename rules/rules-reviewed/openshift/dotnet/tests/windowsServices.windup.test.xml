@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ruletest id="windowsServices-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <testDataPath>data/</testDataPath>
+    <rulePath>../windowsServices.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="windowsServices-0000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Don't rely on Windows Services as Cloud manages the lifecycle of your service. Convert any Windows service to a console application to run in Cloud." />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="windowsServices-0000 hint not found." />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

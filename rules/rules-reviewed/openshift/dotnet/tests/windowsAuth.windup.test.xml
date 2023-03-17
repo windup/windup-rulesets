@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<ruletest id="windowsAuth-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <testDataPath>data/</testDataPath>
+    <rulePath>../windowsAuth.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="windowsAuth-0000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Unsupported IIS module : Windows Auth" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="windowsAuth-0000 hint not found." />
+                </perform>
+            </rule>
+            <rule id="windowsAuth-0100-test">
+                <when>
+                    <not>
+                        <hint-exists message="Unsupported IIS module : Windows Auth : Enabled = True" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="windowsAuth-0000 hint not found." />
+                </perform>
+            </rule>
+            <rule id="windowsAuth-0200-test">
+                <when>
+                    <not>
+                        <hint-exists message="Unsupported IIS module : Windows Auth : ClientCredentialType = Windows" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="windowsAuth-0000 hint not found." />
+                </perform>
+            </rule>
+            <rule id="windowsAuth-0300-test">
+                <when>
+                    <not>
+                        <hint-exists message="Unsupported IIS module : Windows Auth : Mode = Windows" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="windowsAuth-0000 hint not found." />
+                </perform>
+            </rule>
+            <rule id="windowsAuth-0400-test">
+                <when>
+                    <not>
+                        <hint-exists message="Unsupported IIS module : Windows Auth : IntegratedSecurity = True" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="windowsAuth-0000 hint not found." />
+                </perform>
+            </rule>
+        </rules>
+                
+    </ruleset>
+</ruletest>

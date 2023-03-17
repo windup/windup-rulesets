@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<ruleset id="windowsAuth"
+    xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This is a ruleset for .net windowAuth topics when migrating an application to cloud environments.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-base" />
+        </dependencies>
+        <sourceTechnology id="dotnet"/>
+        <targetTechnology id="cloud-readiness"/>
+        <tag>wcf-ssl</tag>
+    </metadata>
+    <rules>
+	
+        <rule id="windowsAuth-00000">
+            <when>
+                <filecontent filename="{*}.{cs|vb}" pattern="{GetSection\(.system\.webServer\/security\/authentication\/windowsAuthentication.}"/>
+            </when>		
+            <perform>
+				<hint title="Unsupported IIS module : Windows Auth" effort="13" category-id="cloud-mandatory">
+					<message>Unsupported IIS module : Windows Auth</message>
+					<tag>windowsAuth</tag>
+				</hint>
+				<technology-tag level="INFORMATIONAL">.Net</technology-tag>
+            </perform>
+        </rule>
+		
+		<rule id="windowsAuth-01000">
+            <when>
+                <filecontent filename="{*}.config" pattern="{windowsAuthentication\s*+enabled\s*=\s*.(true|TRUE).}"/>
+            </when>
+            <perform>
+				<hint title="Unsupported IIS module : Windows Auth" effort="13" category-id="cloud-mandatory">
+					<message>Unsupported IIS module : Windows Auth : Enabled = True</message>
+					<tag>windowsAuth</tag>
+				</hint>
+				<technology-tag level="INFORMATIONAL">.Net</technology-tag>
+            </perform>
+        </rule>
+		
+		<rule id="windowsAuth-02000">
+            <when>
+                <filecontent filename="{*}.config" pattern="{clientCredentialType\s*=\s*.(windows|WINDOWS).}"/>
+            </when>
+            <perform>
+				<hint title="Unsupported IIS module : Windows Auth" effort="13" category-id="cloud-mandatory">
+					<message>Unsupported IIS module : Windows Auth : ClientCredentialType = Windows</message>
+					<tag>windowsAuth</tag>
+				</hint>
+				<technology-tag level="INFORMATIONAL">.Net</technology-tag>
+            </perform>
+        </rule>
+		
+		<rule id="windowsAuth-03000">
+            <when>
+                <filecontent filename="{*}.config" pattern="{mode\s*=\s*.(windows|WINDOWS).}"/>
+            </when>
+            <perform>
+				<hint title="Unsupported IIS module : Windows Auth" effort="13" category-id="cloud-mandatory">
+					<message>Unsupported IIS module : Windows Auth : Mode = Windows</message>
+					<tag>windowsAuth</tag>
+				</hint>
+				<technology-tag level="INFORMATIONAL">.Net</technology-tag>
+            </perform>
+        </rule>
+		
+		<rule id="windowsAuth-04000">
+            <when>
+                <filecontent filename="{*}.config" pattern="{IntegratedSecurity\s*=\s*true}"/>
+            </when>
+            <perform>
+				<hint title="Unsupported IIS module : Windows Auth" effort="13" category-id="cloud-mandatory">
+					<message>Unsupported IIS module : Windows Auth : IntegratedSecurity = True</message>
+					<tag>windowsAuth</tag>
+				</hint>
+				<technology-tag level="INFORMATIONAL">.Net</technology-tag>
+            </perform>
+        </rule>
+		
+    </rules>
+</ruleset>

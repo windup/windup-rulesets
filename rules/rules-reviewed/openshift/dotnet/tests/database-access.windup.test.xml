@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ruletest id="database-access-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <testDataPath>data/</testDataPath>
+    <rulePath>../database-access.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="database-access-0000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Connection strings should be externally managed" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="database-access-0000 hint not found." />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

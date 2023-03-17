@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ruletest id="request-filter-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <testDataPath>data/</testDataPath>
+    <rulePath>../request-filter.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="request-filter-0000-test">
+                <when>
+                    <not>
+                        <hint-exists message="Unsupported Module : Request Filter" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="request-filter-0000 hint not found." />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
