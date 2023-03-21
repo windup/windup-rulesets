@@ -443,16 +443,23 @@
         </rule>
         <rule id="hibernate6-00270">
             <when>
-                <javaclass references="org.hibernate.dialect.{class-name}"/>
+                <or>
+                    <filecontent pattern="hibernate.dialect" filename="{filename}"/>
+                    <filecontent pattern="quarkus.hibernate-orm.dialect" filename="{filename}"/>
+                </or>
             </when>
             <perform>
-                <hint title="Community dialects moved to a separate module" effort="1" category-id="mandatory">
-                    <message>As of Hibernate 6.0, some dialect classes that are maintained by vendors or individuals, as opposed to the Hibernate team. have moved to a separate Maven artifact: `org.hibernate.orm:hibernate-community-dialects`.</message>
+                <hint title="Community dialects moved to a separate module" effort="1" category-id="potential">
+                    <message>
+                        As of Hibernate 6.0, some dialect classes that are maintained by vendors or individuals, as opposed to the Hibernate team, have been moved to a separate Maven artifact: `org.hibernate.orm:hibernate-community-dialects`.
+
+                        Note that the new artifact is not included in the EAP 8 distribution and will have to be added manually.
+                    </message>
                     <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#community-dialects-moved-to-a-separate-module" title="Hibernate ORM 6 migration guide - Community dialects"/>
                 </hint>
             </perform>
-            <where param="class-name">
-                <matches pattern="(Cache71Dialect|CacheDialect|CacheSqlAstTranslator|CockroachLegacyDialect|CockroachLegacySqlAstTranslator|CommunityDatabase|CommunityDialectResolver|CommunityDialectSelector|CUBRIDDialect|CUBRIDSqlAstTranslator|DB2iLegacyDialect|DB2iLegacySqlAstTranslator|DB2LegacyDialect|DB2LegacySqlAstTranslator|DB2zLegacyDialect|DB2zLegacySqlAstTranslator|DerbyLegacyDialect|DerbyLegacySqlAstTranslator|FirebirdDialect|FirebirdSqlAstTranslator|H2LegacyDialect|H2LegacySqlAstTranslator|HSQLLegacyDialect|HSQLLegacySqlAstTranslator|Informix10Dialect|InformixDialect|InformixSqlAstTranslator|InformixSqmToSqlAstConverter|Ingres10Dialect|Ingres9Dialect|IngresDialect|IngresSqlAstTranslator|IngresSqmToSqlAstConverter|MariaDBLegacyDialect|MariaDBLegacySqlAstTranslator|MaxDBDialect|MaxDBSqlAstTranslator|MimerSQLDialect|MimerSQLSqlAstTranslator|MySQLLegacyDialect|MySQLLegacySqlAstTranslator|OracleLegacyDialect|OracleLegacySqlAstTranslator|PostgresPlusLegacyDialect|PostgreSQLLegacyDialect|PostgreSQLLegacySqlAstTranslator|RDMSOS2200Dialect|RDMSOS2200SqlAstTranslator|SAPDBDialect|SQLiteDialect|SQLiteSqlAstTranslator|SQLServerLegacyDialect|SQLServerLegacySqlAstTranslator|SybaseAnywhereDialect|SybaseAnywhereSqlAstTranslator|SybaseASELegacyDialect|SybaseASELegacySqlAstTranslator|SybaseLegacyDialect|SybaseLegacySqlAstTranslator|SybaseLegacySqmToSqlAstConverter|Teradata14Dialect|TeradataDialect|TeradataSqlAstTranslator|TimesTenDialect|TimesTenSqlAstTranslator)"/>
+            <where param="filename">
+                <matches pattern="(hibernate.properties|persistence.xml|cfg.xml|application.properties|application.yaml)"/>
             </where>
         </rule>
     </rules>
