@@ -390,6 +390,19 @@
               </perform>
           </rule>
 
+          <rule id="hibernate6-tests-00270">
+              <when>
+                  <not>
+                      <iterable-filter size="2">
+                          <hint-exists message="As of Hibernate 6.0, some dialect classes that are maintained by vendors or individuals, as opp*"/>
+                      </iterable-filter>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00270] Hint not found!"/>
+              </perform>
+          </rule>
+
 
       </rules>
    </ruleset>
