@@ -126,6 +126,7 @@ public class WindupRulesMultipleTests {
             @AddonDependency(name = "org.jboss.windup.rules.apps:windup-rules-java-project"),
             @AddonDependency(name = "org.jboss.windup.rules.apps:windup-rules-xml"),
             @AddonDependency(name = "org.jboss.windup.reporting:windup-reporting"),
+            @AddonDependency(name = "org.jboss.windup.reporting:windup-reporting-data"),
             @AddonDependency(name = "org.jboss.windup.utils:windup-utils"),
             @AddonDependency(name = "org.jboss.forge.furnace.container:cdi")
     })
