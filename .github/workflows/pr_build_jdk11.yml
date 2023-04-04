@@ -69,6 +69,11 @@ jobs:
         run: mvn -B clean install -DskipTests
       - name: Test
         run: mvn -B test -f rules/ -DrunTestsMatching=${{ matrix.tests-pattern }} -Dtest=WindupRulesTest
+      - name: Upload logs
+        uses: actions/checkout@v3
+        with:
+            name: windup-java${{ matrix.java-version }}.log
+            path: $HOME/.windup/log/windup.log
 
   WindupRulesLinksTest:
     runs-on: ubuntu-latest
