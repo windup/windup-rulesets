@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="xml-320-changes"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            Rules for changes between Camel 3.19 and Camel 3.20
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="camel" versionRange="[3.0,3.20)"/>
+        <targetTechnology id="camel" versionRange="[3.20,)" />
+    </metadata>
+    <rules>
+        <rule id="xml-changed-camel320-00001">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-bom" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-bom` no longer includes dependencies with type test-jar" effort="1" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-bom` no longer includes dependencies with a type of test-jar, and the entries to several maven plugins have changed to include the correct groupId of org.apache.camel.maven</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_20.html#_camel_bom" title="Camel 3 - Migration Guide: Renamed components" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-changed-camel320-00002">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-debezium-maven-plugin" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`camel-debezium-maven-plugin` has a new groupId of org.apache.camel.maven" effort="1" category-id="mandatory" >
+                    <message>`camel-debezium-maven-plugin` has a new groupId of org.apache.camel.maven</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_20.html#_camel_bom" title="Camel 3 - Migration Guide: Renamed components" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-changed-camel320-00003">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-salesforce-maven-plugin" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`camel-salesforce-maven-plugin` has a new groupId of org.apache.camel.maven" effort="1" category-id="mandatory" >
+                    <message>`camel-salesforce-maven-plugin` has a new groupId of org.apache.camel.maven</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_20.html#_camel_bom" title="Camel 3 - Migration Guide: Renamed components" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-changed-camel320-00004">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-servicenow-maven-plugin" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`camel-servicenow-maven-plugin` has a new groupId of org.apache.camel.maven" effort="1" category-id="mandatory" >
+                    <message>`camel-servicenow-maven-plugin` has a new groupId of org.apache.camel.maven</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_20.html#_camel_bom" title="Camel 3 - Migration Guide: Renamed components" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-changed-camel320-00005">
+            <when>
+                <javaclass references="CamelGooglePubsub."/>
+            </when>
+            <perform>
+                <iteration over="javaClass">
+                    <hint title="The Camel Google Pubsub headers have been renamed, since dotted keys are not allowed." effort="7" category-id="mandatory" >
+                        <message>The Camel Google Pubsub headers have been renamed, since dotted keys are not allowed.</message>
+                        <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_20.html#_camel_google_pubsub" title="Camel 3 - Migration Guide: Renamed components" />
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+   </rules>
+</ruleset>
+

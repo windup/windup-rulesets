@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="xml-319-changes"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            Rules for changes between Camel 3.18 and Camel 3.19
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="camel" versionRange="[3.0,3.19)"/>
+        <targetTechnology id="camel" versionRange="[3.19,)" />
+    </metadata>
+    <rules>
+
+        <rule id="xml-removed-camel319-00001">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-ftp" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-ftp` default TLS protocol is changed from TLSv1.2 to TLSv1.3." effort="3" category-id="optional" >
+                    <message>`org.apache.camel:camel-ftp` default TLS protocol is changed from TLSv1.2 to TLSv1.3.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_19.html#_camel_ftp" title="Camel 3 - Migration Guide: Changed components" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-removed-camel319-00002">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-kafka" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`camel-kafka` default TLS protocol is TLSv1.2,TLSv1.3" effort="3" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-kafka` - tthe default TLS protocol in Kafka Clients running on JDK11+ is TLSv1.2,TLSv1.3 (prefer v1.3 but can fall back to v1.2). in Camel 3.19.0.  </message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_19.html#_camel_kafka" title="Camel 3 - Migration Guide: Changed components" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-removed-camel319-00003">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-netty" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`camel-netty` default TLS protocol is TLSv1.2,TLSv1.3" effort="3" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-netty` - the default TLS protocol is changed from TLSv1,TLSv1.1,TLSv1.2 to TLSv1.2,TLSv1.3 in Camel 3.19.0.  </message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_19.html#_camel_netty_camel_netty_http" title="Camel 3 - Migration Guide: Changed components" />
+                </hint>
+            </perform>
+        </rule>
+         <rule id="xml-removed-camel319-00004">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-netty-http" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`camel-netty-http` default TLS protocol is TLSv1.2,TLSv1.3" effort="3" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-netty-http` - the default TLS protocol is changed from TLSv1,TLSv1.1,TLSv1.2 to TLSv1.2,TLSv1.3 in Camel 3.19.0.  </message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_19.html#_camel_netty_camel_netty_http" title="Camel 3 - Migration Guide: Changed components" />
+                </hint>
+            </perform>
+        </rule>
+ 
+ 
+        <rule id="xml-removed-camel319-00005">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-ahc" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`camel-ahc` component has been removed" effort="7" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-ahc` component has been removed in Camel 3.19.0.  </message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_19.html#_deprecated_components" title="Camel 3 - Migration Guide: Removed components" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-removed-camel319-00006">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-ahc-ws" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`camel-ahc-ws` component has been removed" effort="7" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-ahc-ws` component has been removed in Camel 3.19.0.  </message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_19.html#_deprecated_components" title="Camel 3 - Migration Guide: Removed components" />
+                </hint>
+            </perform>
+        </rule>
+
+   </rules>
+</ruleset>
+

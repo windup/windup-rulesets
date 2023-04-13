@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="xml-316-changes"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            Rules for changes between Camel 3.15 and Camel 3.16
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="camel" versionRange="[3.0,3.16)"/>
+        <targetTechnology id="camel" versionRange="[3.16,)" />
+    </metadata>
+    <rules>
+        <rule id="xml-removed-camel316-00001">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-testcontainers-spring" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-testcontainers-spring` component has been replaced with camel-test-infra" effort="5" category-id="mandatory" >
+                    <message>`camel-testcontainers-spring` component has been replaced with camel-test-infra.  </message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_16.html#_camel_testcontainers_spring" title="Camel 3 - Migration Guide: Removed components" />
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="xml-removed-camel316-00002">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-testcontainers-spring-junit5" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-testcontainers-spring-junit5` component has been retired" effort="5" category-id="mandatory" >
+                    <message>`camel-testcontainers-spring-junit5` component has been replaced with camel-test-infra.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_16.html#_camel_testcontainers_spring" title="Camel 3 - Migration Guide: Removed components" />
+                </hint>
+            </perform>
+        </rule>
+
+   </rules>
+</ruleset>
+

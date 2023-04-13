@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="xml-318-changes"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            Rules for changes between Camel 3.17 and Camel 3.18
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="camel" versionRange="[3.0,3.18)"/>
+        <targetTechnology id="camel" versionRange="[3.18,)" />
+    </metadata>
+    <rules>
+        <rule id="xml-removed-camel318-00001">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-milo" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`org.apache.camel:camel-milo` component has been removed" effort="7" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-milo` component has been removed in Camel 3.18.0.  </message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_18.html#_camel_karaf" title="Camel 3 - Migration Guide: Removed components" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-removed-camel318-00002">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-cxf" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`camel-cxf` component has been split up" effort="7" category-id="mandatory" >
+                    <message>The camel-cxf JAR has been split up into SOAP vs REST and Spring and non Spring JARs in Camel 3.18.0.  Please see the Camel 3.18 upgrade guide for details on which artifacts to migrate camel-cxf to.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_18.html#_camel_cxf" title="Camel 3 - Migration Guide: Removed components" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-removed-camel318-00003">
+            <when>
+                <project>
+                    <artifact groupId="org.apache.camel" artifactId="camel-cxf-starter" />
+                </project>
+            </when>
+            <perform>
+                <hint title="`camel-cxf-starter` component has been split up" effort="5" category-id="mandatory" >
+                    <message>The camel-cxf-starter has been split up into SOAP vs REST (camel-cxf-soap-starter and camel-cxf-rest-starter) in Camel 3.18.0.  Please see the Camel 3.18 upgrade guide for details on which artifacts to migrate camel-cxf-starter to.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_18.html#_camel_cxf" title="Camel 3 - Migration Guide: Removed components" />
+                </hint>
+            </perform>
+        </rule>
+   </rules>
+</ruleset>
+
