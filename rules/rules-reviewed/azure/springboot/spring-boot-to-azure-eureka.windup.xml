@@ -11,6 +11,7 @@
             <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final"/>
         </dependencies>
         <sourceTechnology id="springboot"/>
+        <targetTechnology id="azure-spring-apps"/>
         <targetTechnology id="azure-aks"/>
         <targetTechnology id="azure-appservice"/>
         <targetTechnology id="azure-container-apps"/>
@@ -37,15 +38,17 @@
                         <![CDATA[
                         The application uses Eureka.
 
-                        Make sure you configure Eureka with the following properties:
+                        If a setting like this appears in your application configuration, remove it. Azure Spring Apps will automatically inject the connection information of its configuration server
 
                         ```
-                        eureka.instance.prefer-ip-address=true
-                        eureka.instance.hostname=register-service    # no localhost
+                        eureka:
+                          client:
+                            serviceUrl:
+                              defaultZone: http://myusername:mysecretpassword@localhost:8761/eureka/
                         ```
                         ]]>
                     </message>
-                    <link title="Distributed Tracing" href="https://docs.microsoft.com/azure/azure-monitor/app/distributed-tracing"/>
+                    <link title="Distributed Tracing" href="https://learn.microsoft.com/azure/developer/java/migration/migrate-spring-cloud-to-azure-spring-apps?pivots=sc-standard-tier#remove-explicit-configuration-server-settings"/>
                 </hint>
             </perform>
         </rule>

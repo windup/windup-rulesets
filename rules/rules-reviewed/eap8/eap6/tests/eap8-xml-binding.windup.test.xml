@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<ruletest id="eap8-xml-binding-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/xml-binding/</testDataPath>
+    <rulePath>../eap8-xml-binding.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="eap8-xml-binding-00001-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="Implementation class packages must be updated"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[eap8-xml-binding-00001] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="eap8-xml-binding-00002-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Marshaller property package names must be updated"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[eap8-xml-binding-00002] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="eap8-xml-binding-00003-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The URI in JAXB binding files should be updated"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[eap8-xml-binding-00003] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="eap8-xml-binding-00004-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="Deprecated steps in the implementation lookup algorithm have been removed"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[eap8-xml-binding-00004] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="eap8-xml-binding-00005-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="Searches for implementation class names"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[eap8-xml-binding-00005] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="eap8-xml-binding-00006-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="Usage of this Validator interface or retrieval method should be removed"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[eap8-xml-binding-00006] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="eap8-xml-binding-00007-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Implementation or use by the application of the `javax.xml.bind.Marshaller` `setAdapter\(\)` method may need to be updated*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[eap8-xml-binding-00007] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="eap8-xml-binding-00008-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Pom dependency to outdated xml binding version must be updated to Jakarta XML Binding 4.0 for EAP8."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[eap8-xml-binding-00008] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="eap8-xml-binding-00009-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Implementation or use by the application of the `javax.xml.bind.Marshaller` `getAdapter\(\)` method may need to be updated*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[eap8-xml-binding-00008] The hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

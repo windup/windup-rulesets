@@ -69,6 +69,12 @@
             <classifier>forge-addon</classifier>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.jboss.windup.reporting</groupId>
+            <artifactId>windup-reporting-data</artifactId>
+            <classifier>forge-addon</classifier>
+            <scope>provided</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.jboss.forge.furnace.container</groupId>
@@ -228,6 +234,23 @@
                         <directory>labels/mtr</directory>
                     </resource>
                 </resources>
+            </build>
+        </profile>
+        <profile>
+            <id>surefire-jdk17</id>
+            <activation>
+              <jdk>17</jdk>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <argLine>@{arguments} --add-opens java.base/java.lang=ALL-UNNAMED</argLine>
+                        </configuration>
+                    </plugin>
+                </plugins>
             </build>
         </profile>
     </profiles>

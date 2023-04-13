@@ -1,0 +1,409 @@
+<?xml version="1.0"?>
+<ruletest id="hibernate6-tests" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+   <testDataPath>data/hibernate6</testDataPath>
+   <rulePath>../</rulePath>
+   <ruleset>
+      <rules>
+          <rule id="hibernate6-tests-00005">
+              <when>
+                  <not>
+                      <hint-exists message="The way in which Hibernate determines implicit names for sequences and tables associated with identifier generation has changed in 6.0 which may affect migrating applications*"/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00005] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate6-tests-00010">
+              <when>
+                  <not>
+                      <hint-exists message="As part of the Hibernate ORM 6.0 release, mapping annotations have been modernised and made more type-safe. These annotations must be removed. See the User Guide for details about mapping your domain model."/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00010] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate6-tests-00020">
+              <when>
+                  <not>
+                      <hint-exists message="As part of the Hibernate ORM 6.0 release, mapping annotations have been modernised and made more type-safe. Annotation attributes accepting types as String have been removed. See the User Guide for details about mapping your domain model."/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00020] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate6-tests-00030">
+              <when>
+                  <not>
+                      <hint-exists message="Basic mappings are no longer configurable through the BasicType contract. Instead, users configure the different aspects of mapping the basic value to the database. See migration guide for more details."/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00030] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate6-tests-00040">
+              <when>
+                  <not>
+                      <hint-exists message="The `StandardBasicTypes` class previously exposed `BasicType` instance fields, which now have been replaced with fields of the type `BasicTypeReference`."/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00040] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate6-tests-00050">
+              <when>
+                  <not>
+                      <hint-exists message="The interface `org.hibernate.type.descriptor.java.JavaTypeDescriptor` must be renamed to `org.hibernate.type.descriptor.java.JavaType`."/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00050] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate6-tests-00060">
+              <when>
+                  <not>
+                      <hint-exists message="The interface `org.hibernate.type.descriptor.sql.SqlTypeDescriptor` has been renamed to `org.hibernate.type.descriptor.jdbc.JdbcType`."/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00060] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate6-tests-00070">
+              <when>
+                  <not>
+                      <hint-exists message="The CompositeUserType interface was re-implemented to be able to model user types as proper embeddable types. See the migration guide for more information."/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00070] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate6-tests-00080">
+              <when>
+                  <not>
+                      <hint-exists message="The configuration property `hibernate.hql.bulk_id_strategy` was changed to `hibernate.query.mutation_strategy` which now refers to classes or objects implementing `org.hibernate.query.sqm.mutation.spi.SqmMultiTableMutationStrategy`."/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00080] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate6-tests-00090">
+              <when>
+                  <not>
+                      <hint-exists message="`jakarta.persistence.Query#getResultStream\(\)` and `org.hibernate.query.Query#stream\(\)` no longer return a Stream decorator. In order to close the underlying IO resources, it is now necessary to explicitly call the `Stream#close\(\)` method."/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00090] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate6-tests-00100">
+              <when>
+                  <not>
+                      <hint-exists message="The signature of the `Interceptor#onSave` method has been changed to account for the general change in expected identifier type from `Serializable` to `Object`. See migration guide for more information."/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00100] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate6-tests-00110">
+              <when>
+                  <not>
+                      <hint-exists message="The contents of the `loader.collection` package were restructured into `loader.ast.spi` and `loader.ast.internal` as well as adapted to the SQM API."/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00110] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate6-tests-00120">
+              <when>
+                  <not>
+                      <hint-exists message="The contents of the `loader.custom` package were adapted and moved to `query.sql`."/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00120] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate6-tests-00130">
+              <when>
+                  <not>
+                      <hint-exists message="The contents of `loader.entity` and `loader.plan` were removed"/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00130] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate6-tests-00140">
+              <when>
+                  <not>
+                      <hint-exists message="The contents of `sql.ordering` were adapted and moved to `metamodel.mapping.ordering.ast`."/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00140] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate6-tests-00150">
+              <when>
+                  <not>
+                      <hint-exists message="Classes of the sql package that were previously used for building SQL, but aren’t needed anymore, were removed. The SQL generation is now fully handled through the `SqlAstTranslator` which a `Dialect` exposes a factory for."/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00150] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate6-tests-00160">
+              <when>
+                  <not>
+                      <hint-exists message="In Hibernate 6.0 the support for basic property mappings with multiple columns was removed. The only use case for that was when a `CompositeUserType` was in use, which was reworked to now work on top of components."/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00160] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate6-tests-00170">
+              <when>
+                  <not>
+                      <hint-exists message="The legacy Hibernate Criteria API which was deprecated back in Hibernate 5.x and removed in 6.0. Usually, all queries using the legacy API can be modeled with the JPA Criteria API. In some cases it is necessary to use the Hibernate JPA Criteria extensions."/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00170] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate6-tests-00180">
+              <when>
+                  <not>
+                      <hint-exists message="The Query#iterate\(\) method has been removed. See link for alternatives."/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00180] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate6-tests-00190">
+              <when>
+                  <not>
+                      <iterable-filter size="2">
+                          <hint-exists message="Using `NativeQuery` to call SQL functions and procedures is no longer supported. `org.hibernate.procedure.ProcedureCall` or `jakarta.persistence.StoredProcedureQuery` should be used instead. `@NamedNativeQuery` references defining execution of procedure or functions should be migrated to use `@NamedStoredProcedureQuery` instead."/>
+                      </iterable-filter>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00190] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate6-tests-00200">
+              <when>
+                  <not>
+                      <hint-exists message="The fetch all properties clause was removed from the HQL language without a replacement. See link for replacement info."/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00200] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate6-tests-00210">
+              <when>
+                  <not>
+                      <hint-exists message="Hibernate no longer provides built-in support for integrating itself with JMX environments."/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00210] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate6-tests-00220">
+              <when>
+                  <not>
+                      <hint-exists message="Hibernate no longer provides built-in support for integrating itself with JACC environments."/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00220] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate6-tests-00230">
+              <when>
+                  <not>
+                      <hint-exists message="These properties are deprecated: use `hibernate.classLoaders` instead."/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00230] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate6-tests-00240">
+              <when>
+                  <not>
+                      <hint-exists message="This property has been removed: use `jakarta.persistence.create-database-schemas` or `hibernate.hbm2ddl.create_namespaces` instead"/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00240] Hint not found!"/>
+              </perform>
+          </rule>
+
+          <rule id="hibernate6-tests-00250">
+              <when>
+                  <not>
+                      <hint-exists message="This property has been removed: please use `hibernate.jpa.metamodel.population` instead"/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00250] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate6-tests-00251">
+              <when>
+                  <not>
+                      <hint-exists message="This property has been removed: please use `hibernate.cfg_xml_file` instead"/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00251] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate6-tests-00252">
+              <when>
+                  <not>
+                      <hint-exists message="This property has been removed: please use `hibernate.orm_xml_files` instead"/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00252] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate6-tests-00253">
+              <when>
+                  <not>
+                      <hint-exists message="This property has been removed: please use `hibernate.hbm_xml_files` instead"/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00253] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate6-tests-00254">
+              <when>
+                  <not>
+                      <hint-exists message="This property has been removed: please use `hibernate.loaded_classes` instead"/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00254] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate6-tests-00255">
+              <when>
+                  <not>
+                      <hint-exists message="This property has been removed: please use `hibernate.persistenceUnitName` instead"/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00255] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate6-tests-00256">
+              <when>
+                  <not>
+                      <hint-exists message="This property has been removed: please use `hibernate.discard_pc_on_close` instead"/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00256] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate6-tests-00257">
+              <when>
+                  <not>
+                      <hint-exists message="This property has been removed: please use `hibernate.session_factory_name` instead"/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00257] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate6-tests-00258">
+              <when>
+                  <not>
+                      <hint-exists message="This property has been removed: please use `hibernate.session_factory_observer` instead"/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00258] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate6-tests-00259">
+              <when>
+                  <not>
+                      <hint-exists message="This property has been removed: please use `hibernate.identifier_generator_strategy_provider` instead"/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00259] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate6-tests-00260">
+              <when>
+                  <not>
+                      <hint-exists message="This property has been removed: please use `hibernate.classcache` instead"/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00260] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate6-tests-00261">
+              <when>
+                  <not>
+                      <hint-exists message="This property has been removed: please use `hibernate.collectioncache` instead"/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00261] Hint not found!"/>
+              </perform>
+          </rule>
+          <rule id="hibernate6-tests-00262">
+              <when>
+                  <not>
+                      <hint-exists message="This property has been removed: please use `hibernate.event` instead"/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00262] Hint not found!"/>
+              </perform>
+          </rule>
+
+          <rule id="hibernate6-tests-00270">
+              <when>
+                  <not>
+                      <iterable-filter size="2">
+                          <hint-exists message="As of Hibernate 6.0, some dialect classes that are maintained by vendors or individuals, as opp*"/>
+                      </iterable-filter>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00270] Hint not found!"/>
+              </perform>
+          </rule>
+
+
+      </rules>
+   </ruleset>
+</ruletest>

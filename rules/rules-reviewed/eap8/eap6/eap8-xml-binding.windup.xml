@@ -1,0 +1,205 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="eap8-xml-binding"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of XML Binding for migration to JBoss EAP 8.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="eap" versionRange="[6,8)" />
+        <targetTechnology id="eap" versionRange="[8,)" />
+        <tag>eap8</tag>
+    </metadata>
+    <rules>
+        <rule id="eap8-xml-binding-00001">
+            <when>
+                <or>
+                    <javaclass references="com.sun.xml.bind.api.{*}">
+                    </javaclass>
+                    <javaclass references="com.sun.xml.bind.v2.{*}">
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="Implementation class packages must be updated" effort="1" category-id="mandatory">
+                    <message>Implementation class packages must be updated to Jakarta XML Binding 4.0 for EAP8.
+                        Update package paths  from `com.sun.xml.bind.*` to `org.glassfish.jaxb.runtime.*`</message>
+                    <link title="Jakarta XML Binding 4.0 specification"
+                          href="https://jakarta.ee/specifications/xml-binding/4.0/jakarta-xml-binding-spec-4.0.html"/>
+                    <link title="JBoss EAP Application Migration from Jakarta EE 8 to EE 10: Jakarta XML Binding"
+                          href="https://access.redhat.com/articles/6980265#jaxb"/>
+                    <tag>eap8</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="eap8-xml-binding-00002">
+            <when>
+                <javaclass references="javax.xml.bind.Marshaller.setProperty({*})" as="setPropertiesMethodCalls">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <iteration over="setPropertiesMethodCalls">
+                <when>
+                    <filecontent pattern="com.sun.xml.bind"/>
+                </when>
+                <perform>
+                    <hint title="Marshaller property package names must be updated" effort="1" category-id="mandatory">
+                        <message>Marshaller property package names must be updated to Jakarta XML Binding 4.0 for EAP8.
+                            Change the property constant name from `com.sun.xml.bind.*` to `org.glassfish.jaxb`</message>
+                        <link title="Jakarta XML Binding 4.0 specification"
+                              href="https://jakarta.ee/specifications/xml-binding/4.0/jakarta-xml-binding-spec-4.0.html"/>
+                        <link title="JBoss EAP Application Migration from Jakarta EE 8 to EE 10: Jakarta XML Binding"
+                              href="https://access.redhat.com/articles/6980265#jaxb"/>
+                        <tag>eap8</tag>
+                    </hint>
+                </perform>
+                </iteration>
+            </perform>
+        </rule>
+        <rule id="eap8-xml-binding-00003">
+            <when>
+                <filecontent filename="{*}.xjb" pattern="http://java.sun.com/xml/ns/jaxb" />
+            </when>
+            <perform>
+                <hint title="The URI in the JAXB binding file should be updated" effort="1" category-id="mandatory">
+                    <message>The URI in JAXB binding files should be updated to Jakarta XML Binding 4.0 for EAP8.
+                        The uri must change from `http://java.sun.com/xml/ns/jaxb` to `https://jakarta.ee/xml/ns/jaxb`</message>
+                    <link title="Jakarta XML Binding 4.0 specification"
+                          href="https://jakarta.ee/specifications/xml-binding/4.0/jakarta-xml-binding-spec-4.0.html"/>
+                    <link title="JBoss EAP Application Migration from Jakarta EE 8 to EE 10: Jakarta XML Binding"
+                          href="https://access.redhat.com/articles/6980265#jaxb"/>
+                    <tag>eap8</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="eap8-xml-binding-00004">
+            <when>
+                <or>
+                    <file filename="jaxb.properties"/>
+                    <file filename="javax.xml.bind.JAXBContext"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Deprecated steps in the implementation lookup algorithm have been removed" effort="1" category-id="mandatory">
+                    <message>Deprecated steps in the implementation lookup algorithm have been removed in Jakarta XML Binding 4.0 for EAP8.
+                        Use of the removed JAXBContext implementation discovery mechanisms should be replaced by one of the supported mechanisms discussed in the links.</message>
+                    <link title="Jakarta XML Binding 4.0 specification"
+                          href="https://jakarta.ee/specifications/xml-binding/4.0/"/>
+                    <link title="Implementation discovery in Jakarta XML Binding 4.0"
+                          href="https://jakarta.ee/specifications/xml-binding/4.0/jakarta-xml-binding-spec-4.0.html#implementation-discovery"/>
+                    <link title="JBoss EAP Application Migration from Jakarta EE 8 to EE 10: Jakarta XML Binding"
+                          href="https://access.redhat.com/articles/6980265#jaxb"/>
+                    <tag>eap8</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="eap8-xml-binding-00005">
+            <when>
+                <javaclass references="javax.xml.bind.JAXBContext.newInstance({*})" as="instanceMethods">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+                
+            </when>
+            <perform>
+                <iteration over="instanceMethods">
+                    <when>
+                        <filecontent pattern="{mapClassname}" />
+                    </when>
+                <perform>
+                    <hint title="Searches for implementation class names via properties have been dropped" effort="1" category-id="mandatory">
+                        <message>Searches for implementation class names through `javax.xml.bind.context.factory` and `javax.xml.bind.JAXBContext` properties have been dropped in Jakarta XML Binding 4.0 for EAP8.
+                            Use of the removed JAXBContext implementation discovery mechanisms should be replaced by one of the supported mechanisms discussed in the links.</message>
+                        <link title="Jakarta XML Binding 4.0 specification"
+                              href="https://jakarta.ee/specifications/xml-binding/4.0/"/>
+                        <link title="Implementation discovery in Jakarta XML Binding 4.0"
+                              href="https://jakarta.ee/specifications/xml-binding/4.0/jakarta-xml-binding-spec-4.0.html#implementation-discovery"/>
+                        <link title="JBoss EAP Application Migration from Jakarta EE 8 to EE 10: Jakarta XML Binding"
+                              href="https://access.redhat.com/articles/6980265#jaxb"/>
+                        <tag>eap8</tag>
+                    </hint>
+                </perform>
+                </iteration>
+            </perform>
+            <where param="mapClassname">
+                <matches pattern="javax.xml.bind.context.factory|javax.xml.bind.JAXBContext" />
+            </where>
+        </rule>
+        <rule id="eap8-xml-binding-00006">
+            <when>
+                <or>
+                <javaclass references="javax.xml.bind.Validator">
+                </javaclass>
+                <javaclass references="javax.xml.bind.JAXBContext.createValidator()">
+                     <location>METHOD_CALL</location>
+                </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="Usage of this Validator interface or retrieval method should be removed" effort="1" category-id="mandatory">
+                    <message>Usage of this Validator interface or retrieval method should be removed.
+                        Passing a schema to `jakarta.xml.bind.Marshaller.setSchema(Schema)` or  `jakarta.xml.bind.UnMarshaller.setSchema(Schema)` is the replacement.</message>
+                    <link title="Jakarta XML Binding 4.0 specification"
+                          href="https://jakarta.ee/specifications/xml-binding/4.0/jakarta-xml-binding-spec-4.0.html"/>
+                    <link title="JBoss EAP Application Migration from Jakarta EE 8 to EE 10: Jakarta XML Binding"
+                          href="https://access.redhat.com/articles/6980265#jaxb"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="eap8-xml-binding-00007">
+            <when>
+                <or>
+                    <javaclass references="javax.xml.bind.Marshaller.setAdapter({*})"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Implementation or use by the application of the javax.xml.bind.Marshaller setAdapter() method may need to be updated" effort="1" category-id="potential">
+                    <message>Implementation or use by the application of the `javax.xml.bind.Marshaller` `setAdapter()` method may need to be updated
+                        to conform to the more fully specified generic type signatures in Jakarta Xml Binding 4.0.</message>
+                    <link title="Jakarta XML Binding 4.0 specification"
+                          href="https://jakarta.ee/specifications/xml-binding/4.0/jakarta-xml-binding-spec-4.0.html"/>
+                    <link title="JBoss EAP Application Migration from Jakarta EE 8 to EE 10: Jakarta XML Binding"
+                          href="https://access.redhat.com/articles/6980265#jaxb"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="eap8-xml-binding-00008">
+            <when>
+                <project>
+                    <artifact groupId="org.glassfish.jaxb" artifactId="jaxb{*}" toVersion="4.0.1"/>
+                </project>
+            </when>
+            <perform>
+                <hint title="Outdated JAXB dependency" effort="1" category-id="mandatory">
+                    <message>Pom dependency to outdated xml binding version must be updated to Jakarta XML Binding 4.0 for EAP8.</message>
+                    <link title="Jakarta XML Binding 4.0 specification"
+                          href="https://jakarta.ee/specifications/xml-binding/4.0/jakarta-xml-binding-spec-4.0.html"/>
+                    <link title="JBoss EAP Application Migration from Jakarta EE 8 to EE 10: Jakarta XML Binding"
+                          href="https://access.redhat.com/articles/6980265#jaxb"/>
+                    <tag>eap8</tag>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="eap8-xml-binding-00009">
+            <when>
+                <or>
+                    <javaclass references="javax.xml.bind.Marshaller.getAdapter({*})"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Implementation or use by the application of the javax.xml.bind.Marshaller `getAdapter() method may need to be updated" effort="1" category-id="potential">
+                    <message>Implementation or use by the application of the `javax.xml.bind.Marshaller` `getAdapter()` method may need to be updated
+                        to conform to the more fully specified generic type signatures in Jakarta Xml Binding 4.0.</message>
+                    <link title="Jakarta XML Binding 4.0 specification"
+                          href="https://jakarta.ee/specifications/xml-binding/4.0/jakarta-xml-binding-spec-4.0.html"/>
+                    <link title="JBoss EAP Application Migration from Jakarta EE 8 to EE 10: Jakarta XML Binding"
+                          href="https://access.redhat.com/articles/6980265#jaxb"/>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

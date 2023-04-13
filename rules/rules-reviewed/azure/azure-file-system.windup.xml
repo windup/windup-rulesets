@@ -13,6 +13,7 @@
         </dependencies>
         <sourceTechnology id="eap" versionRange="[7,8)" />
         <sourceTechnology id="springboot"/>
+        <targetTechnology id="azure-spring-apps"/>
         <targetTechnology id="azure-appservice"/>
         <targetTechnology id="azure-aks"/>
         <targetTechnology id="azure-container-apps"/>
@@ -22,7 +23,7 @@
         <rule id="azure-file-system-01000">
             <when>
                 <or>
-                    <javaclass references="java.io.{*}"/>
+                    <javaclass references="java.io.{ioclasses}"/>
                     <javaclass references="java.nio.{*}"/>
                     <javaclass references="org.apache.commons.io.{*}"/>
                 </or>
@@ -36,10 +37,13 @@
                         Any usage of the file system on the application will require reconfiguration or, in rare cases, architectural changes.
                         ]]>
                     </message>
-                    <link title="Java APIs found in the application to read/write from the file system" href="https://docs.microsoft.com/azure/developer/java/migration/migrate-spring-boot-to-app-service#determine-whether-and-how-the-file-system-is-used"/>
+                    <link title="Java APIs found in the application to read/write from the file system" href="https://learn.microsoft.com/azure/developer/java/migration/migrate-spring-cloud-to-azure-spring-apps?pivots=sc-standard-tier#determine-whether-and-how-the-file-system-is-used"/>
                     <link title="Azure Spring Boot Starter for Azure Storage" href="https://search.maven.org/artifact/com.azure.spring/azure-spring-boot-starter-storage"/>
                 </hint>
             </perform>
+            <where param="ioclasses">
+                <matches pattern="(File|FileWriter|FileReader|FileInputStream|FileOutputStream)"/>
+            </where>
         </rule>
         <rule id="azure-file-system-02000">
             <when>
@@ -54,7 +58,7 @@
                         Any usage of the file system on the application will require reconfiguration or, in rare cases, architectural changes.
                         ]]>
                     </message>
-                    <link title="Relative path found in the application" href="https://docs.microsoft.com/azure/developer/java/migration/migrate-spring-boot-to-app-service#determine-whether-and-how-the-file-system-is-used"/>
+                    <link title="Relative path found in the application" href="https://learn.microsoft.com/azure/developer/java/migration/migrate-spring-cloud-to-azure-spring-apps?pivots=sc-standard-tier#determine-whether-and-how-the-file-system-is-used"/>
                 </hint>
             </perform>
             <where param="extensions">
@@ -77,7 +81,7 @@
                         Any usage of the file system on the application will require reconfiguration or, in rare cases, architectural changes.
                         ]]>
                     </message>
-                    <link title="Home path found in the application" href="https://docs.microsoft.com/azure/developer/java/migration/migrate-spring-boot-to-app-service#determine-whether-and-how-the-file-system-is-used"/>
+                    <link title="Home path found in the application" href="https://learn.microsoft.com/azure/developer/java/migration/migrate-spring-cloud-to-azure-spring-apps?pivots=sc-standard-tier#determine-whether-and-how-the-file-system-is-used"/>
                 </hint>
             </perform>
             <where param="extensions">
