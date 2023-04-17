@@ -4,7 +4,7 @@ import org.apache.camel.component.kafka.KafkaConfiguration;
 /**
  * A Camel Java DSL Router
  */
-public class MyRouteBuilder extends RouteBuilder {
+public class MyRouteBuilder2 extends RouteBuilder {
 
     public void configure() {
 
