@@ -30,9 +30,10 @@
         <rule id="3rd-party-spring-03002">
             <when>
                 <or>
-                    <javaclass references="org.springframework.web.WebApplicationInitializer">
+                    <javaclass references="org.springframework.boot.web.servlet.support.SpringBootServletInitializer">
                         <location>INHERITANCE</location>
                     </javaclass>
+                    <xmlfile matches="//*[local-name() = 'servlet-class' and text() = 'org.springframework.web.servlet.DispatcherServlet']" />
                 </or>
             </when>
             <perform>
