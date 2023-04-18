@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<ruleset id="technology-usage-3rd-party-spring"
+    xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides statistical summaries of embedded 3rd party Spring frameworks.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <phase>PostMigrationRulesPhase</phase>
+    </metadata>
+    <rules>
+        <rule id="technology-usage-3rd-party-spring-03001">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Spring Boot Application</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Spring Boot Application">
+                    <tag name="Execute"/>
+                    <tag name="Embedded"/>
+                    <tag name="3rd party"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-3rd-party-spring-03002">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Spring Boot War</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Spring Boot War">
+                    <tag name="Execute"/>
+                    <tag name="3rd party"/>
+                </technology-identified>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

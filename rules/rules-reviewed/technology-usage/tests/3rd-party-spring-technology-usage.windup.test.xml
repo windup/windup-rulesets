@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruletest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:windupfunctions="windupcustomfunctions"
+          xmlns:windup="http://windup.jboss.org/schema/jboss-ruleset"
+          id="technology-usage-3rd-party-spring-test"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+
+    <testDataPath>data/3rd-party-spring</testDataPath>
+    <rulePath>../3rd-party-spring.windup.xml</rulePath>
+    <rulePath>../3rd-party-spring-technology-usage.windup.xml</rulePath>
+   <ruleset>
+      <rules>
+         <rule id="technology-usage-3rd-party-spring-03001-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Spring Boot Application" number-found="1">
+                     <tag name="Execute"/>
+                     <tag name="Embedded"/>
+                     <tag name="3rd party"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-3rd-party-spring-03001"/>
+            </perform>
+         </rule>
+          <rule id="technology-usage-3rd-party-spring-03002-test">
+              <when>
+                  <not>
+                      <technology-statistics-exists name="Spring Boot War" number-found="1">
+                          <tag name="Execute"/>
+                          <tag name="3rd party"/>
+                      </technology-statistics-exists>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="Expected data not found for rule technology-usage-3rd-party-spring-03002"/>
+              </perform>
+          </rule>
+      </rules>
+   </ruleset>
+</ruletest>
