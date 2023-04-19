@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<ruletest id="spring-cloud-to-azure-version-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/spring-cloud-to-azure-version</testDataPath>
+    <rulePath>../spring-cloud-to-azure-version.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="spring-cloud-to-azure-version-test-01000">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Spring Cloud version too low." />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Spring Cloud version too low hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="spring-cloud-to-azure-version-test-02000">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="Spring Cloud version is out of any Spring Cloud support scope." />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Spring Cloud version out of support hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="spring-cloud-to-azure-version-test-03000">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Spring Cloud version is out of open source software support." />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Spring Cloud version out of OSS support hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
