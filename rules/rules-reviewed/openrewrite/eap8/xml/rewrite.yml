@@ -1,0 +1,28 @@
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: org.jboss.windup.eap8.FacesWebXml
+displayName: alter Faces web xml for eap8 migration
+recipeList:
+    - org.openrewrite.xml.ChangeTagValue:
+          elementName: //servlet-class
+          oldValue: javax.faces.webapp.FacesServlet
+          newValue: jakarta.faces.webapp.FacesServlet
+          fileMatcher: "**/web.xml"
+
+    - org.openrewrite.xml.ChangeTagAttribute:
+          attributeName: version
+          elementName: web-app
+          newValue: 6.0
+          fileMatcher: "**/web.xml"
+
+    - org.openrewrite.xml.ChangeTagAttribute:
+          attributeName: xmlns
+          elementName: web-app
+          newValue: https://jakarta.ee/xml/ns/jakartaee
+          fileMatcher: "**/web.xml"
+
+    - org.openrewrite.xml.ChangeTagAttribute:
+          attributeName: xsi:schemaLocation
+          elementName: web-app
+          newValue: https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd
+          fileMatcher: "**/web.xml"
