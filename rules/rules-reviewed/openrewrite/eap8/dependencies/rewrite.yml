@@ -29,6 +29,7 @@ recipeList:
     - org.jboss.windup.eap8.HibernateArtifacts
     - org.jboss.windup.eap8.JBossXtsArtifacts
     - org.jboss.windup.eap8.Jsr181Artifacts
+    - org.openrewrite.maven.RemoveDuplicateDependencies
 
 ---
 type: specs.openrewrite.org/v1beta/recipe
@@ -73,7 +74,7 @@ recipeList:
           oldArtifactId: jakarta.activation
           newGroupId: jakarta.activation
           newArtifactId: jakarta.activation-api
-          #newVersion: 2.1.X
+          newVersion: 2.1.X
 
 ---
 
@@ -87,6 +88,9 @@ recipeList:
           newGroupId: jakarta.annotation
           newArtifactId: jakarta.annotation-api
           newVersion: 2.1.X
+    - org.openrewrite.maven.ChangeDependencyScope:
+          groupId: jakarta.annotation
+          artifactId: jakarta.annotation-api
 
 ---
 
@@ -99,7 +103,10 @@ recipeList:
           oldArtifactId: jboss-jaspi-api_1.0_spec
           newGroupId: jakarta.authentication
           newArtifactId: jakarta.authentication-api
-          #newVersion: 3.X
+          newVersion: 3.X
+    - org.openrewrite.maven.ChangeDependencyScope:
+          groupId: jakarta.authentication
+          artifactId: jakarta.authentication-api
 
 ---
 
@@ -112,7 +119,10 @@ recipeList:
           oldArtifactId: jboss-jacc-api_1.5_spec
           newGroupId: jakarta.authorization
           newArtifactId: jakarta.authorization-api
-          # newVersion: 2.1.X
+          newVersion: 2.1.X
+    - org.openrewrite.maven.ChangeDependencyScope:
+          groupId: jakarta.authorization
+          artifactId: jakarta.authorization-api
 
 ---
 
@@ -125,7 +135,10 @@ recipeList:
           oldArtifactId: jboss-batch-api_1.0_spec
           newGroupId: jakarta.batch
           newArtifactId: jakarta.batch-api
-          #newVersion: 2.1.X
+          newVersion: 2.1.X
+    - org.openrewrite.maven.ChangeDependencyScope:
+          groupId: jakarta.batch
+          artifactId: jakarta.batch-api
 
 ---
 
@@ -139,6 +152,9 @@ recipeList:
           newGroupId: jakarta.ejb
           newArtifactId: jakarta.ejb-api
           newVersion: 4.X
+    - org.openrewrite.maven.ChangeDependencyScope:
+          groupId: jakarta.ejb
+          artifactId: jakarta.ejb-api
 
 ---
 
@@ -151,7 +167,7 @@ recipeList:
           oldArtifactId: jboss-el-api_3.0_spec
           newGroupId: org.jboss.spec.jakarta.el
           newArtifactId: jboss-el-api_5.0_spec
-          #newVersion: 5.X
+          newVersion: 5.X
 
 ---
 
@@ -164,7 +180,10 @@ recipeList:
           oldArtifactId: jboss-concurrency-api_1.0_spec
           newGroupId: jakarta.enterprise.concurrent
           newArtifactId: jakarta.enterprise.concurrent-api
-          #newVersion: 3.X
+          newVersion: 3.X
+    - org.openrewrite.maven.ChangeDependencyScope:
+          groupId: jakarta.enterprise.concurrent
+          artifactId: jakarta.enterprise.concurrent-api
 
 ---
 
@@ -178,6 +197,9 @@ recipeList:
           newGroupId: jakarta.faces
           newArtifactId: jakarta.faces-api
           newVersion: 4.X
+    - org.openrewrite.maven.ChangeDependencyScope:
+          groupId: jakarta.faces
+          artifactId: jakarta.faces-api
 
 ---
 
@@ -190,7 +212,10 @@ recipeList:
           oldArtifactId: jboss-interceptors-api_1.2_spec
           newGroupId: jakarta.interceptor
           newArtifactId: jakarta.interceptor-api
-          #newVersion: 2.X
+          newVersion: 2.X
+    - org.openrewrite.maven.ChangeDependencyScope:
+          groupId: jakarta.interceptor
+          artifactId: jakarta.interceptor-api
 
 ---
 
@@ -203,7 +228,10 @@ recipeList:
           oldArtifactId: jboss-jms-api_2.0_spec
           newGroupId: jakarta.jms
           newArtifactId: jakarta.jms-api
-          #newVersion: 3.X
+          newVersion: 3.X
+    - org.openrewrite.maven.ChangeDependencyScope:
+          groupId: jakarta.jms
+          artifactId: jakarta.jms-api
 
 ---
 
@@ -216,7 +244,7 @@ recipeList:
           oldArtifactId: jakarta.mail
           newGroupId: jakarta.mail
           newArtifactId: jakarta.mail-api
-          #newVersion: 2.X
+          newVersion: 2.X
 
 ---
 
@@ -229,7 +257,10 @@ recipeList:
           oldArtifactId: jboss-connector-api_1.7_spec
           newGroupId: jakarta.resource
           newArtifactId: jakarta.resource-api
-          #newVersion: 2.X
+          newVersion: 2.X
+    - org.openrewrite.maven.ChangeDependencyScope:
+          groupId: jakarta.resource
+          artifactId: jakarta.resource-api
 
 ---
 
@@ -242,7 +273,10 @@ recipeList:
           oldArtifactId: jboss-servlet-api_4.0_spec
           newGroupId: jakarta.servlet
           newArtifactId: jakarta.servlet-api
-          #newVersion: 6.X
+          newVersion: 6.X
+    - org.openrewrite.maven.ChangeDependencyScope:
+          groupId: jakarta.servlet
+          artifactId: jakarta.servlet-api
 
 ---
 
@@ -255,7 +289,10 @@ recipeList:
           oldArtifactId: jboss-jsp-api_2.3_spec
           newGroupId: jakarta.servlet.jsp
           newArtifactId: jakarta.servlet.jsp-api
-          #newVersion: 3.X
+          newVersion: 3.X
+    - org.openrewrite.maven.ChangeDependencyScope:
+          groupId: jakarta.servlet.jsp
+          artifactId: jakarta.servlet.jsp-api
 
 ---
 
@@ -268,7 +305,7 @@ recipeList:
           oldArtifactId: taglibs-standard-spec
           newGroupId: jakarta.servlet.jsp.jstl
           newArtifactId: jakarta.servlet.jsp.jstl-api
-          #newVersion: 3.X
+          newVersion: 3.X
 
 ---
 
@@ -282,6 +319,9 @@ recipeList:
           newGroupId: jakarta.transaction   
           newArtifactId: jakarta.transaction-api
           newVersion: 2.X
+    - org.openrewrite.maven.ChangeDependencyScope:
+          groupId: jakarta.transaction
+          artifactId: jakarta.transaction-api
 
 ---
 
@@ -294,7 +334,10 @@ recipeList:
           oldArtifactId: jboss-jaxb-api_2.3_spec
           newGroupId: jakarta.xml.bind
           newArtifactId: jakarta.xml.bind-api
-          #newVersion: 4.X
+          newVersion: 4.X
+    - org.openrewrite.maven.ChangeDependencyScope:
+          groupId: jakarta.xml.bind
+          artifactId: jakarta.xml.bind-api
 
 ---
 
@@ -307,7 +350,7 @@ recipeList:
           oldArtifactId: jboss-jaxws-api_2.3_spec
           newGroupId: org.jboss.spec.jakarta.xml.ws
           newArtifactId: jboss-jakarta-xml-ws-api_4.0_spec
-          #newVersion: 1.X
+          newVersion: 1.X
 
 ---
 
@@ -320,7 +363,10 @@ recipeList:
           oldArtifactId: jboss-websocket-api_1.1_spec
           newGroupId: jakarta.websocket
           newArtifactId: jakarta.websocket-api
-          #newVersion: 2.X
+          newVersion: 2.X
+    - org.openrewrite.maven.ChangeDependencyScope:
+          groupId: jakarta.websocket
+          artifactId: jakarta.websocket-api
 
 ---
 
@@ -333,7 +379,10 @@ recipeList:
           oldArtifactId: jboss-jaxrs-api_2.1_spec
           newGroupId: jakarta.ws.rs
           newArtifactId: jakarta.ws.rs-api
-          #newVersion: 3.X
+          newVersion: 3.X
+    - org.openrewrite.maven.ChangeDependencyScope:
+          groupId: jakarta.ws.rs
+          artifactId: jakarta.ws.rs-api
 
 ---
 
@@ -346,7 +395,7 @@ recipeList:
           oldArtifactId: jboss-saaj-api_1.4_spec
           newGroupId: org.jboss.spec.jakarta.xml.soap
           newArtifactId: jboss-saaj-api_3.0_spec
-          #newVersion: 1.X
+          newVersion: 1.X
 
 ---
 
@@ -359,14 +408,14 @@ recipeList:
           oldArtifactId: hibernate-core
           newGroupId: org.hibernate.orm
           newArtifactId: hibernate-core
-          #newVersion: 6.X
+          newVersion: 6.X
 
     - org.openrewrite.maven.ChangeDependencyGroupIdAndArtifactId:
           oldGroupId: org.hibernate
           oldArtifactId: hibernate-jpamodelgen
           newGroupId: org.hibernate.orm
           newArtifactId: hibernate-jpamodelgen
-          #newVersion: 6.X
+          newVersion: 6.X
 
 ---
 
@@ -378,7 +427,7 @@ recipeList:
           oldGroupId: org.jboss.narayana.xts
           oldArtifactId: jbossxts
           newArtifactId: jbossxts-jakarta
-          #newVersion: 5.X
+          newVersion: 5.X
 
 ---
 
