@@ -6,6 +6,16 @@
    <rulePath>../</rulePath>
    <ruleset>
       <rules>
+          <rule id="hibernate6-tests-00005">
+              <when>
+                  <not>
+                      <hint-exists message="The way in which Hibernate determines implicit names for sequences and tables associated with identifier generation has changed in 6.0 which may affect migrating applications*"/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00005] Hint not found!"/>
+              </perform>
+          </rule>
           <rule id="hibernate6-tests-00010">
               <when>
                   <not>
@@ -377,6 +387,19 @@
               </when>
               <perform>
                   <fail message="[hibernate6-tests-00262] Hint not found!"/>
+              </perform>
+          </rule>
+
+          <rule id="hibernate6-tests-00270">
+              <when>
+                  <not>
+                      <iterable-filter size="2">
+                          <hint-exists message="As of Hibernate 6.0, some dialect classes that are maintained by vendors or individuals, as opp*"/>
+                      </iterable-filter>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00270] Hint not found!"/>
               </perform>
           </rule>
 

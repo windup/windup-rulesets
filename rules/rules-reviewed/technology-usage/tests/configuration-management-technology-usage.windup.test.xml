@@ -28,7 +28,7 @@
          <rule id="configuration-management-technology-usage-0200-test">
             <when>
                <not>
-                  <technology-statistics-exists name="Spring Properties" number-found="1">
+                  <technology-statistics-exists name="Application Properties File" number-found="1">
                      <tag name="Sustain"/>
                      <tag name="Configuration Management"/>
                      <tag name="Embedded"/>
@@ -37,6 +37,20 @@
             </when>
             <perform>
                <fail message="Expected data not found for rule configuration-management-technology-usage-0200"/>
+            </perform>
+         </rule>
+         <rule id="configuration-management-technology-usage-0300-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Spring Properties" number-found="1">
+                     <tag name="Sustain"/>
+                     <tag name="Configuration Management"/>
+                     <tag name="Embedded"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule configuration-management-technology-usage-0300"/>
             </perform>
          </rule>
        </rules>

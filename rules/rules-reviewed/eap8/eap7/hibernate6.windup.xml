@@ -16,6 +16,24 @@
     </metadata>
 
     <rules>
+        <rule id="hibernate-00005">
+            <when>
+                <javaclass references="javax.persistence.GeneratedValue">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Implicit name determination for sequences and tables associated with identifier generation has changed" effort="3" category-id="potential">
+                    <message>
+                        The way in which Hibernate determines implicit names for sequences and tables associated with identifier generation has changed in 6.0 which may affect migrating applications.  
+                        As of 6.0, Hibernate by default creates a sequence per entity hierarchy instead of a single sequence hibernate_sequence.  
+                        Due to this change, users that previously used `@GeneratedValue(strategy = GenerationStrategy.AUTO)` or simply `@GeneratedValue` (since `AUTO` is the default), need to ensure that the database now contains sequences for every entity, named `&lt;entity name&gt;_seq`. For an entity Person, a sequence person_seq is expected to exist.  
+                        It’s best to run hbm2ddl (e.g. by temporarily setting `hbm2ddl.auto=create`) to obtain a list of DDL statements for the sequences.
+                    </message>
+                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#implicit-identifier-sequence-and-table-name" title="Hibernate ORM 6 migration guide - Implicit Identifier Sequence and Table Name"/>
+                </hint>
+            </perform>
+        </rule>
         <rule id="hibernate-00010">
             <when>
                 <javaclass references="org.hibernate.annotations.{annotation}"/>
@@ -112,7 +130,7 @@
         </rule>
         <rule id="hibernate6-00080">
             <when>
-                <filecontent pattern="hibernate.hql.bulk_id_strategy"/>
+                <filecontent pattern="hibernate.hql.bulk_id_strategy" filename="{filename}"/>
             </when>
             <perform>
                 <hint title="Property hibernate.hql.bulk_id_strategy has changed" category-id="mandatory" effort="1">
@@ -120,6 +138,9 @@
                     <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#multi-table-mutation-queries" title="Hibernate ORM 6 migration guide - Multi-table Mutation Queries"/>
                 </hint>
             </perform>
+            <where param="filename">
+                <matches pattern="(hibernate.properties|persistence.xml|cfg.xml|application.properties|application.yaml)"/>
+            </where>
         </rule>
         <rule id="hibernate6-00090">
             <when>
@@ -320,7 +341,7 @@
         </rule>
         <rule id="hibernate6-00230">
             <when>
-                <filecontent pattern="hibernate.classLoader.{resource}"/>
+                <filecontent pattern="hibernate.classLoader.{resource}" filename="{filename}"/>
             </when>
             <perform>
                 <hint title="Removed hibernate classloader properties" category-id="mandatory" effort="1">
@@ -331,10 +352,13 @@
             <where param="resource" >
                 <matches pattern="(application|resources|hibernate|environment)" />
             </where>
+            <where param="filename">
+                <matches pattern="(hibernate.properties|persistence.xml|cfg.xml|application.properties|application.yaml)"/>
+            </where>
         </rule>
         <rule id="hibernate6-00240">
             <when>
-                <filecontent pattern="hibernate.hbm2dll.create_namespaces"/>
+                <filecontent pattern="hibernate.hbm2dll.create_namespaces" filename="{filename}"/>
             </when>
             <perform>
                 <hint title="Removed hibernate properties" category-id="mandatory" effort="1">
@@ -342,10 +366,13 @@
                     <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#previously-deprecated-features" title="Hibernate ORM 6 migration guide - Previously deprecated features"/>
                 </hint>
             </perform>
+            <where param="filename">
+                <matches pattern="(hibernate.properties|persistence.xml|cfg.xml|application.properties|application.yaml)"/>
+            </where>
         </rule>
         <rule id="hibernate6-00250">
             <when>
-                <filecontent pattern="hibernate.ejb.metamodel.population"/>
+                <filecontent pattern="hibernate.ejb.metamodel.population" filename="{filename}"/>
             </when>
             <perform>
                 <hint title="Renamed hibernate property hibernate.ejb.metamodel.population" category-id="mandatory" effort="1">
@@ -353,10 +380,13 @@
                     <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#configuration-property-renames" title="Hibernate ORM 6 migration guide - Configuration property renames"/>
                 </hint>
             </perform>
+            <where param="filename">
+                <matches pattern="(hibernate.properties|persistence.xml|cfg.xml|application.properties|application.yaml)"/>
+            </where>
         </rule>
         <rule id="hibernate6-00251">
             <when>
-                <filecontent pattern="hibernate.ejb.cfgfile"/>
+                <filecontent pattern="hibernate.ejb.cfgfile" filename="{filename}"/>
             </when>
             <perform>
                 <hint title="Renamed hibernate property hibernate.ejb.cfgfile" category-id="mandatory" effort="1">
@@ -364,10 +394,13 @@
                     <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#configuration-property-renames" title="Hibernate ORM 6 migration guide - Configuration property renames"/>
                 </hint>
             </perform>
+            <where param="filename">
+                <matches pattern="(hibernate.properties|persistence.xml|cfg.xml|application.properties|application.yaml)"/>
+            </where>
         </rule>
         <rule id="hibernate6-00252">
             <when>
-                <filecontent pattern="hibernate.ejb.xml_files"/>
+                <filecontent pattern="hibernate.ejb.xml_files" filename="{filename}"/>
             </when>
             <perform>
                 <hint title="Renamed hibernate property hibernate.ejb.xml_files" category-id="mandatory" effort="1">
@@ -375,10 +408,13 @@
                     <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#configuration-property-renames" title="Hibernate ORM 6 migration guide - Configuration property renames"/>
                 </hint>
             </perform>
+            <where param="filename">
+                <matches pattern="(hibernate.properties|persistence.xml|cfg.xml|application.properties|application.yaml)"/>
+            </where>
         </rule>
         <rule id="hibernate6-00253">
             <when>
-               <filecontent pattern="hibernate.hbmxml.files"/>
+               <filecontent pattern="hibernate.hbmxml.files" filename="{filename}"/>
             </when>
             <perform>
                 <hint title="Renamed hibernate property hibernate.hbmxml.files" category-id="mandatory" effort="1">
@@ -386,10 +422,13 @@
                     <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#configuration-property-renames" title="Hibernate ORM 6 migration guide - Configuration property renames"/>
                 </hint>
             </perform>
+            <where param="filename">
+                <matches pattern="(hibernate.properties|persistence.xml|cfg.xml|application.properties|application.yaml)"/>
+            </where>
         </rule>
         <rule id="hibernate6-00254">
             <when>
-                <filecontent pattern="hibernate.ejb.loaded.classes"/>
+                <filecontent pattern="hibernate.ejb.loaded.classes" filename="{filename}"/>
             </when>
             <perform>
                 <hint title="Renamed hibernate property hibernate.ejb.loaded.classes" category-id="mandatory" effort="1">
@@ -397,10 +436,13 @@
                     <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#configuration-property-renames" title="Hibernate ORM 6 migration guide - Configuration property renames"/>
                 </hint>
             </perform>
+            <where param="filename">
+                <matches pattern="(hibernate.properties|persistence.xml|cfg.xml|application.properties|application.yaml)"/>
+            </where>
         </rule>
         <rule id="hibernate6-00255">
             <when>
-                <filecontent pattern="hibernate.ejb.{property}"/>
+                <filecontent pattern="hibernate.ejb.{property}" filename="{filename}"/>
             </when>
             <perform>
                 <hint title="Renamed hibernate property hibernate.ejb.{property}" category-id="mandatory" effort="1">
@@ -411,10 +453,13 @@
             <where param="property">
                 <matches pattern="(persistenceUnitName|discard_pc_on_close|session_factory_observer|identifier_generator_strategy_provider|classcache|collectioncache|event)" />
             </where>
+            <where param="filename">
+                <matches pattern="(hibernate.properties|persistence.xml|cfg.xml|application.properties|application.yaml)"/>
+            </where>
         </rule>
         <rule id="hibernate6-00257">
             <when>
-                <filecontent pattern="hibernate.ejb.entitymanager_factory_name"/>
+                <filecontent pattern="hibernate.ejb.entitymanager_factory_name" filename="{filename}"/>
             </when>
             <perform>
                 <hint title="Renamed hibernate property hibernate.ejb.entitymanager_factory_name" category-id="mandatory" effort="1">
@@ -422,19 +467,29 @@
                     <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#configuration-property-renames" title="Hibernate ORM 6 migration guide - Configuration property renames"/>
                 </hint>
             </perform>
+            <where param="filename">
+                <matches pattern="(hibernate.properties|persistence.xml|cfg.xml|application.properties|application.yaml)"/>
+            </where>
         </rule>
         <rule id="hibernate6-00270">
             <when>
-                <javaclass references="org.hibernate.dialect.{class-name}"/>
+                <or>
+                    <filecontent pattern="hibernate.dialect" filename="{filename}"/>
+                    <filecontent pattern="quarkus.hibernate-orm.dialect" filename="{filename}"/>
+                </or>
             </when>
             <perform>
-                <hint title="Community dialects moved to a separate module" effort="1" category-id="mandatory">
-                    <message>As of Hibernate 6.0, some dialect classes that are maintained by vendors or individuals, as opposed to the Hibernate team. have moved to a separate Maven artifact: `org.hibernate.orm:hibernate-community-dialects`.</message>
+                <hint title="Community dialects moved to a separate module" effort="1" category-id="potential">
+                    <message>
+                        As of Hibernate 6.0, some dialect classes that are maintained by vendors or individuals, as opposed to the Hibernate team, have been moved to a separate Maven artifact: `org.hibernate.orm:hibernate-community-dialects`.
+
+                        Note that the new artifact is not included in the EAP 8 distribution and will have to be added manually.
+                    </message>
                     <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#community-dialects-moved-to-a-separate-module" title="Hibernate ORM 6 migration guide - Community dialects"/>
                 </hint>
             </perform>
-            <where param="class-name">
-                <matches pattern="(Cache71Dialect|CacheDialect|CacheSqlAstTranslator|CockroachLegacyDialect|CockroachLegacySqlAstTranslator|CommunityDatabase|CommunityDialectResolver|CommunityDialectSelector|CUBRIDDialect|CUBRIDSqlAstTranslator|DB2iLegacyDialect|DB2iLegacySqlAstTranslator|DB2LegacyDialect|DB2LegacySqlAstTranslator|DB2zLegacyDialect|DB2zLegacySqlAstTranslator|DerbyLegacyDialect|DerbyLegacySqlAstTranslator|FirebirdDialect|FirebirdSqlAstTranslator|H2LegacyDialect|H2LegacySqlAstTranslator|HSQLLegacyDialect|HSQLLegacySqlAstTranslator|Informix10Dialect|InformixDialect|InformixSqlAstTranslator|InformixSqmToSqlAstConverter|Ingres10Dialect|Ingres9Dialect|IngresDialect|IngresSqlAstTranslator|IngresSqmToSqlAstConverter|MariaDBLegacyDialect|MariaDBLegacySqlAstTranslator|MaxDBDialect|MaxDBSqlAstTranslator|MimerSQLDialect|MimerSQLSqlAstTranslator|MySQLLegacyDialect|MySQLLegacySqlAstTranslator|OracleLegacyDialect|OracleLegacySqlAstTranslator|PostgresPlusLegacyDialect|PostgreSQLLegacyDialect|PostgreSQLLegacySqlAstTranslator|RDMSOS2200Dialect|RDMSOS2200SqlAstTranslator|SAPDBDialect|SQLiteDialect|SQLiteSqlAstTranslator|SQLServerLegacyDialect|SQLServerLegacySqlAstTranslator|SybaseAnywhereDialect|SybaseAnywhereSqlAstTranslator|SybaseASELegacyDialect|SybaseASELegacySqlAstTranslator|SybaseLegacyDialect|SybaseLegacySqlAstTranslator|SybaseLegacySqmToSqlAstConverter|Teradata14Dialect|TeradataDialect|TeradataSqlAstTranslator|TimesTenDialect|TimesTenSqlAstTranslator)"/>
+            <where param="filename">
+                <matches pattern="(hibernate.properties|persistence.xml|cfg.xml|application.properties|application.yaml)"/>
             </where>
         </rule>
     </rules>

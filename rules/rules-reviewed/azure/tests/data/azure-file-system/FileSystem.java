@@ -4,6 +4,14 @@ import java.nio.File;
 import java.notnio.File;
 import org.apache.commons.io.File;
 import org.apache.commons.notio.File;
+import java.io.FileWriter;
+import java.io.FileReader;
+
+// Should not match the rule
+import java.io.IOException;
+import java.io.Closeable;
+import java.io.Serializable;
+import java.io.DefaultFileSystem;
 
 public class FileSystem {
 

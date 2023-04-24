@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="jakarta-faces"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of Java EE applications that need to change certain Jakarta Faces usages when migrating to EAP 8.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="eap" versionRange="[6,8)" />
+        <targetTechnology id="eap" versionRange="[8,9)" />
+        <tag>JakartaEE</tag>
+        <tag>eap8</tag>
+    </metadata>
+    <rules>
+        <rule id="jakarta-faces-00001">
+            <when>
+                <and>
+                    <javaclass references="jakarta.faces.context.FacesContext">
+                        <location>FIELD_DECLARATION</location>
+                        <annotation-type pattern="jakarta.inject.Inject"/>
+                    </javaclass>
+                    <javaclass references="jakarta.faces.context.FacesContext">
+                        <location>RETURN_TYPE</location>
+                    </javaclass>
+                </and>
+            </when>
+            <perform>
+                <hint title="Producer for creating FacesContext must be removed" effort="1" category-id="potential">
+                    <message>The `@Produces` annotation for instantiating `FacesContext` is not necessary anymore, as CDI injection for `FacesContext` works out of the box.</message>
+                    <link href="https://access.redhat.com/solutions/6982900" title="WELD-001409: Ambiguous dependencies for type FacesContext with qualifiers @Default when migrating to EAP 8"/>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
