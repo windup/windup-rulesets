@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<ruletest id="azure-os-specific-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/azure-os-specific</testDataPath>
+    <rulePath>../azure-os-specific.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="azure-os-specific-test-00001">
+                <when>
+                    <not>
+                        <iterable-filter size="4">
+                            <hint-exists message="This file system path is Microsoft Windows platform dependent" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Windows platform dependent hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="azure-os-specific-test-00002">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="This Dynamic-Link Library is Microsoft Windows platform dependent" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Dynamic-Link Library hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
