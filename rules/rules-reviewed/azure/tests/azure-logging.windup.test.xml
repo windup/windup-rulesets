@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ruletest id="azure-logging-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/azure-logging</testDataPath>
+    <rulePath>../azure-logging.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="azure-logging-test-01000">
+                <when>
+                    <not>
+                        <iterable-filter size="9"> 
+                            <hint-exists message="Logging to the file system is not recommended when running applications in the cloud." />
+                        </iterable-filter> 
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Don't log to file hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest> 
