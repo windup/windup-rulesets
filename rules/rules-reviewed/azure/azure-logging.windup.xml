@@ -23,9 +23,7 @@
         <rule id="azure-logging-0000">
             <when>
               <or>
-                <filecontent filename="logback{*}.{extension}" pattern="{fileAppenderPattern}"/>
-                <filecontent filename="log4j{*}.{extension}" pattern="{fileAppenderPattern}"/>
-                <filecontent filename="log{4j,4j2}{*}.{extension}" pattern="{log4j2FileAppenderPattern}"/>
+                <filecontent filename="log{back,4j}{*}.{extension}" pattern="{filePattern}"/>
                 <javaclass references="org.apache.{*}log4j.{*}FileAppender{*}">
                     <location>IMPORT</location>
                 </javaclass>
@@ -54,7 +52,7 @@
                             
                             Instead, use a console appender to log to standard output.
                             </message>
-                            <link href=" http://aka.ms/spring-cloud-to-asa?toc=%2Fazure%2Fspring-apps%2Ftoc.json&amp;bc=%2Fazure%2Fspring-apps%2Fbreadcrumb%2Ftoc.json&amp;pivots=sc-standard-tier#ensure-console-logging-and-configure-diagnostic-settings" title="Enable console logging in migration"/>
+                            <link href="https://aka.ms/spring-cloud-to-asa?toc=%2Fazure%2Fspring-apps%2Ftoc.json&amp;bc=%2Fazure%2Fspring-apps%2Fbreadcrumb%2Ftoc.json&amp;pivots=sc-standard-tier#ensure-console-logging-and-configure-diagnostic-settings" title="Enable console logging in migration"/>
                             <link href="https://learn.microsoft.com/azure/spring-apps/how-to-write-log-to-custom-persistent-storage" title="How to use Logback to write logs to custom persistent storage"/>
                             <tag>logging</tag>
                         </hint>
@@ -62,11 +60,8 @@
                     </perform>
                 </iteration>
             </perform>
-            <where param="fileAppenderPattern">
-              <matches pattern="(?i)((Daily)?Rolling)?FileAppender"/>
-            </where>
-            <where param="log4j2FileAppenderPattern">
-              <matches pattern="(?i)(type\s*=\s*&quot;?((Daily)?Rolling)?File&quot;?)|&lt;\/((Daily)?Rolling)?File&gt;"/>
+            <where param="filePattern">
+              <matches pattern="(?i)((Daily)?Rolling)?FileAppender|type\s*=\s*((Daily)?Rolling)?File|&lt;\/((Daily)?Rolling)?File&gt;"/>
             </where>
             <where param="extension">
               <matches pattern="(xml|properties)"/>
