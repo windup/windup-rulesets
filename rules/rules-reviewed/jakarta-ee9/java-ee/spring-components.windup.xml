@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<ruleset id="spring-components" xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset ensures the versions of Spring and Spring Boot are Jakarta EE 9 compliant
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <targetTechnology id="jakarta-ee" versionRange="[9,)" />
+        <targetTechnology id="jws" versionRange="[6,)" />
+    </metadata>
+    <rules>
+        <rule id="spring-components-00001">
+            <!-- Spring Boot version 3.0.0 is Jakarta compliant -->
+            <when>
+                <or>
+                    <dependency groupId="org.springframework.boot" artifactId="{*}" toVersion="2.9.9" />
+                    <project>
+                        <artifact groupId="org.springframework.boot" artifactId="{*}" toVersion="2.9.9"/>
+                    </project>
+                </or>
+            </when>
+            <perform>
+                <hint title="Version of Spring Boot not compatible with Jakarta EE 9+" effort="3" category-id="mandatory">
+                    <message>Version 3.0.0 is the minimum version of Spring Boot that is Jakarta EE 9+ compatible</message>
+                    <link href="https://spring.io/blog/2021/09/02/a-java-17-and-jakarta-ee-9-baseline-for-spring-framework-6" title="A Java 17 and Jakarta EE 9 baseline for Spring Framework 6" />
+                </hint>
+            </perform>
+        </rule>
+                <rule id="spring-components-00001">
+            <!-- Spring version 6.0.0 is Jakarta compliant -->
+            <when>
+                <or>
+                    <dependency groupId="org.springframework" artifactId="{*}" toVersion="5.9.9" />
+                    <project>
+                        <artifact groupId="org.springframework" artifactId="{*}" toVersion="5.9.9"/>
+                    </project>
+                </or>
+            </when>
+            <perform>
+                <hint title="Version of Spring not compatible with Jakarta EE 9+" effort="3" category-id="mandatory">
+                    <message>Version 6.0.0 is the minimum version of Spring that is Jakarta EE 9+ compatible</message>
+                    <link href="https://spring.io/blog/2021/09/02/a-java-17-and-jakarta-ee-9-baseline-for-spring-framework-6" title="A Java 17 and Jakarta EE 9 baseline for Spring Framework 6" />
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
