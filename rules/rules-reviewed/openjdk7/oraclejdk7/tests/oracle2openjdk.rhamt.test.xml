@@ -79,6 +79,18 @@
                     <fail message="[oracle2openjdk] elliptic curve hint not found" />
                 </perform>
             </rule>
+            <rule id="oracle2openjdk-00006-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Replace the use of classes and methods from the `com.sun.image.codec.jpeg`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="oracle2openjdk-00006-test failed" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
