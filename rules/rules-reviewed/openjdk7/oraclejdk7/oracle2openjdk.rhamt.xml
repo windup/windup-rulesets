@@ -158,5 +158,26 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="oracle2openjdk-00006">
+            <when>
+                <javaclass references="com.sun.image.codec.jpeg.{*}">
+                        <location>CONSTRUCTOR_CALL</location>
+                        <location>IMPORT</location>
+                        <location>INHERITANCE</location>
+                        <location>METHOD_CALL</location>
+                        <location>VARIABLE_DECLARATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="Oracle JDK JPEG image encoder/decoder usage" effort="3" category-id="mandatory">
+                    <message>
+                        Replace the use of classes and methods from the `com.sun.image.codec.jpeg` package with `javax.imageio.ImageIO` 
+                    </message>
+                    <link href="https://access.redhat.com/solutions/443673" title="java.lang.NoClassDefFoundError: com/sun/image/codec/jpeg/ImageFormatException when using OpenJDK" />
+                    <link href="https://docs.oracle.com/javase/tutorial/2d/images/saveimage.html" title="Java Image I/O tutorial" />
+                    <link href="https://docs.oracle.com/javase/8/docs/technotes/guides/imageio/spec/imageio_guideTOC.fm.html" title="Java Image I/O API Guide" />
+                </hint>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
