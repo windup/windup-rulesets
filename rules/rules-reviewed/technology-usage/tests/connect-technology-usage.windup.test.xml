@@ -291,6 +291,20 @@
                <fail message="Expected data not found for rule technology-usage-connect-02800"/>
             </perform>
          </rule>
+         <rule id="technology-usage-connect-02900-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Kafka Client" number-found="1">
+                     <tag name="Connect"/>
+                     <tag name="Embedded"/>
+                     <tag name="Other"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-connect-02900"/>
+            </perform>
+         </rule>
       </rules>
    </ruleset>
 </ruletest>

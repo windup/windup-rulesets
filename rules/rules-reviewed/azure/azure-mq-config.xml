@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<ruleset id="azure-mq-config"
+         xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            Check all properties and configuration files and all environment variables on the production deployment(s) for any secret strings and passwords.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="springboot"/>
+        <sourceTechnology id="eap" versionRange="[7,8)" />
+        <targetTechnology id="azure-spring-apps"/>
+        <targetTechnology id="azure-appservice"/>
+        <targetTechnology id="azure-aks"/>
+        <targetTechnology id="azure-container-apps"/>
+        <tag>password</tag>
+        <tag>security</tag>
+    </metadata>
+    <rules>
+        <rule id="azure-mq-config-01000">
+            <when>
+                <or>
+                    <filecontent filename="application{*}.{extensions}" pattern="{password}"/>
+                    <xmlfile matches="//password" /><!-- any 'Password' element -->
+                    <xmlfile matches="//*[@name='Password']" /><!-- Any element with a 'Password' property -->
+                </or>
+            </when>
+            <perform>
+                <hint title="Password found in configuration file" category-id="potential" effort="3">
+                    <message>
+                        <![CDATA[
+                        Password found in configuration file.
+
+                        Consider using Azure Key Vault and/or parameter injection with application settings where possible.
+                        ]]>
+                    </message>
+                    <link title="Password found in configuration file" href="https://learn.microsoft.com/azure/developer/java/migration/migrate-spring-boot-to-azure-spring-apps#inventory-configuration-sources-and-secrets"/>
+                    <link title="Key Vault" href="https://docs.microsoft.com/azure/key-vault/"/>
+                    <link title="Use Key Vault references" href="https://docs.microsoft.com/azure/app-service/app-service-key-vault-references?tabs=azure-cli"/>
+                    <link title="Read a secret from Azure Key Vault in a Spring Boot application" href="https://docs.microsoft.com/azure/developer/java/spring-framework/configure-spring-boot-starter-java-app-with-azure-key-vault"/>
+                    <link title="Azure Spring Boot Starter for Azure Key Vault Secrets" href="https://search.maven.org/artifact/com.azure.spring/azure-spring-boot-starter-keyvault-secrets"/>
+                </hint>
+            </perform>
+            <where param="extensions">
+                <matches pattern="(properties|yaml|yml)"/>
+            </where>
+            <where param="password">
+                <matches pattern="(password|pwd)"/>
+            </where>
+        </rule>
+    </rules>
+</ruleset>
