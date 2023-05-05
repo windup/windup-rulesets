@@ -63,6 +63,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
+
+import static org.jboss.windup.rules.tests.WindupRulesTest.MULTIPLE_STANDALONE_TEST_APPLICATIONS_MARKER;
 
 @RunWith(ParameterizedArquillianRunner.class)
 public class WindupRulesMultipleTests {
@@ -371,18 +374,19 @@ public class WindupRulesMultipleTests {
 
     private void runWindup(GraphContext context, File baseRuleDirectory, final List<Path> rulePaths, File input, File output, boolean sourceMode, String source, String target) throws IOException
     {
-        ProjectModel pm = context.getFramed().addFramedVertex(ProjectModel.class);
-        pm.setName("Project: " + input.getAbsolutePath());
-        FileModel inputPath = context.getFramed().addFramedVertex(FileModel.class);
-        inputPath.setFilePath(input.getCanonicalPath());
-
         FileUtils.deleteDirectory(output);
         Files.createDirectories(output.toPath());
 
-        pm.setRootFileModel(inputPath);
-        WindupConfiguration windupConfiguration = new WindupConfiguration()
+        final WindupConfiguration windupConfiguration = new WindupConfiguration()
                 .setGraphContext(context);
-        windupConfiguration.addInputPath(Paths.get(inputPath.getFilePath()));
+        final String inputAbsolutePath = input.getAbsolutePath();
+        if (inputAbsolutePath.endsWith(MULTIPLE_STANDALONE_TEST_APPLICATIONS_MARKER)) {
+            try (Stream<Path> stream = Files.list(Paths.get(inputAbsolutePath.substring(0, inputAbsolutePath.indexOf(MULTIPLE_STANDALONE_TEST_APPLICATIONS_MARKER))))) {
+                stream.forEach(windupConfiguration::addInputPath);
+            }
+        } else {
+            windupConfiguration.addInputPath(Paths.get(inputAbsolutePath));
+        }
         windupConfiguration.setOutputDirectory(output.toPath());
         windupConfiguration.addDefaultUserRulesDirectory(baseRuleDirectory.toPath());
         windupConfiguration.setOptionValue(SourceModeOption.NAME, sourceMode);
