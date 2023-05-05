@@ -14,7 +14,9 @@
     <rules>
         <rule id="technology-usage-web-01000">
             <when>
-                <graph-query discriminator="JsfSourceFile" />
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">JSF</property>
+                </graph-query>
             </when>
             <perform>
                 <technology-identified name="JSF Page">
@@ -26,7 +28,9 @@
         </rule>
         <rule id="technology-usage-web-01100">
             <when>
-                <graph-query discriminator="JspSourceFileModel" />
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">JSP</property>
+                </graph-query>
             </when>
             <perform>
                 <technology-identified name="JSP Page">
@@ -38,7 +42,9 @@
         </rule>
         <rule id="technology-usage-web-01200">
             <when>
-                <graph-query discriminator="WebXmlModel" />
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">WebXML</property>
+                </graph-query>
             </when>
             <perform>
                 <technology-identified name="Web XML File">
@@ -50,9 +56,9 @@
         </rule>
         <rule id="technology-usage-web-01300">
             <when>
-                <javaclass references="javax.websocket.server.ServerEndpoint">
-                    <location>ANNOTATION</location>
-                </javaclass>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">WebSocket</property>
+                </graph-query>
             </when>
             <perform>
                 <technology-identified name="WebSocket">
@@ -65,10 +71,9 @@
         <rule id="technology-usage-web-01400">
             <when>
                 <or>
-                    <javaclass references="java.applet.Applet">
-                        <location>INHERITANCE</location>
-                    </javaclass>
-                     <file filename="{*}applet{*}.jar" />
+                    <graph-query discriminator="TechnologyTagModel">
+                        <property name="name">Applet</property>
+                    </graph-query>
                 </or>
             </when>
             <perform>
@@ -81,7 +86,9 @@
         </rule>
         <rule id="technology-usage-web-01500">
             <when>
-                <file filename="{*}.jnlp" />
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">JNLP</property>
+                </graph-query>
             </when>
             <perform>
                 <technology-identified name="JNLP">
@@ -93,10 +100,9 @@
         </rule>
         <rule id="technology-usage-web-01600">
             <when>
-                <or>
-                    <file filename="{*}jnlp{*}.jar" />
-                    <file filename="{*}webstart{*}.jar" />
-                </or>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">JNLP</property>
+                </graph-query>
             </when>
             <perform>
                 <technology-identified name="JNLP">
@@ -108,7 +114,9 @@
         </rule>
         <rule id="technology-usage-web-01700">
             <when>
-                <file filename="{*}swing{*}.jar" />
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Swing</property>
+                </graph-query>
             </when>
             <perform>
                 <technology-identified name="Swing">
@@ -120,7 +128,9 @@
         </rule>
         <rule id="technology-usage-web-01800">
             <when>
-                <file filename="{*}miglayout{*}.jar" />
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">MiGLayout</property>
+                </graph-query>
             </when>
             <perform>
                 <technology-identified name="MiGLayout">
@@ -132,7 +142,9 @@
         </rule>
         <rule id="technology-usage-web-01900">
             <when>
-                <file filename="{*}jgoodies{*}.jar" />
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">JGoodies</property>
+                </graph-query>
             </when>
             <perform>
                 <technology-identified name="JGoodies">
@@ -144,7 +156,9 @@
         </rule>
          <rule id="technology-usage-web-02000">
             <when>
-                <file filename="{*}formlayoutmakerx{*}.jar" />
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">FormLayoutMaker</property>
+                </graph-query>
             </when>
             <perform>
                 <technology-identified name="FormLayoutMaker">
@@ -156,7 +170,9 @@
         </rule>
         <rule id="technology-usage-web-02100">
             <when>
-                <file filename="{*}magicgrouplayout{*}.jar" />
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">MagicgrouplayoutSwing</property>
+                </graph-query>
             </when>
             <perform>
                 <technology-identified name="Magicgrouplayout">
@@ -168,7 +184,9 @@
         </rule>
         <rule id="technology-usage-web-02200">
             <when>
-                <file filename="{*}swt{*}.jar" />
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">SWT</property>
+                </graph-query>
             </when>
             <perform>
                 <technology-identified name="Standard Widget Toolkit (SWT)">
@@ -180,7 +198,9 @@
         </rule>
         <rule id="technology-usage-web-02300">
             <when>
-                <file filename="{*}javafx{*}.jar" />
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">JavaFX</property>
+                </graph-query>
             </when>
             <perform>
                 <technology-identified name="JavaFX">
@@ -192,12 +212,9 @@
         </rule>
         <rule id="technology-usage-web-02400">
             <when>
-                <or>
-                    <file filename="rcp{*}.jar" />
-                    <file filename="{*}eclipse.rcp{*}.jar" />
-                    <file filename="{*}eclipse{*}runtime{*}.jar" />
-                    <file filename="{*}eclipse.ui{*}.jar" />
-                </or>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Eclipse RCP</property>
+                </graph-query>
             </when>
             <perform>
                 <technology-identified name="Eclipse RCP">
