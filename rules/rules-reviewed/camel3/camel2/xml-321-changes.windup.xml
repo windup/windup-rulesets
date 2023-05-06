@@ -14,32 +14,32 @@
     <rules>
         <rule id="xml-changed-camel321-00001">
             <when>
-                <javaclass references="org.apache.camel.impl.console.AbstractDevConsole"/>
+                <javaclass references="org.apache.camel.impl.console.AbstractDevConsole">
+                    <location>IMPORT</location>
+                </javaclass>
             </when>
             <perform>
-                <iteration over="javaClass">
-                    <hint title="The class org.apache.camel.impl.console.AbstractDevConsole has moved into a different artifact and changed package name." effort="3" category-id="mandatory" >
-                        <message>The class org.apache.camel.impl.console.AbstractDevConsole has moved from camel-console to camel-support and moved to package org.apache.camel.support.console.AbstractDevConsole.</message>
-                        <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_21.html#_camel_console" title="Camel 3 - Migration Guide: Changed components" />
-                    </hint>
-                </iteration>
+                <hint title="The class org.apache.camel.impl.console.AbstractDevConsole has moved from camel-console to camel-support" effort="3" category-id="mandatory" >
+                    <message>The class org.apache.camel.impl.console.AbstractDevConsole has moved from camel-console to camel-support and moved to package org.apache.camel.support.console.AbstractDevConsole.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_21.html#_camel_console" title="Camel 3 - Migration Guide: Changed components" />
+                </hint>
             </perform>
         </rule>
 
-        <rule id="xml-changed-camel321-00001">
+        <rule id="xml-changed-camel321-00002">
             <when>
                 <project>
-                    <artifact groupId="org.apache.camel" artifactId="camel-java-joor-dsl" />
+                    <artifact groupId="org.apache.camel" artifactId="camel-java-joor-dsl"/>
                 </project>
             </when>
             <perform>
-                <hint title="camel-java-joor-dsl cannot load routes defined in class files anymore" effort="3" category-id="mandatory" >
-                    <message>camel-java-joor-dsl can no longer load routes defined in class files as we consider it no more needed, consequently the ability to configure the compile directory and the compile load first flag using the corresponding camel-main properties is no longer possible.</message>
+                <hint title="camel-java-joor-dsl can no longer load routes defined in class files" effort="3" category-id="mandatory" >
+                    <message>camel-java-joor-dsl can no longer load routes defined in class files as we consider it no longer needed, consequently the ability to configure the compile directory and the compile load first flag using the corresponding camel-main properties is no longer possible.</message>
                     <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_21.html#_camel_java_joor_dsl" title="Camel 3 - Migration Guide: Changed components" />
                 </hint>
             </perform>
         </rule>
-        <rule id="xml-changed-camel321-00002">
+        <rule id="xml-changed-camel321-00003">
             <when>
                 <project>
                     <artifact groupId="org.apache.camel" artifactId="camel-dozer" />
@@ -52,7 +52,7 @@
                 </hint>
             </perform>
         </rule>
-        <rule id="xml-changed-camel321-00003">
+        <rule id="xml-changed-camel321-00004">
             <when>
                 <project>
                     <artifact groupId="org.apache.camel" artifactId="camel-cmis" />
@@ -65,7 +65,7 @@
                 </hint>
             </perform>
         </rule>
-        <rule id="xml-changed-camel321-00004">
+        <rule id="xml-changed-camel321-00005">
             <when>
                 <project>
                     <artifact groupId="org.apache.camel.springboot" artifactId="camel-platform-http-starter" />

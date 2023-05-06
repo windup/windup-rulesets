@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ruletest id="xml-dsl-changes-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/xml-33-changes</testDataPath>
+    <rulePath>../xml-33-changes.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="java-camel33-00001">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The dump model classes in package org.apache.camel.support.dump has been removed as they were not in use by Camel*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-camel33-00001] hint not found"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

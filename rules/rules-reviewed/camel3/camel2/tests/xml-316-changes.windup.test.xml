@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<ruletest id="xml-dsl-changes-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/xml-316-changes</testDataPath>
+    <rulePath>../xml-316-changes.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="xml-removed-camel316-00001">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`camel-testcontainers-spring` component has been replaced with camel-test-infra*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-camel316-00001] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-removed-camel316-00002">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`camel-testcontainers-spring-junit5` component has been replaced with camel-test-infra*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-camel316-00002] hint not found"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

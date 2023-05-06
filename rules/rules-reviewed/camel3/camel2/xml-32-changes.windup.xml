@@ -88,7 +88,7 @@
             <perform>
                 <hint title="Camel on Apache Karaf / OSGi has been moved to its own project at: https://github.com/apache/camel-karaf" effort="3" category-id="mandatory" >
                     <message>Camel on Apache Karaf / OSGi has been moved to its own project at: https://github.com/apache/camel-karaf.   Please change the `org.apache.camel:camel-kura` dependency to `org.apache.camel.karaf:camel-kura`.</message>
-                    <link href="hhttps://camel.apache.org/manual/camel-3x-upgrade-guide-3_2.html#_other_components_involved" title="Camel 3 - Migration Guide: Removed components" />
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_2.html#_other_components_involved" title="Camel 3 - Migration Guide: Removed components" />
                 </hint>
             </perform>
         </rule>
@@ -135,11 +135,11 @@
 
         <rule id="xml-moved-camel32-00003">
             <when>
-                <filecontent pattern="camel.component.{*}.configuration." filename="{*}.properties"/>
+                <filecontent pattern="camel.component.{*}.configuration.{*}={*}" filename="{*}.properties"/>
             </when>
             <perform>
-                <hint title="Configuring Camel spring boot components has changed its option keys to be flattened and have the .configuration prefix removed now." effort="3" category-id="mandatory" >
-                    <message>Configuring Camel spring boot components has changed its option keys to be flattened and have the .configuration prefix removed now.  See the example in the upgrade guide for 3.2 for more details</message>
+                <hint title="Camel Spring Boot has flattened its option keys and the .configuration prefix has been removed" effort="3" category-id="mandatory" >
+                    <message>Camel Spring Boot has flattened its option keys and the .configuration prefix has been removed.  See the example in the upgrade guide for 3.2 for more details</message>
                     <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_2.html#_configuring_components_via_spring_boot_auto_configuration" title="Camel 3 - Migration Guide: Spring Boot configuration" />
                 </hint>
             </perform>
@@ -147,7 +147,7 @@
 
         <rule id="xml-moved-camel32-00004">
             <when>
-                <filecontent pattern="broker-u-r-l" filename="{*}.properties"/>
+                <filecontent pattern="{*}.broker-u-r-l={*}" filename="{*}.properties"/>
             </when>
             <perform>
                 <hint title="broker-u-r-l in Spring Boot properties renamed to broker-url" effort="3" category-id="mandatory" >
@@ -159,7 +159,7 @@
 
         <rule id="xml-moved-camel32-00005">
             <when>
-                <javaclass references="org.apache.camel.cluster">
+                <javaclass references="org.apache.camel.cluster.{*}">
                     <location>IMPORT</location>
                 </javaclass>
             </when>

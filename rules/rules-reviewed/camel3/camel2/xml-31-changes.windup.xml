@@ -20,7 +20,7 @@
             </when>
             <perform>
                 <hint title="`HttpOperationFailedException` has moved from package org.apache.camel.http.common to org.apache.camel.http.base" effort="7" category-id="mandatory" >
-                    <message>`HttpOperationFailedException"` has moved from package org.apache.camel.http.common to org.apache.camel.http.base in Camel 3.1.</message>
+                    <message>`HttpOperationFailedException` has moved from package org.apache.camel.http.common to org.apache.camel.http.base in Camel 3.1.</message>
                     <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_1.html#_camel_undertow" title="Camel 3 - Migration Guide: Spring Boot Starters" />
                 </hint>
             </perform>
@@ -34,7 +34,7 @@
             </when>
             <perform>
                 <hint title="`camel-jaxp` component has been renamed to camel-xml-jaxp" effort="7" category-id="mandatory" >
-                    <message>`camel-jaxp` component has been renamed to camel-xml-jaxp in Apache Camel 3.1.  </message>
+                    <message>`camel-jaxp` component has been renamed to camel-xml-jaxp in Apache Camel 3.1.</message>
                     <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_1.html" title="Camel 3 - Migration Guide: Renamed components" />
                 </hint>
             </perform>
@@ -43,12 +43,12 @@
         <rule id="xml-removed-camel31-00002">
             <when>
                 <project>
-                    <artifact groupId="org.apache.camel.springboot" artifactId="*" />
+                    <artifact groupId="org.apache.camel.springboot" artifactId="{*}" />
                 </project>
             </when>
             <perform>
                 <hint title="The `camel-management` dependency has been removed from camel-spring-boot" effort="7" category-id="optional" >
-                    <message>The `camel-management` dependency which provided JMX support has been removed from camel-spring-boot.   If you need JMX support with Camel Spring Boot, please add a dependency on org.apache.camel:camel-management.</message>
+                    <message>The `camel-management` dependency has been removed from camel-spring-boot - If you need JMX support with Camel Spring Boot, please add a dependency on org.apache.camel:camel-management</message>
                     <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_1.html#_spring_boot_jmx" title="Camel 3 - Migration Guide: Renamed components" />
                 </hint>
             </perform>
@@ -56,13 +56,13 @@
 
         <rule id="xml-moved-camel31-00001">
             <when>
-                <javaclass references="org.apache.camel.http.common.cookie">
+                <javaclass references="org.apache.camel.http.common.cookie.{*}">
                     <location>IMPORT</location>
                 </javaclass>
             </when>
             <perform>
-                <hint title="`org.apache.camel.http.common.cookie` package has been renamed to org.apache.camel.http.base.cookie and moved into the camel-http-base JAR " effort="7" category-id="mandatory" >
-                    <message>`org.apache.camel.http.common.cookie` package has been renamed to org.apache.camel.http.base.cookie and moved into the camel-http-base JAR in Apache Camel 3.1. </message>
+                <hint title="`org.apache.camel.http.common.cookie` package has been renamed to org.apache.camel.http.base.cookie and moved into the camel-http-base JAR*" effort="7" category-id="mandatory" >
+                    <message>`org.apache.camel.http.common.cookie` package has been renamed to org.apache.camel.http.base.cookie and moved into the camel-http-base JAR</message>
                     <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_1.html#_cookies" title="Camel 3 - Migration Guide: Renamed components" />
                 </hint>
             </perform>

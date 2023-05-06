@@ -15,17 +15,16 @@
         <rule id="xml-315-00001">
             <when>
                 <project>
-                    <artifact groupId="*" artifactId="*"/>
+                    <artifact groupId="org.apache.camel" artifactId="{*}"/>
                 </project>
             </when>
             <perform>
-                <hint title="JDK 8 no longer supported" effort="7" category-id="optional" >
-                    <message>In Camel 3.15, JDK 11 or 17 is required.  JDK is no longer supported.</message>
+                <hint title="JDK 8 no longer supported" effort="7" category-id="mandatory" >
+                    <message>JDK 8 no longer supported - In Camel 3.15, JDK 11 or 17 is required.</message>
                     <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_15.html#_upgrading_camel_3_14_to_3_15" title="Camel 3 - Migration Guide: JDK Upgrade" />
                 </hint>
             </perform>
         </rule>
-
 
         <rule id="xml-removed-camel315-00001">
             <when>
@@ -57,11 +56,11 @@
 
         <rule id="properties-removed-camel315-00001">
             <when>
-                <filecontent pattern="camel.dataformat.fhirjson" filename="{*}.properties"/>
+                <filecontent pattern="camel.dataformat.fhirjson.{*}={*}" filename="{*}.properties"/>
             </when>
             <perform>
                 <hint title="`camel.dataformat.fhirjson` configuration key has been renamed to camel.dataformat.fhir-json" effort="1" category-id="mandatory" >
-                    <message>`camel.dataformat.fhirjson"` configuration key has been renamed to camel.dataformat.fhir-json.</message>
+                    <message>`camel.dataformat.fhirjson` configuration key has been renamed to camel.dataformat.fhir-json.</message>
                     <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_15.html#_data_formats" title="Camel 3 - Migration Guide: Spring Boot Starters" />
                 </hint>
             </perform>
@@ -69,7 +68,7 @@
 
         <rule id="properties-removed-camel315-00002">
             <when>
-                <filecontent pattern="camel.dataformat.fhirxml" filename="{*}.properties"/>
+                <filecontent pattern="camel.dataformat.fhirxml.{*}={*}" filename="{*}.properties"/>
             </when>
             <perform>
                 <hint title="`camel.dataformat.fhirxml` configuration key has been renamed to camel.dataformat.fhir-xml" effort="1" category-id="mandatory" >
@@ -81,7 +80,7 @@
 
         <rule id="properties-removed-camel315-00003">
             <when>
-                <filecontent pattern="camel.dataformat.gzipdeflater" filename="{*}.properties"/>
+                <filecontent pattern="camel.dataformat.gzipdeflater.{*}={*}" filename="{*}.properties"/>
             </when>
             <perform>
                 <hint title="`camel.dataformat.gzipdeflater` configuration key has been renamed to camel.dataformat.gzip-deflater" effort="7" category-id="mandatory" >
@@ -92,7 +91,7 @@
         </rule>
         <rule id="properties-removed-camel315-00004">
             <when>
-                <filecontent pattern="camel.dataformat.jacksonxml" filename="{*}.properties"/>
+                <filecontent pattern="camel.dataformat.jacksonxml.{*}={*}" filename="{*}.properties"/>
             </when>
             <perform>
                 <hint title="`camel.dataformat.jacksonxml` configuration key has been renamed to camel.dataformat.jackson-xml" effort="1" category-id="mandatory" >
@@ -103,7 +102,7 @@
         </rule>
         <rule id="properties-removed-camel315-00005">
             <when>
-                <filecontent pattern="camel.dataformat.jsonapi" filename="{*}.properties"/>
+                <filecontent pattern="camel.dataformat.jsonapi.{*}={*}" filename="{*}.properties"/>
             </when>
             <perform>
                 <hint title="`camel.dataformat.jsonapi` configuration key has been renamed to camel.dataformat.json-api" effort="1" category-id="mandatory" >
@@ -114,7 +113,7 @@
         </rule>
         <rule id="properties-removed-camel315-00006">
             <when>
-                <filecontent pattern="camel.dataformat.mimemultipart" filename="{*}.properties"/>
+                <filecontent pattern="camel.dataformat.mimemultipart.{*}={*}" filename="{*}.properties"/>
             </when>
             <perform>
                 <hint title="`camel.dataformat.mimemultipart` configuration key has been renamed to camel.dataformat.mime-multipart" effort="1" category-id="mandatory" >
@@ -125,7 +124,7 @@
         </rule>
         <rule id="properties-removed-camel315-00007">
             <when>
-                <filecontent pattern="camel.dataformat.securexml" filename="{*}.properties"/>
+                <filecontent pattern="camel.dataformat.securexml.{*}={*}" filename="{*}.properties"/>
             </when>
             <perform>
                 <hint title="`camel.dataformat.securexml` configuration key has been renamed to camel.dataformat.xml-security" effort="1" category-id="mandatory" >
@@ -136,7 +135,7 @@
         </rule>
         <rule id="properties-removed-camel315-00008">
             <when>
-                <filecontent pattern="camel.dataformat.tarfile" filename="{*}.properties"/>
+                <filecontent pattern="camel.dataformat.tarfile.{*}={*}" filename="{*}.properties"/>
             </when>
             <perform>
                 <hint title="`camel.dataformat.tarfile` configuration key has been renamed to camel.dataformat.tar-file" effort="1" category-id="mandatory" >
@@ -147,7 +146,7 @@
         </rule>
         <rule id="properties-removed-camel315-00009">
             <when>
-                <filecontent pattern="camel.dataformat.tidymarkup" filename="{*}.properties"/>
+                <filecontent pattern="camel.dataformat.tidymarkup.{*}={*}" filename="{*}.properties"/>
             </when>
             <perform>
                 <hint title="`camel.dataformat.tidymarkup` configuration key has been renamed to camel.dataformat.tidy-markup" effort="1" category-id="mandatory" >
@@ -159,7 +158,7 @@
 
         <rule id="properties-removed-camel315-00010">
             <when>
-                <filecontent pattern="camel.dataformat.univocitycsv" filename="{*}.properties"/>
+                <filecontent pattern="camel.dataformat.univocitycsv.{*}={*}" filename="{*}.properties"/>
             </when>
             <perform>
                 <hint title="`camel.dataformat.univocitycsv` configuration key has been renamed to camel.dataformat.univocity-csv" effort="1" category-id="mandatory" >
@@ -170,7 +169,7 @@
         </rule>
         <rule id="properties-removed-camel315-00011">
             <when>
-                <filecontent pattern="camel.dataformat.univocityfixed" filename="{*}.properties"/>
+                <filecontent pattern="camel.dataformat.univocityfixed.{*}={*}" filename="{*}.properties"/>
             </when>
             <perform>
                 <hint title="`camel.dataformat.univocityfixed` configuration key has been renamed to camel.dataformat.univocity-fixed" effort="1" category-id="mandatory" >
@@ -181,7 +180,7 @@
         </rule>
         <rule id="properties-removed-camel315-00012">
             <when>
-                <filecontent pattern="camel.dataformat.univocitytsv" filename="{*}.properties"/>
+                <filecontent pattern="camel.dataformat.univocitytsv.{*}={*}" filename="{*}.properties"/>
             </when>
             <perform>
                 <hint title="`camel.dataformat.univocitytsv` configuration key has been renamed to camel.dataformat.univocity-tsv" effort="1" category-id="mandatory" >
@@ -192,7 +191,7 @@
         </rule>
         <rule id="properties-removed-camel315-00013">
             <when>
-                <filecontent pattern="camel.dataformat.yaml-snakeyaml" filename="{*}.properties"/>
+                <filecontent pattern="camel.dataformat.yaml-snakeyaml.{*}={*}" filename="{*}.properties"/>
             </when>
             <perform>
                 <hint title="`camel.dataformat.yaml-snakeyaml` configuration key has been renamed to camel.dataformat.snake-yaml" effort="1" category-id="mandatory" >
@@ -203,7 +202,7 @@
         </rule>
         <rule id="properties-removed-camel315-00014">
             <when>
-                <filecontent pattern="camel.dataformat.zipdeflater" filename="{*}.properties"/>
+                <filecontent pattern="camel.dataformat.zipdeflater.{*}={*}" filename="{*}.properties"/>
             </when>
             <perform>
                 <hint title="`camel.dataformat.zipdeflater` configuration key has been renamed to camel.dataformat.zip-deflater" effort="1" category-id="mandatory" >
@@ -214,7 +213,7 @@
         </rule>
         <rule id="properties-removed-camel315-00015">
             <when>
-                <filecontent pattern="camel.dataformat.zipfile" filename="{*}.properties"/>
+                <filecontent pattern="camel.dataformat.zipfile.{*}={*}" filename="{*}.properties"/>
             </when>
             <perform>
                 <hint title="`camel.dataformat.zipfile` configuration key has been renamed to camel.dataformat.zip-file" effort="1" category-id="mandatory" >
