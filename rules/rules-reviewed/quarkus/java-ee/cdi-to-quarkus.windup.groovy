@@ -6,6 +6,8 @@ import org.jboss.windup.config.Variables
 import org.jboss.windup.config.metadata.TechnologyReference
 import org.jboss.windup.config.operation.Iteration
 import org.jboss.windup.config.operation.iteration.AbstractIterationOperation
+import org.jboss.windup.config.query.Query
+import org.jboss.windup.config.query.QueryPropertyComparisonType
 import org.jboss.windup.graph.model.FileLocationModel
 import org.jboss.windup.graph.model.FileReferenceModel
 import org.jboss.windup.graph.model.ProjectModel
@@ -62,46 +64,51 @@ ruleSet("cdi-to-quarkus-groovy")
         JavaClass.references("javax.inject.Inject").at(TypeReferenceLocation.ANNOTATION).as("main")
     )
     .perform(
-        new AbstractIterationOperation<JavaAnnotationTypeReferenceModel>("main") {
-            void perform(GraphRewrite event, EvaluationContext context, JavaAnnotationTypeReferenceModel payload) {
-                String annotatedClass = payload.getAnnotatedType().getResolvedSourceSnippit()
-                final boolean injectedClassHasScopeAnnotations = 
-                    JavaClass.references(annotatedClass)
-                        .at(TypeReferenceLocation.TYPE)
-                        .annotationMatches(new AnnotationTypeCondition("javax.enterprise.context.{ApplicationScoped|ConversationScoped|Dependent|RequestScoped|SessionScoped}"))
-                        .as("discard")
-                        .evaluate(event, context)
-                final boolean injectedClassHasSingletonAnnotations = 
-                    JavaClass.references(annotatedClass)
-                        .at(TypeReferenceLocation.TYPE)
-                        .annotationMatches(new AnnotationTypeCondition("javax.inject.Singleton"))
-                        .as("discardAsWell")
-                        .evaluate(event, context)
-                if (!injectedClassHasScopeAnnotations && !injectedClassHasSingletonAnnotations) {
-                    if (JavaClass.references(annotatedClass).at(TypeReferenceLocation.TYPE).as("injectClassDeclaration").evaluate(event, context)) {
-                        Iteration.over("injectClassDeclaration")
-                        .perform(
-                            new AbstractIterationOperation<FileLocationModel>() {
-                                void perform(GraphRewrite anotherEvent, EvaluationContext anotherContext, FileLocationModel anotherPayload) {
-                                    ((Hint) Hint.titled("Injected class is missing scope annotation")
-                                        .withText("""
-                                        A class injected but missing an annotation to define its scope type is not going to be discovered from Quarkus.  
-                                        Consider adding the `@Dependent` scope which is the default scope for a bean which does not explicitly declare a scope type (ref. [CDI 2.0 - Scopes: Default scope](https://docs.jboss.org/cdi/spec/2.0/cdi-spec.html#default_scope))
-                                        """)
-                                        .withIssueCategory(potentialIssueCategory)
-                                        .with(guideLink)
-                                        .with(cdiSpecLink)
-                                        .withEffort(1)
-                                    ).performParameterized(anotherEvent, anotherContext, anotherPayload)
-                                }
-                            }
-                        )
-                        .endIteration()
-                        .perform(event, context)
+        Iteration.over("main")
+        .perform(
+            new AbstractIterationOperation<JavaAnnotationTypeReferenceModel>() {
+                public static final String FROM_FILES_IN_PROJECT = "filesInProject"
+                public static final String INJECT_CLASS_DECLARATION = "injectClassDeclaration"
+
+                void perform(GraphRewrite event, EvaluationContext context, JavaAnnotationTypeReferenceModel payload) {
+                    final String annotatedClass = payload.getAnnotatedType().getResolvedSourceSnippit()
+                    final boolean injectedClassHasScopeAnnotations =
+                        JavaClass.references(annotatedClass)
+                            .at(TypeReferenceLocation.TYPE)
+                            .annotationMatches(new AnnotationTypeCondition("javax.enterprise.context.(ApplicationScoped|ConversationScoped|Dependent|RequestScoped|SessionScoped)"))
+                            .as("discard")
+                            .evaluate(event, context)
+                    final boolean injectedClassHasSingletonAnnotations =
+                        JavaClass.references(annotatedClass)
+                            .at(TypeReferenceLocation.TYPE)
+                            .annotationMatches(new AnnotationTypeCondition("javax.inject.Singleton"))
+                            .as("discardAsWell")
+                            .evaluate(event, context)
+                    if (!injectedClassHasScopeAnnotations && !injectedClassHasSingletonAnnotations) {
+                        // first of all select only the file belonging to the same root project as the payload
+                        // to reduce (i.e. optimize) the number of files found from the second query
+                        if (Query.fromType(FileModel.class).withProperty(FileModel.FILE_PATH, QueryPropertyComparisonType.CONTAINS_TOKEN, payload.getFile().getProjectModel().getRootFileModel().getPrettyPath() + "/").as(FROM_FILES_IN_PROJECT).evaluate(event, context)
+                            && JavaClass.from(FROM_FILES_IN_PROJECT).references(annotatedClass).at(TypeReferenceLocation.TYPE).as(INJECT_CLASS_DECLARATION).evaluate(event, context)) {
+                            Iteration.over(INJECT_CLASS_DECLARATION)
+                            .perform(
+                                ((Hint) Hint.titled("Injected class is missing scope annotation")
+                                    .withText("""
+                                            A class injected but missing an annotation to define its scope type is not going to be discovered from Quarkus.  
+                                            Consider adding the `@Dependent` scope which is the default scope for a bean which does not explicitly declare a scope type (ref. [CDI 2.0 - Scopes: Default scope](https://docs.jboss.org/cdi/spec/2.0/cdi-spec.html#default_scope))
+                                            """)
+                                    .withIssueCategory(potentialIssueCategory)
+                                    .with(guideLink)
+                                    .with(cdiSpecLink)
+                                    .withEffort(1)
+                                )
+                            )
+                            .endIteration()
+                        }
                     }
                 }
             }
-        }
+        )
+        .endIteration()
     )
     .withId("cdi-to-quarkus-groovy-00010")
     // suggest to replace cdi-api TRANSITIVE dependency if no Quarkus dependency has been already added and 'javax.enterprise.{packages}.{*}' package is used somewhere in the code
