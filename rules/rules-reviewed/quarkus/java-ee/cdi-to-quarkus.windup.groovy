@@ -33,7 +33,7 @@ final Link guideLink = Link.to("Quarkus - Guides", "https://quarkus.io/guides/cd
 final Link cdiSpecLink = Link.to("CDI 2.0 - Scopes: Default scope", "https://docs.jboss.org/cdi/spec/2.0/cdi-spec.html#default_scope")
 
 static boolean matchesProject(GraphRewrite event, FileLocationModel payload) {
-    final Iterable<? extends WindupVertexFrame> previouslyFound = Optional.ofNullable(Variables.instance(event).findVariable("discard")).orElse(Set.of())
+    final Iterable<? extends WindupVertexFrame> previouslyFound = Optional.ofNullable(Variables.instance(event).findVariable("discard")).orElse(Collections.emptySet())
     final Set<ProjectModel> projectModels = StreamSupport.stream(previouslyFound.spliterator(), false)
         .map {
             if (it instanceof FileReferenceModel) return ((FileReferenceModel) it).getFile().getProjectModel()
