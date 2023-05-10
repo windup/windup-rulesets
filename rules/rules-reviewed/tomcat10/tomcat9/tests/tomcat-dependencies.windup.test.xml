@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ruletest id="upgrade-tomcat-dependencies-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/pom.xml</testDataPath>
+    <rulePath>../tomcat-dependencies.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="upgrade-tomcat-dependencies-00001-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">   
+                            <hint-exists message="Upgrade the artifact tomcat-"/>
+                        </iterable-filter> 
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[upgrade-tomcat-dependencies-00001] The hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
