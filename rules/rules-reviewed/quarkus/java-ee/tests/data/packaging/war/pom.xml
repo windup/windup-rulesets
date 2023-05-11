@@ -1,0 +1,29 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>foo</groupId>
+    <artifactId>bar</artifactId>
+    <version>999</version>
+    <packaging>war</packaging>
+    <properties>  
+        <compiler-plugin.version>3.10.1</compiler-plugin.version>
+        <maven.compiler.release>11</maven.compiler.release>
+    </properties>  
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${compiler-plugin.version}</version>
+            </plugin>
+        </plugins>
+    </build>
+    <!-- negative test case for javaee-api-to-quarkus-groovy-00000 rule-->
+    <dependencies>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>8.0</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+</project>

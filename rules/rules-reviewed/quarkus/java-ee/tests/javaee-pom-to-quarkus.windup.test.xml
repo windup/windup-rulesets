@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<ruletest id="javaee-pom-to-quarkus-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/*</testDataPath>
+    <rulePath>../javaee-pom-to-quarkus.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="javaee-pom-to-quarkus-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="4">
+                             <hint-exists message="The project artifact's current extension \(i.e. `&lt;packaging&gt;` tag value\) is"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                        <fail message="[javaee-pom-to-quarkus-00000] The project artifact's extension hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="javaee-pom-to-quarkus-00010-test">
+                <when>
+                    <not>
+                        <iterable-filter size="6">
+                             <hint-exists message="Use the Quarkus BOM to omit the version of the different Quarkus dependencies"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                        <fail message="[javaee-pom-to-quarkus-00010] Quarkus BOM hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="javaee-pom-to-quarkus-00020-test">
+                <when>
+                    <not>
+                        <iterable-filter size="6">
+                             <hint-exists message="Use the Quarkus Maven plugin adding the following sections to the `pom.xml` file"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                        <fail message="[javaee-pom-to-quarkus-00020] Quarkus Maven plugin hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="javaee-pom-to-quarkus-00030-test">
+                <when>
+                    <not>
+                        <iterable-filter size="6">
+                             <hint-exists message="Use the Maven Compiler plugin adding the following sections to the `pom.xml` file"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                        <fail message="[javaee-pom-to-quarkus-00030] Maven Compiler plugin hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="javaee-pom-to-quarkus-00040-test">
+                <when>
+                    <not>
+                        <iterable-filter size="6">
+                             <hint-exists message="Use the Maven Surefire plugin adding the following sections to the `pom.xml` file"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                        <fail message="[javaee-pom-to-quarkus-00040] Maven Surefire plugin hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="javaee-pom-to-quarkus-00050-test">
+                <when>
+                    <not>
+                        <iterable-filter size="6">
+                             <hint-exists message="Use the Maven Failsafe plugin adding the following sections to the `pom.xml` file"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                        <fail message="[javaee-pom-to-quarkus-00050] Maven Failsafe plugin hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="javaee-pom-to-quarkus-00060-test">
+                <when>
+                    <not>
+                        <iterable-filter size="6">
+                             <hint-exists message="Leverage a Maven profile to run the Quarkus native build adding the following section to the `pom.xml` file"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                        <fail message="[javaee-pom-to-quarkus-00060] Quarkus native profile hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
