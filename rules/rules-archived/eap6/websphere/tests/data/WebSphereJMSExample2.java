@@ -33,7 +33,7 @@ import com.ibm.msg.client.jms.JmsXATopicSession;
 /**
  * Testing detection of com.ibm.websphere.sib.api.jms.JmsConnectionFactory
  */
-public class WebSphereJMSExample
+public class WebSphereJMSExample2
 {
     public static void main(String[] args) throws IOException, JMSException
     {
