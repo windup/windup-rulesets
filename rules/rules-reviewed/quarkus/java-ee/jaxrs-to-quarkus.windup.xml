@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="jaxrs-to-quarkus"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints to migrate JAX-RS applications to Quarkus extension
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="java-ee" />
+        <targetTechnology id="quarkus" />
+    </metadata>
+    <rules>
+        <rule id="jaxrs-to-quarkus-00000">
+            <when>
+                <project><artifact groupId="org.jboss.spec.javax.ws.rs" artifactId="jboss-jaxrs-api_2.1_spec" /></project>
+            </when>
+            <perform>
+                <hint title="Replace JAX-RS dependency" effort="1" category-id="mandatory">
+                    <message>
+                        Dependency `org.jboss.spec.javax.ws.rs:jboss-jaxrs-api_2.1_spec` has to be replaced with `io.quarkus:quarkus-resteasy` artifact.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/resteasy" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jaxrs-to-quarkus-00010">
+            <when>
+                <project><artifact groupId="javax.ws.rs" artifactId="javax.ws.rs-api" /></project>
+            </when>
+            <perform>
+                <hint title="Replace JAX-RS dependency" effort="1" category-id="mandatory">
+                    <message>
+                        Dependency `javax.ws.rs:javax.ws.rs-api` has to be replaced with `io.quarkus:quarkus-resteasy` artifact.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/resteasy" />
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
