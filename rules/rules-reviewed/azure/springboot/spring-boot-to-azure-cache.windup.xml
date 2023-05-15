@@ -53,5 +53,34 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="spring-boot-to-azure-cache-redis-02000">
+            <when>
+                <or>
+                    <filecontent filename="application{*}.{extensions}" pattern="{pattern}"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Redis Cache found in the application" category-id="information" effort="0">
+                    <message>
+                        <![CDATA[
+                        The application uses a Redis Cache connection string, username, or password.
+
+                        Checkout Azure Cache for Redis for a fully managed cache on Azure.
+                        ]]>
+                    </message>
+                    <link title="Redis Cache found in the application" href="https://learn.microsoft.com/azure/developer/java/migration/migrate-spring-boot-to-azure-spring-apps#identify-external-caches"/>
+                    <link title="Azure Cache for Redis" href="https://azure.microsoft.com/services/cache"/>
+                    <link title="Spring Data Redis" href="https://spring.io/projects/spring-data-redis/"/>
+                    <link title="Azure Spring Cloud Starter Cache" href="https://search.maven.org/artifact/com.azure.spring/azure-spring-cloud-starter-cache"/>
+                    <tag>redis</tag>
+                </hint>
+            </perform>
+            <where param="extensions">
+                <matches pattern="(properties|yaml|yml)"/>
+            </where>
+            <where param="pattern">
+                <matches pattern="(redis|jedis|lettuce)\.(.*\.)?(url|host|nodes|username|password)"/>
+            </where>
+        </rule>
     </rules>
 </ruleset>
