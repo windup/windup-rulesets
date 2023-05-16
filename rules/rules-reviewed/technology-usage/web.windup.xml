@@ -1,0 +1,195 @@
+<?xml version="1.0"?>
+<ruleset id="web" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of Java web libraries.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final"/>
+        </dependencies>
+    </metadata>
+    <rules>
+        <rule id="web-01000">
+            <when>
+                <graph-query discriminator="JsfSourceFile" />
+            </when>
+            <perform>
+                <classification title="Embedded technology - Java Server Faces" category-id="information" effort="0">
+                    <description>The application uses Java Server Faces</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">JSF</technology-tag>
+            </perform>
+        </rule>
+        <rule id="technology-usage-web-01100">
+            <when>
+                <graph-query discriminator="JspSourceFileModel" />
+            </when>
+            <perform>
+                <classification title="Embedded technology - Java Server Pages" category-id="information" effort="0">
+                    <description>The application uses Java Server Pages</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">JSP</technology-tag>
+            </perform>
+        </rule>
+        <rule id="technology-usage-web-01200">
+            <when>
+                <graph-query discriminator="WebXmlModel" />
+            </when>
+            <perform>
+                <classification title="Embedded technology - Web XML" category-id="information" effort="0">
+                    <description>The application uses a web application</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">WebXML</technology-tag>
+            </perform>
+        </rule>
+        <rule id="technology-usage-web-01300">
+            <when>
+                <javaclass references="javax.websocket.server.ServerEndpoint">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <classification title="Embedded technology - WebSocket" category-id="information" effort="0">
+                    <description>The application uses WebSockets</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">WebSocket</technology-tag>
+            </perform>
+        </rule>
+        <rule id="technology-usage-web-01400">
+            <when>
+                <or>
+                    <javaclass references="java.applet.Applet">
+                        <location>INHERITANCE</location>
+                    </javaclass>
+                     <file filename="{*}applet{*}.jar" />
+                </or>
+            </when>
+            <perform>
+                <classification title="Embedded technology - Applet" category-id="information" effort="0">
+                    <description>The application uses Java Applets</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Applet</technology-tag>
+            </perform>
+        </rule>
+        <rule id="technology-usage-web-01500">
+            <when>
+                <file filename="{*}.jnlp" />
+            </when>
+            <perform>
+                <classification title="Embedded technology - JNLP" category-id="information" effort="0">
+                    <description>The application uses JNLP (Java Network Launching Protocol)</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">JNLP</technology-tag>
+            </perform>
+        </rule>
+        <rule id="technology-usage-web-01600">
+            <when>
+                <or>
+                    <file filename="{*}jnlp{*}.jar" />
+                    <file filename="{*}webstart{*}.jar" />
+                </or>
+            </when>
+            <perform>
+                <classification title="Embedded technology - JNLP" category-id="information" effort="0">
+                    <description>The application uses JNLP (Java Network Launching Protocol)</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">JNLP</technology-tag>
+            </perform>
+        </rule>
+        <rule id="technology-usage-web-01700">
+            <when>
+                <file filename="{*}swing{*}.jar" />
+            </when>
+            <perform>
+                <classification title="Embedded technology - Swing" category-id="information" effort="0">
+                    <description>The application uses Swing</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Swing</technology-tag>
+            </perform>
+        </rule>
+        <rule id="technology-usage-web-01800">
+            <when>
+                <file filename="{*}miglayout{*}.jar" />
+            </when>
+            <perform>
+                <classification title="Embedded technology - MiGLayout" category-id="information" effort="0">
+                    <description>The application uses MyGLayout</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">MiGLayout</technology-tag>
+            </perform>
+        </rule>
+        <rule id="technology-usage-web-01900">
+            <when>
+                <file filename="{*}jgoodies{*}.jar" />
+            </when>
+            <perform>
+                <classification title="Embedded technology - JGoodies" category-id="information" effort="0">
+                    <description>The application uses JGoodies</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">JGoodies</technology-tag>
+            </perform>
+        </rule>
+         <rule id="technology-usage-web-02000">
+            <when>
+                <file filename="{*}formlayoutmakerx{*}.jar" />
+            </when>
+            <perform>
+                <classification title="Embedded technology - FormLayoutMaker" category-id="information" effort="0">
+                    <description>The application uses FormLayouttMaker</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">FormLayoutMaker</technology-tag>
+            </perform>
+        </rule>
+        <rule id="technology-usage-web-02100">
+            <when>
+                <file filename="{*}magicgrouplayout{*}.jar" />
+            </when>
+            <perform>
+                <classification title="Embedded technology - MagicGroupLayout" category-id="information" effort="0">
+                    <description>The application uses MagicGroupLayout</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Magicgrouplayout</technology-tag>
+            </perform>
+        </rule>
+        <rule id="technology-usage-web-02200">
+            <when>
+                <file filename="{*}swt{*}.jar" />
+            </when>
+            <perform>
+                <classification title="Embedded technology - Standard Widget Toolkit (SWT)" category-id="information" effort="0">
+                    <description>The application uses Standard Widget Toolkit (SWT)</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">SWT</technology-tag>
+            </perform>
+        </rule>
+        <rule id="technology-usage-web-02300">
+            <when>
+                <file filename="{*}javafx{*}.jar" />
+            </when>
+            <perform>
+                <classification title="Embedded technology - JavaFX" category-id="information" effort="0">
+                    <description>The application uses JavaFX</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">JavaFX</technology-tag>
+            </perform>
+        </rule>
+        <rule id="technology-usage-web-02400">
+            <when>
+                <or>
+                    <file filename="rcp{*}.jar" />
+                    <file filename="{*}eclipse.rcp{*}.jar" />
+                    <file filename="{*}eclipse{*}runtime{*}.jar" />
+                    <file filename="{*}eclipse.ui{*}.jar" />
+                </or>
+            </when>
+            <perform>
+                <classification title="Embedded technology - Eclipse RCP" category-id="information" effort="0">
+                    <description>The application uses Eclipse RCP</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Eclipse RCP</technology-tag>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
