@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ruletest id="jaxrs-to-quarkus-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/*</testDataPath>
+    <rulePath>../javaee-api-to-quarkus.windup.groovy</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="jaxrs-to-quarkus-groovy-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                             <hint-exists message="At least one Java class importing from the `javax.ws.rs` package has been found so the dependency `javax:javaee-api` has to be replaced with `io.quarkus:quarkus-resteasy` artifact."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[jaxrs-to-quarkus-groovy-00000] javax.ws.rs transitive dependency hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
