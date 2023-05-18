@@ -58,19 +58,6 @@ ruleSet("connect")
     .when(File.inFileNamed("{*}activemq{*}"))
     .perform(new AbstractIterationOperation<FileLocationModel>() {
         void perform(GraphRewrite event, EvaluationContext context, FileLocationModel payload) {
-/*
-            final IssueCategoryRegistry issueCategoryRegistry = IssueCategoryRegistry.instance(context)
-            final Classification classification = (Classification) Classification.as("Embedded library - ActiveMQ")
-                .withDescription("The application embeds an ActiveMQ client library.")
-                .withEffort(0)
-                .withIssueCategory(issueCategoryRegistry.getByID(IssueCategoryRegistry.INFORMATION))
-            if (hasAnalysisTargetEap(event.getGraphContext())) {
-                classification.with(eap7SupportedConfigurations)
-            }
-            classification.performParameterized(event, context, payload.getFile())
-            final TechnologyTagService technologyTagService = new TechnologyTagService(event.getGraphContext())
-            technologyTagService.addTagToFileModel(payload.getFile(), "ActiveMQ", TechnologyTagLevel.INFORMATIONAL)
-*/
             perform(event, context, payload.getFile(), "ActiveMQ", true)
         }
     })
@@ -79,16 +66,6 @@ ruleSet("connect")
     .when(File.inFileNamed("{*}openws{*}"))
     .perform(new AbstractIterationOperation<FileLocationModel>() {
         void perform(GraphRewrite event, EvaluationContext context, FileLocationModel payload) {
-/*
-            final IssueCategoryRegistry issueCategoryRegistry = IssueCategoryRegistry.instance(context)
-            final Classification classification = (Classification) Classification.as("Embedded library - OpenWS")
-                .withDescription("The application embeds an OpenWS library.")
-                .withEffort(0)
-                .withIssueCategory(issueCategoryRegistry.getByID(IssueCategoryRegistry.INFORMATION))
-            classification.performParameterized(event, context, payload.getFile())
-            final TechnologyTagService technologyTagService = new TechnologyTagService(event.getGraphContext())
-            technologyTagService.addTagToFileModel(payload.getFile(), "OpenWS", TechnologyTagLevel.INFORMATIONAL)
-*/
             perform(event, context, payload.getFile(), "OpenWS", false)
         }
     })
@@ -97,16 +74,6 @@ ruleSet("connect")
     .when(File.inFileNamed("{*}wsdl{*}"))
     .perform(new AbstractIterationOperation<FileLocationModel>() {
         void perform(GraphRewrite event, EvaluationContext context, FileLocationModel payload) {
-/*
-            final IssueCategoryRegistry issueCategoryRegistry = IssueCategoryRegistry.instance(context)
-            final Classification classification = (Classification) Classification.as("Embedded library - WSDL")
-                .withDescription("The application embeds a WSDL library.")
-                .withEffort(0)
-                .withIssueCategory(issueCategoryRegistry.getByID(IssueCategoryRegistry.INFORMATION))
-            classification.performParameterized(event, context, payload.getFile())
-            final TechnologyTagService technologyTagService = new TechnologyTagService(event.getGraphContext())
-            technologyTagService.addTagToFileModel(payload.getFile(), "WSDL", TechnologyTagLevel.INFORMATIONAL)
-*/
             perform(event, context, payload.getFile(), "WSDL", false)
         }
     })
@@ -122,19 +89,6 @@ ruleSet("connect")
     )
     .perform(new AbstractIterationOperation<FileLocationModel>() {
         void perform(GraphRewrite event, EvaluationContext context, FileLocationModel payload) {
-/*
-            final IssueCategoryRegistry issueCategoryRegistry = IssueCategoryRegistry.instance(context)
-            final Classification classification = (Classification) Classification.as("Embedded library - RabbitMQ Client")
-                .withDescription("The application embeds a RabbitMQ client library.")
-                .withEffort(0)
-                .withIssueCategory(issueCategoryRegistry.getByID(IssueCategoryRegistry.INFORMATION))
-            if (hasAnalysisTargetEap(event.getGraphContext())) {
-                classification.with(eap7SupportedConfigurations)
-            }
-            classification.performParameterized(event, context, payload.getFile())
-            TechnologyTagService technologyTagService = new TechnologyTagService(event.getGraphContext())
-            technologyTagService.addTagToFileModel(payload.getFile(), "RabbitMQ Client", TechnologyTagLevel.INFORMATIONAL)
-*/
             perform(event, context, payload.getFile(), "RabbitMQ Client", true)
         }
     })
