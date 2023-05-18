@@ -226,4 +226,16 @@ ruleSet("connect")
             perform(event, context, payload.getFile(), "Qpid Client", true)
         }
     })
+    .withId(String.format("connect-0%d00", id++))
+    .addRule()
+    .when(Or.any(
+        File.inFileNamed("{*}kafka-clients{*}"),
+        File.inFileNamed("{*}spring-kafka{*}")
+    )
+    )
+    .perform(new AbstractIterationOperation<FileLocationModel>() {
+        void perform(GraphRewrite event, EvaluationContext context, FileLocationModel payload) {
+            perform(event, context, payload.getFile(), "Kafka Client", false)
+        }
+    })
     .withId(String.format("connect-0%d00", id))

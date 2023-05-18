@@ -175,6 +175,17 @@
                <fail message="Expected data not found for rule connect-02800"/>
             </perform>
          </rule>
+         <rule id="connect-02900-test">
+            <when>
+               <not>
+                  <classification-exists classification="Embedded library - Kafka Client"/>
+                  <technology-tag-exists technology-tag="Kafka Client"/>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule connect-02900"/>
+            </perform>
+         </rule>
       </rules>
     </ruleset>
 </ruletest>
