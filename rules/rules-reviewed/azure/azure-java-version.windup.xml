@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<ruleset id="azure-java-version"
+         xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            Check non-LTS Java versions
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="springboot"/>
+        <sourceTechnology id="eap" versionRange="[7,8)" />
+        <targetTechnology id="azure-spring-apps"/>
+        <targetTechnology id="azure-appservice"/>
+        <targetTechnology id="azure-aks"/>
+        <targetTechnology id="azure-container-apps"/>
+        <tag>version</tag>
+    </metadata>
+    <rules>
+        <rule id="azure-java-version-01000">
+            <when>
+                <xmlfile matches="//java.version[windup:matches(text(), '{v}')]" in="pom.xml"/>
+            </when>
+            <perform>
+                <hint title="Non-LTS version Java" category-id="potential" effort="3">
+                    <message>
+                        <![CDATA[
+                        The application is using non-LTS version Java. 
+                        JDK on LTS version is recommended, i.e., JAVA_8, JAVA_11 or JAVA_17.
+                        ]]>
+                    </message>
+                </hint>
+            </perform>
+            <where param="v">
+                <matches pattern="(9|10|12|13|14|15|16|19|20).*"/>
+            </where>
+        </rule>
+        <rule id="azure-java-version-02000">
+            <when>
+                <xmlfile matches="//java.version[windup:matches(text(), '{v}')]" in="pom.xml"/>
+            </when>
+            <perform>
+                <hint title="Java version found to be lower than JAVA_8" category-id="potential" effort="3">
+                    <message>
+                        <![CDATA[
+                        The application is using Java version lower than JAVA_8.
+                        JDK on LTS version is recommended, i.e., JAVA_8, JAVA_11 or JAVA_17.
+                        ]]>
+                    </message>
+                </hint>
+            </perform>
+            <where param="v">
+                <matches pattern="1\.[0-7]"/>
+            </where>
+        </rule>
+    </rules>
+</ruleset>
