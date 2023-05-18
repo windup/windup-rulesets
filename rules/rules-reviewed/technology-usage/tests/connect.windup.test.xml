@@ -7,7 +7,7 @@
           xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
 
     <testDataPath>data/connect</testDataPath>
-    <rulePath>../connect.windup.xml</rulePath>
+    <rulePath>../connect.windup.groovy</rulePath>
     <ruleset>
       <rules>
          <rule id="connect-01400-test">
@@ -173,6 +173,17 @@
             </when>
             <perform>
                <fail message="Expected data not found for rule connect-02800"/>
+            </perform>
+         </rule>
+         <rule id="connect-02900-test">
+            <when>
+               <not>
+                  <classification-exists classification="Embedded library - Kafka Client"/>
+                  <technology-tag-exists technology-tag="Kafka Client"/>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule connect-02900"/>
             </perform>
          </rule>
       </rules>
