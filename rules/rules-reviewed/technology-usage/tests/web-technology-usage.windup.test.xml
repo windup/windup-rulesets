@@ -1,13 +1,14 @@
 <?xml version="1.0"?>
 <ruletest id="technology-usage-web-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset">
     <testDataPath>data/web/</testDataPath>
+    <rulePath>../web.windup.xml</rulePath>
     <rulePath>../web-technology-usage.windup.xml</rulePath>
     <ruleset>
         <rules>
             <rule id="technology-usage-web-01000-test">
                 <when>
                     <not>
-                        <technology-statistics-exists name="JSF Page" number-found="2">
+                        <technology-statistics-exists name="JSF Page" number-found="1">
                             <tag name="View"/>
                             <tag name="Web"/>
                             <tag name="Java EE"/>
@@ -74,33 +75,20 @@
                     <fail message="Applet Technology Statistic Not Found" />
                 </perform>
             </rule>
-            <rule id="technology-usage-web-01500-test">
+            <rule id="technology-usage-web-01500-01600-test">
                 <when>
                     <not>
-                        <technology-statistics-exists name="JNLP" number-found="1">
+                        <technology-statistics-exists name="JNLP" number-found="6">
                             <tag name="View"/>
                             <tag name="Rich"/>
                             <tag name="Java EE"/>
+                            <tag name="Embedded"/>
                         </technology-statistics-exists>
                     </not>
                 </when>
                 <perform>
                     <fail message="JNLP Technology Statistic Not Found" />
                 </perform>
-            </rule>
-            <rule id="technology-usage-web-01600-test">
-               <when>
-                  <not>
-                     <technology-statistics-exists name="JNLP" number-found="1">
-                        <tag name="View"/>
-                        <tag name="Rich"/>
-                        <tag name="Embedded"/>
-                     </technology-statistics-exists>
-                  </not>
-               </when>
-               <perform>
-                  <fail message="Expected data not found for rule technology-usage-web-01600"/>
-               </perform>
             </rule>
             <rule id="technology-usage-web-01700-test">
                <when>
@@ -203,7 +191,7 @@
             <rule id="technology-usage-web-02400-test">
                <when>
                   <not>
-                     <technology-statistics-exists name="Eclipse RCP" number-found="1">
+                     <technology-statistics-exists name="Eclipse RCP" number-found="4">
                         <tag name="View"/>
                         <tag name="Rich"/>
                         <tag name="Embedded"/>
