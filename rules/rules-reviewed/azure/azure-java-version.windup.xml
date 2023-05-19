@@ -21,17 +21,22 @@
     <rules>
         <rule id="azure-java-version-01000">
             <when>
-                <xmlfile matches="//java.version[windup:matches(text(), '{v}')]" in="pom.xml"/>
+               <xmlfile matches="/m:project/m:properties/m:java.version" in="pom.xml" as="xml-file">
+                        <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
+               </xmlfile>
+               <filecontent pattern="java.version&gt;{v}" from="xml-file" as="result"/>
             </when>
             <perform>
-                <hint title="Non-LTS version Java" category-id="potential" effort="3">
-                    <message>
-                        <![CDATA[
-                        The application is using non-LTS version Java. 
-                        JDK on LTS version is recommended, i.e., JAVA_8, JAVA_11 or JAVA_17.
-                        ]]>
-                    </message>
-                </hint>
+                <iteration over="result">
+                    <hint title="Non-LTS version Java" category-id="potential" effort="3">
+                        <message>
+                            <![CDATA[
+                            The application is using non-LTS version Java. 
+                            JDK on LTS version is recommended, i.e. JAVA_8, JAVA_11 or JAVA_17.
+                            ]]>
+                        </message>
+                    </hint>
+                </iteration>
             </perform>
             <where param="v">
                 <matches pattern="(9|10|12|13|14|15|16|19|20).*"/>
@@ -39,17 +44,22 @@
         </rule>
         <rule id="azure-java-version-02000">
             <when>
-                <xmlfile matches="//java.version[windup:matches(text(), '{v}')]" in="pom.xml"/>
+                <xmlfile matches="/m:project/m:properties/m:java.version" in="pom.xml" as="xml-file">
+                        <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
+               </xmlfile>
+               <filecontent pattern="java.version&gt;{v}" from="xml-file" as="result"/>
             </when>
             <perform>
-                <hint title="Java version found to be lower than JAVA_8" category-id="potential" effort="3">
-                    <message>
+                <iteration over="result">
+                    <hint title="Java version found to be lower than JAVA_8" category-id="potential" effort="3">
+                        <message>
                         <![CDATA[
                         The application is using Java version lower than JAVA_8.
-                        JDK on LTS version is recommended, i.e., JAVA_8, JAVA_11 or JAVA_17.
+                        JDK on LTS version is recommended, i.e. JAVA_8, JAVA_11 or JAVA_17.
                         ]]>
-                    </message>
-                </hint>
+                        </message>
+                    </hint>
+                </iteration>
             </perform>
             <where param="v">
                 <matches pattern="1\.[0-7]"/>
