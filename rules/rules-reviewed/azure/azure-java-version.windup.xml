@@ -21,10 +21,9 @@
     <rules>
         <rule id="azure-java-version-01000">
             <when>
-               <xmlfile matches="/m:project/m:properties/m:java.version" in="pom.xml" as="xml-file">
+               <xmlfile matches="//m:java.version[windup:matches(text(), '{v}')]" in="pom.xml" as="result">
                         <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
                </xmlfile>
-               <filecontent pattern="java.version&gt;{v}" from="xml-file" as="result"/>
             </when>
             <perform>
                 <iteration over="result">
@@ -44,10 +43,9 @@
         </rule>
         <rule id="azure-java-version-02000">
             <when>
-                <xmlfile matches="/m:project/m:properties/m:java.version" in="pom.xml" as="xml-file">
+                <xmlfile matches="//m:java.version[windup:matches(text(), '{v}')]" in="pom.xml" as="result">
                         <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0"/>
                </xmlfile>
-               <filecontent pattern="java.version&gt;{v}" from="xml-file" as="result"/>
             </when>
             <perform>
                 <iteration over="result">
