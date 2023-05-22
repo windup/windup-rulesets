@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ruletest id="jni-native-code-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/azure-jni-native-code</testDataPath>
+    <rulePath>../azure-jni-native-code.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="azure-jni-native-code-test-00001">
+                <when>
+                    <not>
+                        <iterable-filter size="12">
+                          <hint-exists message="Java native libraries might not run in a cloud or container environment." />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Java JNI/JNA usage hint for azure was not found" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
