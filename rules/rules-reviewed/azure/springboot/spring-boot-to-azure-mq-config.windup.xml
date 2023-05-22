@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<ruleset id="spring-boot-to-azure-mq-config"
+         xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset identifies message queue connection strings, usernames, or passwords.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="springboot"/>
+        <targetTechnology id="azure-spring-apps"/>
+        <targetTechnology id="azure-appservice"/>
+        <targetTechnology id="azure-aks"/>
+        <targetTechnology id="azure-container-apps"/>
+        <tag>message queue</tag>
+    </metadata>
+    <rules>
+        <rule id="spring-boot-to-azure-mq-config-kafka-01000">
+            <when>
+                <filecontent filename="application{*}.{extensions}" pattern="{pattern}"/>
+            </when>
+            <perform>
+                <hint title="Kafka connection string, username or password found in configuration file" category-id="information" effort="0">
+                    <message>
+                        <![CDATA[
+                        The application uses a Kafka connection string or password.
+
+                        Consider connecting Apache Kafka on Confluent Cloud to Azure Spring Apps using Service Connector
+                        ]]>
+                    </message>
+                    <link title="Spring Boot app to Kafka on Confluent Cloud" href="https://learn.microsoft.com/azure/service-connector/tutorial-java-spring-confluent-kafka"/>
+                    <tag>kafka</tag>
+                </hint>
+                <technology-tag level="INFORMATIONAL">Kafka Client</technology-tag>
+            </perform>
+            <where param="extensions">
+                <matches pattern="(properties|yaml|yml)"/>
+            </where>
+            <where param="pattern">
+                <matches pattern="kafka\.(.*\.)?(properties\.)?(bootstrap[\.-]servers|sasl\.jaas\.config|schema\.registry)"/>
+            </where>
+        </rule>
+        <!-- Rule for detecting RabbitMQ configurations -->
+        <rule id="spring-boot-to-azure-mq-config-rabbitmq-01000">
+            <when>
+                <filecontent filename="application{*}.{extensions}" pattern="{pattern}"/>
+            </when>
+            <perform>
+                <hint title="RabbitMQ connection string, username or password found in configuration file" category-id="information" effort="0">
+                    <message><![CDATA[
+                        The application uses a RabbitMQ connection string, username, or password.
+
+                        Consider using Azure Event Grid/Azure Event Hubs/Azure Service Bus or Apache Kafka on Confluent Cloud and connect it with Service Connector
+                        ]]></message>
+                    <link title="Service connection in Azure Spring Apps" href="https://learn.microsoft.com/azure/service-connector/quickstart-portal-spring-cloud-connection"/>
+                    <tag>RabbitMQ Client</tag>
+                </hint>
+                <technology-tag level="INFORMATIONAL">RabbitMQ Client</technology-tag>
+            </perform>
+            <where param="extensions">
+                <matches pattern="(properties|yaml|yml)"/>
+            </where>
+            <where param="pattern">
+                <matches pattern="rabbitmq\.(.*\.)?(addresses|host|virtual-host|username|password)"/>
+            </where>
+        </rule>
+
+        <!-- Rule for detecting Artemis configurations -->
+        <rule id="spring-boot-to-azure-mq-config-artemis-01000">
+            <when>
+                <filecontent filename="application{*}.{extensions}" pattern="{pattern}"/>
+            </when>
+            <perform>
+                <hint title="ActiveMQ Artemis connection string, username or password found in configuration file" category-id="information" effort="0">
+                    <message><![CDATA[
+                        The application uses an ActiveMQ Artemis connection string, username, or password.
+
+                        Consider using Azure Event Grid/Azure Event Hubs/Azure Service Bus or Apache Kafka on Confluent Cloud and connect it with Service Connector
+                        ]]></message>
+                    <link title="Service connection in Azure Spring Apps" href="https://learn.microsoft.com/azure/service-connector/quickstart-portal-spring-cloud-connection"/>
+                    <tag>ActiveMQ</tag>
+                </hint>
+                <technology-tag level="INFORMATIONAL">ActiveMQ</technology-tag>
+            </perform>
+            <where param="extensions">
+                <matches pattern="(properties|yaml|yml)"/>
+            </where>
+            <where param="pattern">
+                <matches pattern="artemis\.(broker-url|user|password)"/>
+            </where>
+        </rule>
+    </rules>
+</ruleset>
