@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="cdi-to-quarkus"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints to migrate CDI usage to Quarkus
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="java-ee" />
+        <targetTechnology id="quarkus" />
+    </metadata>
+    <rules>
+        <rule id="cdi-to-quarkus-00000">
+            <when>
+                <xmlfile in="pom.xml" matches="/m:project/m:dependencies/m:dependency[m:artifactId/text() = 'cdi-api' and m:groupId/text() = 'javax.enterprise' and (count(../m:dependency/m:groupId[contains(., 'io.quarkus')]) = 0)]" >
+                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Replace javax.enterprise:cdi-api dependency" effort="1" category-id="mandatory">
+                    <message>
+                        Dependency `javax.enterprise:cdi-api` has to be replaced with `io.quarkus:quarkus-arc` artifact.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/cdi-reference" />
+                </hint>
+            </perform>
+        </rule>
+        <!-- suggest to replace javax.inject dependency if no Quarkus dependency has been already added -->
+        <rule id="cdi-to-quarkus-00020">
+            <when>
+                <xmlfile in="pom.xml" matches="/m:project/m:dependencies/m:dependency[m:artifactId/text() = 'javax.inject' and m:groupId/text() = 'javax.inject' and (count(../m:dependency/m:groupId[contains(., 'io.quarkus')]) = 0)]" >
+                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Replace javax.inject:javax.inject dependency" effort="1" category-id="mandatory">
+                    <message>
+                        Dependency `javax.inject:javax.inject` has to be replaced with `io.quarkus:quarkus-arc` artifact.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/cdi-reference" />
+                </hint>
+            </perform>
+        </rule>
+        <!-- explain beans.xml descriptor content is ignored -->
+        <rule id="cdi-to-quarkus-00030">
+            <when>
+                <xmlfile in="beans.xml" matches="/b:beans" as="root">
+                    <namespace prefix="b" uri="http://xmlns.jcp.org/xml/ns/javaee" />
+                </xmlfile>
+            </when>
+            <perform>
+                <iteration over="root">
+                    <hint title="`beans.xml` descriptor content is ignored" effort="3" category-id="potential">
+                        <message>
+                            `beans.xml` descriptor content is ignored and it could be removed from the application.  
+                            Refer to the guide referenced below to check the supported CDI feature in Quarkus.
+                        </message>
+                        <link title="Quarkus - Guide" href="https://quarkus.io/guides/cdi-reference#limitations" />
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

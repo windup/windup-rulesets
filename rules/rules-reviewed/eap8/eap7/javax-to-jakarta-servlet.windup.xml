@@ -384,5 +384,18 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="javax-to-jakarta-servlet-00130">
+            <when>
+                <xmlfile matches="//*[contains(text(),'javax')]" in="web.xml"/>
+            </when>
+            <perform>
+                <hint title="web.xml element references a javax-prefixed class name" effort="1" category-id="potential">
+                    <message>
+                        web.xml element references a javax-prefixed class name
+                    </message>
+                    <link title="Red Hat JBoss EAP Application Migration from Jakarta EE 8 to EE 10 - Jakarta Servlet" href="https://access.redhat.com/articles/6980265#servlet"/>
+                </hint>
+            </perform>
+        </rule>
     </rules>
 </ruleset>

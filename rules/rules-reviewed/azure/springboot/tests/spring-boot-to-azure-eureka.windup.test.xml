@@ -17,6 +17,18 @@
                     <fail message="Eureka hint was not found!" />
                 </perform>
             </rule>
+            <rule id="spring-boot-to-azure-eureka-test-02000">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="The application uses an eureka connection string." />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Eureka connection string hint was not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>

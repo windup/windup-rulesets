@@ -20,13 +20,24 @@
     <rules>
         <rule id="spring-boot-to-azure-database-jdbc-01000">
             <when>
-                <filecontent filename="application{*}.{extensions}" pattern="jdbc:"/>
+                <or>
+                    <filecontent filename="application{*}.{extensions}" pattern="jdbc:"/>
+                    <filecontent filename="application{*}.{extensions}" pattern="datasource.url"/>
+                    <filecontent filename="application{*}.{extensions}" pattern="datasource.u-r-l"/>
+                    <filecontent filename="application{*}.{extensions}" pattern="datasource.jdbc-url"/>
+                    <filecontent filename="application{*}.{extensions}" pattern="datasource.username"/>
+                    <filecontent filename="application{*}.{extensions}" pattern="datasource.user"/>
+                    <filecontent filename="application{*}.{extensions}" pattern="datasource.password"/>
+                    <filecontent filename="application{*}.{extensions}" pattern="jdbc.url"/>
+                    <filecontent filename="application{*}.{extensions}" pattern="jdbc.username"/>
+                    <filecontent filename="application{*}.{extensions}" pattern="jdbc.password"/>
+                </or>
             </when>
             <perform>
                 <hint title="JDBC connection found in configuration file" category-id="information" effort="0">
                     <message>
                         <![CDATA[
-                        The application uses a JDBC connection string.
+                        The application uses a JDBC connection string, username or password in the configuration file.
 
                         Checkout the different types of databases that are fully managed on Azure.
                         ]]>
@@ -45,7 +56,12 @@
         </rule>
         <rule id="spring-boot-to-azure-database-mongodb-02000">
             <when>
-                <filecontent filename="application{*}.{extensions}" pattern="mongodb:"/>
+                <or>
+                    <filecontent filename="application{*}.{extensions}" pattern="mongodb:"/>
+                    <filecontent filename="application{*}.{extensions}" pattern="mongodb.uri"/>
+                    <filecontent filename="application{*}.{extensions}" pattern="mongodb.username"/>
+                    <filecontent filename="application{*}.{extensions}" pattern="mongodb.password"/>
+                </or>
             </when>
             <perform>
                 <hint title="MongoDB connection found in configuration file" category-id="information" effort="0">
@@ -61,6 +77,36 @@
                     <link title="How to use Spring Data MongoDB API with Azure Cosmos DB" href="https://docs.microsoft.com/azure/developer/java/spring-framework/configure-spring-data-mongodb-with-cosmos-db"/>
                     <link title="Spring Cloud Azure Starter Data Cosmos DB" href="https://search.maven.org/artifact/com.azure.spring/spring-cloud-azure-starter-data-cosmos"/>
                     <tag>mongodb</tag>
+                </hint>
+            </perform>
+            <where param="extensions">
+                <matches pattern="(properties|yaml|yml)"/>
+            </where>
+        </rule>
+        <rule id="spring-boot-to-azure-database-r2dbc-03000">
+            <when>
+                <or>
+                    <filecontent filename="application{*}.{extensions}" pattern="r2dbc:"/>
+                    <filecontent filename="application{*}.{extensions}" pattern="r2dbc.username"/>
+                    <filecontent filename="application{*}.{extensions}" pattern="r2dbc.password"/>
+                    <filecontent filename="application{*}.{extensions}" pattern="r2dbc.url"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="R2DBC connection found in configuration file" category-id="information" effort="0">
+                    <message>
+                        <![CDATA[
+                        The application uses a R2DBC connection string, username or password in the configuration file.
+
+                        Checkout the different types of databases that are fully managed on Azure.
+                        ]]>
+                        </message>
+                    <link title="R2DBC connection string found in configuration file" href="https://learn.microsoft.com/azure/developer/java/migration/migrate-spring-boot-to-azure-spring-apps#databases"/>
+                    <link title="Types of Databases on Azure" href="https://azure.microsoft.com/product-categories/databases/"/>
+                    <link title="Use Spring Data R2DBC with Azure Database for MySQL" href="https://learn.microsoft.com/azure/developer/java/spring-framework/configure-spring-data-r2dbc-with-azure-mysql"/>
+                    <link title="Use Spring Data R2DBC with Azure Database for PostgreSQL" href="https://learn.microsoft.com/azure/developer/java/spring-framework/configure-spring-data-r2dbc-with-azure-postgresql" />
+                    <link title="Use Spring Data R2DBC with Azure SQL Database" href="https://learn.microsoft.com/azure/developer/java/spring-framework/configure-spring-data-r2dbc-with-azure-sql-server"/>
+                    <tag>r2dbc</tag>
                 </hint>
             </perform>
             <where param="extensions">

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ruletest id="static-resources-to-quarkus-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/*</testDataPath>
+    <rulePath>../static-resources-to-quarkus.windup.groovy</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="static-resources-to-quarkus-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                             <hint-exists message="Static file found within the `webapp` folder path must be moved into the `src/main/resources/META-INF/resources` folder."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[static-resources-to-quarkus-00000] Static file found hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
