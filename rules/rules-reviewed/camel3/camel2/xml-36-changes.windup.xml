@@ -34,9 +34,12 @@
 
         <rule id="xml-removed-camel36-00001">
             <when>
-                <project>
-                    <artifact groupId="org.apache.camel" artifactId="camel-hipchat" />
-                </project>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel" artifactId="camel-hipchat" />
+                    </project>
+                    <dependency groupId="org.apache.camel" artifactId="camel-hipchat" />
+                </or>
             </when>
             <perform>
                 <hint title="camel-hipchat component has been removed" effort="7" category-id="mandatory" >

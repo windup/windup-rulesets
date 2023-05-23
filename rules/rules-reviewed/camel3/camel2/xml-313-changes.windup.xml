@@ -14,9 +14,12 @@
     <rules>
         <rule id="xml-removed-camel313-00001">
             <when>
-                <project>
-                    <artifact groupId="org.apache.camel.springboot" artifactId="camel-hazelzcast-starter" />
-                </project>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel.springboot" artifactId="camel-hazelzcast-starter" />
+                    </project>
+                    <dependency groupId="org.apache.camel.springboot" artifactId="camel-hazelzcast-starter" />
+                </or>
             </when>
             <perform>
                 <hint title="org.apache.camel.springboot:camel-hazelzcast-starter starter no longer has customer auto configuration options for all its components" effort="5" category-id="optional" >
@@ -28,9 +31,12 @@
 
         <rule id="xml-removed-camel313-00003">
             <when>
-                <project>
-                    <artifact groupId="org.apache.camel" artifactId="camel-mllp" />
-                </project>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel" artifactId="camel-mllp" />
+                    </project>
+                    <dependency groupId="org.apache.camel" artifactId="camel-mllp" />
+                </or>
             </when>
             <perform>
                 <hint title="org.apache.camel:camel-mllp starter has been refactored" effort="3" category-id="mandatory" >

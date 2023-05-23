@@ -14,9 +14,12 @@
     <rules>
         <rule id="xml-removed-camel310-00001">
             <when>
-                <project>
-                    <artifact groupId="org.apache.camel" artifactId="camel-jdbc" />
-                </project>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel" artifactId="camel-jdbc" />
+                    </project>
+                    <dependency groupId="org.apache.camel" artifactId="camel-jdbc" />
+                </or>
             </when>
             <perform>
                 <hint title="org.apache.camel:camel-jdbc no longer depends on Spring Framework" effort="2" category-id="mandatory" >

@@ -14,9 +14,12 @@
     <rules>
         <rule id="xml-removed-camel311-00001">
             <when>
-                <project>
-                    <artifact groupId="org.apache.camel" artifactId="camel-apns" />
-                </project>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel" artifactId="camel-apns" />
+                    </project>
+                    <dependency groupId="org.apache.camel" artifactId="camel-apns" />
+                </or>
             </when>
             <perform>
                 <hint title="org.apache.camel:camel-apns component has been retired" effort="7" category-id="mandatory" >
@@ -27,9 +30,12 @@
         </rule>
         <rule id="xml-changed-camel311-00001">
             <when>
-                <project>
-                    <artifact groupId="org.apache.camel" artifactId="camel-saxon" />
-                </project>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel" artifactId="camel-saxon" />
+                    </project>
+                    <dependency groupId="org.apache.camel" artifactId="camel-saxon" />
+                </or>
             </when>
             <perform>
                 <hint title="org.apache.camel:camel-saxon artifact has been removed" effort="3" category-id="optional" >

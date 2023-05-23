@@ -14,9 +14,12 @@
     <rules>
         <rule id="xml-315-00001">
             <when>
-                <project>
-                    <artifact groupId="org.apache.camel" artifactId="{*}"/>
-                </project>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel" artifactId="{*}"/>
+                    </project>
+                    <dependency groupId="org.apache.camel" artifactId="{*}"/>
+                </or>
             </when>
             <perform>
                 <hint title="JDK 8 no longer supported" effort="7" category-id="mandatory" >
@@ -28,9 +31,12 @@
 
         <rule id="xml-removed-camel315-00001">
             <when>
-                <project>
-                    <artifact groupId="org.apache.camel" artifactId="camel-kamelet-reify" />
-                </project>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel" artifactId="camel-kamelet-reify" />
+                    </project>
+                    <dependency groupId="org.apache.camel" artifactId="camel-kamelet-reify" />
+                </or>
             </when>
             <perform>
                 <hint title="org.apache.camel:camel-kamelet-reify component has been retired" effort="7" category-id="mandatory" >
@@ -42,9 +48,12 @@
 
         <rule id="xml-removed-camel315-00002">
             <when>
-                <project>
-                    <artifact groupId="org.apache.camel" artifactId="camel-spring-javaconfig" />
-                </project>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel" artifactId="camel-spring-javaconfig" />
+                    </project>
+                    <dependency groupId="org.apache.camel" artifactId="camel-spring-javaconfig" />
+                </or>
             </when>
             <perform>
                 <hint title="org.apache.camel:camel-spring-javaconfig component has been retired" effort="7" category-id="mandatory" >

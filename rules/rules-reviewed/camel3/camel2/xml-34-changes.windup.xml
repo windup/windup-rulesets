@@ -14,9 +14,12 @@
     <rules>
         <rule id="xml-removed-camel34-00001">
             <when>
-                <project>
-                    <artifact groupId="org.apache.camel" artifactId="camel-test" />
-                </project>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel" artifactId="camel-test" />
+                    </project>
+                    <dependency groupId="org.apache.camel" artifactId="camel-test" />
+                </or>
             </when>
             <perform>
                 <hint title="camel-management dependency has been removed from camel-test" effort="1" category-id="mandatory" >

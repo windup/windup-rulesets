@@ -28,9 +28,12 @@
 
         <rule id="xml-removed-camel31-00001">
             <when>
-                <project>
-                    <artifact groupId="org.apache.camel" artifactId="camel-jaxp" />
-                </project>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel" artifactId="camel-jaxp" />
+                    </project>
+                    <dependency groupId="org.apache.camel" artifactId="camel-jaxp" />
+                </or>
             </when>
             <perform>
                 <hint title="camel-jaxp component has been renamed to camel-xml-jaxp" effort="1" category-id="mandatory" >
@@ -42,9 +45,12 @@
 
         <rule id="xml-removed-camel31-00002">
             <when>
-                <project>
-                    <artifact groupId="org.apache.camel.springboot" artifactId="{*}" />
-                </project>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel.springboot" artifactId="{*}" />
+                    </project>
+                    <dependency groupId="org.apache.camel.springboot" artifactId="{*}" />
+                </or>
             </when>
             <perform>
                 <hint title="The camel-management dependency has been removed from camel-spring-boot" effort="1" category-id="optional" >

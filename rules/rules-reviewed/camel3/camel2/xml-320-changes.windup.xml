@@ -14,9 +14,12 @@
     <rules>
         <rule id="xml-changed-camel320-00001">
             <when>
-                <project>
-                    <artifact groupId="org.apache.camel" artifactId="camel-bom" />
-                </project>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel" artifactId="camel-bom" />
+                    </project>
+                    <dependency groupId="org.apache.camel" artifactId="camel-bom" />
+                </or>
             </when>
             <perform>
                 <hint title="org.apache.camel:camel-bom no longer includes dependencies with type test-jar" effort="1" category-id="mandatory" >
@@ -40,9 +43,12 @@
         </rule>
         <rule id="xml-changed-camel320-00003">
             <when>
-                <project>
-                    <artifact groupId="org.apache.camel" artifactId="camel-salesforce-maven-plugin" />
-                </project>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel" artifactId="camel-salesforce-maven-plugin" />
+                    </project>
+                    <dependency groupId="org.apache.camel" artifactId="camel-salesforce-maven-plugin" />
+                </or>
             </when>
             <perform>
                 <hint title="camel-salesforce-maven-plugin has a new groupId of org.apache.camel.maven" effort="1" category-id="mandatory" >
@@ -53,9 +59,12 @@
         </rule>
         <rule id="xml-changed-camel320-00004">
             <when>
-                <project>
-                    <artifact groupId="org.apache.camel" artifactId="camel-servicenow-maven-plugin" />
-                </project>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel" artifactId="camel-servicenow-maven-plugin" />
+                    </project>
+                    <dependency groupId="org.apache.camel" artifactId="camel-servicenow-maven-plugin" />
+                </or>
             </when>
             <perform>
                 <hint title="camel-servicenow-maven-plugin has a new groupId of org.apache.camel.maven" effort="1" category-id="mandatory" >

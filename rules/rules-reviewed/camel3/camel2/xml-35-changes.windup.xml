@@ -14,9 +14,12 @@
     <rules>
             <rule id="xml-removed-camel35-00001">
             <when>
-                <project>
-                    <artifact groupId="org.apache.camel" artifactId="camel-test-spring" />
-                </project>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel" artifactId="camel-test-spring" />
+                    </project>
+                    <dependency groupId="org.apache.camel" artifactId="camel-test-spring" />
+                </or>
             </when>
             <perform>
                 <hint title="Camel has been migrated to using JUnit 5 as the default testing framework" effort="7" category-id="mandatory" >

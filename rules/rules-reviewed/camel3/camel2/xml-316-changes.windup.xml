@@ -14,9 +14,12 @@
     <rules>
         <rule id="xml-removed-camel316-00001">
             <when>
-                <project>
-                    <artifact groupId="org.apache.camel" artifactId="camel-testcontainers-spring" />
-                </project>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel" artifactId="camel-testcontainers-spring" />
+                    </project>
+                    <dependency groupId="org.apache.camel" artifactId="camel-testcontainers-spring" />
+                </or>
             </when>
             <perform>
                 <hint title="org.apache.camel:camel-testcontainers-spring component has been replaced with camel-test-infra" effort="5" category-id="mandatory" >
@@ -28,9 +31,12 @@
 
         <rule id="xml-removed-camel316-00002">
             <when>
-                <project>
-                    <artifact groupId="org.apache.camel" artifactId="camel-testcontainers-spring-junit5" />
-                </project>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel" artifactId="camel-testcontainers-spring-junit5" />
+                    </project>
+                    <dependency groupId="org.apache.camel" artifactId="camel-testcontainers-spring-junit5" />
+                </or>
             </when>
             <perform>
                 <hint title="org.apache.camel:camel-testcontainers-spring-junit5 component has been retired" effort="5" category-id="mandatory" >
