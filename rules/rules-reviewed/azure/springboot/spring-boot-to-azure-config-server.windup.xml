@@ -5,7 +5,7 @@
          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
     <metadata>
         <description>
-            This ruleset identifies config server configurations in Spring Boot applications.
+            This ruleset identifies Spring Cloud config server configurations in Spring Boot applications.
         </description>
         <dependencies>
             <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
@@ -15,7 +15,7 @@
         <targetTechnology id="azure-appservice"/>
         <targetTechnology id="azure-aks"/>
         <targetTechnology id="azure-container-apps"/>
-        <tag>config server</tag>
+        <tag>Spring Cloud Config</tag>
     </metadata>
     <rules>
         <rule id="spring-boot-to-azure-config-server-01000">
@@ -26,7 +26,7 @@
                 <hint title="Explicit Config Server connection info found in configuration file" category-id="information" effort="0">
                     <message>
                         <![CDATA[
-                        The application uses a Config Server connection string.
+                        The application uses a Spring Cloud Config Server connection string.
 
                         If you are migrating to Azure Spring Apps, the connection info of Config Server will be injected upon app start. 
                         Please remove the connection info from your configuration file. Configure the Config Server after creating an Azure Spring Apps instance.
@@ -34,9 +34,9 @@
                     </message>
                     <link title="Remove restricted configurations" href="http://aka.ms/spring-cloud-to-asa?toc=%2Fazure%2Fspring-apps%2Ftoc.json&amp;bc=%2Fazure%2Fspring-apps%2Fbreadcrumb%2Ftoc.json&amp;pivots=sc-standard-tier#remove-restricted-configurations"/>
                     <link title="Prepare the Spring Cloud Config server" href="http://aka.ms/spring-cloud-to-asa?toc=%2Fazure%2Fspring-apps%2Ftoc.json&amp;bc=%2Fazure%2Fspring-apps%2Fbreadcrumb%2Ftoc.json&amp;pivots=sc-standard-tier#prepare-the-spring-cloud-config-server"/>
-                    <tag>config server</tag>
+                    <tag>Spring Cloud Config</tag>
                 </hint>
-                <technology-tag level="INFORMATIONAL">config server</technology-tag>
+                <technology-tag level="INFORMATIONAL">Spring Cloud Config</technology-tag>
             </perform>
             <where param="extensions">
                 <matches pattern="(properties|yaml|yml)"/>
