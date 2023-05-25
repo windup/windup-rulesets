@@ -7,7 +7,7 @@
           xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
 
     <testDataPath>data/connect</testDataPath>
-    <rulePath>../connect.windup.xml</rulePath>
+    <rulePath>../connect.windup.groovy</rulePath>
     <rulePath>../connect-technology-usage.windup.xml</rulePath>
    <ruleset>
       <rules>
@@ -289,6 +289,20 @@
             </when>
             <perform>
                <fail message="Expected data not found for rule technology-usage-connect-02800"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-connect-02900-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Kafka Client" number-found="1">
+                     <tag name="Connect"/>
+                     <tag name="Embedded"/>
+                     <tag name="Streaming"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-connect-02900"/>
             </perform>
          </rule>
       </rules>

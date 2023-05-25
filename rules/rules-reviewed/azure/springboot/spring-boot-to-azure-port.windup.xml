@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<ruleset id="spring-boot-to-azure-port"
+         xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            Identify server port configuration in Spring Boot applications.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final"/>
+        </dependencies>
+        <sourceTechnology id="springboot"/>
+        <targetTechnology id="azure-spring-apps"/>
+        <targetTechnology id="azure-aks"/>
+        <targetTechnology id="azure-appservice"/>
+        <targetTechnology id="azure-container-apps"/>
+        <tag>port</tag>
+    </metadata>
+    <rules>
+        <rule id="spring-boot-to-azure-port-01000">
+            <when>
+                <filecontent filename="application{*}.{extensions}" pattern="{pattern}" />
+            </when>
+            <perform>
+                <hint title="Server port configuration found" effort="0" category-id="information">
+                    <message>The application is setting the server port. Please be aware of potential port reliance issues during the migration process</message>
+                    <tag>server port</tag>
+                </hint>
+            </perform>
+            <where param="extensions">
+                <matches pattern="(properties|yaml|yml)" />
+            </where>
+            <where param="pattern">
+                <matches pattern="(^|\s)server\.port" />
+            </where>
+        </rule>
+    </rules>
+</ruleset>
