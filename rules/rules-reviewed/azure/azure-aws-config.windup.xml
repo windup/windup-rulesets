@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<ruleset id="azure-aws-config"
+         xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            Check AWS related configurations.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="springboot"/>
+        <sourceTechnology id="eap" versionRange="[7,8)" />
+        <targetTechnology id="azure-spring-apps"/>
+        <targetTechnology id="azure-appservice"/>
+        <targetTechnology id="azure-aks"/>
+        <targetTechnology id="azure-container-apps"/>
+        <tag>AWS</tag>
+    </metadata>
+    <rules>
+        <rule id="azure-aws-config-credential-01000">
+            <when>
+                <or>
+                    <filecontent pattern="aws_access_key_id"/>
+                    <filecontent pattern="aws_secret_access_key"/>
+                    <filecontent pattern="aws.credentials"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="AWS credential configuration" category-id="potential" effort="2">
+                    <message>
+                        <![CDATA[
+                            The application contains AWS credential configuration.
+                        ]]>
+                    </message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="azure-aws-config-region-02000">
+            <when>
+                <or>
+                    <filecontent pattern="aws.region"/>
+                    <filecontent pattern="AWS_REGION"/>
+                    <filecontent pattern="AWSRegion"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="AWS region configuration" category-id="potential" effort="2">
+                    <message>
+                        <![CDATA[
+                            The application contains AWS region configuration.
+                        ]]>
+                    </message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="azure-aws-config-s3-03000">
+            <when>
+                <or>
+                    <filecontent pattern="aws.s3"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="AWS S3 configuration" category-id="potential" effort="2">
+                    <message>
+                        <![CDATA[
+                            The application contains AWS S3 configuration.
+                            Consider using Azure Blob Storage instead.
+                        ]]>
+                    </message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="azure-aws-config-sqs-04000">
+            <when>
+                <or>
+                    <filecontent pattern="aws.sqs"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Amazon Simple Queue Service configuration" category-id="potential" effort="2">
+                    <message>
+                        <![CDATA[
+                            The application contains Amazon Simple Queue Service configuration.
+                            Consider using Azure Service Bus instead.
+                        ]]>
+                    </message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="azure-aws-config-secret-manager-05000">
+            <when>
+                <or>
+                <filecontent pattern="aws.secretsmanager"/>
+                <filecontent pattern="aws-secretsmanager"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="AWS Secrets Manager configuration" category-id="potential" effort="2">
+                    <message>
+                        <![CDATA[
+                            The application contains AWS Secrets Manager configuration.
+                            Consider using Azure Key Vault instead.
+                        ]]>
+                    </message>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
