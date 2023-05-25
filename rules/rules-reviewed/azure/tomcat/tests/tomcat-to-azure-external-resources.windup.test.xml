@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ruletest id="tomcat-to-azure-external-resources-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+  <testDataPath>data/tomcat-to-azure-external-resources</testDataPath>
+  <rulePath>../tomcat-to-azure-external-resources.windup.xml</rulePath>
+  <ruleset>
+    <rules>
+      <rule id="tomcat-to-azure-external-resources-test-01000">
+        <when>
+          <not>
+            <iterable-filter size="2">
+              <hint-exists message="External resources, such as data sources, JMS message brokers, and others are injected via Java Naming and Directory Interface \(JNDI\)"/>
+            </iterable-filter>
+          </not>
+        </when>
+        <perform>
+          <fail message="External resources found in configuration file hint was not found!"/>
+        </perform>
+      </rule>
+    </rules>
+  </ruleset>
+</ruletest>         

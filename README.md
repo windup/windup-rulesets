@@ -19,3 +19,11 @@ Testing the rules
 
 To limit the XML-based tests (`windup.test.xml`) which are run, use `-DrunTestsMatching=...`. 
 The value can be any part of the test filename to match. Like, `-DrunTestsMatching=hsearch`.
+
+
+Building from source
+-----------
+
+Ensure you use the provided Maven Wrapper utility to build the project, as Windup requires Maven 3.8.8:
+
+        ./mvnw verify

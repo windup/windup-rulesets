@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<ruletest id="spring-boot-to-azure-mq-config-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+  <testDataPath>data/spring-boot-to-azure-mq-config</testDataPath>
+  <rulePath>../spring-boot-to-azure-mq-config.windup.xml</rulePath>
+  <ruleset>
+    <rules>
+      <rule id="spring-boot-to-azure-mq-config-kafka-test-01000">
+        <when>
+          <not>
+            <iterable-filter size="3">
+              <hint-exists message="The application uses a Kafka connection string or password"/>
+            </iterable-filter>
+          </not>
+        </when>
+        <perform>
+          <fail message="mq-config-kafka hint was not found!"/>
+        </perform>
+      </rule>
+      <rule id="spring-boot-to-azure-mq-config-rabbitmq-test-01000">
+        <when>
+          <not>
+            <iterable-filter size="1">
+              <hint-exists message="The application uses a RabbitMQ connection string, username, or password"/>
+            </iterable-filter>
+          </not>
+        </when>
+        <perform>
+          <fail message="mq-config-rabbitmq hint was not found!"/>
+        </perform>
+      </rule>
+      <rule id="spring-boot-to-azure-mq-config-artemis-test-01000">
+        <when>
+          <not>
+            <iterable-filter size="1">
+              <hint-exists message="The application uses an ActiveMQ Artemis connection string, username, or password"/>
+            </iterable-filter>
+          </not>
+        </when>
+        <perform>
+          <fail message="mq-config-artemis hint was not found!"/>
+        </perform>
+      </rule>
+    </rules>
+  </ruleset>
+</ruletest>         
