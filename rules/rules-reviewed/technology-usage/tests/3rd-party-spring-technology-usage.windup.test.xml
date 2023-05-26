@@ -11,25 +11,54 @@
     <rulePath>../3rd-party-spring-technology-usage.windup.xml</rulePath>
    <ruleset>
       <rules>
-         <rule id="technology-usage-3rd-party-spring-03001-test">
+         <rule id="technology-usage-3rd-party-spring-03001-0-test">
             <when>
                <not>
-                  <technology-statistics-exists name="Spring Boot Application" number-found="1">
-                     <tag name="Execute"/>
-                     <tag name="Embedded"/>
-                     <tag name="3rd party"/>
+                  <technology-statistics-exists name="Spring Boot Configuration" number-found="1">
+                    <tag name="Sustain"/>
+                    <tag name="Embedded"/>
+                    <tag name="Configuration Management"/>
                   </technology-statistics-exists>
                </not>
             </when>
             <perform>
-               <fail message="Expected data not found for rule technology-usage-3rd-party-spring-03001"/>
+               <fail message="Expected data not found for rule technology-usage-3rd-party-spring-03001-0"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-3rd-party-spring-03001-1-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Spring Boot Auto-configuration" number-found="1">
+                    <tag name="Sustain"/>
+                    <tag name="Embedded"/>
+                    <tag name="Configuration Management"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-3rd-party-spring-03001-1"/>
+            </perform>
+         </rule>
+         <rule id="technology-usage-3rd-party-spring-03001-2-test">
+            <when>
+               <not>
+                  <technology-statistics-exists name="Spring Boot Component Scan" number-found="1">
+                    <tag name="Sustain"/>
+                    <tag name="Embedded"/>
+                    <tag name="Configuration Management"/>
+                  </technology-statistics-exists>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule technology-usage-3rd-party-spring-03001-2"/>
             </perform>
          </rule>
           <rule id="technology-usage-3rd-party-spring-03002-test">
               <when>
                   <not>
-                      <technology-statistics-exists name="Spring War" number-found="1">
+                      <technology-statistics-exists name="Spring Deployable War" number-found="1">
                           <tag name="Execute"/>
+                          <tag name="Embedded"/>
                           <tag name="3rd party"/>
                       </technology-statistics-exists>
                   </not>

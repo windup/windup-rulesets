@@ -13,29 +13,58 @@
         <phase>PostMigrationRulesPhase</phase>
     </metadata>
     <rules>
-        <rule id="technology-usage-3rd-party-spring-03001">
+        <rule id="technology-usage-3rd-party-spring-03001-0">
             <when>
                 <graph-query discriminator="TechnologyTagModel">
-                    <property name="name">Spring Boot Application</property>
+                    <property name="name">Spring Boot Configuration</property>
                 </graph-query>
             </when>
             <perform>
-                <technology-identified name="Spring Boot Application">
-                    <tag name="Execute"/>
+                <technology-identified name="Spring Boot Configuration">
+                    <tag name="Sustain"/>
                     <tag name="Embedded"/>
-                    <tag name="3rd party"/>
+                    <tag name="Configuration Management"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-3rd-party-spring-03001-1">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Spring Boot Auto-configuration</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Spring Boot Auto-configuration">
+                    <tag name="Sustain"/>
+                    <tag name="Embedded"/>
+                    <tag name="Configuration Management"/>
+                </technology-identified>
+            </perform>
+        </rule>
+        <rule id="technology-usage-3rd-party-spring-03001-2">
+            <when>
+                <graph-query discriminator="TechnologyTagModel">
+                    <property name="name">Spring Boot Component Scan</property>
+                </graph-query>
+            </when>
+            <perform>
+                <technology-identified name="Spring Boot Component Scan">
+                    <tag name="Sustain"/>
+                    <tag name="Embedded"/>
+                    <tag name="Configuration Management"/>
                 </technology-identified>
             </perform>
         </rule>
         <rule id="technology-usage-3rd-party-spring-03002">
             <when>
                 <graph-query discriminator="TechnologyTagModel">
-                    <property name="name">Spring War</property>
+                    <property name="name">Spring Deployable War</property>
                 </graph-query>
             </when>
             <perform>
-                <technology-identified name="Spring War">
+                <technology-identified name="Spring Deployable War">
                     <tag name="Execute"/>
+                    <tag name="Embedded"/>
                     <tag name="3rd party"/>
                 </technology-identified>
             </perform>

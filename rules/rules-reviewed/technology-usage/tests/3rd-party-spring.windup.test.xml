@@ -9,22 +9,41 @@
     <rulePath>../3rd-party-spring.windup.xml</rulePath>
    <ruleset>
       <rules>
-         <rule id="3rd-party-spring-03001-test">
+         <rule id="3rd-party-spring-03001-0-test">
             <when>
                <not>
-                   <classification-exists classification="Embedded framework - Spring Boot Application"/>
-                   <technology-tag-exists technology-tag="Spring Boot Application"/>
+                   <technology-tag-exists technology-tag="Spring Boot Configuration"/>
                </not>
             </when>
             <perform>
-               <fail message="Expected data not found for rule 3rd-party-spring-03001"/>
+               <fail message="Expected data not found for rule 3rd-party-spring-03001-0"/>
+            </perform>
+         </rule>
+         <rule id="3rd-party-spring-03001-1-test">
+            <when>
+               <not>
+                   <technology-tag-exists technology-tag="Spring Boot "/>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule 3rd-party-spring-03001-1"/>
+            </perform>
+         </rule>
+         <rule id="3rd-party-spring-03001-2-test">
+            <when>
+               <not>
+                   <technology-tag-exists technology-tag="Spring Boot Component Scan"/>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule 3rd-party-spring-03001-2"/>
             </perform>
          </rule>
           <rule id="3rd-party-spring-03002-test">
               <when>
                   <not>
-                      <classification-exists classification="Embedded framework - Spring War"/>
-                      <technology-tag-exists technology-tag="Spring War"/>
+                      <classification-exists classification="Embedded framework - Spring Deployable War"/>
+                      <technology-tag-exists technology-tag="Spring Deployable War"/>
                   </not>
               </when>
               <perform>
