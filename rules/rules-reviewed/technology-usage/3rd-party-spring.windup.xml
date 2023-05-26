@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<ruleset
+    xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="3rd-party-spring"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of 3rd party embedded frameworks.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+    </metadata>
+    <rules>
+        <rule id="3rd-party-spring-03001">
+            <when>
+                <javaclass references="org.springframework.boot.autoconfigure.SpringBootApplication">
+                    <location>ANNOTATION</location>
+                </javaclass>
+            </when>
+            <perform>
+                <technology-tag level="INFORMATIONAL">Spring Boot Configuration</technology-tag>
+                <technology-tag level="INFORMATIONAL">Spring Boot Auto-configuration</technology-tag>
+                <technology-tag level="INFORMATIONAL">Spring Boot Component Scan</technology-tag>
+            </perform>
+        </rule>
+        <rule id="3rd-party-spring-03002">
+            <when>
+                <or>
+                    <javaclass references="org.springframework.boot.web.servlet.support.SpringBootServletInitializer">
+                        <location>INHERITANCE</location>
+                    </javaclass>
+                    <xmlfile matches="//*[local-name() = 'servlet-class' and text() = 'org.springframework.web.servlet.DispatcherServlet']" />
+                </or>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Spring Deployable War" category-id="information" effort="0">
+                    <description>The Spring application can start from War</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Spring Deployable War</technology-tag>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

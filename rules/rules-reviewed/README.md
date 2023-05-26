@@ -71,55 +71,59 @@ Jakarta EE
 Embedded
 -----------
 
-| View              | Connect                 | Store                | Sustain                  | Execute               |
-|-------------------|-------------------------|----------------------|--------------------------|-----------------------|
-| AngularFaces      | 0MQ Client              | Apache HBase Client  | Acegi Security           | Apache Aries          |
-| Apache Tapestry   | ActiveMQ library        | Apache Ignite        | Apache Commons Validator | Apache Geronimo       |
-| CSS               | Amazon SQS Client       | Cache API            | Apache Flume             | Apache Hadoop         |
-| Eclipse RCP       | AMQP Client             | Cassandra Client     | Arquillian               | Apache Karaf          |
-| FreeMarker        | Axis                    | Coherence            | Atomikos JTA             | AspectJ               |
-| Grails            | Camel Messaging Client  | Derby Driver         | Bouncy Castle            | Camel                 |
-| GWT               | CXF                     | Dynacache            | Commons Logging          | Camunda               |
-| HTML              | HornetQ Client          | EclipseLink          | Cucumber                 | CDI                   |
-| ICEfaces          | HTTP Client             | ehcache              | DbUnit                   | Cloudera              |
-| JavaFX            | JBossMQ client          | H2 Driver            | EasyMock                 | Dagger                |
-| JavaScript        | Jersey                  | Hazelcast            | Geronimo JTA             | Drools                |
-| JFreeChart        | OpenWS                  | Hibernate            | GlassFish JTA            | Easy Rules            |
-| JMustache         | RabbitMQ Client         | Hibernate Cfg        | Guava Testing            | Elasticsearch         |
-| JSF               | Resource Adapter        | Hibernate Mapping    | Hamcrest                 | Eureka                |
-| JSTL              | RocketMQ Client         | Hibernate OGM        | HttpUnit                 | Feign                 |
-| Liferay           | Spring Messaging Client | HSQLDB Driver        | Java Transaction API     | Google Guice          |
-| LiferayFaces      | WebSphere EJB           | infinispan           | JBoss logging            | Istio                 |
-| MyFaces           | WSDL                    | JBoss Cache          | JBoss Transactions       | Javax Inject          |
-| OpenFaces         | XFire                   | JCache               | JSecurity                | JBPM                  |
-| Oracle ADF        |                         | Memcached            | JUnit                    | Jetty                 |
-| Play              |                         | Microsoft SQL Driver | KumuluzEE JTA            | Kibana                |
-| Portlet           |                         | MongoDB Client       | Log4J                    | Liferay               |
-| PrimeFaces        |                         | MySQL Driver         | Logback                  | Logstash              |
-| RichFaces         |                         | Oracle DB Driver     | Logging Utils            | MapR                  |
-| Seam              |                         | PostgreSQL Driver    | Mockito                  | Micrometer            |
-| Spring Boot Flo   |                         | Redis                | Narayana Arjuna          | Mule                  |
-| Spring MVC        |                         | Spring Boot Cache    | Nuxeo JTA/JCA            | Neo4j                 |
-| Spring Web        |                         | Spring Data          | OAUTH                    | Oracle Forms          |
-| Struts            |                         | Spring Data JPA      | OpenSAML                 | PicoContainer         |
-| Swing             |                         | SQLite Driver        | OW2 JTA                  | Quartz                |
-| SWT               |                         |                      | OWASP ESAPI              | ServiceMix            |
-| Thymeleaf         |                         |                      | PicketLink               | Spark                 |
-| Vaadin            |                         |                      | PowerMock                | Spring                |
-| Velocity          |                         |                      | Properties               | Spring Batch          |
-| WebLogic Web XML  |                         |                      | REST Assured             | Spring Boot           |
-| WebSphere Web XML |                         |                      | SAML                     | Spring Cloud Function |
-| Wicket            |                         |                      | Shiro                    | Spring DI             |
-|                   |                         |                      | SLF4J                    | Spring Integration    |
-|                   |                         |                      | Spring Boot Actuator     | Spring Scheduled      |
-|                   |                         |                      | Spring Cloud Config      | Spring Shell          |
-|                   |                         |                      | Spring JMX               | Swagger               |
-|                   |                         |                      | Spring Properties        | TensorFlow            |
-|                   |                         |                      | Spring Security          | Tomcat                |
-|                   |                         |                      | Spring Test              | Weld                  |
-|                   |                         |                      | Spring Transactions      | Zipkin                |
-|                   |                         |                      | SSL                      |                       |
-|                   |                         |                      | TestNG                   |                       |
-|                   |                         |                      | Unitils                  |                       |
-|                   |                         |                      | WSS4J                    |                       |
-|                   |                         |                      | XMLUnit                  |                       |
+| View              | Connect                 | Store                | Sustain                        | Execute               |
+|-------------------|-------------------------|----------------------|--------------------------------|-----------------------|
+| AngularFaces      | 0MQ Client              | Apache HBase Client  | Acegi Security                 | Apache Aries          |
+| Apache Tapestry   | ActiveMQ library        | Apache Ignite        | Apache Commons Validator       | Apache Geronimo       |
+| CSS               | Amazon SQS Client       | Cache API            | Apache Flume                   | Apache Hadoop         |
+| Eclipse RCP       | AMQP Client             | Cassandra Client     | Arquillian                     | Apache Karaf          |
+| FreeMarker        | Axis                    | Coherence            | Atomikos JTA                   | AspectJ               |
+| Grails            | Camel Messaging Client  | Derby Driver         | Bouncy Castle                  | Camel                 |
+| GWT               | CXF                     | Dynacache            | Commons Logging                | Camunda               |
+| HTML              | HornetQ Client          | EclipseLink          | Cucumber                       | CDI                   |
+| ICEfaces          | HTTP Client             | ehcache              | DbUnit                         | Cloudera              |
+| JavaFX            | JBossMQ client          | H2 Driver            | EasyMock                       | Dagger                |
+| JavaScript        | Jersey                  | Hazelcast            | Geronimo JTA                   | Drools                |
+| JFreeChart        | OpenWS                  | Hibernate            | GlassFish JTA                  | Easy Rules            |
+| JMustache         | RabbitMQ Client         | Hibernate Cfg        | Guava Testing                  | Elasticsearch         |
+| JSF               | Resource Adapter        | Hibernate Mapping    | Hamcrest                       | Eureka                |
+| JSTL              | RocketMQ Client         | Hibernate OGM        | HttpUnit                       | Feign                 |
+| Liferay           | Spring Messaging Client | HSQLDB Driver        | Java Transaction API           | Google Guice          |
+| LiferayFaces      | WebSphere EJB           | infinispan           | JBoss logging                  | Istio                 |
+| MyFaces           | WSDL                    | JBoss Cache          | JBoss Transactions             | Javax Inject          |
+| OpenFaces         | XFire                   | JCache               | JSecurity                      | JBPM                  |
+| Oracle ADF        |                         | Memcached            | JUnit                          | Jetty                 |
+| Play              |                         | Microsoft SQL Driver | KumuluzEE JTA                  | Kibana                |
+| Portlet           |                         | MongoDB Client       | Log4J                          | Liferay               |
+| PrimeFaces        |                         | MySQL Driver         | Logback                        | Logstash              |
+| RichFaces         |                         | Oracle DB Driver     | Logging Utils                  | MapR                  |
+| Seam              |                         | PostgreSQL Driver    | Mockito                        | Micrometer            |
+| Spring Boot Flo   |                         | Redis                | Narayana Arjuna                | Mule                  |
+| Spring MVC        |                         | Spring Boot Cache    | Nuxeo JTA/JCA                  | Neo4j                 |
+| Spring Web        |                         | Spring Data          | OAUTH                          | Oracle Forms          |
+| Struts            |                         | Spring Data JPA      | OpenSAML                       | PicoContainer         |
+| Swing             |                         | SQLite Driver        | OW2 JTA                        | Quartz                |
+| SWT               |                         |                      | OWASP ESAPI                    | ServiceMix            |
+| Thymeleaf         |                         |                      | PicketLink                     | Spark                 |
+| Vaadin            |                         |                      | PowerMock                      | Spring                |
+| Velocity          |                         |                      | Properties                     | Spring Batch          |
+| WebLogic Web XML  |                         |                      | REST Assured                   | Spring Boot           |
+| WebSphere Web XML |                         |                      | SAML                           | Spring Cloud Function |
+| Wicket            |                         |                      | Shiro                          | Spring Deployable War |
+|                   |                         |                      | SLF4J                          | Spring DI             |
+|                   |                         |                      | Spring Boot Actuator           | Spring Integration    |
+|                   |                         |                      | Spring Boot Auto-configuration | Spring Scheduled      |
+|                   |                         |                      | Spring Boot Component Scan     | Spring Shell          |
+|                   |                         |                      | Spring Boot Configuration      | Swagger               |
+|                   |                         |                      | Spring Cloud Config            | TensorFlow            |
+|                   |                         |                      | Spring Deployable War          | Tomcat                |
+|                   |                         |                      | Spring JMX                     | Weld                  |
+|                   |                         |                      | Spring Properties              | Weld                  |
+|                   |                         |                      | Spring Security                | Zipkin                |
+|                   |                         |                      | Spring Test                    |                       |
+|                   |                         |                      | Spring Transactions            |                       |
+|                   |                         |                      | SSL                            |                       |
+|                   |                         |                      | TestNG                         |                       |
+|                   |                         |                      | Unitils                        |                       |
+|                   |                         |                      | WSS4J                          |                       |
+|                   |                         |                      | XMLUnit                        |                       |
