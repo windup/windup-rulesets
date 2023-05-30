@@ -6,7 +6,9 @@ import org.jboss.windup.graph.model.resource.FileModel
 import org.jboss.windup.graph.service.WindupConfigurationService
 import org.jboss.windup.project.condition.Artifact
 import org.jboss.windup.project.condition.Project
+import org.jboss.windup.reporting.category.IssueCategory
 import org.jboss.windup.reporting.category.IssueCategoryRegistry
+import org.jboss.windup.reporting.config.Hint
 import org.jboss.windup.reporting.config.Link
 import org.jboss.windup.reporting.config.classification.Classification
 import org.jboss.windup.reporting.model.TechnologyTagLevel
@@ -16,11 +18,20 @@ import org.jboss.windup.rules.files.condition.File
 import org.ocpsoft.rewrite.config.Or
 import org.ocpsoft.rewrite.context.EvaluationContext
 
+final IssueCategory potentialIssueCategory = new IssueCategoryRegistry().getByID(IssueCategoryRegistry.POTENTIAL)
+
 static boolean hasAnalysisTargetEap(GraphContext graphContext) {
     WindupConfigurationService.getConfigurationModel(graphContext)
         .getTargetTechnologies()
         .stream()
         .anyMatch { ("eap" == it.technologyID) }
+}
+
+static boolean hasAnalysisTargetAzure(GraphContext graphContext) {
+    WindupConfigurationService.getConfigurationModel(graphContext)
+        .getTargetTechnologies()
+        .stream()
+        .anyMatch { (it.technologyID.toLowerCase().contains("azure")) }
 }
 
 static void perform(GraphRewrite event, EvaluationContext context, FileModel fileModel, String technology, boolean withLink) {
@@ -71,6 +82,16 @@ ruleSet("database")
     .perform(new AbstractIterationOperation<FileLocationModel>() {
         void perform(GraphRewrite event, EvaluationContext context, FileLocationModel payload) {
             perform(event, context, payload.getFile(), "PostgreSQL Driver", true)
+            if (hasAnalysisTargetAzure(event.graphContext)) {
+                final Hint hint = Hint.titled("PostgreSQL database found")
+                .withText("""PostgreSQL database found.  
+                        Consider using Azure PostgreSQL Flexible Server.""")
+                .withIssueCategory(potentialIssueCategory)
+                .with(Link.to("Azure Database for PostgreSQL", "https://azure.microsoft.com/products/postgresql"))
+                .with(Link.to("Flexible Server documentation", "https://learn.microsoft.com/azure/postgresql/flexible-server"))
+                .withEffort(3)
+                hint.perform(event, context, payload)
+            }
         }
     })
     .withId(String.format("database-0%d00", id++))
