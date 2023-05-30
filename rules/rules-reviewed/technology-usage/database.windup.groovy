@@ -44,7 +44,11 @@ static void perform(GraphRewrite event, EvaluationContext context, FileModel fil
         classification.with(Link.to("Red Hat JBoss Enterprise Application Platform (EAP) 7 Supported Configurations", "https://access.redhat.com/articles/2026253"))
     }
     classification.performParameterized(event, context, fileModel)
-    final TechnologyTagService technologyTagService = new TechnologyTagService(event.getGraphContext())
+    addTagToFileModel(event.getGraphContext(), fileModel, technology)
+}
+
+static void addTagToFileModel(GraphContext graphContext, FileModel fileModel, String technology) {
+    final TechnologyTagService technologyTagService = new TechnologyTagService(graphContext)
     technologyTagService.addTagToFileModel(fileModel, "$technology", TechnologyTagLevel.INFORMATIONAL)
 }
 
@@ -81,7 +85,8 @@ ruleSet("database")
     .when(File.inFileNamed("{*}postgresql{*}.jar"))
     .perform(new AbstractIterationOperation<FileLocationModel>() {
         void perform(GraphRewrite event, EvaluationContext context, FileLocationModel payload) {
-            perform(event, context, payload.getFile(), "PostgreSQL Driver", true)
+            final FileModel fileModel = payload.getFile()
+            final String technology = "PostgreSQL Driver"
             if (hasAnalysisTargetAzure(event.graphContext)) {
                 final Hint hint = Hint.titled("PostgreSQL database found")
                 .withText("""PostgreSQL database found.  
@@ -91,6 +96,9 @@ ruleSet("database")
                 .with(Link.to("Flexible Server documentation", "https://learn.microsoft.com/azure/postgresql/flexible-server"))
                 .withEffort(3)
                 hint.perform(event, context, payload)
+                addTagToFileModel(event.getGraphContext(), fileModel, technology)
+            } else {
+                perform(event, context, fileModel, technology, true)
             }
         }
     })
