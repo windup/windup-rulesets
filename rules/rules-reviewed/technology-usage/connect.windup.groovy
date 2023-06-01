@@ -34,9 +34,8 @@ static void perform(GraphRewrite event, EvaluationContext context, FileModel fil
     technologyTagService.addTagToFileModel(fileModel, technology, TechnologyTagLevel.INFORMATIONAL)
 }
 
-// this is inherited from previous version of these rules (i.e. XML rules)
-// in order to keep consistency with tests already available
-int id = 14;
+// This is inherited from previous version of these rules (i.e. XML rules)
+// in order to keep consistency with tests already available we start numbering from 14
 
 ruleSet("connect")
     .addRule()
@@ -53,7 +52,7 @@ ruleSet("connect")
             technologyTagService.addTagToFileModel(payload.getFile(), "Resource Adapter", TechnologyTagLevel.INFORMATIONAL)
         }
     })
-    .withId(String.format("connect-0%d00", id++))
+    .withId("connect-01400")
     .addRule()
     .when(File.inFileNamed("{*}activemq{*}"))
     .perform(new AbstractIterationOperation<FileLocationModel>() {
@@ -61,7 +60,7 @@ ruleSet("connect")
             perform(event, context, payload.getFile(), "ActiveMQ", true)
         }
     })
-    .withId(String.format("connect-0%d00", id++))
+    .withId("connect-01500")
     .addRule()
     .when(File.inFileNamed("{*}openws{*}"))
     .perform(new AbstractIterationOperation<FileLocationModel>() {
@@ -69,7 +68,7 @@ ruleSet("connect")
             perform(event, context, payload.getFile(), "OpenWS", false)
         }
     })
-    .withId(String.format("connect-0%d00", id++))
+    .withId("connect-01600")
     .addRule()
     .when(File.inFileNamed("{*}wsdl{*}"))
     .perform(new AbstractIterationOperation<FileLocationModel>() {
@@ -77,7 +76,7 @@ ruleSet("connect")
             perform(event, context, payload.getFile(), "WSDL", false)
         }
     })
-    .withId(String.format("connect-0%d00", id++))
+    .withId("connect-01700")
     .addRule()
     .when(Or.any(
             File.inFileNamed("{*}amqp-client{*}"),
@@ -92,7 +91,7 @@ ruleSet("connect")
             perform(event, context, payload.getFile(), "RabbitMQ Client", true)
         }
     })
-    .withId(String.format("connect-0%d00", id++))
+    .withId("connect-01800")
     .addRule()
     .when(Or.any(
             File.inFileNamed("{*}spring-messaging{*}"),
@@ -104,7 +103,7 @@ ruleSet("connect")
             perform(event, context, payload.getFile(), "Spring Messaging Client", true)
         }
     })
-    .withId(String.format("connect-0%d00", id++))
+    .withId("connect-01900")
     .addRule()
     .when(File.inFileNamed("{*}camel-jms{*}"))
     .perform(new AbstractIterationOperation<FileLocationModel>() {
@@ -112,7 +111,7 @@ ruleSet("connect")
             perform(event, context, payload.getFile(), "Camel Messaging Client", true)
         }
     })
-    .withId(String.format("connect-0%d00", id++))
+    .withId("connect-02000")
     .addRule()
     .when(File.inFileNamed("{*}aws-java-sdk-sqs{*}"))
     .perform(new AbstractIterationOperation<FileLocationModel>() {
@@ -120,7 +119,7 @@ ruleSet("connect")
             perform(event, context, payload.getFile(), "Amazon SQS Client", false)
         }
     })
-    .withId(String.format("connect-0%d00", id++))
+    .withId("connect-02100")
     .addRule()
     .when(File.inFileNamed("{*}hornetq{*}"))
     .perform(new AbstractIterationOperation<FileLocationModel>() {
@@ -128,7 +127,7 @@ ruleSet("connect")
             perform(event, context, payload.getFile(), "HornetQ Client", true)
         }
     })
-    .withId(String.format("connect-0%d00", id++))
+    .withId("connect-02200")
     .addRule()
     .when(File.inFileNamed("{*}amqp{*}"))
     .perform(new AbstractIterationOperation<FileLocationModel>() {
@@ -136,7 +135,7 @@ ruleSet("connect")
             perform(event, context, payload.getFile(), "AMQP Client", true)
         }
     })
-    .withId(String.format("connect-0%d00", id++))
+    .withId("connect-02300")
     .addRule()
     .when(File.inFileNamed("{*}rocketmq-client{*}"))
     .perform(new AbstractIterationOperation<FileLocationModel>() {
@@ -144,7 +143,7 @@ ruleSet("connect")
             perform(event, context, payload.getFile(), "RocketMQ Client", true)
         }
     })
-    .withId(String.format("connect-0%d00", id++))
+    .withId("connect-02400")
     .addRule()
     .when(Or.any(
             File.inFileNamed("{*}jzmq{*}"),
@@ -156,7 +155,7 @@ ruleSet("connect")
             perform(event, context, payload.getFile(), "0MQ Client", true)
         }
     })
-    .withId(String.format("connect-0%d00", id++))
+    .withId("connect-02500")
     .addRule()
     .when(File.inFileNamed("{*}jbossmq-client{*}"))
     .perform(new AbstractIterationOperation<FileLocationModel>() {
@@ -164,7 +163,7 @@ ruleSet("connect")
             perform(event, context, payload.getFile(), "JBossMQ Client", true)
         }
     })
-    .withId(String.format("connect-0%d00", id++))
+    .withId("connect-02600")
     .addRule()
     .when(File.inFileNamed("{*}zbus-client{*}"))
     .perform(new AbstractIterationOperation<FileLocationModel>() {
@@ -172,7 +171,7 @@ ruleSet("connect")
             perform(event, context, payload.getFile(), "Zbus Client", true)
         }
     })
-    .withId(String.format("connect-0%d00", id++))
+    .withId("connect-02700")
     .addRule()
     .when(File.inFileNamed("{*}qpid{*}"))
     .perform(new AbstractIterationOperation<FileLocationModel>() {
@@ -180,7 +179,7 @@ ruleSet("connect")
             perform(event, context, payload.getFile(), "Qpid Client", true)
         }
     })
-    .withId(String.format("connect-0%d00", id++))
+    .withId("connect-02800")
     .addRule()
     .when(Or.any(
         File.inFileNamed("{*}kafka-clients{*}"),
@@ -192,4 +191,4 @@ ruleSet("connect")
             perform(event, context, payload.getFile(), "Kafka Client", false)
         }
     })
-    .withId(String.format("connect-0%d00", id))
+    .withId("connect-02900")
