@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<ruletest id="xml-dsl-changes-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/xml-36-changes</testDataPath>
+    <rulePath>../xml-36-changes.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="java-camel36-00001">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The class CamelFileDataSource has moved from camel-http-common package org.apache.camel.http.common to camel-attachments package org.apache.camel.attachment*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-camel36-00001] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-removed-camel36-00001">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`camel-hipchat` component has been removed."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-camel36-00001] hint not found"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

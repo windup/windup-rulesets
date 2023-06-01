@@ -1,0 +1,369 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="xml-37-changes"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            Rules for changes between Camel 3.6 and Camel 3.7
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="camel" versionRange="[3.0,3.7)"/>
+        <targetTechnology id="camel" versionRange="[3.7,)" />
+    </metadata>
+    <rules>
+        <rule id="java-generic-information-camel37-00000">
+            <when>
+                <javaclass references="org.apache.camel.processor.interceptor.BreakpointSupport">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="org.apache.camel.processor.interceptor.BreakpointSupport moved to to org.apache.camel.support.BreakpointSupport" effort="1" category-id="mandatory">
+                    <message>
+                        org.apache.camel.processor.interceptor.BreakpointSupport moved to to org.apache.camel.support.BreakpointSupport.
+                    </message>
+                    <link title="Camel 3 - Migration Guide: Generic Information" href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_7.html#_api_changes" />
+                    <quickfix type="REPLACE" name="AggregationStrategy-replace">
+                        <replacement>org.apache.camel.processor.interceptor.BreakpointSupport</replacement>
+                        <search>org.apache.camel.support.BreakpointSupport</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="java-generic-information-camel37-00001">
+            <when>
+                <javaclass references="org.apache.camel.impl.validator.ProcessorValidator">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="The class org.apache.camel.impl.validator.ProcessorValidator moved to org.apache.camel.processor.validator.ProcessorValidator. " effort="1" category-id="mandatory">
+                    <message>
+                        The class org.apache.camel.impl.validator.ProcessorValidator moved to org.apache.camel.processor.validator.ProcessorValidator. 
+                    </message>
+                    <link title="Camel 3 - Migration Guide: Generic Information" href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_7.html#_api_changes" />
+                    <quickfix type="REPLACE" name="AggregationStrategy-replace">
+                        <replacement>org.apache.camel.processor.validator.ProcessorValidator</replacement>
+                        <search>org.apache.camel.impl.validator.ProcessorValidator</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="java-generic-information-camel37-00002">
+            <when>
+                <javaclass references="org.apache.camel.impl.transformer.ProcessorTransformer">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="The class org.apache.camel.impl.transformer.ProcessorTransformer moved to org.apache.camel.processor.transformer.ProcessorTransformer. " effort="1" category-id="mandatory">
+                    <message>
+                        The class org.apache.camel.impl.transformer.ProcessorTransformer moved to org.apache.camel.processor.transformer.ProcessorTransformer. 
+                    </message>
+                    <link title="Camel 3 - Migration Guide: Generic Information" href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_7.html#_api_changes" />
+                    <quickfix type="REPLACE" name="AggregationStrategy-replace">
+                        <replacement>org.apache.camel.processor.transformer.ProcessorTransformer</replacement>
+                        <search>org.apache.camel.impl.transformer.ProcessorTransformer</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="java-generic-information-camel37-00003">
+            <when>
+                <javaclass references="org.apache.camel.impl.transformer.DataFormatTransformer">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="The class org.apache.camel.impl.transformer.DataFormatTransformer moved to org.apache.camel.processor.transformer.DataFormatTransformer. " effort="1" category-id="mandatory">
+                    <message>
+                        The class org.apache.camel.impl.transformer.DataFormatTransformer moved to org.apache.camel.processor.transformer.DataFormatTransformer.  
+                    </message>
+                    <link title="Camel 3 - Migration Guide: Generic Information" href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_7.html#_api_changes" />
+                    <quickfix type="REPLACE" name="AggregationStrategy-replace">
+                        <replacement>org.apache.camel.processor.transformer.DataFormatTransformer</replacement>
+                        <search>org.apache.camel.impl.transformer.DataFormatTransformer</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="java-generic-information-camel37-00004">
+            <when>
+                <javaclass references="org.apache.camel.impl.validator.ValidatorKey">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="The class org.apache.camel.impl.validator.ValidatorKey moved to org.apache.camel.impl.engine.ValidatorKey. " effort="1" category-id="mandatory">
+                    <message>
+                        The class org.apache.camel.impl.validator.ValidatorKey moved to org.apache.camel.impl.engine.ValidatorKey.  
+                    </message>
+                    <link title="Camel 3 - Migration Guide: Generic Information" href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_7.html#_api_changes" />
+                    <quickfix type="REPLACE" name="AggregationStrategy-replace">
+                        <replacement>org.apache.camel.impl.engine.ValidatorKey</replacement>
+                        <search>org.apache.camel.impl.validator.ValidatorKey</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="java-generic-information-camel37-00005">
+            <when>
+                <javaclass references="org.apache.camel.impl.transformer.TransformerKey">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="The class org.apache.camel.impl.transformer.TransformerKey moved to org.apache.camel.impl.engine.TransformerKey." effort="1" category-id="mandatory">
+                    <message>
+                        The class org.apache.camel.impl.transformer.TransformerKey moved to org.apache.camel.impl.engine.TransformerKey.
+                    </message>
+                    <link title="Camel 3 - Migration Guide: Generic Information" href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_7.html#_api_changes" />
+                    <quickfix type="REPLACE" name="AggregationStrategy-replace">
+                        <replacement>org.apache.camel.impl.engine.TransformerKey</replacement>
+                        <search>org.apache.camel.impl.transformer.TransformerKey</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="java-generic-information-camel37-00006">
+            <when>
+                <javaclass references="org.apache.camel.impl.DefaultExecutorServiceManager">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="The class org.apache.camel.impl.DefaultExecutorServiceManager was moved from camel-core-engine JAR to org.apache.camel.impl.engine.DefaultExecutorServiceManager in the camel-base JAR." effort="1" category-id="mandatory">
+                    <message>
+                        The class org.apache.camel.impl.DefaultExecutorServiceManager was moved from camel-core-engine JAR to org.apache.camel.impl.engine.DefaultExecutorServiceManager in the camel-base JAR.
+                    </message>
+                    <link title="Camel 3 - Migration Guide: Generic Information" href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_7.html#_api_changes" />
+                    <quickfix type="REPLACE" name="AggregationStrategy-replace">
+                        <replacement>org.apache.camel.impl.engine.DefaultExecutorServiceManager</replacement>
+                        <search>org.apache.camel.impl.DefaultExecutorServiceManager</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="java-generic-information-camel37-00007">
+            <when>
+                <javaclass references="org.apache.camel.processor.ConvertBodyProcessor">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="The class org.apache.camel.processor.ConvertBodyProcessor was moved to org.apache.camel.support.ConvertBodyProcessor in the camel-support JAR." effort="1" category-id="mandatory">
+                    <message>
+                        The class org.apache.camel.processor.ConvertBodyProcessor was moved to org.apache.camel.support.ConvertBodyProcessor in the camel-support JAR.
+                    </message>
+                    <link title="Camel 3 - Migration Guide: Generic Information" href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_7.html#_api_changes" />
+                    <quickfix type="REPLACE" name="AggregationStrategy-replace">
+                        <replacement>org.apache.camel.support.ConvertBodyProcessor</replacement>
+                        <search>org.apache.camel.processor.ConvertBodyProcessor</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="java-generic-information-camel37-00007">
+            <when>
+                <javaclass references="org.apache.camel.impl.engine.DefaultClaimCheckRepository">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="The class org.apache.camel.impl.engine.DefaultClaimCheckRepository moved to org.apache.camel.processor.DefaultClaimCheckRepository in the camel-core-processor JAR." effort="1" category-id="mandatory">
+                    <message>
+                        The class org.apache.camel.impl.engine.DefaultClaimCheckRepository moved to org.apache.camel.processor.DefaultClaimCheckRepository in the camel-core-processor JAR.
+                    </message>
+                    <link title="Camel 3 - Migration Guide: Generic Information" href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_7.html#_api_changes" />
+                    <quickfix type="REPLACE" name="AggregationStrategy-replace">
+                        <replacement>org.apache.camel.processor.DefaultClaimCheckRepository</replacement>
+                        <search>org.apache.camel.impl.engine.DefaultClaimCheckRepository</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-camel37-00008">
+            <when>
+                <javaclass references="org.apache.camel.impl.engine.DefaultProducerCache">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="The class org.apache.camel.impl.engine.DefaultProducerCache was moved to org.apache.camel.support.cache.DefaultProducerCache." effort="1" category-id="mandatory">
+                    <message>
+                        The class org.apache.camel.impl.engine.DefaultProducerCache was moved to org.apache.camel.support.cache.DefaultProducerCache.
+                    </message>
+                    <link title="Camel 3 - Migration Guide: Generic Information" href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_7.html#_api_changes" />
+                    <quickfix type="REPLACE" name="AggregationStrategy-replace">
+                        <replacement>org.apache.camel.support.cache.DefaultProducerCache</replacement>
+                        <search>org.apache.camel.impl.engine.DefaultProducerCache</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-camel37-00009">
+            <when>
+                <javaclass references="org.apache.camel.impl.engine.DefaultConsumerCache">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="The class org.apache.camel.impl.engine.DefaultConsumerCache was moved to org.apache.camel.support.cache.DefaultConsumerCache." effort="1" category-id="mandatory">
+                    <message>
+                        The class org.apache.camel.impl.engine.DefaultConsumerCache was moved to org.apache.camel.support.cache.DefaultConsumerCache.
+                    </message>
+                    <link title="Camel 3 - Migration Guide: Generic Information" href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_7.html#_api_changes" />
+                    <quickfix type="REPLACE" name="AggregationStrategy-replace">
+                        <replacement>org.apache.camel.support.cache.DefaultConsumerCache</replacement>
+                        <search>org.apache.camel.impl.engine.DefaultConsumerCache</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="java-generic-information-camel37-00010">
+            <when>
+                <javaclass references="org.apache.camel.impl.engine.EmptyProducerCache">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="The class org.apache.camel.impl.engine.EmptyProducerCache was moved to org.apache.camel.support.cache.EmptyProducerCache." effort="1" category-id="mandatory">
+                    <message>
+                        The class org.apache.camel.impl.engine.EmptyProducerCache was moved to org.apache.camel.support.cache.EmptyProducerCache.
+                    </message>
+                    <link title="Camel 3 - Migration Guide: Generic Information" href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_7.html#_api_changes" />
+                    <quickfix type="REPLACE" name="AggregationStrategy-replace">
+                        <replacement>org.apache.camel.support.cache.EmptyProducerCache</replacement>
+                        <search>org.apache.camel.impl.engine.EmptyProducerCache</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-camel37-00011">
+            <when>
+                <javaclass references="org.apache.camel.impl.engine.ServicePool">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="The class org.apache.camel.impl.engine.ServicePool was moved to org.apache.camel.support.cache.ServicePool. " effort="1" category-id="mandatory">
+                    <message>
+                        The class org.apache.camel.impl.engine.ServicePool was moved to org.apache.camel.support.cache.ServicePool. 
+                    </message>
+                    <link title="Camel 3 - Migration Guide: Generic Information" href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_7.html#_api_changes" />
+                    <quickfix type="REPLACE" name="AggregationStrategy-replace">
+                        <replacement>org.apache.camel.support.cache.ServicePool</replacement>
+                        <search>org.apache.camel.impl.engine.ServicePool</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-camel37-00012">
+            <when>
+                <javaclass references="org.apache.camel.impl.engine.ProducerServicePool">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="The class org.apache.camel.impl.engine.ProducerServicePool was moved to org.apache.camel.support.cache.ProducerServicePool." effort="1" category-id="mandatory">
+                    <message>
+                        The class org.apache.camel.impl.engine.ProducerServicePool was moved to org.apache.camel.support.cache.ProducerServicePool. 
+                    </message>
+                    <link title="Camel 3 - Migration Guide: Generic Information" href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_7.html#_api_changes" />
+                    <quickfix type="REPLACE" name="AggregationStrategy-replace">
+                        <replacement>org.apache.camel.support.cache.ProducerServicePool</replacement>
+                        <search>org.apache.camel.support.cache.ProducerServicePool</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-camel37-00013">
+            <when>
+                <javaclass references="org.apache.camel.impl.engine.PollingConsumerServicePool">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title=" The class org.apache.camel.impl.engine.PollingConsumerServicePool was moved to org.apache.camel.support.cache.PollingConsumerServicePool." effort="1" category-id="mandatory">
+                    <message>
+                         The class org.apache.camel.impl.engine.PollingConsumerServicePool was moved to org.apache.camel.support.cache.PollingConsumerServicePool. 
+                    </message>
+                    <link title="Camel 3 - Migration Guide: Generic Information" href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_7.html#_api_changes" />
+                    <quickfix type="REPLACE" name="AggregationStrategy-replace">
+                        <replacement>org.apache.camel.support.cache.PollingConsumerServicePool</replacement>
+                        <search>org.apache.camel.impl.engine.PollingConsumerServicePool</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-camel37-00014">
+            <when>
+                <javaclass references="org.apache.camel.impl.engine.EventNotifierCallback">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="The class org.apache.camel.impl.engine.EventNotifierCallback was moved to org.apache.camel.support.cache.EventNotifierCallback." effort="1" category-id="mandatory">
+                    <message>
+                         The class org.apache.camel.impl.engine.EventNotifierCallback was moved to org.apache.camel.support.cache.EventNotifierCallback.
+                    </message>
+                    <link title="Camel 3 - Migration Guide: Generic Information" href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_7.html#_api_changes" />
+                    <quickfix type="REPLACE" name="AggregationStrategy-replace">
+                        <replacement>org.apache.camel.support.cache.EventNotifierCallback</replacement>
+                        <search>org.apache.camel.impl.engine.EventNotifierCallback</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-camel37-00015">
+            <when>
+                <javaclass references="org.apache.camel.impl.saga.InMemorySagaService">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="The class org.apache.camel.impl.saga.InMemorySagaService was moved to org.apache.camel.saga.InMemorySagaService." effort="1" category-id="mandatory">
+                    <message>
+                         The class org.apache.camel.impl.saga.InMemorySagaService was moved to org.apache.camel.saga.InMemorySagaService.
+                    </message>
+                    <link title="Camel 3 - Migration Guide: Generic Information" href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_7.html#_api_changes" />
+                    <quickfix type="REPLACE" name="AggregationStrategy-replace">
+                        <replacement>org.apache.camel.saga.InMemorySagaService</replacement>
+                        <search>org.apache.camel.impl.saga.InMemorySagaService</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-camel37-00016">
+            <when>
+                <javaclass references="org.apache.camel.impl.saga.InMemorySagaCoordinator">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title=" The class org.apache.camel.impl.saga.InMemorySagaCoordinator was moved to org.apache.camel.saga.InMemorySagaCoordinator." effort="1" category-id="mandatory">
+                    <message>
+                         The class org.apache.camel.impl.saga.InMemorySagaCoordinator was moved to org.apache.camel.saga.InMemorySagaCoordinator.
+                    </message>
+                    <link title="Camel 3 - Migration Guide: Generic Information" href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_7.html#_api_changes" />
+                    <quickfix type="REPLACE" name="AggregationStrategy-replace">
+                        <replacement>org.apache.camel.saga.InMemorySagaCoordinator</replacement>
+                        <search>org.apache.camel.impl.saga.InMemorySagaCoordinator</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+
+    </rules>
+</ruleset>
+

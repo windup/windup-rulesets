@@ -1,0 +1,216 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="xml-32-changes"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            Rules for changes between Camel 3.1 and Camel 3.2
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="camel" versionRange="[3.0,3.2)"/>
+        <targetTechnology id="camel" versionRange="[3.2,)" />
+    </metadata>
+    <rules>
+        <rule id="jndiregistry-removed-camel32-00001">
+            <when>
+                <javaclass references="org.apache.camel.impl.JndiRegistry">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="org.apache.camel.impl.JndiRegistry has been removed" effort="1" category-id="mandatory" >
+                    <message>`org.apache.camel.impl.JndiRegistry` has been removed - please use org.apache.camel.support.jndi.JndiBeanRepository in org.apache.camel:camel-support instead.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_2.html#_jndiregistry" title="Camel 3 - Migration Guide: Spring Boot Starters" />
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="xml-removed-camel32-00001">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel" artifactId="camel-blueprint" />
+                    </project>
+                    <dependency groupId="org.apache.camel" artifactId="camel-blueprint"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Camel on Apache Karaf / OSGi has been moved to its own project at: https://github.com/apache/camel-karaf" effort="3" category-id="mandatory" >
+                    <message>Camel on Apache Karaf / OSGi has been moved to its own project at: https://github.com/apache/camel-karaf.   Please change the `org.apache.camel:camel-blueprint` dependency to `org.apache.came.karaf:camel-blueprint`.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_2.html#_camel_with_karaf_and_osgi" title="Camel 3 - Migration Guide: Removed components" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-removed-camel32-00002">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel" artifactId="camel-test-blueprint" />
+                    </project>
+                    <dependency groupId="org.apache.camel" artifactId="camel-blueprint"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Camel on Apache Karaf / OSGi has been moved to its own project at: https://github.com/apache/camel-karaf" effort="3" category-id="mandatory" >
+                    <message>Camel on Apache Karaf / OSGi has been moved to its own project at: https://github.com/apache/camel-karaf.   Please change the `org.apache.camel:camel-test-blueprint` dependency to `org.apache.camel.karaf:camel-test-blueprint`.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_2.html#_other_components_involved" title="Camel 3 - Migration Guide: Removed components" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-removed-camel32-00003">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel" artifactId="camel-test-karaf" />
+                    </project>
+                    <dependency groupId="org.apache.camel" artifactId="camel-test-karaf" />
+                </or>
+            </when>
+            <perform>
+                <hint title="Camel on Apache Karaf / OSGi has been moved to its own project at: https://github.com/apache/camel-karaf" effort="3" category-id="mandatory" >
+                    <message>Camel on Apache Karaf / OSGi has been moved to its own project at: https://github.com/apache/camel-karaf.   Please change the `org.apache.camel:camel-test-karaf` dependency to `org.apache.camel.karaf:camel-test-karaf`.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_2.html#_other_components_involved" title="Camel 3 - Migration Guide: Removed components" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-removed-camel32-00004">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel" artifactId="camel-eventadmin" />
+                    </project>
+                    <dependency groupId="org.apache.camel" artifactId="camel-eventadmin" />
+                </or>
+            </when>
+            <perform>
+                <hint title="Camel on Apache Karaf / OSGi has been moved to its own project at: https://github.com/apache/camel-karaf" effort="3" category-id="mandatory" >
+                    <message>Camel on Apache Karaf / OSGi has been moved to its own project at: https://github.com/apache/camel-karaf.   Please change the `org.apache.camel:camel-eventadmin` dependency to `org.apache.camel.karaf:camel-eventadmin`.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_2.html#_other_components_involved" title="Camel 3 - Migration Guide: Removed components" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-removed-camel32-00005">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel" artifactId="camel-kura" />
+                    </project>
+                    <dependency groupId="org.apache.camel" artifactId="camel-kura" />
+                </or>
+            </when>
+            <perform>
+                <hint title="Camel on Apache Karaf / OSGi has been moved to its own project at: https://github.com/apache/camel-karaf" effort="3" category-id="mandatory" >
+                    <message>Camel on Apache Karaf / OSGi has been moved to its own project at: https://github.com/apache/camel-karaf.   Please change the `org.apache.camel:camel-kura` dependency to `org.apache.camel.karaf:camel-kura`.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_2.html#_other_components_involved" title="Camel 3 - Migration Guide: Removed components" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-removed-camel32-00006">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel" artifactId="camel-osgi-activator" />
+                    </project>
+                    <dependency groupId="org.apache.camel" artifactId="camel-osgi-activator" />
+                </or>
+            </when>
+            <perform>
+                <hint title="Camel on Apache Karaf / OSGi has been moved to its own project at: https://github.com/apache/camel-karaf" effort="3" category-id="mandatory" >
+                    <message>Camel on Apache Karaf / OSGi has been moved to its own project at: https://github.com/apache/camel-karaf.   Please change the `org.apache.camel:camel-osgi-activator` dependency to `org.apache.camel.karaf:camel-osgi-activator`.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_2.html#_other_components_involved" title="Camel 3 - Migration Guide: Removed components" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-removed-camel32-00007">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel" artifactId="camel-paxlogging" />
+                    </project>
+                    <dependency groupId="org.apache.camel" artifactId="camel-paxlogging" />
+                </or>
+            </when>
+            <perform>
+                <hint title="Camel on Apache Karaf / OSGi has been moved to its own project at: https://github.com/apache/camel-karaf" effort="3" category-id="mandatory" >
+                    <message>Camel on Apache Karaf / OSGi has been moved to its own project at: https://github.com/apache/camel-karaf.   Please change the `org.apache.camel:camel-paxlogging` dependency to `org.apache.camel.karaf:camel-paxlogging`.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_2.html#_other_components_involved" title="Camel 3 - Migration Guide: Removed components" />
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="xml-removed-camel32-00008">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel" artifactId="camel-spark-rest" />
+                    </project>  
+                    <dependency groupId="org.apache.camel" artifactId="camel-spark-rest" />
+                </or>
+            </when>
+            <perform>
+                <hint title="camel-spark-rest has been removed" effort="5" category-id="mandatory" >
+                    <message>camel-spark-rest component has been removed - please any of the other REST capable components, such as camel-jetty, camel-netty-http or camel-undertow..</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_2.html#_camel_spark_rest" title="Camel 3 - Migration Guide: Removed components" />
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="xml-moved-camel32-00003">
+            <when>
+                <filecontent pattern="camel.component.{*}.configuration.{*}={*}" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="Camel Spring Boot has flattened its option keys and the .configuration prefix has been removed" effort="3" category-id="mandatory" >
+                    <message>Camel Spring Boot has flattened its option keys and the .configuration prefix has been removed.  See the example in the upgrade guide for 3.2 for more details</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_2.html#_configuring_components_via_spring_boot_auto_configuration" title="Camel 3 - Migration Guide: Spring Boot configuration" />
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="xml-moved-camel32-00004">
+            <when>
+                <filecontent pattern="{*}.broker-u-r-l={*}" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="broker-u-r-l in Spring Boot properties renamed to broker-url" effort="3" category-id="mandatory" >
+                    <message>broker-u-r-l in Spring Boot properties renamed to broker-url.  See the example in the upgrade guide for 3.2 for more details</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_2.html#_configuring_camel_activemq_camel_amqp_and_camel_stomp_via_spring_boot_auto_configuration" title="Camel 3 - Migration Guide: Spring Boot configuration" />
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="xml-moved-camel32-00005">
+            <when>
+                <javaclass references="org.apache.camel.cluster.{*}">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="org.apache.camel.cluster has been moved out of org.apache.camel:camel-core-engine into org.apache.camel:camel-cluster" effort="2" category-id="mandatory" >
+                    <message>org.apache.camel.cluster has been moved out of org.apache.camel:camel-core-engine into org.apache.camel:camel-cluster.  See the example in the upgrade guide for 3.2 for more details</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_2.html#_camel_cluster" title="Camel 3 - Migration Guide: Spring Boot configuration" />
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="xml-removed-camel32-00010">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel" artifactId="camel-spring" />
+                    </project>
+                    <dependency groupId="org.apache.camel" artifactId="camel-spring" />
+                </or>
+            </when>
+            <perform>
+                <hint title="The org.apache.camel.spring.Main class has been moved out of camel-spring JAR into its own JAR named camel-spring-main." effort="1" category-id="optional" >
+                    <message>The org.apache.camel.spring.Main class has been moved out of camel-spring JAR into its own JAR named camel-spring-main.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_2.html#_main_in_camel_spring" title="Camel 3 - Migration Guide: Moved components" />
+                </hint>
+            </perform>
+        </rule>
+
+    </rules>
+</ruleset>
+

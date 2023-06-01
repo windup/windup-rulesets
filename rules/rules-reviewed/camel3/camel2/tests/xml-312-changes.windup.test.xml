@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<ruletest id="xml-dsl-changes-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/xml-312-changes</testDataPath>
+    <rulePath>../xml-312-changes.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="xml-removed-camel312-00001">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.apache.camel.springboot:camel-spring-cloud-starter` starter has been removed in Apache Camel 3.12*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-camel312-00001] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-removed-camel312-00002">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.apache.camel.springboot:camel-spring-cloud-consul-starter has been removed in Apache Camel 3.12*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-camel312-00002] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-removed-camel312-00003">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.apache.camel.springboot:camel-spring-cloud-netflix-starter` starter has been removed in Apache Camel 3.12*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-camel312-00003] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-removed-camel312-00004">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.apache.camel.springboot:camel-spring-cloud-zookeeper-starter` starter has been removed in Apache Camel 3.12*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-camel312-00004] hint not found"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
