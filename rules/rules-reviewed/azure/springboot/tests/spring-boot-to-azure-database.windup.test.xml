@@ -8,7 +8,7 @@
       <rule id="spring-boot-to-azure-database-jdbc-test-01000">
         <when>
           <not>
-            <iterable-filter size="3">
+            <iterable-filter size="2">
               <hint-exists message="The application uses a JDBC connection string"/>
             </iterable-filter>
           </not>
@@ -27,6 +27,18 @@
         </when>
         <perform>
           <fail message="Mongo hint was not found!"/>
+        </perform>
+      </rule>
+      <rule id="spring-boot-to-azure-database-r2dbc-test-02000">
+        <when>
+          <not>
+            <iterable-filter size="1">
+              <hint-exists message="The application uses a R2DBC connection string"/>
+            </iterable-filter>
+          </not>
+        </when>
+        <perform>
+          <fail message="r2dbc hint was not found!"/>
         </perform>
       </rule>
     </rules>

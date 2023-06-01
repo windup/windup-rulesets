@@ -17,6 +17,18 @@
                     <fail message="Redis Cache hint was not found!" />
                 </perform>
             </rule>
+            <rule id="spring-boot-to-azure-cache-redis-test-02000">
+                <when>
+                    <not>
+                        <iterable-filter size="4">
+                            <hint-exists message="Redis Cache connection string, username, or password used in this application" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Redis Cache connection string hint was not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>

@@ -295,6 +295,18 @@
                     <fail message="[javax-to-jakarta-servlet-00123] The hint was not found!" />
                 </perform>
             </rule>
+            <rule id="javax-to-jakarta-servlet-00130-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="web.xml element references a javax-prefixed class name"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javax-to-jakarta-servlet-00130] The hint was not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>

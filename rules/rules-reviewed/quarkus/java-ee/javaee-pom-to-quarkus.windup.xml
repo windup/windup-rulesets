@@ -1,0 +1,282 @@
+<?xml version="1.0"?>
+<!DOCTYPE ruleset [
+    <!ENTITY build-tool-maven-link-title "Quarkus - Guide">
+    <!ENTITY build-tool-maven-link-href "https://quarkus.io/guides/maven-tooling#build-tool-maven">
+]>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="javaee-pom-to-quarkus"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints to migrate JAX-RS applications to Quarkus extension
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="java-ee" />
+        <targetTechnology id="quarkus" />
+    </metadata>
+    <rules>
+        <rule id="javaee-pom-to-quarkus-00000">
+            <when>
+                <xmlfile in="pom.xml" matches="/m:project/m:packaging/text()[windup:matches(self::node(), '{not-jar}')]">
+                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="The expected project artifact's extension is `jar`" effort="1" category-id="mandatory">
+                    <message>
+                        The project artifact's current extension (i.e. `&lt;packaging&gt;` tag value) is `{not-jar}` but the expected value should be `jar`
+                    </message>
+                    <link title="&build-tool-maven-link-title;" href="&build-tool-maven-link-href;" />
+                    <quickfix type="DELETE_LINE" name="delete-packaging">
+                        <search>&lt;packaging&gt;{not-jar}</search>
+                    </quickfix>
+                </hint>
+            </perform>
+            <where param="not-jar">
+                <matches pattern="^(?!jar).*$" />
+            </where>
+        </rule>
+        <rule id="javaee-pom-to-quarkus-00010">
+            <when>
+                <xmlfile in="pom.xml" matches="/m:project[not(m:dependencyManagement/m:dependencies/m:dependency/m:artifactId/text() = 'quarkus-bom') and not(m:dependencyManagement/m:dependencies/m:dependency/m:artifactId/text() = '${quarkus.platform.artifact-id}')]">
+                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Adopt Quarkus BOM" effort="1" category-id="mandatory">
+                    <message>
+                    <![CDATA[
+                        Use the Quarkus BOM to omit the version of the different Quarkus dependencies.  
+                        Add the following sections to the `pom.xml` file:  
+
+                        ```xml
+                        <properties>  
+                            <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>  
+                            <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>  
+                            <quarkus.platform.version>2.16.6.Final</quarkus.platform.version>  
+                        </properties>  
+                        <dependencyManagement>  
+                            <dependencies>  
+                                <dependency>  
+                                    <groupId>${quarkus.platform.group-id}</groupId>  
+                                    <artifactId>${quarkus.platform.artifact-id}</artifactId>  
+                                    <version>${quarkus.platform.version}</version>  
+                                    <type>pom</type>  
+                                    <scope>import</scope>  
+                                </dependency>  
+                            </dependencies>  
+                        </dependencyManagement>  
+                        ```
+                        Check the latest Quarkus version available from the `Quarkus - Releases` link below.
+                    ]]>
+                    </message>
+                    <link title="&build-tool-maven-link-title;" href="&build-tool-maven-link-href;" />
+                    <link title="Quarkus - Releases" href="https://quarkus.io/blog/tag/release/" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="javaee-pom-to-quarkus-00020">
+            <when>
+                <xmlfile in="pom.xml" matches="/m:project[not(m:build/m:plugins/m:plugin/m:artifactId/text() = 'quarkus-maven-plugin')]">
+                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Adopt Quarkus Maven plugin" effort="1" category-id="mandatory">
+                    <message>
+                    <![CDATA[
+                        Use the Quarkus Maven plugin adding the following sections to the `pom.xml` file:  
+
+                        ```xml
+                        <properties>  
+                            <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>  
+                            <quarkus.platform.version>2.16.6.Final</quarkus.platform.version>  
+                        </properties>  
+                        <build>
+                            <plugins>
+                                <plugin>
+                                    <groupId>${quarkus.platform.group-id}</groupId>
+                                    <artifactId>quarkus-maven-plugin</artifactId>
+                                    <version>${quarkus.platform.version}</version>
+                                    <extensions>true</extensions>
+                                    <executions>
+                                        <execution>
+                                            <goals>
+                                                <goal>build</goal>
+                                                <goal>generate-code</goal>
+                                                <goal>generate-code-tests</goal>
+                                            </goals>
+                                        </execution>
+                                    </executions>
+                                </plugin>
+                            </plugins>
+                        </build>
+                        ```
+                    ]]>
+                    </message>
+                    <link title="&build-tool-maven-link-title;" href="&build-tool-maven-link-href;" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="javaee-pom-to-quarkus-00030">
+            <when>
+                <xmlfile in="pom.xml" matches="/m:project[not(m:build/m:plugins/m:plugin/m:artifactId/text() = 'maven-compiler-plugin') or
+                m:build/m:plugins/m:plugin/m:artifactId[text() = 'maven-compiler-plugin' and not(../m:configuration/m:compilerArgs/m:arg/text() = '-parameters')]]">
+                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Adopt Maven Compiler plugin" effort="1" category-id="mandatory">
+                    <message>
+                    <![CDATA[
+                        Use the Maven Compiler plugin adding the following sections to the `pom.xml` file:  
+
+                        ```xml
+                        <properties>  
+                            <compiler-plugin.version>3.10.1</compiler-plugin.version>
+                            <maven.compiler.release>11</maven.compiler.release>
+                        </properties>  
+                        <build>
+                            <plugins>
+                                <plugin>
+                                    <artifactId>maven-compiler-plugin</artifactId>
+                                    <version>${compiler-plugin.version}</version>
+                                    <configuration>
+                                        <compilerArgs>
+                                            <arg>-parameters</arg>
+                                        </compilerArgs>
+                                    </configuration>
+                                </plugin>
+                            </plugins>
+                        </build>
+                        ```
+                    ]]>
+                    </message>
+                    <link title="&build-tool-maven-link-title;" href="&build-tool-maven-link-href;" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="javaee-pom-to-quarkus-00040">
+            <when>
+                <xmlfile in="pom.xml" matches="/m:project[not(m:build/m:plugins/m:plugin/m:artifactId/text() = 'maven-surefire-plugin') or
+                m:build/m:plugins/m:plugin/m:artifactId[text() = 'maven-surefire-plugin' and not(../m:configuration/m:systemPropertyVariables/m:java.util.logging.manager/text() = 'org.jboss.logmanager.LogManager')]]">
+                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Adopt Maven Surefire plugin" effort="1" category-id="mandatory">
+                    <message>
+                    <![CDATA[
+                        Use the Maven Surefire plugin adding the following sections to the `pom.xml` file:  
+
+                        ```xml
+                        <properties>  
+                            <surefire-plugin.version>3.0.0</compiler-plugin.version>
+                        </properties>  
+                        <build>
+                            <plugins>
+                                <plugin>
+                                    <artifactId>maven-surefire-plugin</artifactId>
+                                    <version>${surefire-plugin.version}</version>
+                                    <configuration>
+                                        <systemPropertyVariables>
+                                            <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                                            <maven.home>${maven.home}</maven.home>
+                                        </systemPropertyVariables>
+                                    </configuration>
+                                </plugin>
+                            </plugins>
+                        </build>
+                        ```
+                    ]]>
+                    </message>
+                    <link title="&build-tool-maven-link-title;" href="&build-tool-maven-link-href;" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="javaee-pom-to-quarkus-00050">
+            <when>
+                <xmlfile in="pom.xml" matches="/m:project[not(m:build/m:plugins/m:plugin/m:artifactId/text() = 'maven-failsafe-plugin') or
+                m:build/m:plugins/m:plugin/m:artifactId[text() = 'maven-failsafe-plugin' and not(../m:executions/m:execution/m:configuration/m:systemPropertyVariables/m:native.image.path)]]">
+                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Adopt Maven Failsafe plugin" effort="1" category-id="mandatory">
+                    <message>
+                    <![CDATA[
+                        Use the Maven Failsafe plugin adding the following sections to the `pom.xml` file:  
+
+                        ```xml
+                        <properties>  
+                            <surefire-plugin.version>3.0.0</compiler-plugin.version>
+                        </properties>  
+                        <build>
+                            <plugins>
+                                <plugin>
+                                    <artifactId>maven-failsafe-plugin</artifactId>
+                                    <version>${surefire-plugin.version}</version>
+                                    <executions>
+                                        <execution>
+                                            <goals>
+                                                <goals>integration-test</goal>
+                                                <goals>verify</goal>
+                                            </goals>
+                                            <configuration>
+                                                <systemPropertyVariables>
+                                                    <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
+                                                    <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                                                    <maven.home>${maven.home}</maven.home>
+                                                </systemPropertyVariables>
+                                            </configuration>
+                                        </execution>
+                                    </executions>
+                                </plugin>
+                            </plugins>
+                        </build>
+                        ```
+                    ]]>
+                    </message>
+                    <link title="&build-tool-maven-link-title;" href="&build-tool-maven-link-href;" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="javaee-pom-to-quarkus-00060">
+            <when>
+                <xmlfile in="pom.xml" matches="/m:project[not(m:profiles/m:profile/m:properties/m:quarkus.package.type/text() = 'native')]">
+                    <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0" />
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Add Maven profile to run the Quarkus native build" effort="1" category-id="mandatory">
+                    <message>
+                    <![CDATA[
+                        Leverage a Maven profile to run the Quarkus native build adding the following section to the `pom.xml` file:  
+
+                        ```xml
+                        <profiles>
+                            <profile>
+                                <id>native</id>
+                                <activation>
+                                    <property>
+                                        <name>native</name>
+                                    </property>
+                                </activation>
+                                <properties>
+                                    <skipITs>false</skipITs>
+                                    <quarkus.package.type>native</quarkus.package.type>
+                                </properties>
+                            </profile>
+                        </profiles>
+                        ```
+                    ]]>
+                    </message>
+                    <link title="&build-tool-maven-link-title;" href="&build-tool-maven-link-href;" />
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
