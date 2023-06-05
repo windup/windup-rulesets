@@ -170,7 +170,7 @@ public class WindupRulesLinksTest {
             else LOG.error(String.format("Response code %d for %s [%dms]", CACHE_ANALYZED_LINKS.get(link), link, System.currentTimeMillis() - starTime));
             return validLink;
         } catch (IOException e) {
-            LOG.error(String.format("'%s' exception connecting to %s", e.getMessage(), link));
+            LOG.error(String.format("'%s' exception connecting to %s", e.getMessage(), link), e);
             return false;
         }
     }
