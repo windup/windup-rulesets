@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruletest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:windupfunctions="windupcustomfunctions"
+          xmlns:windup="http://windup.jboss.org/schema/jboss-ruleset"
+          id="3rd-party-spring-test">
+
+    <testDataPath>data/3rd-party-spring</testDataPath>
+    <rulePath>../3rd-party-spring.windup.xml</rulePath>
+   <ruleset>
+      <rules>
+         <rule id="3rd-party-spring-03001-0-test">
+            <when>
+               <not>
+                   <technology-tag-exists technology-tag="Spring Boot Configuration"/>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule 3rd-party-spring-03001-0"/>
+            </perform>
+         </rule>
+         <rule id="3rd-party-spring-03001-1-test">
+            <when>
+               <not>
+                   <technology-tag-exists technology-tag="Spring Boot "/>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule 3rd-party-spring-03001-1"/>
+            </perform>
+         </rule>
+         <rule id="3rd-party-spring-03001-2-test">
+            <when>
+               <not>
+                   <technology-tag-exists technology-tag="Spring Boot Component Scan"/>
+               </not>
+            </when>
+            <perform>
+               <fail message="Expected data not found for rule 3rd-party-spring-03001-2"/>
+            </perform>
+         </rule>
+          <rule id="3rd-party-spring-03002-test">
+              <when>
+                  <not>
+                      <classification-exists classification="Embedded framework - Spring Deployable War"/>
+                      <technology-tag-exists technology-tag="Spring Deployable War"/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="Expected data not found for rule 3rd-party-spring-03002"/>
+              </perform>
+          </rule>
+         
+      </rules>
+   </ruleset>
+</ruletest>

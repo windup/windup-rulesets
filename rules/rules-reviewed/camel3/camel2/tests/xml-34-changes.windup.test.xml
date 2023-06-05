@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<ruletest id="xml-dsl-changes-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/xml-34-changes</testDataPath>
+    <rulePath>../xml-34-changes.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="xml-removed-camel34-00001">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`camel-management` dependency has been removed from camel-test.  camel-management allows JMX support - which is optional - in order to enable it please adda a dependency to org.apache.camel:camel-management."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-camel34-00001] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-moved-camel34-00001">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="camel.service.lra keys have been flattened to camel.lra.  See the example in the upgrade guide for 3.4 for more details"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-moved-camel34-00001] hint not found"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
