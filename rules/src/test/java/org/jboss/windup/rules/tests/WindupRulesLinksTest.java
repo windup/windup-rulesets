@@ -71,6 +71,7 @@ public class WindupRulesLinksTest {
     private static final List<String> CERT_FAILURE_LINKS = new ArrayList<>();
     static {
         CERT_FAILURE_LINKS.add("https://oracle.com/technical-resources/articles/java/jaxrs20.html");
+        CERT_FAILURE_LINKS.add("https://in.relation.to/2015/05/11/hibernate-search-530-beta-1-with-native-lucene-faceting/");
     }
 
     @Parameterized.Parameters(name = "{index}: Test {0}")
