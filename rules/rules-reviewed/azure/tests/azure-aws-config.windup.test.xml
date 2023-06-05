@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<ruletest id="azure-aws-config-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/azure-aws-config</testDataPath>
+    <rulePath>../azure-aws-config.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="azure-aws-config-test-01000">
+                <when>
+                    <not>
+                        <iterable-filter size="8">
+                            <hint-exists message="The application contains AWS credential configuration" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="aws-credential-config hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="azure-aws-config-test-02000">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The application contains AWS region configuration" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="aws-region-config hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="azure-aws-config-test-03000">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="The application contains AWS S3 configuration" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="aws-S3-config hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="azure-aws-config-test-04000">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="The application contains Amazon Simple Queue Service configuration" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="aws-sqs-config hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
