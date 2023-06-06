@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<ruletest id="xml-dsl-changes-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/xml-320-changes</testDataPath>
+    <rulePath>../xml-320-changes.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="xml-changed-camel320-00001">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.apache.camel:camel-bom` no longer includes dependencies with a type of test-jar, and the entries to several maven plugins have changed to include the correct groupId of org.apache.camel.maven"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-changed-camel320-00001] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-changed-camel320-00002">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`camel-debezium-maven-plugin` has a new groupId of org.apache.camel.maven"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-changed-camel320-00002] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-changed-camel320-00003">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`camel-salesforce-maven-plugin` has a new groupId of org.apache.camel.maven"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-changed-camel320-00003] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-changed-camel320-00004">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`camel-servicenow-maven-plugin` has a new groupId of org.apache.camel.maven"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-changed-camel320-00004] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-changed-camel320-00005">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The Camel Google Pubsub headers have been renamed, since dotted keys are not allowed*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-changed-camel320-00005] hint not found"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

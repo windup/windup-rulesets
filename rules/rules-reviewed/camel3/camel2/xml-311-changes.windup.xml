@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="xml-311-changes"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            Rules for changes between Camel 3.10 and Camel 3.11
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="camel" versionRange="[3.0,3.11)"/>
+        <targetTechnology id="camel" versionRange="[3.11,)" />
+    </metadata>
+    <rules>
+        <rule id="xml-removed-camel311-00001">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel" artifactId="camel-apns" />
+                    </project>
+                    <dependency groupId="org.apache.camel" artifactId="camel-apns" />
+                </or>
+            </when>
+            <perform>
+                <hint title="org.apache.camel:camel-apns component has been retired" effort="7" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-apns` component has been retired in Apache Camel 3.11.   APNS (Apple Push Network System) has been retired by Apple.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_11.html#_camel_apns" title="Camel 3 - Migration Guide: Removed components" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-changed-camel311-00001">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel" artifactId="camel-saxon" />
+                    </project>
+                    <dependency groupId="org.apache.camel" artifactId="camel-saxon" />
+                </or>
+            </when>
+            <perform>
+                <hint title="org.apache.camel:camel-saxon artifact has been removed" effort="3" category-id="optional" >
+                    <message>`org.apache.camel:camel-saxon` no longer depends on camel-saxon-xslt in 3.11.   Any application that needs to do xslt transformation with saxon should now declare an explicit dependency on camel-saxon-xslt.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_11.html#_camel_saxon" title="Camel 3 - Migration Guide: Changed components" />
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="properties-removed-camel311-00001">
+            <when>
+                <filecontent pattern="camel.component.consul.service-registry.{*}={*}" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="camel.component.consul.service-registry configuration key has been renamed to camel.cloud.consul" effort="1" category-id="mandatory" >
+                    <message>`camel.component.consul.service-registry` configuration key has been renamed to camel.cloud.consul.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_11.html#_spring_boot_starters" title="Camel 3 - Migration Guide: Spring Boot Starters" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="properties-removed-camel311-00002">
+            <when>
+                <filecontent pattern="camel.cloud.consul.service-registry={*}" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="camel.cloud.consul.service-registry configuration key has been renamed to camel.cloud.consul" effort="1" category-id="mandatory" >
+                    <message>`camel.cloud.consul.service-registry` configuration key has been renamed to camel.cloud.consul.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_11.html#_spring_boot_starters" title="Camel 3 - Migration Guide: Spring Boot Starters" />
+                </hint>
+            </perform>
+        </rule>
+
+   </rules>
+</ruleset>
+

@@ -403,6 +403,18 @@
               </perform>
           </rule>
 
+          <rule id="hibernate6-tests-00280">
+              <when>
+                  <not>
+                      <iterable-filter size="3">
+                          <hint-exists message="Multitenancy in Hibernate ORM has been simplified. Hibernate will now infer whether multitenancy is enabled or not automatically*"/>
+                      </iterable-filter>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="[hibernate6-tests-00280] Hint not found!"/>
+              </perform>
+          </rule>
 
       </rules>
    </ruleset>

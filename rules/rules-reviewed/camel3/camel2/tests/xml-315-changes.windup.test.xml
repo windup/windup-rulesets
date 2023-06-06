@@ -1,0 +1,228 @@
+<?xml version="1.0"?>
+<ruletest id="xml-dsl-changes-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/xml-315-changes</testDataPath>
+    <rulePath>../xml-315-changes.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="xml-315-00001">
+                <when>
+                    <not>
+                        <iterable-filter size="3">
+                            <hint-exists message="JDK 8 no longer supported*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-315-00001] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-removed-camel315-00001">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`camel-kamelet-reify` component has been retired in Apache Camel 3.15*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-camel315-00001] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-removed-camel315-00002">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`camel-spring-javaconfig` component has been retired in Apache Camel 3.15*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-camel315-00002] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="properties-removed-camel315-00001">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`camel.dataformat.fhirjson` configuration key has been renamed to camel.dataformat.fhir-json*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[properties-removed-camel315-00001] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="properties-removed-camel315-00002">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`camel.dataformat.fhirxml` configuration key has been renamed to camel.dataformat.fhir-xml*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[properties-removed-camel315-00002] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="properties-removed-camel315-00003">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`camel.dataformat.gzipdeflater` configuration key has been renamed to camel.dataformat.gzip-deflater*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[properties-removed-camel315-00003] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="properties-removed-camel315-00004">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`camel.dataformat.jacksonxml` configuration key has been renamed to camel.dataformat.jackson-xml*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[properties-removed-camel315-00004] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="properties-removed-camel315-00005">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`camel.dataformat.jsonapi` configuration key has been renamed to camel.dataformat.json-api*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[properties-removed-camel315-00005] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="properties-removed-camel315-00006">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`camel.dataformat.mimemultipart` configuration key has been renamed to camel.dataformat.mime-multipart*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[properties-removed-camel315-00006] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="properties-removed-camel315-00007">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`camel.dataformat.securexml` configuration key has been renamed to camel.dataformat.xml-security*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[properties-removed-camel315-00007] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="properties-removed-camel315-00008">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`camel.dataformat.tarfile` configuration key has been renamed to camel.dataformat.tar-file*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[properties-removed-camel315-00008] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="properties-removed-camel315-00009">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`camel.dataformat.tidymarkup` configuration key has been renamed to camel.dataformat.tidy-markup*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[properties-removed-camel315-00009] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="properties-removed-camel315-00010">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`camel.dataformat.univocitycsv` configuration key has been renamed to camel.dataformat.univocity-csv*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[properties-removed-camel315-00010] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="properties-removed-camel315-00011">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`camel.dataformat.univocityfixed` configuration key has been renamed to camel.dataformat.univocity-fixed*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[properties-removed-camel315-00011] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="properties-removed-camel315-00012">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`camel.dataformat.univocitytsv` configuration key has been renamed to camel.dataformat.univocity-tsv*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[properties-removed-camel315-00012] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="properties-removed-camel315-00013">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`camel.dataformat.yaml-snakeyaml` configuration key has been renamed to camel.dataformat.snake-yaml*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[properties-removed-camel315-00013] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="properties-removed-camel315-00014">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`camel.dataformat.zipdeflater` configuration key has been renamed to camel.dataformat.zip-deflater*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[properties-removed-camel315-00014] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="properties-removed-camel315-00015">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`camel.dataformat.zipfile` configuration key has been renamed to camel.dataformat.zip-file*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[properties-removed-camel315-00015] hint not found"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

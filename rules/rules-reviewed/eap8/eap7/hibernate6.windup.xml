@@ -492,5 +492,30 @@
                 <matches pattern="(hibernate.properties|persistence.xml|cfg.xml|application.properties|application.yaml)"/>
             </where>
         </rule>
+        <rule id="hibernate6-00280">
+            <when>
+                <or>
+                    <javaclass references="org.hibernate.engine.jdbc.connections.spi.MultiTenantConnectionProvider"/>
+                    <filecontent pattern="hibernate.multiTenancy" filename="{filename}"/>
+                    <javaclass references="org.hibernate.MultiTenancyStrategy"/>
+                    <!-- TODO: no way of referencing AvailableSettings.MULTI_TENANT -->
+                </or>
+            </when>
+            <perform>
+                <hint title="Multitenancy in Hibernate ORM has been simplified" category-id="mandatory" effort="1">
+                    <message>
+                        Multitenancy in Hibernate ORM has been simplified. Hibernate will now infer whether multitenancy is enabled or not automatically.
+                        - If a MultiTenantConnectionProvider is configured, Hibernate ORM will assume either database- or schema-based multitenancy (there is no difference between those two as far as Hibernate ORM is concerned).
+                        - If an entity property is annotated with the new @TenantId annotation, Hibernate ORM will assume discriminator-based multitenancy (which is a new feature).
+                        
+                        See links for information on how to migrate.
+                    </message>
+                    <link href="https://github.com/hibernate/hibernate-orm/blob/6.0/migration-guide.adoc#multitenancy-simplification" title="Hibernate ORM 6 migration guide - Multitenancy simplification"/>
+                </hint>
+            </perform>
+            <where param="filename">
+                <matches pattern="(hibernate.properties|persistence.xml|cfg.xml|application.properties|application.yaml)"/>
+            </where>
+        </rule>
     </rules>
 </ruleset>
