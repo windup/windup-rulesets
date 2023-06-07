@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<ruletest id="xml-dsl-changes-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/xml-311-changes</testDataPath>
+    <rulePath>../xml-311-changes.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="xml-removed-camel311-00001">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.apache.camel:camel-apns` component has been retired in Apache Camel 3.11*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-camel311-00001] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-changed-camel311-00001">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.apache.camel:camel-saxon` no longer depends on camel-saxon-xslt in 3.11*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-changed-camel311-00001] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="properties-removed-camel311-00001">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`camel.component.consul.service-registry` configuration key has been renamed to camel.cloud.consul*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[properties-removed-camel311-00001] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="properties-removed-camel311-00002">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`camel.cloud.consul.service-registry` configuration key has been renamed to camel.cloud.consul*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[properties-removed-camel311-00002] hint not found"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

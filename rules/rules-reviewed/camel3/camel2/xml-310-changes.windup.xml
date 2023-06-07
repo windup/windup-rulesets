@@ -1,0 +1,168 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="xml-310-changes"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            Rules for changes between Camel 3.9 and Camel 3.10
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="camel" versionRange="[3.0,3.10)"/>
+        <targetTechnology id="camel" versionRange="[3.10,)" />
+    </metadata>
+    <rules>
+        <rule id="xml-removed-camel310-00001">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel" artifactId="camel-jdbc" />
+                    </project>
+                    <dependency groupId="org.apache.camel" artifactId="camel-jdbc" />
+                </or>
+            </when>
+            <perform>
+                <hint title="org.apache.camel:camel-jdbc no longer depends on Spring Framework" effort="2" category-id="mandatory" >
+                    <message>`org.apache.camel:camel-jdbc` no longer depends on Spring Framework.   Please use camel-spring-jdbc if you need Spring and Spring transaction support.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_10.html#_camel_jdbc" title="Camel 3 - Migration Guide: Renamed components" />
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="properties-removed-camel310-00002">
+            <when>
+                <filecontent pattern="camel.component.atomix.cluster.service" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="camel.component.atomix.cluster.service configuration key has been renamed to camel.cluster.atomix" effort="1" category-id="mandatory" >
+                    <message>`camel.component.atomix.cluster.service` configuration key has been renamed to camel.cluster.atomix.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_10.html#_spring_boot_starters" title="Camel 3 - Migration Guide: Spring Boot Starters" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="properties-removed-camel310-00003">
+            <when>
+                <filecontent pattern="camel.component.consul.cluster.service" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="camel.component.consul.cluster.service configuration key has been renamed to camel.cluster.consul" effort="1" category-id="mandatory" >
+                    <message>`camel.component.consul.cluster.service` configuration key has been renamed to camel.cluster.consul.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_10.html#_spring_boot_starters" title="Camel 3 - Migration Guide: Spring Boot Starters" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="properties-removed-camel310-00004">
+            <when>
+                <filecontent pattern="camel.component.consul.service-registry" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="camel.component.consul.service-registry configuration key has been renamed to camel.cloud.consul.service-registry" effort="1" category-id="mandatory" >
+                    <message>`camel.component.consul.service-registry` configuration key has been renamed to camel.cloud.consul.service-registry.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_10.html#_spring_boot_starters" title="Camel 3 - Migration Guide: Spring Boot Starters" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="properties-removed-camel310-00005">
+            <when>
+                <filecontent pattern="camel.component.file.cluster.service" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="camel.component.file.cluster.service configuration key has been renamed to camel.cluster.file" effort="7" category-id="mandatory" >
+                    <message>`camel.component.file.cluster.service` configuration key has been renamed to camel.cluster.file.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_10.html#_spring_boot_starters" title="Camel 3 - Migration Guide: Spring Boot Starters" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="properties-removed-camel310-00006">
+            <when>
+                <filecontent pattern="camel.component.hystrix.mapping" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="camel.component.hystrix.mapping configuration key has been renamed to camel.hystrix.mapping" effort="1" category-id="mandatory" >
+                    <message>`camel.component.hystrix.mapping` configuration key has been renamed to camel.hystrix.mapping.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_10.html#_spring_boot_starters" title="Camel 3 - Migration Guide: Spring Boot Starters" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="properties-removed-camel310-00007">
+            <when>
+                <filecontent pattern="camel.component.jgroups.lock.cluster.service" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="camel.component.jgroups.lock.cluster.service configuration key has been renamed to camel.cluster.jgroups" effort="1" category-id="mandatory" >
+                    <message>`camel.component.jgroups.lock.cluster.service` configuration key has been renamed to camel.cluster.jgroups.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_10.html#_spring_boot_starters" title="Camel 3 - Migration Guide: Spring Boot Starters" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="properties-removed-camel310-00008">
+            <when>
+                <filecontent pattern="camel.component.jgroups.raft.cluster.service" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="camel.component.jgroups.raft.cluster.service configuration key has been renamed to camel.cluster.jgroups-raft" effort="1" category-id="mandatory" >
+                    <message>`camel.component.jgroups.raft.cluster.service` configuration key has been renamed to camel.cluster.jgroups-raft.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_10.html#_spring_boot_starters" title="Camel 3 - Migration Guide: Spring Boot Starters" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="properties-removed-camel310-00009">
+            <when>
+                <filecontent pattern="camel.component.kubernetes.cluster.service" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="camel.component.kubernetes.cluster.service configuration key has been renamed to camel.cluster.kubernetes" effort="1" category-id="mandatory" >
+                    <message>`camel.component.kubernetes.cluster.service` configuration key has been renamed to camel.cluster.kubernetes.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_10.html#_spring_boot_starters" title="Camel 3 - Migration Guide: Spring Boot Starters" />
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="properties-removed-camel310-00010">
+            <when>
+                <filecontent pattern="camel.component.servlet.mapping" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="camel.component.servlet.mapping configuration key has been renamed to camel.servlet.mapping" effort="1" category-id="mandatory" >
+                    <message>`camel.component.servlet.mapping` configuration key has been renamed to camel.servlet.mapping.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_10.html#_spring_boot_starters" title="Camel 3 - Migration Guide: Spring Boot Starters" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="properties-removed-camel310-00011">
+            <when>
+                <filecontent pattern="camel.component.undertow.spring.security" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="camel.component.undertow.spring.security configuration key has been renamed to camel.security.undertow" effort="1" category-id="mandatory" >
+                    <message>`camel.component.undertow.spring.security` configuration key has been renamed to camel.security.undertow.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_10.html#_spring_boot_starters" title="Camel 3 - Migration Guide: Spring Boot Starters" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="properties-removed-camel310-00012">
+            <when>
+                <filecontent pattern="camel.component.zookeeper.cluster.service" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="camel.component.zookeeper.cluster.service configuration key has been renamed to camel.cluster.zookeeper" effort="1" category-id="mandatory" >
+                    <message>`camel.component.zookeeper.cluster.service` configuration key has been renamed to camel.cluster.zookeeper.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_10.html#_spring_boot_starters" title="Camel 3 - Migration Guide: Spring Boot Starters" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="properties-removed-camel310-00013">
+            <when>
+                <filecontent pattern="camel.component.zookeeper.service-registry" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="camel.component.zookeeper.service-registry configuration key has been renamed to camel.cloud.zookeeper" effort="1" category-id="mandatory" >
+                    <message>`camel.component.zookeeper.service-registry` configuration key has been renamed to camel.cloud.zookeeper.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_10.html#_spring_boot_starters" title="Camel 3 - Migration Guide: Spring Boot Starters" />
+                </hint>
+            </perform>
+        </rule>
+
+    </rules>
+</ruleset>
+

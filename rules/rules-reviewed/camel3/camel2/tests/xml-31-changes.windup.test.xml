@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<ruletest id="xml-dsl-changes-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/xml-31-changes</testDataPath>
+    <rulePath>../xml-31-changes.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="classes-removed-camel31-00001">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`HttpOperationFailedException` has moved from package org.apache.camel.http.common to org.apache.camel.http.base in Camel 3.1."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[classes-removed-camel31-00001] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-removed-camel31-00001">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`camel-jaxp` component has been renamed to camel-xml-jaxp in .*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-camel31-00001] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-removed-camel31-00002">
+                <when>
+                    <not>
+                        <iterable-filter size="4">
+                            <hint-exists message="The `camel-management` dependency has been removed from camel-spring-boot*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-camel31-00002] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-moved-camel31-00001">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.apache.camel.http.common.cookie` package has been renamed .*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-moved-camel31-00001] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-moved-camel31-00002">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.apache.camel.tooling.util.JSonSchemaHelper` class has been removed in Apache Camel 3.1.  Instead you can use utils coming from camel-util-json and the class org.apache.camel.tooling.util.PackageHelper."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-moved-camel31-00002] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-moved-camel31-00003">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.apache.camel.processor.validation.PredicateValidatingProcessor` class has been moved from camel-xml-jaxp JAR to camel-support JAR and renamed to org.apache.camel.support.processor."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-moved-camel31-00003] hint not found"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

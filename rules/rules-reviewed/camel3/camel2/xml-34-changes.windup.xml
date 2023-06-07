@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="xml-34-changes"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            Rules for changes between Camel 3.3 and Camel 3.4
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="camel" versionRange="[3.0,3.4)"/>
+        <targetTechnology id="camel" versionRange="[3.4,)" />
+    </metadata>
+    <rules>
+        <rule id="xml-removed-camel34-00001">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel" artifactId="camel-test" />
+                    </project>
+                    <dependency groupId="org.apache.camel" artifactId="camel-test" />
+                </or>
+            </when>
+            <perform>
+                <hint title="camel-management dependency has been removed from camel-test" effort="1" category-id="mandatory" >
+                    <message>`camel-management` dependency has been removed from camel-test.  camel-management allows JMX support - which is optional - in order to enable it please adda a dependency to org.apache.camel:camel-management.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_4.html#_camel_test_and_jmx" title="Camel 3 - Migration Guide: Renamed components" />
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="xml-moved-camel34-00001">
+            <when>
+                <filecontent pattern="camel.service.lra.{*}={*}" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="camel.service.lra keys have been flattened to camel.lra" effort="2" category-id="mandatory" >
+                    <message>camel.service.lra keys have been flattened to camel.lra.  See the example in the upgrade guide for 3.4 for more details</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_4.html#_camel_lra_starter" title="Camel 3 - Migration Guide: Spring Boot configuration" />
+                </hint>
+            </perform>
+        </rule>
+
+    </rules>
+</ruleset>
+

@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<ruletest id="xml-dsl-changes-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/xml-38-changes</testDataPath>
+    <rulePath>../xml-38-changes.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="properties-removed-camel38-00001">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`camel.springboot.xml-routes` configuration key has been renamed to camel.springboot.routes-include-pattern*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[properties-removed-camel38-00001] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="properties-removed-camel38-00002">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`camel.springboot.xml-route-templates` configuration key has been renamed to camel.springboot.routes-include-pattern*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[properties-removed-camel38-00002] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="properties-removed-camel38-00003">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`camel.springboot.xml-rests` configuration key has been renamed to camel.springboot.routes-include-pattern*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[properties-removed-camel38-00003] hint not found"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

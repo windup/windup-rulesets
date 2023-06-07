@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="xml-38-changes"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            Rules for changes between Camel 3.7 and Camel 3.8
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="camel" versionRange="[3.0,3.8)"/>
+        <targetTechnology id="camel" versionRange="[3.8,)" />
+    </metadata>
+    <rules>
+        <rule id="properties-removed-camel38-00001">
+            <when>
+                <filecontent pattern="camel.springboot.xml-routes" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="camel.springboot.xml-routes configuration key has been renamed to camel.springboot.routes-include-pattern" effort="1" category-id="mandatory" >
+                    <message>`camel.springboot.xml-routes` configuration key has been renamed to camel.springboot.routes-include-pattern.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_8.html#_configuration_changes" title="Camel 3 - Migration Guide: Spring Boot Starters" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="properties-removed-camel38-00002">
+            <when>
+                <filecontent pattern="camel.springboot.xml-route-templates" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="camel.springboot.xml-route-templates configuration key has been renamed to camel.springboot.routes-include-pattern" effort="1" category-id="mandatory" >
+                    <message>`camel.springboot.xml-route-templates` configuration key has been renamed to camel.springboot.routes-include-pattern.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_8.html#_configuration_changes" title="Camel 3 - Migration Guide: Spring Boot Starters" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="properties-removed-camel38-00003">
+            <when>
+                <filecontent pattern="camel.springboot.xml-rests" filename="{*}.properties"/>
+            </when>
+            <perform>
+                <hint title="camel.springboot.xml-rests configuration key has been renamed to camel.springboot.routes-include-pattern" effort="1" category-id="mandatory" >
+                    <message>`camel.springboot.xml-rests` configuration key has been renamed to camel.springboot.routes-include-pattern.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_8.html#_configuration_changes" title="Camel 3 - Migration Guide: Spring Boot Starters" />
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
+
