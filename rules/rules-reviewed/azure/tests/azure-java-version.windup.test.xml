@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<ruletest id="azure-java-version-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/azure-java-version</testDataPath>
+    <rulePath>../azure-java-version.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="azure-java-version-test-01000">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The application is using non-LTS version Java." />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="non-LTS JAVA version hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="azure-java-version-test-02000">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The application is using Java version lower than JAVA_8." />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="JAVA version lower than java_8 hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
