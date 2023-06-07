@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<ruletest id="xml-dsl-changes-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/xml-321-changes</testDataPath>
+    <rulePath>../xml-321-changes.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="xml-changed-camel321-00001">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The class org.apache.camel.impl.console.AbstractDevConsole has moved from camel-console to camel-support*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-changed-camel321-00001] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-changed-camel321-00002">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="camel-java-joor-dsl can no longer load routes defined in class files*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-changed-camel321-00002] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-changed-camel321-00003">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="camel-dozer has been deprecated and removed*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-changed-camel321-00003] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-changed-camel321-00004">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="camel-cmis has been deprecated and removed*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-changed-camel321-00004] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-changed-camel321-00005">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The platform-http-starter has been changed from using camel-servlet to use Spring HTTP server directly*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-changed-camel321-00005] hint not found"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

@@ -14,6 +14,8 @@ import org.hibernate.loader.custom.CustomLoader;
 import org.hibernate.loader.entity.CascadeEntityJoinWalker;
 import org.hibernate.loader.plan.build.spi.ExpandingQuerySpace;
 import org.hibernate.sql.ordering.antlr.ColumnMapper;
+import org.hibernate.engine.jdbc.connections.spi.MultiTenantConnectionProvider;
+import org.hibernate.MultiTenancyStrategy;
 
 import org.hibernate.jmx.internal.DisabledJmxServiceImpl;
 

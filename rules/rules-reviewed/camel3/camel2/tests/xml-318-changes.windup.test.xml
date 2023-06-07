@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<ruletest id="xml-dsl-changes-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/xml-318-changes</testDataPath>
+    <rulePath>../xml-318-changes.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="xml-removed-camel318-00001">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.apache.camel:camel-milo` component has been removed in Camel 3.18.0*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-camel318-00001] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-removed-camel318-00002">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The camel-cxf JAR has been split up into SOAP vs REST and Spring and non Spring JARs in Camel 3.18.0*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-camel318-00002] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-removed-camel318-00003">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`camel-cxf-starter` component has been split up*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-camel318-00003] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-removed-camel318-00004">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`camel-cxf-starter` component has been split up*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-camel318-00004] hint not found"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
