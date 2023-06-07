@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="upgrade-tomcat-dependencies"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of applications that need to change their pom dependencies to upgrade dependencies that belong to the groupId `org.apache.tomcat`
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final"/>
+        </dependencies>
+        <targetTechnology id="jws" versionRange="[6,)" />
+    </metadata>
+    <rules>
+        <rule id="upgrade-tomcat-dependencies-00001">
+            <when>
+                <or>
+                    <dependency groupId="org.apache.tomcat" artifactId="{*}" toVersion="10.0.999"/>
+                    <project>
+                        <artifact groupId="org.apache.tomcat" artifactId="{*}" toVersion="10.0.999"/>
+                    </project>
+                </or>
+            </when>
+            <perform>
+                <hint title="Version of the tomcat artifact not compatible with JWS 6" effort="1" category-id="mandatory">
+                    <message>Version 10.1.0 is the minimum version recommended</message>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
