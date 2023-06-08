@@ -13,6 +13,7 @@ The `rules` module repository is organized in subdirectories:
 
 * `rules-reviewed`: this is where you can make contribution and add new rules 
 * `rules-generated`: these rules are automatically generated (from the Quarkus main git repo) and you should not add new rules here
+* `rules-overridden-azure`: this is where you can override existing rules (mostly the ones under `rules-reviewed`)
 
 Testing the rules
 -----------

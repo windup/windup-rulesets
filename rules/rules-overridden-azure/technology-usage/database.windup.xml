@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<ruleset id="database"
+         xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset overrides the rules/rules-reviewed/technology-usage/database.windup.groovy ruleset.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final"/>
+        </dependencies>
+        <targetTechnology id="azure-spring-apps"/>
+        <targetTechnology id="azure-appservice"/>
+        <targetTechnology id="azure-aks"/>
+        <targetTechnology id="azure-container-apps"/>
+        <tag>database</tag>
+        <overrideRules>true</overrideRules>
+    </metadata>
+    <rules>
+        <rule id="database-01700">
+            <when>
+                <file filename="{*}postgresql{*}.jar"/>
+            </when>
+            <perform>
+                <hint title="PostgreSQL database found" category-id="potential" effort="3">
+                    <message>
+                        PostgreSQL database found.
+                        
+                        Consider using Azure PostgreSQL Flexible Server.
+                    </message>
+                    <link title="Azure Database for PostgreSQL" href="https://azure.microsoft.com/products/postgresql"/>
+                    <link title="Flexible Server documentation" href="https://learn.microsoft.com/azure/postgresql/flexible-server"/>
+                </hint>
+                <technology-tag level="INFORMATIONAL">PostgreSQL Driver</technology-tag>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
