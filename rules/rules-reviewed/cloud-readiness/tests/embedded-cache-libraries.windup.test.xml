@@ -155,6 +155,17 @@
                     <fail message="Spring Boot Cache classification not found!" />
                 </perform>
             </rule>
+            <rule id="embedded-cache-libraries-test-16000">
+                <when>
+                    <not>
+                        <classification-exists classification="Embedded framework - Redis"/>
+                        <technology-tag-exists technology-tag="Redis"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Expected data not found for rule embedded-cache-libraries-16000"/>
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
