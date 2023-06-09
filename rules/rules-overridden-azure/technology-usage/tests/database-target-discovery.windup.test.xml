@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruletest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          id="database-test"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>../../../rules-reviewed/technology-usage/tests/data/database</testDataPath>
+    <rulePath>../../../rules-reviewed/technology-usage/database.windup.groovy</rulePath>
+    <rulePath>../database.windup.xml</rulePath>
+    <target>discovery</target>
+    <ruleset>
+        <rules>
+            <rule id="database-target-discovery-01700-test">
+                <when>
+                    <not>
+                        <classification-exists classification="Embedded PostgreSQL Driver"/>
+                        <technology-tag-exists technology-tag="PostgreSQL Driver"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="PostgreSQL database found hint was not found!"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

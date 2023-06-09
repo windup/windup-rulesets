@@ -109,7 +109,8 @@ public class WindupRulesMultipleTests {
         Arrays.asList(
                 new File("rules"),
                 new File("rules-reviewed"),
-                new File("rules-generated")
+                new File("rules-generated"),
+                new File("rules-overridden-azure")
         ).forEach(directory ->
                 {
                     FileVisit.visit(directory, predicateTrick).stream()
