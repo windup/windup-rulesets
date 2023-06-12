@@ -25,7 +25,7 @@ import java.util.stream.Collectors
 import java.util.stream.StreamSupport
 
 final IssueCategory mandatoryIssueCategory = new IssueCategoryRegistry().getByID(IssueCategoryRegistry.MANDATORY)
-final Link guideLink = Link.to("Quarkus - Guides", "https://quarkus.io/guides/resteasy")
+final Link guideLink = Link.to("Quarkus - Guides", "https://quarkus.io/guides/resteasy-reactive")
 
 static boolean matchesProject(GraphRewrite event, FileLocationModel payload) {
     final Iterable<? extends WindupVertexFrame> previouslyFound = Optional.ofNullable(Variables.instance(event).findVariable("discard")).orElse(Collections.emptySet())
@@ -57,7 +57,7 @@ ruleSet("javaee-api-to-quarkus-groovy")
                     if (matchesProject(event, payload)) {
                         ((Hint) Hint.titled("Replace JAX-RS dependency")
                             .withText("""
-                            At least one Java class importing from the `javax.ws.rs` package has been found so the dependency `javax:javaee-api` has to be replaced with `io.quarkus:quarkus-resteasy` artifact.  
+                            At least one Java class importing from the `javax.ws.rs` package has been found so the dependency `javax:javaee-api` has to be replaced with `io.quarkus:quarkus-resteasy-reactive` artifact.
                             """)
                             .withIssueCategory(mandatoryIssueCategory)
                             .with(guideLink)
