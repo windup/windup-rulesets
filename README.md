@@ -21,6 +21,12 @@ Testing the rules
 To limit the XML-based tests (`windup.test.xml`) which are run, use `-DrunTestsMatching=...`. 
 The value can be any part of the test filename to match. Like, `-DrunTestsMatching=hsearch`.
 
+By default, when executing the tests, the `href` attributes of the `<link>` tags are also tested. This means that there is an external request to each URL. 
+If you want to avoid this, you can use the `-Dtest=WindupRulesTest` flag in conjunction with the `-f` flag:
+
+```
+mvn clean test -f rules -Dtest=WindupRulesTest -DrunTestsMatching=hsearch
+```
 
 Building from source
 -----------
