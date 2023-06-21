@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<ruletest id="localhost-code-test" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data</testDataPath>
+    <rulePath>../localhost.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="localhost-http-test-00001">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                          <hint-exists message="The app is trying to access local resource by HTTP" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="localhost http usage was not found" />
+                </perform>
+            </rule>
+            <rule id="localhost-jdbc-test-00002">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="The app is trying to access local resource by JDBC" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="localhost jdbc usage was not found" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
