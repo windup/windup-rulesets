@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="xml-313-changes"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            Rules for changes between Camel 3.12 and Camel 3.13
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="camel" versionRange="[3.0,3.13)"/>
+        <targetTechnology id="camel" versionRange="[3.13,)" />
+    </metadata>
+    <rules>
+        <rule id="xml-removed-camel313-00001">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel.springboot" artifactId="camel-hazelzcast-starter" />
+                    </project>
+                    <dependency groupId="org.apache.camel.springboot" artifactId="camel-hazelzcast-starter" />
+                </or>
+            </when>
+            <perform>
+                <hint title="org.apache.camel.springboot:camel-hazelzcast-starter starter no longer has customer auto configuration options for all its components" effort="5" category-id="optional" >
+                    <message>`org.apache.camel.springboot:camel-hazelzcast-starter` starter no longer has customer auto configuration options in Apache Camel 3.13.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_13.html#_camel_hazelcast_starter" title="Camel 3 - Migration Guide: Removed starters" />
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="xml-removed-camel313-00003">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel" artifactId="camel-mllp" />
+                    </project>
+                    <dependency groupId="org.apache.camel" artifactId="camel-mllp" />
+                </or>
+            </when>
+            <perform>
+                <hint title="org.apache.camel:camel-mllp starter has been refactored" effort="3" category-id="mandatory" >
+                    <message>This component has been refactored to be similar to other Camel components. The old component had an unusual static configuration of the MllpComponent which now is refactored to be Camel standard with regular getter/setters. The component is now also configured reflection free. We also cleaned up how the component dealt with which charset to use when processing HL7 messages. Users using camel-mllp is recommended to test their applications when upgrading to ensure this continues to work.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_13.html#_camel_mllp" title="Camel 3 - Migration Guide: Removed starters" />
+                </hint>
+            </perform>
+        </rule>
+
+   </rules>
+</ruleset>
+

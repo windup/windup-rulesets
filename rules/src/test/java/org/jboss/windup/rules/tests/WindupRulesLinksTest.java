@@ -59,7 +59,8 @@ public class WindupRulesLinksTest {
     private static final List<File> DIRECTORIES_WITH_RULES = Arrays.asList(
             new File("rules"),
             new File("rules-reviewed"),
-            new File("rules-generated")
+            new File("rules-generated"),
+            new File("rules-overridden-azure")
     );
     private static final Map<String, Integer> CACHE_ANALYZED_LINKS = new HashMap<>();
     private static int totalRulesetsToBeTested = 0;
@@ -71,6 +72,7 @@ public class WindupRulesLinksTest {
     private static final List<String> CERT_FAILURE_LINKS = new ArrayList<>();
     static {
         CERT_FAILURE_LINKS.add("https://oracle.com/technical-resources/articles/java/jaxrs20.html");
+        CERT_FAILURE_LINKS.add("https://in.relation.to/2015/05/11/hibernate-search-530-beta-1-with-native-lucene-faceting/");
     }
 
     @Parameterized.Parameters(name = "{index}: Test {0}")
@@ -170,7 +172,7 @@ public class WindupRulesLinksTest {
             else LOG.error(String.format("Response code %d for %s [%dms]", CACHE_ANALYZED_LINKS.get(link), link, System.currentTimeMillis() - starTime));
             return validLink;
         } catch (IOException e) {
-            LOG.error(String.format("'%s' exception connecting to %s", e.getMessage(), link));
+            LOG.error(String.format("'%s' exception connecting to %s", e.getMessage(), link), e);
             return false;
         }
     }

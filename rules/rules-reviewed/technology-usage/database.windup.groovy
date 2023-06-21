@@ -37,9 +37,8 @@ static void perform(GraphRewrite event, EvaluationContext context, FileModel fil
     technologyTagService.addTagToFileModel(fileModel, "$technology", TechnologyTagLevel.INFORMATIONAL)
 }
 
-// this is inherited from previous version of these rules (i.e. XML rules)
-// in order to keep consistency with tests already available
-int id = 14;
+// This is inherited from previous version of these rules (i.e. XML rules)
+// in order to keep consistency with tests already available we start numbering from 14
 
 ruleSet("database")
     .addRule()
@@ -49,7 +48,7 @@ ruleSet("database")
             perform(event, context, payload.getFile(), "HSQLDB Driver", true)
         }
     })
-    .withId(String.format("database-0%d00", id++))
+    .withId("database-01400")
     .addRule()
     .when(File.inFileNamed("{*}mysql-connector{*}.jar"))
     .perform(new AbstractIterationOperation<FileLocationModel>() {
@@ -57,7 +56,7 @@ ruleSet("database")
             perform(event, context, payload.getFile(), "MySQL Driver", true)
         }
     })
-    .withId(String.format("database-0%d00", id++))
+    .withId("database-01500")
     .addRule()
     .when(File.inFileNamed("{*}derby{*}.jar"))
     .perform(new AbstractIterationOperation<FileLocationModel>() {
@@ -65,7 +64,7 @@ ruleSet("database")
             perform(event, context, payload.getFile(), "Derby Driver", true)
         }
     })
-    .withId(String.format("database-0%d00", id++))
+    .withId("database-01600")
     .addRule()
     .when(File.inFileNamed("{*}postgresql{*}.jar"))
     .perform(new AbstractIterationOperation<FileLocationModel>() {
@@ -73,7 +72,7 @@ ruleSet("database")
             perform(event, context, payload.getFile(), "PostgreSQL Driver", true)
         }
     })
-    .withId(String.format("database-0%d00", id++))
+    .withId("database-01700")
     .addRule()
     .when(File.inFileNamed("{*}h2{*}.jar"))
     .perform(new AbstractIterationOperation<FileLocationModel>() {
@@ -81,7 +80,7 @@ ruleSet("database")
             perform(event, context, payload.getFile(), "H2 Driver", true)
         }
     })
-    .withId(String.format("database-0%d00", id++))
+    .withId("database-01800")
     .addRule()
     .when(Or.any(
             File.inFileNamed("sqljdbc{*}.jar"),
@@ -93,7 +92,7 @@ ruleSet("database")
             perform(event, context, payload.getFile(), "Microsoft SQL Driver", true)
         }
     })
-    .withId(String.format("database-0%d00", id++))
+    .withId("database-01900")
     .addRule()
     .when(File.inFileNamed("{*}sqlite-jdbc{*}.jar"))
     .perform(new AbstractIterationOperation<FileLocationModel>() {
@@ -101,7 +100,7 @@ ruleSet("database")
             perform(event, context, payload.getFile(), "SQLite Driver", true)
         }
     })
-    .withId(String.format("database-0%d00", id++))
+    .withId("database-02000")
     // http://www.oracle.com/technetwork/database/application-development/jdbc/downloads/index.html
     .addRule()
     .when(Or.any(
@@ -114,7 +113,7 @@ ruleSet("database")
             perform(event, context, payload.getFile(), "Oracle DB Driver", true)
         }
     })
-    .withId(String.format("database-0%d00", id++))
+    .withId("database-02100")
     // https://mvnrepository.com/open-source/cassandra-clients
     .addRule()
     .when(Or.any(
@@ -133,7 +132,7 @@ ruleSet("database")
             perform(event, context, payload.getFile(), "Cassandra Client", true)
         }
     })
-    .withId(String.format("database-0%d00", id++))
+    .withId("database-02200")
     .addRule()
     .when(File.inFileNamed("{*}axion{*}.jar"))
     .perform(new AbstractIterationOperation<FileLocationModel>() {
@@ -141,7 +140,7 @@ ruleSet("database")
             perform(event, context, payload.getFile(), "Axion Driver", true)
         }
     })
-    .withId(String.format("database-0%d00", id++))
+    .withId("database-02300")
     .addRule()
     .when(File.inFileNamed("{*}mckoisqldb{*}.jar"))
     .perform(new AbstractIterationOperation<FileLocationModel>() {
@@ -149,7 +148,7 @@ ruleSet("database")
             perform(event, context, payload.getFile(), "MckoiSQLDB Driver", true)
         }
     })
-    .withId(String.format("database-0%d00", id++))
+    .withId("database-02400")
     // https://mvnrepository.com/open-source/mongodb-clients
     .addRule()
     .when(Or.any(
@@ -166,7 +165,7 @@ ruleSet("database")
             perform(event, context, payload.getFile(), "MongoDB Client", true)
         }
     })
-    .withId(String.format("database-0%d00", id++))
+    .withId("database-02500")
     .addRule()
     .when(File.inFileNamed("spring-data{*}.jar"))
     .perform(new AbstractIterationOperation<FileLocationModel>() {
@@ -185,7 +184,7 @@ ruleSet("database")
             technologyTagService.addTagToFileModel(payload.getFile(), "Spring Data", TechnologyTagLevel.INFORMATIONAL)
         }
     })
-    .withId(String.format("database-0%d00", id++))
+    .withId("database-02600")
     .addRule()
     .when(File.inFileNamed("{*}morphia{*}.jar"))
     .perform(new AbstractIterationOperation<FileLocationModel>() {
@@ -203,7 +202,7 @@ ruleSet("database")
             technologyTagService.addTagToFileModel(payload.getFile(), "Morphia", TechnologyTagLevel.INFORMATIONAL)
         }
     })
-    .withId(String.format("database-0%d00", id++))
+    .withId("database-02700")
     .addRule()
     .when(File.inFileNamed("{*}leveldb{*}.jar"))
     .perform(new AbstractIterationOperation<FileLocationModel>() {
@@ -211,7 +210,7 @@ ruleSet("database")
             perform(event, context, payload.getFile(), "LevelDB Client", true)
         }
     })
-    .withId(String.format("database-0%d00", id++))
+    .withId("database-02800")
     .addRule()
     .when(File.inFileNamed("{*}hbase{*}.jar"))
     .perform(new AbstractIterationOperation<FileLocationModel>() {
@@ -219,7 +218,7 @@ ruleSet("database")
             perform(event, context, payload.getFile(), "Apache HBase Client", true)
         }
     })
-    .withId(String.format("database-0%d00", id++))
+    .withId("database-02900")
     .addRule()
     .when(File.inFileNamed("{*}accumulo{*}.jar"))
     .perform(new AbstractIterationOperation<FileLocationModel>() {
@@ -227,7 +226,7 @@ ruleSet("database")
             perform(event, context, payload.getFile(), "Apache Accumulo Client", true)
         }
     })
-    .withId(String.format("database-0%d00", id++))
+    .withId("database-03000")
     .addRule()
     .when(Or.any(
             Project.dependsOnArtifact(Artifact.withGroupId("org.springframework.data").andArtifactId("spring-data-jpa")),
@@ -247,4 +246,4 @@ ruleSet("database")
             technologyTagService.addTagToFileModel(payload.getFile(), "Spring Data JPA", TechnologyTagLevel.INFORMATIONAL)
         }
     })
-    .withId(String.format("database-0%d00", id))
+    .withId("database-03100")

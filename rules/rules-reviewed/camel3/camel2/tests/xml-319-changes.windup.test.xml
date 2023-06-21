@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<ruletest id="xml-dsl-changes-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/xml-319-changes</testDataPath>
+    <rulePath>../xml-319-changes.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="xml-removed-camel319-00001">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.apache.camel:camel-ftp` default TLS protocol is changed from TLSv1.2 to TLSv1.3*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-camel319-00001] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-removed-camel319-00002">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`camel-kafka` default TLS protocol is TLSv1.2,TLSv1.3*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-camel319-00002] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-removed-camel319-00003">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.apache.camel:camel-netty` - the default TLS protocol is changed from TLSv1,TLSv1.1,TLSv1.2 to TLSv1.2,TLSv1.3 in Camel 3.19.0*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-camel319-00003] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-removed-camel319-00004">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.apache.camel:camel-netty-http` - the default TLS protocol is changed from TLSv1,TLSv1.1,TLSv1.2 to TLSv1.2,TLSv1.3 in Camel 3.19.0*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-camel319-00004] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-removed-camel319-00005">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.apache.camel:camel-ahc` component has been removed in Camel 3.19.0*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-camel319-00005] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-removed-camel319-00006">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.apache.camel:camel-ahc-ws` component has been removed in Camel 3.19.0*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-camel319-00006] hint not found"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

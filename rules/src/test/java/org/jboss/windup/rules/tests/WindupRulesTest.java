@@ -80,6 +80,9 @@ public class WindupRulesTest
     private static final String RUN_TEST_MATCHING = "runTestsMatching";
     private static final String RUN_TEST_ID_MATCHING = "runTestIdMatching";
     public static final String MULTIPLE_STANDALONE_TEST_APPLICATIONS_MARKER = "/*";
+    public static final String RULES_REVIEWED_FOLDER = "rules-reviewed";
+    public static final String RULES_GENERATED_FOLDER = "rules-generated";
+    public static final String RULES_OVERRIDDEN_AZURE_FOLDER = "rules-overridden-azure";
 
     @Deployment
     @AddonDependencies({
@@ -89,6 +92,7 @@ public class WindupRulesTest
                 @AddonDependency(name = "org.jboss.windup.rules.apps:windup-rules-java-ee"),
                 @AddonDependency(name = "org.jboss.windup.rules.apps:windup-rules-java-project"),
                 @AddonDependency(name = "org.jboss.windup.rules.apps:windup-rules-xml"),
+                @AddonDependency(name = "org.jboss.windup.rules.apps:windup-rules-yaml"),
                 @AddonDependency(name = "org.jboss.windup.reporting:windup-reporting"),
                 @AddonDependency(name = "org.jboss.windup.reporting:windup-reporting-data"),
                 @AddonDependency(name = "org.jboss.windup.utils:windup-utils"),
@@ -120,9 +124,9 @@ public class WindupRulesTest
 
         FileSuffixPredicate predicate = new FileSuffixPredicate("\\.(windup|rhamt|mta)\\.test\\.xml");
         Arrays.asList(
-                new File("rules"),
-                new File("rules-reviewed"),
-                new File("rules-generated")
+                new File(RULES_REVIEWED_FOLDER),
+                new File(RULES_GENERATED_FOLDER),
+                new File(RULES_OVERRIDDEN_AZURE_FOLDER)
         ).forEach(directory ->
                 {
                     Visitor<File> visitor = new RuleTestVisitor(successes, errors, directory);
@@ -334,6 +338,7 @@ public class WindupRulesTest
         }
         windupConfiguration.setOutputDirectory(output.toPath());
         windupConfiguration.addDefaultUserRulesDirectory(baseRuleDirectory.toPath());
+        if (RULES_OVERRIDDEN_AZURE_FOLDER.equals(baseRuleDirectory.toString())) windupConfiguration.addDefaultUserRulesDirectory(new File(RULES_REVIEWED_FOLDER).toPath());
         windupConfiguration.setOptionValue(SourceModeOption.NAME, sourceMode);
         windupConfiguration.setOnline(false);
         if (StringUtils.isNotBlank(source))

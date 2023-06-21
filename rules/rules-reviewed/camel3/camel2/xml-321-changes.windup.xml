@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="xml-321-changes"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            Rules for changes between Camel 3.20 and Camel 3.21
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="camel" versionRange="[3.0,3.21)"/>
+        <targetTechnology id="camel" versionRange="[3.21,)" />
+    </metadata>
+    <rules>
+        <rule id="xml-changed-camel321-00001">
+            <when>
+                <javaclass references="org.apache.camel.impl.console.AbstractDevConsole">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="The class org.apache.camel.impl.console.AbstractDevConsole has moved from camel-console to camel-support" effort="3" category-id="mandatory" >
+                    <message>The class org.apache.camel.impl.console.AbstractDevConsole has moved from camel-console to camel-support and moved to package org.apache.camel.support.console.AbstractDevConsole.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_21.html#_camel_console" title="Camel 3 - Migration Guide: Changed components" />
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="xml-changed-camel321-00002">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel" artifactId="camel-java-joor-dsl"/>
+                    </project>
+                    <dependency groupId="org.apache.camel" artifactId="camel-java-joor-dsl"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="camel-java-joor-dsl can no longer load routes defined in class files" effort="3" category-id="mandatory" >
+                    <message>camel-java-joor-dsl can no longer load routes defined in class files as we consider it no longer needed, consequently the ability to configure the compile directory and the compile load first flag using the corresponding camel-main properties is no longer possible.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_21.html#_camel_java_joor_dsl" title="Camel 3 - Migration Guide: Changed components" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-changed-camel321-00003">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel" artifactId="camel-dozer" />
+                    </project>
+                    <dependency groupId="org.apache.camel" artifactId="camel-dozer" />
+                </or>
+            </when>
+            <perform>
+                <hint title="camel-dozer has been deprecated and removed" effort="7" category-id="mandatory" >
+                    <message>camel-dozer has been deprecated and removed.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_21.html#_deprecated_components" title="Camel 3 - Migration Guide: Deprecated components" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-changed-camel321-00004">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel" artifactId="camel-cmis" />
+                    </project>
+                    <dependency groupId="org.apache.camel" artifactId="camel-cmis" />
+                </or>
+            </when>
+            <perform>
+                <hint title="camel-cmis has been deprecated and removed" effort="7" category-id="mandatory" >
+                    <message>camel-cmis has been deprecated and removed.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_21.html#_deprecated_components" title="Camel 3 - Migration Guide: Deprecated components" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-changed-camel321-00005">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel.springboot" artifactId="camel-platform-http-starter" />
+                    </project>
+                    <dependency groupId="org.apache.camel.springboot" artifactId="camel-platform-http-starter" />
+                </or>
+            </when>
+            <perform>
+                <hint title="The platform-http-starter has been changed from using camel-servlet to use Spring HTTP server directly." effort="2" category-id="mandatory" >
+                    <message>The platform-http-starter has been changed from using camel-servlet to use Spring HTTP server directly. Therefore, all the HTTP endpoints are no longer prefixed with the servlet context-path.   See the upgrade guide for an example.</message>
+                    <link href="https://camel.apache.org/manual/camel-3x-upgrade-guide-3_21.html#_camel_platform_http_starter" title="Camel 3 - Migration Guide: Changed components" />
+                </hint>
+            </perform>
+        </rule>
+   </rules>
+</ruleset>
+

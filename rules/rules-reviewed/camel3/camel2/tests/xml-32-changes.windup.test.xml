@@ -1,0 +1,168 @@
+<?xml version="1.0"?>
+<ruletest id="xml-dsl-changes-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/xml-32-changes</testDataPath>
+    <rulePath>../xml-32-changes.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="jndiregistry-removed-camel32-00001">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="`org.apache.camel.impl.JndiRegistry` has been removed - please use org.apache.camel.support.jndi.JndiBeanRepository in org.apache.camel:camel-support instead."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[jndiregistry-removed-camel32-00001] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-removed-camel32-00001">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Camel on Apache Karaf / OSGi has been moved to its own project at: https://github.com/apache/camel-karaf.   Please change the `org.apache.camel:camel-blueprint` dependency to `org.apache.came.karaf:camel-blueprint`."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-camel32-00001] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-removed-camel32-00002">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Camel on Apache Karaf / OSGi has been moved to its own project at: https://github.com/apache/camel-karaf.   Please change the `org.apache.camel:camel-test-blueprint` dependency to `org.apache.camel.karaf:camel-test-blueprint`."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-camel32-00002] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-removed-camel32-00003">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Camel on Apache Karaf / OSGi has been moved to its own project at: https://github.com/apache/camel-karaf.   Please change the `org.apache.camel:camel-test-karaf` dependency to `org.apache.camel.karaf:camel-test-karaf`."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-camel32-00003] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-removed-camel32-00004">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Camel on Apache Karaf / OSGi has been moved to its own project at: https://github.com/apache/camel-karaf.   Please change the `org.apache.camel:camel-eventadmin` dependency to `org.apache.camel.karaf:camel-eventadmin`."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-camel32-00004] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-removed-camel32-00005">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Camel on Apache Karaf / OSGi has been moved to its own project at: https://github.com/apache/camel-karaf.   Please change the `org.apache.camel:camel-kura` dependency to `org.apache.camel.karaf:camel-kura`."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-camel32-00005] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-removed-camel32-00006">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Camel on Apache Karaf / OSGi has been moved to its own project at: https://github.com/apache/camel-karaf.   Please change the `org.apache.camel:camel-osgi-activator` dependency to `org.apache.camel.karaf:camel-osgi-activator`."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-camel32-00006] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-removed-camel32-00007">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Camel on Apache Karaf / OSGi has been moved to its own project at: https://github.com/apache/camel-karaf.   Please change the `org.apache.camel:camel-paxlogging` dependency to `org.apache.camel.karaf:camel-paxlogging`."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-camel32-00007] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-removed-camel32-00008">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="camel-spark-rest component has been removed - please any of the other REST capable components, such as camel-jetty, camel-netty-http or camel-undertow.."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-camel32-00008] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-moved-camel32-00003">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="Camel Spring Boot has flattened its option keys and the .configuration prefix has been removed*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-moved-camel32-00003] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-moved-camel32-00004">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="broker-u-r-l in Spring Boot properties renamed to broker-url.  See the example in the upgrade guide for 3.2 for more details"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-moved-camel32-00004] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-moved-camel32-00005">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="org.apache.camel.cluster has been moved out of org.apache.camel:camel-core-engine into org.apache.camel:camel-cluster.  See the example in the upgrade guide for 3.2 for more details"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-moved-camel32-00005] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-removed-camel32-00010">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The org.apache.camel.spring.Main class has been moved out of camel-spring JAR into its own JAR named camel-spring-main."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-camel32-00010] hint not found"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
