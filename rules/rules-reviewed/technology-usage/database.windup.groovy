@@ -247,3 +247,11 @@ ruleSet("database")
         }
     })
     .withId("database-03100")
+    .addRule()
+    .when(File.inFileNamed("{*}mariadb{*}.jar"))
+    .perform(new AbstractIterationOperation<FileLocationModel>() {
+        void perform(GraphRewrite event, EvaluationContext context, FileLocationModel payload) {
+            perform(event, context, payload.getFile(), "MariaDB Driver", true)
+        }
+    })
+    .withId("database-03200")
