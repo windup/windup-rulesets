@@ -11,7 +11,7 @@
             <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
         </dependencies>
         <sourceTechnology id="jakarta-ee" versionRange="[7,)" />
-        <targetTechnology id="eap" versionRange="[8,9)" />
+        <targetTechnology id="eap" versionRange="[7,9)" />
     </metadata>
     <rules>
         <!-- https://issues.jboss.org/browse/WINDUPRULE-907 -->
@@ -25,6 +25,10 @@
                 <hint title="Replace jboss-eap-jakartaee8 artifact with jboss-eap-ee" effort="1" category-id="mandatory">
                     <message>Update the dependency by replacing the group `org.jboss.bom` artifact `jboss-eap-jakartaee8` 
                         with group `org.jboss.bom` artifact `jboss-eap-ee`</message>
+                    <quickfix name="jboss-dependencies-00001-qf" type="REPLACE">
+                        <replacement>jboss-eap-ee</replacement>
+                        <search>jboss-eap-jakartaee8</search>
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
@@ -38,6 +42,10 @@
                 <hint title="Replace jboss-eap-jakartaee8-with-tools artifact with jboss-eap-ee-with-tools" effort="1" category-id="mandatory">
                     <message>Update the dependency by replacing the group `org.jboss.bom` artifcat `jboss-eap-jakartaee8-with-tools` 
                         with group `org.jboss.bom` artifact `jboss-eap-ee-with-tools`</message>
+                    <quickfix name="jboss-dependencies-00002-qf" type="REPLACE">
+                        <replacement>jboss-eap-ee-with-tools</replacement>
+                        <search>jboss-eap-jakartaee8-with-tools</search>
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
@@ -51,6 +59,14 @@
                 <hint title="Replace jboss-jakartaee-8.0 artifact with jboss-eap-ee" effort="1" category-id="mandatory">
                     <message>Update the dependency by replacing the group `org.jboss.spec` artifact `jboss-jakartaee-8.0` 
                         with group `org.jboss.bom` artifact `jboss-eap-ee`</message>
+                    <quickfix name="jboss-dependencies-00003-qf" type="REPLACE">
+                        <replacement>org.jboss.bom</replacement>
+                        <search>org.jboss.spec</search>
+                    </quickfix>
+                    <quickfix name="jboss-dependencies-00003-qf-2" type="REPLACE">
+                        <replacement>jboss-eap-ee</replacement>
+                        <search>jboss-jakartaee-8.0</search>
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
@@ -64,6 +80,14 @@
                 <hint title="Replace jboss-jakartaee-web-8.0 artifact with jboss-eap-ee" effort="1" category-id="mandatory">
                     <message>Update the dependency by replacing the group `org.jboss.spec` artifact `jboss-jakartaee-web-8.0` 
                         with group `org.jboss.bom` artifact `jboss-eap-ee`</message>
+                    <quickfix name="jboss-dependencies-00004-qf" type="REPLACE">
+                        <replacement>org.jboss.bom</replacement>
+                        <search>org.jboss.spec</search>
+                    </quickfix>
+                    <quickfix name="jboss-dependencies-00004-qf-2" type="REPLACE">
+                        <replacement>jboss-eap-ee</replacement>
+                        <search>jboss-jakartaee-web-8.0</search>
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
@@ -77,6 +101,14 @@
                 <hint title="Replace jakarta.activation artifact with jakarta.activation-api" effort="1" category-id="mandatory">
                     <message>Update the dependency by replacing the group `com.sun.activation` artifact `jakarta.activation`  
                         with group `jakarta.activation` artifact `jakarta.activation-api`</message>
+                    <quickfix name="jboss-dependencies-00005-qf" type="REPLACE">
+                        <replacement>jakarta.activation</replacement>
+                        <search>com.sun.activation</search>
+                    </quickfix>
+                    <quickfix name="jboss-dependencies-00005-qf-2" type="REPLACE">
+                        <replacement>jakarta.activation-api</replacement>
+                        <search>jakarta.activation</search>
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
@@ -90,6 +122,14 @@
                 <hint title="Replace jboss-annotations-api_1.3_spec artifact with jakarta.annotation-api" effort="1" category-id="mandatory">
                     <message>Update the dependency by replacing the group `org.jboss.spec.javax.annotation` artifact `jboss-annotations-api_1.3_spec`  
                         with group `jakarta.annotation` artifact `jakarta.annotation-api`</message>
+                    <quickfix name="jboss-dependencies-00006-qf" type="REPLACE">
+                        <replacement>jakarta.annotation</replacement>
+                        <search>org.jboss.spec.javax.annotation</search>
+                    </quickfix>
+                    <quickfix name="jboss-dependencies-00006-qf-2" type="REPLACE">
+                        <replacement>jakarta.annotation-api</replacement>
+                        <search>jboss-annotations-api_1.3_spec</search>
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
@@ -103,6 +143,14 @@
                 <hint title="Replace jboss-jaspi-api_1.0_spec artifact with jakarta.authentication-api" effort="1" category-id="mandatory">
                     <message>Update the dependency by replacing the group `org.jboss.spec.javax.security.auth.message` artifact `jboss-jaspi-api_1.0_spec`  
                         with group `jakarta.authentication` artifact `jakarta.authentication-api`</message>
+                    <quickfix name="jboss-dependencies-00007-qf" type="REPLACE">
+                        <replacement>jakarta.authentication</replacement>
+                        <search>org.jboss.spec.javax.security.auth.message</search>
+                    </quickfix>
+                    <quickfix name="jboss-dependencies-00007-qf-2" type="REPLACE">
+                        <replacement>jakarta.authentication</replacement>
+                        <search>jboss-jaspi-api_1.0_spec</search>
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
@@ -116,6 +164,14 @@
                 <hint title="Replace jboss-jacc-api_1.5_spec artifact with jakarta.authorization-api" effort="1" category-id="mandatory">
                     <message>Update the dependency by replacing the group `org.jboss.spec.javax.security.jacc` artifact `jboss-jacc-api_1.5_spec`  
                         with group `jakarta.authorization` artifact `jakarta.authorization-api`</message>
+                    <quickfix name="jboss-dependencies-00008-qf" type="REPLACE">
+                        <replacement>jakarta.authorization</replacement>
+                        <search>org.jboss.spec.javax.security.jacc</search>
+                    </quickfix>
+                    <quickfix name="jboss-dependencies-00008-qf-2" type="REPLACE">
+                        <replacement>jakarta.authorization-api</replacement>
+                        <search>jboss-jacc-api_1.5_spec</search>
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
@@ -129,6 +185,14 @@
                 <hint title="Replace jboss-batch-api_1.0_spec artifact with jakarta.batch-api" effort="1" category-id="mandatory">
                     <message>Update the dependency by replacing the group `org.jboss.spec.javax.batch` artifact `jboss-batch-api_1.0_spec`  
                         with group `jakarta.batch` artifact `jakarta.batch-api`</message>
+                    <quickfix name="jboss-dependencies-00009-qf" type="REPLACE">
+                        <replacement>jakarta.batch</replacement>
+                        <search>org.jboss.spec.javax.batch</search>
+                    </quickfix>
+                    <quickfix name="jboss-dependencies-00009-qf-2" type="REPLACE">
+                        <replacement>jakarta.batch-api</replacement>
+                        <search>jboss-batch-api_1.0_spec</search>
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
@@ -142,6 +206,14 @@
                 <hint title="Replace jboss-ejb-api_3.2_spec artifact with jakarta.ejb-api" effort="1" category-id="mandatory">
                     <message>Update the dependency by replacing the group `org.jboss.spec.javax.ejb` artifact `jboss-ejb-api_3.2_spec`  
                         with group `jakarta.ejb` artifact `jakarta.ejb-api`</message>
+                    <quickfix name="jboss-dependencies-00010-qf" type="REPLACE">
+                        <replacement>jakarta.ejb</replacement>
+                        <search>org.jboss.spec.javax.ejb</search>
+                    </quickfix>
+                    <quickfix name="jboss-dependencies-00010-qf-2" type="REPLACE">
+                        <replacement>jakarta.batch-api</replacement>
+                        <search>jboss-batch-api_1.0_spec</search>
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
@@ -155,6 +227,14 @@
                 <hint title="Replace jboss-el-api_3.0_spec artifact with jboss-el-api_5.0_spec" effort="1" category-id="mandatory">
                     <message>Update the dependency by replacing the group `org.jboss.spec.javax.el` artifact `jboss-el-api_3.0_spec`  
                         with group `org.jboss.spec.jakarta.el` artifact `jboss-el-api_5.0_spec`</message>
+                    <quickfix name="jboss-dependencies-00011-qf" type="REPLACE">
+                        <replacement>org.jboss.spec.jakarta.el</replacement>
+                        <search>org.jboss.spec.javax.el</search>
+                    </quickfix>
+                    <quickfix name="jboss-dependencies-00011-qf-2" type="REPLACE">
+                        <replacement>jboss-el-api_5.0_spec</replacement>
+                        <search>org.jboss.spec.javax.el</search>
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
@@ -168,6 +248,14 @@
                 <hint title="Replace jboss-concurrency-api_1.0_spec artifact with jakarta.enterprise.concurrent-api" effort="1" category-id="mandatory">
                     <message>Update the dependency by replacing the group `org.jboss.spec.javax.enterprise.concurrent` artifact `jboss-concurrency-api_1.0_spec`  
                         with group `jakarta.enterprise.concurrent` artifact `jakarta.enterprise.concurrent-api`</message>
+                    <quickfix name="jboss-dependencies-00012-qf" type="REPLACE">
+                        <replacement>jakarta.enterprise.concurrent</replacement>
+                        <search>org.jboss.spec.javax.enterprise.concurrent</search>
+                    </quickfix>
+                    <quickfix name="jboss-dependencies-00012-qf-2" type="REPLACE">
+                        <replacement>jakarta.enterprise.concurrent-api</replacement>
+                        <search>jboss-concurrency-api_1.0_spec</search>
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
@@ -181,6 +269,14 @@
                 <hint title="Replace jboss-jsf-api_2.3_spec artifact with jakarta.faces-api" effort="1" category-id="mandatory">
                     <message>Update the dependency by replacing the group `org.jboss.spec.javax.faces` artifact `jboss-jsf-api_2.3_spec`  
                         with group `jakarta.faces` artifact `jakarta.faces-api`</message>
+                    <quickfix name="jboss-dependencies-00013-qf" type="REPLACE">
+                        <replacement>jakarta.faces</replacement>
+                        <search>org.jboss.spec.javax.faces</search>
+                    </quickfix>
+                    <quickfix name="jboss-dependencies-00013-qf-2" type="REPLACE">
+                        <replacement>jakarta.faces-api</replacement>
+                        <search>jboss-jsf-api_2.3_spec</search>
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
@@ -194,6 +290,14 @@
                 <hint title="Replace jboss-interceptors-api_1.2_spec artifact with jakarta.interceptor-api" effort="1" category-id="mandatory">
                     <message>Update the dependency by replacing the group `org.jboss.spec.javax.interceptor` artifact `jboss-interceptors-api_1.2_spec`  
                         with group `jakarta.interceptor` artifact `jakarta.interceptor-api`</message>
+                    <quickfix name="jboss-dependencies-00014-qf" type="REPLACE">
+                        <replacement>jakarta.interceptor</replacement>
+                        <search>org.jboss.spec.javax.interceptor</search>
+                    </quickfix>
+                    <quickfix name="jboss-dependencies-00014-qf-2" type="REPLACE">
+                        <replacement>jakarta.interceptor-api</replacement>
+                        <search>jboss-interceptors-api_1.2_spec</search>
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
@@ -207,6 +311,14 @@
                 <hint title="Replace jboss-jms-api_2.0_spec artifact with jakarta.jms-api" effort="1" category-id="mandatory">
                     <message>Update the dependency by replacing the group `org.jboss.spec.javax.jms` artifact `jboss-jms-api_2.0_spec`  
                         with group `jakarta.jms` artifact `jakarta.jms-api`</message>
+                    <quickfix name="jboss-dependencies-00015-qf" type="REPLACE">
+                        <replacement>jakarta.jms</replacement>
+                        <search>org.jboss.spec.javax.jms</search>
+                    </quickfix>
+                    <quickfix name="jboss-dependencies-00015-qf-2" type="REPLACE">
+                        <replacement>jakarta.jms-api</replacement>
+                        <search>jboss-jms-api_2.0_spec</search>
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
@@ -220,6 +332,14 @@
                 <hint title="Replace jakarta.mail artifact with jakarta.mail-api" effort="1" category-id="mandatory">
                     <message>Update the dependency by replacing the group `com.sun.mail` artifact `jakarta.mail`  
                         with group `jakarta.mail` artifact `jakarta.mail-api`</message>
+                    <quickfix name="jboss-dependencies-00016-qf" type="REPLACE">
+                        <replacement>jakarta.mail</replacement>
+                        <search>com.sun.mail</search>
+                    </quickfix>
+                    <quickfix name="jboss-dependencies-00016-qf-2" type="REPLACE">
+                        <replacement>jakarta.mail-api</replacement>
+                        <search>jakarta.mail</search>
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
@@ -233,6 +353,14 @@
                 <hint title="Replace jboss-connector-api_1.7_spec artifact with jakarta.resource-api" effort="1" category-id="mandatory">
                     <message>Update the dependency by replacing the group `org.jboss.spec.javax.resource` artifact `jboss-connector-api_1.7_spec`  
                         with group `jakarta.resource` artifact `jakarta.resource-api`</message>
+                    <quickfix name="jboss-dependencies-00017-qf" type="REPLACE">
+                        <replacement>jakarta.resource</replacement>
+                        <search>org.jboss.spec.javax.resource</search>
+                    </quickfix>
+                    <quickfix name="jboss-dependencies-00017-qf-2" type="REPLACE">
+                        <replacement>jakarta.resource-api</replacement>
+                        <search>jboss-connector-api_1.7_spec</search>
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
@@ -246,6 +374,14 @@
                 <hint title="Replace jboss-servlet-api_4.0_spec artifact with jakarta.servlet-api" effort="1" category-id="mandatory">
                     <message>Update the dependency by replacing the group `org.jboss.spec.javax.servlet` artifact `jboss-servlet-api_4.0_spec`  
                         with group `jakarta.servlet` artifact `jakarta.servlet-api`</message>
+                    <quickfix name="jboss-dependencies-00018-qf" type="REPLACE">
+                        <replacement>jakarta.servlet</replacement>
+                        <search>org.jboss.spec.javax.servlet</search>
+                    </quickfix>
+                    <quickfix name="jboss-dependencies-00018-qf-2" type="REPLACE">
+                        <replacement>jakarta.servlet-api</replacement>
+                        <search>jboss-servlet-api_4.0_spec</search>
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
@@ -259,6 +395,14 @@
                 <hint title="Replace jboss-jsp-api_2.3_spec artifact with jakarta.servlet.jsp-api" effort="1" category-id="mandatory">
                     <message>Update the dependency by replacing the group `org.jboss.spec.javax.servlet.jsp` artifact `jboss-jsp-api_2.3_spec`  
                         with group `jakarta.servlet.jsp` artifact `jakarta.servlet.jsp-api`</message>
+                    <quickfix name="jboss-dependencies-00019-qf" type="REPLACE">
+                        <replacement>jakarta.servlet.jsp</replacement>
+                        <search>org.jboss.spec.javax.servlet.jsp</search>
+                    </quickfix>
+                    <quickfix name="jboss-dependencies-00019-qf-2" type="REPLACE">
+                        <replacement>jakarta.servlet.jsp-api</replacement>
+                        <search>jboss-jsp-api_2.3_spec</search>
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
@@ -272,6 +416,14 @@
                 <hint title="Replace taglibs-standard-spec artifact with jakarta.servlet.jsp.jstl-api" effort="1" category-id="mandatory">
                     <message>Update the dependency by replacing the group `org.apache.taglibs` artifact `taglibs-standard-spec`  
                         with group `jakarta.servlet.jsp.jstl` artifact `jakarta.servlet.jsp.jstl-api`</message>
+                    <quickfix name="jboss-dependencies-00020-qf" type="REPLACE">
+                        <replacement>jakarta.servlet.jsp.jstl-api</replacement>
+                        <search>org.apache.taglibs</search>
+                    </quickfix>
+                    <quickfix name="jboss-dependencies-00020-qf-2" type="REPLACE">
+                        <replacement>jakarta.servlet.jsp-api</replacement>
+                        <search>jboss-jsp-api_2.3_spec</search>
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
@@ -285,6 +437,14 @@
                 <hint title="Replace jboss-transaction-api_1.3_spec artifact with jakarta.transaction-api" effort="1" category-id="mandatory">
                     <message>Update the dependency by replacing the group `org.jboss.spec.javax.transaction` artifact `jboss-transaction-api_1.3_spec`  
                         with group `jakarta.transaction` artifact `jakarta.transaction-api`</message>
+                    <quickfix name="jboss-dependencies-00021-qf" type="REPLACE">
+                        <replacement>jakarta.transaction</replacement>
+                        <search>org.jboss.spec.javax.transaction</search>
+                    </quickfix>
+                    <quickfix name="jboss-dependencies-00021-qf-2" type="REPLACE">
+                        <replacement>jakarta.transaction-api</replacement>
+                        <search>jboss-transaction-api_1.3_spec</search>
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
@@ -298,6 +458,14 @@
                 <hint title="Replace jboss-jaxb-api_2.3_spec artifact with jakarta.xml.bind-api" effort="1" category-id="mandatory">
                     <message>Update the dependency by replacing the group `org.jboss.spec.javax.xml.bind` artifact `jboss-jaxb-api_2.3_spec`  
                         with group `jakarta.xml.bind` artifact `jakarta.xml.bind-api`</message>
+                    <quickfix name="jboss-dependencies-00022-qf" type="REPLACE">
+                        <replacement>jakarta.xml.bind</replacement>
+                        <search>org.jboss.spec.javax.xml.bind</search>
+                    </quickfix>
+                    <quickfix name="jboss-dependencies-00022-qf-2" type="REPLACE">
+                        <replacement>jakarta.xml.bind-api</replacement>
+                        <search>jboss-jaxb-api_2.3_spec</search>
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
@@ -311,6 +479,10 @@
                 <hint title="Replace jboss-jaxws-api_2.3_spec artifact with jboss-jakarta-xml-ws-api_4.0_spec" effort="1" category-id="mandatory">
                     <message>Update the dependency by replacing the group `org.jboss.spec.javax.xml.ws` artifact `jboss-jaxws-api_2.3_spec`  
                         with group `org.jboss.spec.jakarta.xml.ws` artifact `jboss-jakarta-xml-ws-api_4.0_spec`</message>
+                    <quickfix name="jboss-dependencies-00023-qf" type="REPLACE">
+                        <replacement>jboss-jakarta-xml-ws-api_4.0_spec</replacement>
+                        <search>jboss-jaxws-api_2.3_spec</search>
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
@@ -324,6 +496,14 @@
                 <hint title="Replace jboss-websocket-api_1.1_spec artifact with jakarta.websocket-api" effort="1" category-id="mandatory">
                     <message>Update the dependency by replacing the group `org.jboss.spec.javax.websocket` artifact `jboss-websocket-api_1.1_spec`  
                         with group `jakarta.websocket` artifact `jakarta.websocket-api`</message>
+                    <quickfix name="jboss-dependencies-00024-qf" type="REPLACE">
+                        <replacement>jakarta.websocket</replacement>
+                        <search>org.jboss.spec.javax.websocket</search>
+                    </quickfix>
+                    <quickfix name="jboss-dependencies-00024-qf-2" type="REPLACE">
+                        <replacement>jakarta.websocket-api</replacement>
+                        <search>jboss-websocket-api_1.1_spec</search>
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
@@ -337,6 +517,14 @@
                 <hint title="Replace jboss-jaxrs-api_2.1_spec artifact with jakarta.ws.rs-api" effort="1" category-id="mandatory">
                     <message>Update the dependency by replacing the group `org.jboss.spec.javax.ws.rs` artifact `jboss-jaxrs-api_2.1_spec`  
                         with group `jakarta.ws.rs` artifact `jakarta.ws.rs-api`</message>
+                    <quickfix name="jboss-dependencies-00025-qf" type="REPLACE">
+                        <replacement>jakarta.ws.rs</replacement>
+                        <search>org.jboss.spec.javax.ws.rs</search>
+                    </quickfix>
+                    <quickfix name="jboss-dependencies-00025-qf-2" type="REPLACE">
+                        <replacement>jakarta.ws.rs-api</replacement>
+                        <search>jboss-jaxrs-api_2.1_spec</search>
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
@@ -350,6 +538,10 @@
                 <hint title="Replace jboss-saaj-api_1.4_spec artifact with jboss-saaj-api_3.0_spec" effort="1" category-id="mandatory">
                     <message>Update the dependency by replacing the group `org.jboss.spec.javax.xml.soap` artifact `jboss-saaj-api_1.4_spec`  
                         with group `org.jboss.spec.jakarta.xml.soap` artifact `jboss-saaj-api_3.0_spec`</message>
+                    <quickfix name="jboss-dependencies-00026-qf" type="REPLACE">
+                        <replacement>jboss-saaj-api_3.0_spec</replacement>
+                        <search>jboss-saaj-api_1.4_spec</search>
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
@@ -363,6 +555,10 @@
                 <hint title="Replace org.hibernate group with org.hibernate.orm" effort="1" category-id="mandatory">
                     <message>Update the dependency by replacing the group `org.hibernate` artifact `hibernate-core`  
                         with group `org.hibernate.orm` artifact `hibernate-core`</message>
+                    <quickfix name="jboss-dependencies-00027-qf" type="REPLACE">
+                        <replacement>org.hibernate.orm</replacement>
+                        <search>org.hibernate</search>
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
@@ -376,6 +572,10 @@
                 <hint title="Replace org.hibernate group with org.hibernate.orm" effort="1" category-id="mandatory">
                     <message>Update the dependency by replacing the group `org.hibernate` artifact `hibernate-jpamodelgen`  
                         with group `org.hibernate.orm` artifact `hibernate-jpamodelgen`</message>
+                    <quickfix name="jboss-dependencies-00028-qf" type="REPLACE">
+                        <replacement>org.hibernate.orm</replacement>
+                        <search>org.hibernate</search>
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
@@ -389,6 +589,10 @@
                 <hint title="Replace jbossxts artifact with jbossxts-jakarta" effort="1" category-id="mandatory">
                     <message>Update the dependency by replacing the group `org.jboss.narayana.xts` artifact `jbossxts`  
                         with group `org.jboss.narayana.xts` artifact `jbossxts-jakarta`</message>
+                    <quickfix name="jboss-dependencies-00028-qf" type="REPLACE">
+                        <replacement>jbossxts-jakarta</replacement>
+                        <search>jbossxts</search>
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
@@ -402,6 +606,10 @@
                 <hint title="Replace eap-runtime-artifacts artifact with jboss-eap-ee" effort="1" category-id="mandatory">
                     <message>Update the dependency by replacing the group `org.jboss.bom` artifact `eap-runtime-artifacts` 
                         with group `org.jboss.bom` artifact `jboss-eap-ee`</message>
+                    <quickfix name="jboss-dependencies-00029-qf" type="REPLACE">
+                        <replacement>jboss-eap-ee</replacement>
+                        <search>eap-runtime-artifacts</search>
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
@@ -415,6 +623,14 @@
                 <hint title="Replace jsr181-api artifact with jboss-jakarta-xml-ws-api_4.0_spec" effort="1" category-id="mandatory">
                     <message>Update the dependency by replacing the group `javax.jws` artifact `jsr181-api`  
                         with group `org.jboss.spec.jakarta.xml.ws` artifact `jboss-jakarta-xml-ws-api_4.0_spec`</message>
+                    <quickfix name="jboss-dependencies-00030-qf" type="REPLACE">
+                        <replacement>org.jboss.spec.jakarta.xml.ws</replacement>
+                        <search>javax.jws</search>
+                    </quickfix>
+                    <quickfix name="jboss-dependencies-00030-qf-2" type="REPLACE">
+                        <replacement>jboss-jakarta-xml-ws-api_4.0_spec</replacement>
+                        <search>jsr181-api</search>
+                    </quickfix>
                 </hint>
             </perform>
         </rule>
