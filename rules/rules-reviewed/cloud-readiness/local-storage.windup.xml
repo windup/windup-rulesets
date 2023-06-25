@@ -213,5 +213,43 @@
               </iteration>
             </perform>
         </rule>
+        <rule id="local-storage-00006">
+            <when>
+                <or>
+                    <javaclass references="org.apache.commons.io.input.{*}">
+                        <location>IMPORT</location>
+                    </javaclass>
+                    <javaclass references="org.apache.commons.io.output.{*}">
+                        <location>IMPORT</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <iteration>
+                    <hint title="Apache Commons I/O" effort="1" category-id="cloud-mandatory">
+                        <message>
+                            An application running inside a container could lose access to a file in local storage.
+
+                            Recommendations
+
+                            The following recommendations depend on the function of the file in local storage:
+
+                            * Logging: Log to standard output and use a centralized log collector to analyze the logs.
+                            * Caching: Use a cache backing service.
+                            * Configuration: Store configuration settings in environment variables so that they can be updated without code changes.
+                            * Data storage: Use a database backing service for relational data or use a persistent data storage system.
+                            * Temporary data storage: Use the file system of a running container as a brief, single-transaction cache.
+                        </message>
+                        <link href="https://12factor.net/logs" title="Twelve-Factor App: Logs"/>
+                        <link href="https://docs.openshift.com/container-platform/4.5/logging/cluster-logging.html" title="OpenShift Container Platform: Understanding cluster logging"/>
+                        <link href="https://12factor.net/backing-services" title="Twelve-Factor App: Backing services"/>
+                        <link href="https://12factor.net/config" title="Twelve-Factor App: Config"/>
+                        <link href="https://docs.openshift.com/container-platform/4.5/builds/creating-build-inputs.html#builds-input-secrets-configmaps_creating-build-inputs" title="OpenShift Container Platform: Input secrets and ConfigMaps"/>
+                        <link href="https://docs.openshift.com/container-platform/4.5/storage/understanding-persistent-storage.html" title="OpenShift Container Platform: Understanding persistent storage"/>
+                        <tag>storage</tag>
+                    </hint>
+                </iteration>
+            </perform>
+        </rule>
     </rules>
 </ruleset>

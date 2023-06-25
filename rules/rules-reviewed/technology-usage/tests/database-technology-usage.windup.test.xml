@@ -308,7 +308,7 @@
          <rule id="technology-usage-database-03000-test">
             <when>
                <not>
-                  <technology-statistics-exists name="Cassandra Client" number-found="1">
+                  <technology-statistics-exists name="Apache Accumulo Client" number-found="1">
                      <tag name="Store"/>
                      <tag name="Database Driver"/>
                      <tag name="Embedded"/>
@@ -322,20 +322,6 @@
          <rule id="technology-usage-database-03100-test">
             <when>
                <not>
-                  <technology-statistics-exists name="Apache Accumulo Client" number-found="1">
-                     <tag name="Store"/>
-                     <tag name="Database Driver"/>
-                     <tag name="Embedded"/>
-                  </technology-statistics-exists>
-               </not>
-            </when>
-            <perform>
-               <fail message="Expected data not found for rule technology-usage-database-03100"/>
-            </perform>
-         </rule>
-         <rule id="technology-usage-database-03200-test">
-            <when>
-               <not>
                   <technology-statistics-exists name="Spring Data JPA" number-found="2">
                      <tag name="Store"/>
                      <tag name="Persistence"/>
@@ -344,7 +330,7 @@
                </not>
             </when>
             <perform>
-               <fail message="Expected data not found for rule technology-usage-database-03200"/>
+               <fail message="Expected data not found for rule technology-usage-database-03100"/>
             </perform>
          </rule>
       </rules>

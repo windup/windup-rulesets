@@ -13,11 +13,26 @@ import java.util.List;
  */
 public class RuleTest
 {
+    private String id;
     private String testDataPath;
     private List<String> rulePaths = new ArrayList<>();
     private List<String> ruleIds = new ArrayList<>();
     private String source;
     private String target;
+
+    /**
+     * Gets the ruletest ID
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * Sets the ruletest ID
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
 
     /**
      * Gets the source technology to operate on (eg, Glassfish).
