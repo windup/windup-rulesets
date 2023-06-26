@@ -333,6 +333,20 @@
                <fail message="Expected data not found for rule technology-usage-database-03100"/>
             </perform>
          </rule>
+          <rule id="technology-usage-database-03200-test">
+              <when>
+                  <not>
+                      <technology-statistics-exists name="MariaDB Driver" number-found="1">
+                          <tag name="Store"/>
+                          <tag name="Database Driver"/>
+                          <tag name="Embedded"/>
+                      </technology-statistics-exists>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="Expected data not found for rule technology-usage-database-03200"/>
+              </perform>
+          </rule>
       </rules>
    </ruleset>
 </ruletest>
