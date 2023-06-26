@@ -51,6 +51,7 @@ import org.w3c.dom.Element;
 public class RuleTestHandler implements ElementHandler<RuleTest>
 {
     public static final String RULETEST = "ruletest";
+    public static final String RULETEST_ID = "id";
     public static final String TEST_DATA_PATH = "testDataPath";
     public static final String RULE_PATH = "rulePath";
     public static final String SOURCE_MODE = "sourceMode";
@@ -62,6 +63,7 @@ public class RuleTestHandler implements ElementHandler<RuleTest>
     public RuleTest processElement(ParserContext context, Element element) throws ConfigurationException
     {
         RuleTest ruleTest = new RuleTest();
+        ruleTest.setId($(element).attr(RULETEST_ID));
 
         List<Element> children = $(element).children().get();
         for (Element child : children)

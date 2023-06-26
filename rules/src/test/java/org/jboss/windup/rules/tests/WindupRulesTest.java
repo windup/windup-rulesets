@@ -187,11 +187,11 @@ public class WindupRulesTest
             try
             {
                 Map<String, Exception> exceptions;
-                Path outputPath = getDefaultPath();
+                // load the ruletest file
+                final RuleTest ruleTest = parser.processDocument(ruleTestFile.toURI());
+                Path outputPath = getDefaultPath(ruleTest.getId());
                 try (GraphContext context = factory.create(outputPath, true))
                 {
-                    // load the ruletest file
-                    RuleTest ruleTest = parser.processDocument(ruleTestFile.toURI());
                     List<Path> rulePaths = new ArrayList<>();
                     if (ruleTest.getRulePaths().isEmpty())
                     {
@@ -316,9 +316,9 @@ public class WindupRulesTest
         return evaluationContext;
     }
 
-    private Path getDefaultPath()
+    private Path getDefaultPath(String rulesetId)
     {
-        return FileUtils.getTempDirectory().toPath().resolve("WindupRulesTests").resolve("windupgraph_" + RandomStringUtils.randomAlphanumeric(6));
+        return FileUtils.getTempDirectory().toPath().resolve("WindupRulesTests").resolve("windupgraph_" + rulesetId + "_" + RandomStringUtils.randomAlphanumeric(6));
     }
 
     private void runWindup(GraphContext context, File baseRuleDirectory, final List<Path> rulePaths, File input, File output, boolean sourceMode, String source, String target) throws IOException

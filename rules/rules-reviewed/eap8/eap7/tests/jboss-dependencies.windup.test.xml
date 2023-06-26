@@ -343,18 +343,6 @@
                     <fail message="[jboss-dependencies-00028] The hint was not found!" />
                 </perform>
             </rule>
-            <rule id="jboss-dependencies-00029-test">
-                <when>
-                    <not>
-                        <iterable-filter size="1">   
-                            <hint-exists message="Update the dependency by replacing the group `org.jboss.narayana.xts` artifact `jbossxts`"/>
-                        </iterable-filter> 
-                    </not>
-                </when>
-                <perform>
-                    <fail message="[jboss-dependencies-00029] The hint was not found!" />
-                </perform>
-            </rule>
             <rule id="jboss-dependencies-00030-test">
                 <when>
                     <not>
@@ -377,6 +365,18 @@
                 </when>
                 <perform>
                     <fail message="[jboss-dependencies-00031] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="jboss-dependencies-00032-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The current version of the BOM may continue to be used, but it's strongly recommended to stop using the deprecated EJB Client Legacy API."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[jboss-dependencies-00032] The hint was not found!" />
                 </perform>
             </rule>
         </rules>
