@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<ruletest id="spring-boot-to-azure-apm-test"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:windupfunctions="windupcustomfunctions"
+          xmlns:windup="http://windup.jboss.org/schema/jboss-ruleset">
+
+    <testDataPath>data/apm</testDataPath>
+    <rulePath>../apm.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="apm-test-00000">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <classification-exists classification="Application Performance Management (APM) tool - Application Insights" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="APM - Application Insights hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="apm-test-00001">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <classification-exists classification="Application Performance Management (APM) tool - New Relic" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="APM - New Relic hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="apm-test-00002">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <classification-exists classification="Application Performance Management (APM) tool - Elastic APM" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="APM - Elastic APM hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="apm-test-00003">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <classification-exists classification="Application Performance Management (APM) tool - Dynatrace" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="APM - Dynatrace hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

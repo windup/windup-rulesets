@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset">
+    <testDataPath>data/apm/</testDataPath>
+    <rulePath>../apm-technology-usage.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="technology-usage-apm-00000-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="Application Insights" number-found="2">
+                            <tag name="Sustain"/>
+                            <tag name="Monitoring"/>
+                            <tag name="Embedded"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Application Insights Technology Statistic Not Found" />
+                </perform>
+            </rule>
+            <rule id="technology-usage-apm-00001-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="New Relic" number-found="1">
+                            <tag name="Sustain"/>
+                            <tag name="Monitoring"/>
+                            <tag name="Embedded"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="New Relic Technology Statistic Not Found" />
+                </perform>
+            </rule>
+            <rule id="technology-usage-apm-00002-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="Elastic APM" number-found="1">
+                            <tag name="Sustain"/>
+                            <tag name="Monitoring"/>
+                            <tag name="Embedded"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Elastic APM Technology Statistic Not Found" />
+                </perform>
+            </rule>
+            <rule id="technology-usage-apm-00003-test">
+                <when>
+                    <not>
+                        <technology-statistics-exists name="Dynatrace" number-found="1">
+                            <tag name="Sustain"/>
+                            <tag name="Monitoring"/>
+                            <tag name="Embedded"/>
+                        </technology-statistics-exists>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="Dynatrace Technology Statistic Not Found" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

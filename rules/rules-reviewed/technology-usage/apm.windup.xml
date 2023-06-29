@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<ruleset id="apm"
+         xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            Identify Application Performance Management dependencies.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final"/>
+        </dependencies>
+        <sourceTechnology id="springboot"/>
+        <targetTechnology id="azure-spring-apps"/>
+        <targetTechnology id="azure-aks"/>
+        <targetTechnology id="azure-appservice"/>
+        <targetTechnology id="azure-container-apps"/>
+        <tag>apm</tag>
+    </metadata>
+    <rules>
+        <rule id="apm-00000">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="com.microsoft.azure" artifactId="{*}applicationinsights{*}"/>
+                    </project>
+                    <file filename="applicationinsights{*}.jar"/>
+                </or>
+            </when>
+            <perform>
+                <classification title="Application Performance Management (APM) tool - Application Insights" category-id="information" effort="0">
+                    <description>The application uses Application Insights.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Application Insights</technology-tag>
+            </perform>
+        </rule>
+        <rule id="apm-00001">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="{*}newrelic{*}" artifactId="{*}"/>
+                    </project>
+                    <file filename="newrelic{*}.jar"/>
+                </or>
+            </when>
+            <perform>
+                <classification title="Application Performance Management (APM) tool - New Relic" category-id="information" effort="0">
+                    <description>The application uses New Relic.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">New Relic</technology-tag>
+            </perform>
+        </rule>
+        <rule id="apm-00002">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="{*}elastic.apm{*}" artifactId="{*}"/>
+                    </project>
+                    <file filename="elastic-apm{*}.jar"/>
+                </or>
+            </when>
+            <perform>
+                <classification title="Application Performance Management (APM) tool - Elastic APM" category-id="information" effort="0">
+                    <description>The application uses Elastic APM.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Elastic APM</technology-tag>
+            </perform>
+        </rule>
+        <rule id="apm-00003">
+            <when>
+                <or>
+                    <file filename="dynatrace{*}.jar"/>
+                    <file filename="liboneagent.so"/>
+                    <file filename="dtjavaagent.jar"/>
+                </or>
+            </when>
+            <perform>
+                <classification title="Application Performance Management (APM) tool - Dynatrace" category-id="information" effort="0">
+                    <description>The application uses Dynatrace.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Dynatrace</technology-tag>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
