@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<ruleset id="localhost" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This is a ruleset for check if localhost used in app
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,2.4.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,2.4.0.Final" />
+        </dependencies>
+        <!-- version ranges applied to from and to technologies -->
+        <targetTechnology id="cloud-readiness" />
+        <tag>localhost</tag>
+    </metadata>
+    <rules>
+        <rule id="localhost-http-00001">
+            <when>
+                <filecontent filename="{*}.{extensions}" pattern="{pattern}" />
+            </when>
+            <perform>
+                <hint title="Local HTTP Calls" effort="7" category-id="mandatory">
+                    <message>The app is trying to access local resource by HTTP, please try to migrate the resource to cloud</message>
+                    <tag>localhost</tag>
+                </hint>
+            </perform>
+            <where param="extensions">
+                <matches pattern="(java|properties|jsp|jspf|tag|xml|txt|yaml)" />
+            </where>
+            <where param="pattern">
+                <matches pattern="http(s)?://((localhost)|(127\.0\.0\.1))+(:[0-9]+)?(/.*)?" />
+            </where>
+        </rule>
+        <rule id="localhost-http-00001">
+            <when>
+                <filecontent filename="{*}.{extensions}" pattern="{pattern}" />
+            </when>
+            <perform>
+                <hint title="Local JDBC Calls" effort="7" category-id="mandatory">
+                    <message>The app is trying to access local resource by JDBC, please try to migrate the resource to cloud</message>
+                    <tag>localhost</tag>
+                </hint>
+            </perform>
+            <where param="extensions">
+                <matches pattern="(java|properties|jsp|jspf|tag|xml|txt|yaml)" />
+            </where>
+            <where param="pattern">
+                <matches pattern="jdbc:([a-z0-9-]+)://(localhost|127\.0\.0\.1)(:[0-9]+)?" />
+            </where>
+        </rule>
+    </rules>
+</ruleset>
