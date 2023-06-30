@@ -208,6 +208,17 @@
                <fail message="Expected data not found for rule database-03100"/>
             </perform>
          </rule>
+          <rule id="database-03200-test">
+              <when>
+                  <not>
+                      <classification-exists classification="Embedded MariaDB Driver"/>
+                      <technology-tag-exists technology-tag="MariaDB Driver"/>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="Expected data not found for rule database-03200"/>
+              </perform>
+          </rule>
       </rules>
    </ruleset>
 </ruletest>
