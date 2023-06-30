@@ -60,5 +60,43 @@
               </hint>
             </perform>
         </rule>
+        <rule id="jni-native-code-00001">
+            <when>
+                <or>
+                    <javaclass references="java.lang.Process">
+                        <location>CONSTRUCTOR_CALL</location>
+                        <location>IMPORT</location>
+                        <location>INHERITANCE</location>
+                        <location>VARIABLE_DECLARATION</location>
+                    </javaclass>
+                    <javaclass references="java.lang.ProcessBuilder">
+                        <location>CONSTRUCTOR_CALL</location>
+                        <location>IMPORT</location>
+                        <location>INHERITANCE</location>
+                        <location>VARIABLE_DECLARATION</location>
+                    </javaclass>
+                    <javaclass references="java.lang.ProcessHandle">
+                        <location>CONSTRUCTOR_CALL</location>
+                        <location>IMPORT</location>
+                        <location>INHERITANCE</location>
+                        <location>VARIABLE_DECLARATION</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="Java Native Processes" effort="7" category-id="cloud-mandatory">
+                    <message>
+                        Native Processes might not run in a cloud or container environment.
+
+                        Recommendations
+
+                        * Review the purpose of the native process in your application.
+                        * Check whether the native process is compatible with a cloud environment.
+                        * Replace, remove, or rewrite the native process or application using a cloud-compatible equivalent.
+                    </message>
+                    <tag>jni</tag>
+                </hint>
+            </perform>
+        </rule>
   </rules>
 </ruleset>
