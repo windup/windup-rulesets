@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruletest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:windupfunctions="windupcustomfunctions"
+          xmlns:windup="http://windup.jboss.org/schema/jboss-ruleset"
+          id="apm-test">
+    <testDataPath>data/apm</testDataPath>
+    <rulePath>../apm.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="apm-test-00000">
+                <when>
+                    <not>
+                        <classification-exists classification="Application Performance Management \(APM\) tool - Application Insights" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="APM - Application Insights hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="apm-test-00001">
+                <when>
+                    <not>
+                        <classification-exists classification="Application Performance Management \(APM\) tool - New Relic" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="APM - New Relic hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="apm-test-00002">
+                <when>
+                    <not>
+                        <classification-exists classification="Application Performance Management \(APM\) tool - Elastic APM" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="APM - Elastic APM hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="apm-test-00003">
+                <when>
+                    <not>
+                        <classification-exists classification="Application Performance Management \(APM\) tool - Dynatrace" />
+                    </not>
+                </when>
+                <perform>
+                    <fail message="APM - Dynatrace hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
