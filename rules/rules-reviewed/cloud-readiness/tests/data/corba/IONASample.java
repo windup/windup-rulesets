@@ -34,7 +34,6 @@ public class Client
       System.out.println("reading stringified object reference from file"); 
  
  
-      FileInputStream fis=new FileInputStream(args[0]); 
       InputStreamReader osr=new InputStreamReader(fis); 
       BufferedReader br=new BufferedReader(osr); 
       ior = br.readLine(); 
@@ -58,7 +57,6 @@ public class Client
           { 
             // Remove database files 
             // 
-            new File(BankMenu.sm_account_names[i]).delete(); 
           } 
         } 
       } 
