@@ -31,7 +31,7 @@
                 <matches pattern="http(s)?://((localhost)|(127\.0\.0\.1))+(:[0-9]+)?(/.*)?" />
             </where>
         </rule>
-        <rule id="localhost-http-00001">
+        <rule id="localhost-jdbc-00002">
             <when>
                 <filecontent filename="{*}.{extensions}" pattern="{pattern}" />
             </when>
@@ -46,6 +46,23 @@
             </where>
             <where param="pattern">
                 <matches pattern="jdbc:([a-z0-9-]+)://(localhost|127\.0\.0\.1)(:[0-9]+)?" />
+            </where>
+        </rule>
+        <rule id="localhost-ws-00003">
+            <when>
+                <filecontent filename="{*}.{extensions}" pattern="{pattern}" />
+            </when>
+            <perform>
+                <hint title="Local WebSocket Calls" effort="7" category-id="mandatory">
+                    <message>The app is trying to access local resource using WebSocket, please try to migrate the resource to cloud</message>
+                    <tag>localhost</tag>
+                </hint>
+            </perform>
+            <where param="extensions">
+                <matches pattern="(java|properties|jsp|jspf|tag|xml|txt|yaml)" />
+            </where>
+            <where param="pattern">
+                <matches pattern="ws(s)?://((localhost)|(127\.0\.0\.1))+(:[0-9]+)?(/.*)?" />
             </where>
         </rule>
     </rules>

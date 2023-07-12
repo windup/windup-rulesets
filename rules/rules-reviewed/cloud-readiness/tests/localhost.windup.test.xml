@@ -29,6 +29,18 @@
                     <fail message="localhost jdbc usage was not found" />
                 </perform>
             </rule>
+            <rule id="localhost-ws-test-00003">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="The app is trying to access local resource using WebSocket" />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="localhost websocket usage was not found" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
