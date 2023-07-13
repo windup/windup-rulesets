@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<ruleset id="java-corba"
+         xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset detects CORBA invocations, which is problematic when migrating an application to a cloud environment.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final"/>
+        </dependencies>
+        <sourceTechnology id="java"/>
+        <targetTechnology id="cloud-readiness"/>
+        <tag>corba</tag>
+    </metadata>
+    <rules>
+        <rule id="java-corba-00000">
+            <when>
+                <or>
+                    <javaclass references="com.sun.corba.{*}"/>
+                    <javaclass references="org.omg.CORBA.{*}"/>
+                    <javaclass references="com.iona.corba.{*}"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="CORBA" effort="5" category-id="cloud-optional">
+                    <message>
+                        Common Object Request Broker Architecture (CORBA) found in the application. CORBA is not recommended in cloud environments. Try to replace it with a more modern technology.
+                    </message>
+                    <tag>corba</tag>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
