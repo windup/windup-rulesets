@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="finalization"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis regarding 'finalization' deprecation in OpenJDK 18 to 21.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <targetTechnology id="openjdk" versionRange="[18,)"/>
+    </metadata>
+    <rules>
+        <rule id="finalization-deprecation-00000">
+            <when>
+                <javaclass references="{*}.finalize()"/>
+            </when>
+            <perform>
+                <hint title="Finalization has been deprecated for removal in a future release by JDK18." effort="3" category-id="potential">
+                    <message>
+                        Finalization has been deprecated for removal in a future release by JDK18. It continues to work now but users should start their migration off finalizers.
+                        Use `Cleaner` or `PhantomReference` instead (see the provided link below).
+                        Users can test what happens with finalization disable by running with: `-finalization=disabled`.
+                    </message>
+                    <link title="JEP 421: Deprecate Finalization for Removal" href="https://openjdk.org/jeps/421"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="finalization-deprecation-00010">
+            <when>
+                <or>
+                    <javaclass references="java.lang.Runtime.runFinalization()">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                    <javaclass references="java.lang.System.runFinalization()">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="Finalization has been deprecated for removal in a future release by JDK18." effort="3" category-id="mandatory">
+                    <message>
+                        Finalization has been deprecated for removal in a future release by JDK18. It continues to work now but users should start their migration off finalizers.
+                        Use `Cleaner` or `PhantomReference` instead (see the provided link below).
+                        Users can test what happens with finalization disable by running with: `-finalization=disabled`.
+                    </message>
+                    <link title="JEP 421: Deprecate Finalization for Removal" href="https://openjdk.org/jeps/421"/>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

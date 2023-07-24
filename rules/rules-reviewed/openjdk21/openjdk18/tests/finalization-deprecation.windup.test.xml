@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ruletest id="finalization-deprecation-test"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data</testDataPath>
+    <rulePath>../finalization-deprecation.windup.xml</rulePath>
+    <ruleset>
+      <rules>
+          <rule id="finalization-deprecation-test-00000">
+              <when>
+                  <not>
+                       <iterable-filter size="5">
+                          <hint-exists message="Finalization has been deprecated for removal in a future release by JDK18*" />
+                       </iterable-filter>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="finalization-deprecation-test-00000 - the hint was not found"/>
+              </perform>
+          </rule>
+      </rules>
+    </ruleset>
+</ruletest>
