@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<ruletest id="removed-apis-openjdk21-test"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/removed-apis</testDataPath>
+    <rulePath>../removed-apis.windup.xml</rulePath>
+    <ruleset>
+      <rules>
+          <rule id="removed-apis-test-00000">
+              <when>
+                  <not>
+                       <iterable-filter size="4">
+                          <hint-exists message="This finalization method has been removed between JDK 18 and 21 and must be*" />
+                       </iterable-filter>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="removed-apis-test-00000 - the hint was not found"/>
+              </perform>
+          </rule>
+          <rule id="removed-apis-test-00010">
+              <when>
+                  <not>
+                      <iterable-filter size="2">
+                          <hint-exists message="This class has been removed and cannot be used anymore." />
+                      </iterable-filter>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="removed-apis-test-00010 - the hint was not found"/>
+              </perform>
+          </rule>
+      </rules>
+    </ruleset>
+</ruletest>
