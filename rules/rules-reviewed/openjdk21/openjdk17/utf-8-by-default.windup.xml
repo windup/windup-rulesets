@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="utf-8-by-default"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            APIs use the default charset which is changing from being platform dependent to defined as UTF-8
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <targetTechnology id="openjdk" versionRange="[18,)"/>
+    </metadata>
+    <rules>
+        <rule id="utf-8-by-default-00000">
+            <when>
+                <javaclass references="java.io.{class-name}{*}">
+                    <location>CONSTRUCTOR_CALL</location> 
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="The java.io.{class-name} constructor uses UTF-8 by default" effort="1" category-id="potential">
+                    <message>If not supplied, the `java.io.{class-name}` constructor uses UTF-8 by default. 
+                        If you haven't provided the character set, and UTF-8 is not appropriate for your class, then supply the appropriate character set to the constructor call.
+                    </message>
+                    <link title="JEP 400: UTF-8 by Default" href="https://openjdk.org/jeps/400"/>
+                </hint>
+            </perform>
+            <where param="class-name">
+                <matches pattern="(FileReader|FileWriter|InputStreamReader|OutputStreamWriter|PrintStream)"/>
+            </where>
+        </rule>
+        <rule id="utf-8-by-default-00010">
+            <when>
+                <javaclass references="java.util.{class-names}{*}">
+                    <location>CONSTRUCTOR_CALL</location> 
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="The java.util.{class-names} constructor uses UTF-8 by default" effort="1" category-id="potential">
+                    <message>If not supplied, the `java.util.{class-names}` constructor uses UTF-8 by default. 
+                        If you haven't provided the character set, and UTF-8 is not appropriate for your class, then supply the appropriate character set to the constructor call.
+                    </message>
+                    <link title="JEP 400: UTF-8 by Default" href="https://openjdk.org/jeps/400"/>
+                </hint>
+            </perform>
+            <where param="class-names">
+                <matches pattern="(Formatter|Scanner)"/>
+            </where>
+        </rule>
+        <rule id="utf-8-by-default-00020">
+            <when>
+                <javaclass references="java.net.URLEncoder.encode{*}">
+                    <location>METHOD_CALL</location> 
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="The java.net.URLEncoder.encode method uses UTF-8 by default" effort="1" category-id="potential">
+                    <message>If not supplied, the `java.net.URLEncoder.encode` method uses UTF-8 by default. 
+                        If you haven't provided the character set, and UTF-8 is not appropriate for your class, then then supply the appropriate character set to the method call.
+                    </message>
+                    <link title="JEP 400: UTF-8 by Default" href="https://openjdk.org/jeps/400"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="utf-8-by-default-00030">
+            <when>
+                <javaclass references="java.net.URLDecoder.decode{*}">
+                    <location>METHOD_CALL</location> 
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="The java.net.URLDecoder.decode method uses UTF-8 by default" effort="1" category-id="potential">
+                    <message>If not supplied, the `java.net.URLDecoder.decode` method uses UTF-8 by default. 
+                        If you haven't provided the character set, and UTF-8 is not appropriate for your class, then then supply the appropriate character set to the method call.
+                    </message>
+                    <link title="JEP 400: UTF-8 by Default" href="https://openjdk.org/jeps/400"/>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
