@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="dynamic-agents"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis regarding the dynamic loading of agents deprecation in OpenJDK 21.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="openjdk" versionRange="[,21)"/>
+        <targetTechnology id="openjdk" versionRange="[21,)"/>
+    </metadata>
+    <rules>
+        <rule id="dynamic-agents-00000">
+            <when>
+                <javaclass references="java.lang.instrument.{*}"/>
+            </when>
+            <perform>
+                <hint title="Dynamic loading of agents will be removed at a later JDK release" effort="3" category-id="potential">
+                    <message>
+                        Dynamic loading of agents will be restricted at a later JDK release.
+                        JDKs can use the `-XX:-EnableDynamicAgentLoading` command line option starting in JDK21 to ensure that agents cannot be loaded dynamically.
+                    </message>
+                    <link title="JEP 451: Prepare to Disallow the Dynamic Loading of Agents" href="https://openjdk.org/jeps/451"/>
+                    <link title="Issue tracker: Implementation of Prepare to Restrict The Dynamic Loading of Agents" href="https://bugs.openjdk.org/browse/JDK-8307479"/>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
