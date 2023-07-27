@@ -37,6 +37,8 @@ public class FinalizationDeprecation extends BasicMenuItemUI, BasicDirectoryMode
         URL url = new URL("hey");
         synthLookAndFeel.load(url);
         
+        Thread thread = new Thread();
+        thread.stop();
     }
     
     public class PrivilegedActionImpl implements PrivilegedAction<String> {
