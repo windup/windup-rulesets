@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<ruletest id="utf-8-by-default-test"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/utf-8-by-default</testDataPath>
+    <rulePath>../utf-8-by-default.windup.xml</rulePath>
+    <ruleset>
+      <rules>
+          <rule id="utf-8-by-default-test-00000">
+              <when>
+                  <not>
+                       <iterable-filter size="5"> 
+                          <hint-exists message="If not supplied, the `java.io." />
+                       </iterable-filter> 
+                  </not>
+              </when>
+              <perform>
+                  <fail message="utf-8-by-default-test-00000 - the hint was not found"/>
+              </perform>
+          </rule>
+          <rule id="utf-8-by-default-test-00010">
+            <when>
+                <not>
+                     <iterable-filter size="2"> 
+                        <hint-exists message="If not supplied, the `java.util." />
+                     </iterable-filter> 
+                </not>
+            </when>
+            <perform>
+                <fail message="utf-8-by-default-test-00010 - the hint was not found"/>
+            </perform>
+        </rule>
+        <rule id="utf-8-by-default-test-00020">
+            <when>
+                <not>
+                     <iterable-filter size="1"> 
+                        <hint-exists message="If not supplied, the `java.net.URLEncoder.encode`" />
+                     </iterable-filter> 
+                </not>
+            </when>
+            <perform>
+                <fail message="utf-8-by-default-test-00020 - the hint was not found"/>
+            </perform>
+        </rule>
+        <rule id="utf-8-by-default-test-00030">
+            <when>
+                <not>
+                     <iterable-filter size="1"> 
+                        <hint-exists message="If not supplied, the `java.net.URLDecoder.decode`" />
+                     </iterable-filter> 
+                </not>
+            </when>
+            <perform>
+                <fail message="utf-8-by-default-test-00020 - the hint was not found"/>
+            </perform>
+        </rule>
+      </rules>
+    </ruleset>
+</ruletest>
