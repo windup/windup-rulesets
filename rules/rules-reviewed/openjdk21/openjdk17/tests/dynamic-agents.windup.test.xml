@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ruletest id="dynamic-agents-test"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/dynamic-agents</testDataPath>
+    <rulePath>../dynamic-agents.windup.xml</rulePath>
+    <ruleset>
+      <rules>
+          <rule id="dynamic-agents-test-00000">
+              <when>
+                  <not>
+                       <iterable-filter size="3">
+                          <hint-exists message="Dynamic loading of agents will be restricted at a later JDK release.*" />
+                       </iterable-filter>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="dynamic-agents-test-00000 - the hint was not found"/>
+              </perform>
+          </rule>
+      </rules>
+    </ruleset>
+</ruletest>
