@@ -9,13 +9,25 @@
           <rule id="removed-apis-test-00000">
               <when>
                   <not>
-                       <iterable-filter size="4">
+                       <iterable-filter size="3">
                           <hint-exists message="This finalization method has been removed between JDK 18 and 21 and must be*" />
                        </iterable-filter>
                   </not>
               </when>
               <perform>
                   <fail message="removed-apis-test-00000 - the hint was not found"/>
+              </perform>
+          </rule>
+          <rule id="removed-apis-test-00005">
+              <when>
+                  <not>
+                      <iterable-filter size="1">
+                          <hint-exists message="The `java.lang.ThreadGroup.allowThreadSuspension` method has been removed and cannot be used anymore." />
+                      </iterable-filter>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="removed-apis-test-00005 - the hint was not found"/>
               </perform>
           </rule>
           <rule id="removed-apis-test-00010">

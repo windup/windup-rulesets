@@ -23,15 +23,26 @@
                     <javaclass references="java.awt.image.IndexColorModel.finalize()">
                         <location>METHOD_CALL</location>
                     </javaclass>
-                    <javaclass references="java.lang.ThreadGroup.allowThreadSuspension({*})">
-                        <location>METHOD_CALL</location>
-                    </javaclass>
                 </or>
             </when>
             <perform>
                 <hint title="These finalization methods have been removed" effort="1" category-id="mandatory">
                     <message>
                         This finalization method has been removed between JDK 18 and 21 and must be removed from the code.
+                    </message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="removed-apis-00005">
+            <when>
+                <javaclass references="java.lang.ThreadGroup.allowThreadSuspension({*})">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="This method has been removed" effort="1" category-id="mandatory">
+                    <message>
+                        The `java.lang.ThreadGroup.allowThreadSuspension` method has been removed and cannot be used anymore.
                     </message>
                 </hint>
             </perform>
