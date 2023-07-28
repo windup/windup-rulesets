@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="deprecation-openjdk19"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis regarding deprecated APIs in OpenJDK 19.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="openjdk" versionRange="(,19)"/>
+        <targetTechnology id="openjdk" versionRange="[19,)"/>
+    </metadata>
+    <rules>
+        <!-- JDK19 -->
+        <rule id="deprecation-00010">
+            <when>
+                <or>
+                    <javaclass references="javax.swing.plaf.basic.BasicMenuItemUI.MouseInputHandler"/>
+                    <javaclass references="javax.swing.plaf.basic.BasicScrollPaneUI.HSBChangeListener"/>
+                    <javaclass references="javax.swing.plaf.basic.BasicScrollPaneUI.PropertyChangeHandler"/>
+                    <javaclass references="javax.swing.plaf.basic.BasicScrollPaneUI.ViewportChangeHandler"/>
+                    <javaclass references="javax.swing.plaf.basic.BasicScrollPaneUI.VSBChangeListener"/>
+                    <javaclass references="javax.swing.plaf.basic.BasicDirectoryModel.intervalAdded({*})">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                    <javaclass references="javax.swing.plaf.basic.BasicDirectoryModel.intervalRemoved({*})">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                    <javaclass references="javax.swing.plaf.basic.BasicDirectoryModel.lt({*})">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                    <javaclass references="javax.swing.plaf.basic.BasicToolBarUI.createFloatingFrame({*})">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="Deprecated class in JDK 19 for removal in future release" effort="3" category-id="mandatory">
+                    <message>
+                        Several classes under `javax.swing.plaf.basic` have been deprecated in JDK 19 for removal in a future release.
+                    </message>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

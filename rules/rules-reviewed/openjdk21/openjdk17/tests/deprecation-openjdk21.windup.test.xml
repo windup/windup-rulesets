@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ruletest id="deprecation-openjdk21-test"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/deprecation</testDataPath>
+    <rulePath>../deprecation-openjdk21.windup.xml</rulePath>
+    <ruleset>
+      <rules>
+          <rule id="deprecation-test-00040">
+              <when>
+                  <not>
+                      <iterable-filter size="1">
+                          <hint-exists message="The `load\(URL\)` method under `SynthLookAndFeel` has been deprecated in JDK 21 for removal in a future release." />
+                      </iterable-filter>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="deprecation-test-00040 - the hint was not found"/>
+              </perform>
+          </rule>
+      </rules>
+    </ruleset>
+</ruletest>

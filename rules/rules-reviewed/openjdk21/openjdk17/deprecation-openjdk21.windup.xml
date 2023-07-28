@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="deprecation-openjdk21"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis regarding deprecated APIs in OpenJDK 21.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="openjdk" versionRange="(,21)"/>
+        <targetTechnology id="openjdk" versionRange="[21,)"/>
+    </metadata>
+    <rules>
+       <!-- JDK21 -->
+        <rule id="deprecation-00030">
+            <when>
+                <or>
+                    <javaclass references="javax.swing.plaf.synth.SynthLookAndFeel.load(java.net.URL)">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="Deprecated class in JDK 21 for removal in future release" effort="3" category-id="mandatory">
+                    <message>
+                        The `load(URL)` method under `SynthLookAndFeel` has been deprecated in JDK 21 for removal in a future release.
+                    </message>
+                </hint>
+            </perform>
+        </rule>
+        
+    </rules>
+</ruleset>
