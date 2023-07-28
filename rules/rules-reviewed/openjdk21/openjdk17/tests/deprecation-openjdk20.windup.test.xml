@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<ruletest id="deprecation-openjdk20-test"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/deprecation</testDataPath>
+    <rulePath>../deprecation-openjdk20.windup.xml</rulePath>
+    <ruleset>
+      <rules>
+          <rule id="deprecation-test-00020">
+              <when>
+                  <not>
+                      <iterable-filter size="5">
+                          <hint-exists message="Several classes under `javax` have been deprecated in JDK 20 for removal in a future release." />
+                      </iterable-filter>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="deprecation-test-00020 - the hint was not found"/>
+              </perform>
+          </rule>
+          <rule id="deprecation-test-00030">
+              <when>
+                  <not>
+                      <iterable-filter size="5">
+                          <hint-exists message="Several classes under `javax` have been deprecated in JDK 20 for removal in a future release." />
+                      </iterable-filter>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="deprecation-test-00020 - the hint was not found"/>
+              </perform>
+          </rule>
+      </rules>
+    </ruleset>
+</ruletest>

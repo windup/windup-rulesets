@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<ruletest id="deprecation-openjdk18-test"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/deprecation</testDataPath>
+    <rulePath>../deprecation-openjdk18.windup.xml</rulePath>
+    <ruleset>
+      <rules>
+          <rule id="deprecation-test-00000">
+              <when>
+                  <not>
+                      <iterable-filter size="2">
+                          <hint-exists message="This `doAs` signature has been deprecated in JDK18 for removal in a future release." />
+                      </iterable-filter>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="deprecation-test-00000 - the hint was not found"/>
+              </perform>
+          </rule>
+          <rule id="deprecation-test-00005">
+              <when>
+                  <not>
+                      <iterable-filter size="1">
+                          <hint-exists message="The `Thread.stop\(\)` signature has been deprecated in JDK18 for removal in a future release." />
+                      </iterable-filter>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="deprecation-test-00005 - the hint was not found"/>
+              </perform>
+          </rule>
+      </rules>
+    </ruleset>
+</ruletest>
