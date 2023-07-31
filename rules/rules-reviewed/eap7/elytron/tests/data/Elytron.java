@@ -7,11 +7,11 @@ import java.util.Hashtable;
 
 public class Elytron {
     public static void main(String[] args) {
-        InitialContextFactory initialContextFactory = new InitialContextFactory() {
-            @Override
-            public Context getInitialContext(Hashtable<?, ?> hashtable) throws NamingException {
-                return null;
-            }
-        }
+        Properties properties = new Properties();
+        properties.put(Context.INITIAL_CONTEXT_FACTORY, "org.jboss.naming.remote.client.InitialContextFactory");
+        properties.put(Context.PROVIDER_URL,"http-remoting://127.0.0.1:8080");
+        properties.put(Context.SECURITY_PRINCIPAL, "bob");
+        properties.put(Context.SECURITY_CREDENTIALS, "secret");
+        InitialContext context = new InitialContext(properties);
     }
 }
