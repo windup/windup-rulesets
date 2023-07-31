@@ -33,13 +33,25 @@
           <rule id="removed-apis-test-00010">
               <when>
                   <not>
-                      <iterable-filter size="2">
-                          <hint-exists message="This class has been removed and cannot be used anymore." />
+                      <iterable-filter size="1">
+                          <hint-exists message="The `java.lang.Compiler` method has been removed and cannot be used anymore." />
                       </iterable-filter>
                   </not>
               </when>
               <perform>
                   <fail message="removed-apis-test-00010 - the hint was not found"/>
+              </perform>
+          </rule>
+          <rule id="removed-apis-test-00015">
+              <when>
+                  <not>
+                      <iterable-filter size="1">
+                          <hint-exists message="The `javax.management.remote.rmi.RMIIIOPServerImpl` method has been removed and cannot be used anymore." />
+                      </iterable-filter>
+                  </not>
+              </when>
+              <perform>
+                  <fail message="removed-apis-test-00015 - the hint was not found"/>
               </perform>
           </rule>
       </rules>

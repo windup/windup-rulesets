@@ -40,7 +40,7 @@
                 </javaclass>
             </when>
             <perform>
-                <hint title="This method has been removed" effort="3" category-id="mandatory">
+                <hint title="Method java.lang.ThreadGroup.allowThreadSuspension() has been removed" effort="1" category-id="mandatory">
                     <message>
                         The `java.lang.ThreadGroup.allowThreadSuspension` method has been removed and cannot be used anymore.
                     </message>
@@ -49,15 +49,24 @@
         </rule>
         <rule id="removed-apis-00010">
             <when>
-                <or>
-                    <javaclass references="java.lang.Compiler"/>
-                    <javaclass references="javax.management.remote.rmi.RMIIIOPServerImpl"/>
-                </or>
+                <javaclass references="java.lang.Compiler"/>
             </when>
             <perform>
-                <hint title="Finalization has been deprecated for removal in a future release by JDK18." effort="3" category-id="mandatory">
+                <hint title="Method java.lang.Compiler has been removed" effort="3" category-id="mandatory">
                     <message>
-                        This class has been removed and cannot be used anymore.
+                        The `java.lang.Compiler` method has been removed and cannot be used anymore.
+                    </message>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="removed-apis-00015">
+            <when>
+                <javaclass references="javax.management.remote.rmi.RMIIIOPServerImpl"/>
+            </when>
+            <perform>
+                <hint title="javax.management.remote.rmi.RMIIIOPServerImpl" effort="3" category-id="mandatory">
+                    <message>
+                        The `javax.management.remote.rmi.RMIIIOPServerImpl` method has been removed and cannot be used anymore.
                     </message>
                 </hint>
             </perform>
