@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset id="spring-boot-to-azure-restricted-config"
+         xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset identifies restricted configurations in Spring Boot applications for migration to Azure Spring Apps.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="springboot"/>
+        <targetTechnology id="azure-spring-apps"/>
+    </metadata>
+    <rules>
+        <rule id="spring-boot-to-azure-restricted-config-01000">
+            <when>
+                <or>
+                    <filecontent filename="{*}.{extensions}" pattern="{eurekaClientServiceUrlDefaultZone}"/>
+                    <filecontent filename="{*}.{extensions}" pattern="{eurekaClientTlsKeystore}"/>
+                    <filecontent filename="{*}.{extensions}" pattern="{eurekaInstancePreferIpAddress}"/>
+                    <filecontent filename="{*}.{extensions}" pattern="{eurekaInstanceInstanceId}"/>
+                    <filecontent filename="{*}.{extensions}" pattern="{serverPort}"/>
+                    <filecontent filename="{*}.{extensions}" pattern="{springCloudConfigTlsKeystore}"/>
+                    <filecontent filename="{*}.{extensions}" pattern="{springConfigImport}"/>
+                    <filecontent filename="{*}.{extensions}" pattern="{appName}"/>
+                    <filecontent filename="{*}.{extensions}" pattern="{springJmxEnabled}"/>
+                    <filecontent filename="{*}.{extensions}" pattern="{managementEndpointsJmxExposureInclude}"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Restricted configurations found" category-id="information" effort="0">
+                    <message>
+                        The application uses restricted configurations for Azure Spring Apps.
+                        These properties are automatically injected into your application environment by Azure Spring Apps to access Config Server and Service Discovery.
+                        Please remove them from your application, including configuration files, config server files, command line parameters, Java system attributes, and environment variables.
+
+                        If configured in **configuration files**: they will be ignored and overrided by Azure Spring Apps.
+                        If configured in **Config Server files**, **command line parameters**, **Java system attribute**, **environment variable**: they need to be removed or you might experience conflicts and unexpected behavior.
+                    </message>
+                    <link title="Remove restricted configurations" href="http://aka.ms/spring-cloud-to-asa?toc=%2Fazure%2Fspring-apps%2Ftoc.json&amp;bc=%2Fazure%2Fspring-apps%2Fbreadcrumb%2Ftoc.json&amp;pivots=sc-standard-tier#remove-restricted-configurations"/>
+                    <link title="Set up a Config server" href="https://learn.microsoft.com/azure/spring-apps/how-to-config-server"/>
+                    <link title="Enable Service Registration" href="https://learn.microsoft.com/azure/spring-apps/how-to-service-registration?pivots=programming-language-java"/>
+                </hint>
+            </perform>
+            <where param="extensions">
+                <matches pattern="(properties|yaml|yml)"/>
+            </where>
+            <where param="eurekaClientServiceUrlDefaultZone">
+                <matches pattern="eureka\.client\.(serviceUrl\.defaultZone|service-url\.defaultZone)"/>
+            </where>
+            <where param="eurekaClientTlsKeystore">
+                <matches pattern="eureka\.client\.tls\.keystore"/>
+            </where>
+            <where param="eurekaInstancePreferIpAddress">
+                <matches pattern="eureka\.instance\.preferIpAddress"/>
+            </where>
+            <where param="eurekaInstanceInstanceId">
+                <matches pattern="eureka\.instance\.instance-id"/>
+            </where>
+            <where param="serverPort">
+                <matches pattern="server\.port"/>
+            </where>
+            <where param="springCloudConfigTlsKeystore">
+                <matches pattern="spring\.cloud\.config\.tls\.keystore"/>
+            </where>
+            <where param="springConfigImport">
+                <matches pattern="spring\.config\.import"/>
+            </where>
+            <where param="appName">
+                <matches pattern="spring\.application\.name"/>
+            </where>
+            <where param="springJmxEnabled">
+                <matches pattern="spring\.jmx\.enabled"/>
+            </where>
+            <where param="managementEndpointsJmxExposureInclude">
+                <matches pattern="management\.endpoints\.jmx\.exposure\.include"/>
+            </where>
+        </rule>
+    </rules>
+</ruleset>
