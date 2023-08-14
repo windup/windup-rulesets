@@ -17,16 +17,7 @@
         <rule id="spring-boot-to-azure-restricted-config-01000">
             <when>
                 <or>
-                    <filecontent filename="{*}.{extensions}" pattern="{eurekaClientServiceUrlDefaultZone}"/>
-                    <filecontent filename="{*}.{extensions}" pattern="{eurekaClientTlsKeystore}"/>
-                    <filecontent filename="{*}.{extensions}" pattern="{eurekaInstancePreferIpAddress}"/>
-                    <filecontent filename="{*}.{extensions}" pattern="{eurekaInstanceInstanceId}"/>
-                    <filecontent filename="{*}.{extensions}" pattern="{serverPort}"/>
-                    <filecontent filename="{*}.{extensions}" pattern="{springCloudConfigTlsKeystore}"/>
-                    <filecontent filename="{*}.{extensions}" pattern="{springConfigImport}"/>
-                    <filecontent filename="{*}.{extensions}" pattern="{appName}"/>
-                    <filecontent filename="{*}.{extensions}" pattern="{springJmxEnabled}"/>
-                    <filecontent filename="{*}.{extensions}" pattern="{managementEndpointsJmxExposureInclude}"/>
+                    <filecontent filename="{*}.{extensions}" pattern="{pattern}"/>
                 </or>
             </when>
             <perform>
@@ -37,6 +28,7 @@
                         Please remove them from your application, including configuration files, config server files, command line parameters, Java system attributes, and environment variables.
 
                         If configured in **configuration files**: they will be ignored and overrided by Azure Spring Apps.
+                         
                         If configured in **Config Server files**, **command line parameters**, **Java system attribute**, **environment variable**: they need to be removed or you might experience conflicts and unexpected behavior.
                     </message>
                     <link title="Remove restricted configurations" href="http://aka.ms/spring-cloud-to-asa?toc=%2Fazure%2Fspring-apps%2Ftoc.json&amp;bc=%2Fazure%2Fspring-apps%2Fbreadcrumb%2Ftoc.json&amp;pivots=sc-standard-tier#remove-restricted-configurations"/>
@@ -47,35 +39,8 @@
             <where param="extensions">
                 <matches pattern="(properties|yaml|yml)"/>
             </where>
-            <where param="eurekaClientServiceUrlDefaultZone">
-                <matches pattern="eureka\.client\.(serviceUrl\.defaultZone|service-url\.defaultZone)"/>
-            </where>
-            <where param="eurekaClientTlsKeystore">
-                <matches pattern="eureka\.client\.tls\.keystore"/>
-            </where>
-            <where param="eurekaInstancePreferIpAddress">
-                <matches pattern="eureka\.instance\.preferIpAddress"/>
-            </where>
-            <where param="eurekaInstanceInstanceId">
-                <matches pattern="eureka\.instance\.instance-id"/>
-            </where>
-            <where param="serverPort">
-                <matches pattern="server\.port"/>
-            </where>
-            <where param="springCloudConfigTlsKeystore">
-                <matches pattern="spring\.cloud\.config\.tls\.keystore"/>
-            </where>
-            <where param="springConfigImport">
-                <matches pattern="spring\.config\.import"/>
-            </where>
-            <where param="appName">
-                <matches pattern="spring\.application\.name"/>
-            </where>
-            <where param="springJmxEnabled">
-                <matches pattern="spring\.jmx\.enabled"/>
-            </where>
-            <where param="managementEndpointsJmxExposureInclude">
-                <matches pattern="management\.endpoints\.jmx\.exposure\.include"/>
+            <where param="pattern">
+                <matches pattern="(eureka\.client\.(serviceUrl\.defaultZone|service-url\.defaultZone))|(eureka\.client\.tls\.keystore)|(eureka\.instance\.preferIpAddress)|(eureka\.instance\.instance-id)|(server\.port)|(spring\.cloud\.config\.tls\.keystore)|(spring\.config\.import)|(spring\.application\.name)|(spring\.jmx\.enabled)|(management\.endpoints\.jmx\.exposure\.include)"/>
             </where>
         </rule>
     </rules>
