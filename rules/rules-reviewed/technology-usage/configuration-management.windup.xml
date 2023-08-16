@@ -29,7 +29,7 @@
         </rule>
         <rule id="configuration-management-0200">
             <when>
-                <file filename="application{profile}.{extension}"   />
+                <file filename="application{profile}.properties"   />
             </when>
             <perform>
                 <classification title="Application properties file detected" category-id="information" effort="0">
@@ -40,13 +40,10 @@
             <where param="profile">
                 <matches pattern=".*" />
             </where>
-            <where param="extension">
-                <matches pattern="(properties|yml|yaml)" />
-            </where>
         </rule>
         <rule id="configuration-management-0300">
             <when>
-                <filecontent filename="application{profile}.{extension}" pattern="spring.datasource" />
+                <filecontent filename="application{profile}.properties" pattern="spring.datasource" />
             </when>
             <perform>
                 <classification title="Spring datasource properties detected" category-id="information" effort="0">
@@ -57,13 +54,10 @@
             <where param="profile">
                 <matches pattern=".*" />
             </where>
-            <where param="extension">
-                <matches pattern="(properties|yml|yaml)" />
-            </where>
         </rule>
         <rule id="configuration-management-0400">
             <when>
-                <filecontent filename="application{profile}.{extension}" pattern="logging.level.org.springframework" />
+                <filecontent filename="application{profile}.properties" pattern="logging.level.org.springframework" />
             </when>
             <perform>
                 <classification title="Spring logging properties detected" category-id="information" effort="0">
@@ -73,9 +67,6 @@
             </perform>
             <where param="profile">
                 <matches pattern=".*" />
-            </where>
-            <where param="extension">
-                <matches pattern="(properties|yml|yaml)" />
             </where>
         </rule>
         <rule id="configuration-management-0500">
