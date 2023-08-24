@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          id="elytron-eap71-test" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data</testDataPath>
+    <rulePath>../elytron.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="elytron-eap71-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Migrate a client application that performs a remote JNDI lookup using an `org.jboss.naming.remote.client.InitialContext` class, which is backed by an `org.jboss.naming.remote.client.InitialContextFactory` class, to Elytron." />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="elytron-eap71-00000 rule hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="elytron-eap71-00010-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Remote EJB client must be configured following one of the two options defined in the link below." />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="elytron-eap71-00010 rule hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
