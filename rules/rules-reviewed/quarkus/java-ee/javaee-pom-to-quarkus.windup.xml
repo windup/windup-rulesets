@@ -278,5 +278,42 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="javaee-pom-to-quarkus-00070">
+            <when>
+                <or>
+                    <xmlfile in="pom.xml" matches="/m:project/m:dependencies/m:dependency[m:artifactId/text() = 'jakarta.persistence-api']">
+                        <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0" />
+                    </xmlfile>
+                    <xmlfile in="pom.xml" matches="/m:project/m:dependencies/m:dependency/m:groupId[contains(text(),'org.hibernate')]">
+                        <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0" />
+                    </xmlfile>
+                </or>
+            </when>
+            <perform>
+                <hint title="Configure Quarkus hibernate-orm" effort="1" category-id="mandatory">
+                    <message>
+                        <![CDATA[
+                        Configure Quarkus 'hibernate-orm` and jakarta persistence.  
+                        Add the `quarkus-hibernate-orm` section and one for your preferred jdbc solution to the `pom.xml` file, eg for postgres:  
+
+                        ```
+                        <!-- Hibernate ORM specific dependencies -->
+                        <dependency>
+                            <groupId>io.quarkus</groupId>
+                            <artifactId>quarkus-hibernate-orm</artifactId>
+                        </dependency>
+                        
+                        <!-- JDBC driver dependencies -->
+                        <dependency>
+                            <groupId>io.quarkus</groupId>
+                            <artifactId>quarkus-jdbc-postgresql</artifactId>
+                        </dependency> 
+                        ```
+                    ]]>
+                    </message>
+                    <link title="Using hibernate-orm and jakarta persistence" href="https://quarkus.io/guides/hibernate-orm" />
+                </hint>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
