@@ -17,31 +17,32 @@
     <rules>
         <rule id="log4j-removed-00001">
             <when>
-                <not>
-                    <or>
-                        <file filename="log4j.xml"/>
-                        <file filename="log4j.properties"/>
-                        <file filename="jboss-log4j.xml"/>
-                    </or>
-                </not>
-                <not>
-                    <or>
-                        <project>
-                            <artifact groupId="log4j" artifactId="log4j" />
-                        </project>
-                        <dependency groupId="log4j" artifactId="log4j" />
-                        <file filename="log4j.jar"/>
-                    </or>
-                </not>
+
                 <and>
                     <javaclass references="org.apache.log4j.Logger">
                         <location>IMPORT</location>
                     </javaclass>
+                    <not>
+                        <or>
+                            <file filename="log4j.xml"/>
+                            <file filename="log4j.properties"/>
+                            <file filename="jboss-log4j.xml"/>
+                        </or>
+                    </not>
+                    <not>
+                        <or>
+                            <project>
+                                <artifact groupId="log4j" artifactId="log4j" />
+                            </project>
+                            <dependency groupId="log4j" artifactId="log4j" />
+                            <file filename="log4j.jar"/>
+                        </or>
+                    </not>
                 </and>
             </when>
             <perform>
                 <hint title="Log4j version 1 is not longer provided in EAP8" effort="1" category-id="mandatory">
-                    <message>Log4j usage without comfiguration files</message>
+                    <message>Log4j usage without configuration files</message>
                     <link href="https://access.redhat.com/articles/6973120" title="Migration: Apache Log4j version 1 is not longer provided in EAP 8"/>
                 </hint>
             </perform>
