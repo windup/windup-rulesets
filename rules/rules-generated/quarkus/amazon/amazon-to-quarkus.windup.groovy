@@ -168,7 +168,7 @@ ruleSet("amazon-to-quarkus-groovy")
                                     Replace the `com.amazonaws:aws-lambda-java-core` dependency with the Quarkus dependency `io.quarkus:quarkus-amazon-lambda-http` in the application's dependencies management system (Maven, Gradle).  
                                     Further information in the link below.""")
                     .withIssueCategory(mandatoryIssueCategory)
-                    .with(Link.to("Quarkus - Guide", "https://quarkus.io/guides/amazon-lambda-http"))
+                    .with(Link.to("Quarkus - Guide", "https://quarkus.io/guides/aws-lambda-http"))
                     .withEffort(1)
                 ).performParameterized(event, context, folderLocationModel)
             }
@@ -206,7 +206,7 @@ ruleSet("amazon-to-quarkus-groovy")
                                     Replace the `com.amazonaws.serverless:aws-serverless-java-container-core` dependency with the Quarkus dependency `io.quarkus:quarkus-amazon-lambda-rest` in the application's dependencies management system (Maven, Gradle).  
                                     Further information in the link below.""")
                     .withIssueCategory(mandatoryIssueCategory)
-                    .with(Link.to("Quarkus - Guide", "https://quarkus.io/guides/amazon-lambda-http"))
+                    .with(Link.to("Quarkus - Guide", "https://quarkus.io/guides/aws-lambda-http"))
                     .withEffort(1)
                 ).performParameterized(event, context, folderLocationModel)
             }
@@ -244,7 +244,7 @@ ruleSet("amazon-to-quarkus-groovy")
                                     Replace the `com.amazonaws:aws-xray-recorder-sdk-aws-sdk-v2` dependency with the Quarkus dependency `io.quarkus:quarkus-amazon-lambda-xray` in the application's dependencies management system (Maven, Gradle).  
                                     Further information in the link below.""")
                     .withIssueCategory(mandatoryIssueCategory)
-                    .with(Link.to("Quarkus - Guide", "https://quarkus.io/guides/amazon-lambda#tracing-with-aws-xray-and-graalvm"))
+                    .with(Link.to("Quarkus - Guide", "https://quarkus.io/guides/aws-lambda#tracing-with-aws-xray-and-graalvm"))
                     .withEffort(1)
                 ).performParameterized(event, context, folderLocationModel)
             }
