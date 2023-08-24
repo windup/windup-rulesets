@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ruletest id="javaee-faces-to-quarkus-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/*</testDataPath>
+    <rulePath>../javaee-faces-to-quarkus.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="javaee-faces-to-quarkus-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="JSF Dependencies with groupId `org.jboss.spec.javax.faces` should be replaced"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javaee-faces-to-quarkus-00000] MyFaces hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
