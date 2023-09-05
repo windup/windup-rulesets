@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="log4j-removed"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of Java EE applications that use log4j which is no longer bundled within EAP8
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="eap" versionRange="[6,8)" />
+        <targetTechnology id="eap" versionRange="[8,)" />
+    </metadata>
+    <rules>
+        <rule id="log4j-removed-00001">
+            <when>
+
+                <and>
+                    <javaclass references="org.apache.log4j.Logger">
+                        <location>IMPORT</location>
+                    </javaclass>
+                    <not>
+                        <or>
+                            <file filename="log4j.xml"/>
+                            <file filename="log4j.properties"/>
+                            <file filename="jboss-log4j.xml"/>
+                        </or>
+                    </not>
+                    <not>
+                        <or>
+                            <project>
+                                <artifact groupId="log4j" artifactId="log4j" />
+                            </project>
+                            <dependency groupId="log4j" artifactId="log4j" />
+                            <file filename="log4j.jar"/>
+                        </or>
+                    </not>
+                </and>
+            </when>
+            <perform>
+                <hint title="Log4j version 1 is not longer provided in EAP8" effort="1" category-id="mandatory">
+                    <message>Log4j usage without configuration files</message>
+                    <link href="https://access.redhat.com/articles/6973120" title="Migration: Apache Log4j version 1 is not longer provided in EAP 8"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="log4j-removed-00002">
+            <when>
+                <not>
+                    <or>
+                        <project>
+                            <artifact groupId="log4j" artifactId="log4j" />
+                        </project>
+                        <dependency groupId="log4j" artifactId="log4j" />
+                        <file filename="log4j.jar"/>
+                    </or>
+                </not>
+                <and>
+                    <javaclass references="org.apache.log4j.Logger">
+                        <location>IMPORT</location>
+                    </javaclass>
+                </and>
+            </when>
+            <perform>
+                <hint title="Log4j version 1 is not longer provided in EAP8" effort="1" category-id="mandatory">
+                    <message>Log4j usage without including `log4j.jar`</message>
+                    <link href="https://access.redhat.com/articles/6973120" title="Migration: Apache Log4j version 1 is not longer provided in EAP 8"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="log4j-removed-00003">
+            <when>
+                <not>
+                    <or>
+                        <project>
+                            <artifact groupId="log4j" artifactId="log4j" />
+                        </project>
+                        <dependency groupId="log4j" artifactId="log4j" />
+                        <file filename="log4j.jar"/>
+                    </or>
+                </not>
+                <and>
+                    <file filename="{config-filename}"/>
+                </and>
+            </when>
+            <perform>
+                <hint title="Log4j version 1 is not longer provided in EAP8" effort="1" category-id="mandatory">
+                    <message>Log4j configuration without including `log4j.jar`</message>
+                    <link href="https://access.redhat.com/articles/6973120" title="Migration: Apache Log4j version 1 is not longer provided in EAP 8"/>
+                </hint>
+            </perform>
+            <where param="config-filename">
+                <matches pattern="(log4j.xml|log4j.properties|jboss-log4j.xml)"/>
+            </where>
+        </rule>
+        <rule id="log4j-removed-00004">
+            <when>
+                <not>
+                    <or>
+                        <project>
+                            <artifact groupId="log4j" artifactId="log4j" />
+                        </project>
+                        <dependency groupId="log4j" artifactId="log4j" />
+                        <file filename="log4j.jar"/>
+                    </or>
+                </not>
+                <and>
+                    <filecontent pattern="custom-handler{*}org.apache.log4j.{*}Appender" filename="{*}.xml"/>
+                </and>
+            </when>
+            <perform>
+                <hint title="Log4j version 1 is not longer provided in EAP8" effort="1" category-id="mandatory">
+                    <message>Log4j custom-handler using appender</message>
+                    <link href="https://access.redhat.com/articles/6973120" title="Migration: Apache Log4j version 1 is not longer provided in EAP 8"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="log4j-removed-00005">
+            <when>
+                <not>
+                    <or>
+                        <project>
+                            <artifact groupId="log4j" artifactId="log4j" />
+                        </project>
+                        <dependency groupId="log4j" artifactId="log4j" />
+                        <file filename="log4j.jar"/>
+                    </or>
+                </not>
+                <and>
+                    <or>
+                        <filecontent pattern="org.jboss.log4j.logmanager" filename="jboss-deployment-structure.xml"/>
+                        <filecontent pattern="org.jboss.log4j.logmanager" filename="Manifest.MF"/>
+                    </or>
+                </and>
+            </when>
+            <perform>
+                <hint title="Log4j version 1 is not longer provided in EAP8" effort="1" category-id="mandatory">
+                    <message>Log4j module dependency declaration</message>
+                    <link href="https://access.redhat.com/articles/6973120" title="Migration: Apache Log4j version 1 is not longer provided in EAP 8"/>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
