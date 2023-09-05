@@ -1,0 +1,19 @@
+<subsystem xmlns="urn:jboss:domain:logging:1.2">
+    <custom-handler name="log4jAppender" class="org.apache.log4j.FileAppender" module="org.apache.log4j">
+        <formatter>
+            <pattern-formatter pattern="%d{HH:mm:ss,SSS} %-5p [%c] (%t) %s%E%n"/>
+        </formatter>
+        <level name="INFO"/>
+        <properties>
+            <property name="append" value="true"/>
+            <property name="file" value="${jboss.server.log.dir}/log4j.log"/>
+            <property name="immediateFlush" value="true"/>
+        </properties>
+    </custom-handler>
+    <root-logger>
+        <level name="INFO"/>
+        <handlers>
+            <handler name="log4jAppender"/>
+        </handlers>
+    </root-logger>
+</subsystem>
