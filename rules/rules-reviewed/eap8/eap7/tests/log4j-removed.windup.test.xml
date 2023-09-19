@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<ruletest id="log4j-removed-with-config-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/log4j-removed-with-config/</testDataPath>
+    <rulePath>../log4j-removed.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="log4j-removed-00002-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Log4j usage without including `log4j.jar`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[log4j-removed-00002] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="log4j-removed-00003-test">
+                <when>
+                    <not>
+                        <iterable-filter size="3">
+                            <hint-exists message="Log4j configuration without including `log4j.jar`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[log4j-removed-00003] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="log4j-removed-00004-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Log4j custom-handler using appender"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[log4j-removed-00004] The hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="log4j-removed-00005-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="Log4j module dependency declaration"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[log4j-removed-00005] The hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
