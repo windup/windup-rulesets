@@ -103,6 +103,18 @@
                     <fail message="[javaee-pom-to-quarkus-00070] Configure hibernate-orm hint was not found!" />
                 </perform>
             </rule>
+            <rule id="javaee-pom-to-quarkus-00080-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Use Quarkus junit artifact"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[javaee-pom-to-quarkus-00080] Use Quarkus junit artifact hint was not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
