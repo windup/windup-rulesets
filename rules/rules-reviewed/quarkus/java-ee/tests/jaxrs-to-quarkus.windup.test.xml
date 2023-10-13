@@ -31,6 +31,18 @@
                     <fail message="[jaxrs-to-quarkus-00010] javax.ws.rs-api dependency hint was not found!" />
                 </perform>
             </rule>
+            <rule id="jaxrs-to-quarkus-00020-test">
+                <when>
+                    <not>
+                        <iterable-filter size="4">
+                            <hint-exists message="JAX-RS activation is no longer necessary."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[jaxrs-to-quarkus-00020] JAX-RS activation hint was not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>

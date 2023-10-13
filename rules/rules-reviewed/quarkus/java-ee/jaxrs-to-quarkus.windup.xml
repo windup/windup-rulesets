@@ -40,5 +40,25 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="jaxrs-to-quarkus-00020">
+            <when>
+                <and>
+                    <javaclass references="javax.ws.rs.ApplicationPath">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                    <javaclass references="javax.ws.rs.core.Application">
+                        <location>INHERITANCE</location>
+                    </javaclass>
+                </and>
+            </when>
+            <perform>
+                <hint title="JAX-RS activation is no longer necessary" effort="1" category-id="optional">
+                    <message>
+                        JAX-RS activation is no longer necessary. You can set a root path like this but you don't have to.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/resteasy-reactive#declaring-endpoints-uri-mapping" />
+                </hint>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
