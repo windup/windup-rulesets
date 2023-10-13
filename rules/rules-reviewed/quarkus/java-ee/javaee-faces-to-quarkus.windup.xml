@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE ruleset [
+    <!ENTITY build-tool-maven-link-title "Quarkus - Guide">
+    <!ENTITY build-tool-maven-link-href "https://quarkus.io/guides/maven-tooling#build-tool-maven">
+]>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="javaee-faces-to-quarkus"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints to migrate JAX-RS applications to Quarkus extension
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="java-ee" />
+        <targetTechnology id="quarkus" />
+    </metadata>
+    <rules>
+        <rule id="javaee-faces-to-quarkus-00000">
+            <when>
+                    <xmlfile in="pom.xml" matches="/m:project/m:dependencies/m:dependency[m:groupId/text() = 'org.jboss.spec.javax.faces']">
+                        <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0" />
+                    </xmlfile>
+            </when>
+            <perform>
+                <hint title="Replace JSF Dependency with MyFaces" effort="1" category-id="mandatory">
+                    <message>
+                        <![CDATA[
+                        JSF Dependencies with groupId `org.jboss.spec.javax.faces` should be replaced with 
+                        
+                        ```
+                        <!-- Quarkus MyFaces dependencies -->                      
+                        <dependency>
+                          <groupId>org.apache.myfaces.core.extensions.quarkus</groupId>
+                          <artifactId>myfaces-quarkus</artifactId>
+                          <version>4.0.1</version>
+                        </dependency>
+                        
+                        <!-- Quarkus Faces utilities and components extensions -->
+                        <dependency>
+                          <groupId>io.quarkiverse.primefaces</groupId>
+                          <artifactId>quarkus-primefaces</artifactId>
+                          <version>3.13.1</version>
+                        </dependency>
+                        <dependency>
+                          <groupId>io.quarkiverse.omnifaces</groupId>
+                          <artifactId>quarkus-omnifaces</artifactId>
+                          <version>4.2.0</version>
+                        </dependency>
+                        ```
+                        ]]>
+                    </message>
+                    <link title="Apache MyFaces: Getting Started on Quarkus" href="https://myfaces.apache.org/#/coregettingstarted?id=quarkus" />
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

@@ -278,5 +278,69 @@
                 </hint>
             </perform>
         </rule>
+        <rule id="javaee-pom-to-quarkus-00070">
+            <when>
+                <or>
+                    <xmlfile in="pom.xml" matches="/m:project/m:dependencies/m:dependency[m:artifactId/text() = 'jakarta.persistence-api']">
+                        <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0" />
+                    </xmlfile>
+                    <xmlfile in="pom.xml" matches="/m:project/m:dependencies/m:dependency/m:groupId[contains(text(),'org.hibernate')]">
+                        <namespace prefix="m" uri="http://maven.apache.org/POM/4.0.0" />
+                    </xmlfile>
+                </or>
+            </when>
+            <perform>
+                <hint title="Configure Quarkus hibernate-orm" effort="1" category-id="mandatory">
+                    <message>
+                        <![CDATA[
+                        Configure Quarkus 'hibernate-orm` and jakarta persistence.  
+                        Add the `quarkus-hibernate-orm` section and one for your preferred jdbc solution to the `pom.xml` file, eg for postgres:  
+
+                        ```
+                        <!-- Hibernate ORM specific dependencies -->
+                        <dependency>
+                            <groupId>io.quarkus</groupId>
+                            <artifactId>quarkus-hibernate-orm</artifactId>
+                        </dependency>
+                        
+                        <!-- JDBC driver dependencies -->
+                        <dependency>
+                            <groupId>io.quarkus</groupId>
+                            <artifactId>quarkus-jdbc-postgresql</artifactId>
+                        </dependency> 
+                        ```
+                    ]]>
+                    </message>
+                    <link title="Using hibernate-orm and jakarta persistence" href="https://quarkus.io/guides/hibernate-orm" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="javaee-pom-to-quarkus-00080">
+            <when>
+                <project>
+                    <artifact groupId="junit" artifactId="junit" />
+                </project>
+            </when>
+            <perform>
+                <hint title="Use Quarkus junit artifact" effort="1" category-id="mandatory">
+                    <message>
+                        <![CDATA[
+                        Use Quarkus junit artifact:  
+
+                        ```
+                        <!-- Quarkus junit specific dependency -->
+                        <dependency>
+                            <groupId>io.quarkus</groupId>
+                            <artifactId>quarkus-junit5</artifactId>
+                            <scope>test</scope>
+                        </dependency>
+                        ```
+                    ]]>
+                    </message>
+                    <link title="Quarkus - Testing your application" href="https://quarkus.io/guides/getting-started-testing" />
+                    <link title="Testing your Quarkus application with JUnit" href="https://access.redhat.com/documentation/en-us/red_hat_build_of_quarkus/1.3/html/getting_started_with_quarkus/proc-quarkus-junit-testing_quarkus-getting-started" />
+                </hint>
+            </perform>
+        </rule>
     </rules>
 </ruleset>
