@@ -1,0 +1,252 @@
+<?xml version="1.0"?>
+<ruletest id="xml-dsl-changes-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/xml-41-changes</testDataPath>
+    <rulePath>../xml-41-changes.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="xml-removed-camel41-00000">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Dumping routes to JMX no longer includes customId=true in the XML nodes."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-camel41-00000] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-removed-camel41-00001">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The scheduler no longer includes header with the timestamp of when the exchange was fired. This means the exchange by default has no headers, and null body.The option includeMetadata can be set to true on the endpoint or component level, to turn on these additional metadata headers again."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-camel41-00001] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-removed-camel41-00002">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The timer no longer includes header firedTime with the timestamp of when the exchange was fired. This means the exchange by default has no headers, and null body.The firedTime header has been renamed to CamelTimerFireTime.  The option includeMetadata can be set to true on the endpoint or component level, to turn on these additional metadata headers again."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-camel41-00002] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-changed-camel41-00003">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="CamelAwsStateMachineOperation message header*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-changed-camel41-00003] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-changed-camel41-00004">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="CamelAwsStateMachinesMaxResults message header has been replaced with CamelAwsStepFunctionsStateMachinesMaxResults"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-changed-camel41-00004] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-changed-camel41-00005">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="CamelAwsStepFunctionsStateMachineActivityName message header has been replaced with CamelAwsStepFunctionsActivityName"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-changed-camel41-00005] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-changed-camel41-00006">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="CamelAwsStepFunctionsStateMachineActivityArn message header has been replaced with CamelAwsStepFunctionsActivityArn"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-changed-camel41-00006] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-changed-camel41-00007">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="CamelAwsStateMachineActivitiesMaxResults message header has been replaced with CamelAwsStepFunctionsActivitiesMaxResults"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-changed-camel41-00007] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-changed-camel41-00008">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="CamelAwsStateMachineExecutionArn message header has been replaced with CamelAwsStepFunctionsExecutionArn"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-changed-camel41-00008] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-changed-camel41-00009">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="CamelAwsStateMachineExecutionName message header has been replaced with CamelAwsStepFunctionsExecutionName"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-changed-camel41-00009] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-changed-camel41-00010">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="CamelAwsStateMachineExecutionInput message header has been replaced with CamelAwsStepFunctionsExecutionInput"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-changed-camel41-00010] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-changed-camel41-00010">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="CamelAwsStateMachineExecutionInput message header has been replaced with CamelAwsStepFunctionsExecutionInput"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-changed-camel41-00010] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-changed-camel41-00011">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="CamelAwsStateMachineExecutionTraceHeader message header has been replaced with CamelAwsStepFunctionsExecutionTraceHeader"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-changed-camel41-00011] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-changed-camel41-00012">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="CamelAwsStateMachineExecutionHistoryMaxResults message header has been replaced with CamelAwsStepFunctionsExecutionHistoryMaxResults"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-changed-camel41-00012] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-changed-camel41-00013">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="CamelAwsStateMachineExecutionHistoryIncludeExecutionData message header has been replaced with CamelAwsStepFunctionsExecutionHistoryIncludeExecutionData"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-changed-camel41-00013] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-changed-camel41-00014">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="CamelAwsStateMachineExecutionHistoryReverseOrder message header has been replaced with CamelAwsStepFunctionsExecutionHistoryReverseOrder"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-changed-camel41-00014] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-changed-camel41-00015">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="CamelAwsStateMachineExecutionMaxResults message header has been replaced with CamelAwsStepFunctionsExecutionMaxResults"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-changed-camel41-00015] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-removed-camel41-00016">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The queueUrl parameter has been replaced by the queueArn parameter."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-camel41-00016] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-removed-camel41-00017">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The Camel-PDF component has been updated to Apache PDFBox 3.0.0 and the font parameter is now defined through the following enum values: COURIER,COURIER_BOLD,COURIER_OBLIQUE,COURIER_BOLD_OBLIQUE, HELVETICA,HELVETICA_BOLD,HELVETICA_OBLIQUE,HELVETICA_BOLD_OBLIQUE,TIMES_ROMAN,TIMES_BOLD,TIMES_ITALIC,TIMES_BOLD_ITALIC,SYMBOL and ZAPF_DINGBATS."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-camel41-00017] hint not found"/>
+                </perform>
+            </rule>
+            <rule id="xml-removed-camel41-00018">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The default value for sessionTimeoutMs has been updated to 45000 ms, while the default value for consumerRequestTimeoutMs has been updated to 30000."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[xml-removed-camel41-00018] hint not found"/>
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
