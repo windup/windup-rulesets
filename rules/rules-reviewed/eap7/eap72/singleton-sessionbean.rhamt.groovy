@@ -12,7 +12,7 @@ import org.ocpsoft.rewrite.context.EvaluationContext
 import org.ocpsoft.rewrite.param.ParameterStore
 
 ruleSet("singleton-sessionbean-groovy")
-    .addTargetTechnology(new TechnologyReference("eap", "[7,8)"))
+    .addTargetTechnology(new TechnologyReference("eap", "[7.3,8)"))
     .addRule()
     .when(Query.fromType(EjbSessionBeanModel.class).withProperty("sessionType", "Singleton"))
     .perform(
