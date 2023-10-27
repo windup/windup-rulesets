@@ -1,0 +1,48 @@
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+
+    <camelContext xmlns="http://camel.apache.org/schema/blueprint">
+        <route>
+            <from uri="direct:listActivities"/>
+            <setHeader headerName="CamelAwsStateMachineOperation">
+                <constant>5</constant>
+            </setHeader>
+            <setHeader headerName="CamelAwsStateMachinesMaxResults">
+                <constant>5</constant>
+            </setHeader>
+            <setHeader headerName="CamelAwsStepFunctionsStateMachineActivityName">
+                <constant>5</constant>
+            </setHeader>
+            <setHeader headerName="CamelAwsStepFunctionsStateMachineActivityArn">
+                <constant>5</constant>
+            </setHeader>
+            <setHeader headerName="CamelAwsStateMachineActivitiesMaxResults">
+                <constant>5</constant>
+            </setHeader>
+            <setHeader headerName="CamelAwsStateMachineExecutionArn">
+                <constant>5</constant>
+            </setHeader>
+            <setHeader headerName="CamelAwsStateMachineExecutionName">
+                <constant>5</constant>
+            </setHeader>
+            <setHeader headerName="CamelAwsStateMachineExecutionInput">
+                <constant>5</constant>
+            </setHeader>
+            <setHeader headerName="CamelAwsStateMachineExecutionTraceHeader">
+                <constant>5</constant>
+            </setHeader>
+            <setHeader headerName="CamelAwsStateMachineExecutionHistoryMaxResults">
+                <constant>5</constant>
+            </setHeader>
+            <setHeader headerName="CamelAwsStateMachineExecutionHistoryIncludeExecutionData">
+                <constant>5</constant>
+            </setHeader>
+            <setHeader headerName="CamelAwsStateMachineExecutionHistoryReverseOrder">
+                <constant>5</constant>
+            </setHeader>
+            <setHeader headerName="CamelAwsStateMachineExecutionMaxResults">
+                <constant>5</constant>
+            </setHeader>
+            <to uri="direct:to-twitter-streaming"/>
+        </route>
+    </camelContext>
+</blueprint>
