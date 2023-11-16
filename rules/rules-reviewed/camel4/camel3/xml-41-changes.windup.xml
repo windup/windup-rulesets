@@ -1,0 +1,361 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="xml-41-changes"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            Rules for changes between Camel 4.0 and Camel 4.1
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="camel" versionRange="[4.0,4.1)"/>
+        <targetTechnology id="camel" versionRange="[4.1,)" />
+    </metadata>
+    <rules>
+        <rule id="xml-removed-camel41-00000">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel" artifactId="camel-management" />
+                    </project>
+                    <dependency groupId="org.apache.camel" artifactId="camel-management" />
+                </or>
+            </when>
+            <perform>
+                <hint title="Dumping routes to JMX no longer includes customId=true in the XML nodes." effort="1" category-id="mandatory" >
+                    <message>Dumping routes to JMX no longer includes customId=true in the XML nodes.</message>
+                    <link href="https://camel.apache.org/manual/camel-4x-upgrade-guide-4_1.html#_camel_management" title="Camel 4.1 - Migration Guide: Camel Management" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-removed-camel41-00001">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel" artifactId="camel-scheduler" />
+                    </project>
+                    <dependency groupId="org.apache.camel" artifactId="camel-scheduler" />
+                </or>
+            </when>
+            <perform>
+                <hint title="The scheduler no longer includes header with the timestamp of when the exchange was fired. This means the exchange by default has no headers, and null body." effort="1" category-id="mandatory" >
+                    <message>The scheduler no longer includes header with the timestamp of when the exchange was fired. This means the exchange by default has no headers, and null body.The option includeMetadata can be set to true on the endpoint or component level, to turn on these additional metadata headers again.</message>
+                    <link href="https://camel.apache.org/manual/camel-4x-upgrade-guide-4_1.html#_camel_scheduler" title="Camel 4.1 - Migration Guide: Camel Scheduler" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-removed-camel41-00002">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel" artifactId="camel-timer" />
+                    </project>
+                    <dependency groupId="org.apache.camel" artifactId="camel-timer" />
+                </or>
+            </when>
+            <perform>
+                <hint title="The timer no longer includes header firedTime with the timestamp of when the exchange was fired. This means the exchange by default has no headers, and null body." effort="1" category-id="optional" >
+                    <message>The timer no longer includes header firedTime with the timestamp of when the exchange was fired. This means the exchange by default has no headers, and null body.The firedTime header has been renamed to CamelTimerFireTime.  The option includeMetadata can be set to true on the endpoint or component level, to turn on these additional metadata headers again.</message>
+                    <link href="https://camel.apache.org/manual/camel-4x-upgrade-guide-4_1.html#_camel_timer" title="Camel 4.1 - Migration Guide: Camel Timer" />
+                </hint>
+            </perform>
+        </rule>
+
+        <rule id="xml-changed-camel41-00003">
+            <when>
+                <or>
+                    <xmlfile matches="//*/c:setHeader/@headerName[windup:matches(self::node(), 'CamelAwsStateMachineOperation')]">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/blueprint"/>
+                    </xmlfile>
+                    <xmlfile matches="//*/c:from/@headerName[windup:matches(self::node(), 'CamelAwsStateMachineOperation')]">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/spring"/>
+                    </xmlfile>
+                    <filecontent pattern="setHeader(&quot;CamelAwsStateMachineOperation{*}" filename="{*}.java"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="CamelAwsStateMachineOperation message header has been replaced with CamelAwsStepFunctionsOperation" effort="1" category-id="mandatory" >
+                    <message>CamelAwsStateMachineOperation message header has been replaced with CamelAwsStepFunctionsOperation</message>
+                    <link href="https://camel.apache.org/manual/camel-4x-upgrade-guide-4_1.html#_camel_aws2_step_functions" title="Camel 4.1 - Camel AWS Step Functions" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-changed-camel41-00004">
+            <when>
+                <or>
+                    <xmlfile matches="//*/c:setHeader/@headerName[windup:matches(self::node(), 'CamelAwsStateMachinesMaxResults')]">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/blueprint"/>
+                    </xmlfile>
+                    <xmlfile matches="//*/c:from/@headerName[windup:matches(self::node(), 'CamelAwsStateMachinesMaxResults')]">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/spring"/>
+                    </xmlfile>
+                    <filecontent pattern="setHeader(&quot;CamelAwsStateMachinesMaxResults{*}" filename="{*}.java"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="CamelAwsStateMachinesMaxResults message header has been replaced with CamelAwsStepFunctionsStateMachinesMaxResults" effort="1" category-id="mandatory" >
+                    <message>CamelAwsStateMachinesMaxResults message header has been replaced with CamelAwsStepFunctionsStateMachinesMaxResults</message>
+                    <link href="https://camel.apache.org/manual/camel-4x-upgrade-guide-4_1.html#_camel_aws2_step_functions" title="Camel 4.1 - Camel AWS Step Functions" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-changed-camel41-00005">
+            <when>
+                <or>
+                    <xmlfile matches="//*/c:setHeader/@headerName[windup:matches(self::node(), 'CamelAwsStepFunctionsStateMachineActivityName')]">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/blueprint"/>
+                    </xmlfile>
+                    <xmlfile matches="//*/c:from/@headerName[windup:matches(self::node(), 'CamelAwsStepFunctionsStateMachineActivityName')]">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/spring"/>
+                    </xmlfile>
+                    <filecontent pattern="setHeader(&quot;CamelAwsStepFunctionsStateMachineActivityName{*}" filename="{*}.java"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="CamelAwsStepFunctionsStateMachineActivityName message header has been replaced with CamelAwsStepFunctionsActivityName" effort="1" category-id="mandatory" >
+                    <message>CamelAwsStepFunctionsStateMachineActivityName message header has been replaced with CamelAwsStepFunctionsActivityName</message>
+                    <link href="https://camel.apache.org/manual/camel-4x-upgrade-guide-4_1.html#_camel_aws2_step_functions" title="Camel 4.1 - Camel AWS Step Functions" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-changed-camel41-00006">
+            <when>
+                <or>
+                    <xmlfile matches="//*/c:setHeader/@headerName[windup:matches(self::node(), 'CamelAwsStepFunctionsStateMachineActivityArn')]">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/blueprint"/>
+                    </xmlfile>
+                    <xmlfile matches="//*/c:from/@headerName[windup:matches(self::node(), 'CamelAwsStepFunctionsStateMachineActivityArn')]">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/spring"/>
+                    </xmlfile>
+                    <filecontent pattern="setHeader(&quot;CamelAwsStepFunctionsStateMachineActivityArn{*}" filename="{*}.java"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="CamelAwsStepFunctionsStateMachineActivityArn message header has been replaced with CamelAwsStepFunctionsActivityArn" effort="1" category-id="mandatory" >
+                    <message>CamelAwsStepFunctionsStateMachineActivityArn message header has been replaced with CamelAwsStepFunctionsActivityArn</message>
+                    <link href="https://camel.apache.org/manual/camel-4x-upgrade-guide-4_1.html#_camel_aws2_step_functions" title="Camel 4.1 - Camel AWS Step Functions" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-changed-camel41-00007">
+            <when>
+                <or>
+                    <xmlfile matches="//*/c:setHeader/@headerName[windup:matches(self::node(), 'CamelAwsStateMachineActivitiesMaxResults')]">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/blueprint"/>
+                    </xmlfile>
+                    <xmlfile matches="//*/c:from/@headerName[windup:matches(self::node(), 'CamelAwsStateMachineActivitiesMaxResults')]">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/spring"/>
+                    </xmlfile>
+                    <filecontent pattern="setHeader(&quot;CamelAwsStateMachineActivitiesMaxResults{*}" filename="{*}.java"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="CamelAwsStateMachineActivitiesMaxResults message header has been replaced with CamelAwsStepFunctionsActivitiesMaxResults" effort="1" category-id="mandatory" >
+                    <message>CamelAwsStateMachineActivitiesMaxResults message header has been replaced with CamelAwsStepFunctionsActivitiesMaxResults</message>
+                    <link href="https://camel.apache.org/manual/camel-4x-upgrade-guide-4_1.html#_camel_aws2_step_functions" title="Camel 4.1 - Camel AWS Step Functions" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-changed-camel41-00008">
+            <when>
+                <or>
+                    <xmlfile matches="//*/c:setHeader/@headerName[windup:matches(self::node(), 'CamelAwsStateMachineExecutionArn')]">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/blueprint"/>
+                    </xmlfile>
+                    <xmlfile matches="//*/c:from/@headerName[windup:matches(self::node(), 'CamelAwsStateMachineExecutionArn')]">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/spring"/>
+                    </xmlfile>
+                    <filecontent pattern="setHeader(&quot;CamelAwsStateMachineExecutionArn{*}" filename="{*}.java"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="CamelAwsStateMachineExecutionArn message header has been replaced with CamelAwsStepFunctionsExecutionArn" effort="1" category-id="mandatory" >
+                    <message>CamelAwsStateMachineExecutionArn message header has been replaced with CamelAwsStepFunctionsExecutionArn</message>
+                    <link href="https://camel.apache.org/manual/camel-4x-upgrade-guide-4_1.html#_camel_aws2_step_functions" title="Camel 4.1 - Camel AWS Step Functions" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-changed-camel41-00009">
+            <when>
+                <or>
+                    <xmlfile matches="//*/c:setHeader/@headerName[windup:matches(self::node(), 'CamelAwsStateMachineExecutionName')]">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/blueprint"/>
+                    </xmlfile>
+                    <xmlfile matches="//*/c:from/@headerName[windup:matches(self::node(), 'CamelAwsStateMachineExecutionName')]">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/spring"/>
+                    </xmlfile>
+                    <filecontent pattern="setHeader(&quot;CamelAwsStateMachineExecutionName{*}" filename="{*}.java"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="CamelAwsStateMachineExecutionName message header has been replaced with CamelAwsStepFunctionsExecutionName" effort="1" category-id="mandatory" >
+                    <message>CamelAwsStateMachineExecutionName message header has been replaced with CamelAwsStepFunctionsExecutionName</message>
+                    <link href="https://camel.apache.org/manual/camel-4x-upgrade-guide-4_1.html#_camel_aws2_step_functions" title="Camel 4.1 - Camel AWS Step Functions" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-changed-camel41-00010">
+            <when>
+                <or>
+                    <xmlfile matches="//*/c:setHeader/@headerName[windup:matches(self::node(), 'CamelAwsStateMachineExecutionInput')]">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/blueprint"/>
+                    </xmlfile>
+                    <xmlfile matches="//*/c:from/@headerName[windup:matches(self::node(), 'CamelAwsStateMachineExecutionInput')]">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/spring"/>
+                    </xmlfile>
+                    <filecontent pattern="setHeader(&quot;CamelAwsStateMachineExecutionInput{*}" filename="{*}.java"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="CamelAwsStateMachineExecutionInput message header has been replaced with CamelAwsStepFunctionsExecutionInput" effort="1" category-id="mandatory" >
+                    <message>CamelAwsStateMachineExecutionInput message header has been replaced with CamelAwsStepFunctionsExecutionInput</message>
+                    <link href="https://camel.apache.org/manual/camel-4x-upgrade-guide-4_1.html#_camel_aws2_step_functions" title="Camel 4.1 - Camel AWS Step Functions" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-changed-camel41-00011">
+            <when>
+                <or>
+                    <xmlfile matches="//*/c:setHeader/@headerName[windup:matches(self::node(), 'CamelAwsStateMachineExecutionTraceHeader')]">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/blueprint"/>
+                    </xmlfile>
+                    <xmlfile matches="//*/c:from/@headerName[windup:matches(self::node(), 'CamelAwsStateMachineExecutionTraceHeader')]">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/spring"/>
+                    </xmlfile>                    
+                    <filecontent pattern="setHeader(&quot;CamelAwsStateMachineExecutionTraceHeader{*}" filename="{*}.java"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="CamelAwsStateMachineExecutionTraceHeader message header has been replaced with CamelAwsStepFunctionsExecutionTraceHeader" effort="1" category-id="mandatory" >
+                    <message>CamelAwsStateMachineExecutionTraceHeader message header has been replaced with CamelAwsStepFunctionsExecutionTraceHeader</message>
+                    <link href="https://camel.apache.org/manual/camel-4x-upgrade-guide-4_1.html#_camel_aws2_step_functions" title="Camel 4.1 - Camel AWS Step Functions" />
+                </hint>
+            </perform>
+        </rule>        
+        <rule id="xml-changed-camel41-00012">
+            <when>
+                <or>
+                    <xmlfile matches="//*/c:setHeader/@headerName[windup:matches(self::node(), 'CamelAwsStateMachineExecutionHistoryMaxResults')]">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/blueprint"/>
+                    </xmlfile>
+                    <xmlfile matches="//*/c:from/@headerName[windup:matches(self::node(), 'CamelAwsStateMachineExecutionHistoryMaxResults')]">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/spring"/>
+                    </xmlfile>   
+                    <filecontent pattern="setHeader(&quot;CamelAwsStateMachineExecutionHistoryMaxResults{*}" filename="{*}.java"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="CamelAwsStateMachineExecutionHistoryMaxResults message header has been replaced with CamelAwsStepFunctionsExecutionHistoryMaxResults" effort="1" category-id="mandatory" >
+                    <message>CamelAwsStateMachineExecutionHistoryMaxResults message header has been replaced with CamelAwsStepFunctionsExecutionHistoryMaxResults</message>
+                    <link href="https://camel.apache.org/manual/camel-4x-upgrade-guide-4_1.html#_camel_aws2_step_functions" title="Camel 4.1 - Camel AWS Step Functions" />
+                </hint>
+            </perform>
+        </rule>        
+        <rule id="xml-changed-camel41-00013">
+            <when>
+                <or>
+                    <xmlfile matches="//*/c:setHeader/@headerName[windup:matches(self::node(), 'CamelAwsStateMachineExecutionHistoryIncludeExecutionData')]">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/blueprint"/>
+                    </xmlfile>
+                    <xmlfile matches="//*/c:from/@headerName[windup:matches(self::node(), 'CamelAwsStateMachineExecutionHistoryIncludeExecutionData')]">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/spring"/>
+                    </xmlfile>   
+                    <filecontent pattern="setHeader(&quot;CamelAwsStateMachineExecutionHistoryIncludeExecutionData{*}" filename="{*}.java"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="CamelAwsStateMachineExecutionHistoryIncludeExecutionData message header has been replaced with CamelAwsStepFunctionsExecutionHistoryIncludeExecutionData" effort="1" category-id="mandatory" >
+                    <message>CamelAwsStateMachineExecutionHistoryIncludeExecutionData message header has been replaced with CamelAwsStepFunctionsExecutionHistoryIncludeExecutionData</message>
+                    <link href="https://camel.apache.org/manual/camel-4x-upgrade-guide-4_1.html#_camel_aws2_step_functions" title="Camel 4.1 - Camel AWS Step Functions" />
+                </hint>
+            </perform>
+        </rule>        
+        <rule id="xml-changed-camel41-00014">
+            <when>
+                <or>
+                    <xmlfile matches="//*/c:setHeader/@headerName[windup:matches(self::node(), 'CamelAwsStateMachineExecutionHistoryReverseOrder')]">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/blueprint"/>
+                    </xmlfile>
+                    <xmlfile matches="//*/c:from/@headerName[windup:matches(self::node(), 'CamelAwsStateMachineExecutionHistoryReverseOrder')]">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/spring"/>
+                    </xmlfile>
+                    <filecontent pattern="setHeader(&quot;CamelAwsStateMachineExecutionHistoryReverseOrder{*}" filename="{*}.java"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="CamelAwsStateMachineExecutionHistoryReverseOrder message header has been replaced with CamelAwsStepFunctionsExecutionHistoryReverseOrder" effort="1" category-id="mandatory" >
+                    <message>CamelAwsStateMachineExecutionHistoryReverseOrder message header has been replaced with CamelAwsStepFunctionsExecutionHistoryReverseOrder</message>
+                    <link href="https://camel.apache.org/manual/camel-4x-upgrade-guide-4_1.html#_camel_aws2_step_functions" title="Camel 4.1 - Camel AWS Step Functions" />
+                </hint>
+            </perform>
+        </rule>        
+        <rule id="xml-changed-camel41-00015">
+            <when>
+                <or>
+                    <xmlfile matches="//*/c:setHeader/@headerName[windup:matches(self::node(), 'CamelAwsStateMachineExecutionMaxResults')]">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/blueprint"/>
+                    </xmlfile>
+                    <xmlfile matches="//*/c:from/@headerName[windup:matches(self::node(), 'CamelAwsStateMachineExecutionMaxResults')]">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/spring"/>
+                    </xmlfile>
+                    <filecontent pattern="setHeader(&quot;CamelAwsStateMachineExecutionMaxResults{*}" filename="{*}.java"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="CamelAwsStateMachineExecutionMaxResults message header has been replaced with CamelAwsStepFunctionsExecutionMaxResults" effort="1" category-id="mandatory" >
+                    <message>CamelAwsStateMachineExecutionMaxResults message header has been replaced with CamelAwsStepFunctionsExecutionMaxResults</message>
+                    <link href="https://camel.apache.org/manual/camel-4x-upgrade-guide-4_1.html#_camel_aws2_step_functions" title="Camel 4.1 - Camel AWS Step Functions" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-removed-camel41-00016">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel" artifactId="camel-aws2-sns" />
+                    </project>
+                    <dependency groupId="org.apache.camel" artifactId="camel-aws2-sns" />
+                </or>
+            </when>
+            <perform>
+                <hint title="The queueUrl parameter has been replaced by the queueArn parameter." effort="1" category-id="mandatory" >
+                    <message>The queueUrl parameter has been replaced by the queueArn parameter.</message>
+                    <link href="https://camel.apache.org/manual/camel-4x-upgrade-guide-4_1.html#_camel_aws2_sns" title="Camel 4.1 - Migration Guide: Camel Management" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-removed-camel41-00017">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel" artifactId="camel-aws2-pdf" />
+                    </project>
+                    <dependency groupId="org.apache.camel" artifactId="camel-aws2-pdf" />
+                </or>
+            </when>
+            <perform>
+                <hint title="The Camel-PDF component has been updated to Apache PDFBox 3.0.0." effort="1" category-id="mandatory" >
+                    <message>The Camel-PDF component has been updated to Apache PDFBox 3.0.0 and the font parameter is now defined through the following enum values: COURIER,COURIER_BOLD,COURIER_OBLIQUE,COURIER_BOLD_OBLIQUE, HELVETICA,HELVETICA_BOLD,HELVETICA_OBLIQUE,HELVETICA_BOLD_OBLIQUE,TIMES_ROMAN,TIMES_BOLD,TIMES_ITALIC,TIMES_BOLD_ITALIC,SYMBOL and ZAPF_DINGBATS.</message>
+                    <link href="https://camel.apache.org/manual/camel-4x-upgrade-guide-4_1.html#_camel_pdf" title="Camel 4.1 - Migration Guide: Camel Management" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="xml-removed-camel41-00018">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.apache.camel" artifactId="camel-kafka" />
+                    </project>
+                    <dependency groupId="org.apache.camel" artifactId="camel-kafka" />
+                </or>
+            </when>
+            <perform>
+                <hint title="The default value for sessionTimeoutMs has been updated to 45000 ms, while the default value for consumerRequestTimeoutMs has been updated to 30000." effort="1" category-id="mandatory" >
+                    <message>The default value for sessionTimeoutMs has been updated to 45000 ms, while the default value for consumerRequestTimeoutMs has been updated to 30000.</message>
+                    <link href="https://camel.apache.org/manual/camel-4x-upgrade-guide-4_1.html#_camel_kafka" title="Camel 4.1 - Migration Guide: Camel Management" />
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
+

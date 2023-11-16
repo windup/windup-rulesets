@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+    <camelContext id="twitter-streaming" xmlns="http://camel.apache.org/schema/spring" autoStartup="true">
+        <route>
+            <from uri="twitter-streaming://filter?type=event&amp;twitterStream=#twitterStream&amp;keywords=#cameltest"/>
+            <setHeader headerName="CamelAwsStateMachineOperation">
+                <constant>5</constant>
+            </setHeader>
+            <setHeader headerName="CamelAwsStateMachinesMaxResults">
+                <constant>5</constant>
+            </setHeader>
+            <setHeader headerName="CamelAwsStepFunctionsStateMachineActivityName">
+                <constant>5</constant>
+            </setHeader>
+            <setHeader headerName="CamelAwsStepFunctionsStateMachineActivityArn">
+                <constant>5</constant>
+            </setHeader>
+            <setHeader headerName="CamelAwsStateMachineActivitiesMaxResults">
+                <constant>5</constant>
+            </setHeader>
+            <setHeader headerName="CamelAwsStateMachineExecutionArn">
+                <constant>5</constant>
+            </setHeader>
+            <setHeader headerName="CamelAwsStateMachineExecutionName">
+                <constant>5</constant>
+            </setHeader>
+            <setHeader headerName="CamelAwsStateMachineExecutionInput">
+                <constant>5</constant>
+            </setHeader>
+            <setHeader headerName="CamelAwsStateMachineExecutionTraceHeader">
+                <constant>5</constant>
+            </setHeader>
+            <setHeader headerName="CamelAwsStateMachineExecutionHistoryMaxResults">
+                <constant>5</constant>
+            </setHeader>
+            <setHeader headerName="CamelAwsStateMachineExecutionHistoryIncludeExecutionData">
+                <constant>5</constant>
+            </setHeader>
+            <setHeader headerName="CamelAwsStateMachineExecutionHistoryReverseOrder">
+                <constant>5</constant>
+            </setHeader>
+            <setHeader headerName="CamelAwsStateMachineExecutionMaxResults">
+                <constant>5</constant>
+            </setHeader>
+            <to uri="direct:to-twitter-streaming"/>
+        </route>
+    </camelContext>
+</beans>
