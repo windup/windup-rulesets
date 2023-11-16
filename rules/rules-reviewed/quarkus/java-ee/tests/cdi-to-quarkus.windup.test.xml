@@ -80,6 +80,30 @@
                     <fail message="[cdi-to-quarkus-groovy-00030] Transitive dependency `javax.inject:javax.inject` hint was not found!" />
                 </perform>
             </rule>
+            <rule id="cdi-to-quarkus-00040-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="In Quarkus, you can skip the @Produces annotation completely"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[cdi-to-quarkus-00040] @Produces hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="cdi-to-quarkus-00050-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Stateless EJBs can be converted to a cdi bean by replacing"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[cdi-to-quarkus-00050] stateless bean conversion hint was not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
