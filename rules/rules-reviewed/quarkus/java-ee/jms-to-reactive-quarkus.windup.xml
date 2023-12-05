@@ -1,0 +1,204 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="jms-to-reactive"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints to migrate from JMS to a reactive messaging model in Quarkus.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="java-ee" />
+        <targetTechnology id="quarkus" />
+    </metadata>
+    <rules>
+        <rule id="jms-to-reactive-00000">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="jakarta.jms" artifactId="jakarta.jms-api"/>
+                    </project>
+                    <project>
+                        <artifact groupId="javax.jms" artifactId="javax.jms-api"/>
+                    </project>
+                </or>
+            </when>
+            <perform>
+                <hint title="JMS is not supported in Quarkus" effort="1" category-id="mandatory">
+                    <message>
+                        <![CDATA[
+                        Usage of JMS is not supported in Quarkus. It is recommended to use Quarkus' SmallRye Reactive Messaging instead of JMS.
+                        Replace the JavaEE/Jakarta JMS dependency with Smallrye Reactive:
+                        
+                        ```
+                        <dependency>
+                            <groupId>io.quarkus</groupId>
+                            <artifactId>quarkus-smallrye-reactive-messaging</artifactId>
+                        </dependency>
+                        
+                        ```
+                        
+                        Take a look at the Smallrye Reactive Connectors link below to know more about how to interact with different technologies (AMQP, Apache Camel, ...)
+                        ]]>
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides" />
+                    <link title="Smallrye Reactive - Connectors" href="https://smallrye.io/smallrye-reactive-messaging/smallrye-reactive-messaging/3.4/connectors/connectors.html" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jms-to-reactive-00010">
+            <when>
+                <or>
+                    <javaclass references="javax.ejb.MessageDriven">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                    <javaclass references="jakarta.ejb.MessageDriven">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="@MessageDriven - EJBs are not supported in Quarkus" effort="1" category-id="mandatory">
+                    <message>
+                        <![CDATA[
+                        Enterprise Java Beans (EJBs) are not supported in Quarkus. CDI must be used.
+                        Please replace the `@MessageDriven` annotation with a CDI scope annotation like `@ApplicationScoped`.
+                        ]]>
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jms-to-reactive-00020">
+            <when>
+                <or>
+                    <javaclass references="javax.ejb.ActivationConfigProperty">
+                        <location>ANNOTATION</location>
+                        <annotation-literal name="propertyName" pattern="destinationLookup"/>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="Configure message listener method with @Incoming" effort="1" category-id="mandatory">
+                    <message>
+                        <![CDATA[
+                        The `destinationLookup` property can be migrated by annotating a message handler method (potentially `onMessage`) with the
+                        `org.eclipse.microprofile.reactive.messaging.Incoming` annotation, indicating the name of the queue as a value:
+                        
+                        Before:
+                        ```
+                        @MessageDriven(name = "HelloWorldQueueMDB", activationConfig = {
+                            @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "queue/HELLOWORLDMDBQueue")
+                        }
+                        public class MessageListenerImpl implements MessageListener {
+                            public void onMessage(Message msg) {
+                                // ...handler code
+                            }
+                        }
+                        ```
+                        
+                        After:
+                        ```
+                        public class MessageListenerImpl implements MessageListener {
+                            @Incoming("HELLOWORLDMDBQueue")
+                            public void onMessage(String message) {
+                                // ...handler code
+                            }
+                        }
+                        ```
+                        ]]>
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jms-to-reactive-00030">
+            <when>
+                <or>
+                    <javaclass references="javax.jms.Queue">
+                        <location>FIELD_DECLARATION</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="javax.jms.Queue must be replaced with an Emitter" effort="1" category-id="mandatory">
+                    <message>
+                    <![CDATA[
+                        JMS `Queue`s should be replaced with Micrometer `Emitter`s feeding a Channel. See the following example of migrating
+                        a Queue to an Emitter:
+                        
+                        Before:
+                        ```
+                        @Resource(lookup = "java:/queue/HELLOWORLDMDBQueue")
+                        private Queue queue;
+                        ```
+                        
+                        After:
+                        ```
+                        @Inject
+                        @Channel("HELLOWORLDMDBQueue")
+                        Emitter<String> queueEmitter;
+                        ```
+                        ]]>
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides" />
+                    <link title="Emitter (Microprofile Reactive Streams Messaging)" href="https://smallrye.io/smallrye-reactive-messaging/2.0.2/apidocs/org/eclipse/microprofile/reactive/messaging/Emitter.html" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jms-to-reactive-00030">
+            <when>
+                <or>
+                    <javaclass references="javax.jms.Topic">
+                        <location>FIELD_DECLARATION</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="javax.jms.Topic must be replaced with an Emitter" effort="1" category-id="mandatory">
+                    <message>
+                        <![CDATA[
+                        JMS `Topic`s should be replaced with Micrometer `Emitter`s feeding a Channel. See the following example of migrating
+                        a Topic to an Emitter:
+                        
+                        Before:
+                        ```
+                        @Resource(lookup = "java:/topic/HELLOWORLDMDBTopic")
+                        private Topic topic;
+                        ```
+                        
+                        After:
+                        ```
+                        @Inject
+                        @Channel("HELLOWORLDMDBTopic")
+                        Emitter<String> topicEmitter;
+                        ```
+                        ]]>
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides" />
+                    <link title="Emitter (Microprofile Reactive Streams Messaging)" href="https://smallrye.io/smallrye-reactive-messaging/2.0.2/apidocs/org/eclipse/microprofile/reactive/messaging/Emitter.html" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jms-to-reactive-00050">
+            <when>
+                <or>
+                    <javaclass references="javax.jms{*}"/>
+                    <javaclass references="jakarta.jms{*}"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="JMS is not supported in Quarkus" effort="1" category-id="mandatory">
+                    <message>
+                        <![CDATA[
+                        References to JavaEE/JakartaEE JMS elements should be removed and replaced with their Quarkus SmallRye/Microprofile equivalents.
+                        ]]>
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides" />
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<ruletest id="jms-to-quarkus-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/jms-to-reactive</testDataPath>
+    <rulePath>../jms-to-reactive.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="jms-to-reactive-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Usage of JMS is not supported in Quarkus. It is recommended*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[jms-to-reactive-00000] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="jms-to-reactive-00010-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                             <hint-exists message="Enterprise Java Beans \(EJBs\) are not supported in Quarkus. CDI must be used*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[jms-to-reactive-00010] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="jms-to-reactive-00020-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The `destinationLookup` property can be migrated by annotati"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[jms-to-reactive-00020] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="jms-to-reactive-00030-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="JMS `Queue`s should be replaced with Micrometer*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[jms-to-reactive-00030] Hint not found!" />
+                </perform>
+            </rule>
+            <rule id="jms-to-reactive-00040-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="JMS `Topic`s should be replaced with Micrometer*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[jms-to-reactive-00040] Hint not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
