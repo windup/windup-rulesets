@@ -26,7 +26,7 @@
                 </or>
             </when>
             <perform>
-                <hint title="JMS is not supported in Quarkus" effort="1" category-id="mandatory">
+                <hint title="JMS is not supported in Quarkus" effort="5" category-id="mandatory">
                     <message>
                         <![CDATA[
                         Usage of JMS is not supported in Quarkus. It is recommended to use Quarkus' SmallRye Reactive Messaging instead of JMS.
@@ -60,7 +60,7 @@
                 </or>
             </when>
             <perform>
-                <hint title="@MessageDriven - EJBs are not supported in Quarkus" effort="1" category-id="mandatory">
+                <hint title="@MessageDriven - EJBs are not supported in Quarkus" effort="3" category-id="mandatory">
                     <message>
                         <![CDATA[
                         Enterprise Java Beans (EJBs) are not supported in Quarkus. CDI must be used.
@@ -78,10 +78,14 @@
                         <location>ANNOTATION</location>
                         <annotation-literal name="propertyName" pattern="destinationLookup"/>
                     </javaclass>
+                    <javaclass references="jakarta.ejb.ActivationConfigProperty">
+                        <location>ANNOTATION</location>
+                        <annotation-literal name="propertyName" pattern="destinationLookup"/>
+                    </javaclass>
                 </or>
             </when>
             <perform>
-                <hint title="Configure message listener method with @Incoming" effort="1" category-id="mandatory">
+                <hint title="Configure message listener method with @Incoming" effort="3" category-id="mandatory">
                     <message>
                         <![CDATA[
                         The `destinationLookup` property can be migrated by annotating a message handler method (potentially `onMessage`) with the
@@ -111,6 +115,7 @@
                         ]]>
                     </message>
                     <link title="Quarkus - Guide" href="https://quarkus.io/guides" />
+                    <link title="Incoming (SmallRye Reactive Messaging API)" href="https://smallrye.io/smallrye-reactive-messaging/2.5.0/apidocs/org/eclipse/microprofile/reactive/messaging/Incoming.html"/>
                 </hint>
             </perform>
         </rule>
@@ -120,10 +125,13 @@
                     <javaclass references="javax.jms.Queue">
                         <location>FIELD_DECLARATION</location>
                     </javaclass>
+                    <javaclass references="jakarta.jms.Queue">
+                        <location>FIELD_DECLARATION</location>
+                    </javaclass>
                 </or>
             </when>
             <perform>
-                <hint title="javax.jms.Queue must be replaced with an Emitter" effort="1" category-id="mandatory">
+                <hint title="JMS' Queue must be replaced with an Emitter" effort="3" category-id="mandatory">
                     <message>
                     <![CDATA[
                         JMS `Queue`s should be replaced with Micrometer `Emitter`s feeding a Channel. See the following example of migrating
@@ -148,16 +156,19 @@
                 </hint>
             </perform>
         </rule>
-        <rule id="jms-to-reactive-quarkus-00030">
+        <rule id="jms-to-reactive-quarkus-00040">
             <when>
                 <or>
                     <javaclass references="javax.jms.Topic">
                         <location>FIELD_DECLARATION</location>
                     </javaclass>
+                    <javaclass references="jakarta.jms.Topic">
+                        <location>FIELD_DECLARATION</location>
+                    </javaclass>
                 </or>
             </when>
             <perform>
-                <hint title="javax.jms.Topic must be replaced with an Emitter" effort="1" category-id="mandatory">
+                <hint title="JMS' Topic must be replaced with an Emitter" effort="3" category-id="mandatory">
                     <message>
                         <![CDATA[
                         JMS `Topic`s should be replaced with Micrometer `Emitter`s feeding a Channel. See the following example of migrating
@@ -190,7 +201,7 @@
                 </or>
             </when>
             <perform>
-                <hint title="JMS is not supported in Quarkus" effort="1" category-id="mandatory">
+                <hint title="JMS is not supported in Quarkus" effort="5" category-id="mandatory">
                     <message>
                         <![CDATA[
                         References to JavaEE/JakartaEE JMS elements should be removed and replaced with their Quarkus SmallRye/Microprofile equivalents.

@@ -67,6 +67,18 @@
                     <fail message="[jms-to-reactive-quarkus-00040] Hint not found!" />
                 </perform>
             </rule>
+            <rule id="jms-to-reactive-quarkus-00050-test">
+                <when>
+                    <not>
+                        <iterable-filter size="25">
+                            <hint-exists message="References to JavaEE/JakartaEE JMS elem*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[jms-to-reactive-quarkus-00050] Hint not found!" />
+                </perform>
+            </rule>
         </rules>
     </ruleset>
 </ruletest>
