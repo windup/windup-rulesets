@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="deprecated-initialcontextfactory-is-removed"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides analysis of Java EE applications that need to change their sources due to the removal of deprecated InitialContextFactory class.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="eap" versionRange="[6,8)" />
+        <targetTechnology id="eap" versionRange="[8,)" />
+    </metadata>
+    <rules>
+        <rule id="deprecated-initialcontextfactory-is-removed-00001">
+            <when>
+                <or>
+                    <javaclass references="org.jboss.naming.remote.client.InitialContextFactory" />
+                    <filecontent pattern='"org.jboss.naming.remote.client.InitialContextFactory"' filename="{*}.java"/>
+                    <filecontent pattern="org.jboss.naming.remote.client.InitialContextFactory" filename="{*}.wsdl"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Class org.jboss.naming.remote.client.InitialContextFactory has been removed" effort="1" category-id="mandatory">
+                    <message>Replace this class with `org.wildfly.naming.client.WildFlyInitialContextFactory`.</message>
+                    <tag>JakartaEE</tag>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
