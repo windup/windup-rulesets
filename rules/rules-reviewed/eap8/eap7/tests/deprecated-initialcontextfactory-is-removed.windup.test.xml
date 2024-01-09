@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ruletest id="deprecated-initialcontextfactory-is-removed-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/deprecated-initialcontextfactory-is-removed</testDataPath>
+    <rulePath>../deprecated-initialcontextfactory-is-removed.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="deprecated-initialcontextfactory-is-removed-00001-test">
+                <when>
+                    <not>
+                        <iterable-filter size="3">
+                            <hint-exists message="Replace this class with `org.wildfly.naming.client.WildFlyInitialContextFactory`."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[deprecated-initialcontextfactory-is-removed-00001] The hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
