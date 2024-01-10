@@ -75,6 +75,8 @@ public class WindupRulesLinksTest {
         CERT_FAILURE_LINKS.add("https://in.relation.to/2015/05/11/hibernate-search-530-beta-1-with-native-lucene-faceting/");
     }
 
+    private static final int RETRIES = 5;
+
     @Parameterized.Parameters(name = "{index}: Test {0}")
     public static Iterable<File> data()
     {
@@ -158,14 +160,19 @@ public class WindupRulesLinksTest {
 
         try {
             final long starTime = System.currentTimeMillis();
+            int returnCode = 0;
             if (!CACHE_ANALYZED_LINKS.containsKey(link))
             {
-                final URL url = new URL(link);
-                final HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
-                // property name from https://docs.oracle.com/javase/8/docs/technotes/guides/net/properties.html
-                urlConn.setConnectTimeout(Integer.getInteger("sun.net.client.defaultConnectTimeout", 5000));
-                urlConn.connect();
-                CACHE_ANALYZED_LINKS.put(link, urlConn.getResponseCode());
+                for (int retry = 0; !ACCEPTED_RESPONSE_CODE.contains(returnCode) && retry < RETRIES; retry++) {
+                    if (retry > 0) LOG.warn(String.format("Tentative #%d to connect to %s", retry + 1, link));
+                    final URL url = new URL(link);
+                    final HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
+                    // property name from https://docs.oracle.com/javase/8/docs/technotes/guides/net/properties.html
+                    urlConn.setConnectTimeout(Integer.getInteger("sun.net.client.defaultConnectTimeout", 5000));
+                    urlConn.connect();
+                    returnCode = urlConn.getResponseCode();
+                }
+                CACHE_ANALYZED_LINKS.put(link, returnCode);
             }
             final boolean validLink = ACCEPTED_RESPONSE_CODE.contains(CACHE_ANALYZED_LINKS.get(link));
             if (validLink) LOG.debug(String.format("Response code %d for %s [%dms]", CACHE_ANALYZED_LINKS.get(link), link, System.currentTimeMillis() - starTime));
