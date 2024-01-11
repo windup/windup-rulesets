@@ -3,9 +3,9 @@
           xmlns="http://windup.jboss.org/schema/jboss-ruleset"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
-    <testDataPath>data-jakarta/</testDataPath>
+    <testDataPath>data-jakarta/*</testDataPath>
     <rulePath>../jakarta-cdi-to-quarkus.windup.xml</rulePath>
-    <!-- <rulePath>../jakarta-cdi-to-quarkus.windup.groovy</rulePath> -->
+    <rulePath>../jakarta-cdi-to-quarkus.windup.groovy</rulePath>
     <ruleset>
         <rules>
             <rule id="jakarta-cdi-to-quarkus-00000-test">
@@ -20,30 +20,28 @@
                     <fail message="[jakarta-cdi-to-quarkus-00000] Replace `jakarta.enterprise:jakarta.enterprise.cdi-api` dependency hint was not found!" />
                 </perform>
             </rule>
-<!--             <rule id="jakarta-cdi-to-quarkus-groovy-00010-test">
+             <!--rule id="jakarta-cdi-to-quarkus-groovy-00010-test">
                 <when>
                     <not>
-                        <iterable-filter size="1">
-                             <hint-exists message="Transitive dependency `javax.enterprise:cdi-api` should be removed and the `io.quarkus:quarkus-arc` dependency added"/>
-                        </iterable-filter>
+                             <hint-exists message="A class injected but missing an annotation to define its scope type"/>
                     </not>
                 </when>
                 <perform>
-                    <fail message="[jakarta-cdi-to-quarkus-groovy-00010] Transitive dependency `javax.enterprise:cdi-api` hint was not found!" />
+                    <fail message="[jakarta-cdi-to-quarkus-groovy-00010] No scope defined hint was not found!" />
                 </perform>
-            </rule> 
+            </rule--> 
             <rule id="jakarta-cdi-to-quarkus-groovy-00020-test">
                 <when>
                     <not>
                         <iterable-filter size="1">
-                             <hint-exists message="Transitive dependency `javax.enterprise:cdi-api` should be removed and the `io.quarkus:quarkus-arc` dependency added"/>
+                             <hint-exists message="Transitive dependency `jakarta.enterprise:cdi-api` should be removed and the `io.quarkus:quarkus-arc` dependency added"/>
                         </iterable-filter>
                     </not>
                 </when>
                 <perform>
                     <fail message="[jakarta-cdi-to-quarkus-groovy-00020] Transitive dependency `javax.enterprise:cdi-api` hint was not found!" />
                 </perform>
-            </rule> -->
+            </rule>
             <rule id="jakarta-cdi-to-quarkus-00020-test">
                 <when>
                     <not>
@@ -83,7 +81,7 @@
             <rule id="jakarta-cdi-to-quarkus-00040-test">
                 <when>
                     <not>
-                        <iterable-filter size="1">
+                        <iterable-filter size="2">
                             <hint-exists message="In Quarkus you can skip the @Produces annotation completely if the producer method is annotated with a scope annotation,"/>
                         </iterable-filter>
                     </not>
