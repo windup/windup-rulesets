@@ -40,14 +40,14 @@ static boolean matchesProject(GraphRewrite event, FileLocationModel payload) {
     return matchesProject
 }
 
-ruleSet("jakarta-api-to-quarkus-groovy")
-    .addSourceTechnology(new TechnologyReference("java-ee", null))
+ruleSet("javaee-api-to-quarkus-groovy")
+    .addSourceTechnology(new TechnologyReference("jakarta", null))
     .addTargetTechnology(new TechnologyReference("quarkus", null))
     .addRule()
     .when(
         And.all(
-            JavaClass.references("javax.ws.rs.{*}").at(TypeReferenceLocation.IMPORT).as("discard"),
-            Project.dependsOnArtifact(Artifact.withGroupId("javax").andArtifactId("javaee-api")).as("dependency")
+            JavaClass.references("jakarta.ws.rs.{*}").at(TypeReferenceLocation.IMPORT).as("discard"),
+            Project.dependsOnArtifact(Artifact.withGroupId("jakarta.platform").andArtifactId("jakarta.jakartaee-api")).as("dependency")
         )
     )
     .perform(
@@ -55,9 +55,9 @@ ruleSet("jakarta-api-to-quarkus-groovy")
             new AbstractIterationOperation<FileLocationModel>() {
                 void perform(GraphRewrite event, EvaluationContext context, FileLocationModel payload) {
                     if (matchesProject(event, payload)) {
-                        ((Hint) Hint.titled("Replace JAX-RS dependency")
+                        ((Hint) Hint.titled("Replace jakarta JAX-RS dependency")
                             .withText("""
-                            At least one Java class importing from the `javax.ws.rs` package has been found so the dependency `javax:javaee-api` has to be replaced with `io.quarkus:quarkus-resteasy-reactive` artifact.
+                            At least one Java class importing from the `jakarta.ws.rs` package has been found so the dependency `jakarta.platform:jakarta.jakartaee-api` has to be replaced with `io.quarkus:quarkus-resteasy-reactive` artifact.
                             """)
                             .withIssueCategory(mandatoryIssueCategory)
                             .with(guideLink)
@@ -67,6 +67,6 @@ ruleSet("jakarta-api-to-quarkus-groovy")
                 }
             }
         )
-        .endIteration()
+            .endIteration()
     )
-    .withId("javaee-api-to-quarkus-groovy-00000")
+    .withId("jakarta-api-to-quarkus-groovy-00000")
