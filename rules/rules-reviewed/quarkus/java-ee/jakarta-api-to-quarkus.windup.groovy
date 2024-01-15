@@ -40,8 +40,8 @@ static boolean matchesProject(GraphRewrite event, FileLocationModel payload) {
     return matchesProject
 }
 
-ruleSet("javaee-api-to-quarkus-groovy")
-    .addSourceTechnology(new TechnologyReference("jakarta", null))
+ruleSet("jakarta-api-to-quarkus-groovy")
+    .addSourceTechnology(new TechnologyReference("java-ee", null))
     .addTargetTechnology(new TechnologyReference("quarkus", null))
     .addRule()
     .when(
