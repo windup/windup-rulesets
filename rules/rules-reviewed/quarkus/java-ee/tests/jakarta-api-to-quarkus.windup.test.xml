@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<ruletest id="jakarta-api-to-quarkus-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/*</testDataPath>
+    <rulePath>../jakarta-api-to-quarkus.windup.groovy</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="jakarta-api-to-quarkus-groovy-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="At least one Java class importing from the `jakarta.ws.rs` package has been found"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[jakarta-api-to-quarkus-groovy-00000] javax.ws.rs transitive dependency hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
