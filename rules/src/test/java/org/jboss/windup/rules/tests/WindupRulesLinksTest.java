@@ -168,6 +168,7 @@ public class WindupRulesLinksTest {
                     final HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
                     // property name from https://docs.oracle.com/javase/8/docs/technotes/guides/net/properties.html
                     urlConn.setConnectTimeout(Integer.getInteger("sun.net.client.defaultConnectTimeout", 5000));
+                    urlConn.addRequestProperty("User-Agent", "Mozilla/5.0 (X11; Linux x86_64; rv:121.0) Gecko/20100101 Firefox/121.0");
                     urlConn.connect();
                     returnCode = urlConn.getResponseCode();
                 } catch (IOException e) {
