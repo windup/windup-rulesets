@@ -37,12 +37,12 @@ import java.util.stream.IntStream;
  * This tests all the href attribute in ALL the rules every time the tests are executed (PR and nightly builds)
  * Helpful to ensure we have always links that points to something so that links are really helpful for the user
  * Optimized with a very basic cache for not checking more than once the same URL
- * 
+ * <p>
  * The runTestsMatching is available in this test
- * 
+ * <p>
  * To change the connection timeout use the standard "-Dsun.net.client.defaultConnectTimeout=<value>" property
  * from https://docs.oracle.com/javase/8/docs/technotes/guides/net/properties.html
- * 
+ * <p>
  * To quickly see the debug log, execute the test with the property "-Dorg.slf4j.simpleLogger.log.org.jboss.windup=debug"
  */
 @RunWith(Parameterized.class)
@@ -74,6 +74,8 @@ public class WindupRulesLinksTest {
         CERT_FAILURE_LINKS.add("https://oracle.com/technical-resources/articles/java/jaxrs20.html");
         CERT_FAILURE_LINKS.add("https://in.relation.to/2015/05/11/hibernate-search-530-beta-1-with-native-lucene-faceting/");
     }
+
+    private static final int RETRIES = 5;
 
     @Parameterized.Parameters(name = "{index}: Test {0}")
     public static Iterable<File> data()
@@ -156,25 +158,31 @@ public class WindupRulesLinksTest {
         if (CERT_FAILURE_LINKS.contains(link))
             return true;
 
-        try {
-            final long starTime = System.currentTimeMillis();
-            if (!CACHE_ANALYZED_LINKS.containsKey(link))
-            {
-                final URL url = new URL(link);
-                final HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
-                // property name from https://docs.oracle.com/javase/8/docs/technotes/guides/net/properties.html
-                urlConn.setConnectTimeout(Integer.getInteger("sun.net.client.defaultConnectTimeout", 5000));
-                urlConn.connect();
-                CACHE_ANALYZED_LINKS.put(link, urlConn.getResponseCode());
+        final long starTime = System.currentTimeMillis();
+        int returnCode = 0;
+        if (!CACHE_ANALYZED_LINKS.containsKey(link)) {
+            for (int retry = 0; !ACCEPTED_RESPONSE_CODE.contains(returnCode) && retry < RETRIES; retry++) {
+                if (retry > 0) LOG.warn(String.format("Tentative #%d to connect to %s", retry + 1, link));
+                try {
+                    final URL url = new URL(link);
+                    final HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
+                    // property name from https://docs.oracle.com/javase/8/docs/technotes/guides/net/properties.html
+                    urlConn.setConnectTimeout(Integer.getInteger("sun.net.client.defaultConnectTimeout", 5000));
+                    urlConn.addRequestProperty("User-Agent", "Mozilla/5.0 (X11; Linux x86_64; rv:121.0) Gecko/20100101 Firefox/121.0");
+                    urlConn.connect();
+                    returnCode = urlConn.getResponseCode();
+                } catch (IOException e) {
+                    LOG.error(String.format("'%s' exception connecting to %s", e.getMessage(), link), e);
+                }
             }
-            final boolean validLink = ACCEPTED_RESPONSE_CODE.contains(CACHE_ANALYZED_LINKS.get(link));
-            if (validLink) LOG.debug(String.format("Response code %d for %s [%dms]", CACHE_ANALYZED_LINKS.get(link), link, System.currentTimeMillis() - starTime));
-            else LOG.error(String.format("Response code %d for %s [%dms]", CACHE_ANALYZED_LINKS.get(link), link, System.currentTimeMillis() - starTime));
-            return validLink;
-        } catch (IOException e) {
-            LOG.error(String.format("'%s' exception connecting to %s", e.getMessage(), link), e);
-            return false;
+            CACHE_ANALYZED_LINKS.put(link, returnCode);
         }
+        final boolean validLink = ACCEPTED_RESPONSE_CODE.contains(CACHE_ANALYZED_LINKS.get(link));
+        if (validLink)
+            LOG.debug(String.format("Response code %d for %s [%dms]", CACHE_ANALYZED_LINKS.get(link), link, System.currentTimeMillis() - starTime));
+        else
+            LOG.error(String.format("Response code %d for %s [%dms]", CACHE_ANALYZED_LINKS.get(link), link, System.currentTimeMillis() - starTime));
+        return validLink;
     }
 
     private String buildListOfFailedRulesLinks(final Map<String, List<String>> failedRulesWithLinks)
