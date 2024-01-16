@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<ruletest id="jakarta-cdi-to-quarkus-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data-jakarta/*</testDataPath>
+    <rulePath>../jakarta-cdi-to-quarkus.windup.xml</rulePath>
+    <rulePath>../jakarta-cdi-to-quarkus.windup.groovy</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="jakarta-cdi-to-quarkus-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                             <hint-exists message="Dependency `jakarta.enterprise:jakarta.enterprise.cdi-api`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[jakarta-cdi-to-quarkus-00000] Replace `jakarta.enterprise:jakarta.enterprise.cdi-api` dependency hint was not found!" />
+                </perform>
+            </rule>
+             <!--rule id="jakarta-cdi-to-quarkus-groovy-00010-test">
+                <when>
+                    <not>
+                             <hint-exists message="A class injected but missing an annotation to define its scope type"/>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[jakarta-cdi-to-quarkus-groovy-00010] No scope defined hint was not found!" />
+                </perform>
+            </rule--> 
+            <rule id="jakarta-cdi-to-quarkus-groovy-00020-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                             <hint-exists message="Transitive dependency `jakarta.enterprise:cdi-api` should be removed and the `io.quarkus:quarkus-arc` dependency added"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[jakarta-cdi-to-quarkus-groovy-00020] Transitive dependency `javax.enterprise:cdi-api` hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="jakarta-cdi-to-quarkus-00020-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1"> 
+                             <hint-exists message="Dependency `jakarta.inject:jakarta.inject-api` "/>
+                        </iterable-filter> 
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[jakarta-cdi-to-quarkus-00020] Replace `jakarta.inject:jakarta.inject-api` dependency hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="jakarta-cdi-to-quarkus-00030-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                             <hint-exists message="The `beans.xml` descriptor content is ignored and it could be removed from the application"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[jakarta-cdi-to-quarkus-00030] The beans.xml content ignored hint was not found!" />
+                </perform>
+            </rule>
+ <!--           <rule id="jakarta-cdi-to-quarkus-groovy-00030-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                             <hint-exists message="The application has a transitive `javax.inject:javax.inject` dependency because at least one Java class that imports from the `javax.inject` has been found"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[jakarta-cdi-to-quarkus-groovy-00030] Transitive dependency `javax.inject:javax.inject` hint was not found!" />
+                </perform>
+            </rule> -->
+            <rule id="jakarta-cdi-to-quarkus-00040-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="In Quarkus you can skip the @Produces annotation completely if the producer method is annotated with a scope annotation,"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[jakarta-cdi-to-quarkus-00040] @Produces hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="jakarta-cdi-to-quarkus-00050-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="he Stateless EJBs can be converted to a cdi bean by replacing the `@Stateless` annotation with a scope eg `@ApplicationScoped`"/>
+                        </iterable-filter> 
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[jakarta-cdi-to-quarkus-00050] The Stateless bean conversion hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
