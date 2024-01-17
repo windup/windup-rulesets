@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="jakarta-jaxrs-to-quarkus"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints to migrate JAX-RS applications to Quarkus extension
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="java-ee" />
+        <targetTechnology id="quarkus" />
+    </metadata>
+    <rules>
+        <rule id="jakarta-jaxrs-to-quarkus-00010">
+            <when>
+                <project><artifact groupId="jakarta.ws.rs" artifactId="jakarta.ws.rs-api" /></project>
+            </when>
+            <perform>
+                <hint title="Replace jakarta JAX-RS dependency" effort="1" category-id="mandatory">
+                    <message>
+                        Dependency `jakarta.ws.rs:jakarta.ws.rs-api` has to be replaced with `io.quarkus:quarkus-resteasy-reactive` artifact.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/resteasy-reactive" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jakarta-jaxrs-to-quarkus-00020">
+            <when>
+                <and>
+                    <javaclass references="jakarta.ws.rs.ApplicationPath">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                    <javaclass references="jakarta.ws.rs.core.Application">
+                        <location>INHERITANCE</location>
+                    </javaclass>
+                </and>
+            </when>
+            <perform>
+                <hint title="Jakarta JAX-RS activation is no longer necessary" effort="1" category-id="optional">
+                    <message>
+                        Jakarta JAX-RS activation is no longer necessary. You can set a root path like this but you don't have to.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides/resteasy-reactive#declaring-endpoints-uri-mapping" />
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
