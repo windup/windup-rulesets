@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<ruletest id="jakarta-faces-to-quarkus-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/application-jakarta-api</testDataPath>
+    <rulePath>../jakarta-faces-to-quarkus.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="jakarta-faces-to-quarkus-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Faces Dependencies with groupId `jakarta.faces` should be replaced with"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[jakarta-faces-to-quarkus-00000] MyFaces hint was not found!" />
+                </perform>
+            </rule>
+            <rule id="jakarta-faces-to-quarkus-00010-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="Faces Dependencies with artifactId `jakarta.faces` should be replaced with"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[jakarta-faces-to-quarkus-00010] MyFaces hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
