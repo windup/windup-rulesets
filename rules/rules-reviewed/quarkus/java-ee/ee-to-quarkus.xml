@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="ee-to-quarkus"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints to migrate different EE related technologies (ie, EJB) to Quarkus. Applies for both javax and jakarta namespaces.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="java-ee" />
+        <sourceTechnology id="jakarta-ee" />
+        <targetTechnology id="quarkus" />
+    </metadata>
+    <rules>
+        <rule id="ee-to-quarkus-00000">
+            <when>
+                <or>
+                    <javaclass references="javax.ejb.Stateless">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                    <javaclass references="jakarta.ejb.Stateless">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="@Stateless annotation must be replaced" effort="1" category-id="potential">
+                    <message>Stateless EJBs can be converted to a cdi bean by replacing the `@Stateless` annotation with a scope eg `@ApplicationScoped`</message>
+                    <link title="Quarkus CDI reference" href="https://quarkus.io/guides/cdi-reference"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="ee-to-quarkus-00010">
+            <when>
+                <or>
+                    <javaclass references="javax.ejb.Stateful">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                    <javaclass references="jakarta.ejb.Stateful">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="@Stateful annotation must be replaced" effort="3" category-id="mandatory">
+                    <message>
+                        Stateful EJBs can be converted to a CDI bean by replacing the `@Stateful` annotation with a bean-defining annotation
+                        that encompasses the appropriate scope (e.g., `@ApplicationScoped`). `@Stateful` EJBs often translate to `@SessionScoped`
+                        beans (a scope which requires activating the `quarkus-undertow` extension), but the appropriate scope may differ based
+                        on your application architecture. Review your application's requirements to determine the appropriate scope.
+
+                        Note that it is recommended, as a good practice, to keep state external from the service in Quarkus.
+                    </message>
+                    <link title="Quarkus CDI reference" href="https://quarkus.io/guides/cdi-reference"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="ee-to-quarkus-00020">
+            <when>
+                <or>
+                    <javaclass references="javax.ejb.{*}">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                    <javaclass references="jakarta.ejb.{*}">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="" effort="3" category-id="mandatory">
+                    <message>
+                        Any EJB method has container-manager transactions by default, with transaction attribute
+                        `REQUIRED` as a default (a transaction is started if one is not already in progress). Methods that were part of
+                        an EJB bean to be migrated to CDI must be annotated with `@Transactional`, or be marked as transactional
+                        in any other way (i.e, by annotating the class).
+                    </message>
+                    <link title="Quarkus CDI reference" href="https://quarkus.io/guides/cdi-reference"/>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>

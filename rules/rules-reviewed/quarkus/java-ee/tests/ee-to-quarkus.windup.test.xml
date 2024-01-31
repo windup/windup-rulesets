@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<ruletest id="ee-to-quarkus-tests"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/ee-to-quarkus</testDataPath>
+    <rulePath>../ee-to-quarkus.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="ee-to-quarkus-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="Stateful EJBs can be converted to a CDI bean by replacing the `@Stateful` annotation with a bean-defining annotation*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[ee-to-quarkus-00060] Hint was not found or the number of hints did not match." />
+                </perform>
+            </rule>
+            <rule id="cdi-to-quarkus-00010-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="Stateless EJBs can be converted to a cdi bean by replacing the `@Stateless` annotation with a scope eg `@ApplicationScoped`"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[ee-to-quarkus-00010] Hint was not found or the number of hints did not match." />
+                </perform>
+            </rule>
+            <rule id="cdi-to-quarkus-00020-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message=""/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[ee-to-quarkus-00010] Hint was not found or the number of hints did not match." />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

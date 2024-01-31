@@ -1,0 +1,137 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="persistence-to-quarkus"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints to migrate persistence related issues to Quarkus. Applies for both javax and jakarta namespaces.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="java-ee" />
+        <sourceTechnology id="jakarta-ee" />
+        <targetTechnology id="quarkus" />
+    </metadata>
+    <rules>
+        <rule id="persistence-to-quarkus-00000">
+            <when>
+                <or>
+                    <file filename="persistence.xml"/>
+                    <file filename="{*}-ds.xml"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Move persistence config to a properties file" effort="1" category-id="optional">
+                    <message>
+                        It is recommended to move persistence related configuration from an XML file to a properties one.
+                        This allows centralization of the configuration in Quarkus. Check the link for more information.
+                    </message>
+                    <link title="Using Hibernate ORM and Jakarta persistence" href="https://quarkus.io/guides/hibernate-orm#persistence-xml"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="persistence-to-quarkus-00010">
+            <when>
+                <or>
+                    <javaclass references="javax.persistence.EntityManager">
+                        <location>FIELD_DECLARATION</location>
+<!--                        <location>RETURN_TYPE</location>--> <!-- Cannot match on annotated method with a return type -->
+                        <annotation-type pattern="javax.enterprise.inject.Produces"/>
+                    </javaclass>
+                    <javaclass references="jakarta.persistence.EntityManager">
+                        <location>FIELD_DECLARATION</location>
+                        <annotation-type pattern="jakarta.enterprise.inject.Produces"/>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="@Produces cannot annotate an EntityManager" effort="1" category-id="mandatory">
+                    <message>
+                        <![CDATA[
+                        In JavaEE/JakartaEE, using `@PersistenceContext` was needed in order to inject a data source. Quarkus, on the other hand,
+                        will create the bean automatically just by correctly setting up your datasource. This makes having a `@Produces` annotation
+                        on the `EntityManager` illegal in Quarkus.
+                        
+                        If your EntityManager producer is not truly needed after configuring your datasource, simply remove the `@Produces` annotation and `@Inject` the EntityManager.
+                        Otherwise, if the producer is still needed, please create a qualification for your produced `EntityManager`, as well as every injection point for the EM.
+                        
+                        For instance, you can create an `ExtendedContext` qualifier:
+                        ```
+                        @Qualifier
+                        @Target({ ElementType.TYPE, ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER })
+                        @Retention(RetentionPolicy.RUNTIME)
+                        public @interface ExtendedContext { ... }
+                        ```
+                        and then inject your entity managers:
+                        ```
+                        @ExtendedContext
+                        public EntityManager getEm() {
+                            return em;
+                        }
+                        ```
+                        ]]>
+                    </message>
+                    <link title="Using Hibernate ORM and Jakarta persistence" href="https://quarkus.io/guides/hibernate-orm#persistence-xml"/>
+                    <link href="https://quarkus.io/guides/hibernate-orm#setting-up-and-configuring-hibernate-orm" title="Setting up and configuring Hibernate ORM"/>
+                </hint>
+            </perform>
+        </rule>
+        <!-- This rule needs to be created for the case of having @Produces on a getter method returning EntityManager - Windup cannot match on that combination -->
+        <rule id="persistence-to-quarkus-00011">
+            <when>
+                <or>
+                    <and>
+                        <javaclass references="javax.enterprise.inject.Produces">
+                            <location>IMPORT</location>
+                        </javaclass>
+                        <javaclass references="javax.persistence.EntityManager">
+                            <location>IMPORT</location>
+                        </javaclass>
+                    </and>
+                    <and>
+                        <javaclass references="jakarta.enterprise.inject.Produces">
+                            <location>IMPORT</location>
+                        </javaclass>
+                        <javaclass references="jakarta.persistence.EntityManager">
+                            <location>IMPORT</location>
+                        </javaclass>
+                    </and>
+                </or>
+            </when>
+            <perform>
+                <hint title="@Produces cannot annotate an EntityManager" effort="1" category-id="potential">
+                    <message>
+                        <![CDATA[
+                        In JavaEE/JakartaEE, using `@PersistenceContext` was needed in order to inject a data source. Quarkus, on the other hand,
+                        will create the bean automatically just by correctly setting up your datasource. This makes having a `@Produces` annotation
+                        on the `EntityManager` illegal in Quarkus.
+                        
+                        If you are using a `@Produces` annotation for your EntityManager, and it is not needed after configuring your datasource, remove it and `@Inject` the EntityManager.
+                        Otherwise, if the producer is still needed, please create a qualification for your produced `EntityManager`, as well as every injection point for the EM.
+                        
+                        For instance, you can create an `ExtendedContext` qualifier:
+                        ```
+                        @Qualifier
+                        @Target({ ElementType.TYPE, ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER })
+                        @Retention(RetentionPolicy.RUNTIME)
+                        public @interface ExtendedContext { ... }
+                        ```
+                        and then inject your entity managers:
+                        ```
+                        @ExtendedContext
+                        public EntityManager getEm() {
+                            return em;
+                        }
+                        ```
+                        ]]>
+                    </message>
+                    <link title="Using Hibernate ORM and Jakarta persistence" href="https://quarkus.io/guides/hibernate-orm#persistence-xml"/>
+                    <link href="https://quarkus.io/guides/hibernate-orm#setting-up-and-configuring-hibernate-orm" title="Setting up and configuring Hibernate ORM"/>
+                </hint>
+            </perform>
+        </rule>
+
+    </rules>
+</ruleset>
