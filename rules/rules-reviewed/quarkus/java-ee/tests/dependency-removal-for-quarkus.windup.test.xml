@@ -3,14 +3,14 @@
           xmlns="http://windup.jboss.org/schema/jboss-ruleset"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
-    <testDataPath>.*</testDataPath>
+    <testDataPath>dependency-removal</testDataPath>
     <rulePath>../dependency-removal-for-quarkus.windup.xml</rulePath>
     <ruleset>
         <rules>
             <rule id="dependency-removal-for-quarkus-00000-test">
                 <when>
                     <not>
-                        <iterable-filter size="6">
+                        <iterable-filter size="3">
                             <hint-exists message="Non-quarkus dependencies are no longer required and can be removed"/>
                         </iterable-filter>
                     </not>
