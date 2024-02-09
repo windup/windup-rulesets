@@ -1,0 +1,273 @@
+<?xml version="1.0"?>
+<ruleset id="database-groovy-2" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides statistical summaries of the other connect technologies (JCA, JNI, Mail, RMI) items that were found during the analysis.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final"/>
+        </dependencies>
+        <phase>PostMigrationRulesPhase</phase>
+    </metadata>
+    <rules>
+        <rule id="database-01400">
+            <when>
+                <file filename="{*}hsqldb{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded HSQLDB Driver" category-id="information" effort="0">
+                    <description>The application embeds an HSQLDB Driver library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">HSQLDB Driver</technology-tag>
+            </perform>
+        </rule>
+
+        <rule id="database-01500">
+            <when>
+                <file filename="{*}mysql-connector{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded MySQL Driver" category-id="information" effort="0">
+                    <description>The application embeds an MySQL Driver library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">MySQL Driver</technology-tag>
+            </perform>
+        </rule>
+
+        <rule id="database-01600">
+            <when>
+                <file filename="{*}derby{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded Derby Driver" category-id="information" effort="0">
+                    <description>The application embeds an Derby Driver library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Derby Driver</technology-tag>
+            </perform>
+        </rule>
+
+        <rule id="database-01700">
+            <when>
+                <file filename="{*}postgresql{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded PostgreSQL Driver" category-id="information" effort="0">
+                    <description>The application embeds an PostgreSQL Driver library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">PostgreSQL Driver</technology-tag>
+            </perform>
+        </rule>
+
+        <rule id="database-01800">
+            <when>
+                <file filename="{*}h2{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded H2 Driver" category-id="information" effort="0">
+                    <description>The application embeds an H2 Driver library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">H2 Driver</technology-tag>
+            </perform>
+        </rule>
+
+        <rule id="database-01805">
+            <when>
+                <or>
+                    <file filename="sqljdbc{*}.jar"/>
+                    <file filename="mssql-jdbc{*}.jar"/>
+                </or>
+            </when>
+            <perform>
+                <classification title="Embedded Microsoft SQL Driver" category-id="information" effort="0">
+                    <description>The application embeds an Microsoft SQL Driver library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Microsoft SQL Driver</technology-tag>
+            </perform>
+        </rule>
+
+        <rule id="database-01900">
+            <when>
+                <file filename="{*}sqlite-jdbc{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded SQLite Driver" category-id="information" effort="0">
+                    <description>The application embeds an SQLite Driver library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">SQLite Driver</technology-tag>
+            </perform>
+        </rule>
+
+        <rule id="database-02000">
+            <when>
+                <file filename="{*}jodbc{*}.jar"/>
+                <file filename="{*}ojdbc{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded Oracle DB Driver" category-id="information" effort="0">
+                    <description>The application embeds an Oracle DB Driver library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Oracle DB Driver</technology-tag>
+            </perform>
+        </rule>
+
+        <rule id="database-02100">
+            <when>
+                <or>
+                    <file filename="{*}sqlite-jdbc{*}.jar"/>
+                    <file filename="{*}cassandra{*}.jar"/>
+                    <file filename="{*}hector{*}.jar"/>
+                    <file filename="{*}astyanax{*}.jar"/>
+                    <file filename="{*}phantom-dsl{*}.jar"/>
+                    <file filename="{*}cql{*}.jar"/>
+                    <file filename="{*}hecuba-client{*}.jar"/>
+                    <file filename="{*}c-star-path{*}.jar"/>
+                    <file filename="{*}scale7-pelops{*}.jar"/>
+                </or>
+            </when>
+            <perform>
+                <classification title="Embedded Cassandra Client" category-id="information" effort="0">
+                    <description>The application embeds an Cassandra Client library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Cassandra Client</technology-tag>
+            </perform>
+        </rule>
+
+        <rule id="database-02200">
+            <when>
+                <file filename="{*}axion{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded Axion Driver" category-id="information" effort="0">
+                    <description>The application embeds an Axion Driver library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Axion Driver</technology-tag>
+            </perform>
+        </rule>
+
+        <rule id="database-02300">
+            <when>
+                <file filename="{*}mckoisqldb{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded MckoiSQLDB Driver" category-id="information" effort="0">
+                    <description>The application embeds an MckoiSQLDB Driver library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">MckoiSQLDB Driver</technology-tag>
+            </perform>
+        </rule>
+
+        <rule id="database-02400">
+            <when>
+                <or>
+                    <file filename="{*}mongodb{*}.jar"/>
+                    <file filename="{*}casbah{*}.jar"/>
+                    <file filename="{*}reactivemongo{*}.jar"/>
+                    <file filename="{*}jongo{*}.jar"/>
+                    <file filename="{*}gmongo{*}.jar"/>
+                    <file filename="{*}rogue{*}.jar"/>
+                </or>
+            </when>
+            <perform>
+                <classification title="Embedded MongoDB Client" category-id="information" effort="0">
+                    <description>The application embeds an MongoDB Client library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">MongoDB Client</technology-tag>
+            </perform>
+        </rule>
+
+        <rule id="database-02500">
+            <when>
+                <file filename="spring-data{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Spring Data" category-id="information" effort="0">
+                    <description>The application embeds the Spring Data framework.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Spring Data</technology-tag>
+            </perform>
+        </rule>
+
+        <rule id="database-02600">
+            <when>
+                <file filename="{*}morphia{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded framework - Morphia" category-id="information" effort="0">
+                    <description>The application embeds Morphia.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Morphia</technology-tag>
+            </perform>
+        </rule>
+
+        <rule id="database-02700">
+            <when>
+                <file filename="{*}leveldb{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded LevelDB Client" category-id="information" effort="0">
+                    <description>The application embeds an LevelDB Client library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">LevelDB Client</technology-tag>
+            </perform>
+        </rule>
+
+        <rule id="database-02800">
+            <when>
+                <file filename="{*}hbase{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded Apache HBase Client" category-id="information" effort="0">
+                    <description>The application embeds an Apache HBase Client library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Apache HBase Client</technology-tag>
+            </perform>
+        </rule>
+
+        <rule id="database-02900">
+            <when>
+                <file filename="{*}accumulo{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded Apache Accumulo Client" category-id="information" effort="0">
+                    <description>The application embeds an Apache Accumulo Client library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Apache Accumulo Client</technology-tag>
+            </perform>
+        </rule>
+
+        <rule id="database-03000">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.springframework.data" artifactId="spring-data-jpa"/>
+                    </project>
+                    <project>
+                        <artifact groupId="org.springframework.boot" artifactId="spring-boot-starter-data-jpa"/>
+                    </project>
+                    <dependency groupId="org.springframework.data" artifactId="spring-data-jpa"/>
+                </or>
+            </when>
+            <perform>
+                <classification title="Embedded Spring Data JPA" category-id="information" effort="0">
+                    <description>The application embeds Spring Data JPA</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">Spring Data JPA</technology-tag>
+            </perform>
+        </rule>
+
+        <rule id="database-03100">
+            <when>
+                <file filename="{*}mariadb{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded MariaDB Driver" category-id="information" effort="0">
+                    <description>The application embeds an MariaDB Driver library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL">MariaDB Driver</technology-tag>
+            </perform>
+        </rule>
+
+    </rules>
+</ruleset>

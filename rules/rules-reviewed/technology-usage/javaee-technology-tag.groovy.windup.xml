@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<ruleset id="javaee-technology-tag-2" xmlns="http://windup.jboss.org/schema/jboss-ruleset" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset provides statistical summaries of the other connect technologies (JCA, JNI, Mail, RMI) items that were found during the analysis.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final"/>
+        </dependencies>
+        <phase>PostMigrationRulesPhase</phase>
+    </metadata>
+    <rules>
+        <rule id="database-01400">
+            <when>
+                <file filename="{*}hsqldb{*}.jar"/>
+            </when>
+            <perform>
+                <classification title="Embedded library - HSQLDB Driver" category-id="information" effort="0">
+                    <description>The application embeds an HSQLDB Driver library.</description>
+                </classification>
+                <technology-tag level="INFORMATIONAL" version="1">HSQLDB Driver</technology-tag>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
