@@ -7,7 +7,9 @@ import java.util.zip.ZipFile;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import javax.ws.rs.Path;
 
+@Path
 public class HelloImpl extends UnicastRemoteObject implements Hello
 {
     private File file = new File("/tmp/log") ;
