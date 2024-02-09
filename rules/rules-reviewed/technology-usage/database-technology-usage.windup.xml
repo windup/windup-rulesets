@@ -15,9 +15,10 @@
     <rules>
         <rule id="technology-usage-database-01000">
             <when>
-                <graph-query discriminator="DataSourceModel">
-                    <property name="isXA" type="BOOLEAN">false</property>
-                </graph-query>
+                <javaclass references="javax.annotation.sql.DataSourceDefinition">
+                    <location>ANNOTATION</location>
+                    <annotation-literal name="transactional" pattern="false"/>
+                </javaclass>
             </when>
             <perform>
                 <technology-identified name="JDBC datasources">
@@ -29,9 +30,10 @@
         </rule>
         <rule id="technology-usage-database-01001">
             <when>
-                <graph-query discriminator="DataSourceModel">
-                    <property name="isXA" type="BOOLEAN">true</property>
-                </graph-query>
+                <javaclass references="javax.annotation.sql.DataSourceDefinition">
+                    <location>ANNOTATION</location>
+                    <annotation-literal name="transactional" pattern="true"/>
+                </javaclass>
             </when>
             <perform>
                 <technology-identified name="JDBC XA datasources">
@@ -43,7 +45,11 @@
         </rule>
         <rule id="technology-usage-database-01100">
             <when>
-                <graph-query discriminator="JPAEntityModel" />
+                <or>
+                    <filecontent pattern="http://java.sun.com/xml/ns/persistence" filename="{*}.xml"/>
+                    <filecontent pattern="http://xmlns.jcp.org/xml/ns/persistence" filename="{*}.xml"/>
+                    <filecontent pattern="https://jakarta.ee/xml/ns/persistence" filename="{*}.xml"/>
+                </or>
             </when>
             <perform>
                 <technology-identified name="JPA entities">
@@ -55,7 +61,38 @@
         </rule>
         <rule id="technology-usage-database-01200">
             <when>
-                <graph-query discriminator="JPANamedQueryModel"/>
+                <or>
+                    <javaclass references="javax.persistence.Entity">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                    <javaclass references="javax.persistence.Table">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                    <javaclass references="javax.persistence.NamedQuery">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                    <javaclass references="javax.persistence.NamedQueries">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                    <javaclass references="javax.persistence.DiscriminatorValue">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                    <javaclass references="jakarta.persistence.Entity">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                    <javaclass references="jakarta.persistence.Table">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                    <javaclass references="jakarta.persistence.NamedQuery">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                    <javaclass references="jakarta.persistence.NamedQueries">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                    <javaclass references="jakarta.persistence.DiscriminatorValue">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                </or>
             </when>
             <perform>
                 <technology-identified name="JPA named queries">
@@ -67,7 +104,7 @@
         </rule>
         <rule id="technology-usage-database-01300">
             <when>
-                <graph-query discriminator="JPAPersistenceUnitModel"/>
+                <file filename="persistence.xml"/>
             </when>
             <perform>
                 <technology-identified name="Persistence units">
