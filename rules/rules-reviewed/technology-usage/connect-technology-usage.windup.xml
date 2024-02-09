@@ -14,7 +14,14 @@
     <rules>
         <rule id="technology-usage-connect-01000">
             <when>
-                <graph-query discriminator="RMIServiceModel" />
+                <or>
+                    <javaclass references="javax.ws.rs.Path">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                    <javaclass references="jakarta.ws.rs.Path">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                </or>
             </when>
             <perform>
                 <technology-identified name="RMI">
@@ -119,6 +126,7 @@
                 </technology-identified>
             </perform>
         </rule>
+        <!-- TODO: Where is this coming from? -->
         <rule id="technology-usage-connect-01400">
             <when>
                 <graph-query discriminator="TechnologyTagModel">
