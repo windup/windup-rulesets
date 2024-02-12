@@ -1,0 +1,223 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="java-generic-information-groovy-2"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            XML Rules for Camel endpoints that have had one or more options removed
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="camel" versionRange="[2,3)"/>
+        <targetTechnology id="camel" versionRange="[3,)" />
+    </metadata>
+    <rules>
+        <rule id="java-generic-information-00034">
+            <when>
+                <javaclass references="org.apache.camel.ThreadPoolRejectedPolicy">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="org.apache.camel.ThreadPoolRejectedPolicy was moved" effort="1" category-id="mandatory" >
+                    <message>`org.apache.camel.ThreadPoolRejectedPolicy` was moved to `org.apache.camel.util.concurrent.ThreadPoolRejectedPolicy`.</message>
+                    <link title="Camel 3 - Migration Guide: eips" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_eips" />
+                    <quickfix type="REPLACE" name="java-generic-1">
+                        <replacement>org.apache.camel.ThreadPoolRejectedPolicy</replacement>
+                        <search>org.apache.camel.util.concurrent.ThreadPoolRejectedPolicy</search>
+                    </quickfix>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-00035">
+            <when>
+                <javaclass references="org.apache.camel.impl.SimpleRegistry.put({*})">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="SimpleRegistry was moved" effort="1" category-id="optional" >
+                    <message>`The org.apache.camel.support.DefaultRegistry` should be favoured instead of `SimpleRegistry`. Also `bind` operation should be used instead of `put` to add entries to the `SimpleRegistry` or `DefaultRegistry`.</message>
+                    <link title="Camel 3 - Migration Guide: generic_information" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_generic_information" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-00036">
+            <when>
+                <javaclass references="org.apache.camel.Exchange.{get|has}Out()">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="getOut/hasOut are deprecated" effort="1" category-id="optional" >
+                    <message>Methods `getOut`, `hasOut` on `Exchange` has been deprecated in favour of using `getMessage` instead.</message>
+                    <link title="Camel 3 - Migration Guide: getout_on_exchange" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_getout_on_exchange" />
+                </hint>
+            </perform>
+        </rule>
+        <!-- TODO: doesn't this require FQNs? -->
+        <rule id="java-generic-information-00037">
+            <when>
+                <or>
+                    <javaclass references="org.apache.camel.Message.{param}Fault({*})">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                    <javaclass references="org.apache.camel.CamelContext.{param}HandleFault({*})">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="Fault API on Message was removed" effort="1" category-id="mandatory" >
+                    <message>Fault API was removed from `org.apache.camel.Message`. The option `handleFault` has also been removed and you now need to turn this on as endpoint or component option on `camel-cxf` or `camel-spring-ws`.</message>
+                    <link title="Camel 3 - Migration Guide: fault_api_on_message" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_fault_api_on_message" />
+                </hint>
+            </perform>
+            <where param="param">
+                <matches pattern="(is|set)"/>
+            </where>
+        </rule>
+        <rule id="java-generic-information-00038">
+            <when>
+                <or>
+                    <javaclass references="org.apache.camel.CamelContext.{param}Route({*})">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                    <javaclass references="org.apache.camel.CamelContext.startAllRoutes()">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                    <javaclass references="org.apache.camel.CamelContext.isStartingRoutes()">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                    <javaclass references="org.apache.camel.CamelContext.getRouteStatus({*})">
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="Route control methods were moved" effort="1" category-id="mandatory" >
+                    <message>Methods for controlling routes were moved from `CamelContext` to the `RouteController`. To call moved method use: `context.getRouteController().startRoute("myRoute")`</message>
+                    <link title="Camel 3 - Migration Guide: controlling_routes" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_controlling_routes" />
+                </hint>
+            </perform>
+            <where param="param">
+                <matches pattern="(start|stop|suspend|resume)"/>
+            </where>
+        </rule>
+        <rule id="java-generic-information-00039">
+            <when>
+                <javaclass references="{*}.Main.getCamelContext{param}()">
+                    <location>METHOD_CALL</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="getCamelContextMap,getCamelContexts methods removed" effort="1" category-id="mandatory" >
+                    <message>The methods `getCamelContextMap` and `getCamelContexts` have been removed from the `Main` classes, and there is just a `getCamelContext` method now.</message>
+                    <link title="Camel 3 - Migration Guide: main_class_2" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_main_class_2" />
+                </hint>
+            </perform>
+            <where param="param">
+                <matches pattern="(s|map)"/>
+            </where>
+        </rule>
+        <rule id="java-generic-information-00040">
+            <when>
+                <javaclass references="org.apache.camel.util.jsse.{*}">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="org.apache.camel.util.jsse packages were moved" effort="1" category-id="mandatory" >
+                    <message>The `org.apache.camel.util.jsse` package was moved to `org.apache.camel.support.jsse`</message>
+                    <link title="Camel 3 - Migration Guide: main_class_2" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_main_class_2" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-00041">
+            <when>
+                <javaclass references="org.apache.camel.util.jndi.JndiContext">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="org.apache.camel.util.jndi.JndiContext was moved" effort="1" category-id="mandatory" >
+                    <message>`org.apache.camel.util.jndi.JndiContext` was moved to `org.apache.camel.support.jndi.JndiContext`</message>
+                    <link title="Camel 3 - Migration Guide: class" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_class" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-00042">
+            <when>
+                <and>
+                    <javaclass references="{class}" as="classes">
+                        <location>INHERITANCE</location>
+                    </javaclass>
+                    <javaclass references="{*}createRegistry({*})" from="classes">
+                        <location>METHOD</location>
+                    </javaclass>
+                </and>
+            </when>
+            <perform>
+                <hint title="Override of `createRegistry` is not necessary anymore" effort="1" category-id="optional" >
+                    <message>An override the `createRegistry` method for beans registration is no longer necessary. The preferred way is to use the `bind` method from the Registry API: `context.getRegistry().bind("myId", myBean);`</message>
+                    <link title="Camel 3 - Migration Guide: camel_test" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_camel_test" />
+                </hint>
+            </perform>
+            <where param="class">
+                <matches pattern="(org.apache.camel.test.junit4.CamelTestSupport|org.apache.camel.ContextTestSupport)"/>
+            </where>
+        </rule>
+        <rule id="java-generic-information-00043">
+            <when>
+                <javaclass references="org.apache.camel.management.event.{*}">
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="org.apache.camel.management.event package was moved" effort="1" category-id="mandatory" >
+                    <message>`org.apache.camel.management.event` was moved to the `org.apache.camel.spi.CamelEvent` class</message>
+                    <link title="Camel 3 - Migration Guide: class" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_class" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-00044">
+            <when>
+                <and>
+                    <javaclass references="org.apache.camel.test.junit4.CamelTestSupport" as="classes">
+                        <location>INHERITANCE</location>
+                    </javaclass>
+                    <javaclass references="{*}adviceWith({*})" from="classes">
+                        <location>METHOD</location>
+                        <location>METHOD_CALL</location>
+                    </javaclass>
+                </and>
+            </when>
+            <perform>
+                <hint title="Testing with 'adviceWith' changed" effort="3" category-id="mandatory" >
+                    <message>
+                        Testing with `adviceWith` changed. It's necessary to use `RouteReifier` or `AdviceWithRouteBuilder` such as
+                        ```
+                        AdviceWithRouteBuilder.adviceWith(context, "myRoute", a -> {
+                          a.replaceFromWith("direct:start");
+                        }
+                        ```
+                    </message>
+                    <link title="Camel 3 - Migration Guide: advicewith" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_advicewith" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="java-generic-information-00045">
+            <when>
+                <filecontent pattern="from\([\\s]*.*?\)" filename="{*}.java"/>
+            </when>
+            <perform>
+                <hint title="Routes with multiple inputs aren't supported anymore" effort="3" category-id="potential" >
+                    <message>
+                        Routes with multiple inputs such as `from("input0","input2")` aren't supported anymore
+                    </message>
+                    <link title="Camel 3 - Migration Guide: routes_with_multiple_inputs" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_routes_with_multiple_inputs" />
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
