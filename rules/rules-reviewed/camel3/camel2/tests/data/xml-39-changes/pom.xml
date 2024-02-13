@@ -1,242 +1,260 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Licensed to the Apache Software Foundation (ASF) under one or more
-    contributor license agreements.  See the NOTICE file distributed with
-    this work for additional information regarding copyright ownership.
-    The ASF licenses this file to You under the Apache License, Version 2.0
-    (the "License"); you may not use this file except in compliance with
-    the License.  You may obtain a copy of the License at
-
-         http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
--->
+    <!--
+    
+        Licensed to the Apache Software Foundation (ASF) under one or more
+        contributor license agreements.  See the NOTICE file distributed with
+        this work for additional information regarding copyright ownership.
+        The ASF licenses this file to You under the Apache License, Version 2.0
+        (the "License"); you may not use this file except in compliance with
+        the License.  You may obtain a copy of the License at
+    
+             http://www.apache.org/licenses/LICENSE-2.0
+    
+        Unless required by applicable law or agreed to in writing, software
+        distributed under the License is distributed on an "AS IS" BASIS,
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        See the License for the specific language governing permissions and
+        limitations under the License.
+    
+    -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-    <modelVersion>4.0.0</modelVersion>
-
-    <parent>
-        <groupId>org.apache.camel.springboot.example</groupId>
-        <artifactId>examples</artifactId>
-        <version>3.20.1.redhat-00001</version>
-    </parent>
-
-    <artifactId>camel-example-spring-boot-xml</artifactId>
-    <name>Camel SB Examples :: XML</name>
-    <description>An example showing how to work with Camel routes in XML files and Spring Boot</description>
-
-    <properties>
-        <category>Beginner</category>
-        <title>Spring Boot XML</title>
-
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring.boot-version>${spring-boot-version}</spring.boot-version>
-    </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.redhat.camel.springboot.platform</groupId>
-                <artifactId>camel-spring-boot-bom</artifactId>
-                <version>${camel-spring-boot-version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
-    <dependencies>
-
-        <!-- Spring Boot -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-tomcat</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-	    <groupId>org.apache.camel</groupId>
-            <artifactId>camel-azure</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-aws-sdb</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-aws-translate</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-aws-sqs</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-aws-sns</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-aws-msk</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-aws-mq</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-aws-kms</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-aws-kinesis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-aws-kinesis-firehose</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-aws-iam</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-aws-eks</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-aws-ecs</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-aws-ecs2</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-aws-ddb</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-aws-cw</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-aws-s3</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-aws-swf</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-undertow</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.camel.springboot</groupId>
-            <artifactId>camel-micrometer-starter</artifactId>
-        </dependency>
+<modelVersion>4.0.0</modelVersion>
 
 
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-management</artifactId>
-        </dependency>
+<groupId>org.test</groupId>
+<version>0.0.0-SNAPSHOT</version>
+<artifactId>camel-example-spring-boot-xml</artifactId>
+<name>Camel SB Examples :: XML</name>
+<description>An example showing how to work with Camel routes in XML files and Spring Boot</description>
 
-        <!-- Camel -->
-        <dependency>
-            <groupId>org.apache.camel.springboot</groupId>
-            <artifactId>camel-spring-boot-xml-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.springboot</groupId>
-            <artifactId>camel-xml-jaxb-dsl-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.springboot</groupId>
-            <artifactId>camel-stream-starter</artifactId>
-        </dependency>
+<properties>
+    <category>Beginner</category>
+    <title>Spring Boot XML</title>
 
-        <!-- test -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-test-spring-junit5</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.vintage</groupId>
-            <artifactId>junit-vintage-engine</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <spring.boot-version>${spring-boot-version}</spring.boot-version>
+</properties>
 
-    <build>
-        <plugins>
-            <plugin>
+
+<dependencies>
+
+    <!-- Spring Boot -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+        <version>3.1.4</version>
+        <exclusions>
+            <exclusion>
                 <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot-version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+                <artifactId>spring-boot-starter-tomcat</artifactId>
+            </exclusion>
+        </exclusions>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-ftp</artifactId>
+        <version>4.0.4</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-kafka</artifactId>
+        <version>4.0.4</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-netty</artifactId>
+        <version>4.0.4</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-netty-http</artifactId>
+        <version>4.0.4</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-ahc</artifactId>
+        <version>3.14.10</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-ahc-ws</artifactId>
+        <version>3.14.10</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-undertow</artifactId>
+        <version>3.2.2</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-actuator</artifactId>
+        <version>3.2.2</version>
+    </dependency>
 
-            <plugin>
-                <groupId>org.apache.camel</groupId>
-                <artifactId>camel-maven-plugin</artifactId>
-                <version>${camel-community.version}</version>
-                <!-- allows to fail if not all routes are fully covered during testing -->
-                <!--
-                        <configuration>
-                          <failOnError>true</failOnError>
-                        </configuration>
-                -->
-            </plugin>
-        </plugins>
-    </build>
-    <profiles>
-        <profile>
-            <id>openshift</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.eclipse.jkube</groupId>
-                        <artifactId>openshift-maven-plugin</artifactId>
-                        <version>${jkube-maven-plugin-version}</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>resource</goal>
-                                    <goal>build</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
+    <dependency>
+        <groupId>org.apache.camel.springboot</groupId>
+        <artifactId>camel-micrometer-starter</artifactId>
+        <version>3.16.0</version>
+    </dependency>
+
+
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-management</artifactId>
+        <version>3.16.0</version>
+    </dependency>
+
+    <!-- Camel -->
+    <dependency>
+        <groupId>org.apache.camel.springboot</groupId>
+        <artifactId>camel-spring-boot-xml-starter</artifactId>
+        <version>4.3.0</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.camel.springboot</groupId>
+        <artifactId>camel-xml-jaxb-dsl-starter</artifactId>
+        <version>3.21.0</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.camel.springboot</groupId>
+        <artifactId>camel-stream-starter</artifactId>
+        <version>3.21.0</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-azure</artifactId>
+        <version>3.8.0</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-aws-sdb</artifactId>
+        <version>3.8.0</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-aws-translate</artifactId>
+        <version>3.7.2</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-aws-sqs</artifactId>
+        <version>3.7.5</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-aws-sns</artifactId>
+        <version>3.7.2</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-aws-msk</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-aws-mq</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-aws-kms</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-aws-kinesis</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-aws-kinesis-firehose</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-aws-iam</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-aws-eks</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-aws-ecs</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-aws-ecs2</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-aws-ddb</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-aws-cw</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-aws-s3</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-aws-swf</artifactId>
+    </dependency>
+    <!-- test -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-test</artifactId>
+        <version>3.2.2</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-test-spring-junit5</artifactId>
+        <version>4.0.4</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.junit.vintage</groupId>
+        <artifactId>junit-vintage-engine</artifactId>
+        <version>5.10.2</version>
+        <scope>test</scope>
+    </dependency>
+
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-bom</artifactId>
+        <version>3.22.1</version>
+        <type>pom</type>
+    </dependency>
+</dependencies>
+
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.5.1</version>
+            <configuration>
+                <source>1.7</source>
+                <target>1.7</target>
+            </configuration>
+        </plugin>
+
+        <plugin>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-debezium-maven-plugin</artifactId>
+            <version>2.19.2</version>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-salesforce-maven-plugin</artifactId>
+            <version>2.19.2</version>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-servicenow-maven-plugin</artifactId>
+            <version>2.19.2</version>
+        </plugin>
+    </plugins>
+</build>
 </project>
