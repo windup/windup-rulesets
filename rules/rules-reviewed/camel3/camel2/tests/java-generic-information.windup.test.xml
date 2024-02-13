@@ -21,12 +21,38 @@
                     <fail message="[java-generic-information] 'AggregationStrategy' moved hint was not found!"/>
                 </perform>
             </rule>
-            <rule id="java-generic-information-00001-test">
+            <rule id="java-generic-information-00001a-test">
                 <when>
                     <not>
-                        <iterable-filter size="3">
+                        <iterable-filter size="1">
                             <hint-exists
-                                    message="The class `org.apache.camel.impl.*` has been moved to `org.apache.camel.support.*`*"/>
+                                message="The class org.apache.camel.impl.DefaultEndpoint has been moved to*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-generic-information] 'org.apache.camel.impl' moved hint was not found!"/>
+                </perform>
+            </rule>
+            <rule id="java-generic-information-00001b-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists
+                                message="The class org.apache.camel.impl.DefaultProducer has been moved to*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[java-generic-information] 'org.apache.camel.impl' moved hint was not found!"/>
+                </perform>
+            </rule>
+            <rule id="java-generic-information-00001c-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists
+                                message="The class org.apache.camel.impl.SimpleRegistry has been moved to*"/>
                         </iterable-filter>
                     </not>
                 </when>
