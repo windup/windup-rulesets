@@ -1,0 +1,322 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="component-changes-groovy-2"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            XML Rules for Camel endpoints that have had one or more options removed
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="camel" versionRange="[2,3)"/>
+        <targetTechnology id="camel" versionRange="[3,)" />
+    </metadata>
+    <rules>
+        <rule id="component-changes-00001">
+            <when>
+                <or>
+                    <filecontent pattern="{telegramRegex}" filename="{*}.java"/>
+                    <xmlfile matches="//*/c:route/*[contains(@uri ,'telegram') and not(contains(@uri,'authorizationToken'))]">
+                        <namespace uri="http://camel.apache.org/schema/spring" prefix="c"/>
+                    </xmlfile>
+                </or>
+            </when>
+            <perform>
+                <hint title="[camel-telegram] Authorization token parameter required!" effort="1" category-id="mandatory" >
+                    <message>Authorization token was moved from uri-path to a query parameter. Use `telegram:bots?authorizationToken=myTokenHere`.</message>
+                    <link title="Camel 3 - Migration Guide: telegram" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_telegram" />
+                </hint>
+            </perform>
+            <where param="telegramRegex">
+                <matches pattern="(telegram:)(?!.*authorizationToken.*)"/>
+            </where>
+        </rule>
+        <rule id="component-changes-00002">
+            <when>
+                <javaclass references="org.apache.camel.component.shiro.security.ShiroSecurityPolicy{*}"/>
+            </when>
+            <perform>
+                <hint title="Shiro - default encryption key was removed" effort="1" category-id="mandatory" >
+                    <message>It's mandatory to specify key/passphrase for `ShiroSecurityPolicy`.</message>
+                    <link title="Camel 3 - Migration Guide: shiro_component" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_shiro_component" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="component-changes-00003">
+            <when>
+                <filecontent pattern="{*}.{method}{*}" filename="{*}.java"/>
+            </when>
+            <perform>
+                <hint title="Mock API function has been removed" effort="1" category-id="mandatory" >
+                    <message>`{method}` has been removed from the mock component's assertion api.</message>
+                    <link title="Camel 3 - Migration Guide: out_message_removed_from_simple_language_and_mock_component" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_out_message_removed_from_simple_language_and_mock_component" />
+                </hint>
+            </perform>
+            <where param="method">
+                <matches pattern="(outBody|outHeaders)"/>
+            </where>
+        </rule>
+        <rule id="component-changes-00004">
+            <when>
+                <javaclass references="org.apache.camel.OutHeaders">
+                    <location>ANNOTATION</location>
+                    <location>IMPORT</location>
+                </javaclass>
+            </when>
+            <perform>
+                <hint title="@OutHeaders annotation has been removed" effort="1" category-id="mandatory" >
+                    <message>`@OutHeaders` annotation has been removed. Use `@Headers` instead</message>
+                    <link title="Camel 3 - Migration Guide: out_message_removed_from_simple_language_and_mock_component" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_out_message_removed_from_simple_language_and_mock_component" />
+                </hint>
+            </perform>
+        </rule>
+        <!-- TODO: params in xpath, can do? -->
+        <rule id="component-changes-00005">
+            <when>
+                <xmlfile matches="//*/c:simple[text()=windup:matches(self::node(), '{*}out.{params}{*}')]">
+                    <namespace prefix="c" uri="http://camel.apache.org/schema/spring"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Simple language: out.body/out.header have been removed" effort="1" category-id="mandatory" >
+                    <message>out.body/out.header has been removed from simple language</message>
+                    <link title="Camel 3 - Migration Guide: out_message_removed_from_simple_language_and_mock_component" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_out_message_removed_from_simple_language_and_mock_component" />
+                </hint>
+            </perform>
+            <where param="params">
+                <matches pattern="(body|header)"/>
+            </where>
+        </rule>
+        <rule id="component-changes-00006">
+            <when>
+                <xmlfile matches="//*/b:simple[text()=windup:matches(self::node(), '{*}out.{params}{*}')]">
+                    <namespace prefix="b" uri="http://camel.apache.org/schema/blueprint"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Simple language: out.body/out.header have been removed" effort="1" category-id="mandatory" >
+                    <message>out.body/out.header has been removed from simple language</message>
+                    <link title="Camel 3 - Migration Guide: out_message_removed_from_simple_language_and_mock_component" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_out_message_removed_from_simple_language_and_mock_component" />
+                </hint>
+            </perform>
+            <where param="params">
+                <matches pattern="(body|header)"/>
+            </where>
+        </rule>
+        <rule id="component-changes-00007">
+            <when>
+                <filecontent pattern="{*}simple({*}out.{params}{*})"/>
+            </when>
+            <perform>
+                <hint title="Simple language: out.body/out.header have been removed" effort="1" category-id="mandatory" >
+                    <message>out.body/out.header has been removed from simple language</message>
+                    <link title="Camel 3 - Migration Guide: out_message_removed_from_simple_language_and_mock_component" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_out_message_removed_from_simple_language_and_mock_component" />
+                </hint>
+            </perform>
+            <where param="params">
+                <matches pattern="(body|header)"/>
+            </where>
+        </rule>
+        <rule id="component-changes-00008">
+            <when>
+                <or>
+                    <xmlfile matches="//*/c:simple[text()=windup:matches(self::node(), '{*}property{*}')]">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/spring"/>
+                    </xmlfile>
+                    <xmlfile matches="//*/b:simple[text()=windup:matches(self::node(), '{*}property{*}')]">
+                        <namespace prefix="b" uri="http://camel.apache.org/schema/blueprint"/>
+                    </xmlfile>
+                    <filecontent pattern="{*}simple({*}property{*})" filename="{*}.java"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Simple language: property function has been removed" effort="1" category-id="mandatory" >
+                    <message>`property` function has been removed from simple language. Use `exchangeProperty` instead.</message>
+                    <link title="Camel 3 - Migration Guide: languages" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_languages" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="component-changes-00009">
+            <when>
+                <or>
+                    <javaclass references="org.apache.camel.component.hl7.HL7.terser" as="file">
+                        <location>IMPORT</location>
+                    </javaclass>
+                    <filecontent pattern="{*}terser({*}" from="file"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Terser language: language renamed" effort="1" category-id="mandatory" >
+                    <message>`terser` language renamed to `hl7terser`</message>
+<!--                    <quickfix type="REPLACE" name="terserquickfix">-->
+<!--                        <search>org.apache.camel.component.hl7.HL7.terser</search>-->
+<!--                        <replacement>org.apache.camel.component.hl7.HL7.hl17terser</replacement>-->
+<!--                    </quickfix>-->
+                    <link title="Camel 3 - Migration Guide: languages" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_languages" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="component-changes-00010">
+            <when>
+                <or>
+                    <javaclass references="org.apache.camel.converter.crypto.CryptoDataFormat">
+                        <location>VARIABLE_DECLARATION</location>
+                    </javaclass>
+                    <xmlfile matches="//*[c:crypto and not(b:crypto/@algorithm)]/c:crypto">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/spring"/>
+                    </xmlfile>
+                    <xmlfile matches="//*[b:crypto and not(b:crypto/@algorithm)]/b:crypto">
+                        <namespace prefix="b" uri="http://camel.apache.org/schema/blueprint"/>
+                    </xmlfile>
+                </or>
+            </when>
+            <perform>
+                <hint title="Crypto dataformat: The default encryption algorithm changed to null" effort="1" category-id="potential" >
+                    <message>The default encryption algorithm is mandatory changed from `DES/CBC/PKCS5Padding` to null. Therefore if algorithm hasn't been set yet, it's required to set a value for it.</message>
+                    <link title="Camel 3 - Migration Guide: crypto_dataformat" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_crypto_dataformat" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="component-changes-00011">
+            <when>
+                <or>
+                    <xmlfile matches="//*[c:secureXML and (count(c:secureXML/@passPhrase)+count(c:secureXML/@passPhraseByte))&lt;1]/c:secureXML/">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/spring"/>
+                    </xmlfile>
+                    <xmlfile matches="//*[b:secureXML and (count(b:secureXML/@passPhrase)+count(b:secureXML/@passPhraseByte))&lt;1]/b:secureXML/">
+                        <namespace prefix="b" uri="http://camel.apache.org/schema/blueprint"/>
+                    </xmlfile>
+                    <filecontent pattern="{*}secureXML" filename="{*}.java"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="XMLsecure dataformat: The default encryption key has been removed" effort="1" category-id="mandatory" >
+                    <message>The default encryption key has been removed, so it is now mandatory to supply the key String/bytes if you are using symmetric encryption.</message>
+                    <link title="Camel 3 - Migration Guide: xml_security_dataformat" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_xml_security_dataformat" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="component-changes-00012">
+            <when>
+                <or>
+                    <xmlfile matches="//*/c:from[@uri=windup:matches(self::node(), '{*}consumer.{*}')]">
+                        <namespace prefix="c" uri="http://camel.apache.org/schema/spring"/>
+                    </xmlfile>
+                    <xmlfile matches="//*/b:from[@uri=windup:matches(self::node(), '{*}consumer.{*}')]">
+                        <namespace prefix="b" uri="http://camel.apache.org/schema/blueprint"/>
+                    </xmlfile>
+                    <filecontent pattern="{*}from({*}consumer.{*})" filename="{*}.java"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Consumer endpoints: options with consumer. prefix have been removed." effort="1" category-id="mandatory" >
+                    <message>Consumer.options with `consumer.` prefix have been removed. Use options without the prefix i.e `delay` instead of `consumer.delay`</message>
+                    <link title="Camel 3 - Migration Guide: using_endpoint_options_with_consumer_prefix" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_using_endpoint_options_with_consumer_prefix" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="component-changes-00013">
+            <when>
+                <or>
+                    <xmlfile matches="//*[@class='org.apache.camel.processor.interceptor.Tracer']"/>
+                    <javaclass references="org.apache.camel.processor.interceptor.Tracer">
+                        <location>IMPORT</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="Tracing: Tracer class removed" effort="3" category-id="mandatory" >
+                    <message>`org.apache.camel.processor.interceptor.Tracer` class has been removed and replaced by `org.apache.camel.Tracing`. See the documentation.</message>
+                    <link title="Tracer in Camel 3" href="https://camel.apache.org/manual/latest/tracer.html" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="component-changes-00014">
+            <when>
+                <or>
+                    <xmlfile matches="//*[@class='org.apache.camel.processor.interceptor.DefaultTraceFormatter']"/>
+                    <javaclass references="org.apache.camel.processor.interceptor.DefaultTraceFormatter">
+                        <location>IMPORT</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="Tracing: DefaultTraceFormatter formatter removed" effort="3" category-id="mandatory" >
+                    <message>`org.apache.camel.processor.interceptor.DefaultTraceFormatter` class has been removed. Use `ExchangeFormatter` as described in the documentation.</message>
+                    <link title="Tracer in Camel 3" href="https://camel.apache.org/manual/latest/tracer.html" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="component-changes-00015">
+            <when>
+                <xmlfile matches="/m:project/m:dependencies[m:dependency/m:artifactId/text() = 'camel-core']">
+                    <namespace uri="http://maven.apache.org/POM/4.0.0" prefix="m"/>
+                </xmlfile>
+            </when>
+            <perform>
+                <hint title="Tracing:  BacklogTracer is no longer enabled by default in JMX" effort="1" category-id="mandatory" >
+                    <message>`BacklogTracer` is no longer enabled by default in JMX. For using BacklogTracer you need to enable by setting `backlogTracing=true` on CamelContext.</message>
+                    <link title="Camel 3 - Migration Guide: tracing" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_tracing" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="component-changes-00016">
+            <when>
+                <or>
+                    <xmlfile matches="//*/c:to[contains(@uri,'xmlsecurity')]">
+                        <namespace uri="http://camel.apache.org/schema/spring" prefix="c"/>
+                    </xmlfile>
+                    <xmlfile matches="//*/b:to[contains(@uri,'xmlsecurity')]">
+                        <namespace uri="http://camel.apache.org/schema/blueprint" prefix="b"/>
+                    </xmlfile>
+                    <filecontent pattern=".to({*}xmlsecurity{*}" filename="{*}.java"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="XMLSecurity component: The default signature algorithm has changed" effort="1" category-id="information" >
+                    <message>The default signature algorithm in the XMLSecurity component has changed `SHA1WithDSA` to `SHA256withRSA`.</message>
+                    <link title="Camel 3 - Migration Guide: using_endpoint_options_with_consumer_prefix" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_using_endpoint_options_with_consumer_prefix" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="component-changes-00017">
+            <when>
+                <or>
+                    <xmlfile matches="//*/c:route/*[contains(@uri,'crypto:')]">
+                        <namespace uri="http://camel.apache.org/schema/spring" prefix="c"/>
+                    </xmlfile>
+                    <xmlfile matches="//*/b:route/*[contains(@uri,'crypto:')]">
+                        <namespace uri="http://camel.apache.org/schema/blueprint" prefix="b"/>
+                    </xmlfile>
+                    <filecontent pattern=".to({*}crypto:{*}" filename="{*}.java"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="Crypto component: The default signature algorithm has changed" effort="1" category-id="information" >
+                    <message>The default signature algorithm in the Crypto component has changed from `SHA1WithDSA` to `SHA256withRSA`.</message>
+                    <link title="Camel 3 - Migration Guide: using_endpoint_options_with_consumer_prefix" href="https://camel.apache.org/manual/latest/camel-3-migration-guide.html#_using_endpoint_options_with_consumer_prefix" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="component-changes-00018">
+            <when>
+                <or>
+                    <xmlfile matches="//*/c:route/*[contains(@uri,'xslt:') and contains(@uri,'saxon=true')]">
+                        <namespace uri="http://camel.apache.org/schema/spring" prefix="c"/>
+                    </xmlfile>
+                    <xmlfile matches="//*/b:route/*[contains(@uri,'xslt:') and contains(@uri,'saxon=true')]">
+                        <namespace uri="http://camel.apache.org/schema/blueprint" prefix="b"/>
+                    </xmlfile>
+                    <filecontent pattern=".{*}xslt:{*}saxon=true" filename="{*}.java"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="XSLT: Use xslt-saxon component to use Saxon" effort="1" category-id="information" >
+                    <message>The XSLT component has moved out of `camel-core` into `camel-xslt` and `camel-xslt-saxon`. Use `xslt-saxon` in URI as described in the documentation.</message>
+                    <link title="Camel 3 XSLT Saxon Documentation" href="https://camel.apache.org/components/latest/xslt-saxon-component.html" />
+                </hint>
+            </perform>
+        </rule>
+        
+    </rules>
+</ruleset>
