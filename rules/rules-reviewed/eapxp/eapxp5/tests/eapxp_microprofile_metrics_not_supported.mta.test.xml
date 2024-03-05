@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ruletest xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          id="eapxp_microprofile_metrics_not_supported-test" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/data-eapxp_microprofile_metrics_not_supported/</testDataPath>
+    <rulePath>../eapxp_microprofile_metrics_not_supported.mta.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="eapxp_microprofile_metrics_not_supported-00001-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="If you migrate your application to JBoss EAP XP 5.0 \(or later\), please note that MicroProfile Metrics is not supported." />
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[eapxp_microprofile_metrics_not_supported-00001] The hint was not found!" />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

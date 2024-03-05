@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="eapxp_microprofile_metrics_not_supported"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>This ruleset identifies JBoss EAP XP 3.x/4.x applications that uses MicroProfile Metrics, which is not supported on JBoss EAP XP 5.x or later.</description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="eapxp" versionRange="(3,4)" />
+        <targetTechnology id="eapxp" versionRange="[5,)" />
+        <tag>JBossEAP</tag>
+        <tag>EAPXP</tag>
+    </metadata>
+    <rules>
+        <!-- https://issues.redhat.com/browse/WINDUPRULE-1043 -->
+        <rule id="eapxp_microprofile_metrics_not_supported-00001">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.eclipse.microprofile.metrics" artifactId="microprofile-metrics-api"/>
+                    </project>
+                    <javaclass references="org.eclipse.microprofile.metric.{*}">
+                        <location>IMPORT</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="MicroProfile Metrics not supported" effort="1" category-id="mandatory">
+                    <message>If you migrate your application to JBoss EAP XP 5.0 (or later), please note that MicroProfile Metrics is not supported.</message>
+                    <!--
+                    FIXME uncomment this link when XP5 docs are published
+                    <link title="JBoss EAP XP upgrade and migration guide: MicroProfile Metrics not supported" href="https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/8.0/html-single/jboss_eap_xp_upgrade_and_migration_guide/index#microprofile_metrics_not_supported"/>
+                    -->
+                    <tag>EAPXP</tag>
+                </hint>
+            </perform>
+        </rule>
+    </rules>
+</ruleset>
