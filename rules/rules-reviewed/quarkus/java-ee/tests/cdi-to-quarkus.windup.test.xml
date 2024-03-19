@@ -57,8 +57,8 @@
             <rule id="cdi-to-quarkus-00030-test">
                 <when>
                     <not>
-                        <iterable-filter size="1">
-                             <hint-exists message="`beans.xml` descriptor content is ignored and it could be removed from the application"/>
+                        <iterable-filter size="2">
+                             <hint-exists message="`beans.xml` descriptor content is ignored by Quarkus and can be removed from the application."/>
                         </iterable-filter>
                     </not>
                 </when>
@@ -69,7 +69,7 @@
             <rule id="cdi-to-quarkus-groovy-00030-test">
                 <when>
                     <not>
-                        <iterable-filter size="2">
+                        <iterable-filter size="3">
                              <hint-exists message="The application has a transitive `javax.inject:javax.inject` dependency because at least one Java class that imports from the `javax.inject` has been found"/>
                         </iterable-filter>
                     </not>
@@ -78,11 +78,59 @@
                     <fail message="[cdi-to-quarkus-groovy-00030] Transitive dependency `javax.inject:javax.inject` hint was not found!" />
                 </perform>
             </rule>
-            <rule id="cdi-to-quarkus-00040-test">
+            <rule id="cdi-to-quarkus-groovy-00031-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="`beans.xml` descriptor content is ignored, and therefore interceptor beans must*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[cdi-to-quarkus-groovy-00031] beans.xml descriptor hint was not found or the number of hints did not match" />
+                </perform>
+            </rule>
+            <rule id="cdi-to-quarkus-groovy-00032-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="`beans.xml` descriptor content is ignored, and therefore decorator beans must*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[cdi-to-quarkus-groovy-00032] beans.xml descriptor hint was not found or the number of hints did not match" />
+                </perform>
+            </rule>
+            <rule id="cdi-to-quarkus-groovy-00033-test">
                 <when>
                     <not>
                         <iterable-filter size="1">
-                            <hint-exists message="In Quarkus, you can skip the @Produces annotation completely"/>
+                            <hint-exists message="`beans.xml` descriptor content is ignored, and therefore stereotype beans must*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[cdi-to-quarkus-groovy-00033] beans.xml descriptor hint was not found or the number of hints did not match" />
+                </perform>
+            </rule>
+            <rule id="cdi-to-quarkus-groovy-00034-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="`beans.xml` descriptor content is ignored by Quarkus. The `bean-discovery-mode` attribute must be*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[cdi-to-quarkus-groovy-00034] beans.xml descriptor hint was not found or the number of hints did not match" />
+                </perform>
+            </rule>
+            <rule id="cdi-to-quarkus-00040-test">
+                <when>
+                    <not>
+                        <iterable-filter size="4">
+                            <hint-exists message="In Quarkus, you can skip the @Produces annotation completely*"/>
                         </iterable-filter>
                     </not>
                 </when>
@@ -93,7 +141,7 @@
             <rule id="cdi-to-quarkus-00050-test">
                 <when>
                     <not>
-                        <iterable-filter size="1">
+                        <iterable-filter size="2">
                             <hint-exists message="Stateless EJBs can be converted to a cdi bean by replacing"/>
                         </iterable-filter>
                     </not>
