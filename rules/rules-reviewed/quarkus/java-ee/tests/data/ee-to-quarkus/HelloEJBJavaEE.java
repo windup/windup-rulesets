@@ -1,5 +1,5 @@
-import jakarta.ejb.Stateless;
-import jakarta.ejb.Stateful;
+import javax.ejb.Stateless;
+import javax.ejb.Stateful;
 
 @Stateless
 @Stateful
