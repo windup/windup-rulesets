@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<ruletest id="persistence-to-quarkus-test"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/persistence-to-quarkus</testDataPath>
+    <rulePath>../persistence-to-quarkus.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="persistence-to-quarkus-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="It is recommended to move persistence related configuration from an XML file to a properties one*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[persistence-to-quarkus-00000-test] Hint was not found or the number of hints did not match." />
+                </perform>
+            </rule>
+            <rule id="persistence-to-quarkus-00010-test">
+                <when>
+                    <not>
+                        <iterable-filter size="3">
+                            <hint-exists message="In JavaEE/JakartaEE, using `@PersistenceContext` was needed in order to injec*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[persistence-to-quarkus-00010-test] Hint was not found or the number of hints did not match." />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>

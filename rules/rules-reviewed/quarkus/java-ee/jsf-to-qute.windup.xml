@@ -1,0 +1,227 @@
+<?xml version="1.0"?>
+<ruleset xmlns="http://windup.jboss.org/schema/jboss-ruleset" id="jsf-to-qute"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            This ruleset gives hints to migrate from JMS to a reactive messaging model in Quarkus.
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final"/>
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final"/>
+        </dependencies>
+        <sourceTechnology id="java-ee"/>
+        <targetTechnology id="quarkus"/>
+    </metadata>
+    <rules>
+        <rule id="jsf-to-qute-00000">
+            <when>
+                <or>
+                    <project>
+                        <artifact groupId="org.jboss.spec.javax.faces" artifactId="jboss-jsf-api{*}"/>
+                    </project>
+                    <project>
+                        <artifact groupId="jakarta.faces{*}" artifactId="{*}"/>
+                    </project>
+                </or>
+            </when>
+            <perform>
+                <hint title="JSF dependency not supported" effort="5" category-id="mandatory">
+                    <message>
+                        <![CDATA[
+                        Usage of JSF is not supported in Quarkus. It is recommended to use Quarkus' Qute templating engine instead.
+                        Replace the JavaEE/Jakarta JSF dependency with Qute:
+                        ```
+                        <dependency>
+                            <groupId>io.quarkus</groupId>
+                            <artifactId>quarkus-qute</artifactId>
+                        </dependency>
+                        <dependency>
+                            <groupId>io.quarkus</groupId>
+                            <artifactId>quarkus-resteasy</artifactId>
+                        </dependency>
+                        ```
+                        The JAX-RS API is used to serve up the rendered Qute templates. Take a look at the Qute Templating Engine link below to know more about how to use Qute.
+                        ]]>
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides"/>
+                    <link title="Qute Templating Engine - Quarkus" href="https://quarkus.io/guides/qute"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jsf-to-qute-00010">
+            <when>
+                <or>
+                    <javaclass references="javax.faces.{*}"/>
+                    <javaclass references="jakarta.faces.{*}"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="JSF not supported in Quarkus" effort="5" category-id="mandatory">
+                    <message>
+                        Usage of JSF is not supported in Quarkus. All references to `faces` packages must be removed.
+                        It is recommended to use Quarkus' Qute templating engine instead.
+                        Take a look at the Qute Templating Engine link below to know more about how to use Qute.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides"/>
+                    <link title="Qute Templating Engine - Quarkus" href="https://quarkus.io/guides/qute"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jsf-to-quarkus-00020">
+            <when>
+                <or>
+                    <javaclass references="javax.enterprise.context.ConversationScoped">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                    <javaclass references="jakarta.enterprise.context.ConversationScoped">
+                        <location>ANNOTATION</location>
+                    </javaclass>
+                </or>
+            </when>
+            <perform>
+                <hint title="@ConversationScoped annotation is not supported" effort="3" category-id="mandatory">
+                    <message>
+                        The `@ConversationScoped` annotation is not supported by Quarkus. This can be substituted with another scope
+                        depending on the application's requirements. Check the Bean Scopes Link below for more information.
+                    </message>
+                    <link href="https://quarkus.io/guides/cdi#bean-scope-available" title="Quarkus - What scopes can I actually use in my Quarkus application?"/>
+                    <link title="Quarkus CDI reference" href="https://quarkus.io/guides/cdi-reference"/>
+                </hint>
+            </perform>
+        </rule>
+        <!-- TODO: Won't work since as/from does not pass along the whole file -->
+        <!-- TODO: Also, create another rule for injecting Template -->
+        <!--        <rule id="jsf-to-quarkus-00030">-->
+        <!--            <when>-->
+        <!--                <and>-->
+        <!--                    <javaclass references="javax.faces{*}" as="potential-jsf-bean">-->
+        <!--                        <location>IMPORT</location>-->
+        <!--                    </javaclass>-->
+        <!--                    <javaclass references="javax.inject.Named" from="potential-jsf-bean">-->
+        <!--                        <location>ANNOTATION</location>-->
+        <!--                    </javaclass>-->
+        <!--                </and>-->
+        <!--            </when>-->
+        <!--            <perform>-->
+        <!--                <hint title="JSF-managed beans should be annotated with @Path" effort="1" category-id="mandatory">-->
+        <!--                    <message>-->
+        <!--                        Any JSF Managed Bean should be annotated with @Path, and given an appropriate path.-->
+        <!--                        The faces config XML file can be used to help determine what these paths should be.-->
+
+        <!--                        As a suggestion, a `@GET` method can be created for the navigation rules-->
+        <!--                        listed in the faces config file, and a `@POST` method for every call from a JSF page to the managed bean.-->
+        <!--                    </message>-->
+        <!--                    <link title="Quarkus - Guide" href="https://quarkus.io/guides" />-->
+        <!--                    <link title="Qute Templating Engine - Quarkus" href="https://quarkus.io/guides/qute" />-->
+        <!--                </hint>-->
+        <!--            </perform>-->
+        <!--        </rule>-->
+        <rule id="jsf-to-quarkus-00040">
+            <when>
+                <filecontent pattern="http://java.sun.com/jsf" filename="{*}.xhtml"/>
+            </when>
+            <perform>
+                <hint title="JSF templates not supported in Quarkus" effort="1" category-id="mandatory">
+                    <message>
+                        JSF templates are not supported in Quarkus. We recommend using Qute instead. A Qute
+                        template can be created for each corresponding JSF template, and the old xhtml JSF
+                        templates should be removed.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides"/>
+                    <link title="Qute Templating Engine - Quarkus" href="https://quarkus.io/guides/qute"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jsf-to-quarkus-00050">
+            <when>
+                <or>
+                    <javaclass references="javax.faces.application.FacesMessage"/>
+                    <javaclass references="jakarta.faces.application.FacesMessage"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="FacesMessage can be substituted with List&lt;String&gt;" effort="1" category-id="mandatory">
+                    <message>
+                        <![CDATA[
+                        There is no direct equivalent of `FacesMessage`; instead, create a `List<String>` messages,
+                        and add any String values in there for display on the rendered template.
+                        
+                        Use `template.addData(“messages”, messages)` to use that list as part of the rendered template.
+                        ]]>
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides"/>
+                    <link title="Qute Templating Engine - Quarkus" href="https://quarkus.io/guides/qute"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jsf-to-quarkus-00060">
+            <when>
+                <or>
+                    <javaclass references="javax.faces.application.FacesMessage"/>
+                    <javaclass references="jakarta.faces.application.FacesMessage"/>
+                </or>
+            </when>
+            <perform>
+                <hint title="JSF faces-config.xml can be removed" effort="1" category-id="optional">
+                    <message>
+                        The `faces-config.xml` file is no longer used and can be removed.
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides"/>
+                    <link title="Qute Templating Engine - Quarkus" href="https://quarkus.io/guides/qute"/>
+                </hint>
+            </perform>
+        </rule>
+        <rule id="jsf-to-quarkus-00070">
+            <when>
+                <or>
+                    <xmlfile matches="//*/h:form" in="{*}.xhtml">
+                        <namespace prefix="h" uri="http://java.sun.com/jsf/html"/>
+                    </xmlfile>
+                </or>
+            </when>
+            <perform>
+                <hint title="JSF form must be replaced" effort="1" category-id="optional">
+                    <message>
+                        <![CDATA[
+                        `<h:form>` can generally be replaced with `<form method=”post>`. Bear in mind that it may take multiple
+                        `<form>` tags to replace a single JSF `<h:form>`, since redirection might happen to different endpoints
+                        depending on the particular implementation; this is, form functionality can be split into several
+                        smaller Qute forms.
+                        
+                        For instance, the JSF form:
+                        ```
+                               <h:form id="form">
+                                   <fieldset>
+                                       <legend>Add Task</legend>
+                                       <h:panelGrid columns="3">
+                                           <h:outputLabel value="Task title" />
+                                           <h:inputText id="taskTitle" value="#{taskTitle}" />
+
+                                           <h:commandButton value="Add task" action="#{taskController.createTask(taskTitle)}">
+                                               <f:ajax execute="@form" render=":form:taskGrid" onevent="onAddTask" />
+                                           </h:commandButton>
+                                       </h:panelGrid>
+                                   </fieldset>
+                               </h:form>
+                        ```
+                        could be translated into:
+                        ```
+                        <form action="/tasks/addTask" method="post">
+                            <div>
+                                <label for="taskTitle">Task title</label>
+                                <input id="taskTitle" name="taskTitle" type="text">
+                                <button type="submit">Add task</button>
+                            </div>
+                        </form>
+                        ```
+                        ]]>
+                    </message>
+                    <link title="Quarkus - Guide" href="https://quarkus.io/guides"/>
+                    <link title="Qute Templating Engine - Quarkus" href="https://quarkus.io/guides/qute"/>
+                </hint>
+            </perform>
+        </rule>
+        
+    </rules>
+</ruleset>

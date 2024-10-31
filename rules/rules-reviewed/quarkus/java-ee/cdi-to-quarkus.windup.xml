@@ -48,20 +48,150 @@
         <!-- explain beans.xml descriptor content is ignored -->
         <rule id="cdi-to-quarkus-00030">
             <when>
-                <xmlfile in="beans.xml" matches="/b:beans" as="root">
-                    <namespace prefix="b" uri="http://xmlns.jcp.org/xml/ns/javaee" />
-                </xmlfile>
+                <or>
+                    <xmlfile in="beans.xml" matches="/b:beans">
+                        <namespace prefix="b" uri="http://xmlns.jcp.org/xml/ns/javaee" />
+                    </xmlfile>
+                    <xmlfile in="beans.xml" matches="/b:beans">
+                        <namespace prefix="b" uri="https://jakarta.ee/xml/ns/jakartaee" />
+                    </xmlfile>
+                </or>
             </when>
             <perform>
-                <iteration over="root">
-                    <hint title="`beans.xml` descriptor content is ignored" effort="3" category-id="potential">
-                        <message>
-                            `beans.xml` descriptor content is ignored and it could be removed from the application.  
-                            Refer to the guide referenced below to check the supported CDI feature in Quarkus.
-                        </message>
-                        <link title="Quarkus - Guide" href="https://quarkus.io/guides/cdi-reference#limitations" />
-                    </hint>
-                </iteration>
+                <hint title="`beans.xml` descriptor content is ignored" effort="1" category-id="optional">
+                    <message>
+                        `beans.xml` descriptor content is ignored by Quarkus and can be removed from the application.
+                        Refer to the guide referenced below to check the supported CDI feature in Quarkus.
+                    </message>
+                    <link title="Quarkus - CDI reference - Bean discovery" href="https://quarkus.io/guides/cdi-reference#bean_discovery" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="cdi-to-quarkus-00031">
+            <when>
+                <or>
+                    <xmlfile in="beans.xml" matches="/b:beans/b:interceptors">
+                        <namespace prefix="b" uri="http://xmlns.jcp.org/xml/ns/javaee" />
+                    </xmlfile>
+                    <xmlfile in="beans.xml" matches="/b:beans/b:interceptors">
+                        <namespace prefix="b" uri="https://jakarta.ee/xml/ns/jakartaee" />
+                    </xmlfile>
+                </or>
+            </when>
+            <perform>
+                <hint title="Annotate Interceptor classes" effort="1" category-id="mandatory">
+                    <message>
+                        <![CDATA[
+                        `beans.xml` descriptor content is ignored, and therefore interceptor beans must
+                        directly be annotated with `@Interceptor` instead, so a beans.xml configuration like:
+                        ```
+                          <interceptors>
+                            <class>com.acme.intercept.TransactionInterceptor</class>
+                          </interceptors>
+                        ```
+                        would turn into:
+                        ```
+                        @Interceptor
+                        public class TransactionInterceptor { ... }
+                        ```
+                        ]]>
+                    </message>
+                    <link title="Quarkus - CDI reference - Bean discovery" href="https://quarkus.io/guides/cdi-reference#bean_discovery" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="cdi-to-quarkus-00032">
+            <when>
+                <or>
+                    <xmlfile in="beans.xml" matches="/b:beans/b:decorators">
+                        <namespace prefix="b" uri="http://xmlns.jcp.org/xml/ns/javaee" />
+                    </xmlfile>
+                    <xmlfile in="beans.xml" matches="/b:beans/b:decorators">
+                        <namespace prefix="b" uri="https://jakarta.ee/xml/ns/jakartaee" />
+                    </xmlfile>
+                </or>
+            </when>
+            <perform>
+                <hint title="Annotate Decorator classes" effort="1" category-id="mandatory">
+                    <message>
+                        <![CDATA[
+                        `beans.xml` descriptor content is ignored, and therefore decorator beans must
+                        directly be annotated with `@Interceptor` instead, so a beans.xml configuration like:
+                        ```
+                          <decorators>
+                            <class>com.acme.decorate.BigAccountDecorator</class>
+                          </decorators>
+                        ```
+                        would turn into:
+                        ```
+                        @Decorator
+                        public class BigAccountDecorator { ... }
+                        ```
+                        ]]>
+                    </message>
+                    <link title="Quarkus - CDI reference - Bean discovery" href="https://quarkus.io/guides/cdi-reference#bean_discovery" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="cdi-to-quarkus-00033">
+            <when>
+                <or>
+                    <xmlfile in="beans.xml" matches="/b:beans/b:stereotypes">
+                        <namespace prefix="b" uri="http://xmlns.jcp.org/xml/ns/javaee" />
+                    </xmlfile>
+                    <xmlfile in="beans.xml" matches="/b:beans/b:stereotypes">
+                        <namespace prefix="b" uri="https://jakarta.ee/xml/ns/jakartaee" />
+                    </xmlfile>
+                </or>
+            </when>
+            <perform>
+                <!-- TODO: check out how exactly alternatives/stereotypes work -->
+                <hint title="Annotate Stereotype classes" effort="1" category-id="mandatory">
+                    <message>
+                        <![CDATA[
+                        `beans.xml` descriptor content is ignored, and therefore stereotype beans must
+                        directly be annotated with `@Stereotype` instead, so a beans.xml configuration like:
+                        ```
+                          <stereotypes>
+                            <class>com.acme.decorate.BigAccountDecorator</class>
+                          </stereotypes>
+                        ```
+                        would turn into:
+                        ```
+                        @Decorator
+                        public class BigAccountDecorator { ... }
+                        ```
+                        ]]>
+                    </message>
+                    <link title="Quarkus - CDI reference - Bean discovery" href="https://quarkus.io/guides/cdi-reference#bean_discovery" />
+                </hint>
+            </perform>
+        </rule>
+        <rule id="cdi-to-quarkus-00034">
+            <when>
+                <or>
+                    <xmlfile in="beans.xml" matches="/b:beans[@bean-discovery-mode = 'all' or @bean-discovery-mode = 'none']">
+                        <namespace prefix="b" uri="http://xmlns.jcp.org/xml/ns/javaee" />
+                    </xmlfile>
+                    <xmlfile in="beans.xml" matches="/b:beans[@bean-discovery-mode = 'all' or @bean-discovery-mode = 'none']">
+                        <namespace prefix="b" uri="https://jakarta.ee/xml/ns/jakartaee" />
+                    </xmlfile>
+                </or>
+            </when>
+            <perform>
+                <hint title="`beans.xml` discovery mode must be taken into account" effort="1" category-id="optional">
+                    <message>
+                        `beans.xml` descriptor content is ignored by Quarkus. The `bean-discovery-mode` attribute must be 
+                        taken into account when migrating to Quarkus in the following manner:
+                        - ANNOTATED: no change in annotations; this is Quarkus' default (only pick up beans with bean-discovery annotations)
+                        - ALL: all classes with bean-defining annotations are picked up, but also any class that meets the requirements
+                        for a managed bean is picked up and given the default `@Dependent` scope (see links below)
+                        
+                        Refer to the guide referenced below to check the supported CDI feature in Quarkus.
+                    </message>
+                    <link title="Quarkus - CDI reference - Bean discovery" href="https://quarkus.io/guides/cdi-reference#bean_discovery" />
+                    <link title="JavaEE tutorial: About CDI Managed Beans" href="https://docs.oracle.com/javaee/7/tutorial/cdi-basic004.htm" />
+                </hint>
             </perform>
         </rule>
         <rule id="cdi-to-quarkus-00040">
@@ -72,7 +202,7 @@
             </when>
             <perform>
                     <hint title="Producer annotation no longer required" effort="1" category-id="potential">
-                        <message>In Quarkus, you can skip the @Produces annotation completely if the producer method is annotated with a scope annotation, a stereotype or a qualifier..
+                        <message>In Quarkus, you can skip the @Produces annotation completely if the producer method is annotated with a scope annotation, a stereotype or a qualifier.
                             This field could be accessed using a `@Named` getter method instead.
                         </message>
                         <link title="Quarkus Simplified Producer Method Declaration" href="https://quarkus.io/guides/cdi-reference#simplified-producer-method-declaration"/>

@@ -21,4 +21,12 @@
       http://xmlns.jcp.org/xml/ns/javaee
       http://xmlns.jcp.org/xml/ns/javaee/beans_1_1.xsd"
     bean-discovery-mode="all">
+    <interceptors>
+        <class>com.acme.intercept.SecurityInterceptor</class>
+        <class>com.acme.intercept.TransactionInterceptor</class>
+    </interceptors>
+    <decorators>
+        <class>com.acme.decorate.BigAccountDecorator</class>
+        <class>com.acme.decorate.SpecialGiftDecorator</class>
+    </decorators>
 </beans>

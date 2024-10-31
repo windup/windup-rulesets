@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<ruletest id="jsf-to-qute-test"
+          xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <testDataPath>data/jsf-to-qute</testDataPath>
+    <rulePath>../jsf-to-qute.windup.xml</rulePath>
+    <ruleset>
+        <rules>
+            <rule id="jsf-to-qute-00000-test">
+                <when>
+                    <not>
+                        <iterable-filter size="2">
+                            <hint-exists message="Usage of JSF is not supported in Quarkus. It is r*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[jms-to-qute-00000-test] Hint was not found or the number of hints did not match." />
+                </perform>
+            </rule>
+<!--            <rule id="jsf-to-qute-00030-test">-->
+<!--                <when>-->
+<!--                    <not>-->
+<!--                        <hint-exists message="Any JSF Managed Bean should be annotated with @Path, and given an appropriate path*"/>-->
+<!--                    </not>-->
+<!--                </when>-->
+<!--                <perform>-->
+<!--                    <fail message="[jms-to-qute-00030-test] Hint was not found or the number of hints did not match." />-->
+<!--                </perform>-->
+<!--            </rule>-->
+            <rule id="jsf-to-qute-00040-test">
+                <when>
+                    <not>
+                        <iterable-filter size="3">
+                            <hint-exists message="JSF templates are not supported in Quarkus. We recommend using Qute instead. A Qute*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[jms-to-qute-00040-test] Hint was not found or the number of hints did not match." />
+                </perform>
+            </rule>
+            <rule id="jsf-to-qute-00050-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="There is no direct equivalent of `FacesMessage`*"/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[jms-to-qute-00050-test] Hint was not found or the number of hints did not match." />
+                </perform>
+            </rule>
+            <rule id="jsf-to-qute-00060-test">
+                <when>
+                    <not>
+                        <iterable-filter size="1">
+                            <hint-exists message="The `faces-config.xml` file is no longer used and can be removed."/>
+                        </iterable-filter>
+                    </not>
+                </when>
+                <perform>
+                    <fail message="[jms-to-qute-00060-test] Hint was not found or the number of hints did not match." />
+                </perform>
+            </rule>
+        </rules>
+    </ruleset>
+</ruletest>
