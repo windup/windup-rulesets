@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<ruleset id="webapplications" xmlns="http://windup.jboss.org/schema/jboss-ruleset"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://windup.jboss.org/schema/jboss-ruleset http://windup.jboss.org/schema/jboss-ruleset/windup-jboss-ruleset.xsd">
+    <metadata>
+        <description>
+            Rules set to provide suggestions on changes needed for Spring web applications upgrade
+        </description>
+        <dependencies>
+            <addon id="org.jboss.windup.rules,windup-rules-javaee,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-java,3.0.0.Final" />
+            <addon id="org.jboss.windup.rules,windup-rules-xml,3.0.0.Final" />
+        </dependencies>
+        <sourceTechnology id="spring" versionRange="[,4]"/>
+        <targetTechnology id="spring" versionRange="[5,6)" />
+    </metadata>
+    <rules>
+<!--
+        <rule id="webapplications-00001">
+            &lt;!&ndash; rule condition, when it could be fired &ndash;&gt;
+            <when>
+            </when>
+            &lt;!&ndash; rule operation, what to do if it is fired &ndash;&gt;
+            <perform>
+            </perform>
+        </rule>
+-->
+        <rule id="webapplications-00002">
+            <!-- rule condition, when it could be fired -->
+            <when>
+                <javaclass references="org.springframework.web.{classes}" as="sub-classing">
+                    <location>INHERITANCE</location>
+                </javaclass>
+                <javaclass references="org.springframework.context.annotation.Configuration" as="annotation">
+                    <location>ANNOTATION</location>
+                    <annotation-literal name="proxyBeanMethods" pattern="false" />
+                </javaclass>
+            </when>
+            <!-- rule operation, what to do if it is fired -->
+            <perform>
+                <iteration over="sub-classing">
+                    <hint title="@EnableWebMvc and @EnableWebFlux Infrastructure" effort="1" category-id="mandatory">
+                        <message>When sub-classing `org.springframework.web.{classes}` and using `@Configuration(proxyBeanMethods=false)` be sure to also to declare dependent beans as method arguments rather than using method calls.</message>
+                        <link href="https://github.com/spring-projects/spring-framework/wiki/Upgrading-to-Spring-Framework-5.x#enablewebmvc-and-enablewebflux-infrastructure"
+                              title="Upgrading to Spring Framework 5.x - @EnableWebMvc and @EnableWebFlux Infrastructure" />
+                    </hint>
+                </iteration>
+            </perform>
+            <where param="classes">
+                <matches pattern="(servlet.config.annotation.WebMvcConfigurationSupport|reactive.config.WebFluxConfigurationSupport)" />
+            </where>
+        </rule>
+    </rules>
+</ruleset>
